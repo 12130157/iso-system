@@ -7,9 +7,9 @@ GO
 CREATE PROC sp_QLTB_UpdateThietBi
 	--thietbi
 	@ID						int,
-	@Ten_thiet_bi			NVARCHAR(100),
+	@Ten_thiet_bi			VARCHAR(100),
 	@Ma_loai				int,
-    @Ki_hieu				NVARCHAR(20),
+    @Ki_hieu				VARCHAR(20),
     @Ma_tinh_trang			int,
     @Ma_bo_phan				int,
     @Ma_nguoi_tao			int,
@@ -23,18 +23,18 @@ CREATE PROC sp_QLTB_UpdateThietBi
 	@Tan_suat_toi_da		numeric,
 	@Tan_suat_su_dung		numeric,
 	@Ma_don_vi_tan_suat		int,
-	@Phu_kien				NVARCHAR(50),
+	@Phu_kien				VARCHAR(50),
 	@Gia_mua				numeric,
-	@Nguyen_tac_su_dung		NVARCHAR(100),
-	@Dac_tinh_ky_thuat		NVARCHAR(100),
+	@Nguyen_tac_su_dung		VARCHAR(100),
+	@Dac_tinh_ky_thuat		VARCHAR(100),
 	@Ngay_cap_nhat_cuoi		DATETIME,
 	@So_lan_su_dung			VARCHAR(3),
 	@So_lan_bao_tri			VARCHAR(3),
 	@So_may					VARCHAR(10),
 --chitietthietbi
 	--@Ma_chi_tiet_thiet_bi	int,
-	@Ten_linh_kien			NVARCHAR(100),
-	@Dung_luong				NVARCHAR(20)
+	@Ten_linh_kien			VARCHAR(100),
+	@Dung_luong				VARCHAR(20)
 
 --update thietbi
 as
@@ -66,7 +66,7 @@ Begin
 		So_lan_bao_tri = @So_lan_bao_tri,
 		So_may = @So_may
 	where id = @ID 
-
+	
 --update chitietthietbi
 	update chitietthietbi
 		set		
@@ -78,4 +78,3 @@ END
 --select * from thietbi
 --select * from chitietthietbi
 --select * from chitietthanhvien
---SELECT * FROM TINHTRANGTHIETBI

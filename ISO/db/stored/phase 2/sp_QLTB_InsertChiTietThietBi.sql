@@ -1,4 +1,5 @@
 
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_QLTB_InsertChiTietThietBi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure [dbo].[sp_QLTB_InsertChiTietThietBi]
 GO
