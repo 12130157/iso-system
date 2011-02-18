@@ -6,19 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import sun.tools.jar.resources.jar;
 import vn.edu.hungvuongaptech.common.Constant;
-import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.ChiTietThietBiModel;
 import vn.edu.hungvuongaptech.model.KhoaModel;
-import vn.edu.hungvuongaptech.model.PhongBanModel;
-import vn.edu.hungvuongaptech.model.SysRoleMenuModel;
 import vn.edu.hungvuongaptech.model.ThanhVienModel;
 import vn.edu.hungvuongaptech.model.ThietBiModel;
 import vn.edu.hungvuongaptech.model.TinhTrangThietBiModel;
-import vn.edu.hungvuongaptech.model.VaiTroModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
-import vn.edu.hungvuongaptech.util.StringUtil;
 
 public class ThietBiDAO {
 	

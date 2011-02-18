@@ -6,17 +6,14 @@ package vn.edu.hungvuongaptech.dao;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import sun.tools.jar.resources.jar;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.BoPhanThucHienKHDTModel;
 import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
-import vn.edu.hungvuongaptech.model.KeHoachDaoTaoModel;
 import vn.edu.hungvuongaptech.model.NguoiThucHienModel;
 import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
 import vn.edu.hungvuongaptech.util.DataUtil;

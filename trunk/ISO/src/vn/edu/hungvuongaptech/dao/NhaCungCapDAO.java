@@ -5,14 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.NhaCungCapModel;
-import vn.edu.hungvuongaptech.model.TinhTrangThietBiModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 
