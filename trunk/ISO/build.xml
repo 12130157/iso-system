@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="HungVuongISO" default="dist" basedir=".">
+
+<property name="app.version"   			value="0.1-dev"/>
+<property name="build.home"    			value="${basedir}/build"/>
+<property name="build.classes.home"    	value="${build.home}/classes"/>
+<property name="dist.home"     			value="${basedir}/dist"/>
+<property name="src.home"      			value="${basedir}/src"/>
+<property name="web.home"      			value="${basedir}/web"/>
+<property name="lib.home"      			value="${basedir}/web/WEB-INF/lib"/>
+<property name="tomcat.home" 			value="C:\Program Files\Apache Software Foundation\Tomcat 5.0"/>
+
+<property name="compile.debug"       	value="true"/>
+<property name="compile.deprecation" 	value="false"/>
+<property name="compile.optimize"    	value="true"/>
+	
+<path id="compile.classpath">
+	<fileset dir="${lib.home}" includes="**/*.jar"/>
+</path>
+
+<target name="prepare" depends="clean" description="Prepare some necessary steps">
+  	<mkdir  dir="${build.home}"/>
+	<mkdir  dir="${build.classes.home}"/>	
+  	<mkdir  dir="${dist.home}"/>
+</target>
+
+<target name="clean" description="Delete old build and dist directories">
+  <delete dir="${build.home}"/>
+  <delete dir="${dist.home}"/>
+</target>
+
+<target name="compile" depends="prepare" description="Compile Java sources">
+  <javac srcdir="${src.home}"
+         destdir="${build.classes.home}"
+         debug="${compile.debug}"
+  		 encoding="UTF-8"
+         deprecation="${compile.deprecation}"
+         optimize="${compile.optimize}">
+    <classpath refid="compile.classpath"/>   	
+  </javac>  
+	<copy todir="${build.classes.home}">
+		<fileset dir="${src.home}" includes="*.properties"/>
+	</copy>
+</target>
+
+<target name="dist" depends="compile" description="Create binary distribution">
+  <war destfile="${dist.home}/${ant.project.name}.war" webxml="${web.home}/WEB-INF/web.xml">
+	<webinf dir="${web.home}/WEB-INF"/>	  	
+  	<fileset dir="${web.home}" includes="**/*.*"/>
+  	<classes dir="${build.classes.home}" /> 
+  </war>
+</target>
+<target name="deploy-tomcat">
+	<copy todir="${tomcat.home}/webapps">
+		<fileset dir="${dist.home}">
+			<include name="${ant.project.name}.war"/>
+		</fileset>
+	</copy>
+</target>	
+</project>
+
+
