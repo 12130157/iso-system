@@ -1,0 +1,1 @@
+C:\SVN data\hungvuongsystem\Development\Source\SMS\SMS\bin\Debug\SMS.exe.config
