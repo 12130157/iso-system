@@ -3,7 +3,6 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_QLTB_In
 	drop procedure [dbo].[sp_QLTB_InsertThietBi]
 GO
 create procedure sp_QLTB_InsertThietBi
-		@MaThietBi int,
 		@Ten nvarchar(200),
 		@MaLoai int,
 		@KiHieu nvarchar(100),
@@ -68,7 +67,7 @@ begin
 		User5
 	)
 	VALUES
-	(	
+	(		
 		@Ten,
 		@MaLoai,
 		@KiHieu,
@@ -98,15 +97,4 @@ begin
 		@User4,
 		@User5
 	)
-
-	INSERT INTO CHITIETTHIETBI
-	(	
-		Ma_thiet_bi
-	)
-	VALUES
-	(		
-		@MaThietBi
-	)
 end
-
---select * from chitietthietbi
