@@ -9,7 +9,7 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@Tinh_trang		varchar(2),
 	@Ma_nguoi_tao   varchar(2),		
 	@Ma_Bo_Phan varchar(2),
-	@TenMonHoc nvarchar(max)
+	@TenMonHoc nvarchar(500)
 AS
 BEGIN
 	DECLARE @sql NVarchar(1000)

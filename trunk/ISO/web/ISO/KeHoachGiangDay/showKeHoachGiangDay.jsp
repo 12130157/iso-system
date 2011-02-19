@@ -6,6 +6,7 @@
 
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
+<%@page import="vn.edu.hungvuongaptech.util.StringUtil"%>
 <%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -91,7 +92,7 @@
 	<c:set var = "HT_REJECT" value = '<%=Constant.TINHTRANG_HT_REJECT%>'> </c:set>
 	<c:set var = "HT_NEW" value = '<%=Constant.TINHTRANG_HT_NEW%>'> </c:set>
 	<c:set var = "HT_SEND" value = '<%=Constant.TINHTRANG_HT_SEND%>'> </c:set>
-		
+	<c:set var ="tenMonHocTemp" value='<%=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")) %>'></c:set>
 	<c:choose>			
 		<c:when test = "${empty param.selectTinhTrang}">
 			<c:set var = "PhanLoai" value = "All" ></c:set>
@@ -129,7 +130,7 @@
 						<option value = "3" <c:if test = "${param.selectTinhTrang eq '3'}">selected</c:if>>Reject</option>
 					</select>
 				
-					 Tên môn học : <input type='text' name='txtTenMonHocFind' id='txtTenMonHocFind' value="${param.txtTenMonHocFind}"/>
+					 Tên môn học : <input type='text' name='txtTenMonHocFind' id='txtTenMonHocFind' value="${tenMonHocTemp}"/>
 					 
 					<a href = "javascript: submitFormSearch()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
 				
@@ -165,7 +166,7 @@
 		int totalRows = 0;
 	%>
 	<c:if test="${not empty param.txtTenMonHocFind}">
-		<%tenMonHocFind=request.getParameter("txtTenMonHocFind"); %>
+		<%tenMonHocFind=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")); %>
 	</c:if>
 	
 	<c:choose>
