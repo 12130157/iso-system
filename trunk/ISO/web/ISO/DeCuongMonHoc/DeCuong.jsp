@@ -16,7 +16,9 @@
 <%@page import="vn.edu.hungvuongaptech.model.MonHocModel"%>
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="vn.edu.hungvuongaptech.model.MonHocTKBModel"%>
-<%@page import="vn.edu.hungvuongaptech.model.NoiDungDCMHModel"%><html>
+<%@page import="vn.edu.hungvuongaptech.model.NoiDungDCMHModel"%>
+
+<%@page import="vn.edu.hungvuongaptech.util.XmlUtil"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -576,8 +578,10 @@ var kieuDayLyThuyet = new Array();
 	function isEmpty() {
 		return true;
 	}
-	function submitForm(){
+	function submitForm(x){
 		var checkNoiDung = true;		
+		if(x == 1)
+			document.getElementById('txtGhiFile').value = 'GhiFile';
 		if(truongHop == 1)
 		{
 			var soLT = 0, soTH = 0, soKT = 0;
@@ -692,6 +696,12 @@ var kieuDayLyThuyet = new Array();
 							or (not empty requestScope.msgDeleteRow)}">
 			<b class="msg"> Cập nhật "ĐỀ CƯƠNG MÔN HỌC" thành công </b>
 		</c:if>	
+		<c:if test="${not empty param.GhiFile}">
+			<b class="error"> Ghi file thành công </b>
+		</c:if>
+		<c:if test="${not empty param.GhiFileError}">
+			<b class="error"> Ghi file không thành công </b>
+		</c:if>
 	<form action="<%=request.getContextPath()%>/deCuongMonHocController?them=yes" method="post" name="DCMH">
 		<table width = "800" style="background-color: transparent;">
 			<tr style="background-color: transparent;"><td><div class = "div_tr">Trường TCNKTCN Hùng Vương<br />
@@ -927,7 +937,7 @@ var kieuDayLyThuyet = new Array();
 		</c:if>	
 		<!--<c:set var="check" value=""></c:set>
 		--><c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien)}">	
-					<a href = "javascript: submitForm()">	
+					<a href = "javascript: submitForm(1);">	
 						<input type="hidden" name="Copy" value = "Copy" />							 
 						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 					</a>									
@@ -971,7 +981,7 @@ var kieuDayLyThuyet = new Array();
 		</td>
 	</tr>
 		</table>
-
+		<input type="hidden" id = "txtGhiFile" name = "txtGhiFile" value = ""/>
 	</form>
 	<form method="post" action="<%=request.getContextPath()%>/deCuongMonHocController?sosanh=yes" name="SoSanhDCMH">	
 		<input type="hidden" name="SoSanh" value = "" id="SoSanh"/>	

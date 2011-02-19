@@ -23,6 +23,7 @@ import vn.edu.hungvuongaptech.model.SysParamsModel;
 import vn.edu.hungvuongaptech.util.LogUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
+import vn.edu.hungvuongaptech.util.XmlUtil;
 
 public class DeCuongMonHocController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -54,7 +55,10 @@ public class DeCuongMonHocController extends HttpServlet{
 			phanLoaiDeCuongMonHoc(request, response);
 		}
 		else if(request.getParameter("them") != null) {
-			themDeCuongMonHoc(request, response);
+			if(request.getParameter("txtGhiFile").equals("GhiFile"))
+				ghiFile(request, response);
+			else
+				themDeCuongMonHoc(request, response);
 		}
 		else if(request.getParameter("duyet") != null) {
 			duyetDeCuongMonHoc(request, response);
@@ -63,6 +67,21 @@ public class DeCuongMonHocController extends HttpServlet{
 		} else if(request.getParameter("duyet1DeCuong") != null) {
 			duyetMotDeCuongMonHoc(request, response, request.getParameter("maDeCuong"));
 		}
+	}
+
+	private void ghiFile(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		DeCuongMonHocModel deCuongMonHoc = new DeCuongMonHocModel();
+		if (request.getSession().getAttribute("DeCuongMonHoc") != null) { // Truong hop: Cap Nhat
+			deCuongMonHoc = (DeCuongMonHocModel) request.getSession().getAttribute("DeCuongMonHoc");
+		}
+		String pageNext = "";
+		if(XmlUtil.xuatFileXMLDeCuongMonHoc(deCuongMonHoc, "DeCuongMonHoc", "ChiTietNguoiTao"))
+			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?maID=" + deCuongMonHoc.getMaDeCuongMonHoc() + "&GhiFile=ok";
+		else
+			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?maID=" + deCuongMonHoc.getMaDeCuongMonHoc() + "&GhiFileError=ok";
+		response.sendRedirect(pageNext);
 	}
 
 	private void duyetMotDeCuongMonHoc(HttpServletRequest request,
