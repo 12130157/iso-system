@@ -8,7 +8,8 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@CurrentPage	VARCHAR(2),
 	@Tinh_trang		varchar(2),
 	@Ma_nguoi_tao   varchar(2),		
-	@Ma_Bo_Phan varchar(2)
+	@Ma_Bo_Phan varchar(2),
+	@TenMonHoc nvarchar(max)
 AS
 BEGIN
 	DECLARE @sql NVarchar(1000)
@@ -70,7 +71,7 @@ BEGIN
 
 	SELECT @sql = '
 		SELECT TB2.ID As MaKeHoachGiangDay, TB2.Ten As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
-			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,
+			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,
 			convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
 			FROM (
 				SELECT TOP ' + @NumRows + '* 
@@ -82,8 +83,9 @@ BEGIN
 				) AS TB1
 				ORDER BY TB1.id DESC
 			) AS TB2 
+			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''  
 			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+'
-			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap
+			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
 			ORDER BY TB2.id DESC'
 			
 	print @sql
