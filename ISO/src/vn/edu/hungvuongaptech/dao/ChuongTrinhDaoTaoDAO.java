@@ -415,6 +415,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setTenChuongTrinhDaoTao(rs.getString("TenChuongTrinhDaoTao"));
 				chuongTrinhDaoTaoModel.setTenNghe(rs.getString("TenNghe"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
+				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
 				chuongTrinhDaoTaoModelList.add(chuongTrinhDaoTaoModel);
 			}
 		}
@@ -438,6 +439,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setTenChuongTrinhDaoTao(rs.getString("TenChuongTrinhDaoTao"));
 				chuongTrinhDaoTaoModel.setTenNghe(rs.getString("TenNghe"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
+				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
 				chuongTrinhDaoTaoModelList.add(chuongTrinhDaoTaoModel);
 			}
 		}
@@ -492,6 +494,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setLyDoReject(rs.getString("LyDoReject"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
 				chuongTrinhDaoTaoModel.setTenNghe(rs.getString("TenNghe"));
+				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
 				chuongTrinhDaoTaoModelsList.add(chuongTrinhDaoTaoModel);
 			}
 			Constant.CHECK_ROWS = chuongTrinhDaoTaoModelsList.size(); 
