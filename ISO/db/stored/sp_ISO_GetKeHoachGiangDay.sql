@@ -70,8 +70,8 @@ BEGIN
 	END
 
 	SELECT @sql = '
-		SELECT TB2.ID As MaKeHoachGiangDay, TB2.Ten As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
-			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,
+		SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
+			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,
 			convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
 			FROM (
 				SELECT TOP ' + @NumRows + '* 
@@ -83,7 +83,8 @@ BEGIN
 				) AS TB1
 				ORDER BY TB1.id DESC
 			) AS TB2 
-			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''  
+			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
+			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
 			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+'
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
 			ORDER BY TB2.id DESC'
@@ -91,3 +92,5 @@ BEGIN
 	print @sql
 	exec  sp_executesql @sql
 END
+
+
