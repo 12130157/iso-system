@@ -152,7 +152,7 @@ function submitFormSave(){
 <c:forEach var = "ObjChuongTrinh" items="${ListChuongTrinhDaoTao}">	
 	<c:set var = "iterator" value = "<%=count %>"></c:set>	
 					  <tr style="background-color: transparent;">
-						<td bgcolor = "#99bff9"><a href = "ChuongTrinhDaoTao.jsp?maID=${ObjChuongTrinh.maChuongTrinhDaoTao}">CHƯƠNG TRÌNH ĐÀO TẠO <br/> HỆ ${sf:upperString(ObjChuongTrinh.tenTrinhDo)} NGÀNH ${sf:upperString(ObjChuongTrinh.tenNghe)} <br/>${ObjChuongTrinh.tenChuongTrinhDaoTao}</a></td>
+						<td bgcolor = "#99bff9"><a href = "ChuongTrinhDaoTao.jsp?maID=${ObjChuongTrinh.maChuongTrinhDaoTao}">${sf:upperString(ObjChuongTrinh.tenNghe)} - Khóa ${ObjChuongTrinh.maKhoa}</a></td>
 						<td bgcolor = "#99bff9">${ObjChuongTrinh.tenNguoiTao}</td>
 						<td bgcolor = "#99bff9">${ObjChuongTrinh.ngayCapNhatCuoi}</td>
 		<!-- Trường hợp 'Truong_Khoa', kế hoạch bị 'approve', 'reject' thi disable radio  -->
@@ -180,7 +180,7 @@ function submitFormSave(){
 												or ObjChuongTrinh.tinhTrang eq APPROVE
 													or (MaBoPhan eq BO_PHAN_PKID and ObjChuongTrinh.tinhTrang eq SEND)}">readonly</c:if>>${ObjChuongTrinh.lyDoReject}</textarea></td>
 					  </tr>
-					  <input type = "hidden" value = "CTDT HỆ ${sf:upperString(ObjChuongTrinh.tenTrinhDo)} NGÀNH ${sf:upperString(ObjChuongTrinh.tenNghe)} ${ObjChuongTrinh.tenChuongTrinhDaoTao}" id = "ten${iterator}"/>	
+					  <input type = "hidden" value = "${sf:upperString(ObjChuongTrinh.tenNghe)} - Khóa ${ObjChuongTrinh.maKhoa}" id = "ten${iterator}"/>	
 					  <% count++; %>				
 </c:forEach>
 <script type="text/javascript" language="JavaScript">

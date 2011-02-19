@@ -66,6 +66,7 @@ public class ChuongTrinhDaoTaoModel implements Serializable{
 	private String tenNguoiDuyet;
 	private String tenTrinhDo;
 	private String gioGui;
+	private String maKhoa;
 	
 	public String getGioGui() {
 		return gioGui;
@@ -540,6 +541,12 @@ public class ChuongTrinhDaoTaoModel implements Serializable{
 	}
 	public void setKiHieu(String kiHieu) {
 		this.kiHieu = kiHieu;
+	}
+	public String getMaKhoa() {
+		return maKhoa;
+	}
+	public void setMaKhoa(String maKhoa) {
+		this.maKhoa = maKhoa;
 	}
 	
 }
