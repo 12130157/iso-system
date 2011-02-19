@@ -30,18 +30,19 @@ public class KeHoachGiangDayDAO {
 		return count;
 	}
 	
-	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan) {
+	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan,String tenMonHoc) {
 		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelsList = new ArrayList<KeHoachGiangDayModel>();
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?)}");
+				.prepareCall("{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?,?)}");
 			csmt.setString("NumRows", Constant.RECORDS_PER_PAGE + "");
 			csmt.setString("TotalRows", totalRows + "");
 			csmt.setString("CurrentPage", currenPage);
 			csmt.setString("Tinh_trang", tinhTrang);
 			csmt.setString("Ma_nguoi_tao", maNguoiTao);
 			csmt.setString("Ma_bo_phan", maBoPhan);
+			csmt.setNString("TenMonHoc", tenMonHoc);
 			
 			ResultSet rs = DataUtil.executeStore(csmt);
 			while(rs.next())

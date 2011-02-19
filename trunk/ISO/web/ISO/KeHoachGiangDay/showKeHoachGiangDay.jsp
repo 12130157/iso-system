@@ -93,11 +93,11 @@
 	<c:set var = "HT_SEND" value = '<%=Constant.TINHTRANG_HT_SEND%>'> </c:set>
 		
 	<c:choose>			
-		<c:when test = "${empty param.msg}">
+		<c:when test = "${empty param.selectTinhTrang}">
 			<c:set var = "PhanLoai" value = "All" ></c:set>
 		</c:when>
 		<c:otherwise>
-			<c:set var = "PhanLoai" value = "${param.msg}" ></c:set>		
+			<c:set var = "PhanLoai" value = "${param.selectTinhTrang}" ></c:set>		
 		</c:otherwise>
 	</c:choose>	
 	
@@ -114,18 +114,23 @@
 <div class = "div_table">
 <!--phan loai quyet dinh bang combobox-->
 
-	<form name="FilerForm" action="<%=request.getContextPath()%>/keHoachGiangDayController?phanloai=yes" method="post">
+<!-- 	<form name="FilerForm" action="<%=request.getContextPath()%>/keHoachGiangDayController?phanloai=yes" method="post"> -->
+	
+	<form name="FilerForm" action="showKeHoachGiangDay.jsp?phanloai=yes" method="post">
 		<table border = "1" style="background-color: transparent;">
 			<tr style="background-color: transparent;">
 				<td>
 				<div class = "div_tinhtrang">Tình trạng : 	
 					<select name = "selectTinhTrang">	
-						<option value = "All" <c:if test = "${param.msg eq 'All'}">selected</c:if> >All</option>
-						<option value = "0" <c:if test = "${param.msg eq '0'}">selected</c:if>>New</option>
-						<option value = "1" <c:if test = "${param.msg eq '1'}">selected</c:if>>Pending</option>
-						<option value = "2" <c:if test = "${param.msg eq '2'}">selected</c:if>>Approve</option>
-						<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Reject</option>
+						<option value = "All" <c:if test = "${param.selectTinhTrang eq 'All'}">selected</c:if> >All</option>
+						<option value = "0" <c:if test = "${param.selectTinhTrang eq '0'}">selected</c:if>>New</option>
+						<option value = "1" <c:if test = "${param.selectTinhTrang eq '1'}">selected</c:if>>Pending</option>
+						<option value = "2" <c:if test = "${param.selectTinhTrang eq '2'}">selected</c:if>>Approve</option>
+						<option value = "3" <c:if test = "${param.selectTinhTrang eq '3'}">selected</c:if>>Reject</option>
 					</select>
+				
+					 Tên môn học : <input type='text' name='txtTenMonHocFind' id='txtTenMonHocFind' value="${param.txtTenMonHocFind}"/>
+					 
 					<a href = "javascript: submitFormSearch()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
 				
 					
@@ -156,9 +161,13 @@
 
 <!--Show details of QuyetDinh-->
 
-	<% 	String currentPage = "", tinhTrang = "", maNguoiTao = ""; 
+	<% 	String currentPage = "", tinhTrang = "", maNguoiTao = "", tenMonHocFind=""; 
 		int totalRows = 0;
 	%>
+	<c:if test="${not empty param.txtTenMonHocFind}">
+		<%tenMonHocFind=request.getParameter("txtTenMonHocFind"); %>
+	</c:if>
+	
 	<c:choose>
 		<c:when test="${PhanLoai eq NEW}">
 			<%tinhTrang = "0"; %>
@@ -187,7 +196,7 @@
 		<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 	</c:if>
 	<% totalRows = KeHoachGiangDayDAO.getCountKeHoachGiangDay(tinhTrang, maNguoiTao); %>
-	<c:set 	var = "ListKHGD" value = '<%= KeHoachGiangDayDAO.getKeHoachGiangDay(totalRows, currentPage, tinhTrang, maNguoiTao,request.getSession().getAttribute("maBoPhan").toString()) %>'></c:set>
+	<c:set 	var = "ListKHGD" value = '<%= KeHoachGiangDayDAO.getKeHoachGiangDay(totalRows, currentPage, tinhTrang, maNguoiTao,request.getSession().getAttribute("maBoPhan").toString(),tenMonHocFind) %>'></c:set>
 			<% int count = 0; %>	
 			<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 			<c:forEach var="objKHGD" items = "${ListKHGD}">

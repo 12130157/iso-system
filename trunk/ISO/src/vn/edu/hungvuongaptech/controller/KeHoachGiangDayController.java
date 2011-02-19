@@ -16,7 +16,6 @@ import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
-import vn.edu.hungvuongaptech.taglib.ChangeStringTaglib;
 import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
@@ -48,8 +47,9 @@ public class KeHoachGiangDayController extends HttpServlet{
 	
 		
 		if(request.getParameter("phanloai") != null)
-		{
-			phanLoaiKHGD(request, response);
+		{	
+			//Bo chuc nang nay
+			//phanLoaiKHGD(request, response);
 		}
 		else if(request.getParameter("them") != null){
 			themKHGD(request, response);
@@ -64,13 +64,13 @@ public class KeHoachGiangDayController extends HttpServlet{
 		
 	}
 	
-	private void phanLoaiKHGD(HttpServletRequest request 
-			,HttpServletResponse response)throws ServletException, IOException {
-		String select = request.getParameter("selectTinhTrang");
-		response.sendRedirect(Constant.PATH_RES
-				.getString("iso.XemKeHoachGiangDayPath")
-				+ "?msg=" + select);	
-	}
+//	private void phanLoaiKHGD(HttpServletRequest request 
+//			,HttpServletResponse response)throws ServletException, IOException {
+//		String select = request.getParameter("selectTinhTrang");
+//		response.sendRedirect(Constant.PATH_RES
+//				.getString("iso.XemKeHoachGiangDayPath")
+//				+ "?msg=" + select);	
+//	}
 	
 	private void duyet1KeHoach(HttpServletRequest request,
 		HttpServletResponse response, String maKHGD)throws ServletException, IOException {

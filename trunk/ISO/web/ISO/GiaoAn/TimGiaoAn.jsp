@@ -120,7 +120,8 @@
 <c:set var="vaiTroTK" value='<%=Constant.MA_VAI_TRO_TK%>'></c:set>
 <c:set var="Admin" value='<%=Constant.ADMIN %>'></c:set>
 <c:set var="boPhanBGH" value='<%=Constant.BO_PHAN_BGH %>'></c:set>
-
+<c:set var="boPhanPDT" value='<%=Constant.BO_PHAN_PDT %>'></c:set>
+<c:set var="boPhanPKD" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
 
 <c:if test="${ not empty param.view }">
 	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,index,Constant.NUM_RECORD_TIMGIAOAN)%>'></c:set>
@@ -265,9 +266,9 @@
 			<td style='text-align:left'>
 			
 
-				<select id="selKhoa" name="selKhoa" onchange="change_selKhoa()" <c:if test="${ boPhan ne boPhanBGH and vaiTro ne Admin }">disabled="disabled"</c:if> ><option>--All--</option>
+				<select id="selKhoa" name="selKhoa" onchange="change_selKhoa()" <c:if test="${ boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD  }">disabled="disabled"</c:if> ><option>--All--</option>
 					<c:forEach items="${khoaList}" var="objKhoa">
-						<option value="${objKhoa.maKhoa}" <c:if test="${objKhoa.maKhoa eq param.khoa or (boPhan eq objKhoa.maKhoa and (boPhan ne boPhanBGH and vaiTro ne Admin)  )}">selected</c:if>>${objKhoa.tenKhoa}</option>
+						<option value="${objKhoa.maKhoa}" <c:if test="${(objKhoa.maKhoa eq param.khoa) or (boPhan eq objKhoa.maKhoa and (boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD)  )}">selected</c:if>>${objKhoa.tenKhoa}</option>
 					</c:forEach>
 				</select>
 			</td>
@@ -292,9 +293,9 @@
 		<tr style="background-color: transparent;">
 			<td>Giáo viên</td>
 			<td style='text-align:left'>
-				<select name="selGiaoVien" id="selGiaoVien" onchange="change_selGiaoVien()" <c:if test="${ vaiTro ne vaiTroTK and boPhan ne boPhanBGH and vaiTro ne Admin }">disabled="disabled"</c:if>><option>--All--</option>
+				<select name="selGiaoVien" id="selGiaoVien" onchange="change_selGiaoVien()" <c:if test="${ vaiTro ne vaiTroTK and boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD }">disabled="disabled"</c:if>><option>--All--</option>
 					<c:forEach items="${giaoVienList}" var="objGiaoVien">
-						<option value="${objGiaoVien.maThanhVien}" <c:if test="${(objGiaoVien.maThanhVien eq param.gv ) or (sessionScope.maThanhVien eq objGiaoVien.maThanhVien and vaiTro ne Admin and vaiTro ne vaiTroTK and boPhan ne boPhanBGH) }">selected</c:if>>${objGiaoVien.hoThanhVien} ${objGiaoVien.tenLot} ${objGiaoVien.tenThanhVien}</option>
+						<option value="${objGiaoVien.maThanhVien}" <c:if test="${(objGiaoVien.maThanhVien eq param.gv ) or (sessionScope.maThanhVien eq objGiaoVien.maThanhVien and vaiTro ne Admin and vaiTro ne vaiTroTK and boPhan ne boPhanBGH and boPhan ne boPhanPDT and boPhan ne boPhanPKD) }">selected</c:if>>${objGiaoVien.hoThanhVien} ${objGiaoVien.tenLot} ${objGiaoVien.tenThanhVien}</option>
 					</c:forEach>
 
 				</select>
@@ -353,17 +354,17 @@
 	<br/>
 	
 	<table border="1">
-		<tr style="background-color: transparent;"><td style='color:blue;text-align:center' colspan="9">Kết quả tìm kiếm</td></tr>
+		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
 		<tr style="background-color: transparent;">
-			<td style='font-weight:bold'>Môn học</td>
-			<td style='font-weight:bold'>Lớp học</td>
-			<td style='font-weight:bold'>Tên giáo án</td>
-			<td style='font-weight:bold'>Giáo viên</td>
-			<td style='font-weight:bold'>Ngày dạy</td>
-			<td style='font-weight:bold'>Ngày gởi</td>
-			<td style='font-weight:bold'>Người duyệt</td>
-			<td style='font-weight:bold'>Ngày duyệt</td>
-			<td style='font-weight:bold'>Tình trạng</td>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tên giáo án</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tình trạng</th>
 		</tr>
 		<c:if test="${ not empty param.view}">
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
