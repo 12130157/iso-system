@@ -99,7 +99,7 @@ BEGIN
 		END
 	ELSE IF(@Tuan_le < '80')
 		BEGIN
-			SET @Dieu_kien_tuan = ' '
+			SET @Dieu_kien_tuan = ' H.User1 = ' + (Cast(@Tuan_le AS Int) - 60)
 		END
 
 	SET @sql = 'SELECT C.ID As MaNoiDungChiTietKHDT, D.ID As MaBoPhanThucHien, E.ID As MaNguoiThucHien, 

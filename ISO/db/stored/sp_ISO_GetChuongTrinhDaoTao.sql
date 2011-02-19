@@ -65,12 +65,13 @@ BEGIN
 				CTDT.ID As MaChuongTrinhDaoTao, CTDT.Ten As TenChuongTrinhDaoTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoiTao, 
 				CTDT.Tinh_trang As TinhTrang, CTDT.Ly_do_reject As LyDoReject, CTDT.Ma_nguoi_tao AS MaNguoiTao,
 				CTDT.Ngay_cap_nhat_cuoi AS Ngay_cap_nhat_cuoi,
-				D.Ten As TenTrinhDo, E.Ten_chuyen_nganh As TenNghe
+				D.Ten As TenTrinhDo, E.Ten_chuyen_nganh As TenNghe, F.Ma_khoa AS MaKhoa
 			FROM ChuongTrinhDaoTao AS CTDT
 			INNER JOIN ThanhVien AS B ON CTDT.Ma_nguoi_tao = B.ID 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap
 			INNER JOIN HeDaoTao As D On CTDT.Ma_trinh_do = D.ID
 			INNER JOIN ChuyenNganh As E On CTDT.Ma_nghe = E.ID 
+			INNER JOIN QuyetDinhMoLop AS F On CTDT.Ma_quyet_dinh = F.ID
 			WHERE ' + @Dieu_kien_tinh_trang + ' And ' + @Dieu_kien_bo_phan +
 			' ORDER BY CTDT.Ngay_cap_nhat_cuoi ASC
 		) AS TB1
