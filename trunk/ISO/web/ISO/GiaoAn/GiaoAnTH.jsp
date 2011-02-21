@@ -854,7 +854,7 @@ function capnhatRKN(str)
 						
 						</c:if>
 						
-						<c:if test="${tinhTrangGA eq HT_APPROVE and not empty tinhTrangGA and (sessionScope.maThanhVien eq maNguoiTao or vaiTro eq Admin)}">
+						<c:if test="${(tinhTrangGA eq HT_APPROVE and not empty tinhTrangGA and (sessionScope.maThanhVien eq maNguoiTao or vaiTro eq Admin)) or (vaiTro eq vaiTro_TK and tinhTrangGA eq TT_SEND )}">
 							<a href = "<%=Constant.PATH_RES.getString("iso.InGiaoAnTHPath") %>">								 
 								<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 							</a>
