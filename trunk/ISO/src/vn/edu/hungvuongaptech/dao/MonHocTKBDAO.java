@@ -375,7 +375,7 @@ public class MonHocTKBDAO {
 			while(rs.next()) {
 				monHocModel=new MonHocModel();
 				monHocModel.setMaMonHoc(rs.getString("MaMonHoc"));
-				monHocModel.setTenMonHoc(MonHocDAO.getTenMonHocByMaMonHoc(rs.getString("MaMonHoc")));
+				monHocModel.setTenMonHoc(rs.getNString("TenMonHoc"));
 				monHocList.add(monHocModel);
 			}
 		} catch (Exception e) {
