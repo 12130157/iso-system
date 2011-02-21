@@ -1,1 +1,7 @@
 C:\SVN data\hungvuongsystem\Development\Source\SMS\SMS\bin\Debug\SMS.exe.config
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Login.resources
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Main.resources
+C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
