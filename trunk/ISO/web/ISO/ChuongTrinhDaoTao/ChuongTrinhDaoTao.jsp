@@ -1137,7 +1137,7 @@ function validateInputNumber()
 		</div></td>
 	</tr>
 	<tr style="background-color: transparent;">
-		<td></td>
+		<td>Ngày <input type = "text"  size = 8 style="background-color: transparent;" value = "${ChuongTrinhDaoTao.ngayDuyet}" readonly="readonly" /></td>
 		<td>Quận 5, ngày <input type = "text" id="txtCalendar" size = 8 name="txtCalendar"  style="background-color: transparent;" value = "${ChuongTrinhDaoTao.ngayCapNhatCuoi}" readonly="readonly" />
 		</td>
 	</tr>
@@ -1181,14 +1181,16 @@ function validateInputNumber()
 			</c:choose>
 		</c:if>		
 		<c:if test="${ChuongTrinhDaoTao.tinhTrang eq APPROVE and (ChuongTrinhDaoTao.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN)}">	
-					<a href = "javascript: submitForm()">	
-						<input type="hidden" name="Copy" value = "Copy" />							 
-						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
-					</a>									
-					<a href = "<%=Constant.PATH_RES.getString("iso.InChuongTrinhDaoTaoPath") %>">								 
-						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
-					</a>
-				</c:if>
+			<a href = "javascript: submitForm()">	
+				<input type="hidden" name="Copy" value = "Copy" />							 
+				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
+			</a>										
+		</c:if>
+		<c:if test="${ChuongTrinhDaoTao.tinhTrang eq APPROVE and (ChuongTrinhDaoTao.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or ChuongTrinhDaoTao.maNguoiDuyet eq maThanhVien)}">	
+			<a href = "<%=Constant.PATH_RES.getString("iso.InChuongTrinhDaoTaoPath") %>">								 
+				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+			</a>
+		</c:if>
 	<c:if test="${not empty ChuongTrinhDaoTao.maChuongTrinhDaoTao}">	
 			<c:set var = "ListCTDTApproved" value='<%=ChuongTrinhDaoTaoDAO.getAllChuongTrinhDaoTaoApproved()%>'></c:set>		
 		<c:if test="${(MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_ADMIN) and ChuongTrinhDaoTao.tinhTrang eq SEND}">
@@ -1206,11 +1208,11 @@ function validateInputNumber()
 						<c:choose>
 							<c:when test="${ChuongTrinhDaoTao.maNguoiTao eq maThanhVien}">
 								<c:if test="${maThanhVien eq CTDTApproved.maNguoiTao}">
-									<option value="${CTDTApproved.maChuongTrinhDaoTao}">CTDT HỆ ${sf:upperString(CTDTApproved.tenTrinhDo)} NGÀNH ${sf:upperString(CTDTApproved.tenNghe)} ${CTDTApproved.tenChuongTrinhDaoTao}</option>
+									<option value="${CTDTApproved.maChuongTrinhDaoTao}">${sf:upperString(CTDTApproved.tenNghe)} - Khóa ${CTDTApproved.maKhoa}</option>
 								</c:if>
 							</c:when>
 							<c:otherwise>
-								<option value="${CTDTApproved.maChuongTrinhDaoTao}">CTDT HỆ ${sf:upperString(CTDTApproved.tenTrinhDo)} NGÀNH ${sf:upperString(CTDTApproved.tenNghe)} ${CTDTApproved.tenChuongTrinhDaoTao}</option>
+								<option value="${CTDTApproved.maChuongTrinhDaoTao}">${sf:upperString(CTDTApproved.tenNghe)} - Khóa ${CTDTApproved.maKhoa}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:if>	
