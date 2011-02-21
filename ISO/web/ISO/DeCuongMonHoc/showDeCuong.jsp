@@ -61,10 +61,13 @@ function submitFormSave(){
 <% 	String currentPage = "", tinhTrang = "", maNguoiTao = "", maBoPhan = "", maVaiTro = "", tenMonHoc = ""; 
 		int totalRows = 0;
 		maVaiTro = (String) session.getAttribute("maVaiTro");
-		if(request.getAttribute("tenMonHocTimKiem") != null)
+		if(request.getAttribute("tenMonHocTimKiem") != null) {
 			tenMonHoc = (String) request.getAttribute("tenMonHocTimKiem");
+		} else if(session.getAttribute("TenMonHoc") != null) {
+			tenMonHoc = (String) session.getAttribute("TenMonHoc");
+		}
 	%>
-	<c:set var = "TenMonHoc" value = "<%=tenMonHoc %>" ></c:set>
+	<c:set var = "TenMonHoc" value = "<%=tenMonHoc %>" scope = "session"></c:set>
 	<c:choose>			
 		<c:when test = "${empty param.msg}">
 			<c:set var = "PhanLoai" value = "All" ></c:set>
