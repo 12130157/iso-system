@@ -1846,7 +1846,7 @@ CREATE TABLE [CuPhap] (
     [Cum_tu_8] VARCHAR(10),
     [Cum_tu_9] VARCHAR(10),
     [Cum_tu_10] VARCHAR(10),
-    [Ghi_chu] NVARCHAR(100),
+    [Ghi_chu] NVARCHAR(400),
     [Ngay_cap_nhat_cuoi] DATETIME,
     [User1] VARCHAR(40),
     [User2] VARCHAR(40),
