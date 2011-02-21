@@ -43,6 +43,7 @@ var tietBatDau = 1;
 var maLop;
 var checkTuanHoc = -1;
 <%
+	// parameter hoc ki khong su dung cho ham getAllDeCuongMonHocApprovedByMaChuongTrinh() va getAllNoiDungDCMHByMaChuongTrinhAndHocKi
 	ArrayList<DeCuongMonHocModel> deCuongMonHocModelList = DeCuongMonHocDAO.getAllDeCuongMonHocApprovedByMaChuongTrinh(request.getParameter("maChuongTrinh"), request.getParameter("hocKi"));
 	ArrayList<PhongBanModel> phongBanModelList = PhongBanDAO.getAllPhongBan();
 	ArrayList<ThanhVienModel> thanhVienModelList = ThanhVienDAO.getAllGiaoVienOrderByTen();
@@ -352,6 +353,8 @@ function selectMonHoc()
 	document.getElementById('phongThucHanh').disabled = false;
 	document.getElementById('SoCa').readonly = false;
 	document.getElementById('phongLyThuyet').disabled = false;
+	soLyThuyet = 0;
+	soThucHanh = 0;
 	<%
 	if(deCuongMonHocModelList.size() > 0) {
 		for(int i=0;i<deCuongMonHocModelList.size();i++) {

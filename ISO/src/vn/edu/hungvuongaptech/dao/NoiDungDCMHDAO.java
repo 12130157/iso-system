@@ -126,7 +126,7 @@ public class NoiDungDCMHDAO {
 									.getString("iso.sql.getAllNoiDungDCMHByMaChuongTrinhAndHocKi"));
 			preparedStatement.setString(1, Constant.TINHTRANG_APPROVE);
 			preparedStatement.setString(2, maChuongTrinh);
-			preparedStatement.setString(3, hocKi);
+			//preparedStatement.setString(3, hocKi);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				NoiDungDCMHModel noiDungDCMHModel = new NoiDungDCMHModel();

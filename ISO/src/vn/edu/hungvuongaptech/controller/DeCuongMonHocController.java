@@ -55,8 +55,10 @@ public class DeCuongMonHocController extends HttpServlet{
 			phanLoaiDeCuongMonHoc(request, response);
 		}
 		else if(request.getParameter("them") != null) {
-			if(request.getParameter("txtGhiFile").equals("GhiFile"))
+			if(request.getParameter("txtXuLyFile").equals("GhiFile"))
 				ghiFile(request, response);
+			else if(request.getParameter("txtXuLyFile").equals("DocFile"))
+				docFile(request, response);
 			else
 				themDeCuongMonHoc(request, response);
 		}
@@ -82,6 +84,37 @@ public class DeCuongMonHocController extends HttpServlet{
 		else
 			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?maID=" + deCuongMonHoc.getMaDeCuongMonHoc() + "&GhiFileError=ok";
 		response.sendRedirect(pageNext);
+	}
+	private void docFile(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		DeCuongMonHocModel deCuongMonHoc = new DeCuongMonHocModel();
+		if (request.getParameter("cboChuongTrinh") != null) {
+			deCuongMonHoc.setMaChuongTrinh(request.getParameter("cboChuongTrinh").trim()); }
+		if (request.getParameter("txtTenKhoa") != null) {
+			deCuongMonHoc.setTenKhoa(StringUtil.toUTF8(request.getParameter("txtTenKhoa").trim())); }
+		if (request.getParameter("cboMonHoc") != null) {
+			deCuongMonHoc.setMaMonHoc(request.getParameter("cboMonHoc").trim()); }
+		if (request.getParameter("txtTenMonHoc") != null) {
+			deCuongMonHoc.setTenMonHoc(StringUtil.toUTF8(request.getParameter("txtTenMonHoc").trim())); }
+		if (request.getParameter("cboSoBuoi") != null) {
+			deCuongMonHoc.setSoBuoiHoc(request.getParameter("cboSoBuoi").trim()); }
+		if (request.getParameter("cboSoTiet") != null) {
+			deCuongMonHoc.setSoTietHocMotBuoi(request.getParameter("cboSoTiet").trim()); }
+		if (request.getParameter("txtLyThuyet") != null) {
+			deCuongMonHoc.setLyThuyet(request.getParameter("txtLyThuyet").trim()); }
+		if (request.getParameter("txtThucHanh") != null) {
+			deCuongMonHoc.setThucHanh(request.getParameter("txtThucHanh").trim()); }
+		if (request.getParameter("txtKiemTra") != null) {
+			deCuongMonHoc.setKiemTra(request.getParameter("txtKiemTra").trim()); }
+		String pageNext = "";
+		if(XmlUtil.getDataFromFileXMLDeCuongMonHoc("",deCuongMonHoc)) 
+			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?DocFile=ok";
+		else
+			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?DocFileError=ok";
+		request.setAttribute(Constant.DE_CUONG_MON_HOC_ATT, deCuongMonHoc);
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		rd.forward(request, response);
 	}
 
 	private void duyetMotDeCuongMonHoc(HttpServletRequest request,
