@@ -736,7 +736,7 @@ function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 		{
 			document.getElementById('hiddenTuan' + i).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
 		}
-		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "red";
+		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "";
 	}
 	else
 	{
