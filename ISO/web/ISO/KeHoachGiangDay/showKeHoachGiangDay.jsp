@@ -142,7 +142,7 @@
 	</form>
 <p>
 
-<a href="<%=request.getContextPath()%>/ISO/GiaoAn/TimGiaoAn.jsp">Báo cáo tiến độ thực hiện giáo án</a>
+<a href="<%=request.getContextPath()%>/ISO/GiaoAn/TimGiaoAn.jsp" border='none'><img border='none' src='<%=request.getContextPath() %>/images/buttom/baocaogiaoanthuchien.png'/ ></a>
 
 </p>
 <br/>

@@ -393,9 +393,11 @@ public class GiaoAnController extends HttpServlet {
 										SysParamsDAO.getSysParams().getGioHeThong()));
 			
 			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
 	}
@@ -429,9 +431,11 @@ public class GiaoAnController extends HttpServlet {
 										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
 										SysParamsDAO.getSysParams().getGioHeThong()));
 			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
 	}
@@ -459,11 +463,13 @@ public class GiaoAnController extends HttpServlet {
 										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
 										SysParamsDAO.getSysParams().getGioHeThong()));
 			
+			///chua fix
 			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//		
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		}
 	}
 		
@@ -493,9 +499,11 @@ public class GiaoAnController extends HttpServlet {
 			
 			
 			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//		
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		}
 	}
 
@@ -695,8 +703,10 @@ public class GiaoAnController extends HttpServlet {
 										SysParamsDAO.getSysParams().getGioHeThong()));
 			
 			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}	
 	}
@@ -726,9 +736,11 @@ public class GiaoAnController extends HttpServlet {
 										SysParamsDAO.getSysParams().getGioHeThong()));
 			
 			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
 	}

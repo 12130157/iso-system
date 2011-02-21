@@ -448,8 +448,10 @@ function duyetForm(stt)
 
 	if(stt=="approve")
 	{
-		document.getElementById("actionType").value="approveTHop";
-		document.forms['GiaoAn'].submit();			
+		if(window.confirm("Bạn có chắc muốn approve giáo án này")){
+			document.getElementById("actionType").value="approveTHop";
+			document.forms['GiaoAn'].submit();			
+		}
 	}
 	else if(stt=="reject")
 	{

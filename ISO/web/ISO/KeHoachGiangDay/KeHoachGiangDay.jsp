@@ -733,6 +733,7 @@
 													
 													<input type='hidden' value='${obj1.coHieu}' name='hdnCoHieuTemp_<%=count3%>'/>
 													
+													<!-- Ly thuyet -->
 													<c:if test="${obj1.coHieu eq coHieuLT}">
 														<c:choose>
 															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) }">
@@ -751,7 +752,14 @@
 																				<img border="0" src="<%=request.getContextPath()%>/images/buttom/capnhat.png" width='55px'/>
 																			</c:when>
 																			<c:otherwise>
-																				<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																		
+																		
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				</c:if>
 																			</c:otherwise>
 																		</c:choose>
 																	</a>
@@ -764,7 +772,8 @@
 															</c:otherwise>		
 														</c:choose>
 													</c:if>
-														
+													
+													<!-- Thuc hanh -->
 													<c:if test="${obj1.coHieu eq coHieuTH}">
 														<c:choose>
 															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
@@ -784,7 +793,12 @@
 																			<img border="0" src="<%=request.getContextPath()%>/images/buttom/capnhat.png" width='55px'/>
 																		</c:when>
 																		<c:otherwise>
-																			<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				</c:if>
 																		</c:otherwise>
 																	</c:choose>
 																	
@@ -799,6 +813,7 @@
 														</c:choose>		
 														</c:if>
 														
+														<!-- Tich hop -->	
 														<c:if test="${obj1.coHieu ne coHieuTH and obj1.coHieu ne coHieuLT}">
 														<c:choose>
 															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
@@ -818,7 +833,13 @@
 																			<img border="0"  src="<%=request.getContextPath()%>/images/buttom/capnhat.png" width='55px'/>
 																		</c:when>
 																		<c:otherwise>
-																			<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																		
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				</c:if>
 																		</c:otherwise>
 																	</c:choose>
 																	
@@ -883,7 +904,10 @@
 					<td>Giáo viên biên soạn</td>
 				</tr>
 				<tr style="background-color: transparent;">
-					<td><br/><br/><br/>${objKHGD.tenNguoiDuyet}</td>
+					<td><br/><br/><br/>
+						${objKHGD.tenNguoiDuyet}
+						
+					</td>
 					<td><br/><br/><br/>${objKHGD.tenTruongKhoa}</td>
 					<td><br/><br/><br/>${objKHGD.tenNguoiTao}</td>
 				</tr>
