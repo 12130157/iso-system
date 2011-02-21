@@ -3413,7 +3413,7 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@Tinh_trang		varchar(2),
 	@Ma_nguoi_tao   varchar(2),		
 	@Ma_Bo_Phan varchar(2),
-	@TenMonHoc nvarchar(max)
+	@TenMonHoc nvarchar(500)
 AS
 BEGIN
 	DECLARE @sql NVarchar(1000)
@@ -5616,21 +5616,23 @@ CREATE PROCEDURE sp_ISO_InsertThoiKhoaBieu
 	@User5					varchar(40) 
 AS
 BEGIN 
-	DECLARE @Ma_chuyen_nganh int
-	DECLARE @Ma_quyet_dinh int
-	SELECT @Ma_chuyen_nganh = Ma_chuyen_nganh, @Ma_quyet_dinh = Ma_quyet_dinh FROM LopHoc WHERE ID = @Ma_lop
-	DECLARE @Ma_trinh_do int
-	DECLARE @Ten_trinh_do nvarchar(100)
-	DECLARE @Ten_trinh_do_tat varchar(10)
-	SELECT @Ma_trinh_do = Ma_trinh_do FROM ChuongTrinhDaoTao WHERE Ma_nghe = @Ma_chuyen_nganh AND Ma_quyet_dinh = @Ma_quyet_dinh
-	SELECT @Ten_trinh_do = Ten, @Ten_trinh_do_tat = User1 FROM HeDaoTao WHERE ID = @Ma_trinh_do
-	DECLARE @Ten_chuyen_nganh nvarchar(100)
-	DECLARE @Ten_chuyen_nganh_tat nvarchar(10)
-	SELECT @Ten_chuyen_nganh = Ten_chuyen_nganh, @Ten_chuyen_nganh_tat = User1 FROM ChuyenNganh WHERE ID = @Ma_chuyen_nganh
-	SET @Ten = N'HỌC KÌ ' + cast(@Hoc_ki As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ten_chuyen_nganh 
+	--DECLARE @Ma_chuyen_nganh int
+	--DECLARE @Ma_quyet_dinh int
+	DECLARE @Ki_hieu_lop varchar(15)
+	SELECT @Ki_hieu_lop = Ki_hieu FROM LopHoc WHERE ID = @Ma_lop
+	--SELECT @Ma_chuyen_nganh = Ma_chuyen_nganh, @Ma_quyet_dinh = Ma_quyet_dinh FROM LopHoc WHERE ID = @Ma_lop
+	--DECLARE @Ma_trinh_do int
+	--DECLARE @Ten_trinh_do nvarchar(100)
+	--DECLARE @Ten_trinh_do_tat varchar(10)
+	--SELECT @Ma_trinh_do = Ma_trinh_do FROM ChuongTrinhDaoTao WHERE Ma_nghe = @Ma_chuyen_nganh AND Ma_quyet_dinh = @Ma_quyet_dinh
+	--SELECT @Ten_trinh_do = Ten, @Ten_trinh_do_tat = User1 FROM HeDaoTao WHERE ID = @Ma_trinh_do
+	--DECLARE @Ten_chuyen_nganh nvarchar(100)
+	--DECLARE @Ten_chuyen_nganh_tat nvarchar(10)
+	--SELECT @Ten_chuyen_nganh = Ten_chuyen_nganh, @Ten_chuyen_nganh_tat = User1 FROM ChuyenNganh WHERE ID = @Ma_chuyen_nganh
+	SET @Ten = N'HỌC KÌ ' + cast(@Hoc_ki As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ki_hieu_lop
 	SET @Ngay_tao=GETDATE()
 	SET @Ngay_cap_nhat_cuoi=GETDATE()
-	SET @User1 = 'TKB HK ' + cast(@Hoc_ki As varchar) + ' HE ' + @Ten_trinh_do_tat + ' NGANH ' + @Ten_chuyen_nganh_tat + ' NH ' + @Nam_bat_dau + '-' + @Nam_ket_thuc
+	--SET @User1 = 'TKB HK ' + cast(@Hoc_ki As varchar) + ' HE ' + @Ten_trinh_do_tat + ' NGANH ' + @Ten_chuyen_nganh_tat + ' NH ' + @Nam_bat_dau + '-' + @Nam_ket_thuc
 	INSERT INTO ThoiKhoaBieu
 	VALUES (
 		@Ma_lop,
