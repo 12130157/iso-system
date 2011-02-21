@@ -1182,7 +1182,7 @@ var tinhTrang;
 			</a>
 		</c:if>	
 		<c:if test="${KHDTObj.tinhTrang eq APPROVE }">	
-			<c:if test="${(MaBoPhan eq BO_PHAN_PDT and maThanhVien eq KHDTObj.maNguoiLap) or MaBoPhan eq BO_PHAN_ADMIN or MaBoPhan eq BO_PHAN_PHC}">						
+			<c:if test="${(MaBoPhan eq BO_PHAN_PDT and maThanhVien eq KHDTObj.maNguoiLap) or MaBoPhan eq BO_PHAN_ADMIN or MaBoPhan eq BO_PHAN_PHC or maThanhVien eq KHDTObj.maNguoiDuyet}">						
 				<a href = "<%=Constant.PATH_RES.getString("iso.InKeHoachDaoTaoPath") %>">								 
 					<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 				</a>

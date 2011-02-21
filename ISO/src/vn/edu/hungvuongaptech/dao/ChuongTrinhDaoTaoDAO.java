@@ -134,7 +134,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setTenNguoiTao(rs.getString("NguoiTao"));
 				chuongTrinhDaoTaoModel.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
-				
+				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
 				ChiTietMonHocCTDTDAO.getChiTietCTDTByMaChuongTrinh(chuongTrinhDaoTaoModel);
 			}
 			return chuongTrinhDaoTaoModel;
@@ -523,7 +523,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setMaTrinhDo(rs.getString("MaTrinhDo"));
 				chuongTrinhDaoTaoModel.setTenNghe(rs.getString("TenNghe"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
-				
+				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
 				chuongTrinhDaoTaoModelList.add(chuongTrinhDaoTaoModel);
 			}
 			

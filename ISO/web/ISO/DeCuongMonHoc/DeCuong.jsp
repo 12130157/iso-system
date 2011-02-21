@@ -899,21 +899,13 @@ var kieuDayLyThuyet = new Array();
 		<table width = "800" style="background-color: transparent;"> 
 			<tr style="background-color: transparent;">
 				<td></td>
-				<td><input type = "text" id="txtCalendar" size = 8 name="txtCalendar" style="background-color: transparent;" value="${DeCuongMonHoc.ngayDuyet }"/></td>
+				<td><input type = "text" size = 8 style="background-color: transparent;" value="${DeCuongMonHoc.ngayDuyet }"/></td>
 				<td>Quận 5, ngày <input type = "text" id="txtCalendar" size = 8 name="txtCalendar" style="background-color: transparent;" value="${DeCuongMonHoc.ngayCapNhatCuoi }"/></td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td>Hiệu trưởng</td>
-				<td>Trưởng khoa</td>
-				<td>Giáo viên biên soạn</td>
-			</tr>
-			<p></p>
-			<p></p>
-			<p></p>
-			<tr style="background-color: transparent;">
-				<td>&nbsp;</td>
-				<td>${DeCuongMonHoc.tenNguoiDuyet}</td>
-				<td>${DeCuongMonHoc.tenNguoiTao}</td>
+				<td>Hiệu trưởng<br/><br/><br/></td>
+				<td>Trưởng khoa<br/><br/><br/>${DeCuongMonHoc.tenNguoiDuyet}</td>
+				<td>Giáo viên biên soạn<br/><br/><br/>${DeCuongMonHoc.tenNguoiTao}</td>
 			</tr>
 	<tr style="background-color: transparent;">
 		<td colspan="3"><input type="hidden" name="actionType" style="background-color: transparent;"
@@ -951,16 +943,17 @@ var kieuDayLyThuyet = new Array();
 			</c:choose>	
 		</c:if>	
 		<!--<c:set var="check" value=""></c:set>
-		--><c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien)}">	
-					<a href = "javascript: submitForm(1);">	
-						<input type="hidden" name="Copy" value = "Copy" />							 
-						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
-					</a>									
-					<a href = "<%=Constant.PATH_RES.getString("iso.InDeCuongMonHocPath") %>">								 
-						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
-					</a>
+	--><c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien)}">	
+			<a href = "javascript: submitForm(1);">	
+				<input type="hidden" name="Copy" value = "Copy" />							 
+				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
+			</a>									
 		</c:if>
-	
+		<c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien or DeCuongMonHoc.maNguoiDuyet eq maThanhVien)}">										
+			<a href = "<%=Constant.PATH_RES.getString("iso.InDeCuongMonHocPath") %>">								 
+				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+			</a>
+		</c:if>
 		<c:if test="${not empty DeCuongMonHoc.maDeCuongMonHoc}">	
 				<c:set var = "ListDCMHApproved" value='<%=DeCuongMonHocDAO.getAllDeCuongMonHocApproved()%>'></c:set>
 			<c:if test="${(vaiTro eq Truong_Khoa or MaBoPhan eq BO_PHAN_ADMIN or vaiTro eq Truong_Khoa) and DeCuongMonHoc.tinhTrang ne NEW and DeCuongMonHoc.tinhTrang ne null and DeCuongMonHoc.status ne APPROVE}">

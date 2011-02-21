@@ -713,8 +713,12 @@ function confirmDuyet(x)
 			<br />Phòng học lý thuyết  <input type = "text"  style="background-color: transparent;"/><br /><br />
 		</td></tr>
 	<tr style="background-color: transparent;">
-		<td>Ban Giám hiệu<br /><br /><input type = "text" /><br /><br /></td>
-		<td>Trưởng khoa CNTT<br /><br /><input type = "text"  style="background-color: transparent;"/><br /><br /></td>
+		<td>Ngày <input type = "text"  size = 8  style="background-color: transparent;" value = "${ThoiKhoaBieu.ngayDuyet}" readonly="readonly" /></td>
+		<td>Ngày <input type = "text"  size = 8  style="background-color: transparent;" value = "${ThoiKhoaBieu.ngayCapNhatCuoi}" readonly="readonly" /></td>
+	</tr>
+	<tr style="background-color: transparent;">
+		<td>Ban Giám hiệu<br /><br /><inpu type = "text" value = "${ThoiKhoaBieu.tenNguoiDuyet}"/><br /><br /></td>
+		<td>Trưởng khoa<br /><br /><inpu type = "text" value = "${ThoiKhoaBieu.tenNguoiTao}"/><br /><br /></td>
 	</tr>
 </table>
 	<input type="hidden" name="actionType" style="background-color: transparent;" id = "actionType"
@@ -754,7 +758,7 @@ function confirmDuyet(x)
 		<c:if test="${(MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_ADMIN) and ThoiKhoaBieu.tinhTrang eq PENDING}">
 			<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
 		</c:if>	
-		<c:if test="${ThoiKhoaBieu.tinhTrang eq APPROVE and (ThoiKhoaBieu.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN)}">	
+		<c:if test="${ThoiKhoaBieu.tinhTrang eq APPROVE and (ThoiKhoaBieu.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or ThoiKhoaBieu.maNguoiDuyet eq maThanhVien)}">	
 			<a href = "<%=Constant.PATH_RES.getString("iso.InThoiKhoaBieuPath") %>">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
