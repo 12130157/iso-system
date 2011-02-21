@@ -581,7 +581,9 @@ var kieuDayLyThuyet = new Array();
 	function submitForm(x){
 		var checkNoiDung = true;		
 		if(x == 1)
-			document.getElementById('txtGhiFile').value = 'GhiFile';
+			document.getElementById('txtXuLyFile').value = 'GhiFile';
+		else if(x == 3)
+			document.getElementById('txtXuLyFile').value = 'DocFile';
 		if(truongHop == 1)
 		{
 			var soLT = 0, soTH = 0, soKT = 0;
@@ -702,6 +704,12 @@ var kieuDayLyThuyet = new Array();
 		<c:if test="${not empty param.GhiFileError}">
 			<b class="error"> Ghi file không thành công </b>
 		</c:if>
+		<c:if test="${not empty param.GhiFile}">
+			<b class="error"> Đọc file thành công </b>
+		</c:if>
+		<c:if test="${not empty param.GhiFileError}">
+			<b class="error"> Đọc file không thành công </b>
+		</c:if>
 	<form action="<%=request.getContextPath()%>/deCuongMonHocController?them=yes" method="post" name="DCMH">
 		<table width = "800" style="background-color: transparent;">
 			<tr style="background-color: transparent;"><td><div class = "div_tr">Trường TCNKTCN Hùng Vương<br />
@@ -722,7 +730,7 @@ var kieuDayLyThuyet = new Array();
 				<c:if test = "${not empty DeCuongMonHoc.maDeCuongMonHoc}">disabled</c:if>>
 					<option value = "" >--Select--</option>
 			 		<c:forEach var = "ChuongTrinh" items="${ChuongTrinhList}">
-						<option <c:if test="${ChuongTrinh.maChuongTrinhDaoTao eq DeCuongMonHoc.maChuongTrinh}">selected</c:if> value="${ChuongTrinh.maChuongTrinhDaoTao}">CTDT HỆ ${sf:upperString(ChuongTrinh.tenTrinhDo)} NGÀNH ${sf:upperString(ChuongTrinh.tenNghe)} (${ChuongTrinh.tenChuongTrinhDaoTao})</option>
+						<option <c:if test="${ChuongTrinh.maChuongTrinhDaoTao eq DeCuongMonHoc.maChuongTrinh}">selected</c:if> value="${ChuongTrinh.maChuongTrinhDaoTao}">${sf:upperString(ChuongTrinh.tenNghe)} - Khóa ${ChuongTrinh.maKhoa}</option>
 					</c:forEach>
 				</select><c:if test="${not empty param.err and DeCuongMonHoc.maChuongTrinh eq ''}"><b class="error">(*)</b></c:if>
 				</div></td></tr>
@@ -765,6 +773,13 @@ var kieuDayLyThuyet = new Array();
 						Kiểm tra <input type = "text" id = "KiemTra" size = "" style="background-color: transparent;" name="txtKiemTra" onblur="changeKiemTra();" value="0"/>
 				</td>
 			</tr>
+				<c:if test="${empty DeCuongMonHoc.maDeCuongMonHoc}">
+					<tr style="background-color: transparent;">
+						<td>
+							Chọn đề cương : <input type="file" name="txtFile" id = "" value = ""/> <input type="submit" value = "Sao chép từ file" onclick="submitForm(3)"/>
+						</td>
+					</tr>
+				</c:if>
 			<tr style="background-color: transparent;">
 				<td>
 					<div class = "div_tr">
@@ -981,7 +996,7 @@ var kieuDayLyThuyet = new Array();
 		</td>
 	</tr>
 		</table>
-		<input type="hidden" id = "txtGhiFile" name = "txtGhiFile" value = ""/>
+		<input type="hidden" id = "txtXuLyFile" name = "txtXuLyFile" value = ""/>
 	</form>
 	<form method="post" action="<%=request.getContextPath()%>/deCuongMonHocController?sosanh=yes" name="SoSanhDCMH">	
 		<input type="hidden" name="SoSanh" value = "" id="SoSanh"/>	

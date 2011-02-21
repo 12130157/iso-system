@@ -526,5 +526,51 @@ public class XmlUtil {
 		}
 		return check;
 	}
-	
+	public static boolean getDataFromFileXMLDeCuongMonHoc(String fileNam, DeCuongMonHocModel deCuongMonHoc) {
+		boolean check = true;
+		ArrayList<NoiDungDCMHModel> noiDungDCMHList = new ArrayList<NoiDungDCMHModel>();
+		try {
+			File file = new File(fileNam);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize(); 
+			NodeList nodeLst = doc.getElementsByTagName("TinhChatDeCuong");
+			Node node = nodeLst.item(0);
+			Element tinhChatDeCuong = (Element) node;
+			deCuongMonHoc.setViTriMonHoc(tinhChatDeCuong.getAttribute("ViTriMonHoc"));
+			deCuongMonHoc.setDieuKien1(tinhChatDeCuong.getAttribute("DieuKien1"));
+			deCuongMonHoc.setDieuKien2(tinhChatDeCuong.getAttribute("DieuKien2"));
+			deCuongMonHoc.setDieuKien3(tinhChatDeCuong.getAttribute("DieuKien3"));
+			deCuongMonHoc.setDieuKien4(tinhChatDeCuong.getAttribute("DieuKien4"));
+			deCuongMonHoc.setMucTieu1(tinhChatDeCuong.getAttribute("MucTieu1"));
+			deCuongMonHoc.setMucTieu2(tinhChatDeCuong.getAttribute("MucTieu2"));
+			deCuongMonHoc.setMucTieu3(tinhChatDeCuong.getAttribute("MucTieu3"));
+			deCuongMonHoc.setMucTieu4(tinhChatDeCuong.getAttribute("MucTieu4"));
+			deCuongMonHoc.setPhuongPhap1(tinhChatDeCuong.getAttribute("PhuongPhap1"));
+			deCuongMonHoc.setPhuongPhap2(tinhChatDeCuong.getAttribute("PhuongPhap2"));
+			deCuongMonHoc.setPhuongPhap3(tinhChatDeCuong.getAttribute("PhuongPhap3"));
+			
+			NodeList childNode = tinhChatDeCuong.getChildNodes();
+			
+			
+			  for (int s = 0; s < childNode.getLength(); s++) {
+				  NoiDungDCMHModel noiDungDCMH = new NoiDungDCMHModel();
+				  Element noiDungDeCuong = (Element) childNode.item(s);
+				  noiDungDCMH.setCoHieu(noiDungDeCuong.getAttribute("CoHieu")); 
+				  noiDungDCMH.setMucTieu(noiDungDeCuong.getAttribute("MucTieu"));
+				  noiDungDCMH.setTenChuong(noiDungDeCuong.getAttribute("TenChuong"));
+				  noiDungDCMH.setSoThuTu(noiDungDeCuong.getAttribute("SoThuTu"));
+				  noiDungDCMH.setSoBuoi(noiDungDeCuong.getAttribute("SoBuoi"));
+				  noiDungDCMH.setSoTiet(noiDungDeCuong.getAttribute("SoTiet"));
+				  
+				  noiDungDCMHList.add(noiDungDCMH);
+			  }
+			  deCuongMonHoc.setNoiDungDCMHModelsList(noiDungDCMHList);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			check = false;
+		}
+		return check;
+	}
 }
