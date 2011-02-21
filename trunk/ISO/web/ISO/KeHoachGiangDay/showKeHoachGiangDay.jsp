@@ -152,12 +152,12 @@
 	<form name="KeHoachGiangDay" action="<%=request.getContextPath()%>/keHoachGiangDayController?duyet=yes" method="post" >	
 	<table border = "1" style="background-color: transparent;">
 		<tr style="background-color: transparent;">
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Tên Kế Hoạch</div></th>
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Người lập</div></th>
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Ngày lập</div></th>
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Approve<br /><br /><input type = "checkbox" id = "checkApprove" <c:if test = "${PhanLoai ne PENDING or vaiTro eq Giao_vien}">disabled="disabled"</c:if> onclick="checkApproveAll();"/></div></th>
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Reject<br /><br /><input type = "checkbox" id = "checkReject" <c:if test = "${PhanLoai ne PENDING or vaiTro eq Giao_vien}">disabled="disabled"</c:if> onclick="checkRejectAll();"/></div></th>
-			<th bgcolor= '#186fb2'><div class = "div_txtintable1">Ghi chú</div></th>
+			<th bgcolor= '#186fb2' width='300px'><div class = "div_txtintable1">Tên Kế Hoạch</div></th>
+			<th bgcolor= '#186fb2' width='250px'><div class = "div_txtintable1">Người lập</div></th>
+			<th bgcolor= '#186fb2' width='120px'><div class = "div_txtintable1">Ngày lập</div></th>
+			<th bgcolor= '#186fb2' width='50px'><div class = "div_txtintable1">Approve<br /><br /><input type = "checkbox" id = "checkApprove" <c:if test = "${PhanLoai ne PENDING or vaiTro eq Giao_vien}">disabled="disabled"</c:if> onclick="checkApproveAll();"/></div></th>
+			<th bgcolor= '#186fb2' width='50px'><div class = "div_txtintable1">Reject<br /><br /><input type = "checkbox" id = "checkReject" <c:if test = "${PhanLoai ne PENDING or vaiTro eq Giao_vien}">disabled="disabled"</c:if> onclick="checkRejectAll();"/></div></th>
+			<th bgcolor= '#186fb2' width='150px'><div class = "div_txtintable1">Ghi chú</div></th>
 		</tr>
 
 <!--Show details of QuyetDinh-->
@@ -209,10 +209,10 @@
 								
 								<c:if test="${admin eq sessionScope.maThanhVien}">
 									<tr style="background-color: transparent;">
-										<th width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></th>
+										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
-										<th bgcolor = "#009fb2">
+										<td bgcolor = "#009fb2">
 											<input type = "radio" 
 												<c:choose>
 													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq APPROVE}">checked disabled='disabled'</c:when>
@@ -220,8 +220,8 @@
 													<c:otherwise></c:otherwise> 
 												</c:choose>
 											 name = "tinhtrang${iterator}" onclick="checkRadio()" value = "Approve-${objKHGD.maKHGD}" />
-										</th>
-										<th bgcolor = "#FF0000">
+										</td>
+										<td bgcolor = "#FF0000">
 											<input type="radio" 
 												<c:choose>
 													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq APPROVE}">disabled='disabled'</c:when>
@@ -230,7 +230,7 @@
 													<c:otherwise></c:otherwise> 
 												</c:choose>
 											name = "tinhtrang${iterator}" onclick="checkRadio()" value = "Reject-${objKHGD.maKHGD}"/>
-										</th>
+										</td>
 										<td>
 											<textarea rows="2" cols="13" name="Ly_do_reject${iterator}" id="Ly_do_reject${iterator}" onclick="showPopUp(this.id)" >${objKHGD.lyDoReject}</textarea>					
 										</td>
