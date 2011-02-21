@@ -252,13 +252,13 @@
 								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (vaiTro eq Hieu_Truong and(objKHGD.tinhTrangHT ne NEW) ) or (vaiTro eq truongKhoa and(objKHGD.tinhTrang ne NEW) ))}">
 									
 									<tr style="background-color: transparent;">
-										<th width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></th>
+										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
 										
 										
 						<!-- Trường hợp 'TRUONG_BO_MON', kế hoạch bị 'approve', 'reject' thi daisable radio  -->
-										<th bgcolor = "#009fb2">
+										<td bgcolor = "#009fb2">
 											
 											<input type = "radio" name = "tinhtrang${iterator}"   
 													<c:choose>
@@ -294,9 +294,9 @@
 											onclick="checkRadio()" value = "Approve-${objKHGD.maKHGD}"/>
 										
 										
-										</th> 
+										</td> 
 						<!-- Trường hợp 'TRUONG_BO_MON', kế hoạch bị 'approve', 'reject' thi disable radio  -->
-										<th bgcolor = "#FF0000">
+										<td bgcolor = "#FF0000">
 										
 											
 										
@@ -337,7 +337,7 @@
 										
 										
 										
-										</th>
+										</td>
 								 		<td>
 								 
 								 			<textarea onclick="showPopUp(this.id)"
