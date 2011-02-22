@@ -33,7 +33,7 @@ BEGIN
 	SET @Dieu_kien_nam_hoc=''
 	SET @Dieu_kien_ma_khoa=''
 
-	IF(@Ma_bo_phan<>'')
+	IF(@Ma_nguoi_tao<>'')
 		BEGIN
 			SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
 		END
