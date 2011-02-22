@@ -34,7 +34,7 @@
 <script src="<%=request.getContextPath()%>/js/jquery.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/interface.js" type="text/javascript"></script>
 
-<c:set var="khoaList" value="<%=KhoaDAO.showAllKhoa()%>"></c:set>
+<c:set var="khoaList" value='<%=KhoaDAO.getKhoaByBoPhan(Integer.parseInt((String) request.getSession().getAttribute("maBoPhan"))) %>'></c:set>
 <c:set var="namHocList" value="<%=NamHocDAO.getAllNamHoc()%>"></c:set>
 
 <%

@@ -7,7 +7,10 @@
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
 <%@page import="vn.edu.hungvuongaptech.util.StringUtil"%>
-<%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.HocKyDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.NamHocDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -93,6 +96,9 @@
 	<c:set var = "HT_NEW" value = '<%=Constant.TINHTRANG_HT_NEW%>'> </c:set>
 	<c:set var = "HT_SEND" value = '<%=Constant.TINHTRANG_HT_SEND%>'> </c:set>
 	<c:set var ="tenMonHocTemp" value='<%=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")) %>'></c:set>
+	<c:set var="khoaList" value='<%=KhoaDAO.getKhoaByBoPhan(Integer.parseInt((String) request.getSession().getAttribute("maBoPhan"))) %>'></c:set>
+	<c:set var="namHocList" value='<%=NamHocDAO.getAllNamHoc()%>'></c:set>
+	
 	<c:choose>			
 		<c:when test = "${empty param.selectTinhTrang}">
 			<c:set var = "PhanLoai" value = "All" ></c:set>
@@ -101,6 +107,57 @@
 			<c:set var = "PhanLoai" value = "${param.selectTinhTrang}" ></c:set>		
 		</c:otherwise>
 	</c:choose>	
+	
+	
+	<!--Show details of QuyetDinh-->
+
+	<%
+		String path=""; 	
+		String currentPage = "", tinhTrang = "", maNguoiTao = "", tenMonHocFind="",maHocKi="",maKhoa="",maNamHoc=""; 
+		int totalRows = 0;
+	%>
+	<c:if test="${not empty param.txtTenMonHocFind}">
+		<%tenMonHocFind=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")); %>
+		<% path=path+"&txtTenMonHocFind="+ request.getParameter("txtTenMonHocFind");%>
+	</c:if>
+	<c:if test="${not empty param.selNamHoc}">
+		<%maNamHoc=request.getParameter("selNamHoc"); %>
+		<% path=path+"&selNamHoc="+ request.getParameter("selNamHoc");%>
+	</c:if>
+	<c:if test="${not empty param.selHocKi}">
+		<%maHocKi=request.getParameter("selHocKi"); %>
+		<% path=path+"&selHocKi="+ request.getParameter("selHocKi");%>
+	</c:if>
+	<c:if test="${not empty param.selKhoa}">
+		<%maKhoa=request.getParameter("selKhoa"); %>
+		<% path=path+"&selKhoa="+ request.getParameter("selKhoa");%>
+	</c:if>
+	
+	
+	<c:choose>
+		<c:when test="${PhanLoai eq NEW}">
+			<%tinhTrang = "0"; %>
+		</c:when>
+		<c:when test="${PhanLoai eq SEND}">
+			<%tinhTrang = "1"; %>
+		</c:when>
+		<c:when test="${PhanLoai eq APPROVE}">
+			<%tinhTrang = "2"; %>
+		</c:when>
+		<c:when test="${PhanLoai eq REJECT}">
+			<%tinhTrang = "3"; %>
+		</c:when>
+	</c:choose>	
+	
+	<c:choose>			
+		<c:when test = "${empty param.page}">
+			<%currentPage = "1"; %>
+		</c:when>
+		<c:otherwise>
+			<%currentPage = request.getParameter("page"); %>		
+		</c:otherwise>
+	</c:choose>		
+	
 	
 		<c:if test="${not empty param.errApproveThieu and not empty param.maKHGD}">
 			<c:set var="tenKHGD" value='<%=KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")) %>'></c:set>
@@ -136,6 +193,27 @@
 				
 					
 				</div>			
+				<div class = "div_tinhtrang">
+					Khoa : <select name='selKhoa' id='selKhoa'>
+						<option value="">All</option>
+						<c:forEach items="${khoaList}" var="objKhoa">
+							<option value='${objKhoa.maKhoa}' <c:if test="${param.selKhoa eq objKhoa.maKhoa }">selected</c:if> >${objKhoa.tenKhoa}</option>
+						</c:forEach>
+					</select>
+					
+					Học kì : 
+						<select id="selHocKi" name="selHocKi"><option value="">All</option>
+							<option value='1' <c:if test="${param.selHocKi eq '1'}">selected</c:if>>I</option>
+							<option value='2' <c:if test="${param.selHocKi eq '2'}">selected</c:if>>II</option>
+						</select>
+					
+					Năm học : <select id="selNamHoc" name="selNamHoc"><option value="">All</option>
+								<c:forEach items="${namHocList}" var="objNamHoc">
+										<option value="${objNamHoc.maNamHoc}" <c:if test="${param.selNamHoc eq objNamHoc.maNamHoc }">selected</c:if> >${objNamHoc.namBatDau}-${objNamHoc.namKetThuc}</option>
+								</c:forEach>		
+							</select>
+					</select>
+				</div>			
 				</td>
 			</tr>
 		</table>
@@ -160,44 +238,13 @@
 			<th bgcolor= '#186fb2' width='150px'><div class = "div_txtintable1">Ghi chú</div></th>
 		</tr>
 
-<!--Show details of QuyetDinh-->
 
-	<% 	String currentPage = "", tinhTrang = "", maNguoiTao = "", tenMonHocFind=""; 
-		int totalRows = 0;
-	%>
-	<c:if test="${not empty param.txtTenMonHocFind}">
-		<%tenMonHocFind=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")); %>
-	</c:if>
-	
-	<c:choose>
-		<c:when test="${PhanLoai eq NEW}">
-			<%tinhTrang = "0"; %>
-		</c:when>
-		<c:when test="${PhanLoai eq SEND}">
-			<%tinhTrang = "1"; %>
-		</c:when>
-		<c:when test="${PhanLoai eq APPROVE}">
-			<%tinhTrang = "2"; %>
-		</c:when>
-		<c:when test="${PhanLoai eq REJECT}">
-			<%tinhTrang = "3"; %>
-		</c:when>
-	</c:choose>	
-	
-	<c:choose>			
-		<c:when test = "${empty param.page}">
-			<%currentPage = "1"; %>
-		</c:when>
-		<c:otherwise>
-			<%currentPage = request.getParameter("page"); %>		
-		</c:otherwise>
-	</c:choose>		
 	<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
 	<c:if test = "${vaiTro ne admin and vaiTro ne Hieu_Truong}">
 		<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 	</c:if>
 	<% totalRows = KeHoachGiangDayDAO.getCountKeHoachGiangDay(tinhTrang, maNguoiTao); %>
-	<c:set 	var = "ListKHGD" value = '<%= KeHoachGiangDayDAO.getKeHoachGiangDay(totalRows, currentPage, tinhTrang, maNguoiTao,request.getSession().getAttribute("maBoPhan").toString(),tenMonHocFind) %>'></c:set>
+	<c:set 	var = "ListKHGD" value = '<%= KeHoachGiangDayDAO.getKeHoachGiangDay(totalRows, currentPage, tinhTrang, maNguoiTao,request.getSession().getAttribute("maBoPhan").toString(),tenMonHocFind,maKhoa,maHocKi,maNamHoc) %>'></c:set>
 			<% int count = 0; %>	
 			<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 			<c:forEach var="objKHGD" items = "${ListKHGD}">
@@ -446,14 +493,14 @@
 		 <tr style="background-color: transparent;">
 			<td colspan="6">
 				<c:if test = "${CurrentPage gt 1}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage - 1}&msg=${PhanLoai}" >Previous</a>
+					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage - 1}&selectTinhTrang=${PhanLoai}<%=path %>" >Previous</a>
 				</c:if>	
 				<!-- Bi loi TotalPage=1 -->
 				<c:forEach var = "PageCount" begin = "1" end = "${TotalPage}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${PageCount}&msg=${PhanLoai}">${PageCount}</a>
+					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${PageCount}&selectTinhTrang=${PhanLoai}<%=path %>">${PageCount}</a>
 				</c:forEach>
 				<c:if test = "${CurrentPage lt TotalPage}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage + 1}&msg=${PhanLoai}" >Next</a>
+					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage + 1}&selectTinhTrang=${PhanLoai }<%=path %>" >Next</a>
 				</c:if>	
 			</td>
 		</tr>

@@ -30,12 +30,12 @@ public class KeHoachGiangDayDAO {
 		return count;
 	}
 	
-	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan,String tenMonHoc) {
+	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan,String tenMonHoc,String maKhoa,String maHocKi,String maNamHoc) {
 		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelsList = new ArrayList<KeHoachGiangDayModel>();
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("NumRows", Constant.RECORDS_PER_PAGE + "");
 			csmt.setString("TotalRows", totalRows + "");
 			csmt.setString("CurrentPage", currenPage);
@@ -43,6 +43,9 @@ public class KeHoachGiangDayDAO {
 			csmt.setString("Ma_nguoi_tao", maNguoiTao);
 			csmt.setString("Ma_bo_phan", maBoPhan);
 			csmt.setNString("TenMonHoc", tenMonHoc);
+			csmt.setString("MaKhoa", maKhoa);
+			csmt.setString("MaHocKi",maHocKi);
+			csmt.setString("MaNamHoc",maNamHoc);
 			
 			ResultSet rs = DataUtil.executeStore(csmt);
 			while(rs.next())

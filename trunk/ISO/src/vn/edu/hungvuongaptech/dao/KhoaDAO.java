@@ -147,4 +147,33 @@ public class KhoaDAO {
 		}
 		return listKetQua;
 	}
+	
+	public static ArrayList<KhoaModel> getKhoaByBoPhan(int maBoPhan) {
+		ArrayList<KhoaModel> khoaList=new ArrayList<KhoaModel>();
+		KhoaModel khoa;
+		try {	
+			
+			CallableStatement csmt = DataUtil.getConnection()
+				.prepareCall("{call sp_ISO_GetKhoaByBoPhan(?)}");
+			csmt.setInt("MaBoPhan",maBoPhan);
+			
+			ResultSet result= DataUtil.executeStore(csmt);
+			while(result.next()){
+				khoa=new KhoaModel();
+				khoa.setMaKhoa(result.getString("MaKhoa"));
+
+				khoa.setTenKhoa(result.getString("Ten"));
+
+				khoa.setMaTruongKhoa(result.getString("MaTruongKhoa"));
+				khoaList.add(khoa);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			khoaList = null;
+		}
+
+		return khoaList;
+	}
+
 }
