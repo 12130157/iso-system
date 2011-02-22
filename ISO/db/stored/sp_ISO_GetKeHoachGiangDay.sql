@@ -9,7 +9,10 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@Tinh_trang		varchar(2),
 	@Ma_nguoi_tao   varchar(2),		
 	@Ma_Bo_Phan varchar(2),
-	@TenMonHoc nvarchar(500)
+	@TenMonHoc nvarchar(500),
+	@MaKhoa varchar(5),
+	@MaHocKi varchar(1),
+	@MaNamHoc varchar(5)
 AS
 BEGIN
 	DECLARE @sql NVarchar(1000)
@@ -17,57 +20,51 @@ BEGIN
 	DECLARE @Dieu_kien_khong_phai_nguoi_tao nvarchar(100)
 	DECLARE @Dieu_kien_ma_nguoi_tao nvarchar(100)
 	DECLARE @Dieu_kien_ma_bo_phan nvarchar(100)
-	DECLARE @And nvarchar(5)
-	DECLARE @Where nvarchar(5)
+	DECLARE @Dieu_kien_hoc_ki varchar(100)
+	DECLARE @Dieu_kien_nam_hoc varchar(100)
+	DECLARE @Dieu_kien_ma_khoa varchar(100)
+	DECLARE @VAITRO INT
+	
 	SET @Dieu_kien_tinh_trang = ''
 	SET @Dieu_kien_khong_phai_nguoi_tao = ''
 	SET @Dieu_kien_ma_nguoi_tao = ''
-	SET @And = ''
-	SET @Where = ''
 	SET @Dieu_kien_ma_bo_phan=''
-	
-	if(@Ma_nguoi_tao<>'')
-		Begin
+	SET	@Dieu_kien_hoc_ki=''
+	SET @Dieu_kien_nam_hoc=''
+	SET @Dieu_kien_ma_khoa=''
+
+	IF(@Ma_bo_phan<>'')
+		BEGIN
 			SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
 		END
-
-	if(@Tinh_trang <> '' and @Ma_nguoi_tao <> '')
-	BEGIN
-		SET @And = ' and '
-	END
-	
-	if(@Tinh_trang <> '')
-	BEGIN
-		SET @Where = 'Where '
-		SET @Dieu_kien_tinh_trang = ' Tinh_trang = ' + @Tinh_trang
-	END
-	
-	if(@Ma_nguoi_tao <> '')
-	BEGIN
-		SET @Where = 'Where '
-		if not exists(Select * From KeHoachGiangDay Where Ma_nguoi_tao = @Ma_nguoi_tao)
-		BEGIN	
-			SET @Dieu_kien_khong_phai_nguoi_tao = ' Tinh_trang <> 0 '
-		END
-		else
+	IF(@Tinh_trang<>'')
 		BEGIN
-			DECLARE @VAITRO INT
-			SELECT @VAITRO=Ma_vai_tro FROM ThanhVien WHERE ID=@Ma_nguoi_tao
-			IF(@VAITRO = 8)	
-			BEGIN 					
-				SET @Dieu_kien_ma_nguoi_tao = ' Ma_nguoi_tao = ' + @Ma_nguoi_tao
-			END
-			IF @Dieu_kien_tinh_trang='' and @Dieu_kien_ma_nguoi_tao ='' and @Dieu_kien_khong_phai_nguoi_tao=''
-			BEGIN
-				set @WHERE=''
-			END
-			IF @Dieu_kien_ma_nguoi_tao ='' and @Dieu_kien_khong_phai_nguoi_tao=''
-			BEGIN
-				set @And=''
-			END
-			
+			SET	@Dieu_kien_tinh_trang = ' AND Tinh_trang ='+@Tinh_trang 
 		END
+	IF(@MaHocKi<>'')
+		BEGIN
+			SET	@Dieu_kien_hoc_ki = ' AND Hoc_ki LIKE ''%'+@MaHocKi + '%'''
+		END
+	IF(@MaNamHoc<>'')
+		BEGIN
+			SET	@Dieu_kien_nam_hoc = ' AND Ma_nam_hoc LIKE ''%'+@MaNamHoc + '%'''
+		END
+	IF not exists(SELECT * FROM KeHoachGiangDay WHERE Ma_nguoi_tao = @Ma_nguoi_tao)
+	BEGIN	
+			SET @Dieu_kien_khong_phai_nguoi_tao = ' AND Tinh_trang <> 0 '
 	END
+	
+	SELECT @VAITRO=Ma_vai_tro FROM ThanhVien WHERE ID=@Ma_nguoi_tao
+	IF(@VAITRO = 8)	
+	BEGIN 					
+		SET @Dieu_kien_ma_nguoi_tao = ' AND Ma_nguoi_tao = ' + @Ma_nguoi_tao
+	END
+
+	IF(@MaKhoa <> '')	
+	BEGIN 					
+		SET @Dieu_kien_ma_khoa = ' AND B.Ma_bo_phan like ''%' + @MaKhoa +'%'''
+	END
+
 
 	SELECT @sql = '
 		SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
@@ -77,19 +74,17 @@ BEGIN
 				SELECT TOP ' + @NumRows + '* 
 				FROM (
 					SELECT TOP ' + Cast(Cast(@TotalRows As Int) - (Cast(@CurrentPage As Int) - 1) * Cast(@NumRows As Int) As Varchar) + ' *
-					FROM KeHoachGiangDay '
-					+ @Where + @Dieu_kien_tinh_trang + @And + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao +
-					' ORDER BY id ASC
+					FROM KeHoachGiangDay WHERE 1=1 ' +
+					@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
+					+' ORDER BY id ASC
 				) AS TB1
 				ORDER BY TB1.id DESC
 			) AS TB2 
 			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
 			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
-			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+'
+			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
 			ORDER BY TB2.id DESC'
-			
-	print @sql
 	exec  sp_executesql @sql
 END
 
