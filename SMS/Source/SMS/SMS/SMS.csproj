@@ -63,11 +63,53 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\form_Login.resx">
-      <DependentUpon>form_Login.cs</DependentUpon>
+    <EmbeddedResource Include="view\FormChangePassword.resx">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\form_Main.resx">
-      <DependentUpon>form_Main.cs</DependentUpon>
+    <EmbeddedResource Include="view\FormCompose.resx">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormDraft.resx">
+      <DependentUpon>FormDraft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInbox.resx">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInboxDeleted.resx">
+      <DependentUpon>FormInboxDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInboxMessageType.resx">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInvalidMessage.resx">
+      <DependentUpon>FormInvalidMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageAccount.resx">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageKeyword.resx">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormOutbox.resx">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentDelete.resx">
+      <DependentUpon>FormSentDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentError.resx">
+      <DependentUpon>FormSentError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentOk.resx">
+      <DependentUpon>FormSentOk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ManageCalendar.resx">
+      <DependentUpon>ManageCalendar.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -84,17 +126,101 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="util\DataUtil.cs" />
-    <Compile Include="view\form_Login.cs">
+    <Compile Include="view\FormChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\form_Login.designer.cs">
-      <DependentUpon>form_Login.cs</DependentUpon>
+    <Compile Include="view\FormChangePassword.designer.cs">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\form_Main.cs">
+    <Compile Include="view\FormCompose.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\form_Main.designer.cs">
-      <DependentUpon>form_Main.cs</DependentUpon>
+    <Compile Include="view\FormCompose.Designer.cs">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormDraft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormDraft.designer.cs">
+      <DependentUpon>FormDraft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInbox.designer.cs">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInboxDeleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInboxDeleted.designer.cs">
+      <DependentUpon>FormInboxDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.designer.cs">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInvalidMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInvalidMessage.designer.cs">
+      <DependentUpon>FormInvalidMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormLogin.designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormMain.designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageAccount.designer.cs">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.designer.cs">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormOutbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormOutbox.designer.cs">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentDelete.designer.cs">
+      <DependentUpon>FormSentDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentError.designer.cs">
+      <DependentUpon>FormSentError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentOk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentOk.designer.cs">
+      <DependentUpon>FormSentOk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ManageCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ManageCalendar.Designer.cs">
+      <DependentUpon>ManageCalendar.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

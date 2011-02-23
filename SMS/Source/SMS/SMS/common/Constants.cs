@@ -10,6 +10,6 @@ namespace SMS.common
     class Constants
     {
         public static MemberModel USER_LOGIN;
-        public static ArrayList MENU_LIST;
+        //public static ArrayList MENU_LIST;
     }
 }
