@@ -723,7 +723,7 @@
             this.ClientSize = new System.Drawing.Size(901, 669);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
-            this.Name = "FormInbox";
+            this.Name.Name = "FormInbox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inbook";
             this.panel1.ResumeLayout(false);
