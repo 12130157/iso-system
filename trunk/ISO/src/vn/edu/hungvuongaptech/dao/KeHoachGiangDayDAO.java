@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
+import vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
+import vn.edu.hungvuongaptech.util.DateUtil;
 
 public class KeHoachGiangDayDAO {
 	public static int getCountKeHoachGiangDay(String tinhtrang, String maNguoiTao) {
@@ -519,5 +521,57 @@ public class KeHoachGiangDayDAO {
 		}			
 		return cvcb;
 	
+	}
+	
+	
+	public static ArrayList<KetQuaTimGiaoAnModel> findKHGD(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,int indexStart,int total)
+	{
+		KetQuaTimGiaoAnModel ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
+		
+		ArrayList<KetQuaTimGiaoAnModel> ketQuaList=new ArrayList<KetQuaTimGiaoAnModel>();
+		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_iso_findKeHoachGiangDay(?,?,?,?,?,?)}");
+			
+			csmt.setString("MaNguoiTao",maNguoiTao);		
+			csmt.setString("MaNamHoc",maNamHoc);
+			csmt.setString("MaLop",maLop);
+			csmt.setString("MaMonHoc",maMonHoc);
+			csmt.setString("HocKi",hocKi);
+			csmt.setString("TinhTrang",tinhTrang);
+	
+			ResultSet rs = DataUtil.executeStore(csmt);
+			
+			
+			while(rs.next()){
+				ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
+				ketQuaGiaoAn.setTenMonHoc(rs.getNString("TenMonHoc"));
+				ketQuaGiaoAn.setTenLopHoc(rs.getNString("KiHieu"));
+				ketQuaGiaoAn.setSoGiaoAn(rs.getString("SoThuTu"));
+				ketQuaGiaoAn.setMaGiaoVien(rs.getString("MaNguoiTao"));
+				
+				ketQuaGiaoAn.setNgayDay(DateUtil.setDate2(rs.getString("NgayThucHien")));
+				
+				ketQuaGiaoAn.setNgayGui(DateUtil.setDate2(rs.getString("NgayGui")));
+				
+				ketQuaGiaoAn.setMaNguoiDuyet(rs.getString("NguoiDuyet"));
+				
+				ketQuaGiaoAn.setNgayDuyet(DateUtil.setDate2(rs.getString("NgayDuyet")));
+				
+				ketQuaGiaoAn.setTinhTrang(rs.getString("TinhTrang"));
+				ketQuaGiaoAn.setTenGiaoVien(rs.getString("NguoiTao"));
+				ketQuaGiaoAn.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
+				ketQuaList.add(ketQuaGiaoAn);
+			}
+			
+		
+		}
+		catch(Exception e){
+			e.printStackTrace();	
+		}
+		
+		return ketQuaList;
 	}
 }
