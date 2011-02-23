@@ -39,7 +39,7 @@
 
 <%
 	String gv="";
-	String path="TimGiaoAn.jsp?view=true";
+	String path="TimKeHoachGiangDay.jsp?view=true";
 	if(request.getParameter("gv")!=null&&request.getParameter("gv")!="")
 	{
 		gv=request.getParameter("gv").toString();
@@ -124,10 +124,10 @@
 <c:set var="boPhanPKD" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
 
 <c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,index,Constant.NUM_RECORD_TIMGIAOAN)%>'></c:set>
+	<c:set var="kqTimKiemList" value='<%=KeHoachGiangDayDAO.findKHGD(gv,nam,lop,mon,hk,tt,index,Constant.NUM_RECORD_TIMGIAOAN)%>'></c:set>
 </c:if>
 
-<c:set var='showNumPage' value='<%=GiaoAnDAO.showNumPageReportGiaoAn(index,GiaoAnDAO.getTotalKetQuaTimGiaoAn(),path)%>'></c:set>
+
 
 <c:set var="TT_SEND" value="<%=Constant.TINHTRANG_SEND %>"></c:set>
 <c:set var="TT_CHUATHUCHIEN" value="<%=Constant.TINHTRANG_CHUATHUCHIEN %>"></c:set>
@@ -142,7 +142,7 @@
 <![endif]-->
 
 
-<title>Tìm kiếm giáo án</title>
+<title>Tìm kiếm kế hoạch giảng dạy</title>
 <style>
 	.tblTimKiem td{
 		height:30px;
@@ -171,7 +171,7 @@
 		if(objLopHoc.selectedIndex!=0)
 			strPath=strPath+"&lop="+objLopHoc.value;
 		
-		location.href="TimGiaoAn.jsp?change=true"+strPath;		
+		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;		
 	}
 
 	function change_selGiaoVien()
@@ -187,7 +187,7 @@
 		if(objGiaoVien.selectedIndex!=0)
 			strPath=strPath+"&gv="+objGiaoVien.value;
 
-		location.href="TimGiaoAn.jsp?change=true"+strPath;
+		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;
 	}
 
 	function change_selKhoa()
@@ -198,7 +198,7 @@
 		if(objKhoa.selectedIndex!=0)
 			strPath=strPath+"&khoa="+objKhoa.value;
 		
-		location.href="TimGiaoAn.jsp?change=true"+strPath;
+		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;
 	}
 
 	function click_btnTim()
@@ -252,7 +252,7 @@
 	<!-- E HEAD CONTENT -->
 	
 	<form name='frmSearchGiaoAn' id='frmSearchGiaoAn'>
-		<p style="font-weight:bold;font-size:20px" >Báo cáo tiến độ thực hiện giáo án </p>
+		<p style="font-weight:bold;font-size:20px" >Báo cáo tiến độ thực hiện kế hoạch giảng dạy </p>
 	
 	<br/>
 	

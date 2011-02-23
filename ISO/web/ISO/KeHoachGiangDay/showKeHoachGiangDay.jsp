@@ -220,6 +220,9 @@
 	</form>
 <p>
 
+<a href="<%=request.getContextPath()%>/ISO/KeHoachGiangDay/TimKeHoachGiangDay.jsp"  border='none'>Tìm kế hoạch giảng dạy</a>
+
+
 <a href="<%=request.getContextPath()%>/ISO/GiaoAn/TimGiaoAn.jsp" border='none'><img border='none' src='<%=request.getContextPath() %>/images/buttom/baocaogiaoanthuchien.png'/ ></a>
 
 </p>
