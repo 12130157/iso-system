@@ -102,57 +102,6 @@ public class GiaoAnController extends HttpServlet {
 		
 	}
 	
-	private void insertGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-		GiaoAnModel giaoAnModel=new GiaoAnModel();
-		giaoAnModel.setMaKHGD(request.getParameter("maKHGD"));
-		giaoAnModel.setSoGiaoAn(request.getParameter("txtSoGA"));
-		if(request.getParameter("txtCalendar").length()==0){
-			giaoAnModel.setNgayThucHien("");
-		}
-		else{
-			
-			giaoAnModel.setNgayThucHien(request.getParameter("txtCalendar"));
-		}
-		giaoAnModel.setMucTieu(StringUtil.toUTF8(request.getParameter("txtMucTieu").trim()));
-		giaoAnModel.setDoDungPTDH(StringUtil.toUTF8(request.getParameter("txtDoDungPTDH").trim()));
-		giaoAnModel.setOnDinhLH(StringUtil.toUTF8(request.getParameter("txtODLH").trim()));
-		giaoAnModel.setThoiGianOnDinh(request.getParameter("txtTGOD").trim());
-		giaoAnModel.setThoiGianTHBH(request.getParameter("txtTGTHBH"));
-		giaoAnModel.setDanNhap(StringUtil.toUTF8(request.getParameter("txtDanNhap").trim()));
-		giaoAnModel.setHDDanNhapGV(StringUtil.toUTF8(request.getParameter("txtHDDNGV").trim()));
-		giaoAnModel.setHDDanNhapHS(StringUtil.toUTF8(request.getParameter("txtHDDNHS").trim()));
-		giaoAnModel.setThoiGianDanNhap(request.getParameter("txtTGDN"));
-		giaoAnModel.setNoiDungBaiGiang(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoi").trim()));
-		giaoAnModel.setHDGiangBaiMoiGV(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoiGV").trim()));
-		giaoAnModel.setHDGiangBaiMoiHS(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoiHS").trim()));
-		giaoAnModel.setThoiGianBaiGiang(request.getParameter("txtTGGiangBaiMoi"));
-		giaoAnModel.setCungCoKienThuc(StringUtil.toUTF8(request.getParameter("txtCungCoKienThuc").trim()));
-		giaoAnModel.setHDCungCoGV(StringUtil.toUTF8(request.getParameter("txtCungCoGV").trim()));
-		giaoAnModel.setHDCungCoHS(StringUtil.toUTF8(request.getParameter("txtCungCoHS").trim()));
-		giaoAnModel.setThoiGianCungCo(request.getParameter("txtTGCungCo"));
-		giaoAnModel.setHuongDanTuHoc(StringUtil.toUTF8(request.getParameter("txtHDTH").trim()));
-		giaoAnModel.setHDHDTHGV(StringUtil.toUTF8(request.getParameter("txtHDTHGV").trim()));
-		giaoAnModel.setHDHDTHHS(StringUtil.toUTF8(request.getParameter("txtHDTHHS").trim()));
-		giaoAnModel.setThoiGianHDTH(request.getParameter("txtTGHDTH"));
-		giaoAnModel.setTaiLieuThamKhao(StringUtil.toUTF8(request.getParameter("txtTaiLieuThamKhao").trim()));
-		
-		giaoAnModel.setNgayTao(SysParamsDAO.getSysParams().getGioHeThong());
-		
-		giaoAnModel.setTenChuong(StringUtil.toUTF8(request.getParameter("txtTenChuong").trim()));
-		giaoAnModel.setMaGiaoVien(request.getParameter("txtMaNguoiTao"));
-		
-		
-		if(GiaoAnDAO.insertGiaoAnLyThuyet(giaoAnModel)==false){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=insertTB&stt=insert&soGA="+request.getParameter("txtSoGA")+"&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-		else{
-			ChiTietKHGDDAO.updateMaGiaoAnByMaCTKHGD(request.getParameter("txtMaCTKHGD"));
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=insertTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-	}
 	
 	private GiaoAnModel mapGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		GiaoAnModel giaoAnModel=new GiaoAnModel();
@@ -282,19 +231,228 @@ public class GiaoAnController extends HttpServlet {
 		return giaoAnModel;
 	}
 
-	private void updateGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	//********************************************KHU VUC GOI MAIL*********************************************************************
+	
 
-		if(GiaoAnDAO.updateGiaoAnLyThuyet(mapGiaoAnLyThuyet(request, response))==false){
+	//********************************************************KHU VUC GOI MAIL***********************************************************
+	private void rejectGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else{
+			rejectMail(request, response);
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		
+		}	
+	}
+
+	private void rejectGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
 			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			
+		}
+		else{
+		rejectMail(request, response);
+
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		
+		}
+	}
+
+	private void rejectGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			
+		}
+		else{
+			
+			rejectMail(request, response);
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		
+		}
+	}
+
+	private void approveGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			
+		}
+		else
+		{	
+			approveMail(request, response);
+//			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		
+		}
+	}
+	
+	private void approveGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else
+		{	
+			approveMail(request, response);
+			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//		
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		}
+	}
+		
+	private void approveGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			
+		}
+		else
+		{	
+			approveMail(request, response);
+			
+//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+//		
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
+		}
+	}
+
+	private void sendGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		GiaoAnDAO.updateGiaoAnLyThuyet(mapGiaoAnLyThuyet(request, response));
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else
+		{
+			sendMail(request, response);
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		
+		}
+
+	}
+	
+	private void sendGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		GiaoAnDAO.updateGiaoAnThucHanh(mapGiaoAnThucHanh(request, response));
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else
+		{	
+			sendMail(request, response);			
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
+					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+	}
+
+	private void sendGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		GiaoAnDAO.updateGiaoAnTichHop(mapGiaoAnTichHop(request, response));
+		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else
+		{
+			sendMail(request, response);	
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
+					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		
+		}
+	}
+
+	//*********************************************************************************************************************************
+	
+	
+	
+	
+	//********************************************************KHU VUC THAO TAC DU LIEU***************************************************
+	private void insertGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		GiaoAnModel giaoAnModel=new GiaoAnModel();
+		giaoAnModel.setMaKHGD(request.getParameter("maKHGD"));
+		giaoAnModel.setSoGiaoAn(request.getParameter("txtSoGA"));
+		if(request.getParameter("txtCalendar").length()==0){
+			giaoAnModel.setNgayThucHien("");
+		}
+		else{
+			
+			giaoAnModel.setNgayThucHien(request.getParameter("txtCalendar"));
+		}
+		giaoAnModel.setMucTieu(StringUtil.toUTF8(request.getParameter("txtMucTieu").trim()));
+		giaoAnModel.setDoDungPTDH(StringUtil.toUTF8(request.getParameter("txtDoDungPTDH").trim()));
+		giaoAnModel.setOnDinhLH(StringUtil.toUTF8(request.getParameter("txtODLH").trim()));
+		giaoAnModel.setThoiGianOnDinh(request.getParameter("txtTGOD").trim());
+		giaoAnModel.setThoiGianTHBH(request.getParameter("txtTGTHBH"));
+		giaoAnModel.setDanNhap(StringUtil.toUTF8(request.getParameter("txtDanNhap").trim()));
+		giaoAnModel.setHDDanNhapGV(StringUtil.toUTF8(request.getParameter("txtHDDNGV").trim()));
+		giaoAnModel.setHDDanNhapHS(StringUtil.toUTF8(request.getParameter("txtHDDNHS").trim()));
+		giaoAnModel.setThoiGianDanNhap(request.getParameter("txtTGDN"));
+		giaoAnModel.setNoiDungBaiGiang(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoi").trim()));
+		giaoAnModel.setHDGiangBaiMoiGV(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoiGV").trim()));
+		giaoAnModel.setHDGiangBaiMoiHS(StringUtil.toUTF8(request.getParameter("txtGiangBaiMoiHS").trim()));
+		giaoAnModel.setThoiGianBaiGiang(request.getParameter("txtTGGiangBaiMoi"));
+		giaoAnModel.setCungCoKienThuc(StringUtil.toUTF8(request.getParameter("txtCungCoKienThuc").trim()));
+		giaoAnModel.setHDCungCoGV(StringUtil.toUTF8(request.getParameter("txtCungCoGV").trim()));
+		giaoAnModel.setHDCungCoHS(StringUtil.toUTF8(request.getParameter("txtCungCoHS").trim()));
+		giaoAnModel.setThoiGianCungCo(request.getParameter("txtTGCungCo"));
+		giaoAnModel.setHuongDanTuHoc(StringUtil.toUTF8(request.getParameter("txtHDTH").trim()));
+		giaoAnModel.setHDHDTHGV(StringUtil.toUTF8(request.getParameter("txtHDTHGV").trim()));
+		giaoAnModel.setHDHDTHHS(StringUtil.toUTF8(request.getParameter("txtHDTHHS").trim()));
+		giaoAnModel.setThoiGianHDTH(request.getParameter("txtTGHDTH"));
+		giaoAnModel.setTaiLieuThamKhao(StringUtil.toUTF8(request.getParameter("txtTaiLieuThamKhao").trim()));
+		
+		giaoAnModel.setNgayTao(SysParamsDAO.getSysParams().getGioHeThong());
+		
+		giaoAnModel.setTenChuong(StringUtil.toUTF8(request.getParameter("txtTenChuong").trim()));
+		giaoAnModel.setMaGiaoVien(request.getParameter("txtMaNguoiTao"));
+		
+		
+		if(GiaoAnDAO.insertGiaoAnLyThuyet(giaoAnModel)==false){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=insertTB&stt=insert&soGA="+request.getParameter("txtSoGA")+"&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+		else{
+			ChiTietKHGDDAO.updateMaGiaoAnByMaCTKHGD(request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=insertTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+	}
+	private void updateGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		if(GiaoAnDAO.updateGiaoAnThucHanh(mapGiaoAnThucHanh(request, response))==false){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
 					+ "?err=updateTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
 			
 		}
 		else{
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
 					+ "?err=updateTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
 		}
-	}
-
+	}	
 	private void insertGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		GiaoAnModel giaoAnModel=new GiaoAnModel();
@@ -351,255 +509,6 @@ public class GiaoAnController extends HttpServlet {
 
 		}
 	}
-	
-	private void updateGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-		if(GiaoAnDAO.updateGiaoAnThucHanh(mapGiaoAnThucHanh(request, response))==false){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=updateTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else{
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=updateTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-	}
-
-	private void rejectGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else{
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-			
-			String lyDo=KeHoachGiangDayDAO.getLyDoRejectByMaKHGD(request.getParameter("maKHGD"))+request.getParameter("LyDoReject").trim();
-			
-			
-			GiaoAnDAO.updateLyDoRejectGAByMaKHGD(request.getParameter("maKHGD"),StringUtil.toUTF8(lyDo));
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_GIAOAN,
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-			
-//			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		
-		}
-	}
-
-	private void rejectGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else{
-			
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-		
-			String lyDo=KeHoachGiangDayDAO.getLyDoRejectByMaKHGD(request.getParameter("maKHGD"))+request.getParameter("LyDoReject").trim();
-			
-
-			GiaoAnDAO.updateLyDoRejectGAByMaKHGD(request.getParameter("maKHGD"),StringUtil.toUTF8(lyDo));
-			
-			//Loi goi mail do qua nhiu mail goi trong cc, coi lai getMailListByMaVaiTro
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_GIAOAN, 
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-//			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		
-		}
-	}
-
-	private void approveGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-		else
-		{	
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-		
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_GIAOAN,
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-			///chua fix
-			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-//		
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		}
-	}
-		
-	private void approveGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else
-		{	
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-			
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_GIAOAN,
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-			
-			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-//		
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		}
-	}
-
-	private void sendGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		GiaoAnDAO.updateGiaoAnLyThuyet(mapGiaoAnLyThuyet(request, response));
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-		else
-		{
-			String maNguoiTao=request.getParameter("txtMaNguoiTao");
-			GiaoAnDAO.updateNgayGuiGiaoAnByMaGiaoAn(request.getParameter("maGiaoAn"));
-			
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(maNguoiTao);
-			mailCC.add(MailDAO.getMailByMaThanhVien(maNguoiTao));
-			
-			
-			// Gui email inform Hieu Truong
-			MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),
-									mailCC,
-										MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_GIAOAN),
-											MailDAO.getContentReviewByChucNang(Constant.CHUCNANG_GIAOAN, 
-													"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+ChangeStringTaglib.upperString(KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD"))), 
-													request.getSession().getAttribute("tenThanhVien").toString(), 
-													DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong())));		
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		
-		}
-
-	}
-	
-	private void sendGiaoAnThucHanh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		GiaoAnDAO.updateGiaoAnThucHanh(mapGiaoAnThucHanh(request, response));
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-		else
-		{
-			String maNguoiTao=request.getParameter("txtMaNguoiTao");
-
-			GiaoAnDAO.updateNgayGuiGiaoAnByMaGiaoAn(request.getParameter("maGiaoAn"));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(maNguoiTao);
-			mailCC.add(MailDAO.getMailByMaThanhVien(maNguoiTao));
-			
-			
-			// Gui email inform Hieu Truong
-			MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),
-									mailCC,
-										MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_GIAOAN),
-											MailDAO.getContentReviewByChucNang(Constant.CHUCNANG_GIAOAN, 
-													"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+ChangeStringTaglib.upperString(KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD"))), 
-													request.getSession().getAttribute("tenThanhVien").toString(), 
-													DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong())));		
-			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		
-		}
-	}
-
-	private void sendGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		GiaoAnDAO.updateGiaoAnTichHop(mapGiaoAnTichHop(request, response));
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_SEND)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=sendTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-		else
-		{
-			String maNguoiTao=request.getParameter("txtMaNguoiTao");
-
-			GiaoAnDAO.updateNgayGuiGiaoAnByMaGiaoAn(request.getParameter("maGiaoAn"));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(maNguoiTao);
-			mailCC.add(MailDAO.getMailByMaThanhVien(maNguoiTao));
-			
-			
-			// Gui email inform Hieu Truong
-			MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),
-									mailCC,
-										MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_GIAOAN),
-											MailDAO.getContentReviewByChucNang(Constant.CHUCNANG_GIAOAN, 
-													"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+ChangeStringTaglib.upperString(KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD"))), 
-													request.getSession().getAttribute("tenThanhVien").toString(), 
-													DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong())));		
-			
-			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		
-		}
-	}
-	
 	private void insertGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		GiaoAnModel giaoAnModel=new GiaoAnModel();
 		
@@ -659,8 +568,7 @@ public class GiaoAnController extends HttpServlet {
 					+ "?err=insertTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
 
 		}
-	}
-	
+	}		
 	private void updateGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		if(GiaoAnDAO.updateGiaoAnTichHop(mapGiaoAnTichHop(request, response))==false){
 			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
@@ -670,78 +578,6 @@ public class GiaoAnController extends HttpServlet {
 		else{
 			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
 					+ "?err=updateTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-		}
-	}
-	
-	private void rejectGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_REJECT)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=rejectTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else{
-			
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-		
-			String lyDo=KeHoachGiangDayDAO.getLyDoRejectByMaKHGD(request.getParameter("maKHGD"))+request.getParameter("LyDoReject").trim();
-			
-
-			GiaoAnDAO.updateLyDoRejectGAByMaKHGD(request.getParameter("maKHGD"),StringUtil.toUTF8(lyDo));
-			
-			//Loi goi mail do qua nhiu mail goi trong cc, coi lai getMailListByMaVaiTro
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_GIAOAN, 
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-//					+ "?err=rejectTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		
-		}	
-	}
-	
-	private void approveGiaoAnTichHop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(!GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=approveTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			
-		}
-		else
-		{	
-			GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
-			
-			ArrayList<String> mailTo=new ArrayList<String>();
-			mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
-			ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
-			
-			MailUtil.sendEmailToBoPhan(mailTo,
-					mailCC,
-						MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_GIAOAN),
-							MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_GIAOAN,
-									"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
-									ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
-									request.getParameter("txtCalendar1"),
-										ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
-										SysParamsDAO.getSysParams().getGioHeThong()));
-			
-			
-//			
-//			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-//					+ "?err=approveTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
-			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
-					+ "?maKHGD="+request.getParameter("maKHGD"));
-		
 		}
 	}
 	
@@ -801,5 +637,82 @@ public class GiaoAnController extends HttpServlet {
 		
 		response.sendRedirect(Constant.PATH_RES.getString("iso.GiaoAnChuaThucHienPath")
 					+ "?err=updateTC&maKHGD="+request.getParameter("maKHGD"));
+	}
+		
+	private void updateGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+		if(GiaoAnDAO.updateGiaoAnLyThuyet(mapGiaoAnLyThuyet(request, response))==false){
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=updateTB&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			
+		}
+		else{
+			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
+					+ "?err=updateTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+		}
+	}
+
+	
+	//*********************************************************HAM RUT GON***************************************************************
+	//**********************************************HAM VIET GON LAI*****************************************************************************************
+	private void sendMail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String maNguoiTao=request.getParameter("txtMaNguoiTao");
+		GiaoAnDAO.updateNgayGuiGiaoAnByMaGiaoAn(request.getParameter("maGiaoAn"));
+		
+		ArrayList<String> mailTo=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(maNguoiTao);
+		
+		ArrayList<String> mailCC=new ArrayList<String>();
+		mailCC.add(MailDAO.getMailByMaThanhVien(maNguoiTao));
+		
+		
+		// Gui email inform Hieu Truong
+		MailUtil.sendEmailToBoPhan(	mailTo,
+								mailCC,
+									MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_GIAOAN),
+										MailDAO.getContentReviewByChucNang(Constant.CHUCNANG_GIAOAN, 
+												"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+ChangeStringTaglib.upperString(KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD"))), 
+												request.getSession().getAttribute("tenThanhVien").toString(), 
+												DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong())));	
+	}
+
+	private void approveMail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
+		
+		ArrayList<String> mailTo=new ArrayList<String>();
+		mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
+		ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
+		
+		MailUtil.sendEmailToBoPhan(mailTo,
+				mailCC,
+					MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_GIAOAN),
+						MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_GIAOAN,
+								"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
+								ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
+								request.getParameter("txtCalendar1"),
+									ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
+									SysParamsDAO.getSysParams().getGioHeThong()));
+	}
+	
+	private void rejectMail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		GiaoAnDAO.updateMaNguoiDuyetGiaoAn(request.getParameter("maGiaoAn"),request.getSession().getAttribute("maThanhVien").toString());
+		
+		String lyDo=KeHoachGiangDayDAO.getLyDoRejectByMaKHGD(request.getParameter("maKHGD"))+request.getParameter("LyDoReject").trim();
+		
+
+		GiaoAnDAO.updateLyDoRejectGAByMaKHGD(request.getParameter("maKHGD"),StringUtil.toUTF8(lyDo));
+		
+		//Loi goi mail do qua nhiu mail goi trong cc, coi lai getMailListByMaVaiTro
+		ArrayList<String> mailTo=new ArrayList<String>();
+		mailTo.add(MailDAO.getMailByMaThanhVien(request.getParameter("txtMaNguoiTao")));
+		ArrayList<String> mailCC=MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(request.getParameter("txtMaNguoiTao"));
+		MailUtil.sendEmailToBoPhan(mailTo,
+				mailCC,
+					MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_GIAOAN),
+						MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_GIAOAN, 
+								"Giáo án số "+request.getParameter("txtSoGA")+" thuộc "+KeHoachGiangDayDAO.getTenKHGDByMaKHGD(request.getParameter("maKHGD")),
+								ThanhVienDAO.getTenThanhVien(request.getParameter("txtMaNguoiTao")),
+								request.getParameter("txtCalendar1"),
+									ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
+									SysParamsDAO.getSysParams().getGioHeThong()));
 	}
 }
