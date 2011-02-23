@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\Constants.cs" />
+    <Compile Include="dao\MemberDAO.cs" />
+    <Compile Include="model\MemberModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -96,9 +98,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="dao\" />
     <Folder Include="images\" />
-    <Folder Include="model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

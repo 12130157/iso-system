@@ -5,3 +5,16 @@ C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Pr
 C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Login.resources
 C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Main.resources
 C:\Documents and Settings\NVNuoi\Desktop\ISo\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Login.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.Form_Menu.form_Main.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\log4net.dll
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.view.form_Login.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.view.form_Main.resources
