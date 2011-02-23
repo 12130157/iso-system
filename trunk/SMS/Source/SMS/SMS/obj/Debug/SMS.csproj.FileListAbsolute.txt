@@ -30,3 +30,5 @@ C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentDeleted.resource
 C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentError.resources
 C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentOk.resources
 C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.view.ManageCalendar.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\PDUConverter.dll
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\RS232.dll
