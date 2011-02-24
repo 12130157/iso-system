@@ -1972,22 +1972,69 @@ CREATE PROCEDURE sp_iso_FindGiaoAn
 	@TinhTrang varchar(10)
 AS
 BEGIN			
+	DECLARE @DieuKienMaNguoiTao varchar(100)
+	DECLARE @DieuKienMaLop varchar(100)
+	DECLARE @DieuKienMaMonHoc varchar(100)
+	DECLARE @DieuKienTinhTrang varchar(100)
+	DECLARE @DieuKienHocKi varchar(100)
+	DECLARE @DieuKienMaNamHoc varchar(100)
 
-	SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,U.Ngay_BD As NgayThucHien
+	SET @DieuKienMaNguoiTao=''
+	SET @DieuKienMaLop=''
+	SET @DieuKienMaMonHoc=''
+	SET @DieuKienTinhTrang=''
+	SET @DieuKienHocKi=''
+	SET @DieuKienMaNamHoc=''
+		
+
+	IF @MaNguoiTao <> ''
+	BEGIN
+		SET @DieuKienMaNguoiTao=' AND A.Ma_nguoi_tao = '+@MaNguoiTao
+	END
+	
+	IF @MaLop <> ''
+	BEGIN
+		SET @DieuKienMaLop=' AND Ma_Lop = '+@MaLop
+	END
+	
+	IF @MaMonHoc <> ''
+	BEGIN
+		SET @DieuKienMaMonHoc =' AND Ma_mon_hoc ='+ @MaMonHoc
+	END
+
+	IF @TinhTrang <>''
+	BEGIN
+		SET @DieuKienTinhTrang =' AND B.Tinh_trang = '+@TinhTrang 
+	END
+
+	IF @HocKi <>''
+	BEGIN
+		SET @DieuKienHocKi=' AND Hoc_ki = '+@HocKi
+	END	
+	IF @MaNamHoc <>''
+	BEGIN
+		SET @DieuKienMaNamHoc=' AND Ma_nam_hoc  = '+ @MaNamHoc
+	END
+	
+	DECLARE @sql nvarchar(2000)
+
+
+SET @sql=' SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,U.Ngay_BD As NgayThucHien
 		,A.Ma_lop As MaLop,B.ID As MaGiaoAn,B.Tinh_Trang As TinhTrang,B.So_Giao_An As SoGiaoAn 
 		,B.NgayGui As NgayGui,B.Ngay_duyet As NgayDuyet,B.Ma_nguoi_duyet As MaNguoiDuyet
-,ISNULL(K.Ho+' '+' '+K.Ten_lot+' '+K.Ten,'') As NguoiDuyet
-		,C.Ten_Mon_Hoc As TenMonHoc,D.Ki_hieu As KiHieu,F.Ho+' '+' '+F.Ten_lot+' '+F.Ten As NguoiTao
+,ISNULL(K.Ho+'' ''+'' ''+K.Ten_lot+'' ''+K.Ten,'''') As NguoiDuyet
+		,C.Ten_Mon_Hoc As TenMonHoc,D.Ki_hieu As KiHieu,F.Ho+'' ''+'' ''+F.Ten_lot+'' ''+F.Ten As NguoiTao
 FROM KeHoachGiangDay As A
 INNER JOIN GiaoAn As B
-ON 1=1  AND Ma_nguoi_tao like '%'+@MaNguoiTao+'%' 
-			AND Hoc_ki like '%'+@HocKi+'%'
-			AND Ma_nam_hoc like '%'+@MaNamHoc+'%'
-			AND Ma_lop like '%'+@MaLop+'%'
-			AND Ma_mon_hoc like '%'+@MaMonHoc+'%'
-			AND B.Ma_KHGD=A.ID
-			AND B.Tinh_trang like '%'+@TinhTrang+'%'
-INNER JOIN MonHoc As C
+ON 1=1 '     
+			 +@DieuKienMaNguoiTao  
+			 +@DieuKienHocKi
+			 +@DieuKienMaNamHoc
+			 +@DieuKienMaLop
+			 +@DieuKienMaMonHoc 
+			 +' AND B.Ma_KHGD=A.ID ' 
+			 +@DieuKienTinhTrang
++' INNER JOIN MonHoc As C
 ON C.ID=A.Ma_Mon_Hoc
 INNER JOIN LopHoc As D
 ON D.ID=A.Ma_Lop 
@@ -2001,15 +2048,13 @@ LEFT JOIN ChiTietThanhVien As K
 ON G.Ten_DN=K.Ten_dang_nhap
 INNER JOIN ChiTietKHGD As U
 On U.Ma_giao_an=B.ID
-ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC, A.Ma_lop DESC
+ORDER BY A.Ma_nguoi_tao DESC,A.Ma_mon_hoc DESC, A.Ma_lop DESC '
+	
+	exec sp_executesql @sql
 END
 
 
 	
-	
-
-
-
 GO
 
 --sp_ISO_FindKeHoachDaoTaoByYear.sql
@@ -2058,26 +2103,85 @@ CREATE PROCEDURE sp_iso_FindKeHoachGiangDay
 	@TinhTrang varchar(10)
 AS
 BEGIN			
+	DECLARE @DieuKienMaNguoiTao varchar(100)
+	DECLARE @DieuKienMaLop varchar(100)
+	DECLARE @DieuKienMaMonHoc varchar(100)
+	DECLARE @DieuKienTinhTrang varchar(100)
+	DECLARE @DieuKienHocKi varchar(100)
+	DECLARE @DieuKienMaNamHoc varchar(100)
+
+	SET @DieuKienMaNguoiTao=''
+	SET @DieuKienMaLop=''
+	SET @DieuKienMaMonHoc=''
+	SET @DieuKienTinhTrang=''
+	SET @DieuKienHocKi=''
+	SET @DieuKienMaNamHoc=''
+		
+
+	IF @MaNguoiTao <> ''
+	BEGIN
+		SET @DieuKienMaNguoiTao=' AND A.Ma_giao_vien = '+@MaNguoiTao
+	END
 	
-	SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
-		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As SoThuTu 
-		,A.User1 As NgayGui,A.Ngay_duyet As NgayDuyet,A.Ma_nguoi_duyet As MaNguoiDuyet,M.Ten_mon_hoc As TenMonHoc
-		,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ ' ' +C1.Ten_lot+' '+C1.Ten,'') As NguoiTao,C2.Ho+ ' ' +C2.Ten_lot+' '+C2.Ten As NguoiDuyet
-	FROM KeHoachGiangDay As A
+	IF @MaLop <> ''
+	BEGIN
+		SET @DieuKienMaLop=' AND A.Ma_Lop = '+@MaLop
+	END
 	
+	IF @MaMonHoc <> ''
+	BEGIN
+		SET @DieuKienMaMonHoc =' AND A.Ma_mon_hoc ='+ @MaMonHoc
+	END
+
+	IF @TinhTrang <>''
+	BEGIN
+		SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
+	END
+
+	IF @HocKi <>''
+	BEGIN
+		SET @DieuKienHocKi=' AND B.HocKi = '+@HocKi
+	END	
+	IF @MaNamHoc <>''
+	BEGIN
+		SET @DieuKienMaNamHoc=' AND B.MaNamHoc  = '+ @MaNamHoc
+	END
+	
+	DECLARE @sql nvarchar(2000)
+	
+
+	SET @sql='
+	
+	SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Ma_lop,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2  
+	
+	SELECT  A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
+		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As NgayBatDau
+		,A.User1 As NgayGui,A.Ngay_duyet As NgayDuyet,A.Ma_nguoi_duyet As MaNguoiDuyet,A.Hoc_ki As HocKi,A.Ma_nam_hoc As MaNamHoc
+		
+	INTO #temp2 
+	FROM KeHoachGiangDay As A	
+
+	
+	SELECT B.NgayBatDau As NgayThucHien,B.NgayGui,B.NgayDuyet,B.TinhTrang,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
+
+	FROM #temp1 As A
+	LEFT JOIN #temp2 As B ON A.Ma_mon_hoc=B.MaMonHoc AND A.Ma_lop=B.MaLop
 	INNER JOIN MonHoc AS M ON M.ID=A.Ma_mon_hoc
 	INNER JOIN LopHoc As L ON L.ID=A.Ma_lop
-	LEFT JOIN Thanhvien As T1 ON T1.ID=A.Ma_nguoi_tao
+	LEFT JOIN Thanhvien As T1 ON T1.ID=A.Ma_Giao_vien
 	LEFT JOIN ChiTietThanhVien As C1 ON T1.Ten_DN=C1.Ten_dang_nhap
-	LEFT JOIN Thanhvien As T2 ON T2.ID=A.Ma_nguoi_duyet
+	LEFT JOIN Thanhvien As T2 ON T2.ID=B.MaNguoiDuyet
 	LEFT JOIN ChiTietThanhVien As C2 ON T2.Ten_DN=C2.Ten_dang_nhap
-	WHERE A.Ma_nguoi_tao like '%'+@MaNguoiTao+'%' 
-	AND	 A.Ma_lop like '%'+@MaLop+'%'
-	AND	A.Ma_mon_hoc like '%'+@MaMonHoc+'%'
-	AND	A.Tinh_trang like '%'+@TinhTrang+'%'
-	AND	A.Hoc_ki like '%'+@HocKi+'%'
-	AND A.Ma_nam_hoc like '%'+@MaNamHoc+'%'
-	ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC
+		WHERE 1 = 1 ' 
+	+ @DieuKienMaNguoiTao
+	+ @DieuKienMaLop
+	+ @DieuKienMaMonHoc
+	+ @DieuKienTinhTrang
+	+ @DieuKienHocKi
+	+ @DieuKienMaNamHoc
+	+' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC  	'
+
+	EXEC sp_executesql @sql
 END
 
 
