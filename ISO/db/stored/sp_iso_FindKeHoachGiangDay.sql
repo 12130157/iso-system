@@ -54,7 +54,7 @@ BEGIN
 		SET @DieuKienMaNamHoc=' AND A.Ma_nam_hoc  = '+ @MaNamHoc
 	END
 	
-	DECLARE @sql varchar(2000)
+	DECLARE @sql nvarchar(2000)
 	SET @sql='
 	SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
 		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As SoThuTu 
@@ -75,12 +75,11 @@ BEGIN
 	+ @DieuKienTinhTrang
 	+ @DieuKienHocKi
 	+ @DieuKienMaNamHoc
-	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC'
+	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC '
 	
-	sp_executesql @sql
+	exec sp_executesql @sql
 END
 
 
---EXECUTE sp_iso_findKeHoachGiangDay '','','','','',''
 
 
