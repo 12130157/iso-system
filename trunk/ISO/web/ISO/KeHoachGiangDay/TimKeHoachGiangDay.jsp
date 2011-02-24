@@ -362,7 +362,7 @@
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày tạo</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
