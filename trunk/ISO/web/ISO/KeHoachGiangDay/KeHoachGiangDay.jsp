@@ -540,9 +540,7 @@
 					
 				</c:if>
 				
-					<!--<c:if test="${(maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)  and (objKHGD.tinhTrang eq NEW or objKHGD.tinhTrang eq REJECT)}">-->							
 								<a href="<%=request.getContextPath()%>/ISO/GiaoAn/GiaoAnChuaThucHien.jsp?maKHGD=${param.maKHGD}">Giáo án chưa thực hiện</a>
-					<!--</c:if>-->
 				<br/>
 				
 				<table width = "800" border = "1" style="background-color: transparent;" id="TableNoiDung">
