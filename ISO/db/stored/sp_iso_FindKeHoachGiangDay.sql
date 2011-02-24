@@ -27,7 +27,7 @@ BEGIN
 
 	IF @MaNguoiTao <> ''
 	BEGIN
-		SET @DieuKienMaNguoiTao=' AND A.Ma_nguoi_tao = '+@MaNguoiTao
+		SET @DieuKienMaNguoiTao=' AND A.Ma_giao_vien = '+@MaNguoiTao
 	END
 	
 	IF @MaLop <> ''
@@ -42,16 +42,16 @@ BEGIN
 
 	IF @TinhTrang <>''
 	BEGIN
-		SET @DieuKienTinhTrang =' AND A.Tinh_trang = '+@TinhTrang 
+		SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
 	END
 
 	IF @HocKi <>''
 	BEGIN
-		SET @DieuKienHocKi=' AND A.Hoc_ki = '+@HocKi
+		SET @DieuKienHocKi=' AND B.HocKi = '+@HocKi
 	END	
 	IF @MaNamHoc <>''
 	BEGIN
-		SET @DieuKienMaNamHoc=' AND A.Ma_nam_hoc  = '+ @MaNamHoc
+		SET @DieuKienMaNamHoc=' AND B.MaNamHoc  = '+ @MaNamHoc
 	END
 	
 	DECLARE @sql nvarchar(2000)
@@ -63,20 +63,13 @@ BEGIN
 	
 	SELECT  A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
 		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As SoThuTu 
-		,A.User1 As NgayGui,A.Ngay_duyet As NgayDuyet,A.Ma_nguoi_duyet As MaNguoiDuyet
+		,A.User1 As NgayGui,A.Ngay_duyet As NgayDuyet,A.Ma_nguoi_duyet As MaNguoiDuyet,A.Hoc_ki As HocKi,A.Ma_nam_hoc As MaNamHoc
 		
 	INTO #temp2 
 	FROM KeHoachGiangDay As A	
-	WHERE 1 = 1 ' 
-	+ @DieuKienMaNguoiTao
-	+ @DieuKienMaLop
-	+ @DieuKienMaMonHoc
-	+ @DieuKienTinhTrang
-	+ @DieuKienHocKi
-	+ @DieuKienMaNamHoc
-	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC  
+
 	
-	SELECT B.NgayThucHien,B.SoThuTu,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
+	SELECT B.NgayGui,B.NgayDuyet,B.TinhTrang,B.NgayThucHien,B.SoThuTu,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
 
 	FROM #temp1 As A
 	LEFT JOIN #temp2 As B ON A.Ma_mon_hoc=B.MaMonHoc AND A.Ma_lop=B.MaLop
@@ -86,10 +79,14 @@ BEGIN
 	LEFT JOIN ChiTietThanhVien As C1 ON T1.Ten_DN=C1.Ten_dang_nhap
 	LEFT JOIN Thanhvien As T2 ON T2.ID=B.MaNguoiDuyet
 	LEFT JOIN ChiTietThanhVien As C2 ON T2.Ten_DN=C2.Ten_dang_nhap
-	
-
-
-	'
+		WHERE 1 = 1 ' 
+	+ @DieuKienMaNguoiTao
+	+ @DieuKienMaLop
+	+ @DieuKienMaMonHoc
+	+ @DieuKienTinhTrang
+	+ @DieuKienHocKi
+	+ @DieuKienMaNamHoc
+	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_Giao_Vien DESC,A.Ma_lop DESC  	'
 
 	--PRINT @sql
 
