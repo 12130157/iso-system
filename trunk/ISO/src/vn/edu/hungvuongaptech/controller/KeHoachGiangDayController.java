@@ -307,6 +307,8 @@ public class KeHoachGiangDayController extends HttpServlet{
 				
 				if (KeHoachGiangDayDAO.updateKHGD(keHoachGiangDayModel)) {
 					
+					KeHoachGiangDayDAO.updateNgayGuiByMaKHGD(keHoachGiangDayModel.getMaKHGD());
+					
 					String maNguoiTao=keHoachGiangDayModel.getMaNguoiTao();
 					ArrayList<String> mailCC=new ArrayList<String>();
 					mailCC.add(MailDAO.getMailByMaThanhVien(maNguoiTao));

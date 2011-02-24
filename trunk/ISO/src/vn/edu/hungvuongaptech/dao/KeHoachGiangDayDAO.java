@@ -576,4 +576,26 @@ public class KeHoachGiangDayDAO {
 		
 		return ketQuaList;
 	}
+	
+	public static Boolean updateNgayGuiByMaKHGD(String maKHGD){
+		Boolean result=false;
+		try{
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.UpdateNgayGuiByMaKHGD"));
+			
+			preparedStatement.setString(1,maKHGD);
+
+			if(preparedStatement.executeUpdate()==1)
+				result=true;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return result;
+	}
 }
