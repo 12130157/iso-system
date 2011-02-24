@@ -154,6 +154,8 @@
 
 </style>
 <script>
+	var namePage="TimKeHoachGiangDay.jsp";
+
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -171,7 +173,7 @@
 		if(objLopHoc.selectedIndex!=0)
 			strPath=strPath+"&lop="+objLopHoc.value;
 		
-		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;		
+		location.href=namePage+"?change=true"+strPath;		
 	}
 
 	function change_selGiaoVien()
@@ -187,7 +189,7 @@
 		if(objGiaoVien.selectedIndex!=0)
 			strPath=strPath+"&gv="+objGiaoVien.value;
 
-		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;
+		location.href=namePage+"?change=true"+strPath;
 	}
 
 	function change_selKhoa()
@@ -198,12 +200,12 @@
 		if(objKhoa.selectedIndex!=0)
 			strPath=strPath+"&khoa="+objKhoa.value;
 		
-		location.href="TimKeHoachGiangDay.jsp?change=true"+strPath;
+		location.href=namePage+"?change=true"+strPath;
 	}
 
 	function click_btnTim()
 	{
-		var strPath="TimGiaoAn.jsp?view=true";
+		var strPath=namePage+"?view=true";
 		var objNamHoc=document.getElementById("selNamHoc");
 		var objHocKi=document.getElementById("selHocKi");
 		var objMonHoc=document.getElementById("selMonHoc");
@@ -356,11 +358,11 @@
 	<table border="1">
 		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
 		<tr style="background-color: transparent;">
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>STT</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tên giáo án</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày tạo</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
@@ -369,9 +371,9 @@
 		<c:if test="${ not empty param.view}">
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 				<tr style="background-color: transparent;">
+					<td>${objKQTim.soGiaoAn}</td>
 					<td>${objKQTim.tenMonHoc}</td>
 					<td>${objKQTim.tenLopHoc}</td>
-					<td>${objKQTim.soGiaoAn}</td>
 					<td>${objKQTim.tenGiaoVien}</td>
 					<td>${objKQTim.ngayDay}</td>
 					<td>${objKQTim.ngayGui}</td>

@@ -544,12 +544,12 @@ public class KeHoachGiangDayDAO {
 	
 			ResultSet rs = DataUtil.executeStore(csmt);
 			
-			
+			int i=1;
 			while(rs.next()){
 				ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
 				ketQuaGiaoAn.setTenMonHoc(rs.getNString("TenMonHoc"));
 				ketQuaGiaoAn.setTenLopHoc(rs.getNString("KiHieu"));
-				ketQuaGiaoAn.setSoGiaoAn(rs.getString("SoThuTu"));
+				ketQuaGiaoAn.setSoGiaoAn(i+"");
 				ketQuaGiaoAn.setMaGiaoVien(rs.getString("MaNguoiTao"));
 				
 				ketQuaGiaoAn.setNgayDay(DateUtil.setDate2(rs.getString("NgayThucHien")));
@@ -563,7 +563,9 @@ public class KeHoachGiangDayDAO {
 				ketQuaGiaoAn.setTinhTrang(rs.getString("TinhTrang"));
 				ketQuaGiaoAn.setTenGiaoVien(rs.getString("NguoiTao"));
 				ketQuaGiaoAn.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
+				
 				ketQuaList.add(ketQuaGiaoAn);
+				i++;
 			}
 			
 		

@@ -127,7 +127,6 @@
 	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,index,Constant.NUM_RECORD_TIMGIAOAN)%>'></c:set>
 </c:if>
 
-<c:set var='showNumPage' value='<%=GiaoAnDAO.showNumPageReportGiaoAn(index,GiaoAnDAO.getTotalKetQuaTimGiaoAn(),path)%>'></c:set>
 
 <c:set var="TT_SEND" value="<%=Constant.TINHTRANG_SEND %>"></c:set>
 <c:set var="TT_CHUATHUCHIEN" value="<%=Constant.TINHTRANG_CHUATHUCHIEN %>"></c:set>
@@ -154,6 +153,8 @@
 
 </style>
 <script>
+
+	var namePage="TimGiaoAn.jsp";
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -171,7 +172,7 @@
 		if(objLopHoc.selectedIndex!=0)
 			strPath=strPath+"&lop="+objLopHoc.value;
 		
-		location.href="TimGiaoAn.jsp?change=true"+strPath;		
+		location.href=namePage+"?change=true"+strPath;		
 	}
 
 	function change_selGiaoVien()
@@ -187,7 +188,7 @@
 		if(objGiaoVien.selectedIndex!=0)
 			strPath=strPath+"&gv="+objGiaoVien.value;
 
-		location.href="TimGiaoAn.jsp?change=true"+strPath;
+		location.href=namePage+"?change=true"+strPath;
 	}
 
 	function change_selKhoa()
@@ -198,12 +199,12 @@
 		if(objKhoa.selectedIndex!=0)
 			strPath=strPath+"&khoa="+objKhoa.value;
 		
-		location.href="TimGiaoAn.jsp?change=true"+strPath;
+		location.href=namePage+"?change=true"+strPath;
 	}
 
 	function click_btnTim()
 	{
-		var strPath="TimGiaoAn.jsp?view=true";
+		var strPath=namePage+"?view=true";
 		var objNamHoc=document.getElementById("selNamHoc");
 		var objHocKi=document.getElementById("selHocKi");
 		var objMonHoc=document.getElementById("selMonHoc");
@@ -357,22 +358,26 @@
 		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
 		<tr style="background-color: transparent;">
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tên giáo án</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tình trạng</th>
 		</tr>
+		
 		<c:if test="${ not empty param.view}">
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
-				<tr style="background-color: transparent;">
-					<td>${objKQTim.tenMonHoc}</td>
+
+				<tr style="background-color: transparent;">		
+				
+				
+					<td>${objKQTim.tenMonHoc}</td>	
+					<td>${objKQTim.tenGiaoVien}</td>
 					<td>${objKQTim.tenLopHoc}</td>
 					<td>${objKQTim.soGiaoAn}</td>
-					<td>${objKQTim.tenGiaoVien}</td>
 					<td>${objKQTim.ngayDay}</td>
 					<td>${objKQTim.ngayGui}</td>
 					<td>${objKQTim.tenNguoiDuyet}</td>
@@ -391,8 +396,7 @@
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
 					</c:if>
-					
-					
+
 					</td>
 				</tr>
 			</c:forEach>
@@ -403,9 +407,7 @@
 	<br/>
 	<br/>
 		Trang 
-							<c:forEach var="numPage" items="${showNumPage}">
-								${numPage} 
-							</c:forEach>
+							
 	<br/>
 	<br/>
 	<br/>
