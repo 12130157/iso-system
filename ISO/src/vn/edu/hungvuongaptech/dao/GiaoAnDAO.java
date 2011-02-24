@@ -726,6 +726,8 @@ public class GiaoAnDAO {
 				ketQuaGiaoAn.setTinhTrang(rs.getString("TinhTrang"));
 				ketQuaGiaoAn.setTenGiaoVien(rs.getString("NguoiTao"));
 				ketQuaGiaoAn.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
+				ketQuaGiaoAn.setMaLop(rs.getString("MaLop"));
+				ketQuaGiaoAn.setMaMonHoc(rs.getString("MaMonHoc"));
 				ketQuaList.add(ketQuaGiaoAn);
 			}
 			
