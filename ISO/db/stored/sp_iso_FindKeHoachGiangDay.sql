@@ -55,11 +55,17 @@ BEGIN
 	END
 	
 	DECLARE @sql nvarchar(2000)
+	
+
 	SET @sql='
-	SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
+	
+	SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Ma_lop,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2  
+	
+	SELECT  A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
 		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As SoThuTu 
 		,A.User1 As NgayGui,A.Ngay_duyet As NgayDuyet,A.Ma_nguoi_duyet As MaNguoiDuyet,M.Ten_mon_hoc As TenMonHoc
 		,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
+	INTO #temp2 
 	FROM KeHoachGiangDay As A
 	
 	INNER JOIN MonHoc AS M ON M.ID=A.Ma_mon_hoc
@@ -75,11 +81,18 @@ BEGIN
 	+ @DieuKienTinhTrang
 	+ @DieuKienHocKi
 	+ @DieuKienMaNamHoc
-	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC '
+	+' ORDER BY A.Ma_mon_hoc DESC,A.Ma_nguoi_tao DESC,A.Ma_lop DESC  
 	
-	exec sp_executesql @sql
-END
+	
+	SELECT * FROM #temp1
+	LEFT JOIN #temp2 ON #temp1.Ma_mon_hoc=#temp2.MaMonHoc AND #temp1.Ma_lop=#temp2.MaLop
 
+	'
+
+	--PRINT @sql
+
+	EXEC sp_executesql @sql
+END
 
 
 
