@@ -375,8 +375,7 @@
 		<c:set var='color' value=''></c:set>
 		<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
 		
-			${ngayHienTai }
-		${sf:compareDate(ngayHienTai,'17-05-2011')}
+
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 				
 				<c:if test="${ empty objKQTim.ngayDay}">
