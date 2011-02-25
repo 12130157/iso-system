@@ -347,6 +347,7 @@ public class ChiTietTKBDAO {
 				ChiTietTKBModel chiTietTKBModel = new ChiTietTKBModel();
 				//chiTietTKBModel.setMaChiTietTKB(rs.getString("MaChiTietTKB"));
 				chiTietTKBModel.setMaPhong(rs.getString("MaPhong"));
+				chiTietTKBModel.setMaMonHoc(rs.getString("MaMonHoc"));
 				//chiTietTKBModel.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
 				//chiTietTKBModel.setMaNamHoc(rs.getString("MaNamHoc"));
 				chiTietTKBModel.setThuTrongTuan(rs.getString("ThuTrongTuan"));
