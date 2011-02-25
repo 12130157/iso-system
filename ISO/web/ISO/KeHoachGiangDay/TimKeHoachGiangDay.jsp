@@ -4,13 +4,14 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
-
+<%@page import="vn.edu.hungvuongaptech.util.DateUtil"%>
 
 <%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%>
@@ -20,7 +21,9 @@
 <%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ChiTietThanhVienModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.MonHocTKBDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.MonHocTKBDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -369,8 +372,28 @@
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tình trạng</th>
 		</tr>
 		<c:if test="${ not empty param.view}">
+		<c:set var='color' value=''></c:set>
+		<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
+		
+			${ngayHienTai }
+		${sf:compareDate(ngayHienTai,'17-05-2011')}
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
-				<tr style="background-color: transparent;">
+				
+				<c:if test="${ empty objKQTim.ngayDay}">
+					<c:set var='color' value=';background-color:red'></c:set>
+				</c:if>
+				<c:if test="${ not empty objKQTim.ngayDay}"> 
+					<c:set var='color' value=''></c:set>
+					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq 'TT_NEW' }">
+						<c:set var='color' value=';background-color:red'></c:set>
+					</c:if>
+					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq false and objKQTim.tinhTrang eq 'TT_NEW' }">
+						<c:set var='color' value=''></c:set>
+					</c:if>
+				</c:if>
+				
+			
+				<tr style="background-color: transparent;${color}">
 					<td>${objKQTim.soGiaoAn}</td>
 					<td>${objKQTim.tenMonHoc}</td>
 					<td>${objKQTim.tenLopHoc}</td>
@@ -380,7 +403,7 @@
 					<td>${objKQTim.tenNguoiDuyet}</td>
 					<td>${objKQTim.ngayDuyet}</td>
 					<td>
-					
+				
 					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
 							Đã gởi
 					</c:if>
@@ -392,6 +415,9 @@
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
+					</c:if>
+					<c:if test="${empty objKQTim.tinhTrang }">
+							Chưa làm
 					</c:if>
 					
 					
