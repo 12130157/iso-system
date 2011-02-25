@@ -842,7 +842,7 @@ function capNhatRKN(str)
 				<td>
 					<textarea  rows="2" cols="90" style="background-color: transparent;" id="txtRutKinhNghiem" name="txtRutKinhNghiem"><c:if test="${param.stt eq 'update'}">${sf:appendBrTag2(giaoAnLyThuyet.rutKinhNghiem)}</c:if></textarea>
 					<br/>
-					<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" style="cursor:pointer;" onclick="capNhatRKN(document.getElementById('txtRutKinhNghiem').value)"/>
+					<img src="<%=request.getContextPath()%>/images/buttom/capnhatRKN.png" alt='Rút kinh nghiệm' style="cursor:pointer;" onclick="capNhatRKN(document.getElementById('txtRutKinhNghiem').value)"/>
 				</td>
 			</tr>
 		</table>

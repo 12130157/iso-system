@@ -348,8 +348,8 @@ public class GiaoAnController extends HttpServlet {
 		else
 		{
 			sendMail(request, response);
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnLyThuyet")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
 
@@ -364,8 +364,8 @@ public class GiaoAnController extends HttpServlet {
 		else
 		{	
 			sendMail(request, response);			
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnThucHanh")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		}
 	}
 
@@ -378,8 +378,8 @@ public class GiaoAnController extends HttpServlet {
 		else
 		{
 			sendMail(request, response);	
-			response.sendRedirect(Constant.PATH_RES.getString("iso.ShowGiaoAnTichHop")
-					+ "?err=sendTC&stt=update&maCTKHGD="+request.getParameter("txtMaCTKHGD"));
+			response.sendRedirect(Constant.PATH_RES.getString("iso.NewKeHoachGiangDayPath")
+					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
 	}
