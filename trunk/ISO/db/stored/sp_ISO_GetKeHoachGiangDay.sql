@@ -6,15 +6,15 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_Get
 drop procedure [dbo].[sp_ISO_GetKeHoachGiangDay]
 GO
 CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
-	@NumRows		VARCHAR(2),
+	@NumRows		VARCHAR(5),
 	@TotalRows      varchar(5),
-	@CurrentPage	VARCHAR(2),
-	@Tinh_trang		varchar(2),
-	@Ma_nguoi_tao   varchar(2),		
-	@Ma_Bo_Phan varchar(2),
+	@CurrentPage	VARCHAR(5),
+	@Tinh_trang		varchar(5),
+	@Ma_nguoi_tao   varchar(5),		
+	@Ma_Bo_Phan varchar(5),
 	@TenMonHoc nvarchar(500),
 	@MaKhoa varchar(5),
-	@MaHocKi varchar(1),
+	@MaHocKi varchar(5),
 	@MaNamHoc varchar(5)
 AS
 BEGIN
@@ -87,7 +87,7 @@ BEGIN
 		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
 		
---	print @sql
+
 	exec  sp_executesql @sql
 END
 
