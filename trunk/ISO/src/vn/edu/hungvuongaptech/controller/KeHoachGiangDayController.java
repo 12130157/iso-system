@@ -331,11 +331,16 @@ public class KeHoachGiangDayController extends HttpServlet{
 				if(actionType.equalsIgnoreCase("ThemMoi")){
 					if(KeHoachGiangDayDAO.checkLopAndMonHocOfKHGD(keHoachGiangDayModel.getMaLop(), keHoachGiangDayModel.getMaMonHoc())) {
 						if (KeHoachGiangDayDAO.insertKHGD(keHoachGiangDayModel)) {
+							KeHoachGiangDayDAO.updateNgayDayKeHoachGiangDay(Integer.parseInt(keHoachGiangDayModel.getMaKHGD()));
+							/*
+							 * Update user2 cua ke hoach giang day bang cach them vao user2 ngay thuc hien
+							 */
+							
 							pageNext += "?msg=ThemMoi&maKHGD="+keHoachGiangDayModel.getMaKHGD();
 							
 							ArrayList<KhoaHocNewBean> listObject = new ArrayList<KhoaHocNewBean>();
 							
-						
+							
 							KhoaHocNewBean khoaHocNewBean = new KhoaHocNewBean
 							(
 								"","1","100","",
