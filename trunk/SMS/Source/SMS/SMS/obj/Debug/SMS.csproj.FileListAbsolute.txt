@@ -22,3 +22,27 @@ C:\Users\Toan\Desktop\SMS\SMS\bin\Debug\SMS.exe
 C:\Users\Toan\Desktop\SMS\SMS\bin\Debug\SMS.pdb
 C:\Users\Toan\Desktop\SMS\SMS\obj\Debug\SMS.exe
 C:\Users\Toan\Desktop\SMS\SMS\obj\Debug\SMS.pdb
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.view.FormAddressBook.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormChangePassword.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.view.FormCompose.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormDraft.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInbox.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInboxDeleted.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInboxMessageType.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInvalidMessage.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormLogin.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormMain.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageAccount.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageKeyword.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentDeleted.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentError.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSentOk.resources
+C:\SVN data\iso-system\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
