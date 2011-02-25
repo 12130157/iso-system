@@ -492,21 +492,7 @@
   
 <!--		Phân trang	-->
   
-		<c:set var = "TotalPage" value="<%= (int) Math.round( ((float)totalRows) /Constant.RECORDS_PER_PAGE + 0.4)%>"></c:set>	
-		 <tr style="background-color: transparent;">
-			<td colspan="6">
-				<c:if test = "${CurrentPage gt 1}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage - 1}&selectTinhTrang=${PhanLoai}<%=path %>" >Previous</a>
-				</c:if>	
-				<!-- Bi loi TotalPage=1 -->
-				<c:forEach var = "PageCount" begin = "1" end = "${TotalPage}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${PageCount}&selectTinhTrang=${PhanLoai}<%=path %>">${PageCount}</a>
-				</c:forEach>
-				<c:if test = "${CurrentPage lt TotalPage}">
-					<a href="<%=Constant.PATH_RES.getString("iso.XemKeHoachGiangDayPath")%>?page=${CurrentPage + 1}&selectTinhTrang=${PhanLoai }<%=path %>" >Next</a>
-				</c:if>	
-			</td>
-		</tr>
+
 		
 		<tr style="background-color: transparent;">
 				<td colspan="6">
