@@ -78,7 +78,7 @@ namespace SMS.util
         */
         public static DataTable executeQuery(SqlCommand cmd)
         {
-            DataTable dt = new DataTable();
+            DataTable dt = null;
             if (connect())
             {
                 try

@@ -77,14 +77,12 @@
             this.menuChangePassword,
             this.menuSystemConfig,
             this.menuLogout});
-            this.menuFile.Image = ((System.Drawing.Image)(resources.GetObject("menuFile.Image")));
             this.menuFile.Name = "menuFile";
-            this.menuFile.Size = new System.Drawing.Size(54, 20);
+            this.menuFile.Size = new System.Drawing.Size(38, 20);
             this.menuFile.Text = "File";
             // 
             // menuChangePassword
             // 
-            this.menuChangePassword.Image = ((System.Drawing.Image)(resources.GetObject("menuChangePassword.Image")));
             this.menuChangePassword.Name = "menuChangePassword";
             this.menuChangePassword.Size = new System.Drawing.Size(184, 22);
             this.menuChangePassword.Text = "Change Password";
@@ -92,14 +90,12 @@
             // 
             // menuSystemConfig
             // 
-            this.menuSystemConfig.Image = ((System.Drawing.Image)(resources.GetObject("menuSystemConfig.Image")));
             this.menuSystemConfig.Name = "menuSystemConfig";
             this.menuSystemConfig.Size = new System.Drawing.Size(184, 22);
             this.menuSystemConfig.Text = "System Config";
             // 
             // menuLogout
             // 
-            this.menuLogout.Image = ((System.Drawing.Image)(resources.GetObject("menuLogout.Image")));
             this.menuLogout.Name = "menuLogout";
             this.menuLogout.Size = new System.Drawing.Size(184, 22);
             this.menuLogout.Text = "Logout";
@@ -111,24 +107,21 @@
             this.menuOutbox,
             this.menuInbox,
             this.menuI1Sent});
-            this.menuMessage.Image = ((System.Drawing.Image)(resources.GetObject("menuMessage.Image")));
             this.menuMessage.Name = "menuMessage";
-            this.menuMessage.Size = new System.Drawing.Size(85, 20);
+            this.menuMessage.Size = new System.Drawing.Size(69, 20);
             this.menuMessage.Text = "Message";
             // 
             // menuCompose
             // 
-            this.menuCompose.Image = ((System.Drawing.Image)(resources.GetObject("menuCompose.Image")));
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(137, 22);
+            this.menuCompose.Size = new System.Drawing.Size(152, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuOutbox
             // 
-            this.menuOutbox.Image = ((System.Drawing.Image)(resources.GetObject("menuOutbox.Image")));
             this.menuOutbox.Name = "menuOutbox";
-            this.menuOutbox.Size = new System.Drawing.Size(137, 22);
+            this.menuOutbox.Size = new System.Drawing.Size(152, 22);
             this.menuOutbox.Text = "Outbox";
             this.menuOutbox.Click += new System.EventHandler(this.menuOutbox_Click);
             // 
@@ -138,14 +131,12 @@
             this.menuI2Inbox,
             this.menuInboxDeleted,
             this.menuDraft});
-            this.menuInbox.Image = ((System.Drawing.Image)(resources.GetObject("menuInbox.Image")));
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(137, 22);
+            this.menuInbox.Size = new System.Drawing.Size(152, 22);
             this.menuInbox.Text = "Inbox";
             // 
             // menuI2Inbox
             // 
-            this.menuI2Inbox.Image = ((System.Drawing.Image)(resources.GetObject("menuI2Inbox.Image")));
             this.menuI2Inbox.Name = "menuI2Inbox";
             this.menuI2Inbox.Size = new System.Drawing.Size(165, 22);
             this.menuI2Inbox.Text = "Inbox";
@@ -153,7 +144,6 @@
             // 
             // menuInboxDeleted
             // 
-            this.menuInboxDeleted.Image = ((System.Drawing.Image)(resources.GetObject("menuInboxDeleted.Image")));
             this.menuInboxDeleted.Name = "menuInboxDeleted";
             this.menuInboxDeleted.Size = new System.Drawing.Size(165, 22);
             this.menuInboxDeleted.Text = "Inbox Deleted";
@@ -161,7 +151,6 @@
             // 
             // menuDraft
             // 
-            this.menuDraft.Image = ((System.Drawing.Image)(resources.GetObject("menuDraft.Image")));
             this.menuDraft.Name = "menuDraft";
             this.menuDraft.Size = new System.Drawing.Size(165, 22);
             this.menuDraft.Text = "Draft";
@@ -174,14 +163,12 @@
             this.menuSentError,
             this.menuInvalidMessage,
             this.menuSentDeleted});
-            this.menuI1Sent.Image = ((System.Drawing.Image)(resources.GetObject("menuI1Sent.Image")));
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
             this.menuI1Sent.Text = "Sent";
             // 
             // menuSentOk
             // 
-            this.menuSentOk.Image = ((System.Drawing.Image)(resources.GetObject("menuSentOk.Image")));
             this.menuSentOk.Name = "menuSentOk";
             this.menuSentOk.Size = new System.Drawing.Size(177, 22);
             this.menuSentOk.Text = "Sent Ok";
@@ -189,7 +176,6 @@
             // 
             // menuSentError
             // 
-            this.menuSentError.Image = ((System.Drawing.Image)(resources.GetObject("menuSentError.Image")));
             this.menuSentError.Name = "menuSentError";
             this.menuSentError.Size = new System.Drawing.Size(177, 22);
             this.menuSentError.Text = "Sent Error";
@@ -197,7 +183,6 @@
             // 
             // menuInvalidMessage
             // 
-            this.menuInvalidMessage.Image = ((System.Drawing.Image)(resources.GetObject("menuInvalidMessage.Image")));
             this.menuInvalidMessage.Name = "menuInvalidMessage";
             this.menuInvalidMessage.Size = new System.Drawing.Size(177, 22);
             this.menuInvalidMessage.Text = "Invalid Message";
@@ -205,7 +190,6 @@
             // 
             // menuSentDeleted
             // 
-            this.menuSentDeleted.Image = ((System.Drawing.Image)(resources.GetObject("menuSentDeleted.Image")));
             this.menuSentDeleted.Name = "menuSentDeleted";
             this.menuSentDeleted.Size = new System.Drawing.Size(177, 22);
             this.menuSentDeleted.Text = "Sent Deleted";
@@ -218,14 +202,12 @@
             this.menuAccount,
             this.menuAddressBook,
             this.calendarToolStripMenuItem});
-            this.menuSystem.Image = ((System.Drawing.Image)(resources.GetObject("menuSystem.Image")));
             this.menuSystem.Name = "menuSystem";
-            this.menuSystem.Size = new System.Drawing.Size(78, 20);
+            this.menuSystem.Size = new System.Drawing.Size(62, 20);
             this.menuSystem.Text = "System";
             // 
             // menuKeyword
             // 
-            this.menuKeyword.Image = ((System.Drawing.Image)(resources.GetObject("menuKeyword.Image")));
             this.menuKeyword.Name = "menuKeyword";
             this.menuKeyword.Size = new System.Drawing.Size(179, 22);
             this.menuKeyword.Text = "Mnage Keyword";
@@ -233,7 +215,6 @@
             // 
             // menuAccount
             // 
-            this.menuAccount.Image = ((System.Drawing.Image)(resources.GetObject("menuAccount.Image")));
             this.menuAccount.Name = "menuAccount";
             this.menuAccount.Size = new System.Drawing.Size(179, 22);
             this.menuAccount.Text = "Manage Account";
@@ -241,7 +222,6 @@
             // 
             // menuAddressBook
             // 
-            this.menuAddressBook.Image = ((System.Drawing.Image)(resources.GetObject("menuAddressBook.Image")));
             this.menuAddressBook.Name = "menuAddressBook";
             this.menuAddressBook.Size = new System.Drawing.Size(179, 22);
             this.menuAddressBook.Text = "Address Book";
@@ -259,23 +239,20 @@
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
-            this.menuHelp.Image = ((System.Drawing.Image)(resources.GetObject("menuHelp.Image")));
             this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(60, 20);
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
             this.menuHelp.Text = "Help";
             // 
             // toolStripMenuItem1
             // 
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "About ";
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem2.Image")));
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
             // FormMain
