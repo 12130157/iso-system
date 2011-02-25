@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5FC66462-FF38-4CE5-97CE-1A646E58A3C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SMS</RootNamespace>
+    <AssemblyName>SMS</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="common\Constants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="dao\MemberDAO.cs" />
+    <Compile Include="model\ChiTietTaiKhoanSms.cs" />
+    <Compile Include="model\ChiTietTinNhanTuDong.cs" />
+    <Compile Include="model\CuPhap.cs" />
+    <Compile Include="model\HopThuDen.cs" />
+    <Compile Include="model\HoThuDi.cs" />
+    <Compile Include="model\LichTinNhan.cs" />
+    <Compile Include="model\LoaiHopThu.cs" />
+    <Compile Include="model\LoaiTaiKhoanSms.cs" />
+    <Compile Include="model\LoaiTinNhan.cs" />
+    <Compile Include="model\MemberModel.cs" />
+    <Compile Include="model\TaiKhoanSms.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormAddressBook.resx">
+      <DependentUpon>FormAddressBook.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormChangePassword.resx">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormCompose.resx">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormDraft.resx">
+      <DependentUpon>FormDraft.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInbox.resx">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInboxDeleted.resx">
+      <DependentUpon>FormInboxDeleted.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInboxMessageType.resx">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInvalidMessage.resx">
+      <DependentUpon>FormInvalidMessage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageAccount.resx">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageKeyword.resx">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormOutbox.resx">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentDelete.resx">
+      <DependentUpon>FormSentDelete.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentError.resx">
+      <DependentUpon>FormSentError.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSentOk.resx">
+      <DependentUpon>FormSentOk.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="util\DataUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="view\FormAddressBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormAddressBook.Designer.cs">
+      <DependentUpon>FormAddressBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormChangePassword.designer.cs">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormCompose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormCompose.Designer.cs">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormDraft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormDraft.designer.cs">
+      <DependentUpon>FormDraft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInbox.designer.cs">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInboxDeleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInboxDeleted.designer.cs">
+      <DependentUpon>FormInboxDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.designer.cs">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInvalidMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInvalidMessage.designer.cs">
+      <DependentUpon>FormInvalidMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormLogin.designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormMain.designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageAccount.designer.cs">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.designer.cs">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormOutbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormOutbox.designer.cs">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentDelete.designer.cs">
+      <DependentUpon>FormSentDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentError.designer.cs">
+      <DependentUpon>FormSentError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSentOk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSentOk.designer.cs">
+      <DependentUpon>FormSentOk.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\bg.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
