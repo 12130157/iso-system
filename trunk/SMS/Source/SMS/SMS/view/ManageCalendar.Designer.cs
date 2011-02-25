@@ -137,17 +137,18 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label18.Location = new System.Drawing.Point(51, 73);
+            this.label18.Location = new System.Drawing.Point(51, 96);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 130;
-            this.label18.Text = "Remain: 160";
+            this.label18.Text = "Remain: 640";
             // 
             // but_Close
             // 
             this.but_Close.BackColor = System.Drawing.Color.Blue;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.Location = new System.Drawing.Point(562, 96);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(116, 23);
@@ -161,7 +162,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label19.Location = new System.Drawing.Point(51, 60);
+            this.label19.Location = new System.Drawing.Point(51, 83);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(65, 13);
             this.label19.TabIndex = 129;
@@ -173,6 +174,7 @@
             this.but_AddressBook.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_AddressBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_AddressBook.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_AddressBook.Image = ((System.Drawing.Image)(resources.GetObject("but_AddressBook.Image")));
             this.but_AddressBook.Location = new System.Drawing.Point(562, 67);
             this.but_AddressBook.Name = "but_AddressBook";
             this.but_AddressBook.Size = new System.Drawing.Size(116, 23);
@@ -186,6 +188,7 @@
             this.but_Draft.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Draft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Draft.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Draft.Image = ((System.Drawing.Image)(resources.GetObject("but_Draft.Image")));
             this.but_Draft.Location = new System.Drawing.Point(562, 39);
             this.but_Draft.Name = "but_Draft";
             this.but_Draft.Size = new System.Drawing.Size(116, 23);
@@ -199,6 +202,7 @@
             this.but_Send.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Send.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Send.Image = ((System.Drawing.Image)(resources.GetObject("but_Send.Image")));
             this.but_Send.Location = new System.Drawing.Point(562, 10);
             this.but_Send.Name = "but_Send";
             this.but_Send.Size = new System.Drawing.Size(116, 23);
@@ -210,7 +214,7 @@
             // 
             this.txt_Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Message.Location = new System.Drawing.Point(124, 38);
-            this.txt_Message.MaxLength = 160;
+            this.txt_Message.MaxLength = 640;
             this.txt_Message.Multiline = true;
             this.txt_Message.Name = "txt_Message";
             this.txt_Message.Size = new System.Drawing.Size(420, 82);
@@ -270,6 +274,7 @@
             this.butreply.BackColor = System.Drawing.Color.Blue;
             this.butreply.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butreply.ForeColor = System.Drawing.SystemColors.Control;
+            this.butreply.Image = ((System.Drawing.Image)(resources.GetObject("butreply.Image")));
             this.butreply.Location = new System.Drawing.Point(730, 28);
             this.butreply.Name = "butreply";
             this.butreply.Size = new System.Drawing.Size(75, 23);
@@ -282,6 +287,7 @@
             this.butApply.BackColor = System.Drawing.Color.Blue;
             this.butApply.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butApply.ForeColor = System.Drawing.SystemColors.Control;
+            this.butApply.Image = ((System.Drawing.Image)(resources.GetObject("butApply.Image")));
             this.butApply.Location = new System.Drawing.Point(730, -1);
             this.butApply.Name = "butApply";
             this.butApply.Size = new System.Drawing.Size(75, 23);
@@ -294,6 +300,7 @@
             this.but_Edit.BackColor = System.Drawing.Color.Blue;
             this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
             this.but_Edit.Location = new System.Drawing.Point(634, 29);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(75, 23);
@@ -306,6 +313,7 @@
             this.but_Add.BackColor = System.Drawing.Color.Blue;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.Location = new System.Drawing.Point(634, 0);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(75, 23);
@@ -318,6 +326,7 @@
             this.but_Delete.BackColor = System.Drawing.Color.Blue;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.Location = new System.Drawing.Point(536, 28);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(75, 23);
@@ -330,6 +339,7 @@
             this.but_Refresh.BackColor = System.Drawing.Color.Blue;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
             this.but_Refresh.Location = new System.Drawing.Point(536, 1);
             this.but_Refresh.Name = "but_Refresh";
             this.but_Refresh.Size = new System.Drawing.Size(75, 23);
@@ -384,6 +394,7 @@
             this.but_LastPage.BackColor = System.Drawing.Color.Blue;
             this.but_LastPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_LastPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_LastPage.Image = ((System.Drawing.Image)(resources.GetObject("but_LastPage.Image")));
             this.but_LastPage.Location = new System.Drawing.Point(144, 3);
             this.but_LastPage.Name = "but_LastPage";
             this.but_LastPage.Size = new System.Drawing.Size(42, 23);
@@ -396,6 +407,7 @@
             this.but_PreviousPage.BackColor = System.Drawing.Color.Blue;
             this.but_PreviousPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_PreviousPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_PreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("but_PreviousPage.Image")));
             this.but_PreviousPage.Location = new System.Drawing.Point(48, 3);
             this.but_PreviousPage.Name = "but_PreviousPage";
             this.but_PreviousPage.Size = new System.Drawing.Size(42, 23);
@@ -408,6 +420,7 @@
             this.but_FirstPage.BackColor = System.Drawing.Color.Blue;
             this.but_FirstPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_FirstPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_FirstPage.Image = ((System.Drawing.Image)(resources.GetObject("but_FirstPage.Image")));
             this.but_FirstPage.Location = new System.Drawing.Point(2, 3);
             this.but_FirstPage.Name = "but_FirstPage";
             this.but_FirstPage.Size = new System.Drawing.Size(42, 23);
@@ -420,6 +433,7 @@
             this.but_NextPage.BackColor = System.Drawing.Color.Blue;
             this.but_NextPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_NextPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_NextPage.Image = ((System.Drawing.Image)(resources.GetObject("but_NextPage.Image")));
             this.but_NextPage.Location = new System.Drawing.Point(96, 3);
             this.but_NextPage.Name = "but_NextPage";
             this.but_NextPage.Size = new System.Drawing.Size(42, 23);
@@ -452,22 +466,22 @@
             // 
             // txt_Content
             // 
-            this.txt_Content.Location = new System.Drawing.Point(664, 7);
+            this.txt_Content.Location = new System.Drawing.Point(624, 7);
             this.txt_Content.Multiline = true;
             this.txt_Content.Name = "txt_Content";
-            this.txt_Content.Size = new System.Drawing.Size(157, 75);
+            this.txt_Content.Size = new System.Drawing.Size(197, 75);
             this.txt_Content.TabIndex = 2;
             // 
             // txt_Status
             // 
-            this.txt_Status.Location = new System.Drawing.Point(414, 62);
+            this.txt_Status.Location = new System.Drawing.Point(391, 62);
             this.txt_Status.Name = "txt_Status";
             this.txt_Status.Size = new System.Drawing.Size(162, 20);
             this.txt_Status.TabIndex = 2;
             // 
             // txt_Time
             // 
-            this.txt_Time.Location = new System.Drawing.Point(414, 36);
+            this.txt_Time.Location = new System.Drawing.Point(391, 36);
             this.txt_Time.Name = "txt_Time";
             this.txt_Time.Size = new System.Drawing.Size(162, 20);
             this.txt_Time.TabIndex = 2;
@@ -475,7 +489,7 @@
             // lbl_Note
             // 
             this.lbl_Note.AutoSize = true;
-            this.lbl_Note.Location = new System.Drawing.Point(607, 10);
+            this.lbl_Note.Location = new System.Drawing.Point(567, 10);
             this.lbl_Note.Name = "lbl_Note";
             this.lbl_Note.Size = new System.Drawing.Size(51, 13);
             this.lbl_Note.TabIndex = 0;
@@ -550,7 +564,7 @@
             // cboKeywordID
             // 
             this.cboKeywordID.FormattingEnabled = true;
-            this.cboKeywordID.Location = new System.Drawing.Point(414, 7);
+            this.cboKeywordID.Location = new System.Drawing.Point(391, 7);
             this.cboKeywordID.Name = "cboKeywordID";
             this.cboKeywordID.Size = new System.Drawing.Size(162, 21);
             this.cboKeywordID.TabIndex = 1;
@@ -576,6 +590,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -588,6 +603,7 @@
             this.Tinh_trang});
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(823, 232);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -601,7 +617,7 @@
             // 
             this.Loai_tai_khoan_SMS.HeaderText = "Account type SMS";
             this.Loai_tai_khoan_SMS.Name = "Loai_tai_khoan_SMS";
-            this.Loai_tai_khoan_SMS.Width = 120;
+            this.Loai_tai_khoan_SMS.Width = 140;
             // 
             // Lich_bieu
             // 
@@ -622,7 +638,7 @@
             // 
             this.Noi_dung.HeaderText = "Content";
             this.Noi_dung.Name = "Noi_dung";
-            this.Noi_dung.Width = 200;
+            this.Noi_dung.Width = 220;
             // 
             // Tinh_trang
             // 
@@ -633,6 +649,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(857, 561);
             this.Controls.Add(this.panel1);
             this.Name = "ManageCalendar";
@@ -656,13 +673,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Loai_tai_khoan_SMS;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lich_bieu;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ma_cuu_phap;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Thoi_gian;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Noi_dung;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tinh_trang;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txt_Content;
         private System.Windows.Forms.TextBox txt_Status;
@@ -705,5 +715,12 @@
         internal System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button butreply;
         private System.Windows.Forms.Button butApply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Loai_tai_khoan_SMS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lich_bieu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ma_cuu_phap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Thoi_gian;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Noi_dung;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tinh_trang;
     }
 }

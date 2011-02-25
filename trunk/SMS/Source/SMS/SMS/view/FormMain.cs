@@ -85,6 +85,11 @@ namespace SMS
         {
             new view.ManageCalendar().ShowDialog();
         }
+
+        private void menuAddressBook_Click(object sender, EventArgs e)
+        {
+            new view.FormAddressBook().Show();
+        }
         
         
 

@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangePassword));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnChange = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.txtOldPassword = new System.Windows.Forms.TextBox();
-            this.txtNewPassword = new System.Windows.Forms.TextBox();
-            this.txtComfigPassword = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtComfigPassword = new System.Windows.Forms.TextBox();
+            this.txtNewPassword = new System.Windows.Forms.TextBox();
+            this.txtOldPassword = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnChange = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -60,65 +61,14 @@
             this.panel2.Size = new System.Drawing.Size(291, 148);
             this.panel2.TabIndex = 0;
             // 
-            // btnChange
+            // label3
             // 
-            this.btnChange.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnChange.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChange.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnChange.Location = new System.Drawing.Point(56, 110);
-            this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(75, 23);
-            this.btnChange.TabIndex = 4;
-            this.btnChange.Text = "Change";
-            this.btnChange.UseVisualStyleBackColor = false;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCancel.Location = new System.Drawing.Point(165, 110);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // txtOldPassword
-            // 
-            this.txtOldPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldPassword.Location = new System.Drawing.Point(115, 13);
-            this.txtOldPassword.Name = "txtOldPassword";
-            this.txtOldPassword.Size = new System.Drawing.Size(146, 20);
-            this.txtOldPassword.TabIndex = 6;
-            // 
-            // txtNewPassword
-            // 
-            this.txtNewPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNewPassword.Location = new System.Drawing.Point(115, 45);
-            this.txtNewPassword.Name = "txtNewPassword";
-            this.txtNewPassword.Size = new System.Drawing.Size(146, 20);
-            this.txtNewPassword.TabIndex = 5;
-            // 
-            // txtComfigPassword
-            // 
-            this.txtComfigPassword.Location = new System.Drawing.Point(115, 77);
-            this.txtComfigPassword.Name = "txtComfigPassword";
-            this.txtComfigPassword.PasswordChar = '*';
-            this.txtComfigPassword.Size = new System.Drawing.Size(146, 20);
-            this.txtComfigPassword.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Old password";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Comfig password";
             // 
             // label2
             // 
@@ -129,14 +79,68 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "New password";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Comfig password";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Old password";
+            // 
+            // txtComfigPassword
+            // 
+            this.txtComfigPassword.Location = new System.Drawing.Point(115, 77);
+            this.txtComfigPassword.Name = "txtComfigPassword";
+            this.txtComfigPassword.PasswordChar = '*';
+            this.txtComfigPassword.Size = new System.Drawing.Size(146, 20);
+            this.txtComfigPassword.TabIndex = 7;
+            // 
+            // txtNewPassword
+            // 
+            this.txtNewPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNewPassword.Location = new System.Drawing.Point(115, 45);
+            this.txtNewPassword.Name = "txtNewPassword";
+            this.txtNewPassword.Size = new System.Drawing.Size(146, 20);
+            this.txtNewPassword.TabIndex = 5;
+            // 
+            // txtOldPassword
+            // 
+            this.txtOldPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOldPassword.Location = new System.Drawing.Point(115, 13);
+            this.txtOldPassword.Name = "txtOldPassword";
+            this.txtOldPassword.Size = new System.Drawing.Size(146, 20);
+            this.txtOldPassword.TabIndex = 6;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Location = new System.Drawing.Point(165, 110);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnChange
+            // 
+            this.btnChange.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnChange.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnChange.BackgroundImage")));
+            this.btnChange.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChange.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnChange.Image = ((System.Drawing.Image)(resources.GetObject("btnChange.Image")));
+            this.btnChange.Location = new System.Drawing.Point(56, 110);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(75, 23);
+            this.btnChange.TabIndex = 4;
+            this.btnChange.Text = "Change";
+            this.btnChange.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
