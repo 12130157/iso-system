@@ -5,12 +5,12 @@ using System.Text;
 
 namespace SMS.model
 {
-    class LoaiTaiKhoanSms
+    class ChiTietTaiKhoanSmsMODEL
     {
         private string id;
-        private string ten;
-        private string phi_Dich_Vu;
-        private string ghi_Chu;
+        private string ma_Tai_Khoan_Sms;
+        private string dang_Ki_Thang;
+        private string dang_Ki_Nam;
         private string ngay_Cap_Nhat_Cuoi;
         private string User1;
         private string User2;
@@ -54,22 +54,22 @@ namespace SMS.model
             set { ngay_Cap_Nhat_Cuoi = value; }
         }
 
-        public string Ghi_Chu
+        public string Dang_Ki_Nam
         {
-            get { return ghi_Chu; }
-            set { ghi_Chu = value; }
+            get { return dang_Ki_Nam; }
+            set { dang_Ki_Nam = value; }
         }
 
-        public string Phi_Dich_Vu
+        public string Dang_Ki_Thang
         {
-            get { return phi_Dich_Vu; }
-            set { phi_Dich_Vu = value; }
+            get { return dang_Ki_Thang; }
+            set { dang_Ki_Thang = value; }
         }
 
-        public string Ten
+        public string Ma_Tai_Khoan_Sms
         {
-            get { return ten; }
-            set { ten = value; }
+            get { return ma_Tai_Khoan_Sms; }
+            set { ma_Tai_Khoan_Sms = value; }
         }
 
         public string Id

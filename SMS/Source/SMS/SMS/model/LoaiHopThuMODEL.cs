@@ -5,12 +5,11 @@ using System.Text;
 
 namespace SMS.model
 {
-    class HoThuDi
+    class LoaiHopThuMODEL
     {
         private string id;
-        private string so_Dien_Thoai;
-        private string noi_Dung_Tin_Nhan;
-        private string tinh_Trang;
+        private string ten;
+        private string ghi_Chu;
         private string ngay_Cap_Nhat_Cuoi;
         private string User1;
         private string User2;
@@ -54,22 +53,16 @@ namespace SMS.model
             set { ngay_Cap_Nhat_Cuoi = value; }
         }
 
-        public string Tinh_Trang
+        public string Ghi_Chu
         {
-            get { return tinh_Trang; }
-            set { tinh_Trang = value; }
+            get { return ghi_Chu; }
+            set { ghi_Chu = value; }
         }
 
-        public string Noi_Dung_Tin_Nhan
+        public string Ten
         {
-            get { return noi_Dung_Tin_Nhan; }
-            set { noi_Dung_Tin_Nhan = value; }
-        }
-
-        public string So_Dien_Thoai
-        {
-            get { return so_Dien_Thoai; }
-            set { so_Dien_Thoai = value; }
+            get { return ten; }
+            set { ten = value; }
         }
 
         public string Id
@@ -77,5 +70,6 @@ namespace SMS.model
             get { return id; }
             set { id = value; }
         }
+
     }
 }
