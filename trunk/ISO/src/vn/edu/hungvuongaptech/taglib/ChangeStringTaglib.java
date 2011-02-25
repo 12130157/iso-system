@@ -10,6 +10,7 @@ import java.util.Date;
 
 import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
+import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
 
 /**
@@ -210,4 +211,5 @@ public class ChangeStringTaglib {
 			return "Ngày "+str[0]+" Tháng "+ str[1]+" Năm "+ str[2];
 		return value;
 	}
+
 }

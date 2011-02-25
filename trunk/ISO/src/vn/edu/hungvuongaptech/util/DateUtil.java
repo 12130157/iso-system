@@ -52,6 +52,7 @@ public class DateUtil {
 		}catch(Exception e){e.printStackTrace();}
 		return result;
 	}
+		
 	
 	public static String diffDate(String value1,String value2){
 		String result="";
@@ -82,4 +83,16 @@ public class DateUtil {
 		}
 		return result;
 	}
+	
+	public static String setDate3(String value) {
+		String result = "";
+		if(value != null && !value.equals("")) {
+			String[] arrayValue = value.split("-");
+			result = arrayValue[1] + "-" + arrayValue[0] + "-" + arrayValue[2].substring(0,4);
+		}
+		return result;
+	}
+	
+
+	
 }
