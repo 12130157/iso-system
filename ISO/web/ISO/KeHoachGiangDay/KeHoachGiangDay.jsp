@@ -753,10 +753,13 @@
 																		
 																		
 																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png" alt="duyet"/>
 																				</c:if>
-																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq SEND }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/dagui.png" alt="dagui"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT and obj1.tinhTrangGiaoAn ne SEND}'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png" alt="xem"/>
 																				</c:if>
 																			</c:otherwise>
 																		</c:choose>
@@ -792,10 +795,13 @@
 																		</c:when>
 																		<c:otherwise>
 																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png" alt="duyet"/>
 																				</c:if>
-																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq SEND }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/dagui.png" alt="dagui"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT obj1.tinhTrangGiaoAn ne SEND }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png" alt="xem"/>
 																				</c:if>
 																		</c:otherwise>
 																	</c:choose>
@@ -833,10 +839,13 @@
 																		<c:otherwise>
 																		
 																				<c:if  test='${obj1.tinhTrangGiaoAn eq APPROVE or obj1.tinhTrangGiaoAn eq REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png"/>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/duyet.png" alt="duyet"/>
 																				</c:if>
-																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT }'>
-																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png"/>
+																				<c:if  test='${obj1.tinhTrangGiaoAn eq SEND }'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/dagui.png" alt="dagui"/>
+																				</c:if>
+																				<c:if  test='${obj1.tinhTrangGiaoAn ne APPROVE and obj1.tinhTrangGiaoAn ne REJECT and obj1.tinhTrangGiaoAn ne SEND}'>
+																					<img border="0" src="<%=request.getContextPath()%>/images/buttom/xem.png" alt="xem"/>
 																				</c:if>
 																		</c:otherwise>
 																	</c:choose>
