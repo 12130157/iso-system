@@ -19,7 +19,11 @@
 <%@page import="vn.edu.hungvuongaptech.model.MonHocTKBModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.ThanhVienModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
-<%@page import="vn.edu.hungvuongaptech.model.ChiTietTKBModel"%><html>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietTKBModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.MonHocModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.MonHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.LopHocModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Thêm môn học TKB</title>
@@ -42,13 +46,38 @@ var tuanBatDau = 0;
 var tietBatDau = 1;
 var maLop;
 var checkTuanHoc = -1;
+var listMonHoc = new Array();
+var listLopHoc = new Array();
 <%
 	// parameter hoc ki khong su dung cho ham getAllDeCuongMonHocApprovedByMaChuongTrinh() va getAllNoiDungDCMHByMaChuongTrinhAndHocKi
 	ArrayList<DeCuongMonHocModel> deCuongMonHocModelList = DeCuongMonHocDAO.getAllDeCuongMonHocApprovedByMaChuongTrinh(request.getParameter("maChuongTrinh"), request.getParameter("hocKi"));
 	ArrayList<PhongBanModel> phongBanModelList = PhongBanDAO.getAllPhongBan();
 	ArrayList<ThanhVienModel> thanhVienModelList = ThanhVienDAO.getAllGiaoVienOrderByTen();
 	ArrayList<NoiDungDCMHModel> noiDungDCMHModelList = NoiDungDCMHDAO.getAllNoiDungDCMHByMaChuongTrinhAndHocKi(request.getParameter("maChuongTrinh"), request.getParameter("hocKi"));
+	ArrayList<MonHocModel> monHocList = MonHocDAO.getMonHoc();
+	ArrayList<LopHocModel> lopHocList = LopHocDAO.getAllKiHieuLop();
 %>
+function taoListMonHocVaListLopHoc()
+{
+	var x = 0;
+	<%
+		for(int i=0;i<monHocList.size();i++) {
+			out.print("var monHocLoi = new Object;");
+			out.print("monHocLoi.maMonHoc = '" + monHocList.get(i).getMaMonHoc() + "';");
+			out.print("monHocLoi.tenMonHoc = '" + monHocList.get(i).getTenMonHoc() + "';");
+			out.print("listMonHoc[x] = monHocLoi;");
+			out.print("x++;");
+		}
+		out.print("x = 0;");
+		for(int i=0;i<lopHocList.size();i++) {
+			out.print("var lopHocLoi = new Object;");
+			out.print("lopHocLoi.maLopHoc = '" + lopHocList.get(i).getMaLopHoc() + "';");
+			out.print("lopHocLoi.tenLopHoc = '" + lopHocList.get(i).getKiHieu() + "';");
+			out.print("listLopHoc[x] = lopHocLoi;");
+			out.print("x++;");
+		}
+	%>
+}
 function taoListSuDungPhong()
 {
 	listSuDungPhong = new Array();
@@ -122,6 +151,7 @@ function taoListSuDungPhong()
 			out.print("objPhong.soTiet = '" + chiTiet.getSoTietHoc1Buoi() + "';");
 			out.print("objPhong.maLop = '" + chiTiet.getMaLop() + "';");
 			out.print("objPhong.nhom = '" + chiTiet.getNhom() + "';");
+			out.print("objPhong.maMonHoc = '" + chiTiet.getMaMonHoc() + "';");
 			out.print("listPhong[listPhong.length] = objPhong;");
 			out.print("if(thu != '" + chiTiet.getThuTrongTuan() + "' || buoi != '" + chiTiet.getBuoi() + "' || thuTuTuan != '" + chiTiet.getTuan() + "') {");
 				out.print("var objThu = new Object();");
@@ -288,6 +318,7 @@ function loadPage()
 		createTuanLe();
 		createPhongBan('phongLyThuyet');
 		createPhongBan('phongThucHanh');
+		taoListMonHocVaListLopHoc();
 		//taoListSuDungPhong();
 	}
 }
@@ -745,7 +776,7 @@ function selectKieuDay(act) // tao bang 2
 							tr = table.insertRow(soBuoiTongCong);
 							dem = 1;
 						}
-						tr.insertCell(1-dem).innerHTML = soBuoiTongCong;
+						tr.insertCell(1-dem).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/>";
 						tr.insertCell(2-dem).innerHTML = "<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiSang" + soBuoiTongCong + "' value = 'Sáng-" + soNoiDung + "-" + ch + "' checked='checked' " + selectBuoiHoc + "/>Sáng<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiChieu" + soBuoiTongCong + "' value = 'Chiều-" + soNoiDung + "-" + ch + "' " + selectBuoiHoc + "/>Chiều";
 						tr.insertCell(3-dem).innerHTML = "<select name = 'cboTietBatDau" +soBuoiTongCong + "' id = 'cboTietBatDau" + soBuoiTongCong + "' onchange = 'selectTietBatDau(" + soBuoiTongCong + ")' onclick = 'getSoTiet(" + soBuoiTongCong + ")'>" + optionTietHoc + "</select>";
 						tr.insertCell(4-dem).innerHTML = "<input type = 'text' name = 'HinhThucDay" + soBuoiTongCong + "' value = '" + kieuDay + "' id = 'HinhThucDay" + soBuoiTongCong + "' readonly = 'readonly' size = '3'/>";
@@ -754,6 +785,7 @@ function selectKieuDay(act) // tao bang 2
 						tr.insertCell(7-dem).innerHTML = "<select id = 'Phong" + soBuoiTongCong + "' name = 'Phong" + soBuoiTongCong + "'>" + phongBan + "</select>";
 						tr.insertCell(8-dem).innerHTML = "&nbsp;";
 						tr.cells[8-dem].id = "tdTinhTrang" + soBuoiTongCong;
+						tr.cells[8-dem].onclick = (function(a) {return function(){ thongBaoChiTietLoi(a); }})(soBuoiTongCong);
 						//tr.cells[3-dem].id = "tdTietBatDau" + soBuoiTongCong;
 						//tr.cells[7-dem].id = "tdPhong" + soBuoiTongCong;
 						//hiddenBuoi = "<input type = 'hidden' name = 'hiddenBuoi" + soBuoiTongCong + "' value = '" + soBuoiTongCong + "'/>";
@@ -1000,6 +1032,7 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 			var tdTinhTrang = "&nbsp;";
 			//var tdTietBatDau = document.getElementById('tdTietBatDau' + i).innerHTML;
 			//var c = tdPhong.charAt(tdPhong.length-8);
+			document.getElementById('txtError' + i).value = "";
 			t = true;
 			if(document.getElementById('BuoiSang' + i).checked == true)
 				buoi = 'Sáng';
@@ -1043,6 +1076,7 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 														if(objPhong.tietBatDau <= n && n < parseInt(objPhong.tietBatDau) + parseInt(objPhong.soTiet))
 														{
 															tdTinhTrang = "<font color = 'red'>TG</font>";
+															document.getElementById('txtError' + i).value = "1/" + objPhong.maMonHoc;
 															err = true;
 															check = false;
 															t = false;
@@ -1068,6 +1102,7 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 														if(objPhong.tietBatDau <= n && n < parseInt(objPhong.tietBatDau) + parseInt(objPhong.soTiet))
 														{
 															tdTinhTrang = "<font color = 'red'>*</font>";
+															document.getElementById('txtError' + i).value = "2/" + objPhong.maLop;
 															err = true;
 															check = false;
 															t = false;
@@ -1093,6 +1128,7 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 														if(objPhong.tietBatDau <= n && n < parseInt(objPhong.tietBatDau) + parseInt(objPhong.soTiet))
 														{
 															tdTinhTrang = "<font color = 'red'>x</font>";
+															document.getElementById('txtError' + i).value = "3/" + objPhong.maLop;
 															/*if(c != ">" && c != "x")
 															{
 																tdPhong = tdPhong.replace(">" + c + "</font>", ">x</font>");
@@ -1143,6 +1179,38 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 	else {
 		if(confirm("Bạn có chắc muốn thêm môn học này không ???"))
 			taoChuoiThuTrongTuan();
+	}
+}
+function thongBaoChiTietLoi(x)
+{
+	if(document.getElementById('txtError' + x).value != '')
+	{
+		var kieuTrung = document.getElementById('txtError' + x).value.split('/');
+		if(kieuTrung[0] == 1)
+		{
+			for(var i=0;i<listMonHoc.length;i++)
+			{
+				if(kieuTrung[1] == listMonHoc[i].maMonHoc)
+				{
+					alert("Trùng giờ học với môn " + listMonHoc[i].tenMonHoc);
+					break;
+				}
+			}
+		}
+		else
+		{
+			for(var i=0;i<listLopHoc.length;i++)
+			{
+				if(kieuTrung[1] == listLopHoc[i].maLopHoc)
+				{
+					if(kieuTrung[0] == 2)
+						alert("Trùng phòng học với lớp " + listLopHoc[i].tenLopHoc);
+					else
+						alert("Trùng giáo viên với lớp " + listLopHoc[i].tenLopHoc);
+					break;
+				}
+			}
+		}
 	}
 }
 function kiemTraTrungGioHoc()

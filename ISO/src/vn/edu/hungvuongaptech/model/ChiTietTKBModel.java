@@ -23,7 +23,14 @@ public class ChiTietTKBModel implements Serializable {
 	private String ngayKetThuc;
 	private String tenChuong;
 	private String mucTieu;
+	private String maMonHoc;
 	
+	public String getMaMonHoc() {
+		return maMonHoc;
+	}
+	public void setMaMonHoc(String maMonHoc) {
+		this.maMonHoc = maMonHoc;
+	}
 	public String getMucTieu() {
 		return mucTieu;
 	}

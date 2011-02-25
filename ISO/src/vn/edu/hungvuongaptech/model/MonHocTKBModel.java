@@ -1,8 +1,10 @@
 package vn.edu.hungvuongaptech.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MonHocTKBModel {
+public class MonHocTKBModel  implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String maMonHocTKB;
 	private String maTKB;
 	private String maMonHoc;
