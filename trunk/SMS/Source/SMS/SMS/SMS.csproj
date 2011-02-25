@@ -54,7 +54,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="dao\MemberDAO.cs" />
-    <Compile Include="model\MemberModel.cs" />
+    <Compile Include="model\ChiTietTaiKhoanSms.cs" />
+    <Compile Include="model\ChiTietTinNhanTuDong.cs" />
+    <Compile Include="model\CuPhap.cs" />
+    <Compile Include="model\HopThuDen.cs" />
+    <Compile Include="model\HoThuDi.cs" />
+    <Compile Include="model\LichTinNhan.cs" />
+    <Compile Include="model\LoaiHopThu.cs" />
+    <Compile Include="model\LoaiTaiKhoanSms.cs" />
+    <Compile Include="model\LoaiTinNhan.cs" />
+    <Compile Include="model\TaiKhoanSms.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
