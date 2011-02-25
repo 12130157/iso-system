@@ -31,6 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInboxMessageType));
             this.but_Close = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.but_Delete = new System.Windows.Forms.Button();
+            this.but_Refresh = new System.Windows.Forms.Button();
+            this.chk_All = new System.Windows.Forms.CheckBox();
+            this.dtp_Choose = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cbo_Choose = new System.Windows.Forms.ComboBox();
+            this.but_LastPage = new System.Windows.Forms.Button();
+            this.but_PreviousPage = new System.Windows.Forms.Button();
+            this.but_FirstPage = new System.Windows.Forms.Button();
+            this.but_NextPage = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.txt_Note = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -45,28 +59,15 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
             this.dlv_InboxType = new System.Windows.Forms.DataGridView();
-            this.label20 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ten = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ghi_chu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label20 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID_message = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ten_message = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.but_Delete = new System.Windows.Forms.Button();
-            this.but_Refresh = new System.Windows.Forms.Button();
-            this.chk_All = new System.Windows.Forms.CheckBox();
-            this.dtp_Choose = new System.Windows.Forms.DateTimePicker();
-            this.label15 = new System.Windows.Forms.Label();
-            this.cbo_Choose = new System.Windows.Forms.ComboBox();
-            this.but_LastPage = new System.Windows.Forms.Button();
-            this.but_PreviousPage = new System.Windows.Forms.Button();
-            this.but_FirstPage = new System.Windows.Forms.Button();
-            this.but_NextPage = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -75,7 +76,6 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dlv_InboxType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // but_Close
@@ -104,232 +104,9 @@
             this.panel1.Size = new System.Drawing.Size(802, 550);
             this.panel1.TabIndex = 1;
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitContainer2.Location = new System.Drawing.Point(10, 329);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.txt_Note);
-            this.splitContainer2.Panel1.Controls.Add(this.label5);
-            this.splitContainer2.Panel1.Controls.Add(this.txt_NameInbox);
-            this.splitContainer2.Panel1.Controls.Add(this.label4);
-            this.splitContainer2.Panel1.Controls.Add(this.txt_IDInbox);
-            this.splitContainer2.Panel1.Controls.Add(this.Label1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.txt_NameMessage);
-            this.splitContainer2.Panel2.Controls.Add(this.label7);
-            this.splitContainer2.Panel2.Controls.Add(this.txt_IDMessage);
-            this.splitContainer2.Panel2.Controls.Add(this.label6);
-            this.splitContainer2.Size = new System.Drawing.Size(782, 92);
-            this.splitContainer2.SplitterDistance = 472;
-            this.splitContainer2.TabIndex = 121;
-            // 
-            // txt_Note
-            // 
-            this.txt_Note.Location = new System.Drawing.Point(68, 38);
-            this.txt_Note.Multiline = true;
-            this.txt_Note.Name = "txt_Note";
-            this.txt_Note.Size = new System.Drawing.Size(365, 45);
-            this.txt_Note.TabIndex = 111;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 41);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 110;
-            this.label5.Text = "Note";
-            // 
-            // txt_NameInbox
-            // 
-            this.txt_NameInbox.Location = new System.Drawing.Point(295, 12);
-            this.txt_NameInbox.Name = "txt_NameInbox";
-            this.txt_NameInbox.Size = new System.Drawing.Size(138, 20);
-            this.txt_NameInbox.TabIndex = 111;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(218, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 13);
-            this.label4.TabIndex = 110;
-            this.label4.Text = "Name inbox";
-            // 
-            // txt_IDInbox
-            // 
-            this.txt_IDInbox.Location = new System.Drawing.Point(68, 12);
-            this.txt_IDInbox.Name = "txt_IDInbox";
-            this.txt_IDInbox.Size = new System.Drawing.Size(100, 20);
-            this.txt_IDInbox.TabIndex = 111;
-            // 
-            // Label1
-            // 
-            this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(15, 15);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(20, 13);
-            this.Label1.TabIndex = 110;
-            this.Label1.Text = "ID";
-            // 
-            // txt_NameMessage
-            // 
-            this.txt_NameMessage.Location = new System.Drawing.Point(87, 41);
-            this.txt_NameMessage.Name = "txt_NameMessage";
-            this.txt_NameMessage.Size = new System.Drawing.Size(197, 20);
-            this.txt_NameMessage.TabIndex = 111;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 44);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 13);
-            this.label7.TabIndex = 110;
-            this.label7.Text = "Name Message";
-            // 
-            // txt_IDMessage
-            // 
-            this.txt_IDMessage.Location = new System.Drawing.Point(87, 8);
-            this.txt_IDMessage.Name = "txt_IDMessage";
-            this.txt_IDMessage.Size = new System.Drawing.Size(100, 20);
-            this.txt_IDMessage.TabIndex = 111;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 15);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 13);
-            this.label6.TabIndex = 110;
-            this.label6.Text = "ID";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.splitContainer1.Location = new System.Drawing.Point(10, 10);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.dlv_InboxType);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.label20);
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(782, 305);
-            this.splitContainer1.SplitterDistance = 471;
-            this.splitContainer1.TabIndex = 120;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 117;
-            this.label2.Text = "Inbox type";
-            // 
-            // dlv_InboxType
-            // 
-            this.dlv_InboxType.AllowUserToAddRows = false;
-            this.dlv_InboxType.AllowUserToDeleteRows = false;
-            this.dlv_InboxType.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dlv_InboxType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dlv_InboxType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dlv_InboxType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.Ten,
-            this.Ghi_chu});
-            this.dlv_InboxType.Location = new System.Drawing.Point(7, 26);
-            this.dlv_InboxType.Name = "dlv_InboxType";
-            this.dlv_InboxType.ReadOnly = true;
-            this.dlv_InboxType.RowHeadersVisible = false;
-            this.dlv_InboxType.Size = new System.Drawing.Size(457, 270);
-            this.dlv_InboxType.TabIndex = 116;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(5, 10);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(85, 13);
-            this.label20.TabIndex = 117;
-            this.label20.Text = "Message type";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID_message,
-            this.Ten_message});
-            this.dataGridView1.Location = new System.Drawing.Point(8, 26);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(284, 270);
-            this.dataGridView1.TabIndex = 116;
-            // 
-            // panel6
-            // 
-            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel6.Location = new System.Drawing.Point(638, -2);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(113, 110);
-            this.panel6.TabIndex = 133;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 50;
-            // 
-            // Ten
-            // 
-            this.Ten.HeaderText = "Name Inbox";
-            this.Ten.Name = "Ten";
-            this.Ten.ReadOnly = true;
-            this.Ten.Width = 180;
-            // 
-            // Ghi_chu
-            // 
-            this.Ghi_chu.HeaderText = "Note";
-            this.Ghi_chu.Name = "Ghi_chu";
-            this.Ghi_chu.ReadOnly = true;
-            this.Ghi_chu.Width = 220;
-            // 
-            // ID_message
-            // 
-            this.ID_message.HeaderText = "ID";
-            this.ID_message.Name = "ID_message";
-            this.ID_message.ReadOnly = true;
-            this.ID_message.Width = 80;
-            // 
-            // Ten_message
-            // 
-            this.Ten_message.HeaderText = "Name Message";
-            this.Ten_message.Name = "Ten_message";
-            this.Ten_message.ReadOnly = true;
-            this.Ten_message.Width = 200;
-            // 
             // panel5
             // 
+            this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Controls.Add(this.button2);
@@ -350,6 +127,16 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(782, 116);
             this.panel5.TabIndex = 130;
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Location = new System.Drawing.Point(638, -2);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(113, 110);
+            this.panel6.TabIndex = 133;
             // 
             // button2
             // 
@@ -497,17 +284,236 @@
             this.but_NextPage.Text = ">";
             this.but_NextPage.UseVisualStyleBackColor = false;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitContainer2.Location = new System.Drawing.Point(10, 329);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.txt_Note);
+            this.splitContainer2.Panel1.Controls.Add(this.label5);
+            this.splitContainer2.Panel1.Controls.Add(this.txt_NameInbox);
+            this.splitContainer2.Panel1.Controls.Add(this.label4);
+            this.splitContainer2.Panel1.Controls.Add(this.txt_IDInbox);
+            this.splitContainer2.Panel1.Controls.Add(this.Label1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.txt_NameMessage);
+            this.splitContainer2.Panel2.Controls.Add(this.label7);
+            this.splitContainer2.Panel2.Controls.Add(this.txt_IDMessage);
+            this.splitContainer2.Panel2.Controls.Add(this.label6);
+            this.splitContainer2.Size = new System.Drawing.Size(782, 92);
+            this.splitContainer2.SplitterDistance = 472;
+            this.splitContainer2.TabIndex = 121;
+            // 
+            // txt_Note
+            // 
+            this.txt_Note.Location = new System.Drawing.Point(68, 38);
+            this.txt_Note.Multiline = true;
+            this.txt_Note.Name = "txt_Note";
+            this.txt_Note.Size = new System.Drawing.Size(365, 45);
+            this.txt_Note.TabIndex = 111;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 41);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 110;
+            this.label5.Text = "Note";
+            // 
+            // txt_NameInbox
+            // 
+            this.txt_NameInbox.Location = new System.Drawing.Point(295, 12);
+            this.txt_NameInbox.Name = "txt_NameInbox";
+            this.txt_NameInbox.Size = new System.Drawing.Size(138, 20);
+            this.txt_NameInbox.TabIndex = 111;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(218, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.TabIndex = 110;
+            this.label4.Text = "Name inbox";
+            // 
+            // txt_IDInbox
+            // 
+            this.txt_IDInbox.Location = new System.Drawing.Point(68, 12);
+            this.txt_IDInbox.Name = "txt_IDInbox";
+            this.txt_IDInbox.Size = new System.Drawing.Size(100, 20);
+            this.txt_IDInbox.TabIndex = 111;
+            // 
+            // Label1
+            // 
+            this.Label1.AutoSize = true;
+            this.Label1.Location = new System.Drawing.Point(15, 15);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(20, 13);
+            this.Label1.TabIndex = 110;
+            this.Label1.Text = "ID";
+            // 
+            // txt_NameMessage
+            // 
+            this.txt_NameMessage.Location = new System.Drawing.Point(87, 41);
+            this.txt_NameMessage.Name = "txt_NameMessage";
+            this.txt_NameMessage.Size = new System.Drawing.Size(197, 20);
+            this.txt_NameMessage.TabIndex = 111;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 44);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(93, 13);
+            this.label7.TabIndex = 110;
+            this.label7.Text = "Name Message";
+            // 
+            // txt_IDMessage
+            // 
+            this.txt_IDMessage.Location = new System.Drawing.Point(87, 8);
+            this.txt_IDMessage.Name = "txt_IDMessage";
+            this.txt_IDMessage.Size = new System.Drawing.Size(100, 20);
+            this.txt_IDMessage.TabIndex = 111;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 15);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 13);
+            this.label6.TabIndex = 110;
+            this.label6.Text = "ID";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitContainer1.Location = new System.Drawing.Point(10, 10);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.dlv_InboxType);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label20);
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Size = new System.Drawing.Size(782, 305);
+            this.splitContainer1.SplitterDistance = 471;
+            this.splitContainer1.TabIndex = 120;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 117;
+            this.label2.Text = "Inbox type";
+            // 
+            // dlv_InboxType
+            // 
+            this.dlv_InboxType.AllowUserToAddRows = false;
+            this.dlv_InboxType.AllowUserToDeleteRows = false;
+            this.dlv_InboxType.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dlv_InboxType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dlv_InboxType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dlv_InboxType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Ten,
+            this.Ghi_chu});
+            this.dlv_InboxType.Location = new System.Drawing.Point(7, 26);
+            this.dlv_InboxType.Name = "dlv_InboxType";
+            this.dlv_InboxType.ReadOnly = true;
+            this.dlv_InboxType.RowHeadersVisible = false;
+            this.dlv_InboxType.Size = new System.Drawing.Size(457, 270);
+            this.dlv_InboxType.TabIndex = 116;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 50;
+            // 
+            // Ten
+            // 
+            this.Ten.HeaderText = "Name Inbox";
+            this.Ten.Name = "Ten";
+            this.Ten.ReadOnly = true;
+            this.Ten.Width = 180;
+            // 
+            // Ghi_chu
+            // 
+            this.Ghi_chu.HeaderText = "Note";
+            this.Ghi_chu.Name = "Ghi_chu";
+            this.Ghi_chu.ReadOnly = true;
+            this.Ghi_chu.Width = 220;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(5, 10);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(85, 13);
+            this.label20.TabIndex = 117;
+            this.label20.Text = "Message type";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID_message,
+            this.Ten_message});
+            this.dataGridView1.Location = new System.Drawing.Point(8, 26);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(284, 270);
+            this.dataGridView1.TabIndex = 116;
+            // 
+            // ID_message
+            // 
+            this.ID_message.HeaderText = "ID";
+            this.ID_message.Name = "ID_message";
+            this.ID_message.ReadOnly = true;
+            this.ID_message.Width = 80;
+            // 
+            // Ten_message
+            // 
+            this.Ten_message.HeaderText = "Name Message";
+            this.Ten_message.Name = "Ten_message";
+            this.Ten_message.ReadOnly = true;
+            this.Ten_message.Width = 200;
+            // 
             // FormInboxMessageType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.ClientSize = new System.Drawing.Size(802, 550);
             this.Controls.Add(this.panel1);
-            this.MaximizeBox = false;
             this.Name = "FormInboxMessageType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inbox Type & Message Type";
             this.panel1.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -520,8 +526,6 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dlv_InboxType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }

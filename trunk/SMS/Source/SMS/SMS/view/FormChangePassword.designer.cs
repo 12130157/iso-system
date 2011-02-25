@@ -45,6 +45,7 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
@@ -56,7 +57,7 @@
             this.panel2.Controls.Add(this.btnChange);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.ForeColor = System.Drawing.Color.Indigo;
-            this.panel2.Location = new System.Drawing.Point(10, 10);
+            this.panel2.Location = new System.Drawing.Point(6, 9);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(291, 148);
             this.panel2.TabIndex = 0;
@@ -90,6 +91,7 @@
             // 
             // txtComfigPassword
             // 
+            this.txtComfigPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtComfigPassword.Location = new System.Drawing.Point(115, 77);
             this.txtComfigPassword.Name = "txtComfigPassword";
             this.txtComfigPassword.PasswordChar = '*';
@@ -149,16 +151,16 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(315, 170);
+            this.panel1.Size = new System.Drawing.Size(307, 168);
             this.panel1.TabIndex = 0;
             // 
             // FormChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 170);
+            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.ClientSize = new System.Drawing.Size(307, 168);
             this.Controls.Add(this.panel1);
-            this.MaximizeBox = false;
             this.Name = "FormChangePassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change password";

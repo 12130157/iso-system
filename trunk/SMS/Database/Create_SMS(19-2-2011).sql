@@ -16,7 +16,8 @@
 /* ---------------------------------------------------------------------- */
 /* Add table "ThanhVien"                                                  */
 /* ---------------------------------------------------------------------- */
-
+Create database hungvuongsystem
+go
 CREATE TABLE [ThanhVien] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_DN] VARCHAR(20),

@@ -31,6 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManageKeyword));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.but_Close = new System.Windows.Forms.Button();
+            this.but_Edit = new System.Windows.Forms.Button();
+            this.but_Add = new System.Windows.Forms.Button();
+            this.but_Delete = new System.Windows.Forms.Button();
+            this.but_Refresh = new System.Windows.Forms.Button();
             this.chk_All = new System.Windows.Forms.CheckBox();
             this.dtp_Choose = new System.Windows.Forms.DateTimePicker();
             this.label28 = new System.Windows.Forms.Label();
@@ -40,26 +45,21 @@
             this.but_FirstPage = new System.Windows.Forms.Button();
             this.but_NextPage = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.cboKeyword = new System.Windows.Forms.ComboBox();
+            this.txt_Note = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.txt_ID = new System.Windows.Forms.TextBox();
             this.txt_Name = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dlv_ManageKeyword = new System.Windows.Forms.DataGridView();
-            this.label23 = new System.Windows.Forms.Label();
-            this.txt_Note = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.but_Close = new System.Windows.Forms.Button();
-            this.but_Edit = new System.Windows.Forms.Button();
-            this.but_Add = new System.Windows.Forms.Button();
-            this.but_Delete = new System.Windows.Forms.Button();
-            this.but_Refresh = new System.Windows.Forms.Button();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ten = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cum_tu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ghi_chu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cboKeyword = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -81,6 +81,7 @@
             // 
             // panel5
             // 
+            this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.but_Close);
             this.panel5.Controls.Add(this.but_Edit);
@@ -100,6 +101,71 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(718, 74);
             this.panel5.TabIndex = 130;
+            // 
+            // but_Close
+            // 
+            this.but_Close.BackColor = System.Drawing.Color.Blue;
+            this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
+            this.but_Close.Location = new System.Drawing.Point(541, 36);
+            this.but_Close.Name = "but_Close";
+            this.but_Close.Size = new System.Drawing.Size(98, 23);
+            this.but_Close.TabIndex = 125;
+            this.but_Close.Text = "Close";
+            this.but_Close.UseVisualStyleBackColor = false;
+            // 
+            // but_Edit
+            // 
+            this.but_Edit.BackColor = System.Drawing.Color.Blue;
+            this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
+            this.but_Edit.Location = new System.Drawing.Point(422, 36);
+            this.but_Edit.Name = "but_Edit";
+            this.but_Edit.Size = new System.Drawing.Size(98, 23);
+            this.but_Edit.TabIndex = 128;
+            this.but_Edit.Text = "Edit";
+            this.but_Edit.UseVisualStyleBackColor = false;
+            // 
+            // but_Add
+            // 
+            this.but_Add.BackColor = System.Drawing.Color.Blue;
+            this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.Location = new System.Drawing.Point(304, 36);
+            this.but_Add.Name = "but_Add";
+            this.but_Add.Size = new System.Drawing.Size(98, 23);
+            this.but_Add.TabIndex = 127;
+            this.but_Add.Text = "Add";
+            this.but_Add.UseVisualStyleBackColor = false;
+            // 
+            // but_Delete
+            // 
+            this.but_Delete.BackColor = System.Drawing.Color.Blue;
+            this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
+            this.but_Delete.Location = new System.Drawing.Point(184, 36);
+            this.but_Delete.Name = "but_Delete";
+            this.but_Delete.Size = new System.Drawing.Size(98, 23);
+            this.but_Delete.TabIndex = 126;
+            this.but_Delete.Text = "Delete";
+            this.but_Delete.UseVisualStyleBackColor = false;
+            // 
+            // but_Refresh
+            // 
+            this.but_Refresh.BackColor = System.Drawing.Color.Blue;
+            this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
+            this.but_Refresh.Location = new System.Drawing.Point(63, 36);
+            this.but_Refresh.Name = "but_Refresh";
+            this.but_Refresh.Size = new System.Drawing.Size(98, 23);
+            this.but_Refresh.TabIndex = 129;
+            this.but_Refresh.Text = "Refresh";
+            this.but_Refresh.UseVisualStyleBackColor = false;
             // 
             // chk_All
             // 
@@ -197,6 +263,7 @@
             // 
             // panel4
             // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.cboKeyword);
             this.panel4.Controls.Add(this.txt_Note);
@@ -213,6 +280,31 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(718, 128);
             this.panel4.TabIndex = 2;
+            // 
+            // cboKeyword
+            // 
+            this.cboKeyword.FormattingEnabled = true;
+            this.cboKeyword.Location = new System.Drawing.Point(88, 64);
+            this.cboKeyword.Name = "cboKeyword";
+            this.cboKeyword.Size = new System.Drawing.Size(164, 21);
+            this.cboKeyword.TabIndex = 136;
+            // 
+            // txt_Note
+            // 
+            this.txt_Note.Location = new System.Drawing.Point(312, 8);
+            this.txt_Note.Multiline = true;
+            this.txt_Note.Name = "txt_Note";
+            this.txt_Note.Size = new System.Drawing.Size(270, 110);
+            this.txt_Note.TabIndex = 135;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(269, 11);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(34, 13);
+            this.label24.TabIndex = 134;
+            this.label24.Text = "Note";
             // 
             // panel6
             // 
@@ -237,6 +329,15 @@
             this.txt_Name.Size = new System.Drawing.Size(164, 20);
             this.txt_Name.TabIndex = 1;
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(14, 72);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(59, 13);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "Keyword ";
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -257,6 +358,8 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel2.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.dlv_ManageKeyword);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -279,97 +382,6 @@
             this.dlv_ManageKeyword.RowHeadersVisible = false;
             this.dlv_ManageKeyword.Size = new System.Drawing.Size(708, 274);
             this.dlv_ManageKeyword.TabIndex = 0;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(14, 72);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(59, 13);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "Keyword ";
-            // 
-            // txt_Note
-            // 
-            this.txt_Note.Location = new System.Drawing.Point(312, 8);
-            this.txt_Note.Multiline = true;
-            this.txt_Note.Name = "txt_Note";
-            this.txt_Note.Size = new System.Drawing.Size(270, 110);
-            this.txt_Note.TabIndex = 135;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(269, 11);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(34, 13);
-            this.label24.TabIndex = 134;
-            this.label24.Text = "Note";
-            // 
-            // but_Close
-            // 
-            this.but_Close.BackColor = System.Drawing.Color.Blue;
-            this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
-            this.but_Close.Location = new System.Drawing.Point(541, 36);
-            this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(98, 23);
-            this.but_Close.TabIndex = 125;
-            this.but_Close.Text = "Close";
-            this.but_Close.UseVisualStyleBackColor = false;
-            // 
-            // but_Edit
-            // 
-            this.but_Edit.BackColor = System.Drawing.Color.Blue;
-            this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
-            this.but_Edit.Location = new System.Drawing.Point(422, 36);
-            this.but_Edit.Name = "but_Edit";
-            this.but_Edit.Size = new System.Drawing.Size(98, 23);
-            this.but_Edit.TabIndex = 128;
-            this.but_Edit.Text = "Edit";
-            this.but_Edit.UseVisualStyleBackColor = false;
-            // 
-            // but_Add
-            // 
-            this.but_Add.BackColor = System.Drawing.Color.Blue;
-            this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
-            this.but_Add.Location = new System.Drawing.Point(304, 36);
-            this.but_Add.Name = "but_Add";
-            this.but_Add.Size = new System.Drawing.Size(98, 23);
-            this.but_Add.TabIndex = 127;
-            this.but_Add.Text = "Add";
-            this.but_Add.UseVisualStyleBackColor = false;
-            // 
-            // but_Delete
-            // 
-            this.but_Delete.BackColor = System.Drawing.Color.Blue;
-            this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
-            this.but_Delete.Location = new System.Drawing.Point(184, 36);
-            this.but_Delete.Name = "but_Delete";
-            this.but_Delete.Size = new System.Drawing.Size(98, 23);
-            this.but_Delete.TabIndex = 126;
-            this.but_Delete.Text = "Delete";
-            this.but_Delete.UseVisualStyleBackColor = false;
-            // 
-            // but_Refresh
-            // 
-            this.but_Refresh.BackColor = System.Drawing.Color.Blue;
-            this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
-            this.but_Refresh.Location = new System.Drawing.Point(63, 36);
-            this.but_Refresh.Name = "but_Refresh";
-            this.but_Refresh.Size = new System.Drawing.Size(98, 23);
-            this.but_Refresh.TabIndex = 129;
-            this.but_Refresh.Text = "Refresh";
-            this.but_Refresh.UseVisualStyleBackColor = false;
             // 
             // ID
             // 
@@ -395,19 +407,11 @@
             this.Ghi_chu.Name = "Ghi_chu";
             this.Ghi_chu.Width = 280;
             // 
-            // cboKeyword
-            // 
-            this.cboKeyword.FormattingEnabled = true;
-            this.cboKeyword.Location = new System.Drawing.Point(88, 64);
-            this.cboKeyword.Name = "cboKeyword";
-            this.cboKeyword.Size = new System.Drawing.Size(164, 21);
-            this.cboKeyword.TabIndex = 136;
-            // 
             // FormManageKeyword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.ClientSize = new System.Drawing.Size(738, 517);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
