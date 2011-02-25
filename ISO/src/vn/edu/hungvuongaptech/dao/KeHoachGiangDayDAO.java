@@ -598,4 +598,21 @@ public class KeHoachGiangDayDAO {
 		}
 		return result;
 	}
+	
+	public static Boolean updateNgayDayKeHoachGiangDay(int maKHGD){
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_iso_UpdateNgaydayKHGD(?)}");
+			csmt.setInt("MaKHGD", maKHGD);		
+			return DataUtil.executeNonStore(csmt);								
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		}			
+		return result;
+	}
+	
 }
