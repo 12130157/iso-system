@@ -2152,7 +2152,7 @@ BEGIN
 
 	SET @sql='
 	
-	SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Ma_lop,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2  
+	SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Ma_lop,MonHocTKB.User5 As NgayHocBD,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2  
 	
 	SELECT  A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien
 		,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As NgayBatDau
@@ -2162,8 +2162,7 @@ BEGIN
 	FROM KeHoachGiangDay As A	
 
 	
-	SELECT B.NgayBatDau As NgayThucHien,B.NgayGui,B.NgayDuyet,B.TinhTrang,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
-
+	SELECT A.NgayHocBD As NgayThucHien,B.NgayGui,B.NgayDuyet,B.TinhTrang,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
 	FROM #temp1 As A
 	LEFT JOIN #temp2 As B ON A.Ma_mon_hoc=B.MaMonHoc AND A.Ma_lop=B.MaLop
 	INNER JOIN MonHoc AS M ON M.ID=A.Ma_mon_hoc
@@ -3547,20 +3546,23 @@ END
 GO
 
 --sp_ISO_GetKeHoachGiangDay.sql
+--Ma bo phan la cua nguoi tao
+--Ma khoa cua chuc nang tim kiem
+
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetKeHoachGiangDay]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_GetKeHoachGiangDay]
 GO
 CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
-	@NumRows		VARCHAR(2),
+	@NumRows		VARCHAR(5),
 	@TotalRows      varchar(5),
-	@CurrentPage	VARCHAR(2),
-	@Tinh_trang		varchar(2),
-	@Ma_nguoi_tao   varchar(2),		
-	@Ma_Bo_Phan varchar(2),
+	@CurrentPage	VARCHAR(5),
+	@Tinh_trang		varchar(5),
+	@Ma_nguoi_tao   varchar(5),		
+	@Ma_Bo_Phan varchar(5),
 	@TenMonHoc nvarchar(500),
 	@MaKhoa varchar(5),
-	@MaHocKi varchar(1),
+	@MaHocKi varchar(5),
 	@MaNamHoc varchar(5)
 AS
 BEGIN
@@ -3581,32 +3583,35 @@ BEGIN
 	SET	@Dieu_kien_hoc_ki=''
 	SET @Dieu_kien_nam_hoc=''
 	SET @Dieu_kien_ma_khoa=''
+	IF @Ma_nguoi_tao = ''	
+		SET @Ma_nguoi_tao=null
 
-	IF(@Ma_nguoi_tao<>'')
+
+	IF(@Ma_nguoi_tao<>null)
 		BEGIN
 			SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
 		END
 	IF(@Tinh_trang<>'')
 		BEGIN
-			SET	@Dieu_kien_tinh_trang = ' AND Tinh_trang ='+@Tinh_trang 
+			SET	@Dieu_kien_tinh_trang = ' AND TB2.Tinh_trang ='+@Tinh_trang 
 		END
 	IF(@MaHocKi<>'')
 		BEGIN
-			SET	@Dieu_kien_hoc_ki = ' AND Hoc_ki LIKE ''%'+@MaHocKi + '%'''
+			SET	@Dieu_kien_hoc_ki = ' AND TB2.Hoc_ki LIKE ''%'+@MaHocKi + '%'''
 		END
 	IF(@MaNamHoc<>'')
 		BEGIN
-			SET	@Dieu_kien_nam_hoc = ' AND Ma_nam_hoc LIKE ''%'+@MaNamHoc + '%'''
+			SET	@Dieu_kien_nam_hoc = ' AND TB2.Ma_nam_hoc LIKE ''%'+@MaNamHoc + '%'''
 		END
 	IF not exists(SELECT * FROM KeHoachGiangDay WHERE Ma_nguoi_tao = @Ma_nguoi_tao)
 	BEGIN	
-			SET @Dieu_kien_khong_phai_nguoi_tao = ' AND Tinh_trang <> 0 '
+			SET @Dieu_kien_khong_phai_nguoi_tao = ' AND TB2.Tinh_trang <> 0 '
 	END
 	
 	SELECT @VAITRO=Ma_vai_tro FROM ThanhVien WHERE ID=@Ma_nguoi_tao
 	IF(@VAITRO = 8)	
 	BEGIN 					
-		SET @Dieu_kien_ma_nguoi_tao = ' AND Ma_nguoi_tao = ' + @Ma_nguoi_tao
+		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
 
 	IF(@MaKhoa <> '')	
@@ -3615,30 +3620,44 @@ BEGIN
 	END
 
 
+
+		
 	SELECT @sql = '
 		SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
-			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,
-			convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
-			FROM (
-				SELECT TOP ' + @NumRows + '* 
-				FROM (
-					SELECT TOP ' + Cast(Cast(@TotalRows As Int) - (Cast(@CurrentPage As Int) - 1) * Cast(@NumRows As Int) As Varchar) + ' *
-					FROM KeHoachGiangDay WHERE 1=1 ' +
-					@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
-					+' ORDER BY id ASC
-				) AS TB1
-				ORDER BY TB1.id DESC
-			) AS TB2 
+		TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
+		FROM KeHoachGiangDay AS TB2 		
 			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
 			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
 			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
-			ORDER BY TB2.id DESC'
+
+		WHERE 1=1 ' +
+		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
+	+		'	ORDER BY TB2.id DESC '
+		
+
 	exec  sp_executesql @sql
 END
 
 
-
+--'SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
+--			TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,
+--			convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
+--			FROM (
+--				SELECT TOP ' + @NumRows + '* 
+--				FROM (
+--					SELECT TOP ' + Cast(Cast(@TotalRows As Int) - (Cast(@CurrentPage As Int) - 1) * Cast(@NumRows As Int) As Varchar) + ' *
+--					FROM KeHoachGiangDay WHERE 1=1 ' +
+--					@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
+--					+' ORDER BY id ASC
+--				) AS TB1
+--				ORDER BY TB1.id DESC
+--			) AS TB2 
+--			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
+--			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
+--			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
+--			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
+--			ORDER BY TB2.id DESC'
 GO
 
 --sp_ISO_GetKeHoachThang.sql
@@ -7220,6 +7239,23 @@ BEGIN
 	FROM MonHocTKB A 
 	WHERE A.ID = @ID
 END			
+GO
+
+--sp_iso_updateNgayDayKHGD.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].sp_iso_UpdateNgaydayKHGD') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].sp_iso_UpdateNgaydayKHGD
+GO
+
+CREATE PROCEDURE sp_iso_UpdateNgaydayKHGD
+	@MaKHGD int
+AS
+BEGIN
+	DECLARE @NgayDay varchar(40)
+	SELECT TOP 1 @NgayDay=Ngay_BD FROM ChiTietKHGD WHERE Ma_Ke_Hoach_Giang_Day=@MaKHGD
+	UPDATE KeHoachGiangDay SET User2=@NgayDay WHERE ID=@MaKHGD
+END
+
+
 GO
 
 --sp_ISO_UpdateNguoiThucHien.sql
