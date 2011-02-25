@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMS.model
 {
-    class CuPhap
+    class CuPhapMODEL
     {
         private string id;
         private string ten;

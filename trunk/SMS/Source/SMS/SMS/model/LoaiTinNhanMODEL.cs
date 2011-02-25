@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMS.model
 {
-    class LoaiTinNhan
+    class LoaiTinNhanMODEL
     {
         private string id;
         private string ten;

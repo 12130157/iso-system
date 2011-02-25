@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMS.model
 {
-    class TaiKhoanSms
+    class TaiKhoanSmsMODEL
     {
         private string id;
         private string so_Dien_Thoai;
