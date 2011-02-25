@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5FC66462-FF38-4CE5-97CE-1A646E58A3C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -61,6 +61,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormConnection.resx">
+      <DependentUpon>FormConnection.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="view\FormAddressBook.resx">
       <DependentUpon>FormAddressBook.cs</DependentUpon>
@@ -143,6 +147,12 @@
     </Compile>
     <Compile Include="util\DataUtil.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="view\FormConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormConnection.Designer.cs">
+      <DependentUpon>FormConnection.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FormAddressBook.cs">
       <SubType>Form</SubType>

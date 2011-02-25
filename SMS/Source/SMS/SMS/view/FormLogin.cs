@@ -32,18 +32,18 @@ namespace SMS
 
             MemberModel memberModel = MemberDAO.getMemberByUsernameAndPassword(username, password);
 
-            if (memberModel != null)
-            {
+            //if (memberModel != null)
+            //{
                 Constants.USER_LOGIN = memberModel;
-                FormMain formMain = new FormMain();
+                FormConnection frmConnection = new FormConnection();
                 this.Visible = false;
-                formMain.Focus();
-                formMain.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                frmConnection.Focus();
+                frmConnection.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
         }
     }
 }
