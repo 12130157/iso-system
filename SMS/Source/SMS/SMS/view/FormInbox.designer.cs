@@ -53,46 +53,19 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.butReply = new System.Windows.Forms.Button();
-            this.butApply = new System.Windows.Forms.Button();
-            this.cboNameInboxType = new System.Windows.Forms.ComboBox();
-            this.cboNameMessageType = new System.Windows.Forms.ComboBox();
-            this.lst_MessageContent = new System.Windows.Forms.ListBox();
-            this.txt_NameKeyword = new System.Windows.Forms.TextBox();
-            this.txt_Status = new System.Windows.Forms.TextBox();
-            this.txt_IDInboxType = new System.Windows.Forms.TextBox();
-            this.txt_IDMessageType = new System.Windows.Forms.TextBox();
-            this.txt_IDKeyword = new System.Windows.Forms.TextBox();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.Label11 = new System.Windows.Forms.Label();
-            this.txt_NumberPhone = new System.Windows.Forms.TextBox();
-            this.Label8 = new System.Windows.Forms.Label();
-            this.Label10 = new System.Windows.Forms.Label();
-            this.txt_MaHopThuDen = new System.Windows.Forms.TextBox();
-            this.Label7 = new System.Windows.Forms.Label();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.Label5 = new System.Windows.Forms.Label();
-            this.Label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.Label2 = new System.Windows.Forms.Label();
             this.dlv_Inbox = new System.Windows.Forms.DataGridView();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txt_Name = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.So_dien_thoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ma_cu_phap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Noi_dung_tin_nhan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Loai_tin_nhan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Loai_Hop_thu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tinh_trang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Loai_tin_nhan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Noi_dung_tin_nhan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ma_cu_phap = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.So_dien_thoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dlv_Inbox)).BeginInit();
             this.SuspendLayout();
@@ -101,12 +74,11 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.panel4);
-            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(901, 669);
+            this.panel1.Size = new System.Drawing.Size(901, 517);
             this.panel1.TabIndex = 0;
             // 
             // panel4
@@ -123,7 +95,7 @@
             this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.label17);
             this.panel4.Controls.Add(this.label16);
-            this.panel4.Location = new System.Drawing.Point(10, 484);
+            this.panel4.Location = new System.Drawing.Point(10, 330);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(877, 173);
             this.panel4.TabIndex = 119;
@@ -162,6 +134,7 @@
             this.but_Close.BackColor = System.Drawing.Color.Blue;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.Location = new System.Drawing.Point(755, 12);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(75, 23);
@@ -174,6 +147,7 @@
             this.but_Delete.BackColor = System.Drawing.Color.Blue;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.Location = new System.Drawing.Point(668, 13);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(75, 23);
@@ -186,6 +160,7 @@
             this.but_Refresh.BackColor = System.Drawing.Color.Blue;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
             this.but_Refresh.Location = new System.Drawing.Point(571, 13);
             this.but_Refresh.Name = "but_Refresh";
             this.but_Refresh.Size = new System.Drawing.Size(75, 23);
@@ -240,6 +215,7 @@
             this.but_LastPage.BackColor = System.Drawing.Color.Blue;
             this.but_LastPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_LastPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_LastPage.Image = ((System.Drawing.Image)(resources.GetObject("but_LastPage.Image")));
             this.but_LastPage.Location = new System.Drawing.Point(155, 15);
             this.but_LastPage.Name = "but_LastPage";
             this.but_LastPage.Size = new System.Drawing.Size(42, 23);
@@ -252,6 +228,7 @@
             this.but_PreviousPage.BackColor = System.Drawing.Color.Blue;
             this.but_PreviousPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_PreviousPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_PreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("but_PreviousPage.Image")));
             this.but_PreviousPage.Location = new System.Drawing.Point(59, 15);
             this.but_PreviousPage.Name = "but_PreviousPage";
             this.but_PreviousPage.Size = new System.Drawing.Size(42, 23);
@@ -264,6 +241,7 @@
             this.but_FirstPage.BackColor = System.Drawing.Color.Blue;
             this.but_FirstPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_FirstPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_FirstPage.Image = ((System.Drawing.Image)(resources.GetObject("but_FirstPage.Image")));
             this.but_FirstPage.Location = new System.Drawing.Point(13, 15);
             this.but_FirstPage.Name = "but_FirstPage";
             this.but_FirstPage.Size = new System.Drawing.Size(42, 23);
@@ -276,6 +254,7 @@
             this.but_NextPage.BackColor = System.Drawing.Color.Blue;
             this.but_NextPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_NextPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_NextPage.Image = ((System.Drawing.Image)(resources.GetObject("but_NextPage.Image")));
             this.but_NextPage.Location = new System.Drawing.Point(107, 15);
             this.but_NextPage.Name = "but_NextPage";
             this.but_NextPage.Size = new System.Drawing.Size(42, 23);
@@ -292,7 +271,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 128;
-            this.label18.Text = "Remain: 160";
+            this.label18.Text = "Remain: 640";
             // 
             // label19
             // 
@@ -311,6 +290,7 @@
             this.but_AddressBook.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_AddressBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_AddressBook.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_AddressBook.Image = ((System.Drawing.Image)(resources.GetObject("but_AddressBook.Image")));
             this.but_AddressBook.Location = new System.Drawing.Point(616, 129);
             this.but_AddressBook.Name = "but_AddressBook";
             this.but_AddressBook.Size = new System.Drawing.Size(109, 23);
@@ -324,6 +304,7 @@
             this.but_Draft.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Draft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Draft.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Draft.Image = ((System.Drawing.Image)(resources.GetObject("but_Draft.Image")));
             this.but_Draft.Location = new System.Drawing.Point(616, 101);
             this.but_Draft.Name = "but_Draft";
             this.but_Draft.Size = new System.Drawing.Size(109, 23);
@@ -337,6 +318,7 @@
             this.but_Send.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Send.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Send.Image = ((System.Drawing.Image)(resources.GetObject("but_Send.Image")));
             this.but_Send.Location = new System.Drawing.Point(616, 72);
             this.but_Send.Name = "but_Send";
             this.but_Send.Size = new System.Drawing.Size(109, 23);
@@ -347,7 +329,7 @@
             // txt_Message
             // 
             this.txt_Message.Location = new System.Drawing.Point(123, 95);
-            this.txt_Message.MaxLength = 160;
+            this.txt_Message.MaxLength = 640;
             this.txt_Message.Multiline = true;
             this.txt_Message.Name = "txt_Message";
             this.txt_Message.Size = new System.Drawing.Size(472, 57);
@@ -382,254 +364,21 @@
             this.label16.TabIndex = 121;
             this.label16.Text = "Number Phone";
             // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.butReply);
-            this.panel3.Controls.Add(this.butApply);
-            this.panel3.Controls.Add(this.cboNameInboxType);
-            this.panel3.Controls.Add(this.cboNameMessageType);
-            this.panel3.Controls.Add(this.lst_MessageContent);
-            this.panel3.Controls.Add(this.txt_NameKeyword);
-            this.panel3.Controls.Add(this.txt_Status);
-            this.panel3.Controls.Add(this.txt_IDInboxType);
-            this.panel3.Controls.Add(this.txt_IDMessageType);
-            this.panel3.Controls.Add(this.txt_IDKeyword);
-            this.panel3.Controls.Add(this.Label9);
-            this.panel3.Controls.Add(this.Label11);
-            this.panel3.Controls.Add(this.txt_Name);
-            this.panel3.Controls.Add(this.txt_NumberPhone);
-            this.panel3.Controls.Add(this.Label8);
-            this.panel3.Controls.Add(this.Label10);
-            this.panel3.Controls.Add(this.txt_MaHopThuDen);
-            this.panel3.Controls.Add(this.Label7);
-            this.panel3.Controls.Add(this.Label6);
-            this.panel3.Controls.Add(this.label12);
-            this.panel3.Controls.Add(this.Label4);
-            this.panel3.Controls.Add(this.Label3);
-            this.panel3.Controls.Add(this.Label5);
-            this.panel3.Controls.Add(this.Label1);
-            this.panel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel3.Location = new System.Drawing.Point(10, 314);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(877, 164);
-            this.panel3.TabIndex = 118;
-            // 
-            // butReply
-            // 
-            this.butReply.BackColor = System.Drawing.Color.Blue;
-            this.butReply.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.butReply.ForeColor = System.Drawing.SystemColors.Control;
-            this.butReply.Location = new System.Drawing.Point(771, 131);
-            this.butReply.Name = "butReply";
-            this.butReply.Size = new System.Drawing.Size(75, 23);
-            this.butReply.TabIndex = 151;
-            this.butReply.Text = "Reply";
-            this.butReply.UseVisualStyleBackColor = false;
-            this.butReply.Click += new System.EventHandler(this.butReply_Click);
-            // 
-            // butApply
-            // 
-            this.butApply.BackColor = System.Drawing.Color.Blue;
-            this.butApply.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.butApply.ForeColor = System.Drawing.SystemColors.Control;
-            this.butApply.Location = new System.Drawing.Point(684, 131);
-            this.butApply.Name = "butApply";
-            this.butApply.Size = new System.Drawing.Size(75, 23);
-            this.butApply.TabIndex = 152;
-            this.butApply.Text = "Apply";
-            this.butApply.UseVisualStyleBackColor = false;
-            // 
-            // cboNameInboxType
-            // 
-            this.cboNameInboxType.FormattingEnabled = true;
-            this.cboNameInboxType.Location = new System.Drawing.Point(711, 56);
-            this.cboNameInboxType.Name = "cboNameInboxType";
-            this.cboNameInboxType.Size = new System.Drawing.Size(146, 21);
-            this.cboNameInboxType.TabIndex = 150;
-            // 
-            // cboNameMessageType
-            // 
-            this.cboNameMessageType.FormattingEnabled = true;
-            this.cboNameMessageType.Location = new System.Drawing.Point(711, 29);
-            this.cboNameMessageType.Name = "cboNameMessageType";
-            this.cboNameMessageType.Size = new System.Drawing.Size(146, 21);
-            this.cboNameMessageType.TabIndex = 150;
-            // 
-            // lst_MessageContent
-            // 
-            this.lst_MessageContent.FormattingEnabled = true;
-            this.lst_MessageContent.Location = new System.Drawing.Point(123, 85);
-            this.lst_MessageContent.MultiColumn = true;
-            this.lst_MessageContent.Name = "lst_MessageContent";
-            this.lst_MessageContent.Size = new System.Drawing.Size(311, 69);
-            this.lst_MessageContent.TabIndex = 149;
-            // 
-            // txt_NameKeyword
-            // 
-            this.txt_NameKeyword.Location = new System.Drawing.Point(711, 5);
-            this.txt_NameKeyword.Name = "txt_NameKeyword";
-            this.txt_NameKeyword.Size = new System.Drawing.Size(146, 20);
-            this.txt_NameKeyword.TabIndex = 141;
-            // 
-            // txt_Status
-            // 
-            this.txt_Status.Location = new System.Drawing.Point(532, 84);
-            this.txt_Status.Name = "txt_Status";
-            this.txt_Status.Size = new System.Drawing.Size(154, 20);
-            this.txt_Status.TabIndex = 142;
-            // 
-            // txt_IDInboxType
-            // 
-            this.txt_IDInboxType.Location = new System.Drawing.Point(532, 58);
-            this.txt_IDInboxType.Name = "txt_IDInboxType";
-            this.txt_IDInboxType.Size = new System.Drawing.Size(79, 20);
-            this.txt_IDInboxType.TabIndex = 147;
-            // 
-            // txt_IDMessageType
-            // 
-            this.txt_IDMessageType.Location = new System.Drawing.Point(532, 30);
-            this.txt_IDMessageType.Name = "txt_IDMessageType";
-            this.txt_IDMessageType.Size = new System.Drawing.Size(79, 20);
-            this.txt_IDMessageType.TabIndex = 145;
-            // 
-            // txt_IDKeyword
-            // 
-            this.txt_IDKeyword.Location = new System.Drawing.Point(532, 5);
-            this.txt_IDKeyword.Name = "txt_IDKeyword";
-            this.txt_IDKeyword.Size = new System.Drawing.Size(79, 20);
-            this.txt_IDKeyword.TabIndex = 143;
-            // 
-            // Label9
-            // 
-            this.Label9.AutoSize = true;
-            this.Label9.Location = new System.Drawing.Point(443, 90);
-            this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(43, 13);
-            this.Label9.TabIndex = 122;
-            this.Label9.Text = "Status";
-            // 
-            // Label11
-            // 
-            this.Label11.AutoSize = true;
-            this.Label11.Location = new System.Drawing.Point(617, 64);
-            this.Label11.Name = "Label11";
-            this.Label11.Size = new System.Drawing.Size(39, 13);
-            this.Label11.TabIndex = 125;
-            this.Label11.Text = "Name";
-            // 
-            // txt_NumberPhone
-            // 
-            this.txt_NumberPhone.Location = new System.Drawing.Point(123, 56);
-            this.txt_NumberPhone.Name = "txt_NumberPhone";
-            this.txt_NumberPhone.Size = new System.Drawing.Size(241, 20);
-            this.txt_NumberPhone.TabIndex = 144;
-            // 
-            // Label8
-            // 
-            this.Label8.AutoSize = true;
-            this.Label8.Location = new System.Drawing.Point(617, 36);
-            this.Label8.Name = "Label8";
-            this.Label8.Size = new System.Drawing.Size(39, 13);
-            this.Label8.TabIndex = 128;
-            this.Label8.Text = "Name";
-            // 
-            // Label10
-            // 
-            this.Label10.AutoSize = true;
-            this.Label10.Location = new System.Drawing.Point(443, 64);
-            this.Label10.Name = "Label10";
-            this.Label10.Size = new System.Drawing.Size(83, 13);
-            this.Label10.TabIndex = 123;
-            this.Label10.Text = "ID Inbox type";
-            // 
-            // txt_MaHopThuDen
-            // 
-            this.txt_MaHopThuDen.Location = new System.Drawing.Point(123, 3);
-            this.txt_MaHopThuDen.Name = "txt_MaHopThuDen";
-            this.txt_MaHopThuDen.Size = new System.Drawing.Size(127, 20);
-            this.txt_MaHopThuDen.TabIndex = 137;
-            // 
-            // Label7
-            // 
-            this.Label7.AutoSize = true;
-            this.Label7.Location = new System.Drawing.Point(443, 36);
-            this.Label7.Name = "Label7";
-            this.Label7.Size = new System.Drawing.Size(85, 13);
-            this.Label7.TabIndex = 135;
-            this.Label7.Text = "Message type";
-            // 
-            // Label6
-            // 
-            this.Label6.AutoSize = true;
-            this.Label6.Location = new System.Drawing.Point(13, 85);
-            this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(104, 13);
-            this.Label6.TabIndex = 134;
-            this.Label6.Text = "Message content";
-            // 
-            // Label4
-            // 
-            this.Label4.AutoSize = true;
-            this.Label4.Location = new System.Drawing.Point(443, 7);
-            this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(71, 13);
-            this.Label4.TabIndex = 133;
-            this.Label4.Text = "ID keyword";
-            // 
-            // Label3
-            // 
-            this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(11, 61);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(90, 13);
-            this.Label3.TabIndex = 131;
-            this.Label3.Text = "Number Phone";
-            // 
-            // Label5
-            // 
-            this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(617, 8);
-            this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(90, 13);
-            this.Label5.TabIndex = 132;
-            this.Label5.Text = "Name keyword";
-            // 
-            // Label1
-            // 
-            this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(11, 4);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(20, 13);
-            this.Label1.TabIndex = 130;
-            this.Label1.Text = "ID";
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.Label2);
             this.panel2.Controls.Add(this.dlv_Inbox);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(10, 10);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(877, 298);
+            this.panel2.Size = new System.Drawing.Size(877, 314);
             this.panel2.TabIndex = 117;
-            // 
-            // Label2
-            // 
-            this.Label2.AutoSize = true;
-            this.Label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label2.ForeColor = System.Drawing.Color.Indigo;
-            this.Label2.Location = new System.Drawing.Point(11, 0);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(65, 13);
-            this.Label2.TabIndex = 116;
-            this.Label2.Text = "List  inbox";
             // 
             // dlv_Inbox
             // 
             this.dlv_Inbox.AllowUserToAddRows = false;
             this.dlv_Inbox.AllowUserToDeleteRows = false;
+            this.dlv_Inbox.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dlv_Inbox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dlv_Inbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dlv_Inbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -639,30 +388,52 @@
             this.Ma_cu_phap,
             this.Noi_dung_tin_nhan,
             this.Loai_tin_nhan,
-            this.Tinh_trang,
-            this.Loai_Hop_thu});
-            this.dlv_Inbox.Location = new System.Drawing.Point(14, 16);
+            this.Loai_Hop_thu,
+            this.Tinh_trang});
+            this.dlv_Inbox.Location = new System.Drawing.Point(3, 3);
             this.dlv_Inbox.Name = "dlv_Inbox";
             this.dlv_Inbox.ReadOnly = true;
             this.dlv_Inbox.RowHeadersVisible = false;
-            this.dlv_Inbox.Size = new System.Drawing.Size(843, 270);
+            this.dlv_Inbox.Size = new System.Drawing.Size(867, 309);
             this.dlv_Inbox.TabIndex = 115;
             // 
-            // label12
+            // Id
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 35);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(39, 13);
-            this.label12.TabIndex = 131;
-            this.label12.Text = "Name";
+            this.Id.HeaderText = "ID";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 50;
             // 
-            // txt_Name
+            // Name
             // 
-            this.txt_Name.Location = new System.Drawing.Point(123, 30);
-            this.txt_Name.Name = "txt_Name";
-            this.txt_Name.Size = new System.Drawing.Size(241, 20);
-            this.txt_Name.TabIndex = 144;
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
+            // 
+            // So_dien_thoai
+            // 
+            this.So_dien_thoai.HeaderText = "Number Phone";
+            this.So_dien_thoai.Name = "So_dien_thoai";
+            this.So_dien_thoai.ReadOnly = true;
+            // 
+            // Ma_cu_phap
+            // 
+            this.Ma_cu_phap.HeaderText = "Keyword ID";
+            this.Ma_cu_phap.Name = "Ma_cu_phap";
+            this.Ma_cu_phap.ReadOnly = true;
+            // 
+            // Noi_dung_tin_nhan
+            // 
+            this.Noi_dung_tin_nhan.HeaderText = "Message content";
+            this.Noi_dung_tin_nhan.Name = "Noi_dung_tin_nhan";
+            this.Noi_dung_tin_nhan.ReadOnly = true;
+            this.Noi_dung_tin_nhan.Width = 250;
+            // 
+            // Loai_tin_nhan
+            // 
+            this.Loai_tin_nhan.HeaderText = "Message type";
+            this.Loai_tin_nhan.Name = "Loai_tin_nhan";
+            this.Loai_tin_nhan.ReadOnly = true;
             // 
             // Loai_Hop_thu
             // 
@@ -677,53 +448,14 @@
             this.Tinh_trang.ReadOnly = true;
             this.Tinh_trang.Width = 80;
             // 
-            // Loai_tin_nhan
-            // 
-            this.Loai_tin_nhan.HeaderText = "Message type";
-            this.Loai_tin_nhan.Name = "Loai_tin_nhan";
-            this.Loai_tin_nhan.ReadOnly = true;
-            // 
-            // Noi_dung_tin_nhan
-            // 
-            this.Noi_dung_tin_nhan.HeaderText = "Message content";
-            this.Noi_dung_tin_nhan.Name = "Noi_dung_tin_nhan";
-            this.Noi_dung_tin_nhan.ReadOnly = true;
-            this.Noi_dung_tin_nhan.Width = 250;
-            // 
-            // Ma_cu_phap
-            // 
-            this.Ma_cu_phap.HeaderText = "Keyword ID";
-            this.Ma_cu_phap.Name = "Ma_cu_phap";
-            this.Ma_cu_phap.ReadOnly = true;
-            // 
-            // So_dien_thoai
-            // 
-            this.So_dien_thoai.HeaderText = "Number Phone";
-            this.So_dien_thoai.Name = "So_dien_thoai";
-            this.So_dien_thoai.ReadOnly = true;
-            // 
-            // Name
-            // 
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "ID";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 50;
-            // 
             // FormInbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ClientSize = new System.Drawing.Size(901, 669);
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ClientSize = new System.Drawing.Size(901, 517);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
-            this.Name.Name = "FormInbox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inbook";
             this.panel1.ResumeLayout(false);
@@ -731,10 +463,7 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dlv_Inbox)).EndInit();
             this.ResumeLayout(false);
 
@@ -743,9 +472,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
-        internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.DataGridView dlv_Inbox;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
@@ -770,38 +497,14 @@
         internal System.Windows.Forms.Label label17;
         internal System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel6;
-        internal System.Windows.Forms.ListBox lst_MessageContent;
-        internal System.Windows.Forms.TextBox txt_NameKeyword;
-        internal System.Windows.Forms.TextBox txt_Status;
-        internal System.Windows.Forms.TextBox txt_IDInboxType;
-        internal System.Windows.Forms.TextBox txt_IDMessageType;
-        internal System.Windows.Forms.TextBox txt_IDKeyword;
-        internal System.Windows.Forms.Label Label9;
-        internal System.Windows.Forms.Label Label11;
-        internal System.Windows.Forms.TextBox txt_NumberPhone;
-        internal System.Windows.Forms.Label Label8;
-        internal System.Windows.Forms.Label Label10;
-        internal System.Windows.Forms.TextBox txt_MaHopThuDen;
-        internal System.Windows.Forms.Label Label7;
-        internal System.Windows.Forms.Label Label6;
-        internal System.Windows.Forms.Label Label4;
-        internal System.Windows.Forms.Label Label3;
-        internal System.Windows.Forms.Label Label5;
-        internal System.Windows.Forms.Label Label1;
-        private System.Windows.Forms.ComboBox cboNameMessageType;
-        private System.Windows.Forms.ComboBox cboNameInboxType;
-        private System.Windows.Forms.Button butReply;
-        private System.Windows.Forms.Button butApply;
-        internal System.Windows.Forms.TextBox txt_Name;
-        internal System.Windows.Forms.Label label12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn So_dien_thoai;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ma_cu_phap;
         private System.Windows.Forms.DataGridViewTextBoxColumn Noi_dung_tin_nhan;
         private System.Windows.Forms.DataGridViewTextBoxColumn Loai_tin_nhan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tinh_trang;
         private System.Windows.Forms.DataGridViewTextBoxColumn Loai_Hop_thu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tinh_trang;
 
 
     }

@@ -54,9 +54,8 @@
             this.but_FirstPage = new System.Windows.Forms.Button();
             this.but_NextPage = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.dlv_Inbox = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.So_dien_thoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ma_cu_phap = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,8 +67,8 @@
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dlv_Inbox)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -77,7 +76,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
-            this.panel3.Location = new System.Drawing.Point(10, 322);
+            this.panel3.Location = new System.Drawing.Point(10, 297);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(883, 204);
             this.panel3.TabIndex = 123;
@@ -120,7 +119,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 130;
-            this.label18.Text = "Remain: 160";
+            this.label18.Text = "Remain: 640";
             // 
             // label19
             // 
@@ -139,6 +138,7 @@
             this.but_AddressBook.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_AddressBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_AddressBook.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_AddressBook.Image = ((System.Drawing.Image)(resources.GetObject("but_AddressBook.Image")));
             this.but_AddressBook.Location = new System.Drawing.Point(614, 73);
             this.but_AddressBook.Name = "but_AddressBook";
             this.but_AddressBook.Size = new System.Drawing.Size(92, 23);
@@ -152,6 +152,7 @@
             this.but_Draft.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Draft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Draft.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Draft.Image = ((System.Drawing.Image)(resources.GetObject("but_Draft.Image")));
             this.but_Draft.Location = new System.Drawing.Point(614, 45);
             this.but_Draft.Name = "but_Draft";
             this.but_Draft.Size = new System.Drawing.Size(92, 23);
@@ -165,6 +166,7 @@
             this.but_Send.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Send.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Send.Image = ((System.Drawing.Image)(resources.GetObject("but_Send.Image")));
             this.but_Send.Location = new System.Drawing.Point(614, 16);
             this.but_Send.Name = "but_Send";
             this.but_Send.Size = new System.Drawing.Size(92, 23);
@@ -176,7 +178,7 @@
             // 
             this.txt_Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Message.Location = new System.Drawing.Point(124, 40);
-            this.txt_Message.MaxLength = 160;
+            this.txt_Message.MaxLength = 640;
             this.txt_Message.Multiline = true;
             this.txt_Message.Name = "txt_Message";
             this.txt_Message.Size = new System.Drawing.Size(472, 67);
@@ -234,6 +236,7 @@
             this.but_Close.BackColor = System.Drawing.Color.Blue;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.Location = new System.Drawing.Point(759, 12);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(75, 23);
@@ -246,6 +249,7 @@
             this.but_Delete.BackColor = System.Drawing.Color.Blue;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.Location = new System.Drawing.Point(678, 12);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(75, 23);
@@ -258,6 +262,7 @@
             this.but_Refresh.BackColor = System.Drawing.Color.Blue;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
             this.but_Refresh.Location = new System.Drawing.Point(597, 12);
             this.but_Refresh.Name = "but_Refresh";
             this.but_Refresh.Size = new System.Drawing.Size(75, 23);
@@ -313,6 +318,7 @@
             this.but_LastPage.BackColor = System.Drawing.Color.Blue;
             this.but_LastPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_LastPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_LastPage.Image = ((System.Drawing.Image)(resources.GetObject("but_LastPage.Image")));
             this.but_LastPage.Location = new System.Drawing.Point(162, 12);
             this.but_LastPage.Name = "but_LastPage";
             this.but_LastPage.Size = new System.Drawing.Size(42, 23);
@@ -325,6 +331,7 @@
             this.but_PreviousPage.BackColor = System.Drawing.Color.Blue;
             this.but_PreviousPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_PreviousPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_PreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("but_PreviousPage.Image")));
             this.but_PreviousPage.Location = new System.Drawing.Point(66, 12);
             this.but_PreviousPage.Name = "but_PreviousPage";
             this.but_PreviousPage.Size = new System.Drawing.Size(42, 23);
@@ -337,6 +344,7 @@
             this.but_FirstPage.BackColor = System.Drawing.Color.Blue;
             this.but_FirstPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_FirstPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_FirstPage.Image = ((System.Drawing.Image)(resources.GetObject("but_FirstPage.Image")));
             this.but_FirstPage.Location = new System.Drawing.Point(20, 12);
             this.but_FirstPage.Name = "but_FirstPage";
             this.but_FirstPage.Size = new System.Drawing.Size(42, 23);
@@ -349,6 +357,7 @@
             this.but_NextPage.BackColor = System.Drawing.Color.Blue;
             this.but_NextPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_NextPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_NextPage.Image = ((System.Drawing.Image)(resources.GetObject("but_NextPage.Image")));
             this.but_NextPage.Location = new System.Drawing.Point(114, 12);
             this.but_NextPage.Name = "but_NextPage";
             this.but_NextPage.Size = new System.Drawing.Size(42, 23);
@@ -360,40 +369,18 @@
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.dlv_Inbox);
-            this.panel2.Controls.Add(this.Label2);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.ForeColor = System.Drawing.Color.Indigo;
             this.panel2.Location = new System.Drawing.Point(10, 10);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(883, 306);
+            this.panel2.Size = new System.Drawing.Size(883, 281);
             this.panel2.TabIndex = 122;
-            // 
-            // Label2
-            // 
-            this.Label2.AutoSize = true;
-            this.Label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label2.ForeColor = System.Drawing.Color.Indigo;
-            this.Label2.Location = new System.Drawing.Point(17, 4);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(63, 13);
-            this.Label2.TabIndex = 121;
-            this.Label2.Text = "List  Draft";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(902, 536);
-            this.panel1.TabIndex = 1;
             // 
             // dlv_Inbox
             // 
             this.dlv_Inbox.AllowUserToAddRows = false;
             this.dlv_Inbox.AllowUserToDeleteRows = false;
+            this.dlv_Inbox.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dlv_Inbox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dlv_Inbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dlv_Inbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -404,12 +391,23 @@
             this.Loai_tin_nhan,
             this.Tinh_trang,
             this.Loai_Hop_thu});
-            this.dlv_Inbox.Location = new System.Drawing.Point(18, 23);
+            this.dlv_Inbox.Location = new System.Drawing.Point(3, 3);
             this.dlv_Inbox.Name = "dlv_Inbox";
             this.dlv_Inbox.ReadOnly = true;
             this.dlv_Inbox.RowHeadersVisible = false;
-            this.dlv_Inbox.Size = new System.Drawing.Size(843, 270);
+            this.dlv_Inbox.Size = new System.Drawing.Size(873, 270);
             this.dlv_Inbox.TabIndex = 122;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(902, 510);
+            this.panel1.TabIndex = 1;
             // 
             // Id
             // 
@@ -430,6 +428,7 @@
             this.Ma_cu_phap.HeaderText = "Keyword ID";
             this.Ma_cu_phap.Name = "Ma_cu_phap";
             this.Ma_cu_phap.ReadOnly = true;
+            this.Ma_cu_phap.Width = 120;
             // 
             // Noi_dung_tin_nhan
             // 
@@ -462,7 +461,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 536);
+            this.ClientSize = new System.Drawing.Size(902, 510);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.Name = "FormDraft";
@@ -474,9 +473,8 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dlv_Inbox)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -507,7 +505,6 @@
         internal System.Windows.Forms.Button but_FirstPage;
         internal System.Windows.Forms.Button but_NextPage;
         private System.Windows.Forms.Panel panel2;
-        internal System.Windows.Forms.Label Label2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel6;
         internal System.Windows.Forms.DataGridView dlv_Inbox;
