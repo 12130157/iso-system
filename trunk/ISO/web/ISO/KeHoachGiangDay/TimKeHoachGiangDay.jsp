@@ -467,18 +467,7 @@
 	<br/>
 	<br/>
 	<br/>
-		Trang 
-							<c:forEach var="numPage" items="${showNumPage}">
-								${numPage} 
-							</c:forEach>
-	<br/>
-	<br/>
-	<br/>
-		
-	<table style="background-color: transparent;">
-		<tr style="background-color: transparent;"><td style="color:blue;text-align:left" >Chức năng</td></tr>
-		<tr style="background-color: transparent;"><td><input type='button' value='In kết quả'/></td></tr>
-	</table>
+
 	</form>
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />

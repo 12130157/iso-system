@@ -23,7 +23,7 @@
 </pd4ml:header>
 <pd4ml:footer 
 	   fontFace="Times New Roman"
-       titleTemplate="     BM03b–QT7.1/2           		Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     BM03b–QT7.1/2           		                                          Ngày hiệu lực: 15/9/2009"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -58,6 +58,8 @@
 <% ArrayList<ArrayList<ArrayList<ChiTietKHGDModel>>> chiTietKHGDGroupNhom=new ArrayList<ArrayList<ArrayList<ChiTietKHGDModel>>>(); %>
 <div align="center">
 <div class = "div_body">
+<c:set var="coHieuLT" value='<%=Constant.COHIEULT %>'></c:set>
+<c:set var="coHieuTH" value='<%=Constant.COHIEUTH %>'></c:set>
 
 <c:if test="${not empty param.maKHGD}">
 	<c:set var="KHGD" value = '<%=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(request.getParameter("maKHGD"))%>'></c:set>
@@ -126,15 +128,14 @@
 						<td>
 							<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 810px">
 								<tr>
-									<td style="width: 150px;font-weight:bold;text-align:center" colspan='2'>Thời gian giảng dạy</td>
+									<td style="width: 150px;font-weight:bold;text-align:center">Thời gian giảng dạy</td>
 									<td style="width: 120px;font-weight:bold;text-align:center" colspan='3'>Số giờ</td>
 									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Nội dung giảng dạy (Tên chương, bài, đề mục theo chương trình đã qui định)</td>
 									<td style="width: 160px;font-weight:bold;text-align:center" rowspan='2'>Tên sản phẩm ứng dụng trong bài tập</td>
 									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Công việc chuẩn bị trước khi giảng dạy</td>					
 								</tr>
 								<tr>
-									<td style="text-align:center;width:75px">Từ</td>
-									<td style="text-align:center;width:75px">Đến</td>
+									<td style="text-align:center;width:150px">Từ ngày đến ngày</td>
 									<td style="text-align:center;width:40px">LT</td>
 									<td style="text-align:center;width:40px">BT</td>
 									<td style="text-align:center;width:40px">TH</td>			
@@ -162,11 +163,31 @@
 										<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 810px">
 											<tr>
 																									
-												<td style="text-align:center;width:75px">${tuanLeObj.tuNgay}</td>
-												<td style="text-align:center;width:75px">${tuanLeObj.denNgay}</td>
-												<td style="text-align:center;width:40px">LT</td>
-												<td style="text-align:center;width:40px">BT</td>
-												<td style="text-align:center;width:40px">TH</td>
+												<td style="text-align:center;width:150px"> Từ ${tuanLeObj.tuNgay} đến ${tuanLeObj.denNgay}
+												<td style="text-align:center;width:40px">
+														<c:if test="${obj1.coHieu eq coHieuLT}">
+															5
+														</c:if>
+														<c:if test="${obj1.coHieu eq coHieuTH}">
+															0
+														</c:if>
+														<c:if test="${obj1.coHieu ne coHieuLT and obj1.coHieu ne coHieuTH}">
+															0
+														</c:if>
+												</td>
+												<td style="text-align:center;width:40px">0</td>
+												<td style="text-align:center;width:40px">
+												
+												<c:if test="${obj1.coHieu eq coHieuLT}">
+															0
+														</c:if>
+														<c:if test="${obj1.coHieu eq coHieuTH}">
+															5
+														</c:if>
+														<c:if test="${obj1.coHieu ne coHieuLT and obj1.coHieu ne coHieuTH}">
+															5
+														</c:if>
+												</td>
 												
 												<td style="width:190px;">
 													<c:if test="${not empty obj1.tenChuong}">${sf:appendBrTag3(obj1.tenChuong)}</c:if>
