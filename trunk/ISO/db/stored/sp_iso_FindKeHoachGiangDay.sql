@@ -7,7 +7,9 @@ CREATE PROCEDURE sp_iso_FindKeHoachGiangDay
 	@MaLop varchar(10),
 	@MaMonHoc varchar(10),
 	@HocKi varchar(10),
-	@TinhTrang varchar(10)
+	@TinhTrang varchar(10),
+	@NgayTimBD varchar(11),
+	@NgayTimKT varchar(11)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -16,6 +18,7 @@ BEGIN
 	DECLARE @DieuKienTinhTrang varchar(100)
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
+	DECLARE @DieuKienTimNgay varchar(100)
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -23,7 +26,23 @@ BEGIN
 	SET @DieuKienTinhTrang=''
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
-		
+	SET @DieuKienTimNgay=''
+
+	IF @NgayTimBD = ''
+	BEGIN
+		SET @NgayTimBD='1/1/1'
+	END
+	
+	IF @NgayTimKT =''
+	BEGIN
+		SET @DieuKienTimNgay= ' AND A.NgayHocBD >= ''' +  @NgayTimBD+' 00:00:00.000''' 
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienTimNgay= ' AND A.NgayHocBD >= ''' + @NgayTimBD  + ' 00:00:00.000'' AND A.NgayHocBD <= ''' + @NgayTimKT +' 23:59:59.000'' '
+	END	
+
+
 
 	IF @MaNguoiTao <> ''
 	BEGIN
@@ -93,8 +112,9 @@ BEGIN
 	+ @DieuKienTinhTrang
 	+ @DieuKienHocKi
 	+ @DieuKienMaNamHoc
+	+ @DieuKienTimNgay
 	+' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC  	'
---	PRINT @sql
+	--PRINT @sql
 	EXEC sp_executesql @sql
 END
 
