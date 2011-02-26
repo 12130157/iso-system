@@ -1969,7 +1969,9 @@ CREATE PROCEDURE sp_iso_FindGiaoAn
 	@MaLop varchar(10),
 	@MaMonHoc varchar(10),
 	@HocKi varchar(10),
-	@TinhTrang varchar(10)
+	@TinhTrang varchar(10),
+	@NgayTimBD varchar(11),
+	@NgayTimKT varchar(11)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -1978,6 +1980,7 @@ BEGIN
 	DECLARE @DieuKienTinhTrang varchar(100)
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
+	DECLARE @DieuKienTimNgay varchar(100)
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -1985,7 +1988,21 @@ BEGIN
 	SET @DieuKienTinhTrang=''
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
+	SET @DieuKienTimNgay=''
 		
+	IF @NgayTimBD = ''
+	BEGIN
+		SET @NgayTimBD='1/1/1'
+	END
+	
+	IF @NgayTimKT =''
+	BEGIN
+		SET @DieuKienTimNgay= ' WHERE U.Ngay_BD >= ''' +  @NgayTimBD+'''' 
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienTimNgay= ' WHERE U.Ngay_BD >= ''' + @NgayTimBD  + ''' AND U.Ngay_BD <= ''' + @NgayTimKT +''''
+	END	
 
 	IF @MaNguoiTao <> ''
 	BEGIN
@@ -2019,7 +2036,7 @@ BEGIN
 	DECLARE @sql nvarchar(2000)
 
 
-SET @sql=' SELECT A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,U.Ngay_BD As NgayThucHien
+SET @sql=' SELECT U.Co_Hieu As CoHieu,U.ID As MaCTKHGD,A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,U.Ngay_BD As NgayThucHien
 		,A.Ma_lop As MaLop,B.ID As MaGiaoAn,B.Tinh_Trang As TinhTrang,B.So_Giao_An As SoGiaoAn 
 		,B.NgayGui As NgayGui,B.Ngay_duyet As NgayDuyet,B.Ma_nguoi_duyet As MaNguoiDuyet
 ,ISNULL(K.Ho+'' ''+'' ''+K.Ten_lot+'' ''+K.Ten,'''') As NguoiDuyet
@@ -2034,6 +2051,7 @@ ON 1=1 '
 			 +@DieuKienMaMonHoc 
 			 +' AND B.Ma_KHGD=A.ID ' 
 			 +@DieuKienTinhTrang
+			 
 +' INNER JOIN MonHoc As C
 ON C.ID=A.Ma_Mon_Hoc
 INNER JOIN LopHoc As D
@@ -2047,10 +2065,11 @@ On G.ID=B.Ma_nguoi_duyet
 LEFT JOIN ChiTietThanhVien As K
 ON G.Ten_DN=K.Ten_dang_nhap
 INNER JOIN ChiTietKHGD As U
-On U.Ma_giao_an=B.ID
-ORDER BY A.Ma_nguoi_tao DESC,A.Ma_mon_hoc DESC, A.Ma_lop DESC '
+On U.Ma_giao_an=B.ID '
++@DieuKienTimNgay +
+' ORDER BY A.Ma_nguoi_tao DESC,A.Ma_mon_hoc DESC, A.Ma_lop DESC '
 	
-	exec sp_executesql @sql
+exec sp_executesql @sql
 END
 
 
@@ -2100,7 +2119,9 @@ CREATE PROCEDURE sp_iso_FindKeHoachGiangDay
 	@MaLop varchar(10),
 	@MaMonHoc varchar(10),
 	@HocKi varchar(10),
-	@TinhTrang varchar(10)
+	@TinhTrang varchar(10),
+	@NgayTimBD varchar(11),
+	@NgayTimKT varchar(11)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -2109,6 +2130,7 @@ BEGIN
 	DECLARE @DieuKienTinhTrang varchar(100)
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
+	DECLARE @DieuKienTimNgay varchar(100)
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -2116,7 +2138,23 @@ BEGIN
 	SET @DieuKienTinhTrang=''
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
-		
+	SET @DieuKienTimNgay=''
+
+	IF @NgayTimBD = ''
+	BEGIN
+		SET @NgayTimBD='1/1/1'
+	END
+	
+	IF @NgayTimKT =''
+	BEGIN
+		SET @DieuKienTimNgay= ' AND A.NgayHocBD >= ''' +  @NgayTimBD+' 00:00:00.000''' 
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienTimNgay= ' AND A.NgayHocBD >= ''' + @NgayTimBD  + ' 00:00:00.000'' AND A.NgayHocBD <= ''' + @NgayTimKT +' 23:59:59.000'' '
+	END	
+
+
 
 	IF @MaNguoiTao <> ''
 	BEGIN
@@ -2135,7 +2173,15 @@ BEGIN
 
 	IF @TinhTrang <>''
 	BEGIN
-		SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
+		IF @TinhTrang = 5 
+			BEGIN
+				 SET @DieuKienTinhTrang =' AND ISNULL(B.Tinhtrang,5) = 5 '
+			END
+				
+		ELSE
+			BEGIN 
+				SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
+			END
 	END
 
 	IF @HocKi <>''
@@ -2162,7 +2208,7 @@ BEGIN
 	FROM KeHoachGiangDay As A	
 
 	
-	SELECT A.NgayHocBD As NgayThucHien,B.NgayGui,B.NgayDuyet,B.TinhTrang,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
+	SELECT B.MaKHGD,A.NgayHocBD As NgayThucHien,B.NgayGui,B.NgayDuyet,B.TinhTrang,A.Ma_mon_hoc As MaMonHoc,A.Ma_lop As MaLop,A.Ma_giao_vien As MaNguoiTao,M.Ten_mon_hoc As TenMonHoc,L.Ki_hieu As KiHieu,ISNULL(C1.Ho+ '' '' +C1.Ten_lot+'' ''+C1.Ten,'' '') As NguoiTao,C2.Ho+ '' '' +C2.Ten_lot+'' ''+C2.Ten As NguoiDuyet
 	FROM #temp1 As A
 	LEFT JOIN #temp2 As B ON A.Ma_mon_hoc=B.MaMonHoc AND A.Ma_lop=B.MaLop
 	INNER JOIN MonHoc AS M ON M.ID=A.Ma_mon_hoc
@@ -2178,8 +2224,9 @@ BEGIN
 	+ @DieuKienTinhTrang
 	+ @DieuKienHocKi
 	+ @DieuKienMaNamHoc
+	+ @DieuKienTimNgay
 	+' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC  	'
-
+	--PRINT @sql
 	EXEC sp_executesql @sql
 END
 
