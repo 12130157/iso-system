@@ -850,7 +850,7 @@ function capNhatRKN(str)
 			<tr style="background-color: transparent;">
 				<td><br />TRƯỞNG KHOA/TRƯỞNG TỔ MÔN</td>
 				<td>
-					 <input type = "text" id="txtCalendar1" size = 8 name="txtCalendar1"  <c:if test="${param.stt eq 'update'}">value="${giaoAnLyThuyet.ngayTao}"</c:if> readonly="readonly" />
+					 <input type = "hidden" id="txtCalendar1" size = 8 name="txtCalendar1"  <c:if test="${param.stt eq 'update'}">value="${giaoAnLyThuyet.ngayTao}"</c:if> readonly="readonly" />
 					${giaoAnLyThuyet.ngayTao}
 				<br />GIÁO VIÊN</td>
 			</tr>
