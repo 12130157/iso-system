@@ -42,7 +42,15 @@ BEGIN
 
 	IF @TinhTrang <>''
 	BEGIN
-		SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
+		IF @TinhTrang = 5 
+			BEGIN
+				 SET @DieuKienTinhTrang =' AND ISNULL(B.Tinhtrang,5) = 5 '
+			END
+				
+		ELSE
+			BEGIN 
+				SET @DieuKienTinhTrang =' AND B.Tinhtrang = '+@TinhTrang 
+			END
 	END
 
 	IF @HocKi <>''
@@ -86,7 +94,7 @@ BEGIN
 	+ @DieuKienHocKi
 	+ @DieuKienMaNamHoc
 	+' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC  	'
-
+--	PRINT @sql
 	EXEC sp_executesql @sql
 END
 
