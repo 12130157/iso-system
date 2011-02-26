@@ -687,7 +687,7 @@ public class GiaoAnDAO {
 		return result;
 	}
 	
-	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,int indexStart,int total)
+	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT)
 	{
 		KetQuaTimGiaoAnModel ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
 		
@@ -696,7 +696,7 @@ public class GiaoAnDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?)}");
+				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?,?,?)}");
 			
 			csmt.setString("MaNguoiTao",maNguoiTao);		
 			csmt.setString("MaNamHoc",maNamHoc);
@@ -704,7 +704,8 @@ public class GiaoAnDAO {
 			csmt.setString("MaMonHoc",maMonHoc);
 			csmt.setString("HocKi",hocKi);
 			csmt.setString("TinhTrang",tinhTrang);
-	
+			csmt.setString("NgayTimBD",DateUtil.setDate(ngayTimBD));
+			csmt.setString("NgayTimKT",DateUtil.setDate(ngayTimKT));
 			ResultSet rs = DataUtil.executeStore(csmt);
 			
 			

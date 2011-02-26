@@ -86,6 +86,19 @@
 		path=path+"&khoa="+khoa;
 	}
 	
+	String ngayBD="";
+	if(request.getParameter("date1")!=null&&request.getParameter("date1")!="")
+	{
+		ngayBD=request.getParameter("date1");
+		path=path+"&date1="+ngayBD;
+	}
+	
+	String ngayKT="";
+	if(request.getParameter("date2")!=null&&request.getParameter("date2")!="")
+	{
+		ngayKT=request.getParameter("date2");
+		path=path+"&khoa="+ngayKT;
+	}
 	int index=1;
 	if(request.getParameter("index")!=null&&request.getParameter("index")!="")
 		index=Integer.parseInt(request.getParameter("index"));
@@ -115,6 +128,8 @@
 
 
 
+
+
 <c:set var="boPhan" value='<%=session.getAttribute("maBoPhan").toString() %>'></c:set>
 <c:set var="vaiTro" value='<%=session.getAttribute("maVaiTro").toString() %>'></c:set>
 <c:set var="vaiTroTK" value='<%=Constant.MA_VAI_TRO_TK%>'></c:set>
@@ -124,7 +139,7 @@
 <c:set var="boPhanPKD" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
 
 <c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,index,Constant.NUM_RECORD_TIMGIAOAN)%>'></c:set>
+	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT)%>'></c:set>
 </c:if>
 
 
@@ -215,6 +230,9 @@
 		var objTinhTrang=document.getElementById("selTinhTrang");
 		var objLopHoc=document.getElementById("selLopHoc");
 		var objKhoa=document.getElementById("selKhoa");
+		var objNgayDayBD=document.getElementById("txtNgayDayBD");
+		var objNgayDayKT=document.getElementById("txtNgayDayKT");
+		
 
 		if(objNamHoc.selectedIndex!=0)
 			strPath=strPath+"&nam="+objNamHoc.value;
@@ -237,7 +255,10 @@
 		if(objKhoa.selectedIndex!=0)
 			strPath=strPath+"&khoa="+objKhoa.value;
 		
-
+		if(objNgayDayBD.value!="")
+			strPath=strPath+"&date1="+objNgayDayBD.value;
+		if(objNgayDayKT.value!="")	
+			strPath=strPath+"&date2="+objNgayDayKT.value;
 		
 		location.href=strPath;
 	}	
@@ -348,6 +369,18 @@
 				</select>
 				
 			</td>
+			<td>
+			
+			</td>
+		</tr>
+		<tr style="background-color: transparent;">
+			
+			<td colspan='8'>
+				Ngày dạy Từ <input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
+			
+				Đến ngày <input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
+			</td>
+			
 		</tr>
 		<tr style="background-color: transparent;"><td colspan="7" style="text-align:right"><input type="button" value="Tìm kiếm" onclick="click_btnTim()"/></td></tr>	
 		
@@ -420,16 +453,9 @@
 	<br/>
 	<br/>
 	<br/>
-		Trang 
-							
-	<br/>
-	<br/>
-	<br/>
-		
-	<table style="background-color: transparent;">
-		<tr style="background-color: transparent;"><td style="color:blue;text-align:left" >Chức năng</td></tr>
-		<tr style="background-color: transparent;"><td><input type='button' value='In kết quả'/></td></tr>
-	</table>
+
+
+
 	</form>
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
@@ -437,6 +463,30 @@
 </div>
 
 </div>
+<script type="text/javascript">
+//<![CDATA[
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [2010.01, 2020.12],
+	electric          : false,
+	inputField        : "txtNgayDayBD",
+	button            : "Calendar",
+	ifFormat          : "%d-%m-%Y"
+  });
+//]]>
+//<![CDATA[
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [2010.01, 2020.12],
+	electric          : false,
+	inputField        : "txtNgayDayKT",
+	button            : "Calendar",
+	ifFormat          : "%d-%m-%Y"
+  });
+//]]>
+ </script>
 
 </body>
 </html>
