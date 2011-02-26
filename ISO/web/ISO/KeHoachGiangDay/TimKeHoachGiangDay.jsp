@@ -396,7 +396,15 @@
 			
 				<tr style="background-color: transparent;${color}">
 					<td>${objKQTim.soGiaoAn} </td>
-					<td>${objKQTim.tenMonHoc}</td>
+					<td>
+							<c:if test="${ empty objKQTim.maKHGD}">
+								${objKQTim.tenMonHoc}
+							</c:if>
+							<c:if test="${ not empty objKQTim.maKHGD}">
+								<a href='KeHoachGiangDay.jsp?maKHGD=${objKQTim.maKHGD}'>${objKQTim.tenMonHoc}</a>
+							</c:if>
+							
+					</td>
 					<td>${objKQTim.tenLopHoc}</td>
 					<td>${objKQTim.tenGiaoVien}</td>
 					<td>${objKQTim.ngayDay}</td>
