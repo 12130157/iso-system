@@ -242,17 +242,24 @@ public class KeHoachGiangDayController extends HttpServlet{
 				Boolean stt=true;
 				while(stt){
 					if(req.getParameter("hdnTuanTemp_"+jIndex).equals(req.getParameter("hdnTuan_"+i)) && req.getParameter("hdnSTTNoiDung_"+i).equals(req.getParameter("hdnSTTNoiDungTemp_"+jIndex))&& req.getParameter("hdnCoHieu_"+i).equals(req.getParameter("hdnCoHieuTemp_"+jIndex))){
-						if(coHieu.equals(Constant.COHIEUTH)){
-							chiTietKHGDModel.setNoiDungTH(StringUtil.toUTF8(req.getParameter("areaTH_"+jIndex).trim()));
-						}
-						else if (coHieu.equals(Constant.COHIEULT)){
-							chiTietKHGDModel.setTenChuong(StringUtil.toUTF8(req.getParameter("areaLT_"+jIndex).trim()));
-		
-						}
-						else if (!coHieu.equals(Constant.COHIEULT)&&!coHieu.equals(Constant.COHIEUTH)){
+						
+						if(req.getParameter("txtSoGioLT").equals("0")){
 							chiTietKHGDModel.setTenChuong(StringUtil.toUTF8(req.getParameter("areaLT_"+jIndex).trim()));
 							chiTietKHGDModel.setNoiDungTH(StringUtil.toUTF8(req.getParameter("areaTH_"+jIndex).trim()));
-							
+						}
+						else {
+							if(coHieu.equals(Constant.COHIEUTH)){
+								chiTietKHGDModel.setNoiDungTH(StringUtil.toUTF8(req.getParameter("areaTH_"+jIndex).trim()));
+							}
+							else if (coHieu.equals(Constant.COHIEULT)){
+								chiTietKHGDModel.setTenChuong(StringUtil.toUTF8(req.getParameter("areaLT_"+jIndex).trim()));
+			
+							}
+							else if (!coHieu.equals(Constant.COHIEULT)&&!coHieu.equals(Constant.COHIEUTH)){
+								chiTietKHGDModel.setTenChuong(StringUtil.toUTF8(req.getParameter("areaLT_"+jIndex).trim()));
+								chiTietKHGDModel.setNoiDungTH(StringUtil.toUTF8(req.getParameter("areaTH_"+jIndex).trim()));
+								
+							}
 						}
 						
 						if(req.getParameter("actionType").equalsIgnoreCase("ThemMoi")){
