@@ -46,7 +46,7 @@ public class MonHocTKBDAO {
 			csmt.setString("User2", monHocTKBModel.getUser2());
 			csmt.setString("User3", monHocTKBModel.getSoTietHoc1Buoi());
 			csmt.setString("User4", monHocTKBModel.getUser4());
-			csmt.setString("User5", monHocTKBModel.getUser5());
+			csmt.setString("User5", monHocTKBModel.getUser5()); // user5 = ngay dau tien hoc
 			
 			Boolean ketQua = DataUtil.executeNonStore(csmt);
 			if (ketQua) { // Insert thanh cong
@@ -73,8 +73,11 @@ public class MonHocTKBDAO {
 					}
 				}
 				
-				monHocTKBModel.setChiTietTKBModelList(chiTietTKBListAfterAdded);				
-				result = true;
+				monHocTKBModel.setChiTietTKBModelList(chiTietTKBListAfterAdded);			
+				// update ngay bat dau hoc
+				if(updateNgayBatDauHocByID(monHocTKBModel.getMaMonHocTKB()) == 1)
+				//
+					result = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,7 +114,9 @@ public class MonHocTKBDAO {
 			csmt.setString("User2", monHocTKBModel.getUser2());
 			csmt.setString("User3", monHocTKBModel.getSoTietHoc1Buoi());
 			csmt.setString("User4", monHocTKBModel.getUser4());
-			csmt.setString("User5", monHocTKBModel.getUser5());
+			csmt.setString("User5", monHocTKBModel.getUser5()); // user5 = ngay dau tien hoc
+			
+			
 			
 			Boolean ketQua = DataUtil.executeNonStore(csmt);
 			if (ketQua) { // Insert thanh cong
@@ -139,8 +144,11 @@ public class MonHocTKBDAO {
 					count++;
 				}
 				//monHocTKBModel.setSuDungModelList(suDungListAfterAdded);
-				monHocTKBModel.setChiTietTKBModelList(chiTietTKBListAfterAdded);				
-				result = true;
+				monHocTKBModel.setChiTietTKBModelList(chiTietTKBListAfterAdded);	
+				// update ngay bat dau hoc
+				if(updateNgayBatDauHocByID(monHocTKBModel.getMaMonHocTKB()) == 1)
+				//
+					result = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -383,5 +391,21 @@ public class MonHocTKBDAO {
 		}
 		return monHocList;
 	}
-
+	public static int updateNgayBatDauHocByID(String maMonHocTKB) {
+		int result = 0;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.updateNgayBatDauHocByID"));
+			preparedStatement.setString(1, maMonHocTKB);
+			preparedStatement.setString(2, maMonHocTKB);
+			result = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
