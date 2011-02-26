@@ -325,11 +325,13 @@
 					
 					<option <c:if test="${param.tt eq TT_NEW}">selected</c:if> value="${TT_NEW}">Mới</option>
 					
-					<option <c:if test="${param.tt eq TT_SEND}">selected</c:if> value="${TT_SEND}">Pending</option>
+					<option <c:if test="${param.tt eq TT_SEND}">selected</c:if> value="${TT_SEND}">Đã gởi</option>
 					
 					<option <c:if test="${param.tt eq TT_REJECT}">selected</c:if> value="${TT_REJECT}">Reject</option>
 					
-					<option <c:if test="${param.tt eq TT_APPROVE}">selected</c:if> value="${TT_APRROVE}">Approve</option>	
+					<option <c:if test="${param.tt eq TT_APPROVE}">selected</c:if> value="${TT_APPROVE}">Approve</option>	
+					
+					<option <c:if test="${param.tt eq TT_CHUATHUCHIEN}">selected</c:if> value="${TT_CHUATHUCHIEN}">Chưa làm</option>	
 				</select>
 			</td>
 			<td>

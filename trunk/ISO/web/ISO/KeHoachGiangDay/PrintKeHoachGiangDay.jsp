@@ -31,7 +31,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       
@@ -119,17 +119,29 @@
 	</table>
 	</div>
 	<div style='padding-left:40px'>
-	<table width = "850px" border = "1" style="background-color: transparent;" id="TableNoiDung">
+	<table width = "860px" border = "1" style="background-color: transparent;" id="TableNoiDung">
 					<tr style="background-color: transparent;">
-						<td style="width: 100px;font-weight:bold" align="center"><b>Tuần lễ</b></td>
+						<td style="width: 50px;font-weight:bold" align="center"><b>Tuần lễ</b></td>
 						
 						<td>
-							<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 750px">
+							<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 810px">
 								<tr>
-									<td style="width: 120px;font-weight:bold;text-align:center">Thời gian giảng dạy</td>
-									<td style="width: 210px;font-weight:bold;text-align:center">Nội dung giảng dạy (Tên chương, bài, đề mục theo chương trình đã qui định)</td>
-									<td style="width: 210px;font-weight:bold;text-align:center">Tên sản phẩm ứng dụng trong bài tập</td>
-									<td style="width: 210px;font-weight:bold;text-align:center">Công việc chuẩn bị trước khi giảng dạy</td>					
+									<td style="width: 150px;font-weight:bold;text-align:center" colspan='2'>Thời gian giảng dạy</td>
+									<td style="width: 120px;font-weight:bold;text-align:center" colspan='3'>Số giờ</td>
+									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Nội dung giảng dạy (Tên chương, bài, đề mục theo chương trình đã qui định)</td>
+									<td style="width: 160px;font-weight:bold;text-align:center" rowspan='2'>Tên sản phẩm ứng dụng trong bài tập</td>
+									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Công việc chuẩn bị trước khi giảng dạy</td>					
+								</tr>
+								<tr>
+									<td style="text-align:center;width:75px">Từ</td>
+									<td style="text-align:center;width:75px">Đến</td>
+									<td style="text-align:center;width:40px">LT</td>
+									<td style="text-align:center;width:40px">BT</td>
+									<td style="text-align:center;width:40px">TH</td>			
+									<td style="text-align:center;width: 190px;"></td>			
+									<td style="text-align:center;width: 160px;"></td>			
+									<td style="text-align:center;width: 190px;"></td>			
+											
 								</tr>
 							</table>
 						</td>
@@ -140,63 +152,29 @@
 						<% int count4=0; %>
 						<c:forEach items="${tuanLeKHGDList}" var="tuanLeObj">
 							<tr>
-								<td style="width: 100px" align="center">Tuần ${tuanLeObj.maTuanLe} <br/> Từ ngày <br/> ${tuanLeObj.tuNgay} <br/> Đến ngày <br/> ${tuanLeObj.denNgay} </td>
+								<td style="width: 50px" align="center">${tuanLeObj.maTuanLe}</td>
 								<td>
 									<c:set var="cTKHGDGroupSTTNDElement" value="<%=chiTietKHGDGroupSTTND.get(count1) %>"></c:set>
 									
 									<%int count2=0; %>
 									<c:forEach items="${cTKHGDGroupSTTNDElement}" var="obj1">
 										
-										<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 750px">
+										<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 810px">
 											<tr>
-												<td style="width:120px;" >
-													<div id='col1_<%=count3%>' style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px" >
-														<c:if test="${obj1.coHieu eq coHieuLT}">
-															<font color='blue'>Lý thuyết</font>
-														</c:if>
-														<c:if test="${obj1.coHieu eq coHieuTH}">
-															<font color='blue'>Thực hành</font>
-														</c:if>
-														<c:if test="${obj1.coHieu ne coHieuLT and obj1.coHieu ne coHieuTH}">
-															<c:if test="${obj1.coHieu eq coHieuTHop}">
-																<font color='blue'>Tích hợp</font>
-															</c:if>
-															<c:if test="${obj1.coHieu eq coHieuKT}">
-																<font color='blue'>Kiểm tra</font>
-															</c:if>
-														</c:if>
-														
-														<c:set var="cTKHGDGroupNhomElement" value="<%=chiTietKHGDGroupNhom.get(count1).get(count2) %>"></c:set>
-														<c:forEach items="${cTKHGDGroupNhomElement}" var="obj2">
-														<br/><br/><b> Ca ${ obj2.nhom } </b> 
-															<br/> ${obj2.ngayBD} 
-															<br/> Buổi: ${obj2.buoi}<br/> 
-															${sf:getThu(obj2.thu)}
-														
-															
-															
-															<br/> Phòng: ${obj2.phong}
-															<input type='hidden' name='hdnCoHieu_<%=count4%>' value='${obj2.coHieu}'/>
-															<input type='hidden' name='hdnNgayBD_<%=count4%>' value='${obj2.ngayBD}'/>
-															<input type='hidden' name='hdnTuan_<%=count4%>' value='${obj2.tuan}'/>
-															<input type='hidden' name='hdnNhom_<%=count4%>' value='${obj2.nhom}'/>
-															<input type='hidden' name='hdnSTTNoiDung_<%=count4%>' value='${obj2.sTTNoiDung}'/>
-															<input type='hidden' name='hdnThu_<%=count4%>' value='${obj2.thu}'/>
-															<input type='hidden' name='hdnBuoi_<%=count4%>' value='${obj2.buoi}'/>
-															<input type='hidden' name='hdnTenPhong_<%=count4%>' value='${obj2.phong}'/>
-															<input type='hidden' name='hdnMaCTKHGD_<%=count4%>' value='${obj2.maChiTietKHGD }'/>
-															
-															
-															<% count4++; %>
-														</c:forEach>					
-													</div>													
-												</td>
+																									
+												<td style="text-align:center;width:75px">${tuanLeObj.tuNgay}</td>
+												<td style="text-align:center;width:75px">${tuanLeObj.denNgay}</td>
+												<td style="text-align:center;width:40px">LT</td>
+												<td style="text-align:center;width:40px">BT</td>
+												<td style="text-align:center;width:40px">TH</td>
 												
-												<td style="width:210px;">
-													<c:if test="${obj1.coHieu ne coHieuTH }">${sf:appendBrTag3(obj1.tenChuong)}</c:if>
+												<td style="width:190px;">
+													<c:if test="${not empty obj1.tenChuong}">${sf:appendBrTag3(obj1.tenChuong)}</c:if>
 												</td>
-												<td style="width:210px;"><c:if test="${obj1.coHieu ne coHieuLT }">${sf:appendBrTag3(obj1.noiDungTH)}</c:if></td>
-												<td style="width:210px;">${sf:appendBrTag3(obj1.congViecChuanBi)}</td>
+												<td style="width:160px;">
+													<c:if test="${not empty obj1.noiDungTH }">${sf:appendBrTag3(obj1.noiDungTH)}</c:if>
+												</td>
+												<td style="width:190px;">${sf:appendBrTag3(obj1.congViecChuanBi)}</td>
 											
 											</tr>
 											
@@ -214,6 +192,7 @@
 						</c:forEach>
 							
 					</c:if>
+				
 				
 	</table>
 	</div>
