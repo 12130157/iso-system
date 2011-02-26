@@ -133,6 +133,9 @@
 <c:set var="TT_NEW" value="<%=Constant.TINHTRANG_NEW %>"></c:set>
 <c:set var="TT_APPROVE" value="<%=Constant.TINHTRANG_APPROVE %>"></c:set>
 <c:set var="TT_REJECT" value="<%=Constant.TINHTRANG_REJECT %>"></c:set>
+<c:set var="COHIEU_LT" value="<%=Constant.COHIEULT %>"></c:set>
+<c:set var="COHIEU_TH" value="<%=Constant.COHIEUTH %>"></c:set>
+
 
 <!--[if lt IE 7]>
  <style type="text/css">
@@ -374,7 +377,18 @@
 				<tr style="background-color: transparent;">		
 				
 				
-					<td>${objKQTim.tenMonHoc}</td>	
+					<td>
+						<c:if test="${objKQTim.coHieu eq COHIEU_LT}">
+							<a href='GiaoAnLT.jsp?maCTKHGD=${objKQTim.maCTKHGD}&stt=update&soGA=${objKQTim.soGiaoAn}'>${objKQTim.tenMonHoc}</a>
+						</c:if>
+						<c:if test="${objKQTim.coHieu eq COHIEU_TH}">
+							<a href='GiaoAnTH.jsp?maCTKHGD=${objKQTim.maCTKHGD}&stt=update&soGA=${objKQTim.soGiaoAn}'>${objKQTim.tenMonHoc}</a>
+						</c:if>
+						<c:if test="${objKQTim.coHieu ne COHIEU_LT and objKQTim.coHieu ne COHIEU_TH}">
+							<a href='GiaoAnTHop.jsp?maCTKHGD=${objKQTim.maCTKHGD}&stt=update&soGA=${objKQTim.soGiaoAn}'>${objKQTim.tenMonHoc}</a>
+						</c:if>
+					
+					</td>	
 					<td>${objKQTim.tenGiaoVien}</td>
 					<td>${objKQTim.tenLopHoc}</td>
 					<td>${objKQTim.soGiaoAn}</td>
