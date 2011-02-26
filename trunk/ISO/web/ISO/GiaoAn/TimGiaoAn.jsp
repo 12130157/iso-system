@@ -376,7 +376,7 @@
 		<tr style="background-color: transparent;">
 			
 			<td colspan='8'>
-				Ngày dạy Từ <input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
+				Ngày dạy từ <input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
 			
 				Đến ngày <input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
 			</td>
