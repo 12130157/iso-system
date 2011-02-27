@@ -173,6 +173,7 @@
 <script>
 
 	var namePage="TimGiaoAn.jsp";
+	var pathGA=window.location;
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -262,6 +263,21 @@
 		
 		location.href=strPath;
 	}	
+	
+	function click_TinhTrang(maKHGD,maGA,maNguoiTao,ngayGui,soGA){		
+		if (confirm('Bạn có chắc muốn approve giáo án này không ?')) {
+
+				document.getElementById("actionType").value="approveTimGA";
+				document.getElementById("txtCalendar1").value=ngayGui;
+				document.getElementById("txtSoGA").value=soGA;
+				document.getElementById("maKHGD").value=maKHGD;
+				document.getElementById("maGiaoAn").value=maGA;
+				document.getElementById("pathPage").value=pathGA;	
+				document.getElementById("txtMaNguoiTao").value=maNguoiTao;		
+				document.forms["frmSearchGiaoAn2"].submit();
+		}
+	}
+
 
 </script>
 
@@ -389,7 +405,16 @@
 	<br/>
 	<br/>
 	<br/>
-	
+	</form>
+	<form name='frmSearchGiaoAn2' id='frmSearchGiaoAn2' method="post" action="<%=request.getContextPath()%>/GiaoAnController">
+		<input type="hidden" name="txtSoGA" id="txtSoGA"></input>
+		<input type="hidden" name="maGiaoAn" id="maGiaoAn"></input>
+		<input type="hidden" name="maKHGD" id="maKHGD"></input>
+		<input type="hidden" name="txtMaNguoiTao" id="txtMaNguoiTao"></input>
+		<input type="hidden" name="txtCalendar1" id="txtCalendar1"></input>
+		<input type="hidden" name="pathPage" id="pathPage"></input>
+		<input type="hidden" name="actionType" id="actionType"></input>
+		
 	<table border="1">
 		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
 		<tr style="background-color: transparent;">
@@ -430,9 +455,15 @@
 					<td>${objKQTim.tenNguoiDuyet}</td>
 					<td>${objKQTim.ngayDuyet}</td>
 					<td>
-					
+			
 					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
+						<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},${objKQTim.maGA},${objKQTim.maGiaoVien},"${objKQTim.ngayGui}",${objKQTim.soGiaoAn})'>Đã gửi</a>
+						</c:if>
+						<c:if test ="${vaiTro ne Admin and vaiTro ne vaiTroTK}">
 							Đã gởi
+						</c:if>
+						
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE}">
 							Approve
