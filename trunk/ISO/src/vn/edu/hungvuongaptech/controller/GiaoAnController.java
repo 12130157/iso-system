@@ -99,6 +99,10 @@ public class GiaoAnController extends HttpServlet {
 		else if(actionType.equalsIgnoreCase("GAChuaTH")){
 			updateGiaoAnChuaThucHienXong(request,response);
 		}
+		else if(actionType.equalsIgnoreCase("approveTimGA")){
+			approveForTimGiaoAnPage(request,response);
+			
+		}
 		
 	}
 	
@@ -338,6 +342,16 @@ public class GiaoAnController extends HttpServlet {
 					+ "?maKHGD="+request.getParameter("maKHGD"));
 		}
 	}
+	
+	private void approveForTimGiaoAnPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		if(GiaoAnDAO.updateTinhTrangGiaoAnByMaGA(request.getParameter("maGiaoAn"),Constant.TINHTRANG_APPROVE)){
+		
+			approveMail(request, response);
+	
+		}
+		response.sendRedirect(request.getParameter("pathPage"));
+	}
+	
 
 	private void sendGiaoAnLyThuyet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		GiaoAnDAO.updateGiaoAnLyThuyet(mapGiaoAnLyThuyet(request, response));

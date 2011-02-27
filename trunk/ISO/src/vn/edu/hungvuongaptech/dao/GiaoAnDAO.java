@@ -731,6 +731,8 @@ public class GiaoAnDAO {
 				ketQuaGiaoAn.setMaMonHoc(rs.getString("MaMonHoc"));
 				ketQuaGiaoAn.setMaCTKHGD(rs.getString("MaCTKHGD"));
 				ketQuaGiaoAn.setCoHieu(rs.getString("CoHieu"));
+				ketQuaGiaoAn.setMaKHGD(rs.getString("MaKHGD"));
+				ketQuaGiaoAn.setMaGA(rs.getString("MaGiaoAn"));
 				ketQuaList.add(ketQuaGiaoAn);
 			}
 			

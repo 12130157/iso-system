@@ -946,7 +946,9 @@
 				</tr>
 				<tr style="background-color: transparent;">
 					<td><br/><br/><br/>
-						${objKHGD.tenNguoiDuyet}
+						<c:if test="${ not empty param.maKHGD and (objKHGD.tinhTrangHT eq APPROVE or objKHGD.tinhTrangHT eq REJECT) }">
+							${objKHGD.tenNguoiDuyet}
+						</c:if>
 						
 					</td>
 					<td><br/><br/><br/>${objKHGD.tenTruongKhoa}</td>
