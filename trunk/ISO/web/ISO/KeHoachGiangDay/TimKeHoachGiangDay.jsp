@@ -142,7 +142,7 @@
 <c:set var="boPhanPKD" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
 
 <c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=KeHoachGiangDayDAO.findKHGD(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT)%>'></c:set>
+	<c:set var="kqTimKiemList" value='<%=KeHoachGiangDayDAO.findKHGD(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT)%>' scope="session"></c:set>
 </c:if>
 
 
@@ -402,7 +402,12 @@
 			
 		</tr>
 		<tr style="background-color: transparent;"><td colspan="7" style="text-align:right"><input type="button" value="Tìm kiếm" onclick="click_btnTim()"/></td></tr>	
-		
+		<tr style="background-color: transparent;"><td colspan="7" style="text-align:right">
+			
+			<a href = "<%=Constant.PATH_RES.getString("iso.InKetQuaTimKHGD") %>">								 
+						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+			</a>
+		</td></tr>	
 	</table>
 	</form>
 	<br/>
