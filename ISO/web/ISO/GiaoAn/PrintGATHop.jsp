@@ -19,7 +19,7 @@
 </pd4ml:header>
 <!-- <pd4ml:footer 
 	   fontFace="Times New Roman"
-       titleTemplate="     BM03b–QT7.1/2           		Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     BM03b–QT7.1/2           		                                                           Ngày hiệu lực: 15/9/2009"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       

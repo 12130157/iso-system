@@ -386,11 +386,19 @@
 		</tr>
 		<tr style="background-color: transparent;">
 			
-			<td colspan='8'>
-				Ngày dạy từ <input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
-			
-				Đến ngày <input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
+			<td>
+				Ngày dạy từ
 			</td>
+			<td style='text-align:left'> 
+				<input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
+			</td>
+			<td>
+				Đến ngày 
+			</td>
+			<td style='text-align:left' colspan='5'>
+				<input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
+			</td>
+			
 			
 		</tr>
 		<tr style="background-color: transparent;"><td colspan="7" style="text-align:right"><input type="button" value="Tìm kiếm" onclick="click_btnTim()"/></td></tr>	
