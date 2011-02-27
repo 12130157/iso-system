@@ -129,20 +129,18 @@
 							<table border="1" style="border-bottom: none;border-top: none;background-color: transparent; width: 810px">
 								<tr>
 									<td style="width: 150px;font-weight:bold;text-align:center">Thời gian giảng dạy</td>
-									<td style="width: 120px;font-weight:bold;text-align:center" colspan='3'>Số giờ</td>
-									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Nội dung giảng dạy (Tên chương, bài, đề mục theo chương trình đã qui định)</td>
-									<td style="width: 160px;font-weight:bold;text-align:center" rowspan='2'>Tên sản phẩm ứng dụng trong bài tập</td>
-									<td style="width: 190px;font-weight:bold;text-align:center" rowspan='2'>Công việc chuẩn bị trước khi giảng dạy</td>					
+									<td style="width: 120px;font-weight:bold;text-align:center" colspan="3">Số giờ</td>
+									<td style="width: 190px;font-weight:bold;text-align:center" rowspan="2">Nội dung giảng dạy (Tên chương, bài, đề mục theo chương trình đã qui định)</td>
+									<td style="width: 160px;font-weight:bold;text-align:center" rowspan="2">Tên sản phẩm ứng dụng trong bài tập</td>
+									<td style="width: 190px;font-weight:bold;text-align:center" rowspan="2">Công việc chuẩn bị trước khi giảng dạy</td>					
 								</tr>
-								<tr>
-									<td style="text-align:center;width:150px">Từ ngày đến ngày</td>
-									<td style="text-align:center;width:40px">LT</td>
-									<td style="text-align:center;width:40px">BT</td>
-									<td style="text-align:center;width:40px">TH</td>			
-									<td style="text-align:center;width: 190px;"></td>			
-									<td style="text-align:center;width: 160px;"></td>			
-									<td style="text-align:center;width: 190px;"></td>			
-											
+									<tr>
+										<td style="text-align:center;width:150px">Từ ngày đến ngày</td>
+										<td style="text-align:center;width:40px">LT</td>
+										<td style="text-align:center;width:40px">BT</td>
+										<td style="text-align:center;width:40px">TH</td>			
+												
+												
 								</tr>
 							</table>
 						</td>
