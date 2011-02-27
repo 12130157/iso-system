@@ -135,6 +135,7 @@
 <c:set var="boPhan" value='<%=session.getAttribute("maBoPhan").toString() %>'></c:set>
 <c:set var="vaiTro" value='<%=session.getAttribute("maVaiTro").toString() %>'></c:set>
 <c:set var="vaiTroTK" value='<%=Constant.MA_VAI_TRO_TK%>'></c:set>
+<c:set var="vaiTroHT" value='<%=Constant.HIEU_TRUONG %>'></c:set>
 <c:set var="Admin" value='<%=Constant.ADMIN %>'></c:set>
 <c:set var="boPhanBGH" value='<%=Constant.BO_PHAN_BGH %>'></c:set>
 <c:set var="boPhanPDT" value='<%=Constant.BO_PHAN_PDT %>'></c:set>
@@ -172,7 +173,8 @@
 </style>
 <script>
 	var namePage="TimKeHoachGiangDay.jsp";
-
+	var pathKHGD=window.location;
+	
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -261,6 +263,17 @@
 		
 		location.href=strPath;
 	}	
+	
+	
+	function click_TinhTrang(maKHGD,tinhTrang){		
+		if (confirm('Bạn có chắc muốn approve kế hoạch này không ?')) {
+				document.getElementById("actionType").value="approveKHGD";
+				document.getElementById("Duyet").value=tinhTrang;
+				document.getElementById("maKHGD").value=maKHGD;
+				document.getElementById("pathPage").value=pathKHGD;		
+				document.forms["frmSearchGiaoAn2"].submit();
+		}
+	}
 
 </script>
 
@@ -383,10 +396,16 @@
 		<tr style="background-color: transparent;"><td colspan="7" style="text-align:right"><input type="button" value="Tìm kiếm" onclick="click_btnTim()"/></td></tr>	
 		
 	</table>
+	</form>
+	<br/>
+	<br/>
+	<br/>
+	<form name='frmSearchGiaoAn2' id='frmSearchGiaoAn2' action="<%=request.getContextPath() %>/keHoachGiangDayController?timKHGDPage=true" method="post">
 	
-	<br/>
-	<br/>
-	<br/>
+	<input type="hidden" name="actionType" id="actionType"></input>
+	<input type="hidden" name="Duyet" id="Duyet"></input>
+	<input type="hidden" name="maKHGD" id="maKHGD"></input>
+	<input type="hidden" name="pathPage" id="pathPage"></input>
 	
 	<table border="1">
 		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
@@ -440,15 +459,39 @@
 					<td>${objKQTim.tenNguoiDuyet}</td>
 					<td>${objKQTim.ngayDuyet}</td>
 					<td>
-				
+					
 					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
-							Đã gởi
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>Đã gửi</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+							Đã gửi
+						</c:if>
 					</c:if>
-					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE}">
-							Approve
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_SEND}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroHT}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>TK Approve</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroHT}">
+							TK Approve
+						</c:if>
+					</c:if>
+					
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_REJECT}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>HT Reject</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+							HT Reject
+						</c:if>
+					</c:if>
+					
+					
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_APPROVE}">
+							HT Approve		
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_REJECT}">
-							REJECT
+							TK REJECT
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
@@ -461,14 +504,17 @@
 					</td>
 				</tr>
 			</c:forEach>
+			
 		</c:if>
 		
 	</table>	
+	
+	</form>
 	<br/>
 	<br/>
 	<br/>
 
-	</form>
+	
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
 	<!-- E FOOT CONTENT -->

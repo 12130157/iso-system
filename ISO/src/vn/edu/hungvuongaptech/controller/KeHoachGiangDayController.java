@@ -45,21 +45,31 @@ public class KeHoachGiangDayController extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
-		
-		if(request.getParameter("phanloai") != null)
-		{	
-			//Bo chuc nang nay
-			//phanLoaiKHGD(request, response);
+		if(request.getParameter("timKHGDPage") != null){
+			if(request.getParameter("actionType")!=null){
+				if(request.getParameter("actionType").equalsIgnoreCase("approveKHGD")){
+					if(request.getParameter("Duyet").equalsIgnoreCase("Approve")){
+						duyet1KeHoach(request, response, request.getParameter("maKHGD"));
+					}
+					
+				}
+				
+			}
 		}
-		else if(request.getParameter("them") != null){
-			themKHGD(request, response);
-			
-		}else if(request.getParameter("duyet") != null)
-		{
-			duyetKHGD(request, response);
-		}
-		else if(request.getParameter("duyet1kehoach") != null) {
-			duyet1KeHoach(request, response, request.getParameter("maKHGD"));
+		else{
+			if(request.getParameter("phanloai") != null){	
+				
+			}
+			else if(request.getParameter("them") != null){
+				themKHGD(request, response);
+				
+			}else if(request.getParameter("duyet") != null)
+			{
+				duyetKHGD(request, response);
+			}
+			else if(request.getParameter("duyet1kehoach") != null) {
+				duyet1KeHoach(request, response, request.getParameter("maKHGD"));
+			}
 		}
 		
 	}
@@ -80,7 +90,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 		
 		if(chiTietThanhVienModel.getMaVaiTro().equals(Constant.TRUONG_KHOA)|| (chiTietThanhVienModel.getMaVaiTro().equals(Constant.ADMIN) && (request.getParameter("role").equals("tk")) )){
 			if (request.getParameter("Duyet").equals("Approve")) {
-			//	if(GiaoAnDAO.getTotalGiaoAnByMaKHGD(maKHGD)!=0&&GiaoAnDAO.getTotalGiaoAnByMaKHGD(maKHGD)==ChiTietKHGDDAO.getTotalChiTietKHGDByMaKHGD(maKHGD)){
+			
 					KeHoachGiangDayDAO.tkDuyetKHGD(userLoginID, maKHGD, Constant.TINHTRANG_APPROVE, null);
 					KeHoachGiangDayDAO.updateTinhTrangHTKeHoachGiangDayByMaKHGD(maKHGD,Constant.TINHTRANG_HT_SEND);
 					
@@ -165,9 +175,16 @@ public class KeHoachGiangDayController extends HttpServlet{
 																		keHoachGiangDayModel.getNgayDuyet()  + " : " + keHoachGiangDayModel.getGioDuyet()));
 			}
 		}
-		if(status==false)
-			response.sendRedirect(Constant.PATH_RES
+		if(status==false){
+			if(request.getParameter("timKHGDPage") != null){
+				
+				response.sendRedirect(request.getParameter("pathPage"));
+			}
+			else
+				response.sendRedirect(Constant.PATH_RES
 					.getString("iso.XemKeHoachGiangDayPath"));
+			
+		}
 	}
 	
 	private void mapParameterToModel(HttpServletRequest req ,HttpServletResponse res,KeHoachGiangDayModel keHoachGiangDayModel) {
@@ -530,5 +547,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 			response.sendRedirect(Constant.PATH_RES
 				.getString("iso.XemKeHoachGiangDayPath"));
 	}
+	
+	
 
 }
