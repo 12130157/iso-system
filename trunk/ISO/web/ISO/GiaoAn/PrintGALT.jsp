@@ -52,7 +52,7 @@
 <table width="100%" height="100%" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');padding-left:15px;padding-right:15px">
 	<tr>
 		<td>
-			<table border="0" width = "750px" style="background-color: transparent;">
+			<table border="0" width = "650px" style="background-color: transparent;">
 				<tr style="background-color: transparent;">
 					<td></td>
 					<td colspan = "2" style="text-align: center; padding-bottom: 10px">Mẫu số 5<br />Ban hành theo Quyết định số 62/2008/QĐ-BLĐTBXH</td>		
@@ -71,8 +71,8 @@
 				</tr>
 				<tr style="background-color: transparent;">
 					<td></td>
-					<td style="width: 50px;padding-left:40px"></td>
-					<td style='padding-left:40px'>
+					<td style="width: 50px;padding-left:20px"></td>
+					<td style='padding-left:20px'>
 						<div style="text-align:left;font-weight:bold">
 						
 							<% int count=1; %>
@@ -92,7 +92,7 @@
 				</tr>
 		</table>
 		
-		<table width = "750px" align="center" style="background-color: transparent;">
+		<table width = "700px" align="center" style="background-color: transparent;">
 			<tr style="background-color: transparent;">
 				<td>
 					Tên bài : 
@@ -126,7 +126,7 @@
 				<td>
 					<div class = "div_textleft">I.ỔN ĐỊNH LỚP HỌC: </div>
 				</td>
-				<td>
+				<td style='padding-right:40px'>
 					Thời gian : ${giaoAnLyThuyet.thoiGianOnDinh} phút
 					
 				</td>
@@ -141,7 +141,7 @@
 				<td>
 					<div class = "div_textleft">II.THỰC HIỆN BÀI HỌC:</div>
 				</td>
-				<td>
+				<td style='padding-right:40px'>
 					Thời gian : ${giaoAnLyThuyet.thoiGianTHBH} phút
 				</td>
 			</tr>
@@ -151,13 +151,13 @@
 			<table width="650px" border = "1" align="center" style="background-color: transparent;">
 				<tr style="background-color: transparent;">
 					<td rowspan = "2" align="center" width="50px">STT</td>
-					<td rowspan = "2" align="center" width="250px">NỘI DUNG</td>
-					<td colspan = "2" align="center" width="300px">HOẠT ĐỘNG DẠY HỌC</td>
+					<td rowspan = "2" align="center" >NỘI DUNG</td>
+					<td colspan = "2" align="center" >HOẠT ĐỘNG DẠY HỌC</td>
 					<td rowspan = "2" align="center" width="50px">THỜI GIAN</td>
 				</tr>
 				<tr style="background-color: transparent;">
-					<td align="center">HOẠT ĐỘNG CỦA GIÁO VIÊN</td>
-					<td align="center">HOẠT ĐỘNG CỦA HỌC SINH</td>
+					<td align="center" width="175px">HOẠT ĐỘNG CỦA GIÁO VIÊN</td>
+					<td align="center" width="175px">HOẠT ĐỘNG CỦA HỌC SINH</td>
 				</tr>
 				<tr style="background-color: transparent;">
 				<td align="center">1</td>
