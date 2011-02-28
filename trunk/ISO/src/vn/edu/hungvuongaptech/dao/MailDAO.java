@@ -120,6 +120,15 @@ public class MailDAO {
 		return result.trim();
 	}
 
+	public static String getSubjectNhacNhoByChucNang(String maChucNang){
+		if(maChucNang.equals(Constant.CHUCNANG_GIAOAN)){
+			return "[ISO] - Thong Bao - Thuc Hien - GIAO AN";	
+		}
+		else {
+			return "";
+		}
+	}
+	
 	public static String getSubjectReviewByChucNang(String maChucNang) {
 		if (maChucNang.equals(Constant.CHUCNANG_KEHOACHDAOTAO)) {
 			return "[ISO] - Thong Bao - Review - KE HOACH DAO TAO";
@@ -393,6 +402,27 @@ public class MailDAO {
 				+ "</b></td></tr></table>";
 
 		result += "<br/> Hãy vào hệ thống ISO để duyệt chương trình này.<br/>";
+
+		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
+
+		return result;
+	}
+	
+	
+	public static String getContentEmailNhacNhoByChucNang(
+			String ten, String tenNguoiLap, String ngayDay) {
+		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
+
+		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
+				+ "</b></td></tr>";
+		result += "<tr><td>Được tạo bởi: </td><td><b>" + tenNguoiLap
+				+ "</b></td></tr>";
+		result += "<tr><td>Dạy ngày: </td><td></b>" + ngayDay
+				+ "</b></td></tr></table>";
+		
+		result  = result+ "<br/><br/>Hiện tại đã là ngày: "+ SysParamsDAO.getSysParams().getGioHeThong()+" nhưng giáo viên vẫn chưa hoàn thành GIÁO ÁN.";
+
+		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để duyệt chương trình này.<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
