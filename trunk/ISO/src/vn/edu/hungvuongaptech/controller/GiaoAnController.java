@@ -752,7 +752,7 @@ public class GiaoAnController extends HttpServlet {
 		String mailTo=MailDAO.getMailByMaThanhVien(maThanhVien);
 		String mailCC="";
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_GIAOAN);
-		String content=MailDAO.getContentEmailNhacNhoByChucNang(tenChuongTrinh,StringUtil.toUTF8(tenGiaoVien),ngayDay);
+		String content=MailDAO.getContentEmailNhacNhoByChucNang(StringUtil.toUTF8(tenChuongTrinh),StringUtil.toUTF8(tenGiaoVien),ngayDay,StringUtil.toUTF8("Giáo Án"));
 		MailUtil.sendEmail(mailTo, mailCC, subject, content);
 	}
 }

@@ -53,6 +53,9 @@ public class KeHoachGiangDayController extends HttpServlet{
 					}
 					
 				}
+				else if(request.getParameter("actionType").equalsIgnoreCase("emailNhacNho")){
+					sendMailsNhacNhoCacGiaoVien(request,response);		
+				}
 				
 			}
 		}
@@ -548,6 +551,26 @@ public class KeHoachGiangDayController extends HttpServlet{
 				.getString("iso.XemKeHoachGiangDayPath"));
 	}
 	
+	private void sendMailsNhacNhoCacGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int total=Integer.parseInt(request.getParameter("totalEmail"));
+		for(int i=0;i<total;i++){
+			String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
+			String tenChuongTrinh=request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i);
+			String ngayDay=request.getParameter("txtNgayDay_"+i);
+			String maNguoiTao=request.getParameter("txtMaGiaoVien_"+i);
+			emailNhacNho(tenGiaoVien, tenChuongTrinh, ngayDay,maNguoiTao);
+		}
+		
+		response.sendRedirect(request.getParameter("pathPage"));
+	}
+	
+	private void emailNhacNho(String tenGiaoVien,String tenChuongTrinh,String ngayDay,String maThanhVien){
+		String mailTo=MailDAO.getMailByMaThanhVien(maThanhVien);
+		String mailCC="";
+		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY);
+		String content=MailDAO.getContentEmailNhacNhoByChucNang(StringUtil.toUTF8(tenChuongTrinh),StringUtil.toUTF8(tenGiaoVien),ngayDay,StringUtil.toUTF8("KE HOACH GIANG DAY"));
+		MailUtil.sendEmail(mailTo, mailCC, subject, content);
+	}
 	
 
 }

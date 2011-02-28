@@ -525,9 +525,11 @@
 	<br/>
 	<br/>
 	<br/>		 
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
 	<div style='text-align:center'>
 			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 	</div>
+	</c:if>
 
 	</form>
 	<!-- S FOOT CONTENT -->
