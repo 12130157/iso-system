@@ -124,6 +124,9 @@ public class MailDAO {
 		if(maChucNang.equals(Constant.CHUCNANG_GIAOAN)){
 			return "[ISO] - Thong Bao - Thuc Hien - GIAO AN";	
 		}
+		else if(maChucNang.equals(Constant.CHUCNANG_KEHOACHGIANGDAY)){
+			return "[ISO] - Thong Bao - Thuc Hien - KE HOACH GIANG DAY";	
+		}
 		else {
 			return "";
 		}
@@ -410,7 +413,7 @@ public class MailDAO {
 	
 	
 	public static String getContentEmailNhacNhoByChucNang(
-			String ten, String tenNguoiLap, String ngayDay) {
+			String ten, String tenNguoiLap, String ngayDay,String module) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
 
 		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
@@ -420,7 +423,7 @@ public class MailDAO {
 		result += "<tr><td>Dạy ngày: </td><td></b>" + ngayDay
 				+ "</b></td></tr></table>";
 		
-		result  = result+ "<br/><br/>Hiện tại đã là ngày: "+ SysParamsDAO.getSysParams().getGioHeThong()+" nhưng giáo viên vẫn chưa hoàn thành GIÁO ÁN.";
+		result  = result+ "<br/><br/>Hiện tại đã là ngày: "+ SysParamsDAO.getSysParams().getGioHeThong()+" nhưng giáo viên vẫn chưa hoàn thành "+module+".";
 
 		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để duyệt chương trình này.<br/>";
 
@@ -428,4 +431,6 @@ public class MailDAO {
 
 		return result;
 	}
+	
+	
 }

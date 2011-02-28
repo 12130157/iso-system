@@ -175,6 +175,10 @@
 	var namePage="TimKeHoachGiangDay.jsp";
 	var pathKHGD=window.location;
 	
+	function loadData(){
+		document.getElementById("pathPage").value=pathGA;	
+	}
+	
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -275,10 +279,16 @@
 		}
 	}
 
+	function click_SendMail(){
+			if (confirm('Bạn có chắc muốn email cho các giáo viên này không ?')) {
+				document.getElementById("actionType").value="emailNhacNho";
+				document.forms["frmSearchGiaoAn2"].submit();
+			}
+	}
 </script>
 
 </head>
-<body>
+<body onload="loadData()">
 
 <div align="center">
 
@@ -437,7 +447,7 @@
 		<c:set var='color' value=''></c:set>
 		<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
 		
-
+			<% int countEmail=0; %>
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 				
 				<c:if test="${ empty objKQTim.tinhTrang}">
@@ -514,10 +524,19 @@
 					</c:if>
 					
 					
+					<c:if test="${ empty objKQTim.tinhTrang or (sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW) }">
+							<input type="hidden" value="${objKQTim.maGiaoVien}" name="txtMaGiaoVien_<%=countEmail %>" id="txtMaGiaoVien_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenGiaoVien}" name="txtTenGiaoVien_<%=countEmail %>" id="txtTenGiaoVien_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenLopHoc}" name="txtTenLopHoc_<%=countEmail %>" id="txtTenLopHoc_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.ngayDay}" name="txtNgayDay_<%=countEmail %>" id="txtNgayDay_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenMonHoc}" name="txtTenMonHoc_<%=countEmail %>" id="txtTenMonHoc_<%=countEmail %>"></input>
+							<% countEmail++; %>
+						</c:if>
+					
 					</td>
 				</tr>
 			</c:forEach>
-			
+			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
 		</c:if>
 		
 	</table>	
@@ -526,7 +545,11 @@
 	<br/>
 	<br/>
 	<br/>
-
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
+		<div style='text-align:center'>
+				<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
+		</div>
+	</c:if>
 	
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
