@@ -103,6 +103,10 @@ public class GiaoAnController extends HttpServlet {
 			approveForTimGiaoAnPage(request,response);
 			
 		}
+		else if(actionType.equalsIgnoreCase("emailNhacNho")){
+			sendMailsNhacNhoCacGiaoVien(request,response);
+			
+		}
 		
 	}
 	
@@ -396,6 +400,19 @@ public class GiaoAnController extends HttpServlet {
 					+ "?maKHGD="+request.getParameter("maKHGD"));
 		
 		}
+	}
+	
+	private void sendMailsNhacNhoCacGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int total=Integer.parseInt(request.getParameter("totalEmail"));
+		for(int i=0;i<total;i++){
+			String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
+			String tenChuongTrinh="Giáo án số "+request.getParameter("txtSoGiaoAn_"+i)+" thuộc " + request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i);
+			String ngayDay=request.getParameter("txtNgayDay_"+i);
+			String maNguoiTao=request.getParameter("txtMaGiaoVien_"+i);
+			emailNhacNho(tenGiaoVien, tenChuongTrinh, ngayDay,maNguoiTao);
+		}
+		
+		response.sendRedirect(request.getParameter("pathPage"));
 	}
 
 	//*********************************************************************************************************************************
@@ -728,5 +745,14 @@ public class GiaoAnController extends HttpServlet {
 								request.getParameter("txtCalendar1"),
 									ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()), 
 									SysParamsDAO.getSysParams().getGioHeThong()));
+	}
+	
+	
+	private void emailNhacNho(String tenGiaoVien,String tenChuongTrinh,String ngayDay,String maThanhVien){
+		String mailTo=MailDAO.getMailByMaThanhVien(maThanhVien);
+		String mailCC="";
+		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_GIAOAN);
+		String content=MailDAO.getContentEmailNhacNhoByChucNang(tenChuongTrinh,StringUtil.toUTF8(tenGiaoVien),ngayDay);
+		MailUtil.sendEmail(mailTo, mailCC, subject, content);
 	}
 }

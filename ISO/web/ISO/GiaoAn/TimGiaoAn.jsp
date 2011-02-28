@@ -5,13 +5,14 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
+<%@page import="vn.edu.hungvuongaptech.util.DateUtil" %>
 
-
+<%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.MonHocDAO"%>
@@ -150,7 +151,7 @@
 <c:set var="TT_REJECT" value="<%=Constant.TINHTRANG_REJECT %>"></c:set>
 <c:set var="COHIEU_LT" value="<%=Constant.COHIEULT %>"></c:set>
 <c:set var="COHIEU_TH" value="<%=Constant.COHIEUTH %>"></c:set>
-
+<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
 
 <!--[if lt IE 7]>
  <style type="text/css">
@@ -174,6 +175,11 @@
 
 	var namePage="TimGiaoAn.jsp";
 	var pathGA=window.location;
+	
+	function loadData(){
+		document.getElementById("pathPage").value=pathGA;	
+	}
+	
 	function change_selLopHoc()
 	{
 		var strPath="";
@@ -278,12 +284,19 @@
 		}
 	}
 	
+	function click_SendMail(){
+			if (confirm('Bạn có chắc muốn email cho các giáo viên này không ?')) {
+				document.getElementById("actionType").value="emailNhacNho";
+				document.forms["frmSearchGiaoAn2"].submit();
+			}
+	}
+	
 
 
 </script>
 
 </head>
-<body>
+<body onload="loadData()">
 
 <div align="center">
 
@@ -414,6 +427,7 @@
 						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
 		</td></tr>	
+
 		
 	</table>
 	
@@ -427,7 +441,7 @@
 		<input type="hidden" name="maKHGD" id="maKHGD"></input>
 		<input type="hidden" name="txtMaNguoiTao" id="txtMaNguoiTao"></input>
 		<input type="hidden" name="txtCalendar1" id="txtCalendar1"></input>
-		<input type="hidden" name="pathPage" id="pathPage"></input>
+		<input type="hidden" name="pathPage" id="pathPage" value=""></input>
 		<input type="hidden" name="actionType" id="actionType"></input>
 		
 	<table border="1">
@@ -445,7 +459,7 @@
 		</tr>
 		
 		<c:if test="${ not empty param.view}">
-			
+			<% int countEmail=0; %>
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 
 				<tr style="background-color: transparent;">		
@@ -490,18 +504,30 @@
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
 					</c:if>
-
+						
+						<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">
+							<input type="hidden" value="${objKQTim.maGiaoVien}" name="txtMaGiaoVien_<%=countEmail %>" id="txtMaGiaoVien_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.soGiaoAn}" name="txtSoGiaoAn_<%=countEmail %>" id="txtSoGiaoAn_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenGiaoVien}" name="txtTenGiaoVien_<%=countEmail %>" id="txtTenGiaoVien_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenLopHoc}" name="txtTenLopHoc_<%=countEmail %>" id="txtTenLopHoc_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.ngayDay}" name="txtNgayDay_<%=countEmail %>" id="txtNgayDay_<%=countEmail %>"></input>
+							<input type="hidden" value="${objKQTim.tenMonHoc}" name="txtTenMonHoc_<%=countEmail %>" id="txtTenMonHoc_<%=countEmail %>"></input>
+							<% countEmail++; %>
+						</c:if>
+						
 					</td>
 				</tr>
 			</c:forEach>
+			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
 		</c:if>
 		
 	</table>	
 	<br/>
 	<br/>
-	<br/>
-
-
+	<br/>		 
+	<div style='text-align:center'>
+			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
+	</div>
 
 	</form>
 	<!-- S FOOT CONTENT -->
