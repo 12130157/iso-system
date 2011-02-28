@@ -88,62 +88,65 @@ namespace SMS.dao
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[18];
+                SqlParameter[] parameter = new SqlParameter[19];
                 int i = 0;
 
+                parameter[i] = new SqlParameter("ID", SqlDbType.Int);
+                parameter[i++].Value = cuPhapModel.Id;
+
                 parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Ten;
+                parameter[i++].Value = cuPhapModel.Ten;
 
-                parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_1;
+                parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_1;
 
-                parameter[i] = new SqlParameter("Cum_tu_2", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_2;
+                parameter[i] = new SqlParameter("Cum_tu_2", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_2;
 
-                parameter[i] = new SqlParameter("Cum_tu_3", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_3;
+                parameter[i] = new SqlParameter("Cum_tu_3", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_3;
 
-                parameter[i] = new SqlParameter("Cum_tu_4", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_4;
+                parameter[i] = new SqlParameter("Cum_tu_4", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_4;
 
-                parameter[i] = new SqlParameter("Cum_tu_5", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_5;
+                parameter[i] = new SqlParameter("Cum_tu_5", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_5;
 
-                parameter[i] = new SqlParameter("Cum_tu_6", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_6;
+                parameter[i] = new SqlParameter("Cum_tu_6", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_6;
 
-                parameter[i] = new SqlParameter("Cum_tu_7", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_7;
+                parameter[i] = new SqlParameter("Cum_tu_7", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_7;
 
-                parameter[i] = new SqlParameter("Cum_tu_8", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_8;
+                parameter[i] = new SqlParameter("Cum_tu_8", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_8;
 
-                parameter[i] = new SqlParameter("Cum_tu_9", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_9;
+                parameter[i] = new SqlParameter("Cum_tu_9", SqlDbType.VarChar);
+                parameter[i++].Value = cuPhapModel.Cum_Tu_9;
 
                 parameter[i] = new SqlParameter("Cum_tu_10", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Cum_Tu_10;
+                parameter[i++].Value = cuPhapModel.Cum_Tu_10;
 
                 parameter[i] = new SqlParameter("Ghi_chu", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.Ghi_Chu;
+                parameter[i++].Value = cuPhapModel.Ghi_Chu;
 
                 parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
-                param[i++].Value = "";
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.User11;
+                parameter[i++].Value = cuPhapModel.User11;
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.User21;
+                parameter[i++].Value = cuPhapModel.User21;
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.User31;
+                parameter[i++].Value = cuPhapModel.User31;
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.User41;
+                parameter[i++].Value = cuPhapModel.User41;
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                param[i++].Value = cuPhapModel.User51;
+                parameter[i++].Value = cuPhapModel.User51;
 
                 return DataUtil.executeNonStore("sp_SMS_InertCuPhap", parameter);
             }
