@@ -148,7 +148,8 @@ namespace SMS.dao
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
                 parameter[i++].Value = cuPhapModel.User51;
 
-                return DataUtil.executeNonStore("sp_SMS_InertCuPhap", parameter);
+                Boolean kq = DataUtil.executeNonStore("sp_SMS_InertCuPhap", parameter);
+                return kq;
             }
             catch (Exception)
             {                
@@ -156,7 +157,7 @@ namespace SMS.dao
             }
         }
         //update 1 cu phap trong CSDL
-        public static bool updateCuPhap(CuPhapMODEL cuPhapModel)
+        public static Boolean updateCuPhap(CuPhapMODEL cuPhapModel)
         {
             try
             {
@@ -220,7 +221,8 @@ namespace SMS.dao
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
                 param[i++].Value = cuPhapModel.User51;
 
-                return DataUtil.executeNonStore("sp_SMS_UpdateCuPhapByID", param);
+                Boolean kq = DataUtil.executeNonStore("sp_SMS_UpdateCuPhapByID", param);
+                return kq;
             }
             catch (Exception)
             {
@@ -234,7 +236,8 @@ namespace SMS.dao
             SqlCommand objCommand = new SqlCommand(sql);
             objCommand.Parameters.AddWithValue("@id", id);
 
-            return DataUtil.executeNonQuery(objCommand);
+            Boolean kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
         }
     }
 }

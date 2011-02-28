@@ -28,8 +28,7 @@ CREATE PROC sp_SMS_UpdateCuPhapByID
 	@User2					varchar(40),
 	@User3					varchar(40),
 	@User4					varchar(40),
-	@User5					varchar(40),	
-	@Result					int		OUTPUT 
+	@User5					varchar(40)
 AS
 BEGIN
 	SELECT @Ngay_cap_nhat_cuoi = GETDATE()
@@ -55,10 +54,5 @@ BEGIN
 			User4 = @User4,
 			User5 = @User5,
 		WHERE ID = @ID
-		SET @Result = 1
-	END
-	ELSE
-	BEGIN
-		SET @Result = 0
 	END
 END 

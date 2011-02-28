@@ -28,37 +28,28 @@ CREATE PROC sp_SMS_InertCuPhap
 	@User2					varchar(40),
 	@User3					varchar(40),
 	@User4					varchar(40),
-	@User5					varchar(40),	
-	@Result					int		OUTPUT 
+	@User5					varchar(40)	
+	
 AS 
 BEGIN
 	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
-	
-	IF NOT EXISTS ( SELECT * FROM CuPhap WHERE ID = @ID)
-	BEGIN
-		INSERT INTO CuPhap 
-		VALUES (@Ten,
-				@Cum_tu_1,
-				@Cum_tu_2,
-				@Cum_tu_3,
-				@Cum_tu_4,
-				@Cum_tu_5,
-				@Cum_tu_6,
-				@Cum_tu_7,
-				@Cum_tu_8,
-				@Cum_tu_9,
-				@Cum_tu_10,
-				@Ghi_chu,
-				@Ngay_cap_nhat_cuoi,
-				@User1,
-				@User2,
-				@User3,
-				@User4,
-				@User5)
-		SET @Result = 1 -- successfull
-	END
-	ELSE
-	BEGIN
-		SET @Result = 0 -- failse
-	END 
+	INSERT INTO CuPhap 
+	VALUES (@Ten,
+			@Cum_tu_1,
+			@Cum_tu_2,
+			@Cum_tu_3,
+			@Cum_tu_4,
+			@Cum_tu_5,
+			@Cum_tu_6,
+			@Cum_tu_7,
+			@Cum_tu_8,
+			@Cum_tu_9,
+			@Cum_tu_10,
+			@Ghi_chu,
+			@Ngay_cap_nhat_cuoi,
+			@User1,
+			@User2,
+			@User3,
+			@User4,
+			@User5)
 END 
