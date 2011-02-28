@@ -53,7 +53,16 @@
     <Compile Include="common\Constants.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="dao\MemberDAO.cs" />
+    <Compile Include="dao\ChiTietTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\ChiTietTinNhanTuDongDAO.cs" />
+    <Compile Include="dao\CuPhapDAO.cs" />
+    <Compile Include="dao\HopThuDenDAO.cs" />
+    <Compile Include="dao\HopThuDiDAO.cs" />
+    <Compile Include="dao\LichTinNhanDAO.cs" />
+    <Compile Include="dao\LoaiHopThuDAO.cs" />
+    <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\LoaiTinNhanDAO.cs" />
+    <Compile Include="dao\TaiKhoanSmsDAO.cs" />
     <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
     <Compile Include="model\CuPhapMODEL.cs" />
@@ -255,6 +264,77 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="images\bg.jpg" />
+    <None Include="images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\About.jpeg" />
+    <Content Include="images\aboutjpeg.jpeg" />
+    <Content Include="images\account.jpeg" />
+    <Content Include="images\account1jpeg.jpeg" />
+    <Content Include="images\Add.jpeg" />
+    <Content Include="images\addressbox.jpeg" />
+    <Content Include="images\autojpeg.jpeg" />
+    <Content Include="images\bg1.jpg" />
+    <Content Include="images\butCancel.jpeg" />
+    <Content Include="images\butSent.jpeg" />
+    <Content Include="images\button.JPG" />
+    <Content Include="images\button1.jpeg" />
+    <Content Include="images\buttondowload.jpeg" />
+    <Content Include="images\calendar.jpeg" />
+    <Content Include="images\calendar1.jpeg" />
+    <Content Include="images\ChagePass.jpeg" />
+    <Content Include="images\ChagePass2jpeg.jpeg" />
+    <Content Include="images\Change.jpeg" />
+    <Content Include="images\changepass.jpeg" />
+    <Content Include="images\Close.jpeg" />
+    <Content Include="images\compose.jpeg" />
+    <Content Include="images\compose2.jpeg" />
+    <Content Include="images\composejpeg.jpeg" />
+    <Content Include="images\Delete.jpeg" />
+    <Content Include="images\draft.ico" />
+    <Content Include="images\draft.jpeg" />
+    <Content Include="images\edit.jpeg" />
+    <Content Include="images\Error.jpeg" />
+    <Content Include="images\file.jpeg" />
+    <Content Include="images\Help.jpeg" />
+    <Content Include="images\Help1.jpeg" />
+    <Content Include="images\helpjpeg.jpeg" />
+    <Content Include="images\hungvuong.jpg" />
+    <Content Include="images\ikeyword.jpeg" />
+    <Content Include="images\inboxdelete.jpeg" />
+    <Content Include="images\inboxjpeg.jpeg" />
+    <Content Include="images\invalid.jpeg" />
+    <Content Include="images\Keyword.jpeg" />
+    <Content Include="images\login.gif" />
+    <Content Include="images\login.jpeg" />
+    <Content Include="images\login.jpg" />
+    <Content Include="images\login.png" />
+    <Content Include="images\login1.gif" />
+    <Content Include="images\login2.png" />
+    <Content Include="images\logout.jpeg" />
+    <Content Include="images\logout2.jpeg" />
+    <Content Include="images\logo_aptech.png" />
+    <Content Include="images\managementjpeg.jpeg" />
+    <Content Include="images\message.jpeg" />
+    <Content Include="images\message2.jpeg" />
+    <Content Include="images\outbox.jpeg" />
+    <Content Include="images\refresh.jpeg" />
+    <Content Include="images\sent.jpeg" />
+    <Content Include="images\Sent1.jpeg" />
+    <Content Include="images\sent2.jpeg" />
+    <Content Include="images\SentError.jpeg" />
+    <Content Include="images\Shell.jpeg" />
+    <Content Include="images\sms.bmp" />
+    <Content Include="images\sms.jpeg" />
+    <Content Include="images\Status.jpeg" />
+    <Content Include="images\System.jpeg" />
+    <Content Include="images\System1.jpeg" />
+    <Content Include="images\System2.jpeg" />
+    <Content Include="images\Systemcomfigjpeg.jpeg" />
+    <Content Include="images\SystemConfig.jpeg" />
+    <Content Include="images\type.jpeg" />
+    <Content Include="images\type2jpeg.jpeg" />
+    <Content Include="images\User.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
