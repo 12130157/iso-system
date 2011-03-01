@@ -46,10 +46,11 @@
             this.butlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butlogin.ForeColor = System.Drawing.SystemColors.Menu;
             this.butlogin.Image = ((System.Drawing.Image)(resources.GetObject("butlogin.Image")));
-            this.butlogin.Location = new System.Drawing.Point(202, 127);
+            this.butlogin.Location = new System.Drawing.Point(336, 224);
             this.butlogin.Name = "butlogin";
             this.butlogin.Size = new System.Drawing.Size(70, 25);
             this.butlogin.TabIndex = 8;
+            this.butlogin.TabStop = false;
             this.butlogin.Text = "Login";
             this.butlogin.UseVisualStyleBackColor = true;
             this.butlogin.Click += new System.EventHandler(this.butlogin_Click);
@@ -60,7 +61,7 @@
             this.butCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butCancel.ForeColor = System.Drawing.SystemColors.Menu;
             this.butCancel.Image = ((System.Drawing.Image)(resources.GetObject("butCancel.Image")));
-            this.butCancel.Location = new System.Drawing.Point(278, 127);
+            this.butCancel.Location = new System.Drawing.Point(412, 224);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(70, 25);
             this.butCancel.TabIndex = 9;
@@ -74,7 +75,7 @@
             this.lblUserName.AutoSize = true;
             this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUserName.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblUserName.Location = new System.Drawing.Point(128, 51);
+            this.lblUserName.Location = new System.Drawing.Point(262, 148);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(83, 15);
             this.lblUserName.TabIndex = 11;
@@ -83,7 +84,7 @@
             // txtUserName
             // 
             this.txtUserName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtUserName.Location = new System.Drawing.Point(207, 51);
+            this.txtUserName.Location = new System.Drawing.Point(341, 148);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(141, 20);
             this.txtUserName.TabIndex = 12;
@@ -94,7 +95,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblPassword.Location = new System.Drawing.Point(128, 78);
+            this.lblPassword.Location = new System.Drawing.Point(262, 175);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(77, 15);
             this.lblPassword.TabIndex = 13;
@@ -103,7 +104,7 @@
             // txtPassword
             // 
             this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPassword.Location = new System.Drawing.Point(207, 78);
+            this.txtPassword.Location = new System.Drawing.Point(341, 175);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(141, 20);
@@ -113,7 +114,7 @@
             // 
             this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(266, 101);
+            this.linkLabel1.Location = new System.Drawing.Point(400, 198);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(82, 13);
             this.linkLabel1.TabIndex = 15;
@@ -124,7 +125,7 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(146, 104);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(87, 115);
             this.pictureBox1.TabIndex = 16;
@@ -135,7 +136,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(370, 168);
+            this.ClientSize = new System.Drawing.Size(638, 362);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.txtPassword);
@@ -163,6 +164,7 @@
         internal System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.PictureBox pictureBox1;
+
 
 
 

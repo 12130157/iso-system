@@ -27,7 +27,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
+
         {
+            
+            ///////////////////
             this.menuTool = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChangePassword = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +52,7 @@
             this.menuKeyword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddressBook = new System.Windows.Forms.ToolStripMenuItem();
-            this.calendarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            //this.calendarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -199,8 +202,8 @@
             this.menuSystem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuKeyword,
             this.menuAccount,
-            this.menuAddressBook,
-            this.calendarToolStripMenuItem});
+            this.menuAddressBook});
+            //this.calendarToolStripMenuItem});
             this.menuSystem.Name = "menuSystem";
             this.menuSystem.Size = new System.Drawing.Size(62, 20);
             this.menuSystem.Text = "System";
@@ -228,11 +231,11 @@
             // 
             // calendarToolStripMenuItem
             // 
-            this.calendarToolStripMenuItem.Name = "calendarToolStripMenuItem";
-            this.calendarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.calendarToolStripMenuItem.Text = "Calendar";
-            this.calendarToolStripMenuItem.Click += new System.EventHandler(this.calendarToolStripMenuItem_Click);
-            // 
+            //this.calendarToolStripMenuItem.Name = "calendarToolStripMenuItem";
+            //this.calendarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            //this.calendarToolStripMenuItem.Text = "Calendar";
+            //this.calendarToolStripMenuItem.Click += new System.EventHandler(this.calendarToolStripMenuItem_Click);
+            //// 
             // menuHelp
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -296,7 +299,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuDraft;
         private System.Windows.Forms.ToolStripMenuItem menuAddressBook;
         public System.Windows.Forms.ToolStripMenuItem menuInvalidMessage;
-        private System.Windows.Forms.ToolStripMenuItem calendarToolStripMenuItem;
+       // private System.Windows.Forms.ToolStripMenuItem calendarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
