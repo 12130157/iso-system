@@ -29,6 +29,7 @@ BEGIN
 	DECLARE @DateCurrent datetime
 	DECLARE @CoHieuTemp int
 	DECLARE @Muc_Tieu_Bai_Hoc nvarchar(2000)
+	DECLARE @Ngay_BD datetime
 	---------SET---------------------------------------
 	SET @CoHieuLT=0
 	SET @CoHieuTH=1
@@ -195,7 +196,7 @@ BEGIN
 	--GET CHITIETKHGD
 	DECLARE arrayCTKHGD CURSOR FOR
 	(
-		SELECT ID As MaCTKHGD,Ten_chuong,Co_hieu,Noi_dung_TH,Cong_viec_chuan_bi,STT_Noi_Dung,nhom As Nhom,Tuan,Ma_giao_an,Muc_tieu_bai_hoc
+		SELECT ID As MaCTKHGD,Ngay_BD,Ten_chuong,Co_hieu,Noi_dung_TH,Cong_viec_chuan_bi,STT_Noi_Dung,nhom As Nhom,Tuan,Ma_giao_an,Muc_tieu_bai_hoc
 		FROM ChiTietKHGD 
 		WHERE Ma_ke_hoach_giang_day=@MaKHGD
 	)
@@ -204,7 +205,7 @@ BEGIN
 	OPEN arrayCTKHGD 
 
 	FETCH NEXT FROM arrayCTKHGD 
-	INTO @MaCTKHGD,@TenChuong,@CoHieu,@NoiDungTH,@CongViecChuanBi,@STTNoiDung,@Nhom,@Tuan,@MaGiaoAn,@Muc_Tieu_Bai_Hoc
+	INTO @MaCTKHGD,@Ngay_BD,@TenChuong,@CoHieu,@NoiDungTH,@CongViecChuanBi,@STTNoiDung,@Nhom,@Tuan,@MaGiaoAn,@Muc_Tieu_Bai_Hoc
 	
 
 	SET @TempSTTND =-1
@@ -230,7 +231,7 @@ BEGIN
 		
 				--------------------CALL STORE INSERT GiaoAn LY THUYET--------------------------
 				Execute sp_ISO_InsertGiaoAnLyThuyet
-						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@DateCurrent,@MucTieu,@DoDungPTDH,@OnDinhLH
+						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu,@DoDungPTDH,@OnDinhLH
 						,@ThoiGianOD,@ThoiGianTHBH,@DanNhap,@HDDanNhapGV,@HDDanNhapHS,@ThoiGianDN,@NoiDungBaiGiang,@HDGiangBaiMoiGV,@HDGiangBaiMoiHS,@ThoiGianBaiGiang
 						,@CungCoKienThuc,@HDCungCoGV,@HDCungCoHS,@ThoiGianCungCo,@HuongDanTuHoc,@HDHuongDanTHGV,@HDHuongDanTHHS
 						,@ThoiGianHDTH,@TaiLieuThamKhao,@DateCurrent,@TenChuong,@MaGiaoVien
@@ -244,7 +245,7 @@ BEGIN
 				SET @HuongDanBanDau2=@NoiDungTH
 				--------------------CALL STORE INSERT GiaoAn THUC HANH--------------------------
 				Execute sp_ISO_InsertGiaoAnThucHanh
-						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@DateCurrent,@MucTieu2,@DoDungPTDH2,@HinhThucTCDH2,@OnDinhLH2,@ThoiGianOnDinh2
+						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu2,@DoDungPTDH2,@HinhThucTCDH2,@OnDinhLH2,@ThoiGianOnDinh2
 						,@ThoiGianTHBH2,@DanNhap2,@HDDanNhapGV2,@HDDanNhapHS2,@ThoiGianDN2,@HuongDanBanDau2,@HDHuongDanBDGV2,@HDHuongDanBDHS2
 						,@ThoiGianHDBD2,@HuongDanThuongXuyen2,@HDHuongDanTXGV2,@HDHuongDanTXHS2,@ThoiGianHDTX2,@HDHuongDanKT2,@HDHuongDanKTGV2
 						,@HDHuongDanKTHS2,@ThoiGianHDKT,@HuongDanRenLuyen2,@HDHuongDanRLGV2,@ThoiGianHDRL2,@RutKinhNghiem2,@DateCurrent,@TenChuong,@MaGiaoVien
@@ -258,7 +259,7 @@ BEGIN
 				SET @DanNhap3=@Muc_Tieu_Bai_Hoc
 			
 				Execute sp_ISO_InsertGiaoAnTichHop
-						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@DateCurrent,@MucTieu3,@DoDungPTDH3,@HinhThucTCDH3,@OnDinhLH3,@ThoiGianOnDinh3,@ThoiGianTHBH3
+						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu3,@DoDungPTDH3,@HinhThucTCDH3,@OnDinhLH3,@ThoiGianOnDinh3,@ThoiGianTHBH3
 						,@DanNhap3,@HDDanNhapGV3,@HDDanNhapHS3,@ThoiGianDanNhap3,@GioiThieuChuDe3,@HDGTCDGV3,@HDGTCDHS3,@ThoiGianGTCD3,@GiaiQuyetVanDe3,@HDGQVDGV3,@HDGQVDHS3
 						,@ThoiGianGTVD3,@KetThucVanDe3,@HDHDKTGV3,@HDHDKTHS3,@ThoiGianHDKT3,@HuongDanTuHoc3,@HDTuHocGV3,@ThoiGianHDTH3,@RutKinhNghiem3,@DateCurrent,@TenChuong,@MaGiaoVien
 			END
@@ -274,7 +275,7 @@ BEGIN
 		-------------------------------------------------------------------------------------
 		
 		FETCH NEXT FROM arrayCTKHGD 
-		INTO @MaCTKHGD,@TenChuong,@CoHieu,@NoiDungTH,@CongViecChuanBi,@STTNoiDung,@Nhom,@Tuan,@MaGiaoAn,@Muc_Tieu_Bai_Hoc				
+		INTO @MaCTKHGD,@Ngay_BD,@TenChuong,@CoHieu,@NoiDungTH,@CongViecChuanBi,@STTNoiDung,@Nhom,@Tuan,@MaGiaoAn,@Muc_Tieu_Bai_Hoc				
 
 	END
 
