@@ -53,7 +53,17 @@
     <Compile Include="common\Constants.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="dao\ChiTietTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\ChiTietTinNhanTuDongDAO.cs" />
+    <Compile Include="dao\CuPhapDAO.cs" />
+    <Compile Include="dao\HopThuDenDAO.cs" />
+    <Compile Include="dao\HopThuDiDAO.cs" />
+    <Compile Include="dao\LichTinNhanDAO.cs" />
+    <Compile Include="dao\LoaiHopThuDAO.cs" />
+    <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\LoaiTinNhanDAO.cs" />
     <Compile Include="dao\MemberDAO.cs" />
+    <Compile Include="dao\TaiKhoanSmsDAO.cs" />
     <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
     <Compile Include="model\CuPhapMODEL.cs" />
@@ -63,7 +73,6 @@
     <Compile Include="model\LoaiHopThuMODEL.cs" />
     <Compile Include="model\LoaiTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\LoaiTinNhanMODEL.cs" />
-    <Compile Include="model\MemberModel.cs" />
     <Compile Include="model\TaiKhoanSmsMODEL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
