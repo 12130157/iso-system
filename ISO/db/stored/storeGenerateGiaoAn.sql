@@ -135,7 +135,7 @@ BEGIN
 			SET @HuongDanRenLuyen2=N''
 			SET @HDHuongDanRLGV2=N'-Đưa ra các câu hỏi trắc nghiệm lý thuyết, giúp cho học sinh nắm được toàn bộ nội dung bài học. ---- Đưa ra bài thực hành cá nhân để học sinh tự thực hiện.'
 			SET @ThoiGianHDRL2=10
-			SET @RutKinhNghiem2=N'Rút kinh nghiệm'
+			SET @RutKinhNghiem2=N''
 	---------------SET GIAO AN TICH HOP----------------
 	DECLARE @MucTieu3 nvarchar(2000)
 	DECLARE @DoDungPTDH3 nvarchar(2000)
@@ -189,7 +189,7 @@ BEGIN
 			SET @HuongDanTuHoc3 =''
 			SET @HDTuHocGV3 =N'-Đưa ra các câu hỏi trắc nghiệm lý thuyết, giúp cho học sinh nắm được toàn bộ nội dung bài học. --- - Đưa ra bài thực hành cá nhân để học sinh tự thực hiện.'
 			SET @ThoiGianHDTH3 =5
-			SET @RutKinhNghiem3 =N'Giáo viên update nội dung phần RÚT KINH NGHIỆM'
+			SET @RutKinhNghiem3 =N''
 			
 	---------------------------------------------------
 	--GET CHITIETKHGD
