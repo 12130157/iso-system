@@ -15,9 +15,11 @@ namespace SMS
 {
     public partial class FormLogin : Form
     {
+        
         public FormLogin()
         {
             InitializeComponent();
+            //this.BackgroundImage= new Bitmap("images/SentError.jpeg");
         }
 
         private void butCancel_Click(object sender, EventArgs e)

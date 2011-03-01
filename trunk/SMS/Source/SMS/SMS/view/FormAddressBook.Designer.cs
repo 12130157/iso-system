@@ -31,10 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressBook));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.but_Edit = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.but_Add = new System.Windows.Forms.Button();
+            this.but_Delete = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.but_Close = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.but_Refresh = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.butLastPage = new System.Windows.Forms.Button();
+            this.butPreviousPage = new System.Windows.Forms.Button();
+            this.butFirstPage = new System.Windows.Forms.Button();
+            this.butNextPage = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -54,15 +63,6 @@
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.but_Edit = new System.Windows.Forms.Button();
-            this.but_Add = new System.Windows.Forms.Button();
-            this.but_Delete = new System.Windows.Forms.Button();
-            this.but_Close = new System.Windows.Forms.Button();
-            this.but_Refresh = new System.Windows.Forms.Button();
-            this.butLastPage = new System.Windows.Forms.Button();
-            this.butPreviousPage = new System.Windows.Forms.Button();
-            this.butFirstPage = new System.Windows.Forms.Button();
-            this.butNextPage = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -106,6 +106,20 @@
             this.panel5.TabIndex = 2;
             this.panel5.UseWaitCursor = true;
             // 
+            // but_Edit
+            // 
+            this.but_Edit.BackColor = System.Drawing.Color.Blue;
+            this.but_Edit.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
+            this.but_Edit.Location = new System.Drawing.Point(359, 32);
+            this.but_Edit.Name = "but_Edit";
+            this.but_Edit.Size = new System.Drawing.Size(75, 23);
+            this.but_Edit.TabIndex = 127;
+            this.but_Edit.Text = "Edit";
+            this.but_Edit.UseVisualStyleBackColor = false;
+            this.but_Edit.UseWaitCursor = true;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -117,6 +131,34 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.UseWaitCursor = true;
             // 
+            // but_Add
+            // 
+            this.but_Add.BackColor = System.Drawing.Color.Blue;
+            this.but_Add.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.Location = new System.Drawing.Point(266, 32);
+            this.but_Add.Name = "but_Add";
+            this.but_Add.Size = new System.Drawing.Size(75, 23);
+            this.but_Add.TabIndex = 128;
+            this.but_Add.Text = "Add";
+            this.but_Add.UseVisualStyleBackColor = false;
+            this.but_Add.UseWaitCursor = true;
+            // 
+            // but_Delete
+            // 
+            this.but_Delete.BackColor = System.Drawing.Color.Blue;
+            this.but_Delete.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
+            this.but_Delete.Location = new System.Drawing.Point(177, 32);
+            this.but_Delete.Name = "but_Delete";
+            this.but_Delete.Size = new System.Drawing.Size(75, 23);
+            this.but_Delete.TabIndex = 126;
+            this.but_Delete.Text = "Delete";
+            this.but_Delete.UseVisualStyleBackColor = false;
+            this.but_Delete.UseWaitCursor = true;
+            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -125,6 +167,20 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(102, 20);
             this.dateTimePicker1.TabIndex = 128;
             this.dateTimePicker1.UseWaitCursor = true;
+            // 
+            // but_Close
+            // 
+            this.but_Close.BackColor = System.Drawing.Color.Blue;
+            this.but_Close.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
+            this.but_Close.Location = new System.Drawing.Point(451, 32);
+            this.but_Close.Name = "but_Close";
+            this.but_Close.Size = new System.Drawing.Size(86, 23);
+            this.but_Close.TabIndex = 125;
+            this.but_Close.Text = "Close";
+            this.but_Close.UseVisualStyleBackColor = false;
+            this.but_Close.UseWaitCursor = true;
             // 
             // label7
             // 
@@ -136,6 +192,20 @@
             this.label7.TabIndex = 127;
             this.label7.Text = "Filter>>";
             this.label7.UseWaitCursor = true;
+            // 
+            // but_Refresh
+            // 
+            this.but_Refresh.BackColor = System.Drawing.Color.Blue;
+            this.but_Refresh.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
+            this.but_Refresh.Location = new System.Drawing.Point(81, 32);
+            this.but_Refresh.Name = "but_Refresh";
+            this.but_Refresh.Size = new System.Drawing.Size(75, 23);
+            this.but_Refresh.TabIndex = 129;
+            this.but_Refresh.Text = "Refresh";
+            this.but_Refresh.UseVisualStyleBackColor = false;
+            this.but_Refresh.UseWaitCursor = true;
             // 
             // comboBox1
             // 
@@ -151,6 +221,62 @@
             this.comboBox1.Size = new System.Drawing.Size(108, 21);
             this.comboBox1.TabIndex = 126;
             this.comboBox1.UseWaitCursor = true;
+            // 
+            // butLastPage
+            // 
+            this.butLastPage.BackColor = System.Drawing.Color.Blue;
+            this.butLastPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.butLastPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.butLastPage.Image = ((System.Drawing.Image)(resources.GetObject("butLastPage.Image")));
+            this.butLastPage.Location = new System.Drawing.Point(207, 3);
+            this.butLastPage.Name = "butLastPage";
+            this.butLastPage.Size = new System.Drawing.Size(63, 23);
+            this.butLastPage.TabIndex = 125;
+            this.butLastPage.Text = ">>";
+            this.butLastPage.UseVisualStyleBackColor = false;
+            this.butLastPage.UseWaitCursor = true;
+            // 
+            // butPreviousPage
+            // 
+            this.butPreviousPage.BackColor = System.Drawing.Color.Blue;
+            this.butPreviousPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.butPreviousPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.butPreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("butPreviousPage.Image")));
+            this.butPreviousPage.Location = new System.Drawing.Point(69, 3);
+            this.butPreviousPage.Name = "butPreviousPage";
+            this.butPreviousPage.Size = new System.Drawing.Size(63, 23);
+            this.butPreviousPage.TabIndex = 123;
+            this.butPreviousPage.Text = "<";
+            this.butPreviousPage.UseVisualStyleBackColor = false;
+            this.butPreviousPage.UseWaitCursor = true;
+            // 
+            // butFirstPage
+            // 
+            this.butFirstPage.BackColor = System.Drawing.Color.Blue;
+            this.butFirstPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.butFirstPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.butFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("butFirstPage.Image")));
+            this.butFirstPage.Location = new System.Drawing.Point(5, 4);
+            this.butFirstPage.Name = "butFirstPage";
+            this.butFirstPage.Size = new System.Drawing.Size(63, 23);
+            this.butFirstPage.TabIndex = 122;
+            this.butFirstPage.Text = "<<";
+            this.butFirstPage.UseVisualStyleBackColor = false;
+            this.butFirstPage.UseWaitCursor = true;
+            // 
+            // butNextPage
+            // 
+            this.butNextPage.BackColor = System.Drawing.Color.Blue;
+            this.butNextPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.butNextPage.ForeColor = System.Drawing.SystemColors.Control;
+            this.butNextPage.Image = ((System.Drawing.Image)(resources.GetObject("butNextPage.Image")));
+            this.butNextPage.Location = new System.Drawing.Point(138, 3);
+            this.butNextPage.Name = "butNextPage";
+            this.butNextPage.Size = new System.Drawing.Size(63, 23);
+            this.butNextPage.TabIndex = 124;
+            this.butNextPage.Text = ">";
+            this.butNextPage.UseVisualStyleBackColor = false;
+            this.butNextPage.UseWaitCursor = true;
             // 
             // panel3
             // 
@@ -334,132 +460,6 @@
             this.Address.Name = "Address";
             this.Address.Width = 230;
             // 
-            // but_Edit
-            // 
-            this.but_Edit.BackColor = System.Drawing.Color.Blue;
-            this.but_Edit.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
-            this.but_Edit.Location = new System.Drawing.Point(359, 32);
-            this.but_Edit.Name = "but_Edit";
-            this.but_Edit.Size = new System.Drawing.Size(75, 23);
-            this.but_Edit.TabIndex = 127;
-            this.but_Edit.Text = "Edit";
-            this.but_Edit.UseVisualStyleBackColor = false;
-            this.but_Edit.UseWaitCursor = true;
-            // 
-            // but_Add
-            // 
-            this.but_Add.BackColor = System.Drawing.Color.Blue;
-            this.but_Add.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
-            this.but_Add.Location = new System.Drawing.Point(266, 32);
-            this.but_Add.Name = "but_Add";
-            this.but_Add.Size = new System.Drawing.Size(75, 23);
-            this.but_Add.TabIndex = 128;
-            this.but_Add.Text = "Add";
-            this.but_Add.UseVisualStyleBackColor = false;
-            this.but_Add.UseWaitCursor = true;
-            // 
-            // but_Delete
-            // 
-            this.but_Delete.BackColor = System.Drawing.Color.Blue;
-            this.but_Delete.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
-            this.but_Delete.Location = new System.Drawing.Point(177, 32);
-            this.but_Delete.Name = "but_Delete";
-            this.but_Delete.Size = new System.Drawing.Size(75, 23);
-            this.but_Delete.TabIndex = 126;
-            this.but_Delete.Text = "Delete";
-            this.but_Delete.UseVisualStyleBackColor = false;
-            this.but_Delete.UseWaitCursor = true;
-            // 
-            // but_Close
-            // 
-            this.but_Close.BackColor = System.Drawing.Color.Blue;
-            this.but_Close.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
-            this.but_Close.Location = new System.Drawing.Point(451, 32);
-            this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(86, 23);
-            this.but_Close.TabIndex = 125;
-            this.but_Close.Text = "Close";
-            this.but_Close.UseVisualStyleBackColor = false;
-            this.but_Close.UseWaitCursor = true;
-            // 
-            // but_Refresh
-            // 
-            this.but_Refresh.BackColor = System.Drawing.Color.Blue;
-            this.but_Refresh.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
-            this.but_Refresh.Location = new System.Drawing.Point(81, 32);
-            this.but_Refresh.Name = "but_Refresh";
-            this.but_Refresh.Size = new System.Drawing.Size(75, 23);
-            this.but_Refresh.TabIndex = 129;
-            this.but_Refresh.Text = "Refresh";
-            this.but_Refresh.UseVisualStyleBackColor = false;
-            this.but_Refresh.UseWaitCursor = true;
-            // 
-            // butLastPage
-            // 
-            this.butLastPage.BackColor = System.Drawing.Color.Blue;
-            this.butLastPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.butLastPage.ForeColor = System.Drawing.SystemColors.Control;
-            this.butLastPage.Image = ((System.Drawing.Image)(resources.GetObject("butLastPage.Image")));
-            this.butLastPage.Location = new System.Drawing.Point(207, 3);
-            this.butLastPage.Name = "butLastPage";
-            this.butLastPage.Size = new System.Drawing.Size(63, 23);
-            this.butLastPage.TabIndex = 125;
-            this.butLastPage.Text = ">>";
-            this.butLastPage.UseVisualStyleBackColor = false;
-            this.butLastPage.UseWaitCursor = true;
-            // 
-            // butPreviousPage
-            // 
-            this.butPreviousPage.BackColor = System.Drawing.Color.Blue;
-            this.butPreviousPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.butPreviousPage.ForeColor = System.Drawing.SystemColors.Control;
-            this.butPreviousPage.Image = ((System.Drawing.Image)(resources.GetObject("butPreviousPage.Image")));
-            this.butPreviousPage.Location = new System.Drawing.Point(69, 3);
-            this.butPreviousPage.Name = "butPreviousPage";
-            this.butPreviousPage.Size = new System.Drawing.Size(63, 23);
-            this.butPreviousPage.TabIndex = 123;
-            this.butPreviousPage.Text = "<";
-            this.butPreviousPage.UseVisualStyleBackColor = false;
-            this.butPreviousPage.UseWaitCursor = true;
-            // 
-            // butFirstPage
-            // 
-            this.butFirstPage.BackColor = System.Drawing.Color.Blue;
-            this.butFirstPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.butFirstPage.ForeColor = System.Drawing.SystemColors.Control;
-            this.butFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("butFirstPage.Image")));
-            this.butFirstPage.Location = new System.Drawing.Point(5, 4);
-            this.butFirstPage.Name = "butFirstPage";
-            this.butFirstPage.Size = new System.Drawing.Size(63, 23);
-            this.butFirstPage.TabIndex = 122;
-            this.butFirstPage.Text = "<<";
-            this.butFirstPage.UseVisualStyleBackColor = false;
-            this.butFirstPage.UseWaitCursor = true;
-            // 
-            // butNextPage
-            // 
-            this.butNextPage.BackColor = System.Drawing.Color.Blue;
-            this.butNextPage.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.butNextPage.ForeColor = System.Drawing.SystemColors.Control;
-            this.butNextPage.Image = ((System.Drawing.Image)(resources.GetObject("butNextPage.Image")));
-            this.butNextPage.Location = new System.Drawing.Point(138, 3);
-            this.butNextPage.Name = "butNextPage";
-            this.butNextPage.Size = new System.Drawing.Size(63, 23);
-            this.butNextPage.TabIndex = 124;
-            this.butNextPage.Text = ">";
-            this.butNextPage.UseVisualStyleBackColor = false;
-            this.butNextPage.UseWaitCursor = true;
-            // 
             // FormAddressBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,7 +467,6 @@
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.ClientSize = new System.Drawing.Size(665, 487);
             this.Controls.Add(this.panel1);
-            //this.Name = "FormAddressBook";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormAddressBook";
             this.panel1.ResumeLayout(false);

@@ -11,44 +11,68 @@ namespace SMS
 {
     public partial class FormMain : Form
     {
+        FormLogin login = new FormLogin();
         public FormMain()
         {
             InitializeComponent();
+            //menuTool.Enabled = false;
+
+        }
+        public void menu()
+        {
+            if (!common.Constants.menutool.Equals(0))
+            {
+                menuTool.Enabled = true;
+            }
+            else
+            {
+                
+                login.MdiParent = this;
+                login.Show();
+            } 
+        
         }
 
         private void mnuChangePassword_Click(object sender, EventArgs e)
         {
-            new FormChangePassword().Show();
+            FormChangePassword change = new FormChangePassword();
+            change.MdiParent = this;
+            change.Show();
         }
 
-    
-        //private void menu_SentOk_Click(object sender, EventArgs e)
-        //{
-        //    new form_SentOk().Show();
-        //}
         private void menuOutbox_Click(object sender, EventArgs e)
         {
-            new FormOutbox().Show();
+            FormOutbox outbox = new FormOutbox();
+            outbox.MdiParent = this;
+            outbox.Show();
         }
 
         private void menuI2Inbox_Click(object sender, EventArgs e)
         {
-            new FormInbox().ShowDialog();
+            FormInbox inbox = new FormInbox();
+            inbox.MdiParent = this;
+            inbox.Show();
         }
 
         private void menuInboxDeleted_Click(object sender, EventArgs e)
         {
-            new FormInboxDeleted().ShowDialog();
+            FormInboxDeleted inboxdelete = new FormInboxDeleted();
+            inboxdelete.MdiParent = this;
+            inboxdelete.Show();
         }
-
+        //
         private void menuDraft_Click(object sender, EventArgs e)
         {
-            new FormDraft().ShowDialog();
+            FormDraft draft = new FormDraft();
+            draft.MdiParent = this;
+            draft.Show();
         }
 
         private void menuSentDeleted_Click(object sender, EventArgs e)
         {
-            new FormSentDeleted().ShowDialog();
+            FormSentDeleted sentdelete = new FormSentDeleted();
+            sentdelete.MdiParent = this;
+            sentdelete.Show();
         }
 
         private void menuSentOk_Click(object sender, EventArgs e)
@@ -58,37 +82,44 @@ namespace SMS
 
         private void menuSentError_Click(object sender, EventArgs e)
         {
-            new FormSentError().ShowDialog();
+            FormSentError sentError = new FormSentError();
+            sentError.MdiParent = this;
+            sentError.Show();
         }
 
         private void menuInvalidMessage_Click(object sender, EventArgs e)
         {
-            new FormInvalidMessage().ShowDialog();
+            FormInvalidMessage invalidMessge = new FormInvalidMessage();
+            invalidMessge.MdiParent = this;
+            invalidMessge.Show();
         }
 
         private void menuAccount_Click(object sender, EventArgs e)
         {
-            new FormManageAccount().ShowDialog();
+            FormManageAccount account = new FormManageAccount();
+            account.MdiParent = this;
+            account.Show();
         }
 
         private void menuKeyword_Click(object sender, EventArgs e)
         {
-            new FormManageKeyword().ShowDialog();
+           FormManageKeyword keyword= new FormManageKeyword();
+            keyword.MdiParent=this;
+            keyword.Show();
         }
 
         private void menuCompose_Click(object sender, EventArgs e)
         {
-            new view.FormCompose().ShowDialog();
-        }
-
-        private void calendarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //new view.ManageCalendar().ShowDialog();
+            view.FormCompose compose = new view.FormCompose();
+            compose.MdiParent = this;
+            compose.Show();
         }
 
         private void menuAddressBook_Click(object sender, EventArgs e)
         {
-            new view.FormAddressBook().Show();
+            view.FormAddressBook addressBook = new view.FormAddressBook();
+            addressBook.MdiParent = this;
+            addressBook.Show();
         }
         
         
