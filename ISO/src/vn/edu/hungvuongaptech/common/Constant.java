@@ -1,10 +1,7 @@
 
 package vn.edu.hungvuongaptech.common;
 
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import vn.edu.hungvuongaptech.model.DangKyMonHocModel;
 
 
 public class Constant {
@@ -32,6 +29,7 @@ public class Constant {
 	public static String KE_HOACH_GIANG_DAY_ATT = "kehoachgiangday";
 	public static String DE_CUONG_MON_HOC_ATT = "deCuongMonHoc";
 	public static String MON_HOC_TKB_ATT = "monHocTKB";
+	public static String KE_HOACH_THANG_ATT = "keHoachThang";
 
 	public static String MA_VAI_TRO_GV = "8";
 	public static String MA_VAI_TRO_TK = "5";
@@ -77,7 +75,7 @@ public class Constant {
 	public static String TINHTRANG_HT_APPROVE="2";
 	public static String TINHTRANG_HT_REJECT="3";
 	
-	public static Integer RECORDS_PER_PAGE = 10;
+	public static Integer RECORDS_PER_PAGE = 30;
 	public static Integer CHECK_ROWS = 0;
 	public static Integer ALL_RECORDS = 0;
 	
@@ -88,6 +86,7 @@ public class Constant {
 	public static String CHUCNANG_THOIKHOABIEU = "4";
 	public static String CHUCNANG_KEHOACHGIANGDAY = "5";
 	public static String CHUCNANG_GIAOAN="6";
+	public static String CHUCNANG_KEHOACHTHANG = "7";
 		
 	public static String CHUCNANG_ADMIN_MENU="18";
 	//public static String CHUCNANG_DIEMDANH_MENU="2";

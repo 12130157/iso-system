@@ -6,13 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.TuanLeModel;
 import vn.edu.hungvuongaptech.model.VaiTroModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
+import vn.edu.hungvuongaptech.util.LogUtil;
 
 public class TuanLeDAO {
+	private static final Logger logger = Logger.getLogger(DataUtil.class.getName());
 	public static ArrayList<TuanLeModel> getAllTuanLe() {
 		ArrayList<TuanLeModel> tuanLeModelList = new ArrayList<TuanLeModel>();
 		try {
@@ -154,4 +157,25 @@ public class TuanLeDAO {
 		}	
 		return tuanLe;
 	}	
+	public static int getSoTuanByThangAndNam(String thang, String nam) {
+		int soTuan = 0;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getSoTuanByThangAndNam"));
+			preparedStatement.setString(1, nam);
+			preparedStatement.setString(2, thang);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				soTuan = Integer.parseInt(rs.getString("SoTuan"));
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			LogUtil.logError(ex, logger);
+		}
+		return soTuan;
+	}
 }

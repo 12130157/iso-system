@@ -269,4 +269,25 @@
 	    </servlet-mapping>
     <!-- ****************************End Of ThietBiController******* -->
 	
+	<!-- ****************************KeHoachThangController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>KeHoachThangController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.KeHoachThangController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>KeHoachThangController</servlet-name>
+	    	<url-pattern>/keHoachThangController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of KeHoachThangController******* -->
+    
+    <!-- ****************************PhanCongGiaoVienController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>PhanCongGiaoVienController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.PhanCongGiaoVienController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>PhanCongGiaoVienController</servlet-name>
+	    	<url-pattern>/phanCongGiaoVienController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of PhanCongGiaoVienController******* -->
 </web-app>

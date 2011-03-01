@@ -5,7 +5,8 @@
 
 
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
-<%@page import="vn.edu.hungvuongaptech.dao.DeCuongMonHocDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.DeCuongMonHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -48,6 +49,7 @@ function submitFormSave(){
 	<c:set var = "Truong_Bo_Mon" value = '<%= Constant.TRUONG_BO_MON %>'></c:set>	
 	<c:set var = "Truong_Khoa" value = '<%= Constant.TRUONG_KHOA %>'> </c:set>
 	<c:set var = "Pho_Khoa" value = '<%= Constant.PHO_KHOA %>'> </c:set>
+	<c:set var = "Giao_Vien" value = '<%= Constant.GIAO_VIEN %>'> </c:set>
 	
 	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
 	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
@@ -67,6 +69,9 @@ function submitFormSave(){
 			tenMonHoc = (String) session.getAttribute("TenMonHoc");
 		}
 	%>
+	<c:if test="${empty param.msg}">
+		<%tenMonHoc = ""; %>
+	</c:if>
 	<c:set var = "TenMonHoc" value = "<%=tenMonHoc %>" scope = "session"></c:set>
 	<c:choose>			
 		<c:when test = "${empty param.msg}">
@@ -92,6 +97,16 @@ function submitFormSave(){
 								<option value = "2" <c:if test = "${param.msg eq '2'}">selected</c:if>>Approve</option>
 								<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Reject</option>
 							</select>
+							<c:set var="khoaList" value='<%=KhoaDAO.getKhoaByBoPhan(Integer.parseInt((String) request.getSession().getAttribute("maBoPhan"))) %>'></c:set>
+						<c:if test="${vaiTro ne Truong_Bo_Mon and vaiTro ne Truong_khoa and vaiTro ne Pho_Khoa and vaiTro ne Giao_Vien}">	
+						Khoa : 
+							<select id = "cboKhoa" name="cboKhoa">
+								<option value="">All</option>
+								<c:forEach items="${khoaList}" var="objKhoa">
+									<option value='${objKhoa.maKhoa}' <c:if test="${param.khoa eq objKhoa.maKhoa }">selected</c:if> >${objKhoa.tenKhoa}</option>
+								</c:forEach>
+							</select>
+						</c:if>	
 						Tên môn học : 
 							<input type = "text" value = "${TenMonHoc}" id = "txtTenMonHoc" name = "txtTenMonHoc"/>
 						<a href = "javascript: submitFormSearch()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
@@ -147,6 +162,9 @@ function submitFormSave(){
 	</c:if>
 	<c:if test = "${MaBoPhan ne BO_PHAN_ADMIN}">
 		<%maBoPhan = (String) session.getAttribute("maBoPhan"); %>
+	</c:if>
+	<c:if test="${not empty param.khoa}">
+		<%maBoPhan = request.getParameter("khoa"); %>
 	</c:if>
 	<% totalRows = DeCuongMonHocDAO.getCountDeCuongMonHoc(tinhTrang, maNguoiTao, maBoPhan, maVaiTro, tenMonHoc);  %>	
 	<c:set 	var = "ListDeCuongMonHoc" 

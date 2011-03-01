@@ -26,7 +26,16 @@ public class LopHocModel implements Serializable{
 	private String namBatDau;
 	private String soHocSinh;
 	ArrayList<NamHocModel> namHocList;
+	ArrayList<PhanCongGiaoVienModel> phanCongGiaoVienList;
+	private String khoa;
 	
+	
+	public String getKhoa() {
+		return khoa;
+	}
+	public void setKhoa(String khoa) {
+		this.khoa = khoa;
+	}
 	public ArrayList<NamHocModel> getNamHocList() {
 		return namHocList;
 	}
@@ -129,4 +138,12 @@ public class LopHocModel implements Serializable{
 	public void setUser5(String user5) {
 		this.user5 = user5;
 	}
+	public ArrayList<PhanCongGiaoVienModel> getPhanCongGiaoVienList() {
+		return phanCongGiaoVienList;
+	}
+	public void setPhanCongGiaoVienList(
+			ArrayList<PhanCongGiaoVienModel> phanCongGiaoVienList) {
+		this.phanCongGiaoVienList = phanCongGiaoVienList;
+	}
+	
 }

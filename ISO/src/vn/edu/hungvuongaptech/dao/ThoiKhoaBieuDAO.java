@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
+import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
+import vn.edu.hungvuongaptech.model.PhanCongGiaoVienModel;
 import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -414,5 +416,47 @@ public class ThoiKhoaBieuDAO {
 			e.printStackTrace();
 		}
 		return thoiKhoaBieuModelList;
+	}
+	// ham phan cong giao vien
+	public static ArrayList<LopHocModel> getPhanCongGiaoVien(String khoa, String namHoc, String hocKi){ 
+		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
+		String maLop = "na";
+		ArrayList<PhanCongGiaoVienModel> phanCongGiaoVienList = new ArrayList<PhanCongGiaoVienModel>();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.getAllThoiKhoaBieuApproveByMaLop"));
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, namHoc);
+			preparedStatement.setString(3, hocKi);
+			preparedStatement.setString(4, Constant.TINHTRANG_APPROVE);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				if(!rs.getString("MaLop").equals(maLop)) {
+					LopHocModel lopHoc = new LopHocModel();
+					lopHoc.setMaLopHoc(rs.getString("MaLop"));
+					lopHoc.setKiHieu(rs.getString("KiHieuLop"));
+					lopHoc.setKhoa(rs.getString("TenKhoa"));
+					maLop = lopHoc.getMaLopHoc();
+					phanCongGiaoVienList = new ArrayList<PhanCongGiaoVienModel>();
+					lopHoc.setPhanCongGiaoVienList(phanCongGiaoVienList);
+					lopHocList.add(lopHoc);
+				}
+				PhanCongGiaoVienModel phanCong = new PhanCongGiaoVienModel();
+				phanCong.setMaGiaoVien(rs.getString("MaGiaoVien"));
+				phanCong.setTenGiaoVien(rs.getString("TenGiaoVien"));
+				phanCong.setMaMonHoc(rs.getString("MaMonHoc"));
+				phanCong.setTenMonHoc(rs.getString("TenMonHoc"));
+				phanCong.setLyThuyet(rs.getString("LyThuyet"));
+				phanCong.setThucHanh(rs.getString("ThucHanh"));
+				
+				phanCongGiaoVienList.add(phanCong);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lopHocList;
 	}
 }

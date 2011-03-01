@@ -705,9 +705,7 @@ function confirmDuyet(x)
 	</a>
 	<input type="hidden" name = "XoaMonHoc" id = "XoaMonHoc" value=""/>
 </c:if>
-	<a href="<%=Constant.PATH_RES.getString("iso.LichSuDungPhongPath") %>">
-		<img src="<%=request.getContextPath()%>/images/buttom/lichsudungphong.png" alt="Lịch sử dụng phòng" border="0"/>
-	</a>
+	
 <table width = "800" style="background-color: transparent;">
 		<tr style="background-color: transparent;"><td colspan="2">
 			<br />Phòng học lý thuyết  <input type = "text"  style="background-color: transparent;"/><br /><br />
