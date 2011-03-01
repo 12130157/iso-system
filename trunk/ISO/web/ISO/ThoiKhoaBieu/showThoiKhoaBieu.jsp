@@ -255,12 +255,18 @@
 			</tr> 
 			<tr style="background-color: transparent;">
 				<td colspan="6">
-				<c:if test="${vaiTro eq TRUONG_KHOA or vaiTro eq PHO_KHOA or MaBoPhan eq BO_PHAN_ADMIN}">
-					<a href="<%=request.getContextPath()%>/ISO/ThoiKhoaBieu/ThoiKhoaBieu.jsp?Them=yes"><img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="tạo mới" border = "0" /></a>
-				</c:if>		
-				<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_ADMIN}">
-					<a href = "javascript: confirmDuyet()"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="lưu" border = "0"/></a>
-				</c:if>		
+					<c:if test="${vaiTro eq TRUONG_KHOA or vaiTro eq PHO_KHOA or MaBoPhan eq BO_PHAN_ADMIN}">
+						<a href="<%=request.getContextPath()%>/ISO/ThoiKhoaBieu/ThoiKhoaBieu.jsp?Them=yes"><img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="tạo mới" border = "0" /></a>
+					</c:if>		
+					<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_ADMIN}">
+						<a href = "javascript: confirmDuyet()"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="lưu" border = "0"/></a>
+					</c:if>	
+					<a href="<%=Constant.PATH_RES.getString("iso.LichSuDungPhongPath") %>">
+						<img src="<%=request.getContextPath()%>/images/buttom/lichsudungphong.png" alt="Lịch sử dụng phòng" border="0"/>
+					</a>
+					<a href="<%=Constant.PATH_RES.getString("iso.PhanCongGiaoVienPath") %>">
+						<img src="<%=request.getContextPath()%>/images/buttom/phanconggiaovien.png" alt="Phân công giáo viên" border="0"/>
+					</a>	
 				</td>
 			</tr>
 		</table>

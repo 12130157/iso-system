@@ -28,7 +28,7 @@ public class MonHocTKBModel  implements Serializable{
 	private String user3; // so tiet hoc 1 buoi
 	private String soTietHoc1Buoi; // cột user3
 	private String user4; // so ca ly thuyet
-	private String user5;
+	private String user5; // ngay bat dau hoc
 	private String chuoiThuTrongTuan;
 	private String kieuBienSoan;
 	private String lyThuyetCTMH;

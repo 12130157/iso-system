@@ -470,11 +470,18 @@ public class DeCuongMonHocController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		String select = request.getParameter("selectTinhTrang");
+		
 		String tenMonHoc = StringUtil.toUTF8(request.getParameter("txtTenMonHoc"));
 		request.setAttribute("tenMonHocTimKiem", tenMonHoc);
 		String page = Constant.PATH_RES
 				.getString("iso.XemDeCuongMonHocShortPath")
 				+ "?msg=" + select;
+		if(request.getParameter("cboKhoa") != null) {
+			String khoa = request.getParameter("cboKhoa");
+			page += Constant.PATH_RES
+			.getString("iso.XemDeCuongMonHocShortPath")
+			+ "&khoa=" + khoa;
+		}
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 		LogUtil.logInfo(loggerInfo, tenThanhVien + " phân loại đề cương môn học"); // ghi vào file log
