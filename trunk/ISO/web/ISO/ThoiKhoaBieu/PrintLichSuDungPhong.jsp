@@ -8,7 +8,7 @@
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
-	pageInsets="30,0,20,0,points"
+	pageInsets="10,20,0,20,points"
 	enableImageSplit="false"
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
@@ -26,7 +26,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       
