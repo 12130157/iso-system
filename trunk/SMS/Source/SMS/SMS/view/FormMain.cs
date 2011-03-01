@@ -18,20 +18,20 @@ namespace SMS
             //menuTool.Enabled = false;
 
         }
-        public void menu()
-        {
-            if (!common.Constants.menutool.Equals(0))
-            {
-                menuTool.Enabled = true;
-            }
-            else
-            {
+        //public void menu()
+        //{
+        //    if (!common.Constants.menutool.Equals(0))
+        //    {
+        //        menuTool.Enabled = true;
+        //    }
+        //    else
+        //    {
                 
-                login.MdiParent = this;
-                login.Show();
-            } 
+        //        login.MdiParent = this;
+        //        login.Show();
+        //    } 
         
-        }
+        //}
 
         private void mnuChangePassword_Click(object sender, EventArgs e)
         {

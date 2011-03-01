@@ -95,3 +95,4 @@ C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\obj\Debug
 C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
 C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
 C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\RS232.dll

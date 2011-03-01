@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SMS.util;
 
 namespace SMS.view
 {
@@ -14,6 +15,7 @@ namespace SMS.view
         public FormConnection()
         {
             InitializeComponent();
+            util.GSMUtil.connectGSM(1,9600,1500);
         }
     }
 }
