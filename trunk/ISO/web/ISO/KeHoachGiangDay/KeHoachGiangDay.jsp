@@ -562,13 +562,7 @@
 						</td>
 					</tr>
 					
-					<c:if test="${not empty param.maKHGD}">
-						<c:set var="soGioLT" value="${objKHGD.soGioLT}"></c:set>
-					</c:if>
-					<c:if test="${empty param.maKHGD and not empty param.maLop and not empty param.maTKB and not empty param.maMonHoc}">
-						<c:set var="soGioLT" value="${deCuongMonHocModel.lyThuyet}"></c:set>
-					</c:if>
-					
+				
 					
 					<%int count4=0; int count3=0; %>
 					<!-- ------------------------------------------------------------------------------------------------------------- -->
@@ -630,25 +624,18 @@
 														</c:forEach>					
 													</div>																
 												</td>
-												<c:if test="${ soGioLT ne 0 }">
+											
 													<td style="width:142px;">
-														<textarea  name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  <c:if test="${obj1.coHieu ne coHieuTH}">style="cursor:pointer"</c:if> cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'><c:if test="${obj1.coHieu ne coHieuTH }">${obj1.tenChuong}</c:if></textarea>
+														<textarea  name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  <c:if test="${obj1.coHieu ne coHieuTH}">style="cursor:pointer"</c:if> cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'>${obj1.tenChuong}</textarea>
 														<input type='hidden' name='txtMucTieuBaiHoc_<%=count3%>' id='txtMucTieuBaiHoc_<%=count3%>' value='${obj1.mucTieu}'></input>
 													
 													</td>
-													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font> <textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" <c:if test="${obj1.coHieu ne coHieuLT}">style="cursor:pointer" onclick="showPopUpTH(this.id)"</c:if> <c:if test="${obj1.coHieu eq coHieuLT}">readonly='readonly'</c:if> ><c:if test="${obj1.coHieu eq coHieuTH }">${obj1.tenChuong}</c:if></textarea></td>
-												</c:if>
-												
-												<!-- tHAY DOi xu ly khi so gio ly  thuyet bang 0 -->
-												<c:if test="${ soGioLT eq 0 }">
-													<td style="width:142px;">
-														<textarea  name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  <c:if test="${obj1.coHieu ne coHieuTH}">style="cursor:pointer"</c:if> cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'>${obj1.tenChuong}</textarea>
-														<input type='hidden' name='txtMucTieuBaiHoc_<%=count3%>' id='txtMucTieuBaiHoc_<%=count3%>' value='${obj1.mucTieu}'></input>		
+													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font> 
+														<textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" style="cursor:pointer" onclick="showPopUpTH(this.id)"  ></textarea>
 													</td>
-													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font> <textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" <c:if test="${obj1.coHieu ne coHieuLT}">style="cursor:pointer" onclick="showPopUpTH(this.id)"</c:if> <c:if test="${obj1.coHieu eq coHieuLT}">readonly='readonly'</c:if> ></textarea></td>
-												</c:if>
-												<!-- ************************************************ -->
 												
+												
+											
 												<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertCVCB<%=count3%>'></font><textarea  name='areaCVCB_<%=count3%>' rows='10' id='areaCVCB_<%=count3%>' cols="15" style="cursor:pointer" onclick='showPopUp(this.id)'>${objCVCB}</textarea></td>
 												<td>
 													<input type='hidden' value='${obj1.tuan}' name='hdnTuanTemp_<%=count3%>'/>
@@ -738,22 +725,14 @@
 													</div>													
 												</td>
 												
-												<c:if test="${ soGioLT ne 0 }">
+											
 													<td style="width:142px;">
-														<textarea <c:if test="${obj1.coHieu ne coHieuTH }">style="cursor:pointer"</c:if> name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'><c:if test="${obj1.coHieu ne coHieuTH }">${obj1.tenChuong}</c:if></textarea>
+														<textarea style="cursor:pointer" name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'>${obj1.tenChuong}</textarea>
 													</td>
-													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font><textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" <c:if test="${obj1.coHieu ne coHieuLT}">style="cursor:pointer" onclick="showPopUpTH(this.id)"</c:if> <c:if test="${obj1.coHieu eq coHieuLT}">readonly='readonly'</c:if>><c:if test="${obj1.coHieu ne coHieuLT }">${obj1.noiDungTH}</c:if></textarea></td>
-												</c:if>
+													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font><textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" style="cursor:pointer" onclick="showPopUpTH(this.id)" >${obj1.noiDungTH}</textarea></td>
+											
 												
-												<!-- tHAY DOi xu ly khi so gio ly  thuyet bang 0 -->
-												<c:if test="${ soGioLT eq 0 }">
-													<td style="width:142px;">
-														<textarea <c:if test="${obj1.coHieu ne coHieuTH }">style="cursor:pointer"</c:if> name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'>${obj1.tenChuong}</textarea>
-													</td>
-													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font><textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" <c:if test="${obj1.coHieu ne coHieuLT}">style="cursor:pointer" onclick="showPopUpTH(this.id)"</c:if> <c:if test="${obj1.coHieu eq coHieuLT}">readonly='readonly'</c:if>><c:if test="${obj1.coHieu ne coHieuLT }">${obj1.noiDungTH}</c:if></textarea></td>
-													
-												</c:if>
-												<!-- ************************************************ -->
+												
 												
 												<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertCVCB<%=count3%>'></font><textarea  name='areaCVCB_<%=count3%>' rows='10' id='areaCVCB_<%=count3%>' cols="15" onclick='showPopUp(this.id)' style="cursor:pointer">${obj1.congViecChuanBi}</textarea></td>
 												<td>
