@@ -98,3 +98,6 @@ C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\bin\Debug
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\RS232.dll
 C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\bin\Debug\RS232.dll
 C:\Documents and Settings\NVNuoi\Desktop\ISo_System\SMS\Source\SMS\SMS\obj\Debug\SMS.view.FormConnection.resources
+C:\Documents and Settings\Admin\Desktop\iso\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+C:\Documents and Settings\Admin\Desktop\iso\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
+C:\Documents and Settings\Admin\Desktop\iso\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
