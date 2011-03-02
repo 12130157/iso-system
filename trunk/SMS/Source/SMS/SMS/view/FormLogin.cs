@@ -32,20 +32,20 @@ namespace SMS
             String username = txtUserName.Text.Trim();
             String password = txtPassword.Text.Trim();
 
-            //MemberModel memberModel = MemberDAO.getMemberByUsernameAndPassword(username, password);
+            MemberModel memberModel = MemberDAO.getMemberByUsernameAndPassword(username, password);
 
-            //if (memberModel != null)
-            //{
-            //    Constants.USER_LOGIN = memberModel;
-            //    FormMain formMain = new FormMain();
-            //    this.Visible = false;
-            //    formMain.Focus();
-            //    formMain.ShowDialog();
-            //}
-            //else
-            //{
-            //    MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+            if (memberModel != null)
+            {
+                Constants.USER_LOGIN = memberModel;
+                FormMain formMain = new FormMain();
+                this.Visible = false;
+                formMain.Focus();
+                formMain.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="dao\LoaiHopThuDAO.cs" />
     <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
     <Compile Include="dao\LoaiTinNhanDAO.cs" />
+    <Compile Include="dao\MemberDAO.cs" />
     <Compile Include="dao\TaiKhoanSmsDAO.cs" />
     <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="model\LoaiHopThuMODEL.cs" />
     <Compile Include="model\LoaiTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\LoaiTinNhanMODEL.cs" />
+    <Compile Include="model\MemberModel.cs" />
     <Compile Include="model\TaiKhoanSmsMODEL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,7 +234,7 @@
     <Compile Include="view\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\FormMain.designer.cs">
+    <Compile Include="view\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FormManageAccount.cs">
