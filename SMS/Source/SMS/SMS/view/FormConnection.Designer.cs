@@ -1,4 +1,5 @@
-﻿namespace SMS.view
+﻿using GsmComm.GsmCommunication;
+namespace SMS
 {
     partial class FormConnection
     {
@@ -116,6 +117,7 @@
             this.btnOk.TabIndex = 8;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // FormConnection
             // 
@@ -150,5 +152,14 @@
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
+
+        //gan cong port mac dinh cho bien port
+        int port = GsmCommMain.DefaultPortNumber;
+        //gan mac dinh 9600 cho baudrate
+        int baudRate = 9600;
+        //gan time out mac dinh
+        int timeout = GsmCommMain.DefaultTimeout;
+
+        
     }
 }
