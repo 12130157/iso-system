@@ -47,5 +47,10 @@ namespace SMS
                 MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+            txtUserName.Focus();
+        }
     }
 }
