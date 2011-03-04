@@ -29,8 +29,6 @@
         private void InitializeComponent()
 
         {
-            
-            ///////////////////
             this.menuTool = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChangePassword = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +50,6 @@
             this.menuKeyword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddressBook = new System.Windows.Forms.ToolStripMenuItem();
-            //this.calendarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,11 +59,6 @@
             // menuTool
             // 
             this.menuTool.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            this.menuTool.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuFile,
-            this.menuMessage,
-            this.menuSystem,
-            this.menuHelp});
             this.menuTool.Location = new System.Drawing.Point(0, 0);
             this.menuTool.Name = "menuTool";
             this.menuTool.Size = new System.Drawing.Size(854, 24);
@@ -75,10 +67,6 @@
             // 
             // menuFile
             // 
-            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuChangePassword,
-            this.menuSystemConfig,
-            this.menuLogout});
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(38, 20);
             this.menuFile.Text = "File";
@@ -104,11 +92,6 @@
             // 
             // menuMessage
             // 
-            this.menuMessage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuCompose,
-            this.menuOutbox,
-            this.menuInbox,
-            this.menuI1Sent});
             this.menuMessage.Name = "menuMessage";
             this.menuMessage.Size = new System.Drawing.Size(69, 20);
             this.menuMessage.Text = "Message";
@@ -129,10 +112,6 @@
             // 
             // menuInbox
             // 
-            this.menuInbox.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuI2Inbox,
-            this.menuInboxDeleted,
-            this.menuDraft});
             this.menuInbox.Name = "menuInbox";
             this.menuInbox.Size = new System.Drawing.Size(152, 22);
             this.menuInbox.Text = "Inbox";
@@ -203,7 +182,6 @@
             this.menuKeyword,
             this.menuAccount,
             this.menuAddressBook});
-            //this.calendarToolStripMenuItem});
             this.menuSystem.Name = "menuSystem";
             this.menuSystem.Size = new System.Drawing.Size(62, 20);
             this.menuSystem.Text = "System";
@@ -229,13 +207,6 @@
             this.menuAddressBook.Text = "Address Book";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
-            // calendarToolStripMenuItem
-            // 
-            //this.calendarToolStripMenuItem.Name = "calendarToolStripMenuItem";
-            //this.calendarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            //this.calendarToolStripMenuItem.Text = "Calendar";
-            //this.calendarToolStripMenuItem.Click += new System.EventHandler(this.calendarToolStripMenuItem_Click);
-            //// 
             // menuHelp
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -248,13 +219,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem1.Text = "About ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
             // FormMain

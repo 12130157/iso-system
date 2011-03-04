@@ -48,14 +48,30 @@ namespace SMS
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            port = int.Parse(cboComPort.Text);
+            baudRate = int.Parse(cboBaudrate.Text);
+            timeout = int.Parse(cboTimeout.Text);
+
+            //Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.Default;
             GSMUtil connect = new GSMUtil();
-            connect.connectGSM(port, baudRate, timeout);
-            if (connect.comm.IsOpen() == true)
+            bool cned = connect.connectGSM(port, baudRate, timeout);
+            if (cned == true)
             {
                 MessageBox.Show("Connect successfull");
-                FormLogin frmLogin = new FormLogin();
-                frmLogin.ShowDialog();
+                FormMain frmMain = new FormMain();
+                frmMain.ShowDialog();
             }
+            else
+            {
+                MessageBox.Show("Connect Failed");
+            }
+            connect.closeConnect();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }

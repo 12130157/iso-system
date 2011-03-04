@@ -22,48 +22,42 @@ namespace SMS.util
 
         public GsmCommMain comm;
         private delegate void SetTextCallback(string text);
-        
 
 
-        public void connectGSM(int port, int baudRate, int timeout)
-        {         
+
+        public bool connectGSM(int port, int baudRate, int timeout)
+        {
             Cursor.Current = Cursors.WaitCursor;
             comm = new GsmCommMain(port, baudRate, timeout);
             Cursor.Current = Cursors.Default;
 
 
 
-            comm.PhoneConnected += new EventHandler(comm_PhoneConnected); ;
-            comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
+            //comm.PhoneConnected += new EventHandler(comm_PhoneConnected); ;
+            //comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
 
             Cursor.Current = Cursors.WaitCursor;
 
             comm.Open();
-
-            Cursor.Current = Cursors.Default;
-            
-
-            if (comm.IsOpen() == true)
+            if (comm.IsConnected() == true)
             {
-                Console.WriteLine("OK");
+                return true;
             }
             else
             {
-                Console.WriteLine("NO");
+                return false;
             }
+            
         }
 
-        //private delegate void ConnectedHandler(bool connected);
-
+        public void closeConnect()
+        {
+            comm.Close();
+        }
         private void comm_PhoneConnected(object sender, EventArgs e)
         {
             new FormLogin();
         }
-
-        //private void OnPhoneConnectionChange(bool connected)
-        //{
-        //    Console.WriteLine("CONNECTED");
-        //}
 
         private void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
