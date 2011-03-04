@@ -15,24 +15,7 @@ namespace SMS
         public FormMain()
         {
             InitializeComponent();
-            //menuTool.Enabled = false;
-
         }
-        //public void menu()
-        //{
-        //    if (!common.Constants.menutool.Equals(0))
-        //    {
-        //        menuTool.Enabled = true;
-        //    }
-        //    else
-        //    {
-                
-        //        login.MdiParent = this;
-        //        login.Show();
-        //    } 
-        
-        //}
-
         private void mnuChangePassword_Click(object sender, EventArgs e)
         {
             FormChangePassword change = new FormChangePassword();
@@ -121,10 +104,5 @@ namespace SMS
             addressBook.MdiParent = this;
             addressBook.Show();
         }
-        
-        
-
-     
-     
     }
 }

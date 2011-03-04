@@ -53,20 +53,25 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuTool.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuTool
             // 
+            this.menuTool.Items.AddRange(
+                new System.Windows.Forms.ToolStripItem[] {
+                    this.menuFile
+                    
+                });
             this.menuTool.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.menuTool.Location = new System.Drawing.Point(0, 0);
             this.menuTool.Name = "menuTool";
             this.menuTool.Size = new System.Drawing.Size(854, 24);
             this.menuTool.TabIndex = 0;
             this.menuTool.Text = "menuTool";
+            this.menuTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuTool_ItemClicked);
             // 
             // menuFile
-            // 
+            // 3
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(38, 20);
             this.menuFile.Text = "File";
@@ -151,28 +156,28 @@
             // menuSentOk
             // 
             this.menuSentOk.Name = "menuSentOk";
-            this.menuSentOk.Size = new System.Drawing.Size(177, 22);
+            this.menuSentOk.Size = new System.Drawing.Size(162, 22);
             this.menuSentOk.Text = "Sent Ok";
             this.menuSentOk.Click += new System.EventHandler(this.menuSentOk_Click);
             // 
             // menuSentError
             // 
             this.menuSentError.Name = "menuSentError";
-            this.menuSentError.Size = new System.Drawing.Size(177, 22);
+            this.menuSentError.Size = new System.Drawing.Size(162, 22);
             this.menuSentError.Text = "Sent Error";
             this.menuSentError.Click += new System.EventHandler(this.menuSentError_Click);
             // 
             // menuInvalidMessage
             // 
             this.menuInvalidMessage.Name = "menuInvalidMessage";
-            this.menuInvalidMessage.Size = new System.Drawing.Size(177, 22);
+            this.menuInvalidMessage.Size = new System.Drawing.Size(162, 22);
             this.menuInvalidMessage.Text = "Invalid Message";
             this.menuInvalidMessage.Click += new System.EventHandler(this.menuInvalidMessage_Click);
             // 
             // menuSentDeleted
             // 
             this.menuSentDeleted.Name = "menuSentDeleted";
-            this.menuSentDeleted.Size = new System.Drawing.Size(177, 22);
+            this.menuSentDeleted.Size = new System.Drawing.Size(162, 22);
             this.menuSentDeleted.Text = "Sent Deleted";
             this.menuSentDeleted.Click += new System.EventHandler(this.menuSentDeleted_Click);
             // 
@@ -189,21 +194,21 @@
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(179, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(165, 22);
             this.menuKeyword.Text = "Mnage Keyword";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(179, 22);
+            this.menuAccount.Size = new System.Drawing.Size(165, 22);
             this.menuAccount.Text = "Manage Account";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(179, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(165, 22);
             this.menuAddressBook.Text = "Address Book";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
@@ -219,13 +224,13 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem1.Text = "About ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(117, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
             // FormMain
@@ -240,8 +245,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SMS Service";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuTool.ResumeLayout(false);
-            this.menuTool.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
