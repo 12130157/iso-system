@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5FC66462-FF38-4CE5-97CE-1A646E58A3C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SMS</RootNamespace>
+    <AssemblyName>SMS</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GSMCommShared, Version=1.10.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81" />
+    <Reference Include="GSMCommunication, Version=1.10.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL" />
+    <Reference Include="PDUConverter, Version=1.10.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81" />
+    <Reference Include="RS232, Version=1.24.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="common\Constants.cs" />
+    <Compile Include="dao\ChiTietTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\ChiTietTinNhanTuDongDAO.cs" />
+    <Compile Include="dao\CuPhapDAO.cs" />
+    <Compile Include="dao\HopThuDenDAO.cs" />
+    <Compile Include="dao\HopThuDiDAO.cs" />
+    <Compile Include="dao\LichTinNhanDAO.cs" />
+    <Compile Include="dao\LoaiHopThuDAO.cs" />
+    <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\LoaiTinNhanDAO.cs" />
+    <Compile Include="dao\MemberDAO.cs" />
+    <Compile Include="dao\TaiKhoanSmsDAO.cs" />
+    <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
+    <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
+    <Compile Include="model\CuPhapMODEL.cs" />
+    <Compile Include="model\HopThuDenMODEL.cs" />
+    <Compile Include="model\HoThuDiMODEL.cs" />
+    <Compile Include="model\LichTinNhanMODEL.cs" />
+    <Compile Include="model\LoaiHopThuMODEL.cs" />
+    <Compile Include="model\LoaiTaiKhoanSmsMODEL.cs" />
+    <Compile Include="model\LoaiTinNhanMODEL.cs" />
+    <Compile Include="model\MemberModel.cs" />
+    <Compile Include="model\TaiKhoanSmsMODEL.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormAddressBook.resx">
+      <DependentUpon>FormAddressBook.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormChangePassword.resx">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormCompose.resx">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInbox.resx">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormInboxMessageType.resx">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageAccount.resx">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormManageKeyword.resx">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormOutbox.resx">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormSend.resx">
+      <DependentUpon>FormSend.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="model\Thumbs.db" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="util\DataUtil.cs" />
+    <Compile Include="util\GSMUtil.cs" />
+    <Compile Include="view\FormAddressBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormAddressBook.Designer.cs">
+      <DependentUpon>FormAddressBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormChangePassword.designer.cs">
+      <DependentUpon>FormChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormCompose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormCompose.Designer.cs">
+      <DependentUpon>FormCompose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInbox.designer.cs">
+      <DependentUpon>FormInbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormInboxMessageType.designer.cs">
+      <DependentUpon>FormInboxMessageType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormLogin.designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormMain.designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageAccount.designer.cs">
+      <DependentUpon>FormManageAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormManageKeyword.designer.cs">
+      <DependentUpon>FormManageKeyword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormOutbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormOutbox.designer.cs">
+      <DependentUpon>FormOutbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormSend.Designer.cs">
+      <DependentUpon>FormSend.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\0511-1009-3017-3437_Global_Credit_System_Icon_clipart_image.jpg" />
+    <Content Include="images\419_transforming_teams_logo.png" />
+    <Content Include="images\About.jpeg" />
+    <Content Include="images\about.png" />
+    <Content Include="images\aboutjpeg.jpeg" />
+    <Content Include="images\account.jpeg" />
+    <Content Include="images\account1jpeg.jpeg" />
+    <Content Include="images\Actual.png" />
+    <Content Include="images\add-2-icon.png" />
+    <Content Include="images\Add-icon_2.png" />
+    <Content Include="images\add-user-icon.png" />
+    <Content Include="images\Add.ico" />
+    <Content Include="images\Add.jpeg" />
+    <Content Include="images\Add.png" />
+    <Content Include="images\addressbox.jpeg" />
+    <Content Include="images\Administrator-icon.png" />
+    <Content Include="images\ans_plesk_002.png" />
+    <Content Include="images\Attach-icon.png" />
+    <Content Include="images\autojpeg.jpeg" />
+    <Content Include="images\Back.ico" />
+    <Content Include="images\background_home.jpg" />
+    <Content Include="images\background_home2.jpg" />
+    <Content Include="images\background_index.png" />
+    <Content Include="images\background_login.png" />
+    <Content Include="images\Bar Chart.ico" />
+    <Content Include="images\bg.jpg" />
+    <Content Include="images\bg1.jpg" />
+    <Content Include="images\butCancel.jpeg" />
+    <Content Include="images\butSent.jpeg" />
+    <Content Include="images\button-cancel-icon.png" />
+    <Content Include="images\Button-Close-icon.png" />
+    <Content Include="images\button-ok-icon.png" />
+    <Content Include="images\button.JPG" />
+    <Content Include="images\button1.jpeg" />
+    <Content Include="images\buttondowload.jpeg" />
+    <Content Include="images\calendar.jpeg" />
+    <Content Include="images\calendar1.jpeg" />
+    <Content Include="images\Cancel-2-icon.png" />
+    <Content Include="images\carte-graphique-icon.png" />
+    <Content Include="images\ChagePass.jpeg" />
+    <Content Include="images\ChagePass2jpeg.jpeg" />
+    <Content Include="images\Change.jpeg" />
+    <Content Include="images\changepass.jpeg" />
+    <Content Include="images\changepass.jpg" />
+    <Content Include="images\changepass1.png" />
+    <Content Include="images\Clients-icon.png" />
+    <Content Include="images\Close.jpeg" />
+    <Content Include="images\Comment.ico" />
+    <Content Include="images\compose.jpeg" />
+    <Content Include="images\Compose.png" />
+    <Content Include="images\compose2.jpeg" />
+    <Content Include="images\composejpeg.jpeg" />
+    <Content Include="images\config.png" />
+    <Content Include="images\Contact.png" />
+    <Content Include="images\Contract.png" />
+    <Content Include="images\data-server-icon.png" />
+    <Content Include="images\DataSource FBI.jpg" />
+    <Content Include="images\DataSource Virus Ladybird.jpg" />
+    <Content Include="images\Delete Icon.jpg" />
+    <Content Include="images\Delete.ico" />
+    <Content Include="images\Delete.jpeg" />
+    <Content Include="images\Document-icon.png" />
+    <Content Include="images\Document-Write-icon.png" />
+    <Content Include="images\Documents-icon.png" />
+    <Content Include="images\draft.ico" />
+    <Content Include="images\draft.jpeg" />
+    <Content Include="images\draft.png" />
+    <Content Include="images\Edit Profile.png" />
+    <Content Include="images\Edit-icon.png" />
+    <Content Include="images\edit-user-icon.png" />
+    <Content Include="images\edit.jpeg" />
+    <Content Include="images\Edit.png" />
+    <Content Include="images\email-icon.jpg" />
+    <Content Include="images\Email.ico" />
+    <Content Include="images\email_delete_01.png" />
+    <Content Include="images\Emp.png" />
+    <Content Include="images\Error.jpeg" />
+    <Content Include="images\Exit.ico" />
+    <Content Include="images\FAQ-icon.png" />
+    <Content Include="images\file.jpeg" />
+    <Content Include="images\file_icon.jpg" />
+    <Content Include="images\go-to-app.ico" />
+    <Content Include="images\Graphic1.ico" />
+    <Content Include="images\Help-File-icon.png" />
+    <Content Include="images\Help.jpeg" />
+    <Content Include="images\Help.png" />
+    <Content Include="images\Help1.jpeg" />
+    <Content Include="images\helpjpeg.jpeg" />
+    <Content Include="images\Home-32.png" />
+    <Content Include="images\hungvuong.jpg" />
+    <Content Include="images\ikeyword.jpeg" />
+    <Content Include="images\images.jpeg" />
+    <Content Include="images\Inbox Send Mail Error.jpg" />
+    <Content Include="images\inbox.gif" />
+    <Content Include="images\inboxdelete.jpeg" />
+    <Content Include="images\inboxjpeg.jpeg" />
+    <Content Include="images\info-icon.png" />
+    <Content Include="images\Info.ico" />
+    <Content Include="images\insurance-icon.png" />
+    <Content Include="images\invalid.jpeg" />
+    <Content Include="images\java-logo-thumb.png" />
+    <Content Include="images\Keyword.jpeg" />
+    <Content Include="images\kinvalimessage.jpeg" />
+    <Content Include="images\Line Chart.ico" />
+    <Content Include="images\Load.ico" />
+    <Content Include="images\Loading.ico" />
+    <Content Include="images\lock-icon.png" />
+    <Content Include="images\lock-off-icon.png" />
+    <Content Include="images\lock.jpg" />
+    <Content Include="images\Log-Out-icon.png" />
+    <Content Include="images\login.gif" />
+    <Content Include="images\login.jpeg" />
+    <Content Include="images\login.jpg" />
+    <Content Include="images\login.png" />
+    <Content Include="images\login1.gif" />
+    <Content Include="images\login2.png" />
+    <Content Include="images\Logout Icon.png" />
+    <Content Include="images\logout.jpeg" />
+    <Content Include="images\logout.jpg" />
+    <Content Include="images\logout2.jpeg" />
+    <Content Include="images\logo_aptech.png" />
+    <Content Include="images\Mail Chat.jpg" />
+    <Content Include="images\mail_folder_sent.png" />
+    <Content Include="images\managementjpeg.jpeg" />
+    <Content Include="images\message.jpeg" />
+    <Content Include="images\Message.jpg" />
+    <Content Include="images\message2.jpeg" />
+    <Content Include="images\Modify.ico" />
+    <Content Include="images\new-icon.png" />
+    <Content Include="images\Next.ico" />
+    <Content Include="images\offline-user-icon.png" />
+    <Content Include="images\Ok-icon.png" />
+    <Content Include="images\Ok_Icon.jpg" />
+    <Content Include="images\outbox.jpeg" />
+    <Content Include="images\outbox_icon.jpg" />
+    <Content Include="images\pencil_48.png" />
+    <Content Include="images\Picture.ico" />
+    <Content Include="images\Pie Chart.ico" />
+    <Content Include="images\Preppy-icon.png" />
+    <Content Include="images\Preppy-icon_2.png" />
+    <Content Include="images\Preview-icon_2.png" />
+    <Content Include="images\Print.ico" />
+    <Content Include="images\Product.png" />
+    <Content Include="images\Profile.ico" />
+    <Content Include="images\Refresh-icon.png" />
+    <Content Include="images\Refresh-icon_2.png" />
+    <Content Include="images\refresh.jpeg" />
+    <Content Include="images\remove-user-icon.png" />
+    <Content Include="images\report.png" />
+    <Content Include="images\reset.png" />
+    <Content Include="images\Save.ico" />
+    <Content Include="images\Search.ico" />
+    <Content Include="images\secrecy-icon.png" />
+    <Content Include="images\sent.jpeg" />
+    <Content Include="images\Sent1.jpeg" />
+    <Content Include="images\sent2.jpeg" />
+    <Content Include="images\SentError.jpeg" />
+    <Content Include="images\sent_mail.png" />
+    <Content Include="images\sgfs.png" />
+    <Content Include="images\Shell.jpeg" />
+    <Content Include="images\Shutdown-32.png" />
+    <Content Include="images\Sign In.png" />
+    <Content Include="images\sitemap.png" />
+    <Content Include="images\sms.bmp" />
+    <Content Include="images\Symbols-Delete-icon.png" />
+    <Content Include="images\systemicon.png" />
+    <Content Include="images\system_configuration.gif" />
+    <Content Include="images\tournevis-icon.png" />
+    <Content Include="images\upload-icon.png" />
+    <Content Include="images\User Info.png" />
+    <Content Include="images\user-group-icon.png" />
+    <Content Include="images\user-icon_2.png" />
+    <Content Include="images\user-info-icon.png" />
+    <Content Include="images\Warning.ico" />
+    <Content Include="images\Web System Configuration.jpg" />
+    <Content Include="images\wellcome.jpg" />
+    <Content Include="images\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
