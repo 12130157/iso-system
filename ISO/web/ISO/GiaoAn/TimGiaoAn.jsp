@@ -139,8 +139,12 @@
 <c:set var="boPhanPDT" value='<%=Constant.BO_PHAN_PDT %>'></c:set>
 <c:set var="boPhanPKD" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
 
+
+<%
+	String maBoPhan=(String) request.getSession().getAttribute("maBoPhan");
+ %>
 <c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT)%>' scope="session"></c:set>
+	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan)%>' scope="session"></c:set>
 </c:if>
 
 
