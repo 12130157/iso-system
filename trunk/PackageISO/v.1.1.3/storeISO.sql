@@ -1971,7 +1971,8 @@ CREATE PROCEDURE sp_iso_FindGiaoAn
 	@HocKi varchar(10),
 	@TinhTrang varchar(10),
 	@NgayTimBD varchar(11),
-	@NgayTimKT varchar(11)
+	@NgayTimKT varchar(11),
+	@MaBoPhan varchar(5)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -1981,6 +1982,8 @@ BEGIN
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
 	DECLARE @DieuKienTimNgay varchar(100)
+	DECLARE @DieuKienMaBoPhan varchar(100)
+
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -1989,6 +1992,16 @@ BEGIN
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
 	SET @DieuKienTimNgay=''
+
+	IF @MaBoPhan = 1 OR @MaBoPhan=16
+	BEGIN
+		SET @DieuKienMaBoPhan=''
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
+	END
+
 		
 	IF @NgayTimBD = ''
 	BEGIN
@@ -2057,7 +2070,7 @@ ON C.ID=A.Ma_Mon_Hoc
 INNER JOIN LopHoc As D
 ON D.ID=A.Ma_Lop 
 INNER JOIN ThanhVien As E
-On E.ID=A.Ma_Giao_Vien
+On E.ID=A.Ma_Giao_Vien '+ @DieuKienMaBoPhan +'
 INNER JOIN ChiTietThanhVien As F
 ON E.Ten_DN=F.Ten_dang_nhap
 LEFT JOIN ThanhVien As G
@@ -2121,7 +2134,8 @@ CREATE PROCEDURE sp_iso_FindKeHoachGiangDay
 	@HocKi varchar(10),
 	@TinhTrang varchar(10),
 	@NgayTimBD varchar(11),
-	@NgayTimKT varchar(11)
+	@NgayTimKT varchar(11),
+	@MaBoPhan varchar(5)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -2131,6 +2145,7 @@ BEGIN
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
 	DECLARE @DieuKienTimNgay varchar(100)
+	DECLARE @DieuKienMaBoPhan varchar(100)
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -2139,6 +2154,15 @@ BEGIN
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
 	SET @DieuKienTimNgay=''
+
+	IF @MaBoPhan = 1 OR @MaBoPhan=16
+	BEGIN
+		SET @DieuKienMaBoPhan=''
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
+	END
 
 	IF @NgayTimBD = ''
 	BEGIN
@@ -3630,14 +3654,15 @@ BEGIN
 	SET	@Dieu_kien_hoc_ki=''
 	SET @Dieu_kien_nam_hoc=''
 	SET @Dieu_kien_ma_khoa=''
-	IF @Ma_nguoi_tao = ''	
-		SET @Ma_nguoi_tao=null
 
 
-	IF(@Ma_nguoi_tao<>null)
-		BEGIN
-			SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
-		END
+	PRINT @Ma_nguoi_tao
+
+	IF(@Ma_nguoi_tao <> '')
+	BEGIN
+		SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
+	END
+
 	IF(@Tinh_trang<>'')
 		BEGIN
 			SET	@Dieu_kien_tinh_trang = ' AND TB2.Tinh_trang ='+@Tinh_trang 
@@ -3653,10 +3678,10 @@ BEGIN
 	IF not exists(SELECT * FROM KeHoachGiangDay WHERE Ma_nguoi_tao = @Ma_nguoi_tao)
 	BEGIN	
 			SET @Dieu_kien_khong_phai_nguoi_tao = ' AND TB2.Tinh_trang <> 0 '
-	END
+	END	
 	
 	SELECT @VAITRO=Ma_vai_tro FROM ThanhVien WHERE ID=@Ma_nguoi_tao
-	IF(@VAITRO = 8)	
+	IF(@VAITRO = 8 AND @Ma_Nguoi_Tao <> '')	
 	BEGIN 					
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
@@ -3682,7 +3707,7 @@ BEGIN
 		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
 		
-
+	--print @sql
 	exec  sp_executesql @sql
 END
 
