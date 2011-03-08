@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.zefer.html.doc.t;
 
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
 import vn.edu.hungvuongaptech.model.DeCuongMonHocModel;
@@ -461,19 +462,24 @@ public class XmlUtil {
 			SysParamsModel sysParamsModel = SysParamsDAO.getNgayGioHeThongXML();
 			Element tinhChatDeCuong = doc.createElement("TinhChatDeCuong");
 			//deCuongMonHoc.setViTriMonHoc(deCuongMonHoc.getViTriMonHoc().replace(, newChar))
-			tinhChatDeCuong.setAttribute("ViTriMonHoc", StringUtil.toUTF8(deCuongMonHoc.getViTriMonHoc()).trim());
-			tinhChatDeCuong.setAttribute("MucTieu1", StringUtil.toUTF8(deCuongMonHoc.getMucTieu1()).trim());
-			tinhChatDeCuong.setAttribute("MucTieu2", StringUtil.toUTF8(deCuongMonHoc.getMucTieu2()).trim());
-			tinhChatDeCuong.setAttribute("MucTieu3", StringUtil.toUTF8(deCuongMonHoc.getMucTieu3()).trim());
-			tinhChatDeCuong.setAttribute("MucTieu4", StringUtil.toUTF8(deCuongMonHoc.getMucTieu4()).trim());
-			tinhChatDeCuong.setAttribute("DieuKien1", StringUtil.toUTF8(deCuongMonHoc.getDieuKien1()).trim());
-			tinhChatDeCuong.setAttribute("DieuKien2", StringUtil.toUTF8(deCuongMonHoc.getDieuKien2()).trim());
-			tinhChatDeCuong.setAttribute("DieuKien3", StringUtil.toUTF8(deCuongMonHoc.getDieuKien3()).trim());
-			tinhChatDeCuong.setAttribute("DieuKien4", StringUtil.toUTF8(deCuongMonHoc.getDieuKien4()).trim());
-			tinhChatDeCuong.setAttribute("PhuongPhap1", StringUtil.toUTF8(deCuongMonHoc.getPhuongPhap1()).trim());
-			tinhChatDeCuong.setAttribute("PhuongPhap2", StringUtil.toUTF8(deCuongMonHoc.getPhuongPhap2()).trim());
-			tinhChatDeCuong.setAttribute("PhuongPhap3", StringUtil.toUTF8(deCuongMonHoc.getPhuongPhap3()).trim());
-				
+			tinhChatDeCuong.setAttribute("ViTriMonHoc", deCuongMonHoc.getViTriMonHoc());
+			tinhChatDeCuong.setAttribute("MucTieu1", deCuongMonHoc.getMucTieu1());
+			tinhChatDeCuong.setAttribute("MucTieu2", deCuongMonHoc.getMucTieu2());
+			tinhChatDeCuong.setAttribute("MucTieu3", deCuongMonHoc.getMucTieu3());
+			tinhChatDeCuong.setAttribute("MucTieu4", deCuongMonHoc.getMucTieu4());
+			tinhChatDeCuong.setAttribute("DieuKien1", deCuongMonHoc.getDieuKien1());
+			tinhChatDeCuong.setAttribute("DieuKien2", deCuongMonHoc.getDieuKien2());
+			tinhChatDeCuong.setAttribute("DieuKien3", deCuongMonHoc.getDieuKien3());
+			tinhChatDeCuong.setAttribute("DieuKien4", deCuongMonHoc.getDieuKien4());
+			tinhChatDeCuong.setAttribute("PhuongPhap1", deCuongMonHoc.getPhuongPhap1());
+			tinhChatDeCuong.setAttribute("PhuongPhap2", deCuongMonHoc.getPhuongPhap2());
+			tinhChatDeCuong.setAttribute("PhuongPhap3", deCuongMonHoc.getPhuongPhap3());
+			
+			tinhChatDeCuong.setAttribute("LyThuyet", deCuongMonHoc.getLyThuyet());
+			tinhChatDeCuong.setAttribute("ThucHanh", deCuongMonHoc.getThucHanh());
+			tinhChatDeCuong.setAttribute("SoTiet", deCuongMonHoc.getSoTietHocMotBuoi());
+			tinhChatDeCuong.setAttribute("KieuBienSoan", deCuongMonHoc.getKieuBienSoan());
+			tinhChatDeCuong.setAttribute("KiemTra", deCuongMonHoc.getKiemTra());
 			//SysParamsModel sysParamsModel = SysParamsDAO.getNgayGioHeThongXML();
 			Element noiDungDeCuong = null;
 		//	interfaceElement.setAttribute("CreateDate", sysParamsModel.getNgayHeThong() + ' ' + sysParamsModel.getGioHeThong());
@@ -511,9 +517,11 @@ public class XmlUtil {
 			transformer.transform(source, result);
 			String xmlString = sw.toString();
 
-			File file = new File("E:/DeCuongMonHoc" + deCuongMonHoc.getTenMonHoc() + "_" + sysParamsModel.getNgayHeThong() + '_' + sysParamsModel.getGioHeThong() + ".xml");
+			File file = new File("E:/DCMH_" + deCuongMonHoc.getTenMonHoc() + "_" + sysParamsModel.getNgayHeThong() + '_' 
+					+ sysParamsModel.getGioHeThong() + "[" + deCuongMonHoc.getMaMonHoc() + "-" + deCuongMonHoc.getLyThuyetCTMH() 
+					+ "-" + deCuongMonHoc.getThucHanhCTMH() + "].xml");
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(file)));
+					new FileOutputStream(file), "UTF-8"));
 			bw.write(xmlString);
 			bw.flush();
 			bw.close();
@@ -524,11 +532,11 @@ public class XmlUtil {
 		}
 		return check;
 	}
-	public static boolean getDataFromFileXMLDeCuongMonHoc(String fileNam, DeCuongMonHocModel deCuongMonHoc) {
+	public static boolean getDataFromFileXMLDeCuongMonHoc(String fileName, DeCuongMonHocModel deCuongMonHoc) {
 		boolean check = true;
 		ArrayList<NoiDungDCMHModel> noiDungDCMHList = new ArrayList<NoiDungDCMHModel>();
 		try {
-			File file = new File(fileNam);
+			File file = new File("E:/" + fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
@@ -536,35 +544,44 @@ public class XmlUtil {
 			NodeList nodeLst = doc.getElementsByTagName("TinhChatDeCuong");
 			Node node = nodeLst.item(0);
 			Element tinhChatDeCuong = (Element) node;
-			deCuongMonHoc.setViTriMonHoc(tinhChatDeCuong.getAttribute("ViTriMonHoc"));
-			deCuongMonHoc.setDieuKien1(tinhChatDeCuong.getAttribute("DieuKien1"));
-			deCuongMonHoc.setDieuKien2(tinhChatDeCuong.getAttribute("DieuKien2"));
-			deCuongMonHoc.setDieuKien3(tinhChatDeCuong.getAttribute("DieuKien3"));
-			deCuongMonHoc.setDieuKien4(tinhChatDeCuong.getAttribute("DieuKien4"));
-			deCuongMonHoc.setMucTieu1(tinhChatDeCuong.getAttribute("MucTieu1"));
-			deCuongMonHoc.setMucTieu2(tinhChatDeCuong.getAttribute("MucTieu2"));
-			deCuongMonHoc.setMucTieu3(tinhChatDeCuong.getAttribute("MucTieu3"));
-			deCuongMonHoc.setMucTieu4(tinhChatDeCuong.getAttribute("MucTieu4"));
-			deCuongMonHoc.setPhuongPhap1(tinhChatDeCuong.getAttribute("PhuongPhap1"));
-			deCuongMonHoc.setPhuongPhap2(tinhChatDeCuong.getAttribute("PhuongPhap2"));
-			deCuongMonHoc.setPhuongPhap3(tinhChatDeCuong.getAttribute("PhuongPhap3"));
+		
+				
+				deCuongMonHoc.setViTriMonHoc(tinhChatDeCuong.getAttribute("ViTriMonHoc"));
+				deCuongMonHoc.setDieuKien1(tinhChatDeCuong.getAttribute("DieuKien1"));
+				deCuongMonHoc.setDieuKien2(tinhChatDeCuong.getAttribute("DieuKien2"));
+				deCuongMonHoc.setDieuKien3(tinhChatDeCuong.getAttribute("DieuKien3"));
+				deCuongMonHoc.setDieuKien4(tinhChatDeCuong.getAttribute("DieuKien4"));
+				deCuongMonHoc.setMucTieu1(tinhChatDeCuong.getAttribute("MucTieu1"));
+				deCuongMonHoc.setMucTieu2(tinhChatDeCuong.getAttribute("MucTieu2"));
+				deCuongMonHoc.setMucTieu3(tinhChatDeCuong.getAttribute("MucTieu3"));
+				deCuongMonHoc.setMucTieu4(tinhChatDeCuong.getAttribute("MucTieu4"));
+				deCuongMonHoc.setPhuongPhap1(tinhChatDeCuong.getAttribute("PhuongPhap1"));
+				deCuongMonHoc.setPhuongPhap2(tinhChatDeCuong.getAttribute("PhuongPhap2"));
+				deCuongMonHoc.setPhuongPhap3(tinhChatDeCuong.getAttribute("PhuongPhap3"));
+				
+				deCuongMonHoc.setLyThuyet(tinhChatDeCuong.getAttribute("LyThuyet"));
+				deCuongMonHoc.setThucHanh(tinhChatDeCuong.getAttribute("ThucHanh"));
+				deCuongMonHoc.setSoTietHocMotBuoi(tinhChatDeCuong.getAttribute("SoTiet"));
+				deCuongMonHoc.setKieuBienSoan(tinhChatDeCuong.getAttribute("KieuBienSoan"));
+				deCuongMonHoc.setKiemTra(tinhChatDeCuong.getAttribute("KiemTra"));
+				NodeList childNode = tinhChatDeCuong.getElementsByTagName("NoiDungDeCuongMonHoc");
+				
+				
+				  for (int i=0;i<childNode.getLength();i++) {
+					  NoiDungDCMHModel noiDungDCMH = new NoiDungDCMHModel();
+					  
+					  Element noiDungDeCuong = (Element) childNode.item(i);
+					  noiDungDCMH.setCoHieu(noiDungDeCuong.getAttribute("CoHieu")); 
+					  noiDungDCMH.setMucTieu(noiDungDeCuong.getAttribute("MucTieu"));
+					  noiDungDCMH.setTenChuong(noiDungDeCuong.getAttribute("TenChuong"));
+					  noiDungDCMH.setSoThuTu(noiDungDeCuong.getAttribute("SoThuTu"));
+					  noiDungDCMH.setSoBuoi(noiDungDeCuong.getAttribute("SoBuoi"));
+					  noiDungDCMH.setSoTiet(noiDungDeCuong.getAttribute("SoTiet"));
+					  
+					  noiDungDCMHList.add(noiDungDCMH);
+				  }
+				  deCuongMonHoc.setNoiDungDCMHModelsList(noiDungDCMHList);
 			
-			NodeList childNode = tinhChatDeCuong.getChildNodes();
-			
-			
-			  for (int s = 0; s < childNode.getLength(); s++) {
-				  NoiDungDCMHModel noiDungDCMH = new NoiDungDCMHModel();
-				  Element noiDungDeCuong = (Element) childNode.item(s);
-				  noiDungDCMH.setCoHieu(noiDungDeCuong.getAttribute("CoHieu")); 
-				  noiDungDCMH.setMucTieu(noiDungDeCuong.getAttribute("MucTieu"));
-				  noiDungDCMH.setTenChuong(noiDungDeCuong.getAttribute("TenChuong"));
-				  noiDungDCMH.setSoThuTu(noiDungDeCuong.getAttribute("SoThuTu"));
-				  noiDungDCMH.setSoBuoi(noiDungDeCuong.getAttribute("SoBuoi"));
-				  noiDungDCMH.setSoTiet(noiDungDeCuong.getAttribute("SoTiet"));
-				  
-				  noiDungDCMHList.add(noiDungDCMH);
-			  }
-			  deCuongMonHoc.setNoiDungDCMHModelsList(noiDungDCMHList);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			check = false;
