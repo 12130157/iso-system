@@ -35,14 +35,15 @@ BEGIN
 	SET	@Dieu_kien_hoc_ki=''
 	SET @Dieu_kien_nam_hoc=''
 	SET @Dieu_kien_ma_khoa=''
-	IF @Ma_nguoi_tao = ''	
-		SET @Ma_nguoi_tao=null
 
 
-	IF(@Ma_nguoi_tao<>null)
-		BEGIN
-			SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
-		END
+	PRINT @Ma_nguoi_tao
+
+	IF(@Ma_nguoi_tao <> '')
+	BEGIN
+		SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
+	END
+
 	IF(@Tinh_trang<>'')
 		BEGIN
 			SET	@Dieu_kien_tinh_trang = ' AND TB2.Tinh_trang ='+@Tinh_trang 
@@ -58,10 +59,10 @@ BEGIN
 	IF not exists(SELECT * FROM KeHoachGiangDay WHERE Ma_nguoi_tao = @Ma_nguoi_tao)
 	BEGIN	
 			SET @Dieu_kien_khong_phai_nguoi_tao = ' AND TB2.Tinh_trang <> 0 '
-	END
+	END	
 	
 	SELECT @VAITRO=Ma_vai_tro FROM ThanhVien WHERE ID=@Ma_nguoi_tao
-	IF(@VAITRO = 8)	
+	IF(@VAITRO = 8 AND @Ma_Nguoi_Tao <> '')	
 	BEGIN 					
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
@@ -87,7 +88,7 @@ BEGIN
 		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
 		
-
+	--print @sql
 	exec  sp_executesql @sql
 END
 
