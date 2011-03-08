@@ -67,6 +67,7 @@ var kieuDayLyThuyet = new Array();
 		//monHocModelList = MonHocDAO.getMonHoc();
 		//check = 0;
 		chiTietMonHocCTDTModelList = ChiTietMonHocCTDTDAO.getChiTietCTDTByMaDeCuong(maDeCuong);
+		
 	}
 	else
 	{
@@ -188,6 +189,8 @@ var kieuDayLyThuyet = new Array();
 				out.print("document.getElementById('ThoiGianMonHoc').value = " + (Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getLyThuyet()) + Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getThucHanh())) + ";");
 				out.print("document.getElementById('LyThuyet').value = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
 				out.print("document.getElementById('ThucHanh').value = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + ";");
+				out.print("document.getElementById('txtLyThuyetCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
+				out.print("document.getElementById('txtThucHanhCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + ";");
 				out.print("document.getElementById('TinhChatMonHoc').value = '" + chiTietMonHocCTDTModelList.get(i).getTinhChat() + "';");
 				out.print("document.getElementById('KiemTra').value = 0;");
 				out.print("lyThuyet = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
@@ -578,12 +581,8 @@ var kieuDayLyThuyet = new Array();
 	function isEmpty() {
 		return true;
 	}
-	function submitForm(x){
-		var checkNoiDung = true;		
-		if(x == 1)
-			document.getElementById('txtXuLyFile').value = 'GhiFile';
-		else if(x == 3)
-			document.getElementById('txtXuLyFile').value = 'DocFile';
+	function submitForm(){
+		var checkNoiDung = true;
 		if(truongHop == 1)
 		{
 			var soLT = 0, soTH = 0, soKT = 0;
@@ -648,6 +647,40 @@ var kieuDayLyThuyet = new Array();
 		}
 		if(confirm("Bạn có chắc muốn " + act + " đề cương này không?"))
 			document.forms["Duyet1DCMH"].submit();	
+	}
+	function xuLyFile(x)
+	{	
+		if(x == 2)
+		{
+			document.getElementById('txtXuLyFile').value = 'GhiFile';
+			submitForm();
+		} 
+		else if(x == 1) 
+		{
+			var f = document.getElementById('txtFile').value;
+			if(f != "")
+			{
+				f = f.split("[")[1];
+				f = f.split("]")[0];
+				var chuoi = f.split("-");
+				if(chuoi[0] == document.getElementById('monHoc').value && chuoi[1] == document.getElementById('txtLyThuyetCTDT').value && chuoi[2] == document.getElementById('txtThucHanhCTDT').value)
+				{
+					if(confirm("Dữ liệu bạn đang nhập có thể bị mất, có muốn tiếp tục không???"))
+					{
+						document.getElementById('txtXuLyFile').value = 'DocFile';
+						submitForm();
+					}
+				}
+				else
+				{
+					alert("File bạn chọn không phù hợp. Lý do :\n1/Môn học không đúng.\n2/Số tiết lý thuyết và thực hành không đúng.");
+				}
+			}
+			else
+			{
+				alert("Hãy chọn file !!!");
+			}
+		}
 	}
 </script>
 <!--[if lt IE 7]>
@@ -769,14 +802,16 @@ var kieuDayLyThuyet = new Array();
 						-	Thời gian môn học  <input type = "text" id = "ThoiGianMonHoc" size = "" style="background-color: transparent;" name="txtThoiGianMonHoc" readonly="readonly" value="0"/>
 					</div> 
 						Lý thuyết <input type = "text" id = "LyThuyet" size = "" style="background-color: transparent;" name="txtLyThuyet" readonly="readonly" value="0"/> 
+							<input type = "hidden" id = "txtLyThuyetCTDT"  name="txtLyThuyetCTDT" value = "0"/>
 						Thực hành <input type = "text" id = "ThucHanh" size = ""  style="background-color: transparent;" name="txtThucHanh" readonly="readonly" value="0"/> 
+							<input type = "hidden" id = "txtThucHanhCTDT"  name="txtThucHanhCTDT" value = "0"/>
 						Kiểm tra <input type = "text" id = "KiemTra" size = "" style="background-color: transparent;" name="txtKiemTra" onblur="changeKiemTra();" value="0"/>
 				</td>
 			</tr>
 				<c:if test="${empty DeCuongMonHoc.maDeCuongMonHoc}">
 					<tr style="background-color: transparent;">
 						<td>
-							Chọn đề cương : <input type="file" name="txtFile" id = "" value = ""/> <input type="submit" value = "Sao chép từ file" onclick="submitForm(3)"/>
+							Chọn đề cương : <input type="file" name="txtFile" id = "txtFile" value = ""/> <input type="button" value = "Sao chép từ file" onclick="xuLyFile(1);"/>
 						</td>
 					</tr>
 				</c:if>
@@ -944,7 +979,7 @@ var kieuDayLyThuyet = new Array();
 		</c:if>	
 		<!--<c:set var="check" value=""></c:set>
 	--><c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien)}">	
-			<a href = "javascript: submitForm(1);">	
+			<a href = "javascript: xuLyFile(2);">	
 				<input type="hidden" name="Copy" value = "Copy" />							 
 				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 			</a>									
