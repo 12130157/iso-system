@@ -9,7 +9,8 @@ CREATE PROCEDURE sp_iso_FindKeHoachGiangDay
 	@HocKi varchar(10),
 	@TinhTrang varchar(10),
 	@NgayTimBD varchar(11),
-	@NgayTimKT varchar(11)
+	@NgayTimKT varchar(11),
+	@MaBoPhan varchar(5)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -19,6 +20,7 @@ BEGIN
 	DECLARE @DieuKienHocKi varchar(100)
 	DECLARE @DieuKienMaNamHoc varchar(100)
 	DECLARE @DieuKienTimNgay varchar(100)
+	DECLARE @DieuKienMaBoPhan varchar(100)
 
 	SET @DieuKienMaNguoiTao=''
 	SET @DieuKienMaLop=''
@@ -27,6 +29,15 @@ BEGIN
 	SET @DieuKienHocKi=''
 	SET @DieuKienMaNamHoc=''
 	SET @DieuKienTimNgay=''
+
+	IF @MaBoPhan = 1 OR @MaBoPhan=16
+	BEGIN
+		SET @DieuKienMaBoPhan=''
+	END
+	ELSE
+	BEGIN
+		SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
+	END
 
 	IF @NgayTimBD = ''
 	BEGIN
