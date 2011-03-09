@@ -1,4 +1,7 @@
-﻿namespace SMS
+﻿using GsmComm.GsmCommunication;
+using GsmComm.PduConverter;
+
+namespace SMS
 {
     partial class FormLogin
     {
@@ -194,6 +197,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbTieuDe;
         private System.Windows.Forms.LinkLabel linkLabel1;
-
     }
 }

@@ -96,6 +96,10 @@
       <DependentUpon>FormCompose.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\FormConnection.resx">
+      <DependentUpon>FormConnection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\FormInbox.resx">
       <DependentUpon>FormInbox.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -163,6 +167,12 @@
     </Compile>
     <Compile Include="view\FormCompose.Designer.cs">
       <DependentUpon>FormCompose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormConnection.Designer.cs">
+      <DependentUpon>FormConnection.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FormInbox.cs">
       <SubType>Form</SubType>

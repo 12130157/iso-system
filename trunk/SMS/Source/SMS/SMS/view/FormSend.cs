@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SMS.view
+namespace SMS
 {
     public partial class FormSend : Form
     {

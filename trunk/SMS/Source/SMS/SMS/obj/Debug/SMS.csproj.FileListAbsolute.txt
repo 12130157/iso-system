@@ -108,3 +108,23 @@ E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormM
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.view.FormSend.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormAddressBook.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormChangePassword.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormCompose.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.frmConn.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInbox.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInboxMessageType.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormLogin.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormMain.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageAccount.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageKeyword.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSend.resources
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
+D:\ISO_SMS\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+D:\ISO_SMS\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
+D:\ISO_SMS\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
+D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb

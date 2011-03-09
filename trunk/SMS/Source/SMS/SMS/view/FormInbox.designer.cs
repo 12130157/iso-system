@@ -1466,8 +1466,5 @@
         private System.Windows.Forms.Panel panel4;
         internal System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-
-
-
     }
 }
