@@ -44,7 +44,7 @@
             this.lbMessage = new System.Windows.Forms.Label();
             this.lbNumberPhone = new System.Windows.Forms.Label();
             this.lbTitle = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtOutput = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
             this.gboOptions.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +67,7 @@
             this.txtTimes.Name = "txtTimes";
             this.txtTimes.Size = new System.Drawing.Size(46, 20);
             this.txtTimes.TabIndex = 3;
+            this.txtTimes.Text = "1";
             // 
             // chkMultipleTimes
             // 
@@ -142,6 +143,7 @@
             this.btnClear.TabIndex = 153;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // butClosse
             // 
@@ -157,6 +159,7 @@
             this.butClosse.TabIndex = 150;
             this.butClosse.Text = "Close";
             this.butClosse.UseVisualStyleBackColor = false;
+            this.butClosse.Click += new System.EventHandler(this.butClosse_Click);
             // 
             // but_Send
             // 
@@ -227,15 +230,15 @@
             this.lbTitle.TabIndex = 156;
             this.lbTitle.Text = "Compose Message";
             // 
-            // textBox1
+            // txtOutput
             // 
-            this.textBox1.AllowDrop = true;
-            this.textBox1.Location = new System.Drawing.Point(24, 285);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(529, 58);
-            this.textBox1.TabIndex = 157;
-            this.textBox1.WordWrap = false;
+            this.txtOutput.AllowDrop = true;
+            this.txtOutput.Location = new System.Drawing.Point(24, 285);
+            this.txtOutput.Multiline = true;
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.Size = new System.Drawing.Size(529, 58);
+            this.txtOutput.TabIndex = 157;
+            this.txtOutput.WordWrap = false;
             // 
             // FormCompose
             // 
@@ -243,7 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.ClientSize = new System.Drawing.Size(573, 353);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.lbTitle);
             this.Controls.Add(this.piboCompose);
             this.Controls.Add(this.gboOptions);
@@ -283,10 +286,7 @@
         internal System.Windows.Forms.Label lbMessage;
         internal System.Windows.Forms.Label lbNumberPhone;
         private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.TextBox textBox1;
-
-
-
-
+        private System.Windows.Forms.TextBox txtOutput;
+        
     }
 }

@@ -145,10 +145,12 @@ namespace SMS
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            if (common.Constants.comm.IsConnected() == true)
+            {
+                common.Constants.comm.Close();
+            }
             Application.Exit();
         }
-
         #region chưa xu ly
         //private void menuClickAction(object sender, EventArgs e)
         //{
