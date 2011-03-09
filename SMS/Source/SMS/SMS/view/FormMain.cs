@@ -114,7 +114,7 @@ namespace SMS
 
         private void menuCompose_Click(object sender, EventArgs e)
         {
-            view.FormCompose formcompose = new view.FormCompose();
+            FormCompose formcompose = new FormCompose();
             formcompose.MdiParent = this;
             formcompose.Show();
         }
@@ -122,7 +122,7 @@ namespace SMS
 
         private void menuAddressBook_Click(object sender, EventArgs e)
         {
-            view.FormAddressBook formaddresbook = new view.FormAddressBook();
+            FormAddressBook formaddresbook = new FormAddressBook();
             formaddresbook.MdiParent = this;
             formaddresbook.Show();
         }
@@ -138,9 +138,15 @@ namespace SMS
 
         private void menuI1Sent_Click(object sender, EventArgs e)
         {
-            view.FormSend formsend = new view.FormSend();
+            FormSend formsend = new FormSend();
             formsend.MdiParent = this;
             formsend.Show();
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            Application.Exit();
         }
 
         #region chưa xu ly

@@ -1,4 +1,4 @@
-﻿namespace SMS.view
+﻿namespace SMS
 {
     partial class FormCompose
     {

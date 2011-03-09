@@ -9,7 +9,7 @@ using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
 using System.Windows.Forms;
 
-namespace SMS.util
+namespace SMS
 {
     public class GSMUtil
     {

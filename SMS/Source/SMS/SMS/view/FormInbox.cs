@@ -23,7 +23,7 @@ namespace SMS
 
         private void butReply_Click(object sender, EventArgs e)
         {
-            new view.FormCompose().ShowDialog();
+            new FormCompose().ShowDialog();
         }
 
         
