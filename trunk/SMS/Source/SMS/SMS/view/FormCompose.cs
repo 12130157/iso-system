@@ -18,21 +18,17 @@ namespace SMS
         {
             InitializeComponent();
         }
-
-        private void but_AddressBook_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void butClosse_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private delegate void SetTextCallback(string text);
+        
+        
 
         private void but_Send_Click(object sender, EventArgs e)
         {
+            
             if (!txtPhoneNumber.Equals("") && !txtMessage.Equals(""))
             {
+                
+                
                 Cursor.Current = Cursors.WaitCursor;
 
                 try
@@ -61,19 +57,20 @@ namespace SMS
                         else
                             dcs = DataCodingScheme.NoClass_7Bit; // should never occur here
 
-                        pdu = new SmsSubmitPdu(txt_message.Text, txt_destination_numbers.Text, "", dcs);
+                        pdu = new SmsSubmitPdu(txtMessage.Text, txtMessage.Text, "", dcs);
                     }
 
                     // Send the same message multiple times if this is set
+                    int times = 0;
                     if (chkMultipleTimes.Checked)
-                    { 
-                        int times = int.Parse(txtTimes.Text);
+                    {
+                        times = int.Parse(txtTimes.Text);
                     }
 
                     // Send the message the specified number of times
                     for (int i = 0; i < times; i++)
                     {
-                        CommSetting.comm.SendMessage(pdu);
+                        common.Constants.comm.SendMessage(pdu);
                         Output("Message {0} of {1} sent.", i + 1, times);
                         Output("");
                     }
@@ -84,10 +81,42 @@ namespace SMS
                 }
 
                 Cursor.Current = Cursors.Default;
-                
+
             }
         }
 
+        private void Output(string text)
+        {
+            if (this.txtOutput.InvokeRequired)
+            {
+                SetTextCallback stc = new SetTextCallback(Output);
+                this.Invoke(stc, new object[] { text });
+            }
+            else
+            {
+                txtOutput.AppendText(text);
+                txtOutput.AppendText("\r\n");
+            }
+        }
 
+        private void Output(string text, params object[] args)
+        {
+            string msg = string.Format(text, args);
+            Output(msg);
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtMessage.Text = "";
+            txtOutput.Text = "";
+            txtPhoneNumber.Text = "";
+            chkAlert.Checked = false;
+            chkUnicode.Checked = false;
+        }
+
+        private void butClosse_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

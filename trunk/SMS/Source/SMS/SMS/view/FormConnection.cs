@@ -24,14 +24,14 @@ namespace SMS
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            comPort = int.Parse(cboComPort.Text);
-            baudRate = int.Parse(cboBaudrate.Text);
-            timeOut = int.Parse(cboTimeout.Text);
+            common.Constants.comPort = int.Parse(cboComPort.Text);
+            common.Constants.baudRate = int.Parse(cboBaudrate.Text);
+            common.Constants.timeOut = int.Parse(cboTimeout.Text);
 
             //Cursor.Current = Cursors.WaitCursor;
             //Cursor.Current = Cursors.Default;
-            
-            connected = connect.connectGSM(comPort, baudRate, timeOut);
+
+            connected = connect.connectGSM(common.Constants.comPort, common.Constants.baudRate, common.Constants.timeOut);
             if (connected == true)
             {
                 MessageBox.Show("Connect successfull");

@@ -20,7 +20,7 @@ namespace SMS
         ////gan time out mac dinh
         //int timeout = GsmCommMain.DefaultTimeout;
 
-        public GsmCommMain comm;
+        //public GsmCommMain comm;
         private delegate void SetTextCallback(string text);
 
 
@@ -28,18 +28,18 @@ namespace SMS
         public bool connectGSM(int port, int baudRate, int timeout)
         {
             Cursor.Current = Cursors.WaitCursor;
-            comm = new GsmCommMain(port, baudRate, timeout);
+            common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
             Cursor.Current = Cursors.Default;
 
 
 
-            //comm.PhoneConnected += new EventHandler(comm_PhoneConnected); ;
+            
             //comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
 
             Cursor.Current = Cursors.WaitCursor;
 
-            comm.Open();
-            if (comm.IsConnected() == true)
+            common.Constants.comm.Open();
+            if (common.Constants.comm.IsConnected() == true)
             {
                 return true;
             }
@@ -52,40 +52,47 @@ namespace SMS
 
         public void closeConnect()
         {
-            comm.Close();
+            common.Constants.comm.Close();
         }
         private void comm_PhoneConnected(object sender, EventArgs e)
         {
-            new FormLogin();
+            new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
         }
 
-        private void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
+        private delegate void ConnectedHandler(bool connected);
+
+        private void OnPhoneConnectionChange(bool connected)
         {
-            MessageReceived();
+            
         }
 
-        private void MessageReceived()
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            string storage = GetMessageStorage();
+        //private void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
+        //{
+        //    MessageReceived();
+        //}
 
-            DecodedShortMessage[] messages = comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+        //private void MessageReceived()
+        //{
+        //    Cursor.Current = Cursors.WaitCursor;
+        //    string storage = GetMessageStorage();
 
-            int i = 0;
-            foreach (DecodedShortMessage message in messages)
-            {
+        //    DecodedShortMessage[] messages = comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
-                Console.WriteLine("message "+i);
-                i++;
-                //Output(string.Format("Message status = {0}, Location = {1}/{2}",
-                //    StatusToString(message.Status), message.Storage, message.Index));
-                //ShowMessage(message.Data);
-                //Output("");
-            }
+        //    int i = 0;
+        //    foreach (DecodedShortMessage message in messages)
+        //    {
 
-            //Output(string.Format("{0,9} messages read.", messages.Length.ToString()));
-            //Output("");
-        }
+        //        Console.WriteLine("message "+i);
+        //        i++;
+        //        //Output(string.Format("Message status = {0}, Location = {1}/{2}",
+        //        //    StatusToString(message.Status), message.Storage, message.Index));
+        //        //ShowMessage(message.Data);
+        //        //Output("");
+        //    }
+
+        //    //Output(string.Format("{0,9} messages read.", messages.Length.ToString()));
+        //    //Output("");
+        //}
 
         private string GetMessageStorage()
         {
