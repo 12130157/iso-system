@@ -29,75 +29,115 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCompose));
-            this.groupCompose = new System.Windows.Forms.GroupBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.piboCompose = new System.Windows.Forms.PictureBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.gboOptions = new System.Windows.Forms.GroupBox();
+            this.lbTimes = new System.Windows.Forms.Label();
+            this.chkUnicode = new System.Windows.Forms.CheckBox();
+            this.chkAlert = new System.Windows.Forms.CheckBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.butClosse = new System.Windows.Forms.Button();
-            this.but_Draft = new System.Windows.Forms.Button();
             this.but_Send = new System.Windows.Forms.Button();
             this.txt_Message = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.groupCompose.SuspendLayout();
+            this.lbMessage = new System.Windows.Forms.Label();
+            this.lbNumberPhone = new System.Windows.Forms.Label();
+            this.lbTitle = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
+            this.gboOptions.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupCompose
+            // piboCompose
             // 
-            this.groupCompose.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupCompose.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.groupCompose.Controls.Add(this.panel6);
-            this.groupCompose.Controls.Add(this.label18);
-            this.groupCompose.Controls.Add(this.label19);
-            this.groupCompose.Controls.Add(this.butClosse);
-            this.groupCompose.Controls.Add(this.but_Draft);
-            this.groupCompose.Controls.Add(this.but_Send);
-            this.groupCompose.Controls.Add(this.txt_Message);
-            this.groupCompose.Controls.Add(this.textBox1);
-            this.groupCompose.Controls.Add(this.label17);
-            this.groupCompose.Controls.Add(this.label16);
-            this.groupCompose.Location = new System.Drawing.Point(37, 19);
-            this.groupCompose.Name = "groupCompose";
-            this.groupCompose.Size = new System.Drawing.Size(651, 249);
-            this.groupCompose.TabIndex = 0;
-            this.groupCompose.TabStop = false;
+            this.piboCompose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("piboCompose.BackgroundImage")));
+            this.piboCompose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.piboCompose.ErrorImage = ((System.Drawing.Image)(resources.GetObject("piboCompose.ErrorImage")));
+            this.piboCompose.InitialImage = ((System.Drawing.Image)(resources.GetObject("piboCompose.InitialImage")));
+            this.piboCompose.Location = new System.Drawing.Point(319, 166);
+            this.piboCompose.Name = "piboCompose";
+            this.piboCompose.Size = new System.Drawing.Size(234, 100);
+            this.piboCompose.TabIndex = 155;
+            this.piboCompose.TabStop = false;
             // 
-            // panel6
+            // textBox2
             // 
-            this.panel6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel6.Location = new System.Drawing.Point(514, 68);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(113, 110);
-            this.panel6.TabIndex = 143;
+            this.textBox2.Location = new System.Drawing.Point(132, 68);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(46, 20);
+            this.textBox2.TabIndex = 3;
             // 
-            // label18
+            // checkBox2
             // 
-            this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label18.Location = new System.Drawing.Point(41, 165);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(67, 13);
-            this.label18.TabIndex = 142;
-            this.label18.Text = "Remain: 640";
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.ForeColor = System.Drawing.Color.Black;
+            this.checkBox2.Location = new System.Drawing.Point(18, 70);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(108, 17);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "chkMultipleTimes";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // label19
+            // gboOptions
             // 
-            this.label19.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label19.Location = new System.Drawing.Point(41, 152);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(65, 13);
-            this.label19.TabIndex = 141;
-            this.label19.Text = "Character: 0";
+            this.gboOptions.Controls.Add(this.lbTimes);
+            this.gboOptions.Controls.Add(this.textBox2);
+            this.gboOptions.Controls.Add(this.checkBox2);
+            this.gboOptions.Controls.Add(this.chkUnicode);
+            this.gboOptions.Controls.Add(this.chkAlert);
+            this.gboOptions.Location = new System.Drawing.Point(319, 50);
+            this.gboOptions.Name = "gboOptions";
+            this.gboOptions.Size = new System.Drawing.Size(234, 100);
+            this.gboOptions.TabIndex = 154;
+            this.gboOptions.TabStop = false;
+            this.gboOptions.Text = "Options";
+            // 
+            // lbTimes
+            // 
+            this.lbTimes.AutoSize = true;
+            this.lbTimes.ForeColor = System.Drawing.Color.Black;
+            this.lbTimes.Location = new System.Drawing.Point(185, 70);
+            this.lbTimes.Name = "lbTimes";
+            this.lbTimes.Size = new System.Drawing.Size(35, 13);
+            this.lbTimes.TabIndex = 4;
+            this.lbTimes.Text = "Times";
+            // 
+            // chkUnicode
+            // 
+            this.chkUnicode.AutoSize = true;
+            this.chkUnicode.ForeColor = System.Drawing.Color.Black;
+            this.chkUnicode.Location = new System.Drawing.Point(18, 45);
+            this.chkUnicode.Name = "chkUnicode";
+            this.chkUnicode.Size = new System.Drawing.Size(145, 17);
+            this.chkUnicode.TabIndex = 1;
+            this.chkUnicode.Text = "Send as Unicode (UCS2)";
+            this.chkUnicode.UseVisualStyleBackColor = true;
+            // 
+            // chkAlert
+            // 
+            this.chkAlert.AutoSize = true;
+            this.chkAlert.ForeColor = System.Drawing.Color.Black;
+            this.chkAlert.Location = new System.Drawing.Point(18, 20);
+            this.chkAlert.Name = "chkAlert";
+            this.chkAlert.Size = new System.Drawing.Size(180, 17);
+            this.chkAlert.TabIndex = 0;
+            this.chkAlert.Text = "Request immediate display (alert)";
+            this.chkAlert.UseVisualStyleBackColor = true;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClear.BackColor = System.Drawing.SystemColors.Menu;
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnClear.Image = ((System.Drawing.Image)(resources.GetObject("btnClear.Image")));
+            this.btnClear.Location = new System.Drawing.Point(120, 248);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(79, 25);
+            this.btnClear.TabIndex = 153;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = false;
             // 
             // butClosse
             // 
@@ -107,27 +147,12 @@
             this.butClosse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butClosse.ForeColor = System.Drawing.SystemColors.Control;
             this.butClosse.Image = ((System.Drawing.Image)(resources.GetObject("butClosse.Image")));
-            this.butClosse.Location = new System.Drawing.Point(396, 184);
+            this.butClosse.Location = new System.Drawing.Point(220, 248);
             this.butClosse.Name = "butClosse";
-            this.butClosse.Size = new System.Drawing.Size(92, 25);
-            this.butClosse.TabIndex = 138;
+            this.butClosse.Size = new System.Drawing.Size(79, 25);
+            this.butClosse.TabIndex = 150;
             this.butClosse.Text = "Close";
             this.butClosse.UseVisualStyleBackColor = false;
-            // 
-            // but_Draft
-            // 
-            this.but_Draft.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.but_Draft.BackColor = System.Drawing.SystemColors.Menu;
-            this.but_Draft.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Draft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Draft.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Draft.Image = ((System.Drawing.Image)(resources.GetObject("but_Draft.Image")));
-            this.but_Draft.Location = new System.Drawing.Point(257, 185);
-            this.but_Draft.Name = "but_Draft";
-            this.but_Draft.Size = new System.Drawing.Size(92, 25);
-            this.but_Draft.TabIndex = 137;
-            this.but_Draft.Text = "Darft";
-            this.but_Draft.UseVisualStyleBackColor = false;
             // 
             // but_Send
             // 
@@ -137,10 +162,10 @@
             this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Send.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Send.Image = ((System.Drawing.Image)(resources.GetObject("but_Send.Image")));
-            this.but_Send.Location = new System.Drawing.Point(125, 184);
+            this.but_Send.Location = new System.Drawing.Point(24, 248);
             this.but_Send.Name = "but_Send";
-            this.but_Send.Size = new System.Drawing.Size(92, 25);
-            this.but_Send.TabIndex = 136;
+            this.but_Send.Size = new System.Drawing.Size(79, 25);
+            this.but_Send.TabIndex = 149;
             this.but_Send.Text = "Send";
             this.but_Send.UseVisualStyleBackColor = false;
             // 
@@ -148,74 +173,101 @@
             // 
             this.txt_Message.AllowDrop = true;
             this.txt_Message.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Message.Location = new System.Drawing.Point(125, 68);
+            this.txt_Message.Location = new System.Drawing.Point(24, 120);
             this.txt_Message.MaxLength = 640;
             this.txt_Message.Multiline = true;
             this.txt_Message.Name = "txt_Message";
-            this.txt_Message.Size = new System.Drawing.Size(363, 110);
-            this.txt_Message.TabIndex = 140;
+            this.txt_Message.Size = new System.Drawing.Size(275, 117);
+            this.txt_Message.TabIndex = 152;
             // 
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(125, 39);
+            this.textBox1.Location = new System.Drawing.Point(24, 70);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(180, 20);
-            this.textBox1.TabIndex = 139;
+            this.textBox1.Size = new System.Drawing.Size(275, 20);
+            this.textBox1.TabIndex = 151;
             // 
-            // label17
+            // lbMessage
             // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.Indigo;
-            this.label17.Location = new System.Drawing.Point(23, 65);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(61, 13);
-            this.label17.TabIndex = 134;
-            this.label17.Text = "Message:";
+            this.lbMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbMessage.AutoSize = true;
+            this.lbMessage.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMessage.ForeColor = System.Drawing.Color.Black;
+            this.lbMessage.Location = new System.Drawing.Point(20, 95);
+            this.lbMessage.Name = "lbMessage";
+            this.lbMessage.Size = new System.Drawing.Size(66, 19);
+            this.lbMessage.TabIndex = 147;
+            this.lbMessage.Text = "Message:";
             // 
-            // label16
+            // lbNumberPhone
             // 
-            this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Indigo;
-            this.label16.Location = new System.Drawing.Point(23, 42);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(94, 13);
-            this.label16.TabIndex = 135;
-            this.label16.Text = "Number Phone:";
+            this.lbNumberPhone.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbNumberPhone.AutoSize = true;
+            this.lbNumberPhone.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNumberPhone.ForeColor = System.Drawing.Color.Black;
+            this.lbNumberPhone.Location = new System.Drawing.Point(20, 43);
+            this.lbNumberPhone.Name = "lbNumberPhone";
+            this.lbNumberPhone.Size = new System.Drawing.Size(179, 19);
+            this.lbNumberPhone.TabIndex = 148;
+            this.lbNumberPhone.Text = "Destination Number Phone :";
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.AutoSize = true;
+            this.lbTitle.Font = new System.Drawing.Font("Times New Roman", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitle.Location = new System.Drawing.Point(197, 9);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(175, 24);
+            this.lbTitle.TabIndex = 156;
+            this.lbTitle.Text = "Compose Message";
             // 
             // FormCompose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(734, 280);
-            this.Controls.Add(this.groupCompose);
+            this.ClientSize = new System.Drawing.Size(573, 279);
+            this.Controls.Add(this.lbTitle);
+            this.Controls.Add(this.piboCompose);
+            this.Controls.Add(this.gboOptions);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.butClosse);
+            this.Controls.Add(this.but_Send);
+            this.Controls.Add(this.txt_Message);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lbMessage);
+            this.Controls.Add(this.lbNumberPhone);
+            this.ForeColor = System.Drawing.Color.Maroon;
             this.Name = "FormCompose";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compose";
-            this.groupCompose.ResumeLayout(false);
-            this.groupCompose.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).EndInit();
+            this.gboOptions.ResumeLayout(false);
+            this.gboOptions.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupCompose;
-        private System.Windows.Forms.Panel panel6;
-        internal System.Windows.Forms.Label label18;
-        internal System.Windows.Forms.Label label19;
+        private System.Windows.Forms.PictureBox piboCompose;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.GroupBox gboOptions;
+        private System.Windows.Forms.Label lbTimes;
+        private System.Windows.Forms.CheckBox chkUnicode;
+        private System.Windows.Forms.CheckBox chkAlert;
+        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button butClosse;
-        private System.Windows.Forms.Button but_Draft;
         private System.Windows.Forms.Button but_Send;
         internal System.Windows.Forms.TextBox txt_Message;
         internal System.Windows.Forms.TextBox textBox1;
-        internal System.Windows.Forms.Label label17;
-        internal System.Windows.Forms.Label label16;
+        internal System.Windows.Forms.Label lbMessage;
+        internal System.Windows.Forms.Label lbNumberPhone;
+        private System.Windows.Forms.Label lbTitle;
+
 
 
 

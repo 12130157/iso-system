@@ -15,7 +15,7 @@ namespace SMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmConn());
+            Application.Run(new FormCompose());
         }
     }
 }
