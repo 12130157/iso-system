@@ -63,9 +63,10 @@
             // 
             // txtTimes
             // 
+            this.txtTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTimes.Location = new System.Drawing.Point(111, 79);
             this.txtTimes.Name = "txtTimes";
-            this.txtTimes.Size = new System.Drawing.Size(46, 20);
+            this.txtTimes.Size = new System.Drawing.Size(46, 21);
             this.txtTimes.TabIndex = 3;
             this.txtTimes.Text = "1";
             // 
@@ -75,10 +76,11 @@
             this.chkMultipleTimes.Checked = true;
             this.chkMultipleTimes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMultipleTimes.Enabled = false;
+            this.chkMultipleTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkMultipleTimes.ForeColor = System.Drawing.Color.Black;
             this.chkMultipleTimes.Location = new System.Drawing.Point(18, 81);
             this.chkMultipleTimes.Name = "chkMultipleTimes";
-            this.chkMultipleTimes.Size = new System.Drawing.Size(96, 17);
+            this.chkMultipleTimes.Size = new System.Drawing.Size(109, 19);
             this.chkMultipleTimes.TabIndex = 2;
             this.chkMultipleTimes.Text = "Send message";
             this.chkMultipleTimes.UseVisualStyleBackColor = true;
@@ -100,20 +102,22 @@
             // lbTimes
             // 
             this.lbTimes.AutoSize = true;
+            this.lbTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTimes.ForeColor = System.Drawing.Color.Black;
             this.lbTimes.Location = new System.Drawing.Point(158, 82);
             this.lbTimes.Name = "lbTimes";
-            this.lbTimes.Size = new System.Drawing.Size(35, 13);
+            this.lbTimes.Size = new System.Drawing.Size(41, 15);
             this.lbTimes.TabIndex = 4;
             this.lbTimes.Text = "Times";
             // 
             // chkUnicode
             // 
             this.chkUnicode.AutoSize = true;
+            this.chkUnicode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkUnicode.ForeColor = System.Drawing.Color.Black;
             this.chkUnicode.Location = new System.Drawing.Point(18, 52);
             this.chkUnicode.Name = "chkUnicode";
-            this.chkUnicode.Size = new System.Drawing.Size(145, 17);
+            this.chkUnicode.Size = new System.Drawing.Size(163, 19);
             this.chkUnicode.TabIndex = 1;
             this.chkUnicode.Text = "Send as Unicode (UCS2)";
             this.chkUnicode.UseVisualStyleBackColor = true;
@@ -121,10 +125,11 @@
             // chkAlert
             // 
             this.chkAlert.AutoSize = true;
+            this.chkAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAlert.ForeColor = System.Drawing.Color.Black;
             this.chkAlert.Location = new System.Drawing.Point(18, 23);
             this.chkAlert.Name = "chkAlert";
-            this.chkAlert.Size = new System.Drawing.Size(180, 17);
+            this.chkAlert.Size = new System.Drawing.Size(210, 19);
             this.chkAlert.TabIndex = 0;
             this.chkAlert.Text = "Request immediate display (alert)";
             this.chkAlert.UseVisualStyleBackColor = true;
@@ -181,6 +186,7 @@
             // 
             this.txtMessage.AllowDrop = true;
             this.txtMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMessage.Location = new System.Drawing.Point(24, 117);
             this.txtMessage.MaxLength = 640;
             this.txtMessage.Multiline = true;
@@ -191,20 +197,21 @@
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtPhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhoneNumber.Location = new System.Drawing.Point(24, 72);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(275, 20);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(275, 21);
             this.txtPhoneNumber.TabIndex = 151;
             // 
             // lbMessage
             // 
             this.lbMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbMessage.AutoSize = true;
-            this.lbMessage.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMessage.ForeColor = System.Drawing.Color.Black;
             this.lbMessage.Location = new System.Drawing.Point(20, 95);
             this.lbMessage.Name = "lbMessage";
-            this.lbMessage.Size = new System.Drawing.Size(66, 19);
+            this.lbMessage.Size = new System.Drawing.Size(61, 15);
             this.lbMessage.TabIndex = 147;
             this.lbMessage.Text = "Message:";
             // 
@@ -212,11 +219,11 @@
             // 
             this.lbNumberPhone.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbNumberPhone.AutoSize = true;
-            this.lbNumberPhone.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNumberPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNumberPhone.ForeColor = System.Drawing.Color.Black;
             this.lbNumberPhone.Location = new System.Drawing.Point(20, 50);
             this.lbNumberPhone.Name = "lbNumberPhone";
-            this.lbNumberPhone.Size = new System.Drawing.Size(179, 19);
+            this.lbNumberPhone.Size = new System.Drawing.Size(162, 15);
             this.lbNumberPhone.TabIndex = 148;
             this.lbNumberPhone.Text = "Destination Number Phone :";
             // 
@@ -233,6 +240,7 @@
             // txtOutput
             // 
             this.txtOutput.AllowDrop = true;
+            this.txtOutput.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtOutput.Location = new System.Drawing.Point(24, 285);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
@@ -244,7 +252,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(573, 353);
             this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.lbTitle);

@@ -70,7 +70,14 @@ namespace SMS
                     // Send the message the specified number of times
                     for (int i = 0; i < times; i++)
                     {
-                        common.Constants.comm.SendMessage(pdu);
+                        try
+                        {
+                            common.Constants.comm.SendMessage(pdu);
+                        }
+                        catch (Exception)
+                        { 
+                            MessageBox.Show("Message Erro");
+                        }
                         Output("Message {0} of {1} sent.", i + 1, times);
                         Output("");
                     }

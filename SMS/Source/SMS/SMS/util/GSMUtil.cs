@@ -38,7 +38,14 @@ namespace SMS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            common.Constants.comm.Open();
+            try
+            {
+                common.Constants.comm.Open();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             if (common.Constants.comm.IsConnected() == true)
             {
                 return true;
