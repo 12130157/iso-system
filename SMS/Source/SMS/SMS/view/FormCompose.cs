@@ -91,7 +91,9 @@ namespace SMS
 
             }
         }
-
+        //
+        //
+        //
         private void Output(string text)
         {
             if (this.txtOutput.InvokeRequired)
@@ -105,13 +107,17 @@ namespace SMS
                 txtOutput.AppendText("\r\n");
             }
         }
-
+        //
+        //
+        //
         private void Output(string text, params object[] args)
         {
             string msg = string.Format(text, args);
             Output(msg);
         }
-
+        //
+        //
+        //Action button Clear 
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtMessage.Text = "";
@@ -120,7 +126,9 @@ namespace SMS
             chkAlert.Checked = false;
             chkUnicode.Checked = false;
         }
-
+        //
+        //
+        //Action button Close
         private void butClosse_Click(object sender, EventArgs e)
         {
             this.Close();
