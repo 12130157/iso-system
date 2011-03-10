@@ -45,6 +45,7 @@
             this.lbNumberPhone = new System.Windows.Forms.Label();
             this.lbTitle = new System.Windows.Forms.Label();
             this.txtOutput = new System.Windows.Forms.TextBox();
+            this.btnContacts = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
             this.gboOptions.SuspendLayout();
             this.SuspendLayout();
@@ -200,7 +201,7 @@
             this.txtPhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhoneNumber.Location = new System.Drawing.Point(24, 72);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(275, 21);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(190, 21);
             this.txtPhoneNumber.TabIndex = 151;
             // 
             // lbMessage
@@ -248,12 +249,22 @@
             this.txtOutput.TabIndex = 157;
             this.txtOutput.WordWrap = false;
             // 
+            // btnContacts
+            // 
+            this.btnContacts.Location = new System.Drawing.Point(220, 71);
+            this.btnContacts.Name = "btnContacts";
+            this.btnContacts.Size = new System.Drawing.Size(75, 23);
+            this.btnContacts.TabIndex = 158;
+            this.btnContacts.Text = "Contacts\r\n";
+            this.btnContacts.UseVisualStyleBackColor = true;
+            // 
             // FormCompose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(573, 353);
+            this.Controls.Add(this.btnContacts);
             this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.lbTitle);
             this.Controls.Add(this.piboCompose);
@@ -295,6 +306,7 @@
         internal System.Windows.Forms.Label lbNumberPhone;
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.TextBox txtOutput;
+        private System.Windows.Forms.Button btnContacts;
         
     }
 }

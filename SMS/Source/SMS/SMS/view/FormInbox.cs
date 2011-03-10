@@ -15,17 +15,5 @@ namespace SMS
         {
             InitializeComponent();
         }
-
-        private void but_Close_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void butReply_Click(object sender, EventArgs e)
-        {
-            new FormCompose().ShowDialog();
-        }
-
-        
     }
 }

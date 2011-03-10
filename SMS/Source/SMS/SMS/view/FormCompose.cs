@@ -76,7 +76,7 @@ namespace SMS
                         }
                         catch (Exception)
                         { 
-                            MessageBox.Show("Message Erro");
+                            MessageBox.Show("Message Error");
                         }
                         Output("Message {0} of {1} sent.", i + 1, times);
                         Output("");
@@ -91,10 +91,7 @@ namespace SMS
 
             }
         }
-        //
-        //
-        //
-        private void Output(string text)
+        public  void Output(string text)
         {
             if (this.txtOutput.InvokeRequired)
             {
@@ -103,14 +100,14 @@ namespace SMS
             }
             else
             {
-                txtOutput.AppendText(text);
-                txtOutput.AppendText("\r\n");
+                this.txtOutput.AppendText(text);
+                this.txtOutput.AppendText("\r\n");
             }
         }
         //
         //
         //
-        private void Output(string text, params object[] args)
+        public  void Output(string text, params object[] args)
         {
             string msg = string.Format(text, args);
             Output(msg);
