@@ -43,6 +43,9 @@ namespace SMS
             else
             {
                 MessageBox.Show("Connect Failed");
+                this.Hide();
+                FormMain frmMain = new FormMain();
+                frmMain.ShowDialog();
             }
         }
 
