@@ -75,9 +75,12 @@ public class DeCuongMonHocController extends HttpServlet{
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DeCuongMonHocModel deCuongMonHoc = new DeCuongMonHocModel();
+		
 		if (request.getSession().getAttribute("DeCuongMonHoc") != null) { // Truong hop: Cap Nhat
 			deCuongMonHoc = (DeCuongMonHocModel) request.getSession().getAttribute("DeCuongMonHoc");
 		}
+		deCuongMonHoc.setLyThuyetCTMH(request.getParameter("txtLyThuyetCTDT"));
+		deCuongMonHoc.setThucHanhCTMH(request.getParameter("txtThucHanhCTDT"));
 		String pageNext = "";
 		if(XmlUtil.xuatFileXMLDeCuongMonHoc(deCuongMonHoc, "DeCuongMonHoc", "ChiTietNguoiTao"))
 			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?maID=" + deCuongMonHoc.getMaDeCuongMonHoc() + "&GhiFile=ok";
@@ -107,10 +110,13 @@ public class DeCuongMonHocController extends HttpServlet{
 			deCuongMonHoc.setThucHanh(request.getParameter("txtThucHanh").trim()); }
 		if (request.getParameter("txtKiemTra") != null) {
 			deCuongMonHoc.setKiemTra(request.getParameter("txtKiemTra").trim()); }
+		
 		String pageNext = "";
-		if(XmlUtil.getDataFromFileXMLDeCuongMonHoc("",deCuongMonHoc)) 
+		String fileName = StringUtil.toUTF8(request.getParameter("txtFile"));
+		if(XmlUtil.getDataFromFileXMLDeCuongMonHoc(fileName, deCuongMonHoc))  {
+			
 			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?DocFile=ok";
-		else
+		} else
 			pageNext = Constant.PATH_RES.getString("iso.ThemDeCuongMonHocShortPath") + "?DocFileError=ok";
 		request.setAttribute(Constant.DE_CUONG_MON_HOC_ATT, deCuongMonHoc);
 		RequestDispatcher rd = request.getRequestDispatcher(pageNext);

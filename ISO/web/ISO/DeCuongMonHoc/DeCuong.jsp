@@ -737,12 +737,7 @@ var kieuDayLyThuyet = new Array();
 		<c:if test="${not empty param.GhiFileError}">
 			<b class="error"> Ghi file không thành công </b>
 		</c:if>
-		<c:if test="${not empty param.GhiFile}">
-			<b class="error"> Đọc file thành công </b>
-		</c:if>
-		<c:if test="${not empty param.GhiFileError}">
-			<b class="error"> Đọc file không thành công </b>
-		</c:if>
+		
 	<form action="<%=request.getContextPath()%>/deCuongMonHocController?them=yes" method="post" name="DCMH">
 		<table width = "800" style="background-color: transparent;">
 			<tr style="background-color: transparent;"><td><div class = "div_tr">Trường TCNKTCN Hùng Vương<br />

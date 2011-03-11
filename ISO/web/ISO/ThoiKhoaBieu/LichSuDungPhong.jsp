@@ -185,41 +185,67 @@
 				maKhoa = request.getParameter("maKhoa");
 			if(request.getParameter("maMonHoc") != null)
 				maMonHoc = request.getParameter("maMonHoc");
+			int countThu = 0, countBuoi = 0, count = 0, buoi = 0;
 			%>
 			<c:set 	var = "ListSuDung" value = '<%=ChiTietTKBDAO.getLichSuDungPhongByDieuKien(maPhong,maNam,tuan,maKhoa, maMonHoc) %>' scope="session"></c:set>
 		
+		<c:set var = "NgayHoc" value = ""/>
+		<c:set var = "Buoi" value = ""/>
+		
 			<c:forEach var="obj" items = "${ListSuDung}">
 				<tr style="background-color: transparent;">
-					<c:choose>
-						<c:when test = "${obj.thuTrongTuan eq 1}">
-							<td>Hai</td>
-						</c:when>	
-						<c:when test = "${obj.thuTrongTuan eq 2}">
-							<td>Ba</td>
-						</c:when>	
-						<c:when test = "${obj.thuTrongTuan eq 3}">
-							<td>Tư</td>
-						</c:when>	
-						<c:when test = "${obj.thuTrongTuan eq 4}">
-							<td>Năm</td>
-						</c:when>	
-						<c:when test = "${obj.thuTrongTuan eq 5}">
-							<td>Sáu</td>
-						</c:when>	
-						<c:when test = "${obj.thuTrongTuan eq 6}">
-							<td>Bảy</td>
-						</c:when>	
-						<c:otherwise>
-							<td>Chủ nhật</td>
-						</c:otherwise>
-					</c:choose>
-					<td>${obj.ngayHoc}</td>
-					<td>${obj.buoi}</td>
+					
+					<c:if test="${NgayHoc ne obj.ngayHoc}">
+						
+						<%countThu = 0; count++; buoi = 0;%>
+						<c:choose>
+							<c:when test = "${obj.thuTrongTuan eq 1}">
+								<td id = "Thu<%=count%>">Hai</td>
+							</c:when>	
+							<c:when test = "${obj.thuTrongTuan eq 2}">
+								<td id = "Thu<%=count%>">Ba</td>
+							</c:when>	
+							<c:when test = "${obj.thuTrongTuan eq 3}">
+								<td id = "Thu<%=count%>">Tư</td>
+							</c:when>	
+							<c:when test = "${obj.thuTrongTuan eq 4}">
+								<td id = "Thu<%=count%>">Năm</td>
+							</c:when>	
+							<c:when test = "${obj.thuTrongTuan eq 5}">
+								<td id = "Thu<%=count%>">Sáu</td>
+							</c:when>	
+							<c:when test = "${obj.thuTrongTuan eq 6}">
+								<td id = "Thu<%=count%>">Bảy</td>
+							</c:when>	
+							<c:otherwise>
+								<td id = "Thu<%=count%>">Chủ nhật</td>
+							</c:otherwise>
+						</c:choose>
+						<td id = "NgayHoc<%=count %>">${obj.ngayHoc}</td>
+					</c:if>
+					<c:if test = "${obj.buoi ne Buoi or NgayHoc ne obj.ngayHoc}">
+						<%countBuoi = 0; buoi++; %>
+						<td id = "Buoi<%=count + "_" + buoi%>">${obj.buoi}</td>
+						<c:set var = "Buoi" value = "${obj.buoi}"/>
+					</c:if>
+					<%countThu++; countBuoi++; %>
 					<td>${obj.kiHieuLop}</td>
 					<td>${obj.tenMonHoc}</td>
 					<td>${obj.tenGiaoVien}</td>
 					<td>${obj.phong}</td>
 				</tr>
+				<script language="JavaScript" type="text/javascript">
+					var count = <%=count%>;
+					var countBuoi = <%=countBuoi%>;
+					var countThu = <%=countThu%>;
+					var buoi = <%=buoi%>;
+					document.getElementById('Thu' + count).rowSpan = countThu;
+					document.getElementById('NgayHoc' + count).rowSpan = countThu;
+					document.getElementById('Buoi' + count + '_' + buoi).rowSpan = countBuoi;
+				</script>
+				<c:if test="${NgayHoc ne obj.ngayHoc}">
+					<c:set var = "NgayHoc" value = "${obj.ngayHoc}"/>
+				</c:if>
 			</c:forEach>
 		</table>
 		<table>	
