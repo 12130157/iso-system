@@ -17,6 +17,8 @@ namespace SMS
         public FormCompose()
         {
             InitializeComponent();
+            
+            
         }
         private delegate void SetTextCallback(string text);
         
@@ -24,11 +26,11 @@ namespace SMS
 
         private void but_Send_Click(object sender, EventArgs e)
         {
-            
-            if (!txtPhoneNumber.Equals("") && !txtMessage.Equals(""))
+            string phone = txtPhoneNumber.Text;
+            string mess = txtMessage.Text;
+
+            if (!phone.Equals("") && !mess.Equals(""))
             {
-                
-                
                 Cursor.Current = Cursors.WaitCursor;
 
                 try
@@ -57,7 +59,7 @@ namespace SMS
                         else
                             dcs = DataCodingScheme.NoClass_7Bit; // should never occur here
 
-                        pdu = new SmsSubmitPdu(txtMessage.Text, txtMessage.Text, "", dcs);
+                        pdu = new SmsSubmitPdu(txtMessage.Text, txtPhoneNumber.Text, "", dcs);
                     }
 
                     // Send the same message multiple times if this is set
@@ -68,18 +70,50 @@ namespace SMS
                     }
 
                     // Send the message the specified number of times
+                    HopThuDiMODEL model;
                     for (int i = 0; i < times; i++)
                     {
+                        model = new HopThuDiMODEL();
+                        //danh dau tinh trang gui 
+                        int j = 0;
+                        //danh dau loai hop thu 
+                        int z = 0;
                         try
                         {
                             common.Constants.comm.SendMessage(pdu);
+                            Output("Message {0} of {1} sent.", i + 1, times);
+                            Output("");
+                            j = 1;
+                            z = 6;
                         }
                         catch (Exception)
-                        { 
-                            MessageBox.Show("Message Error");
+                        {
+                            MessageBox.Show("Send Message Failed");
+                            j = 0;
+                            z = 4;
                         }
-                        Output("Message {0} of {1} sent.", i + 1, times);
-                        Output("");
+                        model.Id = "";
+                        model.So_Dien_Thoai = txtPhoneNumber.Text;
+                        model.Noi_Dung_Tin_Nhan = txtMessage.Text;
+                        model.Tinh_Trang = j.ToString();
+                        model.Loai_Hop_Thu = z.ToString();
+                        model.Ngay_Gui = "";
+                        model.Ngay_Cap_Nhat_Cuoi = "";
+                        model.User11 = "";
+                        model.User21 = "";
+                        model.User31 = "";
+                        model.User41 = "";
+                        model.User51 = "";
+
+                        bool result = HopThuDiDAO.insertHopThuDi(model);
+                        if (result == true)
+                        {
+                            MessageBox.Show("Insert thanh cong");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Insert that bai");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -89,6 +123,10 @@ namespace SMS
 
                 Cursor.Current = Cursors.Default;
 
+            }
+            else
+            {
+                MessageBox.Show("BAN PHAI NHAP DAY DU");
             }
         }
         public  void Output(string text)

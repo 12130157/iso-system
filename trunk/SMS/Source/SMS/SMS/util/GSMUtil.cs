@@ -141,42 +141,44 @@ namespace SMS
         //
         //
         //show mesage
-        //private void ShowMessage(SmsPdu pdu)
-        //{
-        //    if (pdu is SmsSubmitPdu)
-        //    {
-        //        // Stored (sent/unsent) message
-        //        SmsSubmitPdu data = (SmsSubmitPdu)pdu;
-        //        Output("SENT/UNSENT MESSAGE");
-        //        Output("Recipient: " + data.DestinationAddress);
-        //        Output("Message text: " + data.UserDataText);
-        //        Output("-------------------------------------------------------------------");
-        //        return;
-        //    }
-        //    if (pdu is SmsDeliverPdu)
-        //    {
-        //        // Received message
-        //        SmsDeliverPdu data = (SmsDeliverPdu)pdu;
-        //        Output("RECEIVED MESSAGE");
-        //        Output("Sender: " + data.OriginatingAddress);
-        //        Output("Sent: " + data.SCTimestamp.ToString());
-        //        Output("Message text: " + data.UserDataText);
-        //        Output("-------------------------------------------------------------------");
-        //        return;
-        //    }
-        //    if (pdu is SmsStatusReportPdu)
-        //    {
-        //        // Status report
-        //        SmsStatusReportPdu data = (SmsStatusReportPdu)pdu;
-        //        Output("STATUS REPORT");
-        //        Output("Recipient: " + data.RecipientAddress);
-        //        Output("Status: " + data.Status.ToString());
-        //        Output("Timestamp: " + data.DischargeTime.ToString());
-        //        Output("Message ref: " + data.MessageReference.ToString());
-        //        Output("-------------------------------------------------------------------");
-        //        return;
-        //    }
-        //    Output("Unknown message type: " + pdu.GetType().ToString());
-        //}
+        public int ShowMessage(SmsPdu pdu)
+        {
+            int i = 0;
+            if (pdu is SmsSubmitPdu)
+            {
+                // Stored (sent/unsent) message
+                SmsSubmitPdu data = (SmsSubmitPdu)pdu;
+                //Output("SENT/UNSENT MESSAGE");
+                //Output("Recipient: " + data.DestinationAddress);
+                //Output("Message text: " + data.UserDataText);
+                //Output("-------------------------------------------------------------------");
+                i = 1;
+            }
+            if (pdu is SmsDeliverPdu)
+            {
+                // Received message
+                SmsDeliverPdu data = (SmsDeliverPdu)pdu;
+                //Output("RECEIVED MESSAGE");
+                //Output("Sender: " + data.OriginatingAddress);
+                //Output("Sent: " + data.SCTimestamp.ToString());
+                //Output("Message text: " + data.UserDataText);
+                //Output("-------------------------------------------------------------------");
+                i = 2;
+            }
+            if (pdu is SmsStatusReportPdu)
+            {
+                // Status report
+                SmsStatusReportPdu data = (SmsStatusReportPdu)pdu;
+                //Output("STATUS REPORT");
+                //Output("Recipient: " + data.RecipientAddress);
+                //Output("Status: " + data.Status.ToString());
+                //Output("Timestamp: " + data.DischargeTime.ToString());
+                //Output("Message ref: " + data.MessageReference.ToString());
+                //Output("-------------------------------------------------------------------");
+                i = 3;
+            }
+            //Output("Unknown message type: " + pdu.GetType().ToString());
+            return i;
+        }
     }
 }

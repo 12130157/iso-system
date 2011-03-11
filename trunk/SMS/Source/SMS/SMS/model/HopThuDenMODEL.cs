@@ -15,6 +15,7 @@ namespace SMS.model
         private string tinh_Trang;
         private string loai_Hop_Thu;
         private string ma_Tin_Nhan_Tra_Loi;
+        private string ngay_Nhan;
         private string ngay_Cap_Nhat_Cuoi;
         private string User1;
         private string User2;
@@ -103,6 +104,11 @@ namespace SMS.model
         {
             get { return so_Dien_Thoai; }
             set { so_Dien_Thoai = value; }
+        }
+        public string Ngay_Nhan
+        {
+            get { return ngay_Nhan; }
+            set { ngay_Nhan = value; }
         }
     }
 }

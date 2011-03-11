@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
-using SMS.util;
 using SMS.model;
 using System.Configuration;
 using System.Collections;
 
-namespace SMS.dao
+namespace SMS
 {
     class HopThuDiDAO
     {
@@ -24,7 +23,7 @@ namespace SMS.dao
 
             foreach (DataRow row in result.Rows)
             {
-                HoThuDiMODEL hopThuDiModel = new HoThuDiMODEL();
+                HopThuDiMODEL hopThuDiModel = new HopThuDiMODEL();
 
                 hopThuDiModel.Id = row["ID"].ToString();
                 hopThuDiModel.So_Dien_Thoai = row["So_dien_thoai"].ToString();
@@ -44,9 +43,9 @@ namespace SMS.dao
         #endregion
 
         #region lay ra thu di theo ID
-        public static HoThuDiMODEL getHopThuDiByID(int id)
+        public static HopThuDiMODEL getHopThuDiByID(int id)
         {
-            HoThuDiMODEL hopThuDiModel = new HoThuDiMODEL();
+            HopThuDiMODEL hopThuDiModel = new HopThuDiMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getHopThuDiByID"];
             SqlCommand objCommand = new SqlCommand(sql);
             objCommand.Parameters.AddWithValue("@id", id);
@@ -71,41 +70,47 @@ namespace SMS.dao
         #endregion
 
         #region them 1 hop thu di vao CSDL
-        public static bool insertHopThuDi(HoThuDiMODEL hopThuDiModel)
+        public static bool insertHopThuDi(HopThuDiMODEL hopThuDiModel)
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[10];
+                SqlParameter[] parameter = new SqlParameter[12];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("ID", SqlDbType.Int);
                 parameter[i++].Value = hopThuDiModel.Id;
 
-                parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.So_Dien_Thoai;
 
                 parameter[i] = new SqlParameter("Noi_dung_tin_nhan", SqlDbType.NVarChar);
                 parameter[i++].Value = hopThuDiModel.Noi_Dung_Tin_Nhan;
 
-                parameter[i] = new SqlParameter("Tinh_trang", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("Tinh_trang", SqlDbType.Int);
                 parameter[i++].Value = hopThuDiModel.Tinh_Trang;
 
-                parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("Loai_hop_thu", SqlDbType.Int);
+                parameter[i++].Value = hopThuDiModel.Loai_Hop_Thu;
+
+                parameter[i] = new SqlParameter("Ngay_gui", SqlDbType.DateTime);
+                parameter[i++].Value = hopThuDiModel.Ngay_Gui;
+
+                parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.DateTime);
                 parameter[i++].Value = hopThuDiModel.Ngay_Cap_Nhat_Cuoi;
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User11;
 
-                parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("User2", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User21;
 
-                parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("User3", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User31;
 
-                parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("User4", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User41;
 
-                parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("User5", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User51;
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_InertHopThuDi", parameter);
@@ -120,7 +125,7 @@ namespace SMS.dao
         #endregion
 
         #region update 1 hop thu di trong CSDL
-        public static Boolean updateHopTuDiById(HoThuDiMODEL hopThuDiModel)
+        public static Boolean updateHopTuDiById(HopThuDiMODEL hopThuDiModel)
         {
             try
             {

@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections;
-using SMS.util;
 using SMS.model;
 
 namespace SMS.dao
