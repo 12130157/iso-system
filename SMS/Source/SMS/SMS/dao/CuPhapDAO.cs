@@ -12,7 +12,8 @@ namespace SMS.dao
 {
     class CuPhapDAO
     {
-        //lay ra tat ca cac cu phap trong CSDL
+
+    #region lay ra tat ca cac cu phap trong CSDL
         public static ArrayList getAllCuPhap()
         {
             ArrayList listCuPhap = new ArrayList();
@@ -49,7 +50,9 @@ namespace SMS.dao
             }
             return listCuPhap;
         }
-        //lay ra cu phap theo ID
+    #endregion
+
+    #region lay ra cu phap theo ID
         public static CuPhapMODEL getCuPhapByID(int id)
         {
             CuPhapMODEL cuPhapModel = new CuPhapMODEL();
@@ -83,7 +86,9 @@ namespace SMS.dao
             }
             return cuPhapModel;
         }
-        //them 1 cu phap vao CSDL
+        #endregion
+
+    #region them 1 cu phap vao CSDL
         public static bool insertCuPhap(CuPhapMODEL cuPhapModel)
         {
             try
@@ -156,7 +161,10 @@ namespace SMS.dao
                 throw;
             }
         }
-        //update 1 cu phap trong CSDL
+
+    #endregion
+
+    #region update 1 cu phap trong CSDL
         public static Boolean updateCuPhap(CuPhapMODEL cuPhapModel)
         {
             try
@@ -229,7 +237,9 @@ namespace SMS.dao
                 throw;
             }
         }
-        //delete 1 cu phap trong CSDL
+    #endregion
+
+    #region delete 1 cu phap trong CSDL
         public static bool deleteCuPhap(int id)
         {
             String sql = ConfigurationManager.AppSettings["sql.DeleteCuPhapByID"];
@@ -239,5 +249,6 @@ namespace SMS.dao
             Boolean kq = DataUtil.executeNonQuery(objCommand);
             return kq;
         }
+    #endregion
     }
 }

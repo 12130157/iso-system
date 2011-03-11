@@ -32,7 +32,7 @@ CREATE PROC sp_SMS_UpdateCuPhapByID
 AS
 BEGIN
 	SELECT @Ngay_cap_nhat_cuoi = GETDATE()
-	IF EXISTS ( SELECT * FROM AccountManager WHERE ID = @ID )
+	IF EXISTS ( SELECT * FROM CuPhap WHERE ID = @ID )
 	BEGIN
 		UPDATE CuPhap
 		SET	Ten = @Ten,
@@ -52,7 +52,7 @@ BEGIN
 			User2 = @User2,
 			User3 = @User3,
 			User4 = @User4,
-			User5 = @User5,
+			User5 = @User5
 		WHERE ID = @ID
 	END
 END 
