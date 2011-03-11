@@ -12,14 +12,16 @@ namespace SMS
 {
     public partial class FormMain : Form
     {
-        ArrayList listform = new ArrayList();
+        //ArrayList listform = new ArrayList();
         public FormMain()
         {
             
             InitializeComponent();
+            
            // this.BackgroundImage = new Bitmap("images/bg.jpg");
         }
-
+        
+        
         #region Xem lai
         
         //private void loadMenuFromDatabase()

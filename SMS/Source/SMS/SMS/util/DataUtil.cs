@@ -5,7 +5,7 @@ using System.Collections;
 using System.Configuration;
 using log4net;
 
-namespace SMS.util
+namespace SMS
 {
     public class DataUtil
     {
