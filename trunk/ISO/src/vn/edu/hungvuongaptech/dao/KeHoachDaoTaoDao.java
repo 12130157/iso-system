@@ -391,7 +391,7 @@ public class KeHoachDaoTaoDao {
 	// Ham join 5 table
 	public static KeHoachDaoTaoModel getAllKeHoachOfTableByID(String id){
 		KeHoachDaoTaoModel keHoachDaoTaoModel = new KeHoachDaoTaoModel();
-		System.out.println(keHoachDaoTaoModel.hashCode());
+		
 		String maKeHoach = "na", maBoPhan = "na", maCongTac = "na", maChiTiet = "na";
 		ArrayList<NguoiThucHienModel> listNguoiThucHien = new ArrayList<NguoiThucHienModel>();
 		ArrayList<BoPhanThucHienKHDTModel> boPhanList = new ArrayList<BoPhanThucHienKHDTModel>();

@@ -135,6 +135,8 @@ public class MailDAO {
 	public static String getSubjectReviewByChucNang(String maChucNang) {
 		if (maChucNang.equals(Constant.CHUCNANG_KEHOACHDAOTAO)) {
 			return "[ISO] - Thong Bao - Review - KE HOACH DAO TAO";
+		} else if (maChucNang.equals(Constant.CHUCNANG_KEHOACHTHANG)) {
+			return "[ISO] - Thong Bao - Review - KE HOACH THANG";
 		} else if (maChucNang.equals(Constant.CHUCNANG_QUYETDINHDAOTAO)) {
 			return "[ISO] - Thong Bao - Review - QUYET DINH DAO TAO";
 		} else if (maChucNang.equals(Constant.CHUCNANG_DECUONGMONHOC)) {
@@ -154,6 +156,8 @@ public class MailDAO {
 	public static String getSubjectApproveByChucNang(String maChucNang) {
 		if (maChucNang.equals(Constant.CHUCNANG_KEHOACHDAOTAO)) {
 			return "[ISO] - Thong Bao - Approve - KE HOACH DAO TAO";
+		} else if (maChucNang.equals(Constant.CHUCNANG_KEHOACHTHANG)) {
+			return "[ISO] - Thong Bao - Approve - KE HOACH THANG";
 		} else if (maChucNang.equals(Constant.CHUCNANG_QUYETDINHDAOTAO)) {
 			return "[ISO] - Thong Bao - Approve - QUYET DINH DAO TAO";
 		} else if (maChucNang.equals(Constant.CHUCNANG_DECUONGMONHOC)) {
@@ -174,6 +178,8 @@ public class MailDAO {
 	public static String getSubjectRejectByChucNang(String maChucNang) {
 		if (maChucNang.equals(Constant.CHUCNANG_KEHOACHDAOTAO)) {
 			return "[ISO] - Thong Bao - Reject - KE HOACH DAO TAO";
+		} else if (maChucNang.equals(Constant.CHUCNANG_KEHOACHTHANG)) {
+			return "[ISO] - Thong Bao - Reject - KE HOACH THANG";
 		} else if (maChucNang.equals(Constant.CHUCNANG_QUYETDINHDAOTAO)) {
 			return "[ISO] - Thong Bao - Reject - QUYET DINH DAO TAO";
 		} else if (maChucNang.equals(Constant.CHUCNANG_DECUONGMONHOC)) {

@@ -90,10 +90,14 @@ public class KeHoachThangController extends HttpServlet{
 			}
 		} else if(actionType.equals("TaoMoi")) {
 			if(keHoachThang.validateModel()) {
-				if(KeHoachThangDAO.insertKeHoachThang(keHoachThang))
-					pageNext += "?TaoMoi=OK";
-				else
-					pageNext += "?TaoMoiThatBai=OK";
+				if(!KeHoachThangDAO.checkNamVaThangOfKeHoachThang(keHoachThang.getNam(), keHoachThang.getThang())) {
+					keHoachThang.setTinhTrang("0");
+					if(KeHoachThangDAO.insertKeHoachThang(keHoachThang))
+						pageNext += "?TaoMoi=OK";
+					else
+						pageNext += "?TaoMoiThatBai=OK";
+				} else
+					pageNext += "?Trung=OK";
 			} else {
 				pageNext += "?err='Validate Error'";					
 			}
@@ -112,7 +116,7 @@ public class KeHoachThangController extends HttpServlet{
 		rd.forward(request, response);
 	}
 	private void mapParameter(KeHoachThangModel keHoachThang, HttpServletRequest requset, HttpServletResponse response)throws ServletException, IOException {
-		if(keHoachThang.getMaNguoiTao() != null) 
+		if(keHoachThang.getMaNguoiTao() == null) 
 			keHoachThang.setMaNguoiTao((String) requset.getSession().getAttribute("maThanhVien"));
 		keHoachThang.setThang(requset.getParameter("cboThang"));
 		keHoachThang.setNam(requset.getParameter("cboNam"));
@@ -136,15 +140,15 @@ public class KeHoachThangController extends HttpServlet{
 			}
 			String[] objCongTac = mangCongTac[i-1].split("</>");
 			congTacThang.setMaCongTac(objCongTac[0]);
-			congTacThang.setNoiDungCongTac(objCongTac[1]);
-			congTacThang.setBoPhanThucHien(requset.getParameter("txtBoPhanThucHien" + objCongTac[0]).trim());
-			congTacThang.setGhiChu(requset.getParameter("txtGhiChu" + objCongTac[0]).trim());
+			congTacThang.setNoiDungCongTac(StringUtil.toUTF8(objCongTac[1]));
+			congTacThang.setBoPhanThucHien(StringUtil.toUTF8(requset.getParameter("txtBoPhanThucHien" + objCongTac[0]).trim()));
+			congTacThang.setGhiChu(StringUtil.toUTF8(requset.getParameter("txtGhiChu" + objCongTac[0]).trim()));
 			
 			ArrayList<TinhTrangCongTacModel> tinhTrangCongTacList = new ArrayList<TinhTrangCongTacModel>();
 			for(Integer j=1;j<=Integer.parseInt(requset.getParameter("SoTuan"));j++) {
 				tinhTrangCongTac = new TinhTrangCongTacModel();
 				if(check) {
-					if(congTacThang.getTinhTrangCongTacList() != null && j <= congTacThang.getTinhTrangCongTacList().size()) {
+					if(congTacThang.getTinhTrangCongTacList() != null && j-count <= congTacThang.getTinhTrangCongTacList().size()) {
 						tinhTrangCongTac = congTacThang.getTinhTrangCongTacList().get(j-1-count);
 					}
 				}
@@ -164,7 +168,7 @@ public class KeHoachThangController extends HttpServlet{
 			congTacThang.setTinhTrangCongTacList(tinhTrangCongTacList);
 			congTacThangList.add(congTacThang);
 		}
-		if(keHoachThang.getCongTacThangList() != null && keHoachThang.getCongTacThangList().get(totalCongTac) != null) {
+		if(keHoachThang.getCongTacThangList() != null) {
 			for(int i=totalCongTac;i<keHoachThang.getCongTacThangList().size();i++) {
 				String id = keHoachThang.getCongTacThangList().get(i).getMaCongTacThang();
 				if(id != null)

@@ -1,8 +1,10 @@
 package vn.edu.hungvuongaptech.dao;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.SysParamsModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -67,5 +69,24 @@ public class SysParamsDAO {
 		}
 		
 		return sysParamsModel;
+	}
+	public static String getNamHeThong() {
+		String namHeThong = "0";
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getNamHeThong"));
+			ResultSet rs = preparedStatement.executeQuery();
+			    
+		    if (rs.next()) {
+		    	namHeThong = rs.getString("NamHeThong");	    	
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return namHeThong;
 	}
 }
