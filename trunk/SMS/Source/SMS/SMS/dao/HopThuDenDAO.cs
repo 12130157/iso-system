@@ -83,8 +83,6 @@ namespace SMS.dao
                 SqlParameter[] parameter = new SqlParameter[13];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-                parameter[i++].Value = hopThuDenMODEL.Id;
 
                 parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.NVarChar);
                 parameter[i++].Value = hopThuDenMODEL.So_Dien_Thoai;

@@ -92,13 +92,11 @@ namespace SMS
                             j = 0;
                             z = 4;
                         }
-                        model.Id = "";
+                        
                         model.So_Dien_Thoai = txtPhoneNumber.Text;
                         model.Noi_Dung_Tin_Nhan = txtMessage.Text;
                         model.Tinh_Trang = j.ToString();
                         model.Loai_Hop_Thu = z.ToString();
-                        model.Ngay_Gui = "";
-                        model.Ngay_Cap_Nhat_Cuoi = "";
                         model.User11 = "";
                         model.User21 = "";
                         model.User31 = "";
