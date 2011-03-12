@@ -12,13 +12,10 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertHopThuDi
-	@ID						int,
 	@So_dien_thoai			varchar(40),
 	@Noi_dung_tin_nhan		nvarchar(200),
 	@Tinh_trang				int,
 	@Loai_hop_thu			int,
-	@Ngay_gui				datetime,
-	@Ngay_cap_nhat_cuoi		datetime,
 	@User1					varchar(100),
 	@User2					varchar(100),
 	@User3					varchar(100), 
@@ -27,6 +24,9 @@ CREATE PROC sp_SMS_InertHopThuDi
 	
 AS 
 BEGIN
+	DECLARE @Ngay_gui				datetime
+	DECLARE	@Ngay_cap_nhat_cuoi		datetime
+
 	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
 	SELECT	@Ngay_gui = GETDATE()
 	INSERT INTO HopThuDi 
@@ -41,4 +41,6 @@ BEGIN
 			@User3,
 			@User4,
 			@User5)
-END 
+END
+
+-- exec sp_SMS_InertHopThuDi '0975587553',,'abc',1,6,'','','','',''

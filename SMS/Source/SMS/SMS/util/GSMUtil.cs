@@ -97,6 +97,54 @@ namespace SMS
             string storage = GetMessageStorage();
 
             common.Constants.messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            //string statusMess;
+            SmsPdu dataMess;
+            HopThuDenMODEL model;
+
+            foreach (DecodedShortMessage message in messages)
+            {
+                //statusMess = message.Status;
+                dataMess = message.Data;
+                SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
+                string desMess = data.OriginatingAddressType;
+                string contentMess = data.UserDataText;
+
+                model = new HopThuDenMODEL();
+                
+                string[] arrContentMess = contentMess.Split(" ");
+
+                string cumCuPhap;
+                
+                for (int i = 0 ; i < arrContentMess - 2 ; i++)
+                {
+                    cumCuPhap += arrContentMess[i];
+                }
+                CuPhapMODEL cuPhapModel = CuPhapDAO.getCuPhapByCumtu1(cumCuPhap);
+
+                model.So_Dien_Thoai = desMess;
+                model.Ma_Cu_Phap = cuPhapModel.Id;
+                model.Noi_Dung_Tin_Nhan = contentMess;
+                model.Tinh_Trang = "0";
+                if (cuPhapModel != null)
+                {
+                    model.Loai_Hop_Thu = "0";
+                }
+                else
+                {
+                    model.Loai_Hop_Thu = "1";
+                }
+                //model.Ma_Tin_Nhan_Tra_Loi = "";
+                
+                //foreach (string syntax in arrContentMess)
+                //{
+                       
+                //}
+
+                
+
+                
+            }
+            
         }
         // get message storage
         private string GetMessageStorage()
@@ -111,31 +159,31 @@ namespace SMS
         }
         //
         //status message
-        private string StatusToString(PhoneMessageStatus status)
-        {
-            // Map a message status to a string
-            string ret;
-            switch (status)
-            {
-                case PhoneMessageStatus.All:
-                    ret = "All";
-                    break;
-                case PhoneMessageStatus.ReceivedRead:
-                    ret = "Read";
-                    break;
-                case PhoneMessageStatus.ReceivedUnread:
-                    ret = "Unread";
-                    break;
-                case PhoneMessageStatus.StoredSent:
-                    ret = "Sent";
-                    break;
-                case PhoneMessageStatus.StoredUnsent:
-                    ret = "Unsent";
-                    break;
-                default:
-                    ret = "Unknown (" + status.ToString() + ")";
-                    break;
-            }
+        //private string StatusToString(PhoneMessageStatus status)
+        //{
+        //    // Map a message status to a string
+        //    string ret;
+        //    switch (status)
+        //    {
+        //        case PhoneMessageStatus.All:
+        //            ret = "1";
+        //            break;
+        //        case PhoneMessageStatus.ReceivedRead:
+        //            ret = "2";
+        //            break;
+        //        case PhoneMessageStatus.ReceivedUnread:
+        //            ret = "3";
+        //            break;
+        //        case PhoneMessageStatus.StoredSent:
+        //            ret = "4";
+        //            break;
+        //        case PhoneMessageStatus.StoredUnsent:
+        //            ret = "5";
+        //            break;
+        //        default:
+        //            ret = "Unknown (" + status.ToString() + ")";
+        //            break;
+        //    }
             return ret;
         }
         //

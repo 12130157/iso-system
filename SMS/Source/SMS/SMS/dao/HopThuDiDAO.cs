@@ -74,11 +74,8 @@ namespace SMS
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[12];
+                SqlParameter[] parameter = new SqlParameter[9];
                 int i = 0;
-
-                parameter[i] = new SqlParameter("ID", SqlDbType.Int);
-                parameter[i++].Value = hopThuDiModel.Id;
 
                 parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.So_Dien_Thoai;
@@ -91,12 +88,6 @@ namespace SMS
 
                 parameter[i] = new SqlParameter("Loai_hop_thu", SqlDbType.Int);
                 parameter[i++].Value = hopThuDiModel.Loai_Hop_Thu;
-
-                parameter[i] = new SqlParameter("Ngay_gui", SqlDbType.DateTime);
-                parameter[i++].Value = hopThuDiModel.Ngay_Gui;
-
-                parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.DateTime);
-                parameter[i++].Value = hopThuDiModel.Ngay_Cap_Nhat_Cuoi;
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User11;
