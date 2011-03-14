@@ -16,7 +16,8 @@
 <%@page import="vn.edu.hungvuongaptech.model.HeDaoTaoModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.MonHocModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.ChuongTrinhDaoTaoModel"%>
-<%@page import="java.io.PrintWriter"%><html>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietMonHocCTDTModel"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -31,6 +32,7 @@
 <script src="<%=request.getContextPath()%>/js/interface.js" type="text/javascript"></script>
 
 <script language="JavaScript" type="text/javascript">
+var listChiTietMonHoc = new Array();
 <% 
 	ChuongTrinhDaoTaoModel chuongTrinhDaoTaoModel = new ChuongTrinhDaoTaoModel();
 	/*if(request.getParameter("Them") != null)
@@ -65,31 +67,67 @@ function loadPage()
 		out.print("selectNghe();");
 		out.print("document.getElementById('ThoiGianHocTap').value = '" + chuongTrinhDaoTaoModel.getThoiGian2() + "';");
 		out.print("document.getElementById('ThoigianThucHocToiThieu').value = '" + chuongTrinhDaoTaoModel.getThoiGian3() + "';}");
-		out.print("count1=1, count2=1, count3=1;");
+		out.print("count1=1, count2=1, count3=1, dem = 0;");
 		if(request.getParameter("Them")== null || request.getParameter("maID") != null) {
 			for(int i=0;i<chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().size();i++)
 			{
-				out.print("if('" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().get(i).getNamHoc() + "' != '0'){");
+				ChiTietMonHocCTDTModel chiTiet = chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().get(i);
+				out.print("if('" + chiTiet.getNamHoc() + "' != '0'){");
 				out.print("document.getElementById('NamHoc_PhanI_' + count1).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().get(i).getNamHoc() + "';");
 				out.print("selectNamHoc('I',count1);}");
 				out.print("document.getElementById('HocKi_PhanI_' + count1).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().get(i).getHocKi() + "';");
 				out.print("count1++;");
+				if(chiTiet.getMaDeCuong() != null && !chiTiet.getMaDeCuong().equals(""))
+				{
+					out.print("var objChiTietMonHoc = new Object();");
+					out.print("objChiTietMonHoc.maMonHoc = '" + chiTiet.getMaMonHoc() + "';");
+					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
+					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
+					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.thayDoi = '0';");
+					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
+					out.print("dem++;");
+				}
 			}
 			for(int i=0;i<chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList2().size();i++)
 			{
-				out.print("if('" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList2().get(i).getNamHoc() + "' != '0'){");
+				ChiTietMonHocCTDTModel chiTiet = chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList2().get(i);
+				out.print("if('" + chiTiet.getNamHoc() + "' != '0'){");
 				out.print("document.getElementById('NamHoc_PhanII_' + count2).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList2().get(i).getNamHoc() + "';");
 				out.print("selectNamHoc('II',count2);}");
 				out.print("document.getElementById('HocKi_PhanII_' + count2).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList2().get(i).getHocKi() + "';");
 				out.print("count2++; ");
+				if(chiTiet.getMaDeCuong() != null && !chiTiet.getMaDeCuong().equals(""))
+				{
+					out.print("var objChiTietMonHoc = new Object();");
+					out.print("objChiTietMonHoc.maMonHoc = '" + chiTiet.getMaMonHoc() + "';");
+					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
+					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
+					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.thayDoi = '0';");
+					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
+					out.print("dem++;");
+				}
 			}
 			for(int i=0;i<chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList3().size();i++)
 			{
-				out.print("if('" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList3().get(i).getNamHoc() + "' != '0'){");
+				ChiTietMonHocCTDTModel chiTiet = chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList3().get(i);
+				out.print("if('" + chiTiet.getNamHoc() + "' != '0'){");
 				out.print("document.getElementById('NamHoc_PhanIII_' + count3).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList3().get(i).getNamHoc() + "';");
 				out.print("selectNamHoc('III',count3);}");
 				out.print("document.getElementById('HocKi_PhanIII_' + count3).value = '" + chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList3().get(i).getHocKi() + "';");
 				out.print("count3++; ");
+				if(chiTiet.getMaDeCuong() != null && !chiTiet.getMaDeCuong().equals(""))
+				{
+					out.print("var objChiTietMonHoc = new Object();");
+					out.print("objChiTietMonHoc.maMonHoc = '" + chiTiet.getMaMonHoc() + "';");
+					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
+					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
+					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.thayDoi = '0';");
+					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
+					out.print("dem++;");
+				}
 			}
 		}
 		out.print("selectSogio(1);");
@@ -104,7 +142,6 @@ function loadPage()
 			out.print("document.getElementById('MonHoc_PhanIII_' + count3).focus();");
 	%>
 }	
-
 
 function selectQuyetDinh() 
 {	
@@ -348,7 +385,7 @@ function selectCheckboxRow(x,y) {
 	}	
 }
 	
-function selectSogio(x) {
+function selectSogio(x, y) {
 	if(x == 1)
 	{
 		var tongLT = 0;
@@ -364,6 +401,23 @@ function selectSogio(x) {
 			document.getElementById('TongSo_PhanI_' + i).value = a + b;
 		}
 		document.getElementById('TongSo_PhanI').value = tongLT + tongTH;
+		if(y != null)
+		{
+			for(var i=0;i<listChiTietMonHoc.length;i++)
+			{
+				var objChiTietMonHoc = new Object();
+				objChiTietMonHoc = listChiTietMonHoc[i];
+				if(document.getElementById('MonHoc_PhanI_' + y).value == objChiTietMonHoc.maMonHoc)
+				{
+					if(document.getElementById('LyThuyet_PhanI_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanI_' + y).value == objChiTietMonHoc.thucHanh)
+						objChiTietMonHoc.thayDoi = "0";
+					else
+						objChiTietMonHoc.thayDoi = "1";
+					listChiTietMonHoc[i] = objChiTietMonHoc;
+					break;
+				}
+			}
+		}
 	}
 	else if(x == 2)
 	{
@@ -380,6 +434,23 @@ function selectSogio(x) {
 			document.getElementById('TongSo_PhanII_' + i).value = a + b;
 		}
 		document.getElementById('TongSo_PhanII').value = tongLT + tongTH;
+		if(y != null)
+		{
+			for(var i=0;i<listChiTietMonHoc.length;i++)
+			{
+				var objChiTietMonHoc = new Object();
+				objChiTietMonHoc = listChiTietMonHoc[i];
+				if(document.getElementById('MonHoc_PhanII_' + y).value == objChiTietMonHoc.maMonHoc)
+				{
+					if(document.getElementById('LyThuyet_PhanII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanII_' + y).value == objChiTietMonHoc.thucHanh)
+						objChiTietMonHoc.thayDoi = "0";
+					else
+						objChiTietMonHoc.thayDoi = "1";
+					listChiTietMonHoc[i] = objChiTietMonHoc;
+					break;
+				}
+			}
+		}
 	}
 	else if(x == 3)
 	{
@@ -396,6 +467,23 @@ function selectSogio(x) {
 			document.getElementById('TongSo_PhanIII_' + i).value = a + b;
 		}
 		document.getElementById('TongSo_PhanIII').value = tongLT + tongTH;
+		if(y != null)
+		{
+			for(var i=0;i<listChiTietMonHoc.length;i++)
+			{
+				var objChiTietMonHoc = new Object();
+				objChiTietMonHoc = listChiTietMonHoc[i];
+				if(document.getElementById('MonHoc_PhanIII_' + y).value == objChiTietMonHoc.maMonHoc)
+				{
+					if(document.getElementById('LyThuyet_PhanIII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanIII_' + y).value == objChiTietMonHoc.thucHanh)
+						objChiTietMonHoc.thayDoi = "0";
+					else
+						objChiTietMonHoc.thayDoi = "1";
+					listChiTietMonHoc[i] = objChiTietMonHoc;
+					break;
+				}
+			}
+		}
 	}
 	document.getElementById('PhanBo1').value = document.getElementById('TongSo_PhanI').value;
 	document.getElementById('PhanBo2').value = parseInt(document.getElementById('TongSo_PhanII').value) + parseInt(document.getElementById('TongSo_PhanIII').value);
@@ -420,8 +508,24 @@ function confirmSending(x) {
 	}
 	//return false;
 }
-function submitForm(){		
-	document.forms["CTDT"].submit();
+function submitForm(){
+	var str = "";
+	for(var i=0;i<listChiTietMonHoc.length;i++)
+	{
+		var objChiTietMonHoc = new Object();
+		objChiTietMonHoc = listChiTietMonHoc[i];
+		if(objChiTietMonHoc.thayDoi == "1")
+		{
+			str += objChiTietMonHoc.tenMonHoc + ' : LT/' + objChiTietMonHoc.LT + ' TH/' + objChiTietMonHoc.TH + '\n'; 
+		}
+	}
+	if(str != '')
+	{
+		if(confirm('Đề cương của những môn học sau đây sẽ bị xóa do thay đổi số tiết\n' + str + 'Bạn có muốn tiếp tục không??'))
+			document.forms["CTDT"].submit();
+	}
+	else
+		document.forms["CTDT"].submit();
 }
 
 function addRow(x){		
@@ -482,7 +586,7 @@ function confirmDeleteRow(x) {
 	if(check == '') 
 		alert('Hãy chọn dòng muốn xóa');
 	else {
-		if (confirm('Bạn có chắc muốn xóa dòng ' + msg + ' không ?'))
+		if (confirm('Đề cương của các môn học này sẽ bị xóa, Bạn có chắc muốn xóa dòng ' + msg + ' không ?'))
 			submitForm();
 	}					 		
 }
@@ -883,14 +987,14 @@ function validateInputNumber()
 		</select></td>
 		<td><input type = "text" size = "2" id = "TongSo_PhanI_${count}" readonly="readonly" value="0"></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE and ChiTietCTDT.maHocPhan eq 1}">disabled</c:if> 
-				id = "LyThuyet_PhanI_${count}" name="cboLyThuyet_PhanI_${count}" onchange="selectSogio(1);">
+				id = "LyThuyet_PhanI_${count}" name="cboLyThuyet_PhanI_${count}" onchange="selectSogio(1, ${count});">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.lyThuyet eq iterator}">selected</c:if>>${iterator}</option>
 			</c:forEach>
 		</select></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
-				id = "ThucHanh_PhanI_${count}" name="cboThucHanh_PhanI_${count}" onchange="selectSogio(1);">
+				id = "ThucHanh_PhanI_${count}" name="cboThucHanh_PhanI_${count}" onchange="selectSogio(1, ${count});">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.thucHanh eq iterator}">selected</c:if>>${iterator}</option>
@@ -969,14 +1073,14 @@ function validateInputNumber()
 		</select></td>
 		<td><input type = "text" size = "2" id = "TongSo_PhanII_${count}" value="0" readonly="readonly"></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "LyThuyet_PhanII_${count}" onchange="selectSogio(2)"; name = "cboLyThuyet_PhanII_${count}">
+				id = "LyThuyet_PhanII_${count}" onchange="selectSogio(2, ${count})"; name = "cboLyThuyet_PhanII_${count}">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.lyThuyet eq iterator}">selected</c:if>>${iterator}</option>
 			</c:forEach>
 		</select></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "ThucHanh_PhanII_${count}" onchange="selectSogio(2)" name="cboThucHanh_PhanII_${count}">
+				id = "ThucHanh_PhanII_${count}" onchange="selectSogio(2, ${count})" name="cboThucHanh_PhanII_${count}">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.thucHanh eq iterator}">selected</c:if>>${iterator}</option>
@@ -1056,14 +1160,14 @@ function validateInputNumber()
 		</select></td>
 		<td><input type = "text" size="2" id = "TongSo_PhanIII_${count}" value="0" readonly="readonly"></input></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "LyThuyet_PhanIII_${count}" onchange="selectSogio(3)" name = "cboLyThuyet_PhanIII_${count}">
+				id = "LyThuyet_PhanIII_${count}" onchange="selectSogio(3, ${count})" name = "cboLyThuyet_PhanIII_${count}">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.lyThuyet eq iterator}">selected</c:if>>${iterator}</option>
 			</c:forEach>
 		</select></td>
 		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "ThucHanh_PhanIII_${count}" onchange="selectSogio(3)" name = "cboThucHanh_PhanIII_${count}">
+				id = "ThucHanh_PhanIII_${count}" onchange="selectSogio(3, ${count})" name = "cboThucHanh_PhanIII_${count}">
 			<option value = "0">0</option>
 			<c:forEach var = "iterator" begin = "1" end = "500">
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.thucHanh eq iterator}">selected</c:if>>${iterator}</option>

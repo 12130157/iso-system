@@ -38,7 +38,7 @@ function submitFormSearch(){
 	document.forms["FilerForm"].submit();
 }
 function submitFormSave(){		
-	document.forms["BangkeHoachThang"].submit();
+	document.forms["BangKeHoachThang"].submit();
 }
 </script> 
 <title>Xem Kế hoạch tháng</title>
@@ -54,6 +54,7 @@ function submitFormSave(){
 	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
 	<c:set var = "BO_PHAN_ADMIN" value = '<%= Constant.BO_PHAN_ADMIN %>'></c:set>
 	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
+	<c:set var = "BO_PHAN_BGH" value = '<%= Constant.BO_PHAN_BGH %>'></c:set>
 	
 	<c:set var = "NEW" value = '<%= Constant.TINHTRANG_NEW %>'></c:set>
 	<c:set var = "SEND" value = '<%= Constant.TINHTRANG_SEND %>'> </c:set>
@@ -98,13 +99,13 @@ function submitFormSave(){
 				<th bgcolor= '#186fb2'><div class = "div_txtintable1">Ngày lập</div></th>
 				<th bgcolor= '#186fb2'><div class = "div_txtintable1">Approve<br />
 					<input type = "checkbox" name = "checkApprove"
-					<c:if test="${(MaBoPhan ne BO_PHAN_PHC and MaBoPhan ne BO_PHAN_ADMIN) or PhanLoai ne SEND}">
+					<c:if test="${PhanLoai ne SEND or (MaBoPhan ne BO_PHAN_BGH and MaBoPhan ne BO_PHAN_ADMIN)}">
 						disabled
 					</c:if>
 						onclick="checkApproveAll();"/></div></th>
 				<th bgcolor= '#186fb2'><div class = "div_txtintable1">Reject<br />
 					<input type = "checkbox" name = "checkReject" 
-					<c:if test="${(MaBoPhan ne BO_PHAN_PHC and MaBoPhan ne BO_PHAN_ADMIN) or PhanLoai ne SEND}">
+					<c:if test="${PhanLoai ne SEND or (MaBoPhan ne BO_PHAN_BGH and MaBoPhan ne BO_PHAN_ADMIN)}">
 						disabled
 					</c:if> 
 						onclick="checkRejectAll();"/></div></th>
@@ -154,26 +155,23 @@ function submitFormSave(){
 						<th bgcolor = "#009fb2">
 							<input type = "radio" name = "tinhtrang${iterator}" 
 							<c:if test="${KeHoachThang.tinhTrang eq APPROVE}">checked</c:if> 
-							<c:if test="${(MaBoPhan ne BO_PHAN_PHC and MaBoPhan ne BO_PHAN_ADMIN) 
+							<c:if test="${(MaBoPhan ne BO_PHAN_BGH and MaBoPhan ne BO_PHAN_ADMIN) 
 											or KeHoachThang.tinhTrang eq REJECT 
-												or KeHoachThang.tinhTrang eq APPROVE
-													or (MaBoPhan eq BO_PHAN_PHC and KeHoachThang.tinhTrang eq SEND)}">disabled</c:if>
+												or KeHoachThang.tinhTrang eq APPROVE}">disabled</c:if>
 													onclick="checkRadio()" value = "Approve-${KeHoachThang.maKeHoachThang}"/></th>
 		<!-- Trường hợp 'Truong_Khoa', kế hoạch bị 'approve', 'reject' thi disable radio  -->
 						<th bgcolor = "#FF0000">
 						<input type = "radio" name = "tinhtrang${iterator}" 
 						<c:if test="${KeHoachThang.tinhTrang eq REJECT}">checked</c:if> 
-						<c:if test="${(MaBoPhan ne BO_PHAN_PHC and MaBoPhan ne BO_PHAN_ADMIN)
+						<c:if test="${(MaBoPhan ne BO_PHAN_BGH and MaBoPhan ne BO_PHAN_ADMIN)
 											or	KeHoachThang.tinhTrang eq REJECT 
-												or KeHoachThang.tinhTrang eq APPROVE
-													or (MaBoPhan eq BO_PHAN_PHC and KeHoachThang.tinhTrang eq SEND)}">disabled</c:if>
+												or KeHoachThang.tinhTrang eq APPROVE}">disabled</c:if>
 												onclick="checkRadio()" value = "Reject-${KeHoachThang.maKeHoachThang}"/>
 						</th>																																									
 						<td bgcolor = "#99bff9"><textarea  rows="2" cols="13" name = "Ly_do_reject${iterator}" id = "Ly_do_reject${iterator}" style="background-color: transparent;"
-										<c:if test="${(MaBoPhan ne BO_PHAN_PHC and MaBoPhan ne BO_PHAN_ADMIN) or
+										<c:if test="${(MaBoPhan ne BO_PHAN_BGH and MaBoPhan ne BO_PHAN_ADMIN) or
 											KeHoachThang.tinhTrang eq REJECT 
-												or KeHoachThang.tinhTrang eq APPROVE
-													or (MaBoPhan eq BO_PHAN_PHC and KeHoachThang.tinhTrang eq SEND)}">readonly</c:if>>${KeHoachThang.lyDoReject}</textarea></td>
+												or KeHoachThang.tinhTrang eq APPROVE}">readonly</c:if>>${KeHoachThang.lyDoReject}</textarea></td>
 					  </tr>
 					  <input type = "hidden" value = "${KeHoachThang.tenKeHoach }" id = "ten${iterator}"/>	
 					  <% count++; %>				
@@ -215,12 +213,12 @@ function submitFormSave(){
 	}
 
 	function checkApproveAll() {
-		if(document.BangkeHoachThang.checkApprove.checked == true)
+		if(document.BangKeHoachThang.checkApprove.checked == true)
 		{					
-			document.BangkeHoachThang.checkReject.checked = false;	
+			document.BangKeHoachThang.checkReject.checked = false;	
 			<%
 				for (Integer i = 0; i < Constant.CHECK_ROWS; i++) {
-					out.print("document.BangkeHoachThang.tinhtrang" + i.toString() +"[0].checked = true;\n");
+					out.print("document.BangKeHoachThang.tinhtrang" + i.toString() +"[0].checked = true;\n");
 				}
 			%>
 		}

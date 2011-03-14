@@ -361,7 +361,7 @@ public class DeCuongMonHocDAO {
 				deCuongMonHocModelsList.add(deCuongMonHocModel);
 				
 			}
-			//Constant.CHECK_ROWS = deCuongMonHocModelsList.size(); 
+			Constant.CHECK_ROWS = deCuongMonHocModelsList.size(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

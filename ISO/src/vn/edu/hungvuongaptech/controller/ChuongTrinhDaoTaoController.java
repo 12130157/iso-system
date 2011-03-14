@@ -200,7 +200,9 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 							|| obj.getTinhTrang().equals(Constant.TINHTRANG_SEND)) {
 				tinhTrang = false;
 				if(req.getParameter("actionType").equals("CapNhat")) {
-					if(!obj.getTinhTrang().equals(Constant.TINHTRANG_SEND) && obj.getMaDeCuong() != "" && (!obj.getLyThuyetBeforeUpdate().equals(req.getParameter("cboLyThuyet_PhanI_" + i.toString())) || !obj.getThucHanhBeforeUpdate().equals(req.getParameter("cboThucHanh_PhanI_" + i.toString())))) {
+					if(!obj.getTinhTrang().equals(Constant.TINHTRANG_SEND) && obj.getMaDeCuong() != "" 
+							&& (!obj.getLyThuyetBeforeUpdate().equals(req.getParameter("cboLyThuyet_PhanI_" + i.toString())) 
+									|| !obj.getThucHanhBeforeUpdate().equals(req.getParameter("cboThucHanh_PhanI_" + i.toString())))) {
 						status = 1;
 					}
 					obj.setLyThuyetBeforeUpdate(req.getParameter("cboLyThuyet_PhanI_" + i.toString()));
@@ -223,13 +225,12 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanI_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanI_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanI_" + i.toString().trim()))); }
-			if (req.getParameter("chkRow_PhanI_" + i.toString()) != null && req.getParameter("XuLyDong_Phan1").equals("XoaDong")) { 
+			if ((req.getParameter("chkRow_PhanI_" + i.toString()) != null && req.getParameter("XuLyDong_Phan1").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
-				countRowSelect++; 
-				count++;
+				
 				String id = obj.getMaChiTietCTDT();
 				if(id != null) {
-					ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
+					
 					if(obj.getMaDeCuong() != "") {
 						DeCuongMonHocDAO.deleteDCMH(obj.getMaDeCuong());
 						MailUtil.sendEmail(	MailDAO.getMailByMaThanhVien(obj.getMaNguoiTaoDeCuong()),
@@ -242,13 +243,25 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 															obj.getTenMonHoc()));
 						
 					}
+					
+				}
+				if(req.getParameter("chkRow_PhanI_" + i.toString()) != null && req.getParameter("XuLyDong_Phan1").equals("XoaDong")) {
+					countRowSelect++; 
+					count++;
+					if(id != null)
+						ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
 					req.setAttribute("msgDeleteRow", "XoaDong");
+				} else {
+					obj.setTinhTrang("");
+					obj.setMaDeCuong("");
+					obj.setMaNguoiTaoDeCuong("");
+					chiTietMonHocCTDTModelList1.add(obj);
 				}
 			} else { 
-				if(status == 1) {
+				/*if(status == 1) {
 					maNguoiTaoDeCuongUpdateList.add(obj.getMaNguoiTaoDeCuong());
 					tenMonHocUpdateList.add(obj.getTenMonHoc());	
-				}
+				}*/
 				chiTietMonHocCTDTModelList1.add(obj);
 			}	
 			status = 0;
@@ -300,13 +313,11 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanII_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanII_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanII_" + i.toString().trim()))); }
-			if (req.getParameter("chkRow_PhanII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan2").equals("XoaDong")) { 
+			if ((req.getParameter("chkRow_PhanII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan2").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
-				countRowSelect++; 
-				count++;
+				
 				String id = obj.getMaChiTietCTDT();
 				if(id != null) {
-					ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
 					if(obj.getMaDeCuong() != "") {
 						DeCuongMonHocDAO.deleteDCMH(obj.getMaDeCuong());
 						MailUtil.sendEmail(	MailDAO.getMailByMaThanhVien(obj.getMaNguoiTaoDeCuong()),
@@ -319,13 +330,25 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 															obj.getTenMonHoc()));
 						
 					}
+					
+				}
+				if(req.getParameter("chkRow_PhanII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan2").equals("XoaDong")) {
+					countRowSelect++; 
+					count++;
+					if(id != null)
+						ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
 					req.setAttribute("msgDeleteRow", "XoaDong");
+				} else {
+					obj.setTinhTrang("");
+					obj.setMaDeCuong("");
+					obj.setMaNguoiTaoDeCuong("");
+					chiTietMonHocCTDTModelList1.add(obj);
 				}
 			} else { 
-				if(status == 1) {
+				/*if(status == 1) {
 					maNguoiTaoDeCuongUpdateList.add(obj.getMaNguoiTaoDeCuong());
 					tenMonHocUpdateList.add(obj.getTenMonHoc());	
-				}
+				}*/
 				chiTietMonHocCTDTModelList2.add(obj);
 			}	
 			status = 0;
@@ -377,13 +400,11 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanIII_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanIII_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanIII_" + i.toString().trim()))); }
-			if (req.getParameter("chkRow_PhanIII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan3").equals("XoaDong")) { 
+			if ((req.getParameter("chkRow_PhanIII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan3").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
-				countRowSelect++; 
-				count++;
+				
 				String id = obj.getMaChiTietCTDT();
 				if(id != null) {
-					ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
 					if(obj.getMaDeCuong() != "") {
 						DeCuongMonHocDAO.deleteDCMH(obj.getMaDeCuong());
 						MailUtil.sendEmail(	MailDAO.getMailByMaThanhVien(obj.getMaNguoiTaoDeCuong()),
@@ -395,14 +416,25 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 														SysParamsDAO.getSysParams().getGioHeThong(), 
 															obj.getTenMonHoc()));
 						
-					}
+					}					
+				}
+				if(req.getParameter("chkRow_PhanIII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan3").equals("XoaDong")) {
+					countRowSelect++; 
+					count++;
+					if(id != null)
+						ChiTietMonHocCTDTDAO.deleteChiTietMonHocCTDT(id);
 					req.setAttribute("msgDeleteRow", "XoaDong");
+				} else {
+					obj.setTinhTrang("");
+					obj.setMaDeCuong("");
+					obj.setMaNguoiTaoDeCuong("");
+					chiTietMonHocCTDTModelList1.add(obj);
 				}
 			} else { 
-				if(status == 1) {
+				/*if(status == 1) {
 					maNguoiTaoDeCuongUpdateList.add(obj.getMaNguoiTaoDeCuong());
 					tenMonHocUpdateList.add(obj.getTenMonHoc());	
-				}
+				}*/
 				chiTietMonHocCTDTModelList3.add(obj);
 			}	
 			status = 0;
@@ -566,7 +598,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 								LogUtil.logInfo(loggerInfo, tenThanhVien + " cập nhật chương trình đào tạo"); // ghi vào file log
 								pageNext += "?msg=CapNhat";						
 								rd = request.getRequestDispatcher(pageNext);
-								for(int i=0;i<maNguoiTaoDeCuongUpdateList.size();i++) {
+								/*for(int i=0;i<maNguoiTaoDeCuongUpdateList.size();i++) {
 									MailUtil.sendEmail(	MailDAO.getMailByMaThanhVien(maNguoiTaoDeCuongUpdateList.get(i)),
 											"",
 												"[ISO] - Thong Bao - Update - CHUONG TRINH DAO TAO",
@@ -575,7 +607,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 																chuongTrinhDaoTaoModel.getTenNguoiTao(), 
 																	SysParamsDAO.getSysParams().getGioHeThong(), 
 																		tenMonHocUpdateList.get(i)));
-								}
+								}*/
 							}
 					}
 					else {
@@ -712,4 +744,5 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 													chuongTrinhDaoTaoModel.getTenNguoiTao(), 
 														tenThanhVien));		
 	}
+	
 }
