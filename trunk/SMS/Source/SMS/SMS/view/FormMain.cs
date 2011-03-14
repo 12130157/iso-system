@@ -164,7 +164,9 @@ namespace SMS
             
             string storage = GetMessageStorage();
 
-            DecodedShortMessage[] message = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            
+            MessageBox.Show(messages.Length.ToString());
 
             //SmsPdu dataMess;
             //HopThuDenMODEL model;
