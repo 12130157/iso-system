@@ -153,7 +153,7 @@ public class ChiTietKHGDDAO {
 				chiTietKHGDModel.setCoHieu(rs.getString("CoHieu"));
 				chiTietKHGDModel.setTuan(rs.getString("Tuan"));
 				chiTietKHGDModel.setNgayBD(DateUtil.setDate2(rs.getString("NgayBD")));
-				
+				chiTietKHGDModel.setMucTieuBaiHoc(rs.getNString("MucTieuBaiHoc"));
 				chiTietKHGDModel.setMaGiaoAn(rs.getString("MaGiaoAn"));
 				chiTietKHGDModel.setTinhTrangGiaoAn(null);
 				chiTietKHGDModel.setsTTNoiDung(rs.getString("STTNoiDung"));

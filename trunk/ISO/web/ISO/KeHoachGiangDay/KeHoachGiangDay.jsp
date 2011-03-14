@@ -117,6 +117,14 @@
 		</c:if>
 </c:if>
 
+<c:if test="${not empty param.maKHGD and not empty param.cp and objKHGD.maNguoiTao eq sessionScope.maThanhVien}">
+	<c:set var="thoiKhoaBieuListCopy" value = '<%=ThoiKhoaBieuDAO.getThoiKhoaBieuByMaGVAndMaMH(request.getSession().getAttribute("maThanhVien").toString(),request.getParameter("maMonHocCopy"))%>'></c:set>
+	<c:if test="${ not empty param.maTKBCopy }">
+		<c:set var="lopListCopy" value = '<%=MonHocTKBDAO.getLopByMaGVAndMaMHAndMaTKB(request.getSession().getAttribute("maThanhVien").toString(),request.getParameter("maMonHocCopy"),request.getParameter("maTKBCopy"))%>'></c:set>
+		<c:set var="thoiKhoaBieuCopyModel" value = '<%=ThoiKhoaBieuDAO.getThoiKhoaBieuByID(request.getParameter("maTKBCopy").toString())%>'></c:set>
+	</c:if>
+</c:if>
+
 <script language="JavaScript" type="text/javascript">
 	var maChuongTrinhDaoTao;
 	var maDCMH;
@@ -196,13 +204,18 @@
 	
 
 	function submitForm(){
-		
 		if(validateForm()){
 			objMonHocChoose=document.getElementById("cboMonHoc");	
 			document.getElementById("cboTenMonHoc").value=objMonHocChoose.options[objMonHocChoose.selectedIndex].text;
 			document.forms["KeHoachGiangDay"].submit();
 		}
-		
+	}
+	
+	function submitCopyForm(){
+		if(validateForm()){
+			document.getElementById("cboTenMonHoc").value=document.getElementById("aTenMonHocCopy").innerHTML;
+			document.forms["KeHoachGiangDay"].submit();
+		}
 	}
 	
 
@@ -340,7 +353,15 @@
 		
 	}
 
-
+	function change_ThoiKhoaBieuCopy(strID){
+		var temp2="";
+		if(document.getElementById(strID).value!=null&&document.getElementById(strID).value!="")
+			temp2="&maTKBCopy="+document.getElementById(strID).value;
+		var strPath=<%=("'"+request.getContextPath()+"/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp"+"?cp=true&maKHGD="+request.getParameter("maKHGD")+"&maMonHocCopy="+request.getParameter("maMonHocCopy")+"'") %>+temp2;
+	
+		location.href=strPath;
+		
+	}
 	
 	
 
@@ -409,6 +430,7 @@
 							<strong>KẾ HOẠCH GIẢNG DẠY HỆ TRUNG CẤP NGHỀ/CAO ĐẲNG NGHỀ</strong>
 						</td>
 					</tr>
+					<c:if test="${ empty param.cp}">
 					<tr style="background-color: transparent;">
 						<td width="90px">
 							<div class="div_textleft">Lớp</div>
@@ -474,12 +496,63 @@
 										</c:if>
 								</c:if>
 							</select>
-							
-							<input type="hidden" name="cboTenMonHoc" id="cboTenMonHoc"/> 
-							
+							 
 							<c:if test="${not empty param.err and objMonHoc.maMonHoc eq ''}"><b class="error">(*)</b></c:if></div>
 						</td>
 					</tr>
+					</c:if>
+					
+					<!-- FORM COPY ---- -->
+					<c:if test="${not empty param.maKHGD and not empty param.cp and param.cp eq 'true'}">
+					<tr style="background-color: transparent;">
+						<td colspan="2">
+							<div class="div_textleft">Thời khóa biểu</div>
+						</td>
+						<td  colspan="4">
+							<div class="div_textleft">
+								<select name="cboTKB" id="cboTKB" onchange="change_ThoiKhoaBieuCopy(this.id)">
+								<option value = "">--Select--</option>
+								<c:if test="${ not empty param.maMonHocCopy and not empty param.cp and param.cp eq 'true'}">
+									<c:forEach var="objThoiKhoaBieuCopy" items="${thoiKhoaBieuListCopy}">
+											<option <c:if test="${objThoiKhoaBieuCopy.maThoiKhoaBieu eq param.maTKBCopy}">selected</c:if> value='${objThoiKhoaBieuCopy.maThoiKhoaBieu}'>${objThoiKhoaBieuCopy.tenThoiKhoaBieu}</option>
+									</c:forEach>
+								</c:if>
+								</select>
+							</div>
+						</td>	
+					</tr>
+					
+					<tr style="background-color: transparent;">
+						<td width="90px" colspan="1">
+							<div class="div_textleft">Môn học: </div>
+						</td>
+						<td colspan="3">
+							<div class="div_textleft" style="font-weight:bold">
+								<input type='hidden' name="cboMonHoc" id="cboMonHoc" value="${param.maMonHocCopy}"/>
+								<a id="aTenMonHocCopy" name="aTenMonHocCopy"><%=MonHocDAO.getMonHocByMaMonHoc(request.getParameter("maMonHocCopy")).getTenMonHoc() %></a>
+							</div>
+						</td>
+						
+						<td>
+							<div class="div_textleft">Lớp</div>
+				
+						</td>
+						<td>
+							<div class="div_textleft">
+									
+									<select  name="cboLop" id="cboLop" >
+										<option value = "">--Select--</option>
+										<c:forEach var = "objLop" items="${lopListCopy}">
+												<option value="${objLop.maLopHoc}">${objLop.kiHieu}</option>
+										</c:forEach>
+									</select>
+								
+							</div>
+						</td>
+					</tr>
+					</c:if>
+					<!-- ------------------ -->
+					
 					<tr style="background-color: transparent;">
 						<td>
 							<div class = "div_textleft">Học kỳ : </div> 
@@ -505,7 +578,7 @@
 							<div class = "div_textleft">Năm học :</div> 
 						</td>
 						<td width="90px" align="left">
-							<input type = "text" id="txtNamHoc" name="txtNamHoc" style="background-color: transparent;width:80px" readonly="readonly" value="<c:if test="${not empty param.maKHGD}">${objKHGD.namHoc}</c:if><c:if test="${empty param.maKHGD and not empty param.maTKB}">${thoiKhoaBieuModel.nam1} - ${thoiKhoaBieuModel.nam1+1}</c:if>" /> 
+							<input type = "text" id="txtNamHoc" name="txtNamHoc" style="background-color: transparent;width:80px" readonly="readonly" value="<c:if test="${not empty param.maKHGD and empty param.cp}">${objKHGD.namHoc}</c:if><c:if test="${not empty param.maKHGD and not empty param.cp and 'true' and not empty param.maTKBCopy}">${thoiKhoaBieuCopyModel.nam1} - ${thoiKhoaBieuCopyModel.nam1+1}</c:if><c:if test="${empty param.maKHGD and not empty param.maTKB}">${thoiKhoaBieuModel.nam1} - ${thoiKhoaBieuModel.nam1+1}</c:if>" /> 
 						</td>
 						<td>
 							<div class = "div_textleft">Số giờ lý thuyết :</div> 
@@ -534,6 +607,7 @@
 					</tr>
 				</table>
 				
+							<input type="hidden"  name="cboTenMonHoc" id="cboTenMonHoc"/>
 				<c:if test="${not empty param.maKHGD}">
 					<input type='hidden' value='${objKHGD.tinhTrang }' name='txtTinhTrangTK'/>
 					<input type='hidden' value='${objKHGD.tenKHGD}' name='txtTenKHGD'/>
@@ -728,6 +802,8 @@
 											
 													<td style="width:142px;">
 														<textarea style="cursor:pointer" name='areaLT_<%=count3%>' rows='10' id='areaLT_<%=count3%>'  cols="15" readonly="readonly" onclick='showPopUpLT(this.id)'>${obj1.tenChuong}</textarea>
+														<input type='hidden' name='txtMucTieuBaiHoc_<%=count3%>' id='txtMucTieuBaiHoc_<%=count3%>' value='${obj1.mucTieuBaiHoc}'></input>
+													
 													</td>
 													<td style="width:142px;"><font color='red' style='font-weight:bold' id='ftAlertTH<%=count3%>'></font><textarea  name='areaTH_<%=count3%>' rows='10' id='areaTH_<%=count3%>' cols="15" style="cursor:pointer" onclick="showPopUpTH(this.id)" >${obj1.noiDungTH}</textarea></td>
 											
@@ -743,7 +819,7 @@
 													<input type='hidden' value='${obj1.nhom}' name='hdnNhomTemp_<%=count3%>'/>
 													
 													<input type='hidden' value='${obj1.coHieu}' name='hdnCoHieuTemp_<%=count3%>'/>
-													
+													<c:if test="${empty param.cp}">				
 													<!-- Ly thuyet -->
 													<c:if test="${obj1.coHieu eq coHieuLT}">
 														<c:choose>
@@ -873,8 +949,8 @@
 															</c:otherwise>
 														</c:choose>		
 														</c:if>
-												
-												
+								
+													</c:if>
 												
 												</td>
 											</tr>
@@ -937,7 +1013,7 @@
 			
 			<input type="hidden" id="actionType" name="actionType" style="background-color: transparent;"
 				<c:choose>				
-					<c:when test="${empty param.maKHGD}">
+					<c:when test="${empty param.maKHGD or ( not empty param.maKHGD and not empty param.cp and param.cp eq 'true' and not empty param.maTKBCopy)}">
 						value="ThemMoi"
 					</c:when>
 					<c:otherwise>
@@ -957,7 +1033,7 @@
 							<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" id="hinhTaoMoi" alt="Tạo mới" border = "0" />
 						</c:when>
 						<c:otherwise>
-							<c:if test="${(maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)  and (objKHGD.tinhTrang eq NEW or objKHGD.tinhTrang eq REJECT)}">							
+							<c:if test="${empty param.cp and (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)  and (objKHGD.tinhTrang eq NEW or objKHGD.tinhTrang eq REJECT)}">							
 								<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập Nhật" border = "0" />
 							</c:if>
 							
@@ -965,32 +1041,42 @@
 						</c:otherwise>
 					</c:choose> 
 					</a>
-					
-							
-					
-					<c:choose>
-							<c:when test="${not empty param.maKHGD and (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) and (objKHGD.tinhTrang eq NEW or objKHGD.tinhTrang eq REJECT)}">							
+
+						<c:if test="${empty param.cp}">
+							<c:if test="${not empty param.maKHGD and (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) and (objKHGD.tinhTrang eq NEW or objKHGD.tinhTrang eq REJECT)}">							
 								<a href = "javascript: confirmSending()">
 									<input type="hidden" id="Gui" name="Gui"/> 
 									<img src="<%=request.getContextPath()%>/images/buttom/guitruongkhoa.png"  alt="Gửi" border = "0" />
 								</a>
-								
-							</c:when>				
-					</c:choose>
-			
-			
+							</c:if>	
+						</c:if>			
+					
 			<c:if test="${not empty param.maKHGD}">
-				<c:if test="${(objKHGD.tinhTrangHT eq HT_APPROVE) or (vaiTro eq TruongKhoa and objKHGD.tinhTrangHT eq SEND)}">
-					<a href = "<%=Constant.PATH_RES.getString("iso.InKeHoachGiangDayPath") %>?maKHGD=${objKHGD.maKHGD}">								 
-						<img src="<%=request.getContextPath()%>/images/buttom/in.png?maKHGD=${param.maKHGD}" alt="Xuất File" border = "0" />
+				<c:if test="${empty param.cp}">
+					<c:if test="${(objKHGD.tinhTrangHT eq HT_APPROVE) or (vaiTro eq TruongKhoa and objKHGD.tinhTrangHT eq SEND)}">
+						<a href = "<%=Constant.PATH_RES.getString("iso.InKeHoachGiangDayPath") %>?maKHGD=${objKHGD.maKHGD}">								 
+							<img src="<%=request.getContextPath()%>/images/buttom/in.png?maKHGD=${param.maKHGD}" alt="Xuất File" border = "0" />
+						</a>
+					</c:if>
+					<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
+						<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
+					</c:if>	
+					<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
+						<a href = "javascript: confirmDuyet('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Reject" border="0"/> </a>
+					</c:if>
+				</c:if>
+				<c:if test="${( (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and empty param.cp)}">
+					<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}&cp=true&maMonHocCopy=${objKHGD.maMonHoc}">								 
+						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 					</a>
 				</c:if>
-				<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
-					<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
-				</c:if>	
-				<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
-					<a href = "javascript: confirmDuyet('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Reject" border="0"/> </a>
+				<c:if test="${(maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and not empty param.cp }">
+					<a href = "javascript: submitCopyForm()" name="TaoMoi" > 
+						<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" id="hinhTaoMoi" alt="Tạo mới" border = "0" />
+					</a>
 				</c:if>
+				
+				
 			</c:if>
 			
 		</form>
