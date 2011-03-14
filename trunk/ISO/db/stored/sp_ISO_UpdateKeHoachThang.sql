@@ -34,7 +34,7 @@ BEGIN
 		Ngay_duyet = @Ngay_duyet,
 		--Nam = @Nam
 		Ngay_gui = @Ngay_gui,
-		Ten_ke_hoach_thang = @Ten_ke_hoach_thang,
+		--Ten_ke_hoach_thang = @Ten_ke_hoach_thang,
 		Tinh_trang = @Tinh_trang,
 		Ly_do_reject = @Ly_do_reject,
 		User1 = @User1,
