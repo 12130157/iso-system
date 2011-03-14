@@ -251,7 +251,7 @@ namespace SMS
     #endregion
 
 
-        public static CuPhapMODEL getCuPhapByCumCuPha(string cumCuPhap)
+        public static CuPhapMODEL getCuPhapByCumCuPhap(string cumCuPhap)
         {
             CuPhapMODEL cuPhapModel = new CuPhapMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getCumCuPhap"];

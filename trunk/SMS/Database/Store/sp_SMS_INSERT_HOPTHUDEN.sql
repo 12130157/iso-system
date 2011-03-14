@@ -10,15 +10,11 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertHopThuDen
-	@ID						int,
 	@So_dien_thoai			varchar(20),
 	@Ma_cu_phap				int,
-	@Noi_dung_tin_nhan		varchar(200),
-	@Loai_tin_nhan			int,
+	@Noi_dung_tin_nhan		nvarchar(500),
 	@Tinh_trang				int,
 	@Loai_hop_thu			int,
-	@Ma_tin_nhan_tra_loi	int,
-	@Ngay_cap_nhat_cuoi		datetime,
 	@User1					varchar(100),
 	@User2					varchar(100),
 	@User3					varchar(100),
@@ -27,16 +23,22 @@ CREATE PROC sp_SMS_InertHopThuDen
 	
 AS 
 BEGIN
+	DECLARE @Ngay_nhan				datetime
+	DECLARE	@Ngay_cap_nhat_cuoi		datetime
+	DECLARE @Ma_tin_nhan_tra_loi	int
+
 	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
+	SELECT	@Ngay_nhan = GETDATE()
+	SELECT	@Ma_tin_nhan_tra_loi = null
 	INSERT INTO HopThuDen 
 	VALUES (
 			@So_dien_thoai,
 			@Ma_cu_phap,
 			@Noi_dung_tin_nhan,
-			@Loai_tin_nhan,
 			@Tinh_trang,
 			@Loai_hop_thu,
 			@Ma_tin_nhan_tra_loi,
+			@Ngay_nhan,
 			@Ngay_cap_nhat_cuoi,
 			@User1,
 			@User2,
@@ -44,3 +46,16 @@ BEGIN
 			@User4,
 			@User5)
 END 
+
+
+@So_dien_thoai			varchar(20),
+	@Ma_cu_phap				int,
+	@Noi_dung_tin_nhan		nvarchar(500),
+	@Tinh_trang				int,
+	@Loai_hop_thu			int,
+	@User1					varchar(100),
+	@User2					varchar(100),
+	@User3					varchar(100),
+	@User4					varchar(100),
+	@User5					varchar(100)	
+exec sp_SMS_InertHopThuDen '0975587553',1,'abc',1,0,'','','','',''

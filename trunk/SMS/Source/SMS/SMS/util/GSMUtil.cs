@@ -8,6 +8,7 @@ using System.Text;
 using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace SMS
 {
@@ -30,11 +31,6 @@ namespace SMS
             Cursor.Current = Cursors.WaitCursor;
             common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
             Cursor.Current = Cursors.Default;
-
-
-            
-            
- 
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -86,64 +82,22 @@ namespace SMS
         //
         //
         //Receive Message
-        private void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
+        //public void mapAutoRecie(object sender, EventArgs e)
+        //{
+            
+        //}
+        public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
             MessageReceived();
         }
 
-        private void MessageReceived()
+        public void MessageReceived()
         {
             Cursor.Current = Cursors.WaitCursor;
             string storage = GetMessageStorage();
 
-            common.Constants.messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
             //string statusMess;
-            SmsPdu dataMess;
-            HopThuDenMODEL model;
-
-            foreach (DecodedShortMessage message in messages)
-            {
-                //statusMess = message.Status;
-                dataMess = message.Data;
-                SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
-                string desMess = data.OriginatingAddressType;
-                string contentMess = data.UserDataText;
-
-                model = new HopThuDenMODEL();
-                
-                string[] arrContentMess = contentMess.Split(" ");
-
-                string cumCuPhap;
-                
-                for (int i = 0 ; i < arrContentMess - 2 ; i++)
-                {
-                    cumCuPhap += arrContentMess[i];
-                }
-                CuPhapMODEL cuPhapModel = CuPhapDAO.getCuPhapByCumtu1(cumCuPhap);
-
-                model.So_Dien_Thoai = desMess;
-                model.Ma_Cu_Phap = cuPhapModel.Id;
-                model.Noi_Dung_Tin_Nhan = contentMess;
-                model.Tinh_Trang = "0";
-                if (cuPhapModel != null)
-                {
-                    model.Loai_Hop_Thu = "0";
-                }
-                else
-                {
-                    model.Loai_Hop_Thu = "1";
-                }
-                //model.Ma_Tin_Nhan_Tra_Loi = "";
-                
-                //foreach (string syntax in arrContentMess)
-                //{
-                       
-                //}
-
-                
-
-                
-            }
             
         }
         // get message storage
@@ -184,8 +138,8 @@ namespace SMS
         //            ret = "Unknown (" + status.ToString() + ")";
         //            break;
         //    }
-            return ret;
-        }
+        //    return ret;
+        //}
         //
         //
         //show mesage

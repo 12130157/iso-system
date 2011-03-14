@@ -11,7 +11,6 @@ namespace SMS
         private string so_Dien_Thoai;
         private string ma_Cu_Phap;
         private string noi_Dung_Tin_Nhan;
-        private string loai_Tin_Nhan;
         private string tinh_Trang;
         private string loai_Hop_Thu;
         private string ma_Tin_Nhan_Tra_Loi;
@@ -74,12 +73,6 @@ namespace SMS
         {
             get { return tinh_Trang; }
             set { tinh_Trang = value; }
-        }
-
-        public string Loai_Tin_Nhan
-        {
-            get { return loai_Tin_Nhan; }
-            set { loai_Tin_Nhan = value; }
         }
 
         public string Noi_Dung_Tin_Nhan

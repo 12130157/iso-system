@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 
+using GsmComm.GsmCommunication;
+using GsmComm.PduConverter;
+
 namespace SMS
 {
     public partial class FormMain : Form
@@ -153,6 +156,95 @@ namespace SMS
             }
             Application.Exit();
         }
+
+        private void btnAutoRecieve_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            
+            
+            string storage = GetMessageStorage();
+
+            DecodedShortMessage[] message = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+
+            //SmsPdu dataMess;
+            //HopThuDenMODEL model;
+
+            //foreach (DecodedShortMessage message in messages)
+            //{
+            //    //statusMess = message.Status;
+            //    dataMess = message.Data;
+            //    SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
+            //    string desMess = data.OriginatingAddress.ToString();
+            //    string contentMess = data.UserDataText;
+
+            //    model = new HopThuDenMODEL();
+
+            //    string[] arrContentMess = contentMess.Split(' ');
+            //    if (arrContentMess.Length == 1)
+            //    {
+            //        model.So_Dien_Thoai = desMess;
+            //        model.Ma_Cu_Phap = "";
+            //        model.Noi_Dung_Tin_Nhan = contentMess;
+            //        model.Tinh_Trang = "0";
+            //        model.Loai_Hop_Thu = "0";
+            //    }
+            //    else
+            //    {
+            //        string cumCuPhap = "";
+
+            //        for (int i = 0; i < arrContentMess.Length - 2; i++)
+            //        {
+            //            cumCuPhap += arrContentMess[i];
+            //        }
+            //        //check cu phap khi nhan tin nhan 
+            //        CuPhapMODEL cuPhapModel = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+            //        //lay data luu vao model hopthuden 
+            //        model.So_Dien_Thoai = desMess;
+            //        //model.Ma_Cu_Phap = cuPhapModel.Id;
+
+            //        model.Noi_Dung_Tin_Nhan = contentMess;
+            //        model.Tinh_Trang = "0";
+            //        //loai hop thu = 0 ---> ko theo cu phap 
+            //        if (cuPhapModel.Id != null)
+            //        {
+            //            model.Loai_Hop_Thu = "0";
+            //            model.Ma_Cu_Phap = cuPhapModel.Id;
+            //        }
+            //        //loai hop thu = 1 ----> theo cu phap
+            //        else
+            //        {
+            //            model.Ma_Cu_Phap = "1000";
+            //            model.Loai_Hop_Thu = "1";
+            //        }
+            //    }
+            //    model.User11 = "";
+            //    model.User21 = "";
+            //    model.User31 = "";
+            //    model.User41 = "";
+            //    model.User51 = "";
+
+            //    bool result = HopThuDenDAO.insertHopThuDen(model);
+            //    if (result == true)
+            //    {
+            //        MessageBox.Show("Insert hop thu den thanh cong");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Insert hop thu den that bai");
+            //    }
+            //}
+        }
+
+        private string GetMessageStorage()
+        {
+            string storage = "";
+            storage = PhoneStorageType.Sim;
+
+            if (storage.Length == 0)
+                throw new ApplicationException("Unknown message storage.");
+            else
+                return storage;
+        }
         #region chưa xu ly
         //private void menuClickAction(object sender, EventArgs e)
         //{
@@ -249,5 +341,5 @@ namespace SMS
         //    }
         //}
         #endregion
-    }
+    } 
 }
