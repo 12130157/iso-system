@@ -459,4 +459,30 @@ public class ThoiKhoaBieuDAO {
 		}
 		return lopHocList;
 	}
+	
+	public static ArrayList<ThoiKhoaBieuModel> getThoiKhoaBieuByMaGVAndMaMH(String maGV,String maMH){
+		ArrayList<ThoiKhoaBieuModel> arrayList=new ArrayList<ThoiKhoaBieuModel>();
+		ThoiKhoaBieuModel model;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getThoiKhoaBieuByMaGVAndMaMH"));
+			preparedStatement.setString(1, maGV);
+			preparedStatement.setString(2, maMH);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				model=new ThoiKhoaBieuModel();
+				
+				model.setMaThoiKhoaBieu(rs.getString("MaTKB"));
+				model.setTenThoiKhoaBieu(rs.getString("ten"));
+				model.setNam1(rs.getString("NamBatDau"));
+				arrayList.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayList;
+	}
 }

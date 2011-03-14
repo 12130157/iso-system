@@ -408,4 +408,30 @@ public class MonHocTKBDAO {
 		}
 		return result;
 	}
+	
+	public static ArrayList<LopHocModel> getLopByMaGVAndMaMHAndMaTKB(String maGV,String maMH,String maTKB){
+		ArrayList<LopHocModel> arrayList=new ArrayList<LopHocModel>();
+		LopHocModel lophoc;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getLopByMaGVAndMaMHAndMaTKB"));
+			preparedStatement.setString(1, maGV);
+			preparedStatement.setString(2, maMH);
+			preparedStatement.setString(3, maTKB);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				lophoc=new LopHocModel();
+				
+				lophoc.setMaLopHoc(rs.getString("Ma_Lop"));
+				lophoc.setKiHieu(rs.getNString("Ki_hieu"));
+				arrayList.add(lophoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayList;
+	}
 }
