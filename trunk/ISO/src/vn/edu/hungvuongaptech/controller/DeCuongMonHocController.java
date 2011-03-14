@@ -484,9 +484,7 @@ public class DeCuongMonHocController extends HttpServlet{
 				+ "?msg=" + select;
 		if(request.getParameter("cboKhoa") != null) {
 			String khoa = request.getParameter("cboKhoa");
-			page += Constant.PATH_RES
-			.getString("iso.XemDeCuongMonHocShortPath")
-			+ "&khoa=" + khoa;
+			page += "&khoa=" + khoa;
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);

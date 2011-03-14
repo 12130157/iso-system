@@ -365,7 +365,7 @@ var soTuan = 4;
 					<td>${Tuan}</td>
 				</c:forEach>
 			</tr>
-			<c:if test = "${not empty KeHoachThang.maKeHoachThang}">
+			<c:if test = "${not empty KeHoachThang.maKeHoachThang and (MaBoPhan eq BO_PHAN_ADMIN or KeHoachThang.maNguoiTao eq maThanhVien) and KeHoachThang.tinhTrang eq NEW}">
 				<tr style="background-color: transparent;" align="center">
 					<td colspan="<%=soTuan + 5 %>">
 						<input type = "button" value = "Thêm công tác" onclick="openPopupCongTac();"/>
@@ -377,27 +377,43 @@ var soTuan = 4;
 		<table style="background-color: transparent;" id = "TableKeHoachThang" name = "TableKeHoachThang">
 			<tr align="left"><td>Nơi nhận :</td></tr>
 			<tr align="left">
-				<td colspan="3">
+				<td colspan="2">
 					<TEXTAREA rows="5" cols="70" name = "txtNoiNhan">${KeHoachThang.noiNhan}</TEXTAREA>
 				</td>
 			</tr>
+			<tr style="background-color: transparent;">
+				<td>Ngày <input type = "text"  size = 8 style="background-color: transparent;" value = "${KeHoachThang.ngayDuyet}" readonly="readonly" /></td>
+				<td>Quận 5, ngày <input type = "text" id="txtCalendar" size = 8 name="txtCalendar"  style="background-color: transparent;" value = "${KeHoachThang.ngayCapNhatCuoi}" readonly="readonly" />
+				</td>
+			</tr>
+			<tr style="background-color: transparent;">
+				<td>Hiệu trưởng<br /><br /><input type="text" value="${KeHoachThang.tenNguoiDuyet}" style="background-color: transparent;" readonly="readonly"/><br /><br /></td>
+				<td>Người tạo<br /><br /><input type="text" value="${KeHoachThang.tenNguoiTao}" style="background-color: transparent;" readonly="readonly"/><br /><br /></td>
+			</tr>
 		</table>
 		<table>
+			
 			<tr>
 				<td colspan="6">
+			<c:if test = "${MaBoPhan eq BO_PHAN_ADMIN or KeHoachThang.tinhTrang eq null or KeHoachThang.maNguoiTao eq maThanhVien}"> 
 				<c:choose>
-					<c:when test = "${not empty KeHoachThang.maKeHoachThang}">
-						<a href="javascript: submitForm(2);">
-							<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập nhật" border = "0" />
-						</a>
+					<c:when test="${KeHoachThang.tinhTrang eq NEW or KeHoachThang.tinhTrang eq REJECT or KeHoachThang.tinhTrang eq null}">
+			
+						<c:choose>
+							<c:when test = "${not empty KeHoachThang.maKeHoachThang}">
+								<a href="javascript: submitForm(2);">
+									<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập nhật" border = "0" />
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript: submitForm(1);">
+									<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="Tạo mới" border = "0" />
+								</a>
+							</c:otherwise>	
+						</c:choose>
 					</c:when>
-					<c:otherwise>
-						<a href="javascript: submitForm(1);">
-							<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="Tạo mới" border = "0" />
-						</a>
-					</c:otherwise>	
 				</c:choose>
-				
+			</c:if>	
 				<input type = "hidden" value = "" id = "TotalCongTac" name = "TotalCongTac"/>
 				<input type = "hidden" id = "SoTuan" name = "SoTuan" value = "<%=soTuan %>"/>
 				

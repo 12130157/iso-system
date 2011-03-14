@@ -231,7 +231,7 @@ function submitFormSave(){
 		if(document.BangDeCuongMonHoc.checkApprove.checked == true)
 		{					
 			document.BangDeCuongMonHoc.checkReject.checked = false;	
-			<%
+			<%out.print("alert(" + Constant.CHECK_ROWS + ");");
 				for (Integer i = 0; i < Constant.CHECK_ROWS; i++) {
 					out.print("document.BangDeCuongMonHoc.tinhtrang" + i.toString() +"[0].checked = true;\n");
 				}

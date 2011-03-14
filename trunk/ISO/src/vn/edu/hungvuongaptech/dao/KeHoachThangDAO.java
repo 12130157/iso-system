@@ -261,6 +261,7 @@ public class KeHoachThangDAO {
 				keHoachThang.setLyDoReject(rs.getString("LyDoReject"));
 				keHoachThangList.add(keHoachThang);
 			}
+			Constant.CHECK_ROWS = keHoachThangList.size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
