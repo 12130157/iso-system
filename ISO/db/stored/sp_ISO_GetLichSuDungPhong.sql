@@ -96,5 +96,5 @@ BEGIN
 	--print @sql
 END
 --sp_help sp_executesql
---sp_ISO_GetLichSuDungPhong '','','81','',''
+--sp_ISO_GetLichSuDungPhong '','','','',''
 --select * from sudung

@@ -27,5 +27,5 @@ BEGIN
 		@User4,
 		@User5
 	)
-	SELECT ID = @ID FROM TinhTrangCongTac WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+	SELECT @ID = ID FROM TinhTrangCongTac WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END

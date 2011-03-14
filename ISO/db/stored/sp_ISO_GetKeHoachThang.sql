@@ -47,20 +47,6 @@ BEGIN
 	INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap'
 	--ORDER BY TB2.Ngay_cap_nhat_cuoi DESC'
 	exec  sp_executesql @sql
+	--print @sql
 END
---sp_help sp_executesql
---sp_ISO_GetKeHoachDaoTao 3,4,1,'',''
---select * from thanhvien
-
-/*
-	NumRows  = 3
-	TotalRows = 8
-	CurrentPage = 1
-
-	sp_ISO_GetKeHoachDaoTao NumRows,TotalRows-(CurrentPage-1)*NumRows
-
-	sp_ISO_GetKeHoachDaoTao 3,2
-
-	select count(*)/3 from ThanhVien
-*/
---select count(*)/ from ThanhVien
+--exec sp_ISO_GetKeHoachThang 10, 1, 1, '', 2, 2

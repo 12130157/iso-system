@@ -28,8 +28,9 @@ BEGIN
 
 	SELECT @sql = ' 
 		SELECT COUNT(*) AS Count
-		FROM KEHOACHDAOTAO WHERE '
+		FROM KEHOACHTHANG WHERE '
 		+ @Dieu_kien_tinh_trang + ' AND' + @Dieu_kien_bo_phan
 	exec sp_executesql @sql
 	--PRINT @sql	
 END
+-- exec sp_ISO_GetCountKeHoachThang '',2,2

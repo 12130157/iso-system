@@ -8,7 +8,7 @@ CREATE PROCEDURE sp_ISO_GetCountChuongTrinhDaoTao
 	@Check			varchar
 AS
 BEGIN
-	DECLARE @sql NVarchar(200)
+	DECLARE @sql NVarchar(300)
 	DECLARE @Dieu_kien_tinh_trang nvarchar(100)
 	DECLARE @Dieu_kien_bo_phan nvarchar(100)
 	DECLARE @Vai_tro_truong_bo_phan varchar(5)
@@ -60,4 +60,4 @@ BEGIN
 	exec sp_executesql @sql
 	--PRINT @sql	
 END
---exec sp_ISO_GetCountChuongTrinhDaoTao '',0,5
+--exec sp_ISO_GetCountChuongTrinhDaoTao '2',0,5,0
