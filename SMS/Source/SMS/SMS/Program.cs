@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace SMS
 {
@@ -16,6 +17,8 @@ namespace SMS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmConn());
+            
+            
         }
     }
 }

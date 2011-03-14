@@ -1,4 +1,5 @@
-﻿namespace SMS
+﻿using System.Timers;
+namespace SMS
 {
     partial class FormMain
     {
@@ -45,7 +46,10 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer = new System.Timers.Timer();
+            this.btnAutoRecieve = new System.Windows.Forms.Button();
             this.menuTool.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timer)).BeginInit();
             this.SuspendLayout();
             // 
             // menuTool
@@ -182,11 +186,28 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.SynchronizingObject = this;
+            // 
+            // btnAutoRecieve
+            // 
+            this.btnAutoRecieve.Location = new System.Drawing.Point(322, 1);
+            this.btnAutoRecieve.Name = "btnAutoRecieve";
+            this.btnAutoRecieve.Size = new System.Drawing.Size(145, 23);
+            this.btnAutoRecieve.TabIndex = 2;
+            this.btnAutoRecieve.Text = "Auto Recieve Message";
+            this.btnAutoRecieve.UseVisualStyleBackColor = true;
+            this.btnAutoRecieve.Click += new System.EventHandler(this.btnAutoRecieve_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 661);
+            this.Controls.Add(this.btnAutoRecieve);
             this.Controls.Add(this.menuTool);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F);
             this.IsMdiContainer = true;
@@ -197,6 +218,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,5 +243,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private Timer timer;
+        private System.Windows.Forms.Button btnAutoRecieve;
     }
 }

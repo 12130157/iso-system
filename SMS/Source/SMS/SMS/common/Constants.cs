@@ -21,6 +21,6 @@ namespace SMS.common
         public static int baudRate;
         public static int timeOut;
         //lu tru tin nhan 
-        public static DecodedShortMessage[] messages;
+        //public static DecodedShortMessage[] messages;
     }
 }
