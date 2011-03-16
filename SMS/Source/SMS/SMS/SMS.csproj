@@ -64,6 +64,11 @@
     <Compile Include="dao\LoaiHopThuDAO.cs" />
     <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
     <Compile Include="dao\TaiKhoanSmsDAO.cs" />
+    <Compile Include="GSMDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GSMDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
     <Compile Include="model\CuPhapMODEL.cs" />
@@ -129,6 +134,17 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="GSMDataSet.xsc">
+      <DependentUpon>GSMDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GSMDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GSMDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GSMDataSet.xss">
+      <DependentUpon>GSMDataSet.xsd</DependentUpon>
+    </None>
     <None Include="model\Thumbs.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

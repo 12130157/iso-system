@@ -1,4 +1,5 @@
 ﻿using System.Timers;
+using GsmComm.GsmCommunication;
 namespace SMS
 {
     partial class FormMain
@@ -47,7 +48,7 @@ namespace SMS
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Timers.Timer();
-            this.btnAutoRecieve = new System.Windows.Forms.Button();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.menuTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timer)).BeginInit();
             this.SuspendLayout();
@@ -192,28 +193,30 @@ namespace SMS
             this.timer.Interval = 1000;
             this.timer.SynchronizingObject = this;
             // 
-            // btnAutoRecieve
+            // lbStatus
             // 
-            this.btnAutoRecieve.Location = new System.Drawing.Point(322, 1);
-            this.btnAutoRecieve.Name = "btnAutoRecieve";
-            this.btnAutoRecieve.Size = new System.Drawing.Size(145, 23);
-            this.btnAutoRecieve.TabIndex = 2;
-            this.btnAutoRecieve.Text = "Auto Recieve Message";
-            this.btnAutoRecieve.UseVisualStyleBackColor = true;
-            this.btnAutoRecieve.Click += new System.EventHandler(this.btnAutoRecieve_Click);
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStatus.ForeColor = System.Drawing.Color.Red;
+            this.lbStatus.Location = new System.Drawing.Point(12, 35);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(140, 24);
+            this.lbStatus.TabIndex = 4;
+            this.lbStatus.Text = "Not Conectted";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 661);
-            this.Controls.Add(this.btnAutoRecieve);
+            this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuTool;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuTool.ResumeLayout(false);
@@ -244,6 +247,6 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private Timer timer;
-        private System.Windows.Forms.Button btnAutoRecieve;
+        private System.Windows.Forms.Label lbStatus;
     }
 }

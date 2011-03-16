@@ -30,35 +30,35 @@
         {
             this.lbTitle = new System.Windows.Forms.Label();
             this.tabControls = new System.Windows.Forms.TabControl();
-            this.tabInBox = new System.Windows.Forms.TabPage();
-            this.tblInbox = new System.Windows.Forms.DataGridView();
-            this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmPhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSyntax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabSpam = new System.Windows.Forms.TabPage();
-            this.btnCompose = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnReload = new System.Windows.Forms.Button();
-            this.cboFilter = new System.Windows.Forms.ComboBox();
-            this.lbFilter = new System.Windows.Forms.Label();
+            this.tabSyntaxMess = new System.Windows.Forms.TabPage();
+            this.btnComposeInbox = new System.Windows.Forms.Button();
+            this.btnDeleteInbox = new System.Windows.Forms.Button();
+            this.btnReloadInbox = new System.Windows.Forms.Button();
+            this.cboFilterInbox = new System.Windows.Forms.ComboBox();
+            this.lbFilterInbox = new System.Windows.Forms.Label();
+            this.tblSyntaxMess = new System.Windows.Forms.DataGridView();
+            this.tabNormalMessage = new System.Windows.Forms.TabPage();
+            this.btnComposeSpam = new System.Windows.Forms.Button();
+            this.btnDeleteSpam = new System.Windows.Forms.Button();
+            this.btnReloadSpam = new System.Windows.Forms.Button();
+            this.cboFilterSpam = new System.Windows.Forms.ComboBox();
+            this.lbFilterSpam = new System.Windows.Forms.Label();
             this.tblSpam = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDataTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.clmIdSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPhoneNumberSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmContentSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmStatusSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDataTimeSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmIdSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNumberPhoneSyntax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmContentSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmStatusSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDateTimeSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControls.SuspendLayout();
-            this.tabInBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tblInbox)).BeginInit();
-            this.tabSpam.SuspendLayout();
+            this.tabSyntaxMess.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMess)).BeginInit();
+            this.tabNormalMessage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblSpam)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,245 +75,253 @@
             // 
             // tabControls
             // 
-            this.tabControls.Controls.Add(this.tabInBox);
-            this.tabControls.Controls.Add(this.tabSpam);
-            this.tabControls.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControls.AllowDrop = true;
+            this.tabControls.Controls.Add(this.tabSyntaxMess);
+            this.tabControls.Controls.Add(this.tabNormalMessage);
+            this.tabControls.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControls.Location = new System.Drawing.Point(0, 38);
             this.tabControls.Name = "tabControls";
             this.tabControls.SelectedIndex = 0;
-            this.tabControls.Size = new System.Drawing.Size(574, 307);
+            this.tabControls.Size = new System.Drawing.Size(782, 307);
             this.tabControls.TabIndex = 3;
             // 
-            // tabInBox
+            // tabSyntaxMess
             // 
-            this.tabInBox.Controls.Add(this.button1);
-            this.tabInBox.Controls.Add(this.button2);
-            this.tabInBox.Controls.Add(this.button3);
-            this.tabInBox.Controls.Add(this.comboBox1);
-            this.tabInBox.Controls.Add(this.label1);
-            this.tabInBox.Controls.Add(this.tblInbox);
-            this.tabInBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabInBox.Location = new System.Drawing.Point(4, 24);
-            this.tabInBox.Name = "tabInBox";
-            this.tabInBox.Padding = new System.Windows.Forms.Padding(3);
-            this.tabInBox.Size = new System.Drawing.Size(566, 279);
-            this.tabInBox.TabIndex = 0;
-            this.tabInBox.Text = "InBox";
-            this.tabInBox.UseVisualStyleBackColor = true;
+            this.tabSyntaxMess.Controls.Add(this.btnComposeInbox);
+            this.tabSyntaxMess.Controls.Add(this.btnDeleteInbox);
+            this.tabSyntaxMess.Controls.Add(this.btnReloadInbox);
+            this.tabSyntaxMess.Controls.Add(this.cboFilterInbox);
+            this.tabSyntaxMess.Controls.Add(this.lbFilterInbox);
+            this.tabSyntaxMess.Controls.Add(this.tblSyntaxMess);
+            this.tabSyntaxMess.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabSyntaxMess.Location = new System.Drawing.Point(4, 25);
+            this.tabSyntaxMess.Name = "tabSyntaxMess";
+            this.tabSyntaxMess.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSyntaxMess.Size = new System.Drawing.Size(774, 278);
+            this.tabSyntaxMess.TabIndex = 0;
+            this.tabSyntaxMess.Text = "Syntax Message";
+            this.tabSyntaxMess.UseVisualStyleBackColor = true;
             // 
-            // tblInbox
+            // btnComposeInbox
             // 
-            this.tblInbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.tblInbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmID,
-            this.clmPhoneNumber,
-            this.clmSyntax,
-            this.clmContent,
-            this.clmStatus,
-            this.clmDateTime});
-            this.tblInbox.Location = new System.Drawing.Point(0, 0);
-            this.tblInbox.Name = "tblInbox";
-            this.tblInbox.Size = new System.Drawing.Size(566, 230);
-            this.tblInbox.TabIndex = 0;
+            this.btnComposeInbox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnComposeInbox.Location = new System.Drawing.Point(382, 244);
+            this.btnComposeInbox.Name = "btnComposeInbox";
+            this.btnComposeInbox.Size = new System.Drawing.Size(78, 23);
+            this.btnComposeInbox.TabIndex = 10;
+            this.btnComposeInbox.Text = "Compose";
+            this.btnComposeInbox.UseVisualStyleBackColor = true;
             // 
-            // clmID
+            // btnDeleteInbox
             // 
-            this.clmID.HeaderText = "ID";
-            this.clmID.Name = "clmID";
-            this.clmID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.btnDeleteInbox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteInbox.Location = new System.Drawing.Point(482, 244);
+            this.btnDeleteInbox.Name = "btnDeleteInbox";
+            this.btnDeleteInbox.Size = new System.Drawing.Size(78, 23);
+            this.btnDeleteInbox.TabIndex = 9;
+            this.btnDeleteInbox.Text = "Delete";
+            this.btnDeleteInbox.UseVisualStyleBackColor = true;
             // 
-            // clmPhoneNumber
+            // btnReloadInbox
             // 
-            this.clmPhoneNumber.HeaderText = "Phone Number";
-            this.clmPhoneNumber.Name = "clmPhoneNumber";
+            this.btnReloadInbox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadInbox.Location = new System.Drawing.Point(283, 244);
+            this.btnReloadInbox.Name = "btnReloadInbox";
+            this.btnReloadInbox.Size = new System.Drawing.Size(78, 23);
+            this.btnReloadInbox.TabIndex = 8;
+            this.btnReloadInbox.Text = "Reload";
+            this.btnReloadInbox.UseVisualStyleBackColor = true;
             // 
-            // clmSyntax
+            // cboFilterInbox
             // 
-            this.clmSyntax.HeaderText = "Syntax Type";
-            this.clmSyntax.Name = "clmSyntax";
-            // 
-            // clmContent
-            // 
-            this.clmContent.HeaderText = "Content";
-            this.clmContent.Name = "clmContent";
-            // 
-            // clmStatus
-            // 
-            this.clmStatus.HeaderText = "Status";
-            this.clmStatus.Name = "clmStatus";
-            // 
-            // clmDateTime
-            // 
-            this.clmDateTime.HeaderText = "Date-Time";
-            this.clmDateTime.Name = "clmDateTime";
-            // 
-            // tabSpam
-            // 
-            this.tabSpam.AllowDrop = true;
-            this.tabSpam.CausesValidation = false;
-            this.tabSpam.Controls.Add(this.btnCompose);
-            this.tabSpam.Controls.Add(this.btnDelete);
-            this.tabSpam.Controls.Add(this.btnReload);
-            this.tabSpam.Controls.Add(this.cboFilter);
-            this.tabSpam.Controls.Add(this.lbFilter);
-            this.tabSpam.Controls.Add(this.tblSpam);
-            this.tabSpam.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabSpam.Location = new System.Drawing.Point(4, 24);
-            this.tabSpam.Name = "tabSpam";
-            this.tabSpam.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSpam.Size = new System.Drawing.Size(566, 279);
-            this.tabSpam.TabIndex = 1;
-            this.tabSpam.Text = "Spam";
-            this.tabSpam.UseVisualStyleBackColor = true;
-            // 
-            // btnCompose
-            // 
-            this.btnCompose.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompose.Location = new System.Drawing.Point(382, 243);
-            this.btnCompose.Name = "btnCompose";
-            this.btnCompose.Size = new System.Drawing.Size(78, 23);
-            this.btnCompose.TabIndex = 5;
-            this.btnCompose.Text = "Compose";
-            this.btnCompose.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(482, 243);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(78, 23);
-            this.btnDelete.TabIndex = 4;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnReload
-            // 
-            this.btnReload.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReload.Location = new System.Drawing.Point(283, 243);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(78, 23);
-            this.btnReload.TabIndex = 3;
-            this.btnReload.Text = "Reload";
-            this.btnReload.UseVisualStyleBackColor = true;
-            // 
-            // cboFilter
-            // 
-            this.cboFilter.FormattingEnabled = true;
-            this.cboFilter.Items.AddRange(new object[] {
+            this.cboFilterInbox.FormattingEnabled = true;
+            this.cboFilterInbox.Items.AddRange(new object[] {
             "All",
             "Phone Number",
             "Status",
             "Date-Time"});
-            this.cboFilter.Location = new System.Drawing.Point(73, 243);
-            this.cboFilter.Name = "cboFilter";
-            this.cboFilter.Size = new System.Drawing.Size(138, 23);
-            this.cboFilter.TabIndex = 2;
-            this.cboFilter.Text = "All";
+            this.cboFilterInbox.Location = new System.Drawing.Point(73, 244);
+            this.cboFilterInbox.Name = "cboFilterInbox";
+            this.cboFilterInbox.Size = new System.Drawing.Size(138, 23);
+            this.cboFilterInbox.TabIndex = 7;
+            this.cboFilterInbox.Text = "All";
             // 
-            // lbFilter
+            // lbFilterInbox
             // 
-            this.lbFilter.AutoSize = true;
-            this.lbFilter.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFilter.ForeColor = System.Drawing.Color.Navy;
-            this.lbFilter.Location = new System.Drawing.Point(8, 246);
-            this.lbFilter.Name = "lbFilter";
-            this.lbFilter.Size = new System.Drawing.Size(45, 17);
-            this.lbFilter.TabIndex = 1;
-            this.lbFilter.Text = "Filter :";
+            this.lbFilterInbox.AutoSize = true;
+            this.lbFilterInbox.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFilterInbox.ForeColor = System.Drawing.Color.Navy;
+            this.lbFilterInbox.Location = new System.Drawing.Point(8, 248);
+            this.lbFilterInbox.Name = "lbFilterInbox";
+            this.lbFilterInbox.Size = new System.Drawing.Size(45, 17);
+            this.lbFilterInbox.TabIndex = 6;
+            this.lbFilterInbox.Text = "Filter :";
+            // 
+            // tblSyntaxMess
+            // 
+            this.tblSyntaxMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.tblSyntaxMess.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.tblSyntaxMess.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmIdSyntaxMess,
+            this.clmNumberPhoneSyntax,
+            this.clmContentSyntaxMess,
+            this.clmSyntaxMess,
+            this.clmStatusSyntaxMess,
+            this.clmDateTimeSyntaxMess});
+            this.tblSyntaxMess.Location = new System.Drawing.Point(0, 0);
+            this.tblSyntaxMess.Name = "tblSyntaxMess";
+            this.tblSyntaxMess.Size = new System.Drawing.Size(774, 230);
+            this.tblSyntaxMess.TabIndex = 0;
+            // 
+            // tabNormalMessage
+            // 
+            this.tabNormalMessage.AllowDrop = true;
+            this.tabNormalMessage.CausesValidation = false;
+            this.tabNormalMessage.Controls.Add(this.btnComposeSpam);
+            this.tabNormalMessage.Controls.Add(this.btnDeleteSpam);
+            this.tabNormalMessage.Controls.Add(this.btnReloadSpam);
+            this.tabNormalMessage.Controls.Add(this.cboFilterSpam);
+            this.tabNormalMessage.Controls.Add(this.lbFilterSpam);
+            this.tabNormalMessage.Controls.Add(this.tblSpam);
+            this.tabNormalMessage.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabNormalMessage.Location = new System.Drawing.Point(4, 25);
+            this.tabNormalMessage.Name = "tabNormalMessage";
+            this.tabNormalMessage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabNormalMessage.Size = new System.Drawing.Size(774, 278);
+            this.tabNormalMessage.TabIndex = 1;
+            this.tabNormalMessage.Text = "Normal Message";
+            this.tabNormalMessage.UseVisualStyleBackColor = true;
+            // 
+            // btnComposeSpam
+            // 
+            this.btnComposeSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnComposeSpam.Location = new System.Drawing.Point(352, 245);
+            this.btnComposeSpam.Name = "btnComposeSpam";
+            this.btnComposeSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnComposeSpam.TabIndex = 5;
+            this.btnComposeSpam.Text = "Compose";
+            this.btnComposeSpam.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteSpam
+            // 
+            this.btnDeleteSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteSpam.Location = new System.Drawing.Point(464, 245);
+            this.btnDeleteSpam.Name = "btnDeleteSpam";
+            this.btnDeleteSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnDeleteSpam.TabIndex = 4;
+            this.btnDeleteSpam.Text = "Delete";
+            this.btnDeleteSpam.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadSpam
+            // 
+            this.btnReloadSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadSpam.Location = new System.Drawing.Point(242, 245);
+            this.btnReloadSpam.Name = "btnReloadSpam";
+            this.btnReloadSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnReloadSpam.TabIndex = 3;
+            this.btnReloadSpam.Text = "Reload";
+            this.btnReloadSpam.UseVisualStyleBackColor = true;
+            // 
+            // cboFilterSpam
+            // 
+            this.cboFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFilterSpam.FormattingEnabled = true;
+            this.cboFilterSpam.Items.AddRange(new object[] {
+            "All",
+            "Phone Number",
+            "Status",
+            "Date-Time"});
+            this.cboFilterSpam.Location = new System.Drawing.Point(73, 243);
+            this.cboFilterSpam.Name = "cboFilterSpam";
+            this.cboFilterSpam.Size = new System.Drawing.Size(138, 24);
+            this.cboFilterSpam.TabIndex = 2;
+            this.cboFilterSpam.Text = "All";
+            // 
+            // lbFilterSpam
+            // 
+            this.lbFilterSpam.AutoSize = true;
+            this.lbFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFilterSpam.ForeColor = System.Drawing.Color.Navy;
+            this.lbFilterSpam.Location = new System.Drawing.Point(8, 246);
+            this.lbFilterSpam.Name = "lbFilterSpam";
+            this.lbFilterSpam.Size = new System.Drawing.Size(48, 18);
+            this.lbFilterSpam.TabIndex = 1;
+            this.lbFilterSpam.Text = "Filter :";
             // 
             // tblSpam
             // 
             this.tblSpam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSpam.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.clmDataTime});
+            this.clmIdSpam,
+            this.clmPhoneNumberSpam,
+            this.clmContentSpam,
+            this.clmStatusSpam,
+            this.clmDataTimeSpam});
             this.tblSpam.Location = new System.Drawing.Point(0, 0);
             this.tblSpam.Name = "tblSpam";
-            this.tblSpam.Size = new System.Drawing.Size(566, 230);
+            this.tblSpam.Size = new System.Drawing.Size(774, 230);
             this.tblSpam.TabIndex = 0;
             // 
-            // dataGridViewTextBoxColumn1
+            // clmIdSpam
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.clmIdSpam.HeaderText = "ID";
+            this.clmIdSpam.Name = "clmIdSpam";
             // 
-            // dataGridViewTextBoxColumn2
+            // clmPhoneNumberSpam
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Phone Number";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.clmPhoneNumberSpam.HeaderText = "Phone Number";
+            this.clmPhoneNumberSpam.Name = "clmPhoneNumberSpam";
             // 
-            // dataGridViewTextBoxColumn3
+            // clmContentSpam
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Content";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.clmContentSpam.HeaderText = "Content";
+            this.clmContentSpam.Name = "clmContentSpam";
             // 
-            // dataGridViewTextBoxColumn4
+            // clmStatusSpam
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Status";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.clmStatusSpam.HeaderText = "Status";
+            this.clmStatusSpam.Name = "clmStatusSpam";
             // 
-            // clmDataTime
+            // clmDataTimeSpam
             // 
-            this.clmDataTime.HeaderText = "Date-Time";
-            this.clmDataTime.Name = "clmDataTime";
+            this.clmDataTimeSpam.HeaderText = "Date-Time";
+            this.clmDataTimeSpam.Name = "clmDataTimeSpam";
             // 
-            // button1
+            // clmIdSyntaxMess
             // 
-            this.button1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(382, 244);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Compose";
-            this.button1.UseVisualStyleBackColor = true;
+            this.clmIdSyntaxMess.DataPropertyName = "id";
+            this.clmIdSyntaxMess.HeaderText = "ID";
+            this.clmIdSyntaxMess.Name = "clmIdSyntaxMess";
             // 
-            // button2
+            // clmNumberPhoneSyntax
             // 
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(482, 244);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Delete";
-            this.button2.UseVisualStyleBackColor = true;
+            this.clmNumberPhoneSyntax.DataPropertyName = "so_dien_thoai";
+            this.clmNumberPhoneSyntax.HeaderText = " Phone Number";
+            this.clmNumberPhoneSyntax.Name = "clmNumberPhoneSyntax";
             // 
-            // button3
+            // clmContentSyntaxMess
             // 
-            this.button3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(283, 244);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(78, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Reload";
-            this.button3.UseVisualStyleBackColor = true;
+            this.clmContentSyntaxMess.DataPropertyName = "noi_dung_tin_nhan";
+            this.clmContentSyntaxMess.HeaderText = "Content";
+            this.clmContentSyntaxMess.Name = "clmContentSyntaxMess";
             // 
-            // comboBox1
+            // clmSyntaxMess
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "All",
-            "Phone Number",
-            "Status",
-            "Date-Time"});
-            this.comboBox1.Location = new System.Drawing.Point(73, 244);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(138, 23);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.Text = "All";
+            this.clmSyntaxMess.DataPropertyName = "cu_phap";
+            this.clmSyntaxMess.HeaderText = "Syntax";
+            this.clmSyntaxMess.Name = "clmSyntaxMess";
             // 
-            // label1
+            // clmStatusSyntaxMess
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(8, 248);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Filter :";
+            this.clmStatusSyntaxMess.DataPropertyName = "tinh_trang";
+            this.clmStatusSyntaxMess.HeaderText = "Status";
+            this.clmStatusSyntaxMess.Name = "clmStatusSyntaxMess";
+            // 
+            // clmDateTimeSyntaxMess
+            // 
+            this.clmDateTimeSyntaxMess.DataPropertyName = "ngay_nhan";
+            this.clmDateTimeSyntaxMess.HeaderText = "Date-Time";
+            this.clmDateTimeSyntaxMess.Name = "clmDateTimeSyntaxMess";
             // 
             // FormInbox
             // 
@@ -321,18 +329,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(574, 343);
+            this.ClientSize = new System.Drawing.Size(779, 343);
             this.Controls.Add(this.tabControls);
             this.Controls.Add(this.lbTitle);
             this.Name = "FormInbox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inbook";
             this.tabControls.ResumeLayout(false);
-            this.tabInBox.ResumeLayout(false);
-            this.tabInBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tblInbox)).EndInit();
-            this.tabSpam.ResumeLayout(false);
-            this.tabSpam.PerformLayout();
+            this.tabSyntaxMess.ResumeLayout(false);
+            this.tabSyntaxMess.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMess)).EndInit();
+            this.tabNormalMessage.ResumeLayout(false);
+            this.tabNormalMessage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblSpam)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -343,30 +351,30 @@
 
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.TabControl tabControls;
-        private System.Windows.Forms.TabPage tabInBox;
-        private System.Windows.Forms.TabPage tabSpam;
-        private System.Windows.Forms.DataGridView tblInbox;
+        private System.Windows.Forms.TabPage tabSyntaxMess;
+        private System.Windows.Forms.TabPage tabNormalMessage;
+        private System.Windows.Forms.DataGridView tblSyntaxMess;
         private System.Windows.Forms.DataGridView tblSpam;
-        private System.Windows.Forms.Label lbFilter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmPhoneNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntax;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmContent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDataTime;
-        private System.Windows.Forms.ComboBox cboFilter;
-        private System.Windows.Forms.Button btnCompose;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnReload;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbFilterSpam;
+        private System.Windows.Forms.ComboBox cboFilterSpam;
+        private System.Windows.Forms.Button btnComposeSpam;
+        private System.Windows.Forms.Button btnDeleteSpam;
+        private System.Windows.Forms.Button btnReloadSpam;
+        private System.Windows.Forms.Button btnComposeInbox;
+        private System.Windows.Forms.Button btnDeleteInbox;
+        private System.Windows.Forms.Button btnReloadInbox;
+        private System.Windows.Forms.ComboBox cboFilterInbox;
+        private System.Windows.Forms.Label lbFilterInbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSpam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmPhoneNumberSpam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSpam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusSpam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDataTimeSpam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNumberPhoneSyntax;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusSyntaxMess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMess;
     }
 }
