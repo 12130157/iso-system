@@ -80,6 +80,7 @@ namespace SMS
                         int z = 0;
                         try
                         {
+                            
                             common.Constants.comm.SendMessage(pdu);
                             Output("Message {0} of {1} sent.", i + 1, times);
                             Output("");
@@ -166,5 +167,6 @@ namespace SMS
         {
             this.Close();
         }
+        
     }
 }

@@ -77,7 +77,8 @@ namespace SMS
         private delegate void ConnectedHandler(bool connected);
 
         private void OnPhoneConnectionChange(bool connected)
-        {}
+        {
+        }
         //
         //
         //
@@ -88,99 +89,24 @@ namespace SMS
         //}
         public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
-            MessageReceived();
+            MessageReceived();                
         }
-
-        public void MessageReceived()
+        private void MessageReceived()
         {
             Cursor.Current = Cursors.WaitCursor;
             string storage = GetMessageStorage();
 
             DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
-            //string statusMess;
-            
         }
-        // get message storage
         private string GetMessageStorage()
         {
-            string storage = "";
+            string storage = string.Empty;
             storage = PhoneStorageType.Sim;
 
             if (storage.Length == 0)
                 throw new ApplicationException("Unknown message storage.");
             else
                 return storage;
-        }
-        //
-        //status message
-        //private string StatusToString(PhoneMessageStatus status)
-        //{
-        //    // Map a message status to a string
-        //    string ret;
-        //    switch (status)
-        //    {
-        //        case PhoneMessageStatus.All:
-        //            ret = "1";
-        //            break;
-        //        case PhoneMessageStatus.ReceivedRead:
-        //            ret = "2";
-        //            break;
-        //        case PhoneMessageStatus.ReceivedUnread:
-        //            ret = "3";
-        //            break;
-        //        case PhoneMessageStatus.StoredSent:
-        //            ret = "4";
-        //            break;
-        //        case PhoneMessageStatus.StoredUnsent:
-        //            ret = "5";
-        //            break;
-        //        default:
-        //            ret = "Unknown (" + status.ToString() + ")";
-        //            break;
-        //    }
-        //    return ret;
-        //}
-        //
-        //
-        //show mesage
-        public int ShowMessage(SmsPdu pdu)
-        {
-            int i = 0;
-            if (pdu is SmsSubmitPdu)
-            {
-                // Stored (sent/unsent) message
-                SmsSubmitPdu data = (SmsSubmitPdu)pdu;
-                //Output("SENT/UNSENT MESSAGE");
-                //Output("Recipient: " + data.DestinationAddress);
-                //Output("Message text: " + data.UserDataText);
-                //Output("-------------------------------------------------------------------");
-                i = 1;
-            }
-            if (pdu is SmsDeliverPdu)
-            {
-                // Received message
-                SmsDeliverPdu data = (SmsDeliverPdu)pdu;
-                //Output("RECEIVED MESSAGE");
-                //Output("Sender: " + data.OriginatingAddress);
-                //Output("Sent: " + data.SCTimestamp.ToString());
-                //Output("Message text: " + data.UserDataText);
-                //Output("-------------------------------------------------------------------");
-                i = 2;
-            }
-            if (pdu is SmsStatusReportPdu)
-            {
-                // Status report
-                SmsStatusReportPdu data = (SmsStatusReportPdu)pdu;
-                //Output("STATUS REPORT");
-                //Output("Recipient: " + data.RecipientAddress);
-                //Output("Status: " + data.Status.ToString());
-                //Output("Timestamp: " + data.DischargeTime.ToString());
-                //Output("Message ref: " + data.MessageReference.ToString());
-                //Output("-------------------------------------------------------------------");
-                i = 3;
-            }
-            //Output("Unknown message type: " + pdu.GetType().ToString());
-            return i;
         }
     }
 }

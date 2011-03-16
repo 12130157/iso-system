@@ -37,7 +37,7 @@ namespace SMS
                 MessageBox.Show("Connect successfull");
                 this.Hide();
                 FormMain frmMain = new FormMain();
-                frmMain.ShowDialog();
+                frmMain.Show();
                 
             }
             else
@@ -45,7 +45,7 @@ namespace SMS
                 MessageBox.Show("Connect Failed");
                 this.Hide();
                 FormMain frmMain = new FormMain();
-                frmMain.ShowDialog();
+                frmMain.Show();
             }
         }
 

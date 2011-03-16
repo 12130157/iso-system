@@ -175,6 +175,37 @@ namespace SMS
                 throw;
             }
         }
+
+        public static DataTable getAllSyntaxMess()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMess"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            return DataUtil.executeQuery(objCommand);
+
+            //foreach (DataRow row in result.Rows)
+            //{
+            //    HopThuDenMODEL hopThuDenMODEL = new HopThuDenMODEL();
+
+            //    hopThuDenMODEL.Id = row["ID"].ToString();
+            //    hopThuDenMODEL.So_Dien_Thoai = row["So_dien_thoai"].ToString();
+            //    hopThuDenMODEL.Ma_Cu_Phap = row["Ma_cu_phap"].ToString();
+            //    hopThuDenMODEL.Noi_Dung_Tin_Nhan = row["Noi_dung_tin_nhan"].ToString();
+            //    hopThuDenMODEL.Tinh_Trang = row["Tinh_trang"].ToString();
+            //    hopThuDenMODEL.Loai_Hop_Thu = row["Loai_hop_thu"].ToString();
+            //    hopThuDenMODEL.Ma_Tin_Nhan_Tra_Loi = row["Ma_tin_nhan_tra_loi"].ToString();
+            //    hopThuDenMODEL.Ngay_Nhan = row["Ngay_nhan"].ToString();
+            //    hopThuDenMODEL.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+            //    hopThuDenMODEL.User11 = row["User1"].ToString();
+            //    hopThuDenMODEL.User21 = row["User2"].ToString();
+            //    hopThuDenMODEL.User31 = row["User3"].ToString();
+            //    hopThuDenMODEL.User41 = row["User4"].ToString();
+            //    hopThuDenMODEL.User51 = row["User5"].ToString();
+
+            //    listSyntaxMess.Add(hopThuDenMODEL);
+            //}
+            //return listHopThuDen;
+        }
         #endregion
 
         #region delete 1 hop thu den trong CSDL
