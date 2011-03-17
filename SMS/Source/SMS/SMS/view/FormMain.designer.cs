@@ -48,6 +48,7 @@ namespace SMS
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lbStatus = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuTool.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,11 +197,22 @@ namespace SMS
             this.lbStatus.TabIndex = 4;
             this.lbStatus.Text = "Not Conectted";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(311, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 661);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F);
@@ -238,5 +250,6 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Label lbStatus;
+        private System.Windows.Forms.Button button1;
     }
 }

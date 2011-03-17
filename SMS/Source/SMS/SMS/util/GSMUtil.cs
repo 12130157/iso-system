@@ -98,6 +98,8 @@ namespace SMS
             string storage = GetMessageStorage();
 
             DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            foreach (DecodedShortMessage message in messages)
+            { }
         }
         private string GetMessageStorage()
         {
