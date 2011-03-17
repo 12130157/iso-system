@@ -40,13 +40,11 @@ namespace SMS
 
         public void OnTimer(Object source, ElapsedEventArgs e)
         {
-            
-                Cursor.Current = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;
+            string storage = GetMessageStorage();
 
-
-                string storage = GetMessageStorage();
             try
-            {     
+            {
 
                 DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
@@ -54,8 +52,12 @@ namespace SMS
                 {
                     MessageBox.Show(messages.Length.ToString());
                 }
+                else
+                {
+                    //MessageBox.Show("khong co tin nhan");
+                }
 
-                
+
                 SmsPdu dataMess;
                 HopThuDenMODEL model;
 
@@ -125,14 +127,14 @@ namespace SMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("OnTimer(): " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
             Cursor.Current = Cursors.Default;
             MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
             int memUesd = memnoryStatus.Used;
             if (memUesd != 0)
             {
-                common.Constants.comm.DeleteMessages(DeleteScope.All,PhoneStorageType.Sim);
+                common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
             }
         }
 
@@ -279,6 +281,106 @@ namespace SMS
                 throw new ApplicationException("Unknown message storage.");
             else
                 return storage;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Cursor.Current = Cursors.WaitCursor;
+            //string storage = GetMessageStorage();
+
+            //try
+            //{
+
+            //    DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+
+            //    if (messages.Length != 0)
+            //    {
+            //        MessageBox.Show(messages.Length.ToString());
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("khong co tin nhan");
+            //    }
+
+
+            //    SmsPdu dataMess;
+            //    HopThuDenMODEL model;
+
+            //    foreach (DecodedShortMessage message in messages)
+            //    {
+
+            //        dataMess = message.Data;
+            //        SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
+
+            //        string desMess = data.OriginatingAddress.ToString();
+            //        string contentMess = data.UserDataText;
+
+            //        model = new HopThuDenMODEL();
+
+            //        string[] arrContentMess = contentMess.Split(' ');
+            //        if (arrContentMess.Length <= 1)
+            //        {
+            //            model.So_Dien_Thoai = desMess;
+            //            model.Ma_Cu_Phap = "";
+            //            model.Noi_Dung_Tin_Nhan = contentMess;
+            //            model.Tinh_Trang = "0";
+            //            model.Loai_Hop_Thu = "0";
+            //        }
+            //        else
+            //        {
+            //            string cumCuPhap = "";
+
+            //            for (int i = 0; i <= arrContentMess.Length - 2; i++)
+            //            {
+            //                cumCuPhap += arrContentMess[i];
+            //            }
+            //            //check cu phap khi nhan tin nhan 
+            //            CuPhapMODEL cuPhapModel = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+            //            //lay data luu vao model hopthuden 
+            //            model.So_Dien_Thoai = desMess;
+            //            model.Noi_Dung_Tin_Nhan = contentMess;
+            //            model.Tinh_Trang = "0";
+            //            //loai hop thu = 0 ---> ko theo cu phap 
+            //            if (cuPhapModel.Id != null)
+            //            {
+            //                model.Loai_Hop_Thu = "0";
+            //                model.Ma_Cu_Phap = cuPhapModel.Id;
+            //            }
+            //            //loai hop thu = 1 ----> theo cu phap
+            //            else
+            //            {
+            //                model.Ma_Cu_Phap = "";
+            //                model.Loai_Hop_Thu = "1";
+            //            }
+            //        }
+            //        model.User11 = "";
+            //        model.User21 = "";
+            //        model.User31 = "";
+            //        model.User41 = "";
+            //        model.User51 = "";
+
+            //        bool result = HopThuDenDAO.insertHopThuDen(model);
+            //        if (result == true)
+            //        {
+            //            MessageBox.Show("Insert 1 thu den thanh cong");
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Insert hop thu den that bai");
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //Cursor.Current = Cursors.Default;
+            //MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
+            //int memUesd = memnoryStatus.Used;
+            //if (memUesd != 0)
+            //{
+            //    common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
+            //}
         }
     } 
 }
