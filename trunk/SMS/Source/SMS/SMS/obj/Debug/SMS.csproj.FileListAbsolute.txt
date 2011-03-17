@@ -89,22 +89,6 @@ C:\Documents and Settings\NVNuoi\Desktop\SMS\SMS\obj\Debug\SMS.FormManageKeyword
 C:\Documents and Settings\NVNuoi\Desktop\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
 C:\Documents and Settings\NVNuoi\Desktop\SMS\SMS\obj\Debug\SMS.view.FormSend.resources
 C:\Documents and Settings\NVNuoi\Desktop\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormChangePassword.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInbox.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInboxMessageType.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormLogin.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormMain.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageAccount.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageKeyword.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
-E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
 D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
 D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
 D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.FormAddressBook.resources
@@ -125,7 +109,23 @@ D:\ISO_SMS\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
 D:\ISO_SMS\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
 D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
 D:\ISO_SMS\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\ResolveAssemblyReference.cache
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.Properties.Resources.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormAddressBook.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormChangePassword.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormCompose.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.frmConn.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInbox.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormInboxMessageType.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormLogin.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormMain.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageAccount.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormManageKeyword.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormOutbox.resources
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.FormSend.resources
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.csproj.GenerateResource.Cache
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.exe.config
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
+E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb

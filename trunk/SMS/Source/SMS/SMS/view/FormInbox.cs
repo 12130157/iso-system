@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,22 +14,23 @@ namespace SMS
         public FormInbox()
         {
             InitializeComponent();
-            dloadGrid();
+            //dloadGrid();
         }
         public void showSyntaxMess()
         { 
+            bool kq = HopThuDenDAO.getAllSyntaxMess();
+            //ArrayList list = SELECT_MESSDAO.getAll();
             
-        }
+            //foreach (SELECT_MESSMODEL model in list)
+            //{
+            //    //DataSet ds = new DataSet();
+                
+            //    //tblSyntaxMess.(ds);
+            //}
 
-        //private void FormInbox_Load(object sender, EventArgs e)
-        //{
-        //    // TODO: This line of code loads data into the 'gSMDataSet.HopThuDen' table. You can move, or remove it, as needed.
-        //    this.hopThuDenTableAdapter.Fill(this.gSMDataSet.HopThuDen);
 
-        //}
-        private void dloadGrid()
-        {
-            tblSyntaxMess.DataSource = HopThuDenDAO.getAllSyntaxMess();
+            //DataTable tableContent = SELECT_MESSDAO.getAllData();
+            //tblSyntaxMess.DataSource = tableContent;
         }
     }
 }
