@@ -29,20 +29,16 @@ namespace SMS
                 this.lbStatus.Text = "Connected";
                 InitializeTimer();
             }
-            
-           // this.BackgroundImage = new Bitmap("images/bg.jpg");
-
-            
         }
 
         public void InitializeTimer()
         {
-            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(timerRecieveMess);
+            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
             this.autoRecieveMess.Interval = 1000;
             this.autoRecieveMess.Enabled = true;
         }
 
-        public void timerRecieveMess(Object source, ElapsedEventArgs e)
+        public void OnTimer(Object source, ElapsedEventArgs e)
         {
             try
             {
@@ -53,17 +49,18 @@ namespace SMS
 
                 DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
-                //MessageBox.Show(messages.Length.ToString());
+                if (messages.Length != 0)
+                {
+                    MessageBox.Show(messages.Length.ToString());
+                }
 
-                //MessageBox.Show(messages[27].Data.UserDataText.ToString());
-
-
-
+                
                 SmsPdu dataMess;
                 HopThuDenMODEL model;
 
                 foreach (DecodedShortMessage message in messages)
                 {
+
                     dataMess = message.Data;
                     SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
 
@@ -101,7 +98,7 @@ namespace SMS
                             model.Loai_Hop_Thu = "0";
                             model.Ma_Cu_Phap = cuPhapModel.Id;
                         }
-                        //        //loai hop thu = 1 ----> theo cu phap
+                        //loai hop thu = 1 ----> theo cu phap
                         else
                         {
                             model.Ma_Cu_Phap = "";
@@ -128,6 +125,12 @@ namespace SMS
             catch (Exception ex)
             {
                 MessageBox.Show("OnTimer(): " + ex.Message);
+            }
+            MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
+            int memUesd = memnoryStatus.Used;
+            if (memUesd != 0)
+            {
+                common.Constants.comm.DeleteMessages(DeleteScope.All,PhoneStorageType.Sim);
             }
         }
 
@@ -265,11 +268,6 @@ namespace SMS
             Application.Exit();
         }
 
-        private void btnAutoRecieve_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private string GetMessageStorage()
         {
             string storage = "";
@@ -280,101 +278,5 @@ namespace SMS
             else
                 return storage;
         }
-        #region chưa xu ly
-        //private void menuClickAction(object sender, EventArgs e)
-        //{
-        //    ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
-        //    if (menuItem.Name.Equals("Logout"))
-        //    {
-        //        //Constants.USER_LOGIN = new ThanhVienModel();
-        //        FormLogin formDangNhap = new FormLogin();
-        //        this.Visible = false;
-        //        formDangNhap.ShowDialog();
-        //    }
-        //    else if (menuItem.Name.Equals("Cancel"))
-        //    {
-        //        if (MessageBox.Show(this, "Bạn có chắc muốn thoát ?", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //        {
-        //            Application.Exit();
-        //        }
-
-        //    }
-        //    else if (menuItem.Name.Equals("Change Password"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-        //        }
-        //        FormChangePassword formChangePassword = new FormChangePassword();
-        //        formChangePassword.MdiParent = this;
-        //        formChangePassword.Show();
-        //        listform.Add(formChangePassword);
-        //    }
-        //    else if (menuItem.Name.Equals("Compose"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-        //        }
-        //        view.FormCompose formcompose = new view.FormCompose();
-        //        formcompose.MdiParent = this;
-        //        formcompose.Show();
-        //        listform.Add(formcompose);
-        //    }
-        //    else if (menuItem.Name.Equals("Sent"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-        //        }
-        //        FormSentOk formsent = new FormSentOk();
-        //        formsent.MdiParent = this;
-        //        formsent.Show();
-        //        listform.Add(formsent);
-        //    }
-        //    else if (menuItem.Name.Equals("Bản Quyền"))
-        //    {
-        //        //
-        //    }
-        //    else if (menuItem.Name.Equals("Hướng Dẫn"))
-        //    {
-        //        //
-        //    }
-        //    else if (menuItem.Name.Equals("Inbox"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-        //        }
-        //        FormInbox formInbox = new FormInbox();
-        //        formInbox.MdiParent = this;
-        //        formInbox.Show();
-        //        listform.Add(formInbox);
-        //    }
-        //    else if (menuItem.Name.Equals("OutBox"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-        //        }
-        //        FormOutbox formOutBox = new FormOutbox();
-        //        formOutBox.MdiParent = this;
-        //        formOutBox.Show();
-        //        listform.Add(formOutBox);
-        //    }
-        //    else if (menuItem.Name.Equals("Address book"))
-        //    {
-        //        foreach (Form f in listform)
-        //        {
-        //            f.Close();
-
-        //        }
-        //        view.FormAddressBook formAddressBook = new view.FormAddressBook();
-        //        formAddressBook.MdiParent = this;
-        //        formAddressBook.Show();
-        //        listform.Add(formAddressBook);
-        //    }
-        //}
-        #endregion
     } 
 }

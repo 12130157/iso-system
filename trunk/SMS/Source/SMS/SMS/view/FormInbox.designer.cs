@@ -37,12 +37,6 @@
             this.cboFilterInbox = new System.Windows.Forms.ComboBox();
             this.lbFilterInbox = new System.Windows.Forms.Label();
             this.tblSyntaxMess = new System.Windows.Forms.DataGridView();
-            this.clmIdSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNumberPhoneSyntax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmContentSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmStatusSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDateTimeSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabNormalMessage = new System.Windows.Forms.TabPage();
             this.btnComposeSpam = new System.Windows.Forms.Button();
             this.btnDeleteSpam = new System.Windows.Forms.Button();
@@ -55,6 +49,12 @@
             this.clmContentSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmStatusSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDataTimeSpam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmIdSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNumberPhoneSyntax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmContentSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmStatusSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDateTimeSyntaxMess = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControls.SuspendLayout();
             this.tabSyntaxMess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMess)).BeginInit();
@@ -85,7 +85,7 @@
             this.tabControls.Location = new System.Drawing.Point(0, 38);
             this.tabControls.Name = "tabControls";
             this.tabControls.SelectedIndex = 0;
-            this.tabControls.Size = new System.Drawing.Size(782, 307);
+            this.tabControls.Size = new System.Drawing.Size(880, 325);
             this.tabControls.TabIndex = 3;
             // 
             // tabSyntaxMess
@@ -100,7 +100,7 @@
             this.tabSyntaxMess.Location = new System.Drawing.Point(4, 25);
             this.tabSyntaxMess.Name = "tabSyntaxMess";
             this.tabSyntaxMess.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSyntaxMess.Size = new System.Drawing.Size(774, 278);
+            this.tabSyntaxMess.Size = new System.Drawing.Size(872, 296);
             this.tabSyntaxMess.TabIndex = 0;
             this.tabSyntaxMess.Text = "Syntax Message";
             this.tabSyntaxMess.UseVisualStyleBackColor = true;
@@ -109,7 +109,7 @@
             // 
             this.btnComposeInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnComposeInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnComposeInbox.Location = new System.Drawing.Point(368, 245);
+            this.btnComposeInbox.Location = new System.Drawing.Point(368, 263);
             this.btnComposeInbox.Name = "btnComposeInbox";
             this.btnComposeInbox.Size = new System.Drawing.Size(94, 23);
             this.btnComposeInbox.TabIndex = 10;
@@ -120,7 +120,7 @@
             // 
             this.btnDeleteInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteInbox.Location = new System.Drawing.Point(483, 245);
+            this.btnDeleteInbox.Location = new System.Drawing.Point(483, 263);
             this.btnDeleteInbox.Name = "btnDeleteInbox";
             this.btnDeleteInbox.Size = new System.Drawing.Size(94, 23);
             this.btnDeleteInbox.TabIndex = 9;
@@ -131,7 +131,7 @@
             // 
             this.btnReloadInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReloadInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReloadInbox.Location = new System.Drawing.Point(254, 245);
+            this.btnReloadInbox.Location = new System.Drawing.Point(254, 263);
             this.btnReloadInbox.Name = "btnReloadInbox";
             this.btnReloadInbox.Size = new System.Drawing.Size(94, 23);
             this.btnReloadInbox.TabIndex = 8;
@@ -148,7 +148,7 @@
             "Phone Number",
             "Status",
             "Date-Time"});
-            this.cboFilterInbox.Location = new System.Drawing.Point(71, 245);
+            this.cboFilterInbox.Location = new System.Drawing.Point(71, 263);
             this.cboFilterInbox.Name = "cboFilterInbox";
             this.cboFilterInbox.Size = new System.Drawing.Size(138, 24);
             this.cboFilterInbox.TabIndex = 7;
@@ -160,7 +160,7 @@
             this.lbFilterInbox.AutoSize = true;
             this.lbFilterInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFilterInbox.ForeColor = System.Drawing.Color.Navy;
-            this.lbFilterInbox.Location = new System.Drawing.Point(8, 246);
+            this.lbFilterInbox.Location = new System.Drawing.Point(8, 264);
             this.lbFilterInbox.Name = "lbFilterInbox";
             this.lbFilterInbox.Size = new System.Drawing.Size(48, 18);
             this.lbFilterInbox.TabIndex = 6;
@@ -183,8 +183,131 @@
             this.tblSyntaxMess.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMess.Name = "tblSyntaxMess";
             this.tblSyntaxMess.RowHeadersVisible = false;
-            this.tblSyntaxMess.Size = new System.Drawing.Size(774, 230);
+            this.tblSyntaxMess.Size = new System.Drawing.Size(872, 248);
             this.tblSyntaxMess.TabIndex = 0;
+            // 
+            // tabNormalMessage
+            // 
+            this.tabNormalMessage.AllowDrop = true;
+            this.tabNormalMessage.CausesValidation = false;
+            this.tabNormalMessage.Controls.Add(this.btnComposeSpam);
+            this.tabNormalMessage.Controls.Add(this.btnDeleteSpam);
+            this.tabNormalMessage.Controls.Add(this.btnReloadSpam);
+            this.tabNormalMessage.Controls.Add(this.cboFilterSpam);
+            this.tabNormalMessage.Controls.Add(this.lbFilterSpam);
+            this.tabNormalMessage.Controls.Add(this.tblSpam);
+            this.tabNormalMessage.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabNormalMessage.Location = new System.Drawing.Point(4, 25);
+            this.tabNormalMessage.Name = "tabNormalMessage";
+            this.tabNormalMessage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabNormalMessage.Size = new System.Drawing.Size(872, 296);
+            this.tabNormalMessage.TabIndex = 1;
+            this.tabNormalMessage.Text = "Normal Message";
+            this.tabNormalMessage.UseVisualStyleBackColor = true;
+            // 
+            // btnComposeSpam
+            // 
+            this.btnComposeSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnComposeSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnComposeSpam.Location = new System.Drawing.Point(352, 263);
+            this.btnComposeSpam.Name = "btnComposeSpam";
+            this.btnComposeSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnComposeSpam.TabIndex = 5;
+            this.btnComposeSpam.Text = "Compose";
+            this.btnComposeSpam.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteSpam
+            // 
+            this.btnDeleteSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeleteSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteSpam.Location = new System.Drawing.Point(464, 263);
+            this.btnDeleteSpam.Name = "btnDeleteSpam";
+            this.btnDeleteSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnDeleteSpam.TabIndex = 4;
+            this.btnDeleteSpam.Text = "Delete";
+            this.btnDeleteSpam.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadSpam
+            // 
+            this.btnReloadSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReloadSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadSpam.Location = new System.Drawing.Point(242, 263);
+            this.btnReloadSpam.Name = "btnReloadSpam";
+            this.btnReloadSpam.Size = new System.Drawing.Size(94, 23);
+            this.btnReloadSpam.TabIndex = 3;
+            this.btnReloadSpam.Text = "Reload";
+            this.btnReloadSpam.UseVisualStyleBackColor = true;
+            // 
+            // cboFilterSpam
+            // 
+            this.cboFilterSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFilterSpam.FormattingEnabled = true;
+            this.cboFilterSpam.Items.AddRange(new object[] {
+            "All",
+            "Phone Number",
+            "Status",
+            "Date-Time"});
+            this.cboFilterSpam.Location = new System.Drawing.Point(73, 261);
+            this.cboFilterSpam.Name = "cboFilterSpam";
+            this.cboFilterSpam.Size = new System.Drawing.Size(138, 24);
+            this.cboFilterSpam.TabIndex = 2;
+            this.cboFilterSpam.Text = "All";
+            // 
+            // lbFilterSpam
+            // 
+            this.lbFilterSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbFilterSpam.AutoSize = true;
+            this.lbFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFilterSpam.ForeColor = System.Drawing.Color.Navy;
+            this.lbFilterSpam.Location = new System.Drawing.Point(8, 264);
+            this.lbFilterSpam.Name = "lbFilterSpam";
+            this.lbFilterSpam.Size = new System.Drawing.Size(48, 18);
+            this.lbFilterSpam.TabIndex = 1;
+            this.lbFilterSpam.Text = "Filter :";
+            // 
+            // tblSpam
+            // 
+            this.tblSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblSpam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.tblSpam.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmIdSpam,
+            this.clmPhoneNumberSpam,
+            this.clmContentSpam,
+            this.clmStatusSpam,
+            this.clmDataTimeSpam});
+            this.tblSpam.Location = new System.Drawing.Point(0, 0);
+            this.tblSpam.Name = "tblSpam";
+            this.tblSpam.RowHeadersVisible = false;
+            this.tblSpam.Size = new System.Drawing.Size(872, 248);
+            this.tblSpam.TabIndex = 0;
+            // 
+            // clmIdSpam
+            // 
+            this.clmIdSpam.HeaderText = "ID";
+            this.clmIdSpam.Name = "clmIdSpam";
+            // 
+            // clmPhoneNumberSpam
+            // 
+            this.clmPhoneNumberSpam.HeaderText = "Phone Number";
+            this.clmPhoneNumberSpam.Name = "clmPhoneNumberSpam";
+            // 
+            // clmContentSpam
+            // 
+            this.clmContentSpam.HeaderText = "Content";
+            this.clmContentSpam.Name = "clmContentSpam";
+            // 
+            // clmStatusSpam
+            // 
+            this.clmStatusSpam.HeaderText = "Status";
+            this.clmStatusSpam.Name = "clmStatusSpam";
+            // 
+            // clmDataTimeSpam
+            // 
+            this.clmDataTimeSpam.HeaderText = "Date-Time";
+            this.clmDataTimeSpam.Name = "clmDataTimeSpam";
             // 
             // clmIdSyntaxMess
             // 
@@ -222,136 +345,13 @@
             this.clmDateTimeSyntaxMess.HeaderText = "Date-Time";
             this.clmDateTimeSyntaxMess.Name = "clmDateTimeSyntaxMess";
             // 
-            // tabNormalMessage
-            // 
-            this.tabNormalMessage.AllowDrop = true;
-            this.tabNormalMessage.CausesValidation = false;
-            this.tabNormalMessage.Controls.Add(this.btnComposeSpam);
-            this.tabNormalMessage.Controls.Add(this.btnDeleteSpam);
-            this.tabNormalMessage.Controls.Add(this.btnReloadSpam);
-            this.tabNormalMessage.Controls.Add(this.cboFilterSpam);
-            this.tabNormalMessage.Controls.Add(this.lbFilterSpam);
-            this.tabNormalMessage.Controls.Add(this.tblSpam);
-            this.tabNormalMessage.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabNormalMessage.Location = new System.Drawing.Point(4, 25);
-            this.tabNormalMessage.Name = "tabNormalMessage";
-            this.tabNormalMessage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNormalMessage.Size = new System.Drawing.Size(774, 278);
-            this.tabNormalMessage.TabIndex = 1;
-            this.tabNormalMessage.Text = "Normal Message";
-            this.tabNormalMessage.UseVisualStyleBackColor = true;
-            // 
-            // btnComposeSpam
-            // 
-            this.btnComposeSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnComposeSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnComposeSpam.Location = new System.Drawing.Point(352, 245);
-            this.btnComposeSpam.Name = "btnComposeSpam";
-            this.btnComposeSpam.Size = new System.Drawing.Size(94, 23);
-            this.btnComposeSpam.TabIndex = 5;
-            this.btnComposeSpam.Text = "Compose";
-            this.btnComposeSpam.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteSpam
-            // 
-            this.btnDeleteSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDeleteSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteSpam.Location = new System.Drawing.Point(464, 245);
-            this.btnDeleteSpam.Name = "btnDeleteSpam";
-            this.btnDeleteSpam.Size = new System.Drawing.Size(94, 23);
-            this.btnDeleteSpam.TabIndex = 4;
-            this.btnDeleteSpam.Text = "Delete";
-            this.btnDeleteSpam.UseVisualStyleBackColor = true;
-            // 
-            // btnReloadSpam
-            // 
-            this.btnReloadSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnReloadSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReloadSpam.Location = new System.Drawing.Point(242, 245);
-            this.btnReloadSpam.Name = "btnReloadSpam";
-            this.btnReloadSpam.Size = new System.Drawing.Size(94, 23);
-            this.btnReloadSpam.TabIndex = 3;
-            this.btnReloadSpam.Text = "Reload";
-            this.btnReloadSpam.UseVisualStyleBackColor = true;
-            // 
-            // cboFilterSpam
-            // 
-            this.cboFilterSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFilterSpam.FormattingEnabled = true;
-            this.cboFilterSpam.Items.AddRange(new object[] {
-            "All",
-            "Phone Number",
-            "Status",
-            "Date-Time"});
-            this.cboFilterSpam.Location = new System.Drawing.Point(73, 243);
-            this.cboFilterSpam.Name = "cboFilterSpam";
-            this.cboFilterSpam.Size = new System.Drawing.Size(138, 24);
-            this.cboFilterSpam.TabIndex = 2;
-            this.cboFilterSpam.Text = "All";
-            // 
-            // lbFilterSpam
-            // 
-            this.lbFilterSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbFilterSpam.AutoSize = true;
-            this.lbFilterSpam.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFilterSpam.ForeColor = System.Drawing.Color.Navy;
-            this.lbFilterSpam.Location = new System.Drawing.Point(8, 246);
-            this.lbFilterSpam.Name = "lbFilterSpam";
-            this.lbFilterSpam.Size = new System.Drawing.Size(48, 18);
-            this.lbFilterSpam.TabIndex = 1;
-            this.lbFilterSpam.Text = "Filter :";
-            // 
-            // tblSpam
-            // 
-            this.tblSpam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblSpam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.tblSpam.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmIdSpam,
-            this.clmPhoneNumberSpam,
-            this.clmContentSpam,
-            this.clmStatusSpam,
-            this.clmDataTimeSpam});
-            this.tblSpam.Location = new System.Drawing.Point(0, 0);
-            this.tblSpam.Name = "tblSpam";
-            this.tblSpam.RowHeadersVisible = false;
-            this.tblSpam.Size = new System.Drawing.Size(774, 230);
-            this.tblSpam.TabIndex = 0;
-            // 
-            // clmIdSpam
-            // 
-            this.clmIdSpam.HeaderText = "ID";
-            this.clmIdSpam.Name = "clmIdSpam";
-            // 
-            // clmPhoneNumberSpam
-            // 
-            this.clmPhoneNumberSpam.HeaderText = "Phone Number";
-            this.clmPhoneNumberSpam.Name = "clmPhoneNumberSpam";
-            // 
-            // clmContentSpam
-            // 
-            this.clmContentSpam.HeaderText = "Content";
-            this.clmContentSpam.Name = "clmContentSpam";
-            // 
-            // clmStatusSpam
-            // 
-            this.clmStatusSpam.HeaderText = "Status";
-            this.clmStatusSpam.Name = "clmStatusSpam";
-            // 
-            // clmDataTimeSpam
-            // 
-            this.clmDataTimeSpam.HeaderText = "Date-Time";
-            this.clmDataTimeSpam.Name = "clmDataTimeSpam";
-            // 
             // FormInbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(779, 343);
+            this.ClientSize = new System.Drawing.Size(877, 361);
             this.Controls.Add(this.tabControls);
             this.Controls.Add(this.lbTitle);
             this.Name = "FormInbox";

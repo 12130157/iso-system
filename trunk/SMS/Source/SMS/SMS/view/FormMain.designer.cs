@@ -47,10 +47,8 @@ namespace SMS
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer = new System.Timers.Timer();
             this.lbStatus = new System.Windows.Forms.Label();
             this.menuTool.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timer)).BeginInit();
             this.SuspendLayout();
             // 
             // menuTool
@@ -187,12 +185,6 @@ namespace SMS
             this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.SynchronizingObject = this;
-            // 
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
@@ -221,7 +213,6 @@ namespace SMS
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,7 +237,6 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private Timer timer;
         private System.Windows.Forms.Label lbStatus;
     }
 }
