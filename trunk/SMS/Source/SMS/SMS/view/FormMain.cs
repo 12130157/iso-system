@@ -40,12 +40,13 @@ namespace SMS
 
         public void OnTimer(Object source, ElapsedEventArgs e)
         {
-            try
-            {
+            
                 Cursor.Current = Cursors.WaitCursor;
 
 
                 string storage = GetMessageStorage();
+            try
+            {     
 
                 DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
@@ -126,6 +127,7 @@ namespace SMS
             {
                 MessageBox.Show("OnTimer(): " + ex.Message);
             }
+            Cursor.Current = Cursors.Default;
             MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
             int memUesd = memnoryStatus.Used;
             if (memUesd != 0)
