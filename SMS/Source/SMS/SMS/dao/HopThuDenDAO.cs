@@ -12,7 +12,7 @@ namespace SMS
 {
     class HopThuDenDAO
     {
-        #region thong tin chi tiet hop thu den
+        
         public static ArrayList getAllHopThuDen()
         {
             ArrayList listHopThuDen = new ArrayList();
@@ -42,9 +42,7 @@ namespace SMS
             }
             return listHopThuDen;
         }
-        #endregion
-
-        #region lay ra thu den theo ID
+        
         public static HopThuDenMODEL getHopThuDenByID(int id)
         {
             HopThuDenMODEL hopThuDenModel = new HopThuDenMODEL();
@@ -71,9 +69,7 @@ namespace SMS
             }
             return hopThuDenModel;
         }
-        #endregion
 
-        #region them 1 hop thu den vao CSDL
         public static bool insertHopThuDen(HopThuDenMODEL hopThuDenMODEL)
         {
             try
@@ -123,9 +119,6 @@ namespace SMS
             }
         }
 
-        #endregion
-
-        #region update 1 hop thu den trong CSDL
         public static Boolean updateHopTuDen(HopThuDenMODEL hopThuDenModel)
         {
             try
@@ -176,39 +169,16 @@ namespace SMS
             }
         }
 
-        public static DataTable getAllSyntaxMess()
+        public static bool getAllSyntaxMess()
         {
-            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMess"];
-            SqlCommand objCommand = new SqlCommand(sql);
+            SqlParameter[] parameter = new SqlParameter[1];
+            parameter[0].Value = "0";
 
-            return DataUtil.executeQuery(objCommand);
+            Boolean result = DataUtil.executeNonStore("sp_SELECT_MESSENGER", parameter);
 
-            //foreach (DataRow row in result.Rows)
-            //{
-            //    HopThuDenMODEL hopThuDenMODEL = new HopThuDenMODEL();
-
-            //    hopThuDenMODEL.Id = row["ID"].ToString();
-            //    hopThuDenMODEL.So_Dien_Thoai = row["So_dien_thoai"].ToString();
-            //    hopThuDenMODEL.Ma_Cu_Phap = row["Ma_cu_phap"].ToString();
-            //    hopThuDenMODEL.Noi_Dung_Tin_Nhan = row["Noi_dung_tin_nhan"].ToString();
-            //    hopThuDenMODEL.Tinh_Trang = row["Tinh_trang"].ToString();
-            //    hopThuDenMODEL.Loai_Hop_Thu = row["Loai_hop_thu"].ToString();
-            //    hopThuDenMODEL.Ma_Tin_Nhan_Tra_Loi = row["Ma_tin_nhan_tra_loi"].ToString();
-            //    hopThuDenMODEL.Ngay_Nhan = row["Ngay_nhan"].ToString();
-            //    hopThuDenMODEL.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-            //    hopThuDenMODEL.User11 = row["User1"].ToString();
-            //    hopThuDenMODEL.User21 = row["User2"].ToString();
-            //    hopThuDenMODEL.User31 = row["User3"].ToString();
-            //    hopThuDenMODEL.User41 = row["User4"].ToString();
-            //    hopThuDenMODEL.User51 = row["User5"].ToString();
-
-            //    listSyntaxMess.Add(hopThuDenMODEL);
-            //}
-            //return listHopThuDen;
+            return result;            
         }
-        #endregion
-
-        #region delete 1 hop thu den trong CSDL
+        
         public static bool deleteHopThuDen(int id)
         {
             String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteHopThuDen"];
@@ -218,6 +188,6 @@ namespace SMS
             Boolean kq = DataUtil.executeNonQuery(objCommand);
             return kq;
         }
-        #endregion
+        
     }
 }

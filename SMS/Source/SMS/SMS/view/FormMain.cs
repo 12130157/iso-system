@@ -37,12 +37,12 @@ namespace SMS
 
         public void InitializeTimer()
         {
-            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
+            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(timerRecieveMess);
             this.autoRecieveMess.Interval = 1000;
             this.autoRecieveMess.Enabled = true;
         }
 
-        public void OnTimer(Object source, ElapsedEventArgs e)
+        public void timerRecieveMess(Object source, ElapsedEventArgs e)
         {
             try
             {
@@ -64,9 +64,9 @@ namespace SMS
 
                 foreach (DecodedShortMessage message in messages)
                 {
-                    //statusMess = message.Status;
                     dataMess = message.Data;
                     SmsDeliverPdu data = (SmsDeliverPdu)dataMess;
+
                     string desMess = data.OriginatingAddress.ToString();
                     string contentMess = data.UserDataText;
 
@@ -117,7 +117,7 @@ namespace SMS
                     bool result = HopThuDenDAO.insertHopThuDen(model);
                     if (result == true)
                     {
-                        MessageBox.Show("Insert hop thu den thanh cong");
+                        MessageBox.Show("Insert 1 thu den thanh cong");
                     }
                     else
                     {
