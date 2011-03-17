@@ -14,23 +14,12 @@ namespace SMS
         public FormInbox()
         {
             InitializeComponent();
-            //dloadGrid();
+            showSyntaxMess();
         }
         public void showSyntaxMess()
-        { 
-            bool kq = HopThuDenDAO.getAllSyntaxMess();
-            //ArrayList list = SELECT_MESSDAO.getAll();
-            
-            //foreach (SELECT_MESSMODEL model in list)
-            //{
-            //    //DataSet ds = new DataSet();
-                
-            //    //tblSyntaxMess.(ds);
-            //}
-
-
-            //DataTable tableContent = SELECT_MESSDAO.getAllData();
-            //tblSyntaxMess.DataSource = tableContent;
+        {
+            DataTable tableSyntaxMess = HopThuDenDAO.getAllSyntaxMess();
+            tblSyntaxMess.DataSource = tableSyntaxMess;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace SMS
             {
                 common.Constants.comm.Open();
             }
+              
             catch (Exception)
             {
                 return false;

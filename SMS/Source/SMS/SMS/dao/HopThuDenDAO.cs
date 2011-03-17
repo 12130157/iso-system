@@ -168,16 +168,6 @@ namespace SMS
                 throw;
             }
         }
-
-        public static bool getAllSyntaxMess()
-        {
-            SqlParameter[] parameter = new SqlParameter[1];
-            parameter[0].Value = "0";
-
-            Boolean result = DataUtil.executeNonStore("sp_SELECT_MESSENGER", parameter);
-
-            return result;            
-        }
         
         public static bool deleteHopThuDen(int id)
         {
@@ -187,6 +177,16 @@ namespace SMS
 
             Boolean kq = DataUtil.executeNonQuery(objCommand);
             return kq;
+        }
+
+        public static DataTable getAllSyntaxMess()
+        {
+
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMess"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
         }
         
     }
