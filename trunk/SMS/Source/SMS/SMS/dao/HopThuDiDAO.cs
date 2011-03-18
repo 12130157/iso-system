@@ -12,7 +12,6 @@ namespace SMS
 {
     class HopThuDiDAO
     {
-        #region thong tin chi tiet hop thu di
         public static ArrayList getAllHopThuDi()
         {
             ArrayList listHopThuDi = new ArrayList();
@@ -40,9 +39,7 @@ namespace SMS
             }
             return listHopThuDi;
         }
-        #endregion
 
-        #region lay ra thu di theo ID
         public static HopThuDiMODEL getHopThuDiByID(int id)
         {
             HopThuDiMODEL hopThuDiModel = new HopThuDiMODEL();
@@ -67,9 +64,7 @@ namespace SMS
             }
             return hopThuDiModel;
         }
-        #endregion
 
-        #region them 1 hop thu di vao CSDL
         public static bool insertHopThuDi(HopThuDiMODEL hopThuDiModel)
         {
             try
@@ -113,9 +108,6 @@ namespace SMS
             }
         }
 
-        #endregion
-
-        #region update 1 hop thu di trong CSDL
         public static Boolean updateHopTuDiById(HopThuDiMODEL hopThuDiModel)
         {
             try
@@ -161,9 +153,7 @@ namespace SMS
                 throw;
             }
         }
-        #endregion
 
-        #region delete 1 hop thu di trong CSDL
         public static bool deleteHopThuDi(int id)
         {
             String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteHopThuDi"];
@@ -173,7 +163,23 @@ namespace SMS
             Boolean kq = DataUtil.executeNonQuery(objCommand);
             return kq;
         }
-        #endregion
+
+        public static DataTable getAllSyntaxMessSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMessSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+        public static DataTable getAllNormalMessSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
 
     }
 }

@@ -179,10 +179,19 @@ namespace SMS
             return kq;
         }
 
-        public static DataTable getAllSyntaxMess()
+        public static DataTable getAllSyntaxMessInbox()
         {
 
-            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMess"];
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMessInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+        public static DataTable getAllNormalMessInbox()
+        {
+
+            String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessInbox"];
             SqlCommand objCommand = new SqlCommand(sql);
 
             DataTable result = DataUtil.executeQuery(objCommand);

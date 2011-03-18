@@ -40,6 +40,11 @@ namespace SMS
 
         public void OnTimer(Object source, ElapsedEventArgs e)
         {
+            recieveMessAuto();
+        }
+
+        private void recieveMessAuto()
+        {
             Cursor.Current = Cursors.WaitCursor;
             string storage = GetMessageStorage();
 
@@ -79,7 +84,7 @@ namespace SMS
                         model.Ma_Cu_Phap = "";
                         model.Noi_Dung_Tin_Nhan = contentMess;
                         model.Tinh_Trang = "0";
-                        model.Loai_Hop_Thu = "0";
+                        model.Loai_Hop_Thu = "2";
                     }
                     else
                     {
@@ -105,7 +110,7 @@ namespace SMS
                         else
                         {
                             model.Ma_Cu_Phap = "";
-                            model.Loai_Hop_Thu = "1";
+                            model.Loai_Hop_Thu = "2";
                         }
                     }
                     model.User11 = "";
@@ -137,7 +142,6 @@ namespace SMS
                 common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
             }
         }
-
 
         
         #region Xem lai
