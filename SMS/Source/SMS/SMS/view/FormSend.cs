@@ -14,6 +14,18 @@ namespace SMS
         public FormSend()
         {
             InitializeComponent();
+            showAllSyntaxMessSent();
+            showAllNormalMessSent();
+        }
+        public void showAllSyntaxMessSent()
+        {
+            DataTable tableSyntaxMessSent = HopThuDiDAO.getAllSyntaxMessSent();
+            tblSyntaxMessSent.DataSource = tableSyntaxMessSent;
+        }
+        public void showAllNormalMessSent()
+        {
+            DataTable tableNormalMessSent = HopThuDiDAO.getAllNormalMessSent();
+            tblNormalMessSent.DataSource = tableNormalMessSent;
         }
     }
 }

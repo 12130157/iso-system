@@ -91,7 +91,7 @@ namespace SMS
                         {
                             MessageBox.Show("Send Message Failed");
                             j = 0;
-                            z = 4;
+                            z = 8;
                         }
                         
                         model.So_Dien_Thoai = txtPhoneNumber.Text;

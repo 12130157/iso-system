@@ -14,12 +14,18 @@ namespace SMS
         public FormInbox()
         {
             InitializeComponent();
-            showSyntaxMess();
+            showSyntaxMessInbox();
+            showNormalMessInbox();
         }
-        public void showSyntaxMess()
+        public void showSyntaxMessInbox()
         {
-            DataTable tableSyntaxMess = HopThuDenDAO.getAllSyntaxMess();
-            tblSyntaxMess.DataSource = tableSyntaxMess;
+            DataTable tableSyntaxMessInbox = HopThuDenDAO.getAllSyntaxMessInbox();
+            tblSyntaxMess.DataSource = tableSyntaxMessInbox;
+        }
+        public void showNormalMessInbox()
+        {
+            DataTable tableNormalMessInbox = HopThuDenDAO.getAllNormalMessInbox();
+            tblNormalMess.DataSource = tableNormalMessInbox;
         }
     }
 }
