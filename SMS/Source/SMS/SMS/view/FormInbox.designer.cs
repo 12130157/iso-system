@@ -37,6 +37,7 @@
             this.cboFilterSyntaxMessInbox = new System.Windows.Forms.ComboBox();
             this.lbFilterSyntaxMessInbox = new System.Windows.Forms.Label();
             this.tblSyntaxMess = new System.Windows.Forms.DataGridView();
+            this.clmCheckSyntaxMessInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmIdSyntaxMessInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNbPhoneSyntaxInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentSyntaxMessInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -178,6 +179,7 @@
             this.tblSyntaxMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSyntaxMess.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tblSyntaxMess.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmCheckSyntaxMessInbox,
             this.clmIdSyntaxMessInbox,
             this.clmNbPhoneSyntaxInbox,
             this.clmContentSyntaxMessInbox,
@@ -190,39 +192,51 @@
             this.tblSyntaxMess.Size = new System.Drawing.Size(872, 259);
             this.tblSyntaxMess.TabIndex = 0;
             // 
+            // clmCheckSyntaxMessInbox
+            // 
+            this.clmCheckSyntaxMessInbox.FillWeight = 17.7665F;
+            this.clmCheckSyntaxMessInbox.HeaderText = "";
+            this.clmCheckSyntaxMessInbox.Name = "clmCheckSyntaxMessInbox";
+            // 
             // clmIdSyntaxMessInbox
             // 
             this.clmIdSyntaxMessInbox.DataPropertyName = "id";
+            this.clmIdSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmIdSyntaxMessInbox.HeaderText = "ID";
             this.clmIdSyntaxMessInbox.Name = "clmIdSyntaxMessInbox";
             // 
             // clmNbPhoneSyntaxInbox
             // 
             this.clmNbPhoneSyntaxInbox.DataPropertyName = "so_dien_thoai";
+            this.clmNbPhoneSyntaxInbox.FillWeight = 113.7056F;
             this.clmNbPhoneSyntaxInbox.HeaderText = " Phone Number";
             this.clmNbPhoneSyntaxInbox.Name = "clmNbPhoneSyntaxInbox";
             // 
             // clmContentSyntaxMessInbox
             // 
             this.clmContentSyntaxMessInbox.DataPropertyName = "noi_dung_tin_nhan";
+            this.clmContentSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmContentSyntaxMessInbox.HeaderText = "Content";
             this.clmContentSyntaxMessInbox.Name = "clmContentSyntaxMessInbox";
             // 
             // clmSyntaxMessInbox
             // 
             this.clmSyntaxMessInbox.DataPropertyName = "cu_phap";
+            this.clmSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmSyntaxMessInbox.HeaderText = "Syntax";
             this.clmSyntaxMessInbox.Name = "clmSyntaxMessInbox";
             // 
             // clmStatusSyntaxMessInbox
             // 
             this.clmStatusSyntaxMessInbox.DataPropertyName = "tinh_trang";
+            this.clmStatusSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmStatusSyntaxMessInbox.HeaderText = "Status";
             this.clmStatusSyntaxMessInbox.Name = "clmStatusSyntaxMessInbox";
             // 
             // clmDateTimeSyntaxMessInbox
             // 
             this.clmDateTimeSyntaxMessInbox.DataPropertyName = "ngay_nhan";
+            this.clmDateTimeSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmDateTimeSyntaxMessInbox.HeaderText = "Date-Time";
             this.clmDateTimeSyntaxMessInbox.Name = "clmDateTimeSyntaxMessInbox";
             // 
@@ -406,16 +420,17 @@
         private System.Windows.Forms.ComboBox cboFilterSyntaxMessInbox;
         private System.Windows.Forms.Label lbFilterSyntaxMessInbox;
         private System.Windows.Forms.TabPage tabMessDeleted;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessInBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessInbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessInbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusNormalMessInbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDataTimeNormalMessInbox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCheckSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessInBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusNormalMessInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDataTimeNormalMessInbox;
     }
 }
