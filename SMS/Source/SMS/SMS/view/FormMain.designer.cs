@@ -37,7 +37,6 @@ namespace SMS
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCompose = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuOutbox = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInbox = new System.Windows.Forms.ToolStripMenuItem();
             this.menuI1Sent = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSystem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,7 +79,6 @@ namespace SMS
             this.menuChangePassword.Name = "menuChangePassword";
             this.menuChangePassword.Size = new System.Drawing.Size(184, 22);
             this.menuChangePassword.Text = "Change Password";
-            this.menuChangePassword.Click += new System.EventHandler(this.mnuChangePassword_Click);
             // 
             // menuSystemConfig
             // 
@@ -98,7 +96,6 @@ namespace SMS
             // 
             this.menuMessage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuCompose,
-            this.menuOutbox,
             this.menuInbox,
             this.menuI1Sent});
             this.menuMessage.Name = "menuMessage";
@@ -108,28 +105,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(137, 22);
+            this.menuCompose.Size = new System.Drawing.Size(152, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
-            // 
-            // menuOutbox
-            // 
-            this.menuOutbox.Name = "menuOutbox";
-            this.menuOutbox.Size = new System.Drawing.Size(137, 22);
-            this.menuOutbox.Text = "Outbox";
-            this.menuOutbox.Click += new System.EventHandler(this.menuOutbox_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(137, 22);
+            this.menuInbox.Size = new System.Drawing.Size(152, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -148,21 +138,18 @@ namespace SMS
             this.menuKeyword.Name = "menuKeyword";
             this.menuKeyword.Size = new System.Drawing.Size(179, 22);
             this.menuKeyword.Text = "Mnage Keyword";
-            this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
             this.menuAccount.Size = new System.Drawing.Size(179, 22);
             this.menuAccount.Text = "Manage Account";
-            this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
             this.menuAddressBook.Size = new System.Drawing.Size(179, 22);
             this.menuAddressBook.Text = "Address Book";
-            this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // menuHelp
             // 
@@ -232,7 +219,6 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem menuAccount;
         private System.Windows.Forms.ToolStripMenuItem menuSystemConfig;
         private System.Windows.Forms.ToolStripMenuItem menuCompose;
-        private System.Windows.Forms.ToolStripMenuItem menuOutbox;
         private System.Windows.Forms.ToolStripMenuItem menuAddressBook;
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
