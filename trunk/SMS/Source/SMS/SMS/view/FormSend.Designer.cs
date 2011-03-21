@@ -37,8 +37,16 @@
             this.cboFilterSyntaxMessSent = new System.Windows.Forms.ComboBox();
             this.lbFilterSyntaxMessSent = new System.Windows.Forms.Label();
             this.tblSyntaxMessSent = new System.Windows.Forms.DataGridView();
+            this.clmIdSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNbPhoneSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmContentMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDateTimeSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabNormalSent = new System.Windows.Forms.TabPage();
             this.tblNormalMessSent = new System.Windows.Forms.DataGridView();
+            this.clmIdNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNbPhoneNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmContentNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDateTimeNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnReplyNormalMessSent = new System.Windows.Forms.Button();
             this.btnDeleteNormalMessSent = new System.Windows.Forms.Button();
             this.btnReloadNormalMessSent = new System.Windows.Forms.Button();
@@ -46,14 +54,6 @@
             this.lbFilterNormalMessSent = new System.Windows.Forms.Label();
             this.tabErrorMessSent = new System.Windows.Forms.TabPage();
             this.tabSentDeleted = new System.Windows.Forms.TabPage();
-            this.clmIdSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNbPhoneSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmContentMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDateTimeSyntaxMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmIdNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNbPhoneNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmContentNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDateTimeNormalMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabSent.SuspendLayout();
             this.tabSyntaxSent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessSent)).BeginInit();
@@ -106,7 +106,7 @@
             // 
             this.btnReplySyntaxMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReplySyntaxMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReplySyntaxMessSent.Location = new System.Drawing.Point(352, 273);
+            this.btnReplySyntaxMessSent.Location = new System.Drawing.Point(350, 273);
             this.btnReplySyntaxMessSent.Name = "btnReplySyntaxMessSent";
             this.btnReplySyntaxMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnReplySyntaxMessSent.TabIndex = 10;
@@ -117,7 +117,7 @@
             // 
             this.btnDeleteSyntaxMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteSyntaxMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteSyntaxMessSent.Location = new System.Drawing.Point(461, 273);
+            this.btnDeleteSyntaxMessSent.Location = new System.Drawing.Point(460, 273);
             this.btnDeleteSyntaxMessSent.Name = "btnDeleteSyntaxMessSent";
             this.btnDeleteSyntaxMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnDeleteSyntaxMessSent.TabIndex = 9;
@@ -128,7 +128,7 @@
             // 
             this.btnReloadSyntaxMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReloadSyntaxMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReloadSyntaxMessSent.Location = new System.Drawing.Point(242, 273);
+            this.btnReloadSyntaxMessSent.Location = new System.Drawing.Point(240, 273);
             this.btnReloadSyntaxMessSent.Name = "btnReloadSyntaxMessSent";
             this.btnReloadSyntaxMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnReloadSyntaxMessSent.TabIndex = 8;
@@ -145,7 +145,7 @@
             "Phone Number",
             "Status",
             "Date-Time"});
-            this.cboFilterSyntaxMessSent.Location = new System.Drawing.Point(73, 271);
+            this.cboFilterSyntaxMessSent.Location = new System.Drawing.Point(68, 271);
             this.cboFilterSyntaxMessSent.Name = "cboFilterSyntaxMessSent";
             this.cboFilterSyntaxMessSent.Size = new System.Drawing.Size(138, 24);
             this.cboFilterSyntaxMessSent.TabIndex = 7;
@@ -177,10 +177,35 @@
             this.clmNbPhoneSyntaxMessSent,
             this.clmContentMessSent,
             this.clmDateTimeSyntaxMessSent});
-            this.tblSyntaxMessSent.Location = new System.Drawing.Point(-6, 0);
+            this.tblSyntaxMessSent.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.tblSyntaxMessSent.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessSent.Name = "tblSyntaxMessSent";
             this.tblSyntaxMessSent.Size = new System.Drawing.Size(872, 259);
             this.tblSyntaxMessSent.TabIndex = 0;
+            // 
+            // clmIdSyntaxMessSent
+            // 
+            this.clmIdSyntaxMessSent.DataPropertyName = "id";
+            this.clmIdSyntaxMessSent.HeaderText = "ID";
+            this.clmIdSyntaxMessSent.Name = "clmIdSyntaxMessSent";
+            // 
+            // clmNbPhoneSyntaxMessSent
+            // 
+            this.clmNbPhoneSyntaxMessSent.DataPropertyName = "so_dien_thoai";
+            this.clmNbPhoneSyntaxMessSent.HeaderText = "Phone Number";
+            this.clmNbPhoneSyntaxMessSent.Name = "clmNbPhoneSyntaxMessSent";
+            // 
+            // clmContentMessSent
+            // 
+            this.clmContentMessSent.DataPropertyName = "noi_dung_tin_nhan";
+            this.clmContentMessSent.HeaderText = "Content";
+            this.clmContentMessSent.Name = "clmContentMessSent";
+            // 
+            // clmDateTimeSyntaxMessSent
+            // 
+            this.clmDateTimeSyntaxMessSent.DataPropertyName = "ngay_gui";
+            this.clmDateTimeSyntaxMessSent.HeaderText = "Date-Time";
+            this.clmDateTimeSyntaxMessSent.Name = "clmDateTimeSyntaxMessSent";
             // 
             // tabNormalSent
             // 
@@ -212,16 +237,40 @@
             this.clmNbPhoneNormalMessSent,
             this.clmContentNormalMessSent,
             this.clmDateTimeNormalMessSent});
-            this.tblNormalMessSent.Location = new System.Drawing.Point(0, 1);
+            this.tblNormalMessSent.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessSent.Name = "tblNormalMessSent";
             this.tblNormalMessSent.Size = new System.Drawing.Size(872, 259);
             this.tblNormalMessSent.TabIndex = 16;
+            // 
+            // clmIdNormalMessSent
+            // 
+            this.clmIdNormalMessSent.DataPropertyName = "id";
+            this.clmIdNormalMessSent.HeaderText = "ID";
+            this.clmIdNormalMessSent.Name = "clmIdNormalMessSent";
+            // 
+            // clmNbPhoneNormalMessSent
+            // 
+            this.clmNbPhoneNormalMessSent.DataPropertyName = "so_dien_thoai";
+            this.clmNbPhoneNormalMessSent.HeaderText = "Phone Number";
+            this.clmNbPhoneNormalMessSent.Name = "clmNbPhoneNormalMessSent";
+            // 
+            // clmContentNormalMessSent
+            // 
+            this.clmContentNormalMessSent.DataPropertyName = "noi_dung_tin_nhan";
+            this.clmContentNormalMessSent.HeaderText = "Content";
+            this.clmContentNormalMessSent.Name = "clmContentNormalMessSent";
+            // 
+            // clmDateTimeNormalMessSent
+            // 
+            this.clmDateTimeNormalMessSent.DataPropertyName = "ngay_gui";
+            this.clmDateTimeNormalMessSent.HeaderText = "Date-Time";
+            this.clmDateTimeNormalMessSent.Name = "clmDateTimeNormalMessSent";
             // 
             // btnReplyNormalMessSent
             // 
             this.btnReplyNormalMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReplyNormalMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReplyNormalMessSent.Location = new System.Drawing.Point(352, 273);
+            this.btnReplyNormalMessSent.Location = new System.Drawing.Point(350, 273);
             this.btnReplyNormalMessSent.Name = "btnReplyNormalMessSent";
             this.btnReplyNormalMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnReplyNormalMessSent.TabIndex = 15;
@@ -232,7 +281,7 @@
             // 
             this.btnDeleteNormalMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteNormalMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteNormalMessSent.Location = new System.Drawing.Point(461, 273);
+            this.btnDeleteNormalMessSent.Location = new System.Drawing.Point(460, 273);
             this.btnDeleteNormalMessSent.Name = "btnDeleteNormalMessSent";
             this.btnDeleteNormalMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnDeleteNormalMessSent.TabIndex = 14;
@@ -243,7 +292,7 @@
             // 
             this.btnReloadNormalMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReloadNormalMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReloadNormalMessSent.Location = new System.Drawing.Point(242, 273);
+            this.btnReloadNormalMessSent.Location = new System.Drawing.Point(240, 273);
             this.btnReloadNormalMessSent.Name = "btnReloadNormalMessSent";
             this.btnReloadNormalMessSent.Size = new System.Drawing.Size(94, 23);
             this.btnReloadNormalMessSent.TabIndex = 13;
@@ -260,7 +309,7 @@
             "Phone Number",
             "Status",
             "Date-Time"});
-            this.cboNormalMessSent.Location = new System.Drawing.Point(73, 271);
+            this.cboNormalMessSent.Location = new System.Drawing.Point(68, 271);
             this.cboNormalMessSent.Name = "cboNormalMessSent";
             this.cboNormalMessSent.Size = new System.Drawing.Size(138, 24);
             this.cboNormalMessSent.TabIndex = 12;
@@ -296,59 +345,11 @@
             this.tabSentDeleted.Text = "Sent Deleted";
             this.tabSentDeleted.UseVisualStyleBackColor = true;
             // 
-            // clmIdSyntaxMessSent
-            // 
-            this.clmIdSyntaxMessSent.DataPropertyName = "id";
-            this.clmIdSyntaxMessSent.HeaderText = "ID";
-            this.clmIdSyntaxMessSent.Name = "clmIdSyntaxMessSent";
-            // 
-            // clmNbPhoneSyntaxMessSent
-            // 
-            this.clmNbPhoneSyntaxMessSent.DataPropertyName = "so_dien_thoai";
-            this.clmNbPhoneSyntaxMessSent.HeaderText = "Phone Number";
-            this.clmNbPhoneSyntaxMessSent.Name = "clmNbPhoneSyntaxMessSent";
-            // 
-            // clmContentMessSent
-            // 
-            this.clmContentMessSent.DataPropertyName = "noi_dung_tin_nhan";
-            this.clmContentMessSent.HeaderText = "Content";
-            this.clmContentMessSent.Name = "clmContentMessSent";
-            // 
-            // clmDateTimeSyntaxMessSent
-            // 
-            this.clmDateTimeSyntaxMessSent.DataPropertyName = "ngay_gui";
-            this.clmDateTimeSyntaxMessSent.HeaderText = "Date-Time";
-            this.clmDateTimeSyntaxMessSent.Name = "clmDateTimeSyntaxMessSent";
-            // 
-            // clmIdNormalMessSent
-            // 
-            this.clmIdNormalMessSent.DataPropertyName = "id";
-            this.clmIdNormalMessSent.HeaderText = "ID";
-            this.clmIdNormalMessSent.Name = "clmIdNormalMessSent";
-            // 
-            // clmNbPhoneNormalMessSent
-            // 
-            this.clmNbPhoneNormalMessSent.DataPropertyName = "so_dien_thoai";
-            this.clmNbPhoneNormalMessSent.HeaderText = "Phone Number";
-            this.clmNbPhoneNormalMessSent.Name = "clmNbPhoneNormalMessSent";
-            // 
-            // clmContentNormalMessSent
-            // 
-            this.clmContentNormalMessSent.DataPropertyName = "noi_dung_tin_nhan";
-            this.clmContentNormalMessSent.HeaderText = "Content";
-            this.clmContentNormalMessSent.Name = "clmContentNormalMessSent";
-            // 
-            // clmDateTimeNormalMessSent
-            // 
-            this.clmDateTimeNormalMessSent.DataPropertyName = "ngay_gui";
-            this.clmDateTimeNormalMessSent.HeaderText = "Date-Time";
-            this.clmDateTimeNormalMessSent.Name = "clmDateTimeNormalMessSent";
-            // 
             // FormSend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(877, 389);
             this.Controls.Add(this.tabSent);
             this.Controls.Add(this.lbTitle);
