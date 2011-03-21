@@ -197,6 +197,25 @@ namespace SMS
             DataTable result = DataUtil.executeQuery(objCommand);
             return result;
         }
+
+        public static bool updateTinhTrangMessInbox(string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.UpdateTinhTrangMessInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        }
+        public static bool deleteMesssInbox(string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.DeleteSyntaxMessInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        }
         
     }
 }
