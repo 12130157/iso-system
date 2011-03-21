@@ -198,6 +198,26 @@ namespace SMS
             return result;
         }
 
+        public static DataTable getAllSyntaxMessDeletedInbox()
+        {
+
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMessDeletedInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
+        public static DataTable getAllNormalMessDeletedInbox()
+        {
+
+            String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessDeletedInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
         public static bool updateTinhTrangMessInbox(string id)
         {
             String sql = ConfigurationManager.AppSettings["sql.UpdateTinhTrangMessInbox"];
@@ -209,13 +229,22 @@ namespace SMS
         }
         public static bool deleteMesssInbox(string id)
         {
-            String sql = ConfigurationManager.AppSettings["sql.DeleteSyntaxMessInbox"];
+            String sql = ConfigurationManager.AppSettings["sql.DeleteMessInbox"];
             SqlCommand objCommand = new SqlCommand(sql);
             objCommand.Parameters.AddWithValue("@id", id);
 
             bool kq = DataUtil.executeNonQuery(objCommand);
             return kq;
         }
-        
+
+        public static bool removeMesssInbox(string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.ReMoveMessInbox"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        }
     }
 }
