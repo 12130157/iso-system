@@ -14,6 +14,7 @@ BEGIN
 declare @rs nvarchar(20)
 IF @status = 1
 	set @rs =  'Read'
-ELSE set @rs =  'UnRead'
+ELSE IF @status = 0
+	 set @rs =  'UnRead'
 return @rs
 END
