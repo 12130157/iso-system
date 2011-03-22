@@ -30,7 +30,7 @@ BEGIN
  SET @DieuKienMaNamHoc=''  
  SET @DieuKienTimNgay=''  
   
- IF @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2
+ IF  @MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2
  BEGIN  
   SET @DieuKienMaBoPhan=''  
  END  
