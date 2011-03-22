@@ -2259,6 +2259,40 @@ END
   
 GO
 
+--sp_ISO_FindKeHoachThangByYearAndMonth.sql
+
+/***********************************************************
+* Purpose : Search "KE HOACH THANG" by YEAR and MONTH
+* Author : PhuongTQ
+* Date: 09-03-2011
+* Description: Search "KE HOACH THANG" by YEAR and MONTH
+***********************************************************/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_FindKeHoachThangByYearAndMonth]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_FindKeHoachThangByYearAndMonth]
+GO
+CREATE PROCEDURE sp_ISO_FindKeHoachThangByYearAndMonth
+	@Nam varchar(4),
+	@Thang varchar(2),
+	@result varchar(1) output
+AS
+BEGIN
+	If exists(
+		SELECT * 
+		FROM KeHoachThang
+		WHERE Nam = @Nam And Thang = @Thang)
+	Begin
+		SET @result = '1'
+	End
+	Else
+	Begin
+		SET @result = '0'
+	End
+END
+
+
+GO
+
 --sp_ISO_FindKHGDdByLopAndMonHoc.sql
 
 /***********************************************************
@@ -2563,7 +2597,7 @@ BEGIN
 		END
 	ELSE IF(@Tuan_le < '80')
 		BEGIN
-			SET @Dieu_kien_tuan = ' H.User1 = ' + (Cast(@Tuan_le AS Int) - 60)
+			SET @Dieu_kien_tuan = ' H.User1 = ' + Cast((Cast(@Tuan_le AS Int) - 60) AS VARCHAR)
 		END
 
 	IF(@Check = '1')
@@ -2715,7 +2749,7 @@ BEGIN
 		END
 	ELSE IF(@Tuan_le < '80')
 		BEGIN
-			SET @Dieu_kien_tuan = ' H.User1 = ' + (Cast(@Tuan_le AS Int) - 60)
+			SET @Dieu_kien_tuan = ' H.User1 = ' + Cast((Cast(@Tuan_le AS Int) - 60) AS VARCHAR)
 		END
 
 	SET @sql = 'SELECT C.ID As MaNoiDungChiTietKHDT, D.ID As MaBoPhanThucHien, E.ID As MaNguoiThucHien, 
@@ -2751,7 +2785,7 @@ CREATE PROCEDURE sp_ISO_GetCountChuongTrinhDaoTao
 	@Check			varchar
 AS
 BEGIN
-	DECLARE @sql NVarchar(200)
+	DECLARE @sql NVarchar(300)
 	DECLARE @Dieu_kien_tinh_trang nvarchar(100)
 	DECLARE @Dieu_kien_bo_phan nvarchar(100)
 	DECLARE @Vai_tro_truong_bo_phan varchar(5)
@@ -2803,7 +2837,7 @@ BEGIN
 	exec sp_executesql @sql
 	--PRINT @sql	
 END
---exec sp_ISO_GetCountChuongTrinhDaoTao '',0,5
+--exec sp_ISO_GetCountChuongTrinhDaoTao '2',0,5,0
 GO
 
 --sp_ISO_GetCountCongTac.sql
@@ -3086,11 +3120,12 @@ BEGIN
 
 	SELECT @sql = ' 
 		SELECT COUNT(*) AS Count
-		FROM KEHOACHDAOTAO WHERE '
+		FROM KEHOACHTHANG WHERE '
 		+ @Dieu_kien_tinh_trang + ' AND' + @Dieu_kien_bo_phan
 	exec sp_executesql @sql
 	--PRINT @sql	
 END
+-- exec sp_ISO_GetCountKeHoachThang '',2,2
 GO
 
 --sp_ISO_GetCountQuyetDinhDaoTao.sql
@@ -3782,23 +3817,9 @@ BEGIN
 	INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap'
 	--ORDER BY TB2.Ngay_cap_nhat_cuoi DESC'
 	exec  sp_executesql @sql
+	--print @sql
 END
---sp_help sp_executesql
---sp_ISO_GetKeHoachDaoTao 3,4,1,'',''
---select * from thanhvien
-
-/*
-	NumRows  = 3
-	TotalRows = 8
-	CurrentPage = 1
-
-	sp_ISO_GetKeHoachDaoTao NumRows,TotalRows-(CurrentPage-1)*NumRows
-
-	sp_ISO_GetKeHoachDaoTao 3,2
-
-	select count(*)/3 from ThanhVien
-*/
---select count(*)/ from ThanhVien
+--exec sp_ISO_GetKeHoachThang 10, 1, 1, '', 2, 2
 
 GO
 
@@ -3947,7 +3968,7 @@ BEGIN
 	--print @sql
 END
 --sp_help sp_executesql
---sp_ISO_GetLichSuDungPhong '','','81','',''
+--sp_ISO_GetLichSuDungPhong '','','','',''
 --select * from sudung
 
 GO
@@ -5393,7 +5414,7 @@ CREATE PROCEDURE sp_ISO_InsertKeHoachThang
 	@Ngay_duyet datetime,
 	@Ma_nguoi_duyet int,
 	@Nam varchar(4),
-	@Ten_ke_hoach_thang varchar(200),
+	@Ten_ke_hoach_thang nvarchar(200),
 	@Ngay_gui datetime,
 	@Tinh_trang int,
 	@Ly_do_reject varchar(2000),
@@ -5405,6 +5426,8 @@ CREATE PROCEDURE sp_ISO_InsertKeHoachThang
 AS
 BEGIN
 	SET @Ngay_cap_nhat_cuoi = GETDATE()
+	SET @Ngay_tao = GETDATE()
+	SET @Ten_ke_hoach_thang = N'Kế hoạch tháng ' + @Thang + N' năm ' + @Nam
 	INSERT INTO KeHoachThang VALUES 
 	(
 		@Thang,
@@ -5974,7 +5997,7 @@ BEGIN
 		@User4,
 		@User5
 	)
-	SELECT ID = @ID FROM TinhTrangCongTac WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+	SELECT @ID = ID FROM TinhTrangCongTac WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END
 
 GO
@@ -6996,7 +7019,7 @@ BEGIN
 		Ngay_duyet = @Ngay_duyet,
 		--Nam = @Nam
 		Ngay_gui = @Ngay_gui,
-		Ten_ke_hoach_thang = @Ten_ke_hoach_thang,
+		--Ten_ke_hoach_thang = @Ten_ke_hoach_thang,
 		Tinh_trang = @Tinh_trang,
 		Ly_do_reject = @Ly_do_reject,
 		User1 = @User1,
