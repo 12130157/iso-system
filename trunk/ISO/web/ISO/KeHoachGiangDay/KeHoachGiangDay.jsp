@@ -75,6 +75,17 @@
 <c:set var="coHieuTHop" value='<%=Constant.COHIEUTHOP %>'></c:set>
 <c:set var="coHieuKT" value='<%=Constant.COHIEUKT %>'></c:set>
 
+	<c:set var="maKhoa" value='<%=(String) request.getSession().getAttribute("maBoPhan") %>'></c:set>	
+	<c:set var="boPhanHC" value='<%=Constant.BO_PHAN_PHC %>'></c:set>
+	<c:set var="boPhanKDCL" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
+	<c:set var="boPhanPDT" value='<%=Constant.BO_PHAN_PDT %>'></c:set>
+	<c:set var="boPhanBGH" value='<%=Constant.BO_PHAN_BGH %>'></c:set>
+
+	<c:set var="thuocCN" value="0"></c:set>
+	<c:if test="${ maKhoa eq boPhanHC or maKhoa eq boPhanKDCL or maKhoa eq boPhanPDT or maKhoa eq boPhanBGH }">
+		<c:set var="thuocCN" value="1"></c:set>
+	</c:if>
+
 <% ArrayList<ArrayList<ChiTietTKBModel>> chiTietTKBGroupSTTND=new ArrayList<ArrayList<ChiTietTKBModel>>(); %>
 <% ArrayList<ArrayList<ArrayList<ChiTietTKBModel>>> chiTietTKBGroupNhom=new ArrayList<ArrayList<ArrayList<ChiTietTKBModel>>>(); %>
 <% ArrayList<ArrayList<ChiTietKHGDModel>> chiTietKHGDGroupSTTND=new ArrayList<ArrayList<ChiTietKHGDModel>>(); %>
@@ -823,7 +834,7 @@
 													<!-- Ly thuyet -->
 													<c:if test="${obj1.coHieu eq coHieuLT}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) }">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) }">
 																	<c:set var="statusGA" value="false"></c:set>
 																	<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																		<c:forEach var="maGA" items="${maGAList}" >
@@ -866,7 +877,7 @@
 													<!-- Thuc hanh -->
 													<c:if test="${obj1.coHieu eq coHieuTH}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1 )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
 																<c:set var="statusGA" value="false"></c:set>
 																<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																	
@@ -909,7 +920,7 @@
 														<!-- Tich hop -->	
 														<c:if test="${obj1.coHieu ne coHieuTH and obj1.coHieu ne coHieuLT}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
 																<c:set var="statusGA" value="false"></c:set>
 																<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																	
@@ -1058,10 +1069,10 @@
 							<img src="<%=request.getContextPath()%>/images/buttom/in.png?maKHGD=${param.maKHGD}" alt="Xuất File" border = "0" />
 						</a>
 					</c:if>
-					<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
+					<c:if test="${ (maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
 						<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
 					</c:if>	
-					<c:if test="${ (vaiTro eq HieuTruong and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
+					<c:if test="${ (maKhoa eq boPhanBGH  and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
 						<a href = "javascript: confirmDuyet('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Reject" border="0"/> </a>
 					</c:if>
 				</c:if>
