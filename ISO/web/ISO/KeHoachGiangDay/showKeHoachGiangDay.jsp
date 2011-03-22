@@ -98,6 +98,13 @@
 	<c:set var ="tenMonHocTemp" value='<%=StringUtil.toUTF8(request.getParameter("txtTenMonHocFind")) %>'></c:set>
 	<c:set var="khoaList" value='<%=KhoaDAO.getKhoaByBoPhan(Integer.parseInt((String) request.getSession().getAttribute("maBoPhan"))) %>'></c:set>
 	<c:set var="namHocList" value='<%=NamHocDAO.getAllNamHoc()%>'></c:set>
+	<c:set var="maKhoa" value='<%=(String) request.getSession().getAttribute("maBoPhan") %>'></c:set>
+	
+	<c:set var="boPhanHC" value='<%=Constant.BO_PHAN_PHC %>'></c:set>
+	<c:set var="boPhanKDCL" value='<%=Constant.BO_PHAN_PKID %>'></c:set>
+	<c:set var="boPhanPDT" value='<%=Constant.BO_PHAN_PDT %>'></c:set>
+	<c:set var="boPhanBGH" value='<%=Constant.BO_PHAN_BGH %>'></c:set>
+	
 	
 	<c:choose>			
 		<c:when test = "${empty param.selectTinhTrang}">
@@ -243,7 +250,9 @@
 
 
 	<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
-	<c:if test = "${vaiTro ne admin and vaiTro ne Hieu_Truong}">
+	
+	
+	<c:if test = "${vaiTro ne admin and maKhoa ne boPhanHC and maKhoa ne boPhanKDCL and maKhoa ne boPhanPDT and maKhoa ne boPhanBGH}">
 		<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 	</c:if>
 	<% totalRows = KeHoachGiangDayDAO.getCountKeHoachGiangDay(tinhTrang, maNguoiTao); %>
@@ -257,6 +266,7 @@
 							<c:if test="${PhanLoai eq objKHGD.tinhTrang or PhanLoai eq 'All'}">
 								<c:set var="tinhTrangHT" value="objKHGD.tinhTrangHT"></c:set>
 								
+								<!-- TRUONG HOP ADMIN LA NGUOI TAO -->
 								<c:if test="${admin eq sessionScope.maThanhVien}">
 									<tr style="background-color: transparent;">
 										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
@@ -299,7 +309,8 @@
 									<% count++; %>
 								</c:if>
 								
-								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (vaiTro eq Hieu_Truong and(objKHGD.tinhTrangHT ne NEW) ) or (vaiTro eq truongKhoa and(objKHGD.tinhTrang ne NEW) ))}">
+								<!-- TRUONG HOP ADMIN KHONG PHAI NGUOI TAO -->
+								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (maKhoa eq boPhanBGH and(objKHGD.tinhTrangHT ne NEW) ) or (vaiTro eq truongKhoa and(objKHGD.tinhTrang ne NEW) ))}">
 									
 									<tr style="background-color: transparent;">
 										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
@@ -313,22 +324,22 @@
 											<input type = "radio" name = "tinhtrang${iterator}"   
 													<c:choose>
 															<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq APPROVE}">checked disabled='disabled'</c:when> 
-															<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq SEND and vaiTro ne Hieu_Truong}">checked disabled='disabled'</c:when> 
+															<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq SEND and maKhoa ne boPhanBGH}">checked disabled='disabled'</c:when> 
 															<c:when test="${objKHGD.tinhTrang eq REJECT}">											
-																<c:if test="${vaiTro eq Hieu_Truong and objKHGD.tinhTrangHT eq REJECT and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">disabled='disabled'</c:if>
+																<c:if test="${maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq REJECT and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">disabled='disabled'</c:if>
 																<c:if test="${vaiTro eq truongKhoa and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">disabled='disabled'</c:if>
 																<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien}"></c:if>
 															</c:when> 
 															
 															<c:when test="${objKHGD.tinhTrangHT eq REJECT}">
-																<c:if test="${vaiTro eq Hieu_Truong and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">disabled='disabled'</c:if>
+																<c:if test="${maKhoa eq boPhanBGH and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">disabled='disabled'</c:if>
 																<c:if test="${vaiTro eq truongKhoa and objKHGD.maNguoiTao ne sessionScope.maThanhVien}"></c:if>
 																<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE }">
 																	<c:if test="${vaiTro ne truongKhoa}">
-																		<c:if test="${vaiTro ne Hieu_Truong}">
+																		<c:if test="${maKhoa ne boPhanBGH}">
 																			checked disabled='disabled'
 																		</c:if>
-																		<c:if test="${vaiTro eq Hieu_Truong}">
+																		<c:if test="${maKhoa eq boPhanBGH}">
 																			disabled='disabled'
 																		</c:if>
 																	</c:if>
@@ -353,23 +364,23 @@
 											<input type="radio" name = "tinhtrang${iterator}"  
 												<c:choose>
 												<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq APPROVE}">disabled='disabled'</c:when> 
-													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq SEND and vaiTro ne Hieu_Truong}">disabled='disabled'</c:when> 
+													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq SEND and maKhoa ne boPhanBGH}">disabled='disabled'</c:when> 
 													
 													<c:when test="${objKHGD.tinhTrang eq REJECT}">
-														<c:if test="${vaiTro eq Hieu_Truong and objKHGD.tinhTrangHT eq REJECT and objKHGD.maNguoiTao ne sessionScope.maThanhVien }">checked disabled='disabled'</c:if>
+														<c:if test="${maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq REJECT and objKHGD.maNguoiTao ne sessionScope.maThanhVien }">checked disabled='disabled'</c:if>
 														<c:if test="${vaiTro eq truongKhoa and objKHGD.maNguoiTao ne sessionScope.maThanhVien}">checked disabled='disabled'</c:if>
 														<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien}"></c:if>
 													</c:when> 
 													
 													<c:when test="${objKHGD.tinhTrangHT eq REJECT}">
-														<c:if test="${vaiTro eq Hieu_Truong and objKHGD.maNguoiTao ne sessionScope.maThanhVien }">checked disabled='disabled'</c:if>
+														<c:if test="${maKhoa eq boPhanBGH and objKHGD.maNguoiTao ne sessionScope.maThanhVien }">checked disabled='disabled'</c:if>
 														<c:if test="${vaiTro eq truongKhoa and objKHGD.maNguoiTao ne sessionScope.maThanhVien}"></c:if>
 														<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
 															<c:if test="${vaiTro ne truongKhoa}">
-																<c:if test="${vaiTro ne Hieu_Truong}">
+																<c:if test="${maKhoa ne boPhanBGH}">
 																	disabled='disabled'
 																</c:if>
-																<c:if test="${vaiTro eq Hieu_Truong}">
+																<c:if test="${maKhoa eq boPhanBGH}">
 																	checked disabled='disabled'
 																</c:if>
 															</c:if>
@@ -393,16 +404,44 @@
 								 			<textarea onclick="showPopUp(this.id)"
 									 				 <c:choose>
 									 				 	<c:when test="${vaiTro eq truongKhoa and (objKHGD.tinhTrang eq SEND or (objKHGD.tinhTrangHT eq REJECT and objKHGD.tinhTrang eq APPROVE))}"></c:when>
-									 				 	<c:when test="${vaiTro eq Hieu_Truong and (objKHGD.tinhTrangHT eq SEND)}"></c:when>
+									 				 	<c:when test="${maKhoa eq boPhanBGH and (objKHGD.tinhTrangHT eq SEND)}"></c:when>
 									 				 	<c:otherwise>readonly='readonly'</c:otherwise>
 									 				 </c:choose>
-								 			rows="2" cols="13" id="Ly_do_reject${iterator}" name="Ly_do_reject${iterator}" ><c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and ( objKHGD.tinhTrang eq REJECT or (objKHGD.tinhTrang eq SEND and (objKHGD.lyDoReject ne '' or  not empty objKHGD.lyDoReject))) }">${objKHGD.lyDoReject}</c:if><c:if test="${vaiTro eq truongKhoa and (objKHGD.tinhTrangHT eq REJECT or objKHGD.tinhTrang ne REJECT)}">${objKHGD.lyDoReject}</c:if><c:if test="${vaiTro eq Hieu_Truong and objKHGD.tinhTrangHT eq REJECT and objKHGD.tinhTrang ne REJECT}">${objKHGD.lyDoReject}</c:if></textarea>
+								 			rows="2" cols="13" id="Ly_do_reject${iterator}" name="Ly_do_reject${iterator}" ><c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and ( objKHGD.tinhTrang eq REJECT or (objKHGD.tinhTrang eq SEND and (objKHGD.lyDoReject ne '' or  not empty objKHGD.lyDoReject))) }">${objKHGD.lyDoReject}</c:if><c:if test="${vaiTro eq truongKhoa and (objKHGD.tinhTrangHT eq REJECT or objKHGD.tinhTrang ne REJECT)}">${objKHGD.lyDoReject}</c:if><c:if test="${maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq REJECT and objKHGD.tinhTrang ne REJECT}">${objKHGD.lyDoReject}</c:if></textarea>
 										</td>
 									</tr>
 									<input type = "hidden" value = "${objKHGD.tenKHGD}" name="ten${iterator}" id="ten${iterator}"/>
 									<% count++; %>	
 							</c:if>
-						
+							
+							<c:if test="${objKHGD.maNguoiTao ne sessionScope.maThanhVien and ( maKhoa eq boPhanHC or maKhoa eq boPhanKDCL or maKhoa eq boPhanPDT) and (objKHGD.tinhTrang ne NEW) }">
+								 	<tr>
+								 		<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
+										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
+										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
+										<td>
+											<input type = "radio" disabled='disabled' 
+												<c:choose>
+													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq APPROVE}">checked </c:when>
+													<c:when test="${objKHGD.tinhTrang eq APPROVE and objKHGD.tinhTrangHT eq SEND}">checked</c:when>			
+													<c:otherwise></c:otherwise> 
+												</c:choose>
+											 name = "tinhtrang${iterator}" onclick="checkRadio()" value = "Approve-${objKHGD.maKHGD}" />
+										</td>
+										<td>
+											<input type="radio" disabled='disabled'
+												<c:choose>
+													<c:when test="${objKHGD.tinhTrang eq REJECT}">checked</c:when>
+													<c:when test="${objKHGD.tinhTrangHT eq REJECT}">checked</c:when>		
+													<c:otherwise></c:otherwise> 
+												</c:choose>
+											name = "tinhtrang${iterator}" onclick="checkRadio()" value = "Reject-${objKHGD.maKHGD}"/>
+										</td>
+								 		<td>
+								 			<textarea onclick="showPopUp(this.id)" disabled="disabled" rows="2" cols="13" id="Ly_do_reject${iterator}" name="Ly_do_reject${iterator}">${objKHGD.lyDoReject}</textarea>
+										</td>
+									</tr>
+							</c:if>
 						</c:if>
 				</c:forEach>
 
@@ -498,15 +537,9 @@
 				<td colspan="6">
 					<a href="<%=request.getContextPath()%>/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp?Them=ok"><img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" border = 0px alt ="new" /></a>
 					
-							<c:if test="${vaiTro eq admin or vaiTro eq Hieu_Truong or vaiTro eq truongKhoa}">
+							<c:if test="${vaiTro eq admin or maKhoa eq boPhanBGH or vaiTro eq truongKhoa}">
 								<a href = "javascript: confirmDuyet()"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="lưu" border = "0"/></a>
 							</c:if>
-					
-					<!-- 
-					<c:if test="${vaiTro eq admin or vaiTro eq truongKhoa}">
-						<a href = ""><img src="<%=request.getContextPath()%>/images/buttom/guihieutruong.png" alt="guihieutruong" border = "0"/></a>
-					</c:if>
-					 -->
 					
 				</td>
 			</tr>
