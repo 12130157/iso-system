@@ -24,11 +24,11 @@ namespace SMS
         {
             
             InitializeComponent();
-            if (common.Constants.comm.IsConnected() == true)
-            {
-                this.lbStatus.Text = "Connected";
-                InitializeTimer();
-            }
+            //if (common.Constants.comm.IsConnected() == true)
+            //{
+            //    this.lbStatus.Text = "Connected";
+            //    InitializeTimer();
+            //}
         }
 
         public void InitializeTimer()
