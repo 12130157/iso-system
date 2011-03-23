@@ -10,7 +10,7 @@ using System.Collections;
 using System.IO;
 using SMS.model;
 using SMS.common;
-using SMS.util;
+//using SMS.util;
 
 namespace SMS.dao
 {
@@ -33,13 +33,11 @@ namespace SMS.dao
                 memberModel.MemID = row["ID"].ToString();
                 memberModel.Username = row["Ten_DN"].ToString();
                 memberModel.Password = row["Mat_khau"].ToString();
-                memberModel.FullName = row["Ho_ten"].ToString();
                 memberModel.RoleID = row["Ma_vai_tro"].ToString();
                 memberModel.PartID = row["Ma_bo_phan"].ToString();
                 memberModel.CreateDate = row["Ngay_tao"].ToString();
                 memberModel.LastLogin = row["Ngay_truy_cap_cuoi"].ToString();
                 memberModel.LastUpdate = row["Ngay_cap_nhat_cuoi"].ToString();
-                memberModel.RoleName = row["Ten_vai_tro"].ToString();
                 memberModel.User1 = row["User1"].ToString();
                 memberModel.User2 = row["User2"].ToString();
                 memberModel.User3 = row["User3"].ToString();

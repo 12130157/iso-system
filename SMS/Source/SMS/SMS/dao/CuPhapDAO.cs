@@ -49,14 +49,23 @@ namespace SMS
             }
             return listCuPhap;
         }
+
+        public static DataTable getAllCuPhapINTODataTable()
+        {
+
+            String sql = ConfigurationManager.AppSettings["sql.getAllCuPhap"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            return DataUtil.executeQuery(objCommand);
+        }
     #endregion
 
     #region lay ra cu phap theo ID
-        public static CuPhapMODEL getCuPhapByID(int id)
+        public  CuPhapMODEL getCuPhapByID(int id)
         {
-            CuPhapMODEL cuPhapModel = new CuPhapMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getCuPhapByID"];
             SqlCommand objCommand = new SqlCommand(sql);
+            CuPhapMODEL cuPhapModel = new CuPhapMODEL();
             objCommand.Parameters.AddWithValue("@id",id);
 
             DataTable result = DataUtil.executeQuery(objCommand);
@@ -76,27 +85,27 @@ namespace SMS
                 cuPhapModel.Cum_Tu_9 = row["Cum_tu_9"].ToString();
                 cuPhapModel.Cum_Tu_10 = row["Cum_tu_10"].ToString();
                 cuPhapModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                cuPhapModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                cuPhapModel.User11 = row["User1"].ToString();
-                cuPhapModel.User21 = row["User2"].ToString();
-                cuPhapModel.User31 = row["User3"].ToString();
-                cuPhapModel.User41 = row["User4"].ToString();
-                cuPhapModel.User51 = row["User5"].ToString();
+                ////cuPhapModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                //cuPhapModel.User11 = row["User1"].ToString();
+                //cuPhapModel.User21 = row["User2"].ToString();
+                //cuPhapModel.User31 = row["User3"].ToString();
+                //cuPhapModel.User41 = row["User4"].ToString();
+                //cuPhapModel.User51 = row["User5"].ToString();
             }
             return cuPhapModel;
         }
         #endregion
 
     #region them 1 cu phap vao CSDL
-        public static bool insertCuPhap(CuPhapMODEL cuPhapModel)
+        public bool insertCuPhap(CuPhapMODEL cuPhapModel)
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[19];
+                SqlParameter[] parameter = new SqlParameter[18];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("ID", SqlDbType.Int);
-                parameter[i++].Value = cuPhapModel.Id;
+                //parameter[i] = new SqlParameter("ID", SqlDbType.Int);
+                //parameter[i++].Value = cuPhapModel.Id;
 
                 parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
                 parameter[i++].Value = cuPhapModel.Ten;
@@ -138,19 +147,19 @@ namespace SMS
                 parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User31;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_InertCuPhap", parameter);
                 return kq;
@@ -164,7 +173,7 @@ namespace SMS
     #endregion
 
     #region update 1 cu phap trong CSDL
-        public static Boolean updateCuPhap(CuPhapMODEL cuPhapModel)
+        public Boolean updateCuPhap(CuPhapMODEL cuPhapModel)
         {
             try
             {
@@ -214,19 +223,19 @@ namespace SMS
                 parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User31;
+                parameter[i++].Value ="";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = cuPhapModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_UpdateCuPhapByID", parameter);
                 return kq;
@@ -239,7 +248,7 @@ namespace SMS
     #endregion
 
     #region delete 1 cu phap trong CSDL
-        public static bool deleteCuPhap(int id)
+        public Boolean deleteCuPhap(int id)
         {
             String sql = ConfigurationManager.AppSettings["sql.DeleteCuPhapByID"];
             SqlCommand objCommand = new SqlCommand(sql);
@@ -283,6 +292,14 @@ namespace SMS
                 cuPhapModel.User51 = row["User5"].ToString();
             }
             return cuPhapModel;
+        }
+
+        public static DataTable getAllDRVCuPhap()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllDRVCuPhap"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            return DataUtil.executeQuery(objCommand);
         }
     }
 }
