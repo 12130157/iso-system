@@ -136,19 +136,19 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(179, 22);
-            this.menuKeyword.Text = "Mnage Keyword";
+            this.menuKeyword.Size = new System.Drawing.Size(182, 22);
+            this.menuKeyword.Text = "Manage Keyword";
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(179, 22);
+            this.menuAccount.Size = new System.Drawing.Size(182, 22);
             this.menuAccount.Text = "Manage Account";
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(179, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(182, 22);
             this.menuAddressBook.Text = "Address Book";
             // 
             // menuHelp
@@ -197,7 +197,7 @@ namespace SMS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
             this.ResumeLayout(false);
