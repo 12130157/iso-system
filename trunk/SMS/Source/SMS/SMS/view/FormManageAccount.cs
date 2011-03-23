@@ -18,42 +18,23 @@ namespace SMS
         {
             InitializeComponent();
         }
-<<<<<<< .mine
-        #region Function
- 
-        #endregion
-        
+
         private void FormManageAccount_Load(object sender, EventArgs e)
         {
             dgv_manageAccount.DataSource = TaiKhoanSmsDAO.getAllDRVTaiKhoanSMS();
         
         }
-        public void loadGrid()
-        {
-            //dlv_ManageKeyword.DataSource = CuPhapDAO.getAllDRVCuPhap();
-        }
+     
         private void butClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-=======
+
         #region Function
  
         #endregion
         
-        private void FormManageAccount_Load(object sender, EventArgs e)
-        {
-            dgv_manageAccount.DataSource = TaiKhoanSmsDAO.getAllDRVTaiKhoanSMS();
-        }
-        public void loadGrid()
-        {
-            //dlv_ManageKeyword.DataSource = CuPhapDAO.getAllDRVCuPhap();
-        }
-        private void butClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
->>>>>>> .r240
+        
 
         private void but_Add_Click(object sender, EventArgs e)
         {

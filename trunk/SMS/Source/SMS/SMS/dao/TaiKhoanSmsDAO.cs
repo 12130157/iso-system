@@ -53,10 +53,10 @@ namespace SMS.dao
         #endregion
 
         #region lay ra 1 tai khoan SMS theo ID
-        public static TaiKhoanSmsMODEL getTaiKhoanSMSByID(int id)
+        public  TaiKhoanSmsMODEL getTaiKhoanSMSByID(int id)
         {
             TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getHopThuDiByID"];
+            String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSByID"];
             SqlCommand objCommand = new SqlCommand(sql);
             objCommand.Parameters.AddWithValue("@id", id);
 
@@ -68,13 +68,13 @@ namespace SMS.dao
                 taiKhoanSMSModel.So_Dien_Thoai = row["So_dien_thoai"].ToString();
                 taiKhoanSMSModel.Ma_Sinh_Vien = row["Ma_sinh_vien"].ToString();
                 taiKhoanSMSModel.Loai_Tai_Khoan = row["Loai_tai_khoan"].ToString();
-                taiKhoanSMSModel.Ngay_Dang_Ki = row["Ngay_dang_ki"].ToString();
-                taiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                taiKhoanSMSModel.User11 = row["User1"].ToString();
-                taiKhoanSMSModel.User21 = row["User2"].ToString();
-                taiKhoanSMSModel.User31 = row["User3"].ToString();
-                taiKhoanSMSModel.User41 = row["User4"].ToString();
-                taiKhoanSMSModel.User51 = row["User5"].ToString();
+                //taiKhoanSMSModel.Ngay_Dang_Ki = row["Ngay_dang_ki"].ToString();
+                //taiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                //taiKhoanSMSModel.User11 = row["User1"].ToString();
+                //taiKhoanSMSModel.User21 = row["User2"].ToString();
+                //taiKhoanSMSModel.User31 = row["User3"].ToString();
+                //taiKhoanSMSModel.User41 = row["User4"].ToString();
+                //taiKhoanSMSModel.User51 = row["User5"].ToString();
             }
             return taiKhoanSMSModel;
         }

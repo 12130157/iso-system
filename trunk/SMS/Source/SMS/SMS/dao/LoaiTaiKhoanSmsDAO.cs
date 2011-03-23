@@ -13,7 +13,7 @@ namespace SMS.dao
     class LoaiTaiKhoanSmsDAO
     {
         #region thong tin loai tai khoan sms
-        public static ArrayList getAllLoaiTaiKhoanSMS()
+        public  ArrayList getAllLoaiTaiKhoanSMS()
         {
             ArrayList listLoaiTaiKhoanSMS = new ArrayList();
             String sql = ConfigurationManager.AppSettings["sql.getAllLoaiTaiKhoanSMS"];
@@ -25,16 +25,16 @@ namespace SMS.dao
             {
                 LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
 
-                loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
+                //loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
                 loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
-                loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
-                loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
-                loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
-                loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
-                loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
-                loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
+                //loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
+                //loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
+                //loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                //loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
+                //loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
+                //loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
+                //loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
+                //loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
 
                 listLoaiTaiKhoanSMS.Add(loaiTaiKhoanSMSModel);
             }
@@ -43,7 +43,7 @@ namespace SMS.dao
         #endregion
 
         #region lay ra 1 Loai tai khoan SMS 
-        public static LoaiTaiKhoanSmsMODEL getLoaiTaiKhoanSMSByID(int id)
+        public  LoaiTaiKhoanSmsMODEL getLoaiTaiKhoanSMSByID(int id)
         {
             LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getLoaiTaiKhoanSMSByID"];
@@ -58,12 +58,12 @@ namespace SMS.dao
                 loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
                 loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
                 loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
-                loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
-                loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
-                loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
-                loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
+                //loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                //loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
+                //loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
+                //loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
+                //loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
+                //loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
             }
             return loaiTaiKhoanSMSModel;
         }

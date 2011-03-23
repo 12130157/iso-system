@@ -326,5 +326,19 @@ namespace SMS
             frmSend.MdiParent = this;
             frmSend.Show();
         }
+
+        private void menuKeyword_Click(object sender, EventArgs e)
+        {
+            FormManageKeyword fr = new FormManageKeyword();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void menuAccount_Click(object sender, EventArgs e)
+        {
+            FormManageAccount fr = new FormManageAccount();
+            fr.MdiParent = this;
+            fr.Show();
+        }
     } 
 }
