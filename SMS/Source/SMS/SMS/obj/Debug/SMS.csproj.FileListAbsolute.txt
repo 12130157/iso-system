@@ -129,3 +129,6 @@ E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.exe
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\bin\Debug\SMS.pdb
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.exe
 E:\study\Source eProject\hungvuongsystem2\SMS\Source\SMS\SMS\obj\Debug\SMS.pdb
+C:\Documents and Settings\NVNuoi\Desktop\New Folder (2)\SMS\SMS\bin\Debug\SMS.exe.config
+C:\Documents and Settings\NVNuoi\Desktop\New Folder (2)\SMS\SMS\obj\Debug\SMS.exe
+C:\Documents and Settings\NVNuoi\Desktop\New Folder (2)\SMS\SMS\obj\Debug\SMS.pdb
