@@ -22,7 +22,7 @@ namespace SMS
         //int timeout = GsmCommMain.DefaultTimeout;
 
         //public GsmCommMain comm;
-        private delegate void SetTextCallback(string text);
+        //private delegate void SetTextCallback(string text);
 
 
 
@@ -30,6 +30,7 @@ namespace SMS
         {
             Cursor.Current = Cursors.WaitCursor;
             common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
+
             Cursor.Current = Cursors.Default;
 
             Cursor.Current = Cursors.WaitCursor;
@@ -72,7 +73,10 @@ namespace SMS
         //Phone Connected
         private void comm_PhoneConnected(object sender, EventArgs e)
         {
-            new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
+            //if (common.Constants.comm != null)
+            //{
+                new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
+            //}
         }
 
         private delegate void ConnectedHandler(bool connected);
@@ -90,11 +94,20 @@ namespace SMS
         //}
         public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
-            MessageReceived();                
+            //if (common.Constants.comm != null)
+            //{
+            //IMessageIndicationObject obj = e.IndicationObject;
+            //if (obj is MemoryLocation)
+            //{
+                MessageReceived();
+            //}
+            //}
+            
         }
         private void MessageReceived()
         {
             Cursor.Current = Cursors.WaitCursor;
+
             string storage = GetMessageStorage();
 
             DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
