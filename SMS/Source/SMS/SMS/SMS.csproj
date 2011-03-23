@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\Constants.cs" />
+    <Compile Include="common\Validattion.cs" />
     <Compile Include="dao\ChiTietTaiKhoanSmsDAO.cs" />
     <Compile Include="dao\ChiTietTinNhanTuDongDAO.cs" />
     <Compile Include="dao\CuPhapDAO.cs" />
@@ -63,15 +64,20 @@
     <Compile Include="dao\LichTinNhanDAO.cs" />
     <Compile Include="dao\LoaiHopThuDAO.cs" />
     <Compile Include="dao\LoaiTaiKhoanSmsDAO.cs" />
+    <Compile Include="dao\LoaiTinNhanDAO.cs" />
+    <Compile Include="dao\MemberDAO.cs" />
     <Compile Include="dao\TaiKhoanSmsDAO.cs" />
     <Compile Include="model\ChiTietTaiKhoanSmsMODEL.cs" />
     <Compile Include="model\ChiTietTinNhanTuDongMODEL.cs" />
     <Compile Include="model\CuPhapMODEL.cs" />
     <Compile Include="model\HopThuDenMODEL.cs" />
     <Compile Include="model\HopThuDiMODEL.cs" />
+    <Compile Include="model\HoThuDiMODEL.cs" />
     <Compile Include="model\LichTinNhanMODEL.cs" />
     <Compile Include="model\LoaiHopThuMODEL.cs" />
     <Compile Include="model\LoaiTaiKhoanSmsMODEL.cs" />
+    <Compile Include="model\LoaiTinNhanMODEL.cs" />
+    <Compile Include="model\MemberModel.cs" />
     <Compile Include="model\TaiKhoanSmsMODEL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +85,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormAddAccount.resx">
+      <DependentUpon>FormAddAccount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FormAddKey.resx">
+      <DependentUpon>FormAddKey.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="view\FormAddressBook.resx">
       <DependentUpon>FormAddressBook.cs</DependentUpon>
@@ -146,6 +160,18 @@
     </Compile>
     <Compile Include="util\DataUtil.cs" />
     <Compile Include="util\GSMUtil.cs" />
+    <Compile Include="view\FormAddAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormAddAccount.Designer.cs">
+      <DependentUpon>FormAddAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormAddKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormAddKey.Designer.cs">
+      <DependentUpon>FormAddKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\FormAddressBook.cs">
       <SubType>Form</SubType>
     </Compile>

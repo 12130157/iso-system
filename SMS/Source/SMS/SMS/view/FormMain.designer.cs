@@ -105,21 +105,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(152, 22);
+            this.menuCompose.Size = new System.Drawing.Size(137, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(152, 22);
+            this.menuInbox.Size = new System.Drawing.Size(137, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -138,12 +138,14 @@ namespace SMS
             this.menuKeyword.Name = "menuKeyword";
             this.menuKeyword.Size = new System.Drawing.Size(182, 22);
             this.menuKeyword.Text = "Manage Keyword";
+            this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
             this.menuAccount.Size = new System.Drawing.Size(182, 22);
             this.menuAccount.Text = "Manage Account";
+            this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
@@ -197,7 +199,6 @@ namespace SMS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
             this.ResumeLayout(false);
