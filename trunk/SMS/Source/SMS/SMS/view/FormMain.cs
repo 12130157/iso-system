@@ -34,7 +34,7 @@ namespace SMS
         public void InitializeTimer()
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 1000;
+            this.autoRecieveMess.Interval = 7000;
             this.autoRecieveMess.Enabled = true;
         }
 
@@ -47,18 +47,21 @@ namespace SMS
         {
             Cursor.Current = Cursors.WaitCursor;
 
-
             string storage = GetMessageStorage();
 
             try
             {
+                if (common.Constants.comm.IsConnected() == true)
+                {
+                    DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+                
 
-                DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
                 if (messages.Length != 0)
                 {
-                    MessageBox.Show(messages.Length.ToString());
+                    MessageBox.Show("Đã nhận "+messages.Length.ToString()+" tin nhắn");
                 }
+
                 SmsPdu dataMess;
                 HopThuDenMODEL model;
 
@@ -187,24 +190,29 @@ namespace SMS
                     modelDi.User51 = "";
 
                     bool resultDen = HopThuDenDAO.insertHopThuDen(model);
-                    if (resultDen == true)
-                    {
-                        MessageBox.Show("Insert 1 thu den thanh cong");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Insert hop thu den that bai");
-                    }
+                    //if (resultDen == true)
+                    //{
+                    //    MessageBox.Show("Insert 1 thu den thanh cong");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Insert hop thu den that bai");
+                    //}
 
                     bool resultDi = HopThuDiDAO.insertHopThuDi(modelDi);
-                    if (resultDi == true)
-                    {
-                        MessageBox.Show("Insert 1 thu di thanh cong");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Insert hop thu den that bai");
-                    }
+                    //if (resultDi == true)
+                    //{
+                    //    MessageBox.Show("Insert 1 thu di thanh cong");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Insert hop thu den that bai");
+                    //}
+                }
+                }
+                else
+                {
+                    MessageBox.Show("Po Tay");
                 }
             }
             catch (Exception ex)
@@ -212,12 +220,12 @@ namespace SMS
                 MessageBox.Show(ex.Message);
             }
             Cursor.Current = Cursors.Default;
-            MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
-            int memUesd = memnoryStatus.Used;
-            if (memUesd != 0)
-            {
-                common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
-            }
+            //MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
+            //int memUesd = memnoryStatus.Used;
+            //if (memUesd != 0)
+            //{
+            //    common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
+            //}
         }
 
         
@@ -314,7 +322,7 @@ namespace SMS
 
         private void menuI1Sent_Click(object sender, EventArgs e)
         {
-            FormSend frmSend = new FormSend();
+            Sent frmSend = new Sent();
             frmSend.MdiParent = this;
             frmSend.Show();
         }
