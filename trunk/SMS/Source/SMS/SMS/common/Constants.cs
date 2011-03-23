@@ -11,7 +11,7 @@ namespace SMS.common
 {
     static class Constants
     {
-        //public static MemberModel USER_LOGIN;
+        public static MemberModel USER_LOGIN;
         ////public static ArrayList MENU_LIST;
         //public static int menutool = 0;
 
@@ -22,5 +22,8 @@ namespace SMS.common
         public static int timeOut;
         //lu tru tin nhan 
         //public static DecodedShortMessage[] messages;
+
+        public static int chooce = 0;
+        public static String i = "";
     }
 }
