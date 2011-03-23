@@ -1993,7 +1993,7 @@ BEGIN
 	SET @DieuKienMaNamHoc=''
 	SET @DieuKienTimNgay=''
 
-	IF @MaBoPhan = 1 OR @MaBoPhan=16
+	IF @MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2
 	BEGIN
 		SET @DieuKienMaBoPhan=''
 	END
@@ -2155,7 +2155,7 @@ BEGIN
  SET @DieuKienMaNamHoc=''  
  SET @DieuKienTimNgay=''  
   
- IF @MaBoPhan = 1 OR @MaBoPhan=16  
+ IF  @MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2
  BEGIN  
   SET @DieuKienMaBoPhan=''  
  END  
@@ -2251,7 +2251,7 @@ BEGIN
  + @DieuKienTimNgay  
  +@DieuKienMaBoPhan  
  +' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC   '  
- --PRINT @sql  
+   
  EXEC sp_executesql @sql  
 END  
   
