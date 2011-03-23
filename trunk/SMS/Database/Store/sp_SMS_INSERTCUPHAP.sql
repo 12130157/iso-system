@@ -10,7 +10,6 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertCuPhap
-	@ID						int,
 	@Ten					nvarchar(40),
 	@Cum_tu_1				varchar(10),
 	@Cum_tu_2				varchar(10),
@@ -22,13 +21,13 @@ CREATE PROC sp_SMS_InertCuPhap
 	@Cum_tu_8				varchar(10),
 	@Cum_tu_9				varchar(10),
 	@Cum_tu_10				varchar(10),
-	@Ghi_chu				nvarchar(400),
+	@Ghi_chu				nvarchar(500),
 	@Ngay_cap_nhat_cuoi		datetime,
-	@User1					varchar(40),
-	@User2					varchar(40),
-	@User3					varchar(40),
-	@User4					varchar(40),
-	@User5					varchar(40)	
+	@User1					varchar(100),
+	@User2					varchar(100),
+	@User3					varchar(100),
+	@User4					varchar(100),
+	@User5					varchar(100)	
 	
 AS 
 BEGIN
@@ -53,3 +52,8 @@ BEGIN
 			@User4,
 			@User5)
 END 
+/*drop proc sp_SMS_InertCuPhap
+note
+*/
+
+select * from CuPhap
