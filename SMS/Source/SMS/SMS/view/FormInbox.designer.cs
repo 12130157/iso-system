@@ -96,7 +96,8 @@
             // tabInbox
             // 
             this.tabInbox.AllowDrop = true;
-            this.tabInbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.tabInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabInbox.Controls.Add(this.tabSyntaxMess);
             this.tabInbox.Controls.Add(this.tabNormalMessage);
@@ -125,7 +126,9 @@
             // 
             this.tblSyntaxMess.AllowUserToAddRows = false;
             this.tblSyntaxMess.AllowUserToDeleteRows = false;
-            this.tblSyntaxMess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblSyntaxMess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblSyntaxMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSyntaxMess.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tblSyntaxMess.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
@@ -202,7 +205,9 @@
             // 
             this.tblNormalMess.AllowUserToAddRows = false;
             this.tblNormalMess.AllowUserToDeleteRows = false;
-            this.tblNormalMess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblNormalMess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblNormalMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblNormalMess.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmIdNormalMessInBox,
@@ -258,6 +263,9 @@
             // tabDeletedInbox
             // 
             this.tabDeletedInbox.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabDeletedInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabDeletedInbox.Controls.Add(this.tabSyntaxMessDeletedInbox);
             this.tabDeletedInbox.Controls.Add(this.tabNormalMessDeletedInbox);
             this.tabDeletedInbox.Location = new System.Drawing.Point(0, 0);
@@ -283,6 +291,9 @@
             // 
             this.tblSyntaxMessDeletedInbox.AllowUserToAddRows = false;
             this.tblSyntaxMessDeletedInbox.AllowUserToDeleteRows = false;
+            this.tblSyntaxMessDeletedInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblSyntaxMessDeletedInbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSyntaxMessDeletedInbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tblSyntaxMessDeletedInbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -341,6 +352,9 @@
             // 
             this.tblNormalMessDeletedInbox.AllowUserToAddRows = false;
             this.tblNormalMessDeletedInbox.AllowUserToDeleteRows = false;
+            this.tblNormalMessDeletedInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblNormalMessDeletedInbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblNormalMessDeletedInbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tblNormalMessDeletedInbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -379,9 +393,9 @@
             // 
             // btnReplyMessInbox
             // 
-            this.btnReplyMessInbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnReplyMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReplyMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReplyMessInbox.Location = new System.Drawing.Point(580, 383);
+            this.btnReplyMessInbox.Location = new System.Drawing.Point(618, 383);
             this.btnReplyMessInbox.Name = "btnReplyMessInbox";
             this.btnReplyMessInbox.Size = new System.Drawing.Size(117, 23);
             this.btnReplyMessInbox.TabIndex = 10;
@@ -391,7 +405,7 @@
             // 
             // btnDeleteMessInbox
             // 
-            this.btnDeleteMessInbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnDeleteMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteMessInbox.Location = new System.Drawing.Point(220, 383);
             this.btnDeleteMessInbox.Name = "btnDeleteMessInbox";
@@ -403,9 +417,9 @@
             // 
             // btnMaskReadMessInbox
             // 
-            this.btnMaskReadMessInbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnMaskReadMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMaskReadMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMaskReadMessInbox.Location = new System.Drawing.Point(460, 383);
+            this.btnMaskReadMessInbox.Location = new System.Drawing.Point(485, 383);
             this.btnMaskReadMessInbox.Name = "btnMaskReadMessInbox";
             this.btnMaskReadMessInbox.Size = new System.Drawing.Size(117, 23);
             this.btnMaskReadMessInbox.TabIndex = 8;
@@ -415,7 +429,7 @@
             // 
             // cboFilterSyntaxMessInbox
             // 
-            this.cboFilterSyntaxMessInbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cboFilterSyntaxMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboFilterSyntaxMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFilterSyntaxMessInbox.FormattingEnabled = true;
             this.cboFilterSyntaxMessInbox.Items.AddRange(new object[] {
@@ -431,7 +445,7 @@
             // 
             // lbFilterSyntaxMessInbox
             // 
-            this.lbFilterSyntaxMessInbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbFilterSyntaxMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbFilterSyntaxMessInbox.AutoSize = true;
             this.lbFilterSyntaxMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFilterSyntaxMessInbox.ForeColor = System.Drawing.Color.Navy;
@@ -443,8 +457,9 @@
             // 
             // btnRemoveMessInbox
             // 
+            this.btnRemoveMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRemoveMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveMessInbox.Location = new System.Drawing.Point(340, 383);
+            this.btnRemoveMessInbox.Location = new System.Drawing.Point(351, 383);
             this.btnRemoveMessInbox.Name = "btnRemoveMessInbox";
             this.btnRemoveMessInbox.Size = new System.Drawing.Size(117, 23);
             this.btnRemoveMessInbox.TabIndex = 11;
@@ -454,13 +469,15 @@
             // 
             // btnForwardMessInbox
             // 
+            this.btnForwardMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnForwardMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForwardMessInbox.Location = new System.Drawing.Point(700, 382);
+            this.btnForwardMessInbox.Location = new System.Drawing.Point(751, 382);
             this.btnForwardMessInbox.Name = "btnForwardMessInbox";
             this.btnForwardMessInbox.Size = new System.Drawing.Size(117, 23);
             this.btnForwardMessInbox.TabIndex = 12;
             this.btnForwardMessInbox.Text = "Forward";
             this.btnForwardMessInbox.UseVisualStyleBackColor = true;
+            this.btnForwardMessInbox.Click += new System.EventHandler(this.btnForwardMessInbox_Click);
             // 
             // FormInbox
             // 

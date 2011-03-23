@@ -21,11 +21,13 @@ namespace SMS
             this.btnRemoveMessInbox.Enabled = false;
             this.btnForwardMessInbox.Enabled = false;
         }
+
         public void showSyntaxMessInbox()
         {
             DataTable tableSyntaxMessInbox = HopThuDenDAO.getAllSyntaxMessInbox();
             tblSyntaxMess.DataSource = tableSyntaxMessInbox;
         }
+
         public void showNormalMessInbox()
         {
             DataTable tableNormalMessInbox = HopThuDenDAO.getAllNormalMessInbox();
@@ -37,6 +39,7 @@ namespace SMS
             DataTable tableSyntaxMessDeletedInbox = HopThuDenDAO.getAllSyntaxMessDeletedInbox();
             tblSyntaxMessDeletedInbox.DataSource = tableSyntaxMessDeletedInbox;
         }
+
         public void showNormalMessDeletedInbox()
         {
             DataTable tableNormalMessDeletedInbox = HopThuDenDAO.getAllNormalMessDeletedInbox();
@@ -325,7 +328,6 @@ namespace SMS
             }
         }
 
-
         private void tabDeletedInbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -339,6 +341,46 @@ namespace SMS
             }
         }
 
-        
+        private void btnForwardMessInbox_Click(object sender, EventArgs e)
+        {
+            if (tabInbox.SelectedTab == tabNormalMessage)
+            {
+                DataGridViewSelectedRowCollection selectedNormalMessRows = tblNormalMess.SelectedRows;
+                if (selectedNormalMessRows.Count == 1)
+                {
+                    DataGridViewRow row = selectedNormalMessRows[0];
+                    FormCompose frmCompose = new FormCompose();
+                    frmCompose.Show();
+                    frmCompose.txtMessage.Text = row.Cells["clmContentNormalMessInbox"].Value.ToString();
+                }
+                else if (selectedNormalMessRows.Count > 1)
+                {
+                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de chuyen tiep .");
+                }
+                else
+                {
+                    MessageBox.Show("Ban phai chon tin nhan de chuyen tiep");
+                }   
+            }
+            else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+            {
+                DataGridViewSelectedRowCollection selectedNormalMessDeletedRows = tblNormalMessDeletedInbox.SelectedRows;
+                if (selectedNormalMessDeletedRows.Count == 1)
+                {
+                    DataGridViewRow row = selectedNormalMessDeletedRows[0];
+                    FormCompose frmCompose = new FormCompose();
+                    frmCompose.Show();
+                    frmCompose.txtMessage.Text = row.Cells["clmContentNormalMessDeletedInbox"].Value.ToString();
+                }
+                else if (selectedNormalMessDeletedRows.Count > 1)
+                {
+                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de chuyen tiep .");
+                }
+                else
+                {
+                    MessageBox.Show("Ban phai chon tin nhan de chuyen tiep");
+                }       
+            }
+        }   
     }
 }
