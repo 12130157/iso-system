@@ -13,6 +13,15 @@ namespace SMS.dao
     class TaiKhoanSmsDAO
     {
         #region thong tin tai khoan SMS
+
+        public static DataTable getAllDRVTaiKhoanSMS()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllDRVTaiKhoanSMS"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            return DataUtil.executeQuery(objCommand);
+        }
+
         public static ArrayList getAllTaiKhoanSMS()
         {
             ArrayList listTaiKhoanSMS = new ArrayList();
