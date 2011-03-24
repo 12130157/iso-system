@@ -74,10 +74,9 @@ namespace SMS
                     for (int i = 0; i < times; i++)
                     {
                         model = new HopThuDiMODEL();
-                        //danh dau tinh trang gui 
+                        //danh dau tinh trang gui 1=da gui 0=chua gui dc  3=xoa vao hop thu deleted
                         int j = 0;
-                        //danh dau loai hop thu 
-                        int z = 0;
+
                         try
                         {
                             
@@ -85,19 +84,20 @@ namespace SMS
                             Output("Message {0} of {1} sent.", i + 1, times);
                             Output("");
                             j = 1;
-                            z = 6;
+
+                            model.Loai_Hop_Thu = "6";
                         }
                         catch (Exception)
                         {
                             MessageBox.Show("Send Message Failed");
                             j = 0;
-                            z = 8;
+                            model.Loai_Hop_Thu = "";
                         }
                         
                         model.So_Dien_Thoai = txtPhoneNumber.Text;
                         model.Noi_Dung_Tin_Nhan = txtMessage.Text;
                         model.Tinh_Trang = j.ToString();
-                        model.Loai_Hop_Thu = z.ToString();
+                        
                         model.User11 = "";
                         model.User21 = "";
                         model.User31 = "";
