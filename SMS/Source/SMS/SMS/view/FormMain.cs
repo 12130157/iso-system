@@ -24,17 +24,17 @@ namespace SMS
         {
             
             InitializeComponent();
-            //if (common.Constants.comm.IsConnected() == true)
-            //{
-            //    this.lbStatus.Text = "Connected";
-            //    InitializeTimer();
-            //}
+            if (common.Constants.comm.IsConnected() == true)
+            {
+                this.lbStatus.Text = "Connected";
+                InitializeTimer();
+            }
         }
 
         public void InitializeTimer()
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 7000;
+            this.autoRecieveMess.Interval = 5000;
             this.autoRecieveMess.Enabled = true;
         }
 
@@ -102,15 +102,17 @@ namespace SMS
                             pdu = new SmsSubmitPdu(outputMess, desMess, "");
                             common.Constants.comm.SendMessage(pdu);
                             j = 1;
+                            modelDi.Loai_Hop_Thu = "6";
                         }
                         catch (Exception)
                         {
                             j = 0;
+                            modelDi.Loai_Hop_Thu = "";
                             throw;
                         }
                         modelDi.Noi_Dung_Tin_Nhan = outputMess;
                         modelDi.Tinh_Trang = j.ToString();
-                        modelDi.Loai_Hop_Thu = "6";
+                        
                     }
                     //tin nhan theo cu phap
                     else
@@ -142,16 +144,18 @@ namespace SMS
                             {
                                 pdu = new SmsSubmitPdu(diemSV, desMess, "");
                                 common.Constants.comm.SendMessage(pdu);
-                                j = 1; 
+                                j = 1;
+                                modelDi.Loai_Hop_Thu = "4";
                             }
                             catch (Exception)
                             {
                                 j = 0;
+                                modelDi.Loai_Hop_Thu = "";
                                 throw;
                             }
                             modelDi.Noi_Dung_Tin_Nhan = diemSV;
                             modelDi.Tinh_Trang = j.ToString();
-                            modelDi.Loai_Hop_Thu = "4";
+                            
                         }
                         
                         else
@@ -164,16 +168,18 @@ namespace SMS
                             {
                                 pdu = new SmsSubmitPdu(outputMess, desMess, "");
                                 common.Constants.comm.SendMessage(pdu);
-                                j = 1; 
+                                j = 1;
+                                modelDi.Loai_Hop_Thu = "6";
                             }
                             catch (Exception)
                             {
                                 j = 0;
+                                modelDi.Loai_Hop_Thu = "";
                                 throw;
                             }
                             modelDi.Noi_Dung_Tin_Nhan = outputMess;
                             modelDi.Tinh_Trang = j.ToString();
-                            modelDi.Loai_Hop_Thu = "6";
+                            
                         }
                     }
 
@@ -189,6 +195,18 @@ namespace SMS
                     modelDi.User41 = "";
                     modelDi.User51 = "";
 
+                    bool resultDi = HopThuDiDAO.insertHopThuDi(modelDi);
+                    //if (resultDi == true)
+                    //{
+                    //    MessageBox.Show("Insert 1 thu di thanh cong");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Insert hop thu den that bai");
+                    //}
+
+                    model.Ma_Tin_Nhan_Tra_Loi = getMaxIDHopThuDi();
+
                     bool resultDen = HopThuDenDAO.insertHopThuDen(model);
                     //if (resultDen == true)
                     //{
@@ -199,15 +217,7 @@ namespace SMS
                     //    MessageBox.Show("Insert hop thu den that bai");
                     //}
 
-                    bool resultDi = HopThuDiDAO.insertHopThuDi(modelDi);
-                    //if (resultDi == true)
-                    //{
-                    //    MessageBox.Show("Insert 1 thu di thanh cong");
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Insert hop thu den that bai");
-                    //}
+                    
                 }
                 }
                 else
@@ -326,6 +336,16 @@ namespace SMS
             frmSend.MdiParent = this;
             frmSend.Show();
         }
+<<<<<<< .mine
+
+        private string getMaxIDHopThuDi()
+        {
+            DataTable result = HopThuDiDAO.getMaxId();
+            DataRow row = result.Rows[0];
+
+            return row[0].ToString();
+        }
+=======
 
         private void menuKeyword_Click(object sender, EventArgs e)
         {
@@ -340,5 +360,6 @@ namespace SMS
             fr.MdiParent = this;
             fr.Show();
         }
+>>>>>>> .r254
     } 
 }
