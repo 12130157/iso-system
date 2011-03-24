@@ -336,7 +336,6 @@ namespace SMS
             frmSend.MdiParent = this;
             frmSend.Show();
         }
-<<<<<<< .mine
 
         private string getMaxIDHopThuDi()
         {
@@ -345,7 +344,6 @@ namespace SMS
 
             return row[0].ToString();
         }
-=======
 
         private void menuKeyword_Click(object sender, EventArgs e)
         {
