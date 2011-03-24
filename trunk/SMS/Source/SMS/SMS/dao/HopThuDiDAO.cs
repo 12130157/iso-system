@@ -172,6 +172,7 @@ namespace SMS
             DataTable result = DataUtil.executeQuery(objCommand);
             return result;
         }
+
         public static DataTable getAllNormalMessSent()
         {
             String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessSent"];
@@ -179,6 +180,61 @@ namespace SMS
 
             DataTable result = DataUtil.executeQuery(objCommand);
             return result;
+        }
+
+        public static DataTable getAllSyntaxMessErrorSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMessErrorSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+        
+        public static DataTable getAllNormalMessErrorSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessErrorSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
+        public static DataTable getAllSyntaxMessDeletedSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllSyntaxMessDeletedSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
+        public static DataTable getAllNormalMessDeletedSent()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getAllNormalMessDeletedSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
+        public static DataTable getMaxId()
+        {
+            String sql = ConfigurationManager.AppSettings["sql.getMaxId"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+            return result;
+        }
+
+        public static bool deleteMessSent(string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.DeleteMessSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
         }
 
     }
