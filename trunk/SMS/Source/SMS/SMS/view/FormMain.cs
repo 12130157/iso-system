@@ -358,6 +358,5 @@ namespace SMS
             fr.MdiParent = this;
             fr.Show();
         }
->>>>>>> .r254
     } 
 }
