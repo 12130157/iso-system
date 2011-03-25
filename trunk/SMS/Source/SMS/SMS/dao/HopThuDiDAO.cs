@@ -237,5 +237,37 @@ namespace SMS
             return kq;
         }
 
+        public static bool removeIdMessSentInHopThuDen(string maTinNhanTraLoi)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.ReMoveIDMessSentInHopThuDen"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@ma_tin_nhan_tra_loi", maTinNhanTraLoi);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        }
+
+        public static bool removeMessSent(string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.ReMoveMessSent"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        }
+
+        public static bool updateStatusReSentMess(int tinhTrang,string loaiHopThu,string id)
+        {
+            String sql = ConfigurationManager.AppSettings["sql.UpdateStatusReSentMess"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@tinh_trang", tinhTrang);
+            objCommand.Parameters.AddWithValue("@loai_hop_thu", loaiHopThu);
+            objCommand.Parameters.AddWithValue("@id", id);
+
+            bool kq = DataUtil.executeNonQuery(objCommand);
+            return kq;
+        } 
+
     }
 }
