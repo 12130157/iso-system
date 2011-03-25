@@ -260,6 +260,7 @@
             this.tabMessErrorSent.SelectedIndex = 0;
             this.tabMessErrorSent.Size = new System.Drawing.Size(869, 291);
             this.tabMessErrorSent.TabIndex = 0;
+            this.tabMessErrorSent.SelectedIndexChanged += new System.EventHandler(this.tabMessErrorSent_SelectedIndexChanged);
             // 
             // tabSyntaxMessErrorSent
             // 
@@ -383,6 +384,7 @@
             this.tabMessDeletedSent.SelectedIndex = 0;
             this.tabMessDeletedSent.Size = new System.Drawing.Size(869, 291);
             this.tabMessDeletedSent.TabIndex = 1;
+            this.tabMessDeletedSent.SelectedIndexChanged += new System.EventHandler(this.tabMessDeletedSent_SelectedIndexChanged);
             // 
             // tabSyntaxMessDeletedSent
             // 
@@ -406,7 +408,7 @@
             this.clmNbPhoneSyntaxMessDeletedSent,
             this.clmContentSyntaxMessDeletedSent,
             this.clmDateTimeSyntaxMessDeletedSent});
-            this.tblSyntaxMessDeletedSent.Location = new System.Drawing.Point(-2, 0);
+            this.tblSyntaxMessDeletedSent.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessDeletedSent.Name = "tblSyntaxMessDeletedSent";
             this.tblSyntaxMessDeletedSent.Size = new System.Drawing.Size(865, 262);
             this.tblSyntaxMessDeletedSent.TabIndex = 2;
@@ -505,6 +507,7 @@
             this.btnRemoveMessSent.TabIndex = 10;
             this.btnRemoveMessSent.Text = "Remove";
             this.btnRemoveMessSent.UseVisualStyleBackColor = true;
+            this.btnRemoveMessSent.Click += new System.EventHandler(this.btnRemoveMessSent_Click);
             // 
             // btnDeleteMessSent
             // 
@@ -528,6 +531,7 @@
             this.btnForwardMessSent.TabIndex = 8;
             this.btnForwardMessSent.Text = "Forward";
             this.btnForwardMessSent.UseVisualStyleBackColor = true;
+            this.btnForwardMessSent.Click += new System.EventHandler(this.btnForwardMessSent_Click);
             // 
             // btnReSentMessSent
             // 
@@ -539,6 +543,7 @@
             this.btnReSentMessSent.TabIndex = 11;
             this.btnReSentMessSent.Text = "Re-Sent";
             this.btnReSentMessSent.UseVisualStyleBackColor = true;
+            this.btnReSentMessSent.Click += new System.EventHandler(this.btnReSentMessSent_Click);
             // 
             // cboFilterMessSent
             // 
