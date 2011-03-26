@@ -50,8 +50,8 @@ namespace SMS
         //click event in DataGridView
         private void dlv_ManageKeyword_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            common.Constants.i = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
-            lblYouChoose.Text="You Choose, ID: " + common.Constants.i;
+            common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
+            lblYouChoose.Text="You Choose, ID: " + common.Constants.id;
         }
           
         //event add
@@ -67,16 +67,23 @@ namespace SMS
 
         private void but_Edit_Click(object sender, EventArgs e)
         {
-            common.Constants.chooce = 2;
-            view.FormAddKey fr = new view.FormAddKey();
-            fr.MdiParent = this.MdiParent;
-            this.Visible = false;
-            fr.Show();
+            if (common.Constants.id.Equals(""))
+            {
+                MessageBox.Show("Choose ");
+            }
+            else
+            {
+                common.Constants.chooce = 2;
+                view.FormAddKey fr = new view.FormAddKey();
+                fr.MdiParent = this.MdiParent;
+                this.Visible = false;
+                fr.Show();
+            }
         }
 
         private void but_Delete_Click(object sender, EventArgs e)
         {
-            if (common.Constants.i.Equals(""))
+            if (common.Constants.id.Equals(""))
             {
                 MessageBox.Show("You may choose to delete the line. Plesae choose again ");
             }
@@ -85,12 +92,12 @@ namespace SMS
                 String result1 = Convert.ToString(MessageBox.Show("Do you want to Deleting? ", "Important Question", MessageBoxButtons.YesNo));
                 if (result1.Equals("Yes"))
                 {
-                    Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.i));
+                    Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.id));
                     if (result.Equals(true))
                     {
                         MessageBox.Show("Deleting susseccfull!!! ");
                         loadGrid();
-                        common.Constants.i = "";
+                        common.Constants.id = "";
                     }
                     else
                     {
