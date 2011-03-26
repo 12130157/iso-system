@@ -14,37 +14,45 @@ namespace SMS.dao
     class ChiTietTaiKhoanSmsDAO
     {
         #region lay tat ca thong tin chi tiet tai khoan SMS
-        public static ArrayList getAllChiTietTaiKhoanSms()
+        //public static ArrayList getAllChiTietTaiKhoanSms()
+        //{
+        //    ArrayList listChiTietTaiKhoan = new ArrayList();
+        //    String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSMS"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
+
+        //    DataTable result = DataUtil.executeQuery(objCommand);
+
+        //    foreach (DataRow row in result.Rows)
+        //    {
+        //        ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel = new ChiTietTaiKhoanSmsMODEL();
+
+        //        chiTietTaiKhoanModel.Id = row["ID"].ToString();
+        //        chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms = row["Ma_tai_khoan_SMS"].ToString();
+        //        chiTietTaiKhoanModel.Dang_Ki_Thang = row["Dang_ki_thang"].ToString();
+        //        chiTietTaiKhoanModel.Dang_Ki_Nam = row["Dang_ki_nam"].ToString();
+        //        chiTietTaiKhoanModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+        //        chiTietTaiKhoanModel.User11 = row["User1"].ToString();
+        //        chiTietTaiKhoanModel.User21 = row["User2"].ToString();
+        //        chiTietTaiKhoanModel.User31 = row["User3"].ToString();
+        //        chiTietTaiKhoanModel.User41 = row["User4"].ToString();
+        //        chiTietTaiKhoanModel.User51 = row["User5"].ToString();
+
+        //        listChiTietTaiKhoan.Add(chiTietTaiKhoanModel);
+        //    }
+        //    return listChiTietTaiKhoan;
+        //}
+
+        public DataTable getAllChiTietTaiKhoanSms(int Ma_tai_khoan_SMS)
         {
-            ArrayList listChiTietTaiKhoan = new ArrayList();
-            String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSMS"];
+            String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSms"];
             SqlCommand objCommand = new SqlCommand(sql);
-
-            DataTable result = DataUtil.executeQuery(objCommand);
-
-            foreach (DataRow row in result.Rows)
-            {
-                ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel = new ChiTietTaiKhoanSmsMODEL();
-
-                chiTietTaiKhoanModel.Id = row["ID"].ToString();
-                chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms = row["Ma_tai_khoan_SMS"].ToString();
-                chiTietTaiKhoanModel.Dang_Ki_Thang = row["Dang_ki_thang"].ToString();
-                chiTietTaiKhoanModel.Dang_Ki_Nam = row["Dang_ki_nam"].ToString();
-                chiTietTaiKhoanModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                chiTietTaiKhoanModel.User11 = row["User1"].ToString();
-                chiTietTaiKhoanModel.User21 = row["User2"].ToString();
-                chiTietTaiKhoanModel.User31 = row["User3"].ToString();
-                chiTietTaiKhoanModel.User41 = row["User4"].ToString();
-                chiTietTaiKhoanModel.User51 = row["User5"].ToString();
-
-                listChiTietTaiKhoan.Add(chiTietTaiKhoanModel);
-            }
-            return listChiTietTaiKhoan;
+            objCommand.Parameters.AddWithValue("@id", Ma_tai_khoan_SMS);
+            return DataUtil.executeQuery(objCommand);
         }
         #endregion
 
         #region lay ra chi tiet tai khoan SMS theo ID
-        public static ChiTietTaiKhoanSmsMODEL getChiTietTaiKhoanByID(int id)
+        public ChiTietTaiKhoanSmsMODEL getChiTietTaiKhoanSMSByID(int id)
         {
             ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel = new ChiTietTaiKhoanSmsMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getChiTietTaiKhoanSMSByID"];
@@ -57,8 +65,8 @@ namespace SMS.dao
             {
                 chiTietTaiKhoanModel.Id = row["ID"].ToString();
                 chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms = row["Ma_tai_khoan_SMS"].ToString();
-                chiTietTaiKhoanModel.Dang_Ki_Thang = row["Dang_ki_thang"].ToString();
-                chiTietTaiKhoanModel.Dang_Ki_Nam = row["Dang_ki_nam"].ToString();
+                chiTietTaiKhoanModel.Dang_Ki_Thang = row["Dang_ky_thang"].ToString();
+                chiTietTaiKhoanModel.Dang_Ki_Nam = row["Dang_ky_nam"].ToString();
                 chiTietTaiKhoanModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
                 chiTietTaiKhoanModel.User11 = row["User1"].ToString();
                 chiTietTaiKhoanModel.User21 = row["User2"].ToString();
@@ -168,7 +176,7 @@ namespace SMS.dao
         #endregion
 
         #region delete 1 chi tiet tai khoan SMS trong CSDL
-        public static bool deletechiTietTaiKhoanSMS(int id)
+        public bool deletechiTietTaiKhoanSMS(int id)
         {
             String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteChiTietTaiKhoanSMS"];
             SqlCommand objCommand = new SqlCommand(sql);
