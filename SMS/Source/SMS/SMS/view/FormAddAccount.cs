@@ -11,11 +11,13 @@ using SMS.dao;
 using SMS.model;
 using SMS.common;
 using System.Collections;
+using System.Reflection;
 
 namespace SMS.view
 {
     public partial class FormAddAccount : Form
     {
+        FormManageAccount formAccount = new FormManageAccount();
         TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
         TaiKhoanSmsDAO taiKhoanSMSDao = new TaiKhoanSmsDAO();
         LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
@@ -49,25 +51,34 @@ namespace SMS.view
 
         private void loaddata()
         {
-            MessageBox.Show(Constants.i);
-            taiKhoanSMSModel = taiKhoanSMSDao.getTaiKhoanSMSByID(Convert.ToInt32(Constants.i));
+            taiKhoanSMSModel = taiKhoanSMSDao.getTaiKhoanSMSByID(Convert.ToInt32(Constants.Ma_tai_khoan_SMS));
             txt_ID.Text = taiKhoanSMSModel.Id;
             txt_NumberPhone.Text = taiKhoanSMSModel.So_Dien_Thoai;
             txt_StudentID.Text = taiKhoanSMSModel.Ma_Sinh_Vien;
-
+            //load data combox
+            ArrayList arr = loaiTaiKhoanSMSDao.getAllLoaiTaiKhoanSMS();
+            foreach (LoaiTaiKhoanSmsMODEL loaiTKSMS in arr)
+            {
+                cbo_AccountType.Items.Add(new KeyValuePair(loaiTKSMS.Id, loaiTKSMS.Ten));
+            }
+            // kiện selected  cua cbo_AccountType
             loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(Convert.ToInt32(taiKhoanSMSModel.Loai_Tai_Khoan));
-            ArrayList arry = loaiTaiKhoanSMSDao.getAllLoaiTaiKhoanSMS();
-           
-            cboAccountType.DataSource=arry;
-            cboAccountType.SelectedIndex = 0;
+            cbo_AccountType.SelectedText = loaiTaiKhoanSMSModel.Ten.ToString();
             txt_Note.Text = loaiTaiKhoanSMSModel.Ghi_Chu;
-
-            Constants.i = "";
+            //load  thang, ngay dang ky trong ChitietTaiKhoanSMS
+            ctTaiKhoanSMSModel = ctTaiKhoanSMSDao.getChiTietTaiKhoanSMSByID(Convert.ToInt32(common.Constants.id));
+            txt_RegistrationMonth.Text = ctTaiKhoanSMSModel.Dang_Ki_Thang;
+            txt_Registrationyear.Text = ctTaiKhoanSMSModel.Dang_Ki_Nam;
+            // tra ve gia tri ban dau cua bien
+            Constants.id = "";
+            Constants.Ma_tai_khoan_SMS = "";
         }
         #endregion
 
         private void but_Close_Click(object sender, EventArgs e)
         {
+            formAccount.MdiParent = this.MdiParent;
+            formAccount.Show();
             this.Close();
         }
 
@@ -94,10 +105,9 @@ namespace SMS.view
                 }
                 else
                 {
-                    //this.Close();
-                    //fomKeyword.MdiParent = this.MdiParent;
-                    //fomKeyword.Show();
-                    //this.Close();
+                    formAccount.MdiParent = this.MdiParent;
+                    formAccount.Show();
+                    this.Close();
                 }
             }
             else if (but_Add.Text.Equals("Apply"))
@@ -105,7 +115,6 @@ namespace SMS.view
                 taiKhoanSMSModel.Id = txt_ID.Text;
                 taiKhoanSMSModel.So_Dien_Thoai=txt_NumberPhone.Text;
                 taiKhoanSMSModel.Ma_Sinh_Vien = txt_StudentID.Text;
-
 
                 Boolean result = true;
 
@@ -127,7 +136,9 @@ namespace SMS.view
         private void FormAddAccount_Load(object sender, EventArgs e)
         {
             loaddata();
+          
         }
+      
        
 
         

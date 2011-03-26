@@ -144,7 +144,7 @@ namespace SMS.view
 
         private void loaddata()
         {
-            cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.i));
+            cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.id));
             txtID.Text=cuPhapModel.Id;
             txt_Name.Text = cuPhapModel.Ten;
             txtKeyword1.Text = cuPhapModel.Cum_Tu_1;
@@ -158,11 +158,14 @@ namespace SMS.view
             txtKeyword9.Text=cuPhapModel.Cum_Tu_9 ;
             txtKeyword10.Text=cuPhapModel.Cum_Tu_10;
             txt_Note.Text = cuPhapModel.Ghi_Chu;
-            common.Constants.i = "";
+            common.Constants.id = "";
         }
 
         private void but_Close_Click(object sender, EventArgs e)
         {
+            this.Close();
+            fomKeyword.MdiParent = this.MdiParent;
+            fomKeyword.Show();
             this.Close();
         }
 
