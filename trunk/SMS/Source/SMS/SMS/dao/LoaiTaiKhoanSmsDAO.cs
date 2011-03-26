@@ -25,10 +25,10 @@ namespace SMS.dao
             {
                 LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
 
-                //loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
+                loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
                 loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
-                //loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
-                //loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
+                loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
+                loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
                 //loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
                 //loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
                 //loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
