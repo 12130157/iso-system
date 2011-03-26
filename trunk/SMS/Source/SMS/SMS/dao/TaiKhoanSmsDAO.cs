@@ -53,12 +53,12 @@ namespace SMS.dao
         #endregion
 
         #region lay ra 1 tai khoan SMS theo ID
-        public  TaiKhoanSmsMODEL getTaiKhoanSMSByID(int id)
+        public TaiKhoanSmsMODEL getTaiKhoanSMSByID(int Ma_tai_khoan_SMS)
         {
             TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
             String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSByID"];
             SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            objCommand.Parameters.AddWithValue("@Ma_tai_khoan_SMS", Ma_tai_khoan_SMS);
 
             DataTable result = DataUtil.executeQuery(objCommand);
 
@@ -78,6 +78,32 @@ namespace SMS.dao
             }
             return taiKhoanSMSModel;
         }
+
+        //public TaiKhoanSmsMODEL getTaiKhoanSMSByID_MaTaiKhoanSMS(int Ma_tai_khoan_SMS)
+        //{
+        //    TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
+        //    String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSByID_MaTaiKhoanSMS"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
+        //    objCommand.Parameters.AddWithValue("@Ma_tai_khoan_SMS", Ma_tai_khoan_SMS);
+
+        //    DataTable result = DataUtil.executeQuery(objCommand);
+
+        //    foreach (DataRow row in result.Rows)
+        //    {
+        //        taiKhoanSMSModel.Id = row["ID"].ToString();
+        //        taiKhoanSMSModel.So_Dien_Thoai = row["So_dien_thoai"].ToString();
+        //        taiKhoanSMSModel.Ma_Sinh_Vien = row["Ma_sinh_vien"].ToString();
+        //        taiKhoanSMSModel.Loai_Tai_Khoan = row["Loai_tai_khoan"].ToString();
+        //        //taiKhoanSMSModel.Ngay_Dang_Ki = row["Ngay_dang_ki"].ToString();
+        //        //taiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+        //        //taiKhoanSMSModel.User11 = row["User1"].ToString();
+        //        //taiKhoanSMSModel.User21 = row["User2"].ToString();
+        //        //taiKhoanSMSModel.User31 = row["User3"].ToString();
+        //        //taiKhoanSMSModel.User41 = row["User4"].ToString();
+        //        //taiKhoanSMSModel.User51 = row["User5"].ToString();
+        //    }
+        //    return taiKhoanSMSModel;
+        //}
         #endregion
 
         #region them 1 tai khon sms vao CSDL
