@@ -47,17 +47,24 @@ namespace SMS
 
         private void but_Edit_Click(object sender, EventArgs e)
         {
-            common.Constants.chooce = 2;
-            view.FormAddAccount fr = new view.FormAddAccount();
-            fr.MdiParent = this.MdiParent;
-            this.Visible = false;
-            fr.Show();
+            if (common.Constants.id.Equals(""))
+            {
+                MessageBox.Show("Choose Account: ");
+            }
+            else
+            {
+                //common.Constants.chooce = 2;
+                view.FormDetailAccount fr = new view.FormDetailAccount();
+                fr.MdiParent = this.MdiParent;
+                this.Visible = false;
+                fr.Show();
+            }
         }
 
         private void dgv_manageAccount_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            common.Constants.i = dgv_manageAccount.CurrentRow.Cells["ID"].Value.ToString();
-            lblYouChoose.Text = "You Choose, ID: " + common.Constants.i;
+            common.Constants.id = dgv_manageAccount.CurrentRow.Cells["ID"].Value.ToString();
+            lblYouChoose.Text = "You Choose, ID: " + common.Constants.id;
         }
 
     }
