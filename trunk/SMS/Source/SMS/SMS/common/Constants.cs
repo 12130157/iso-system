@@ -24,6 +24,7 @@ namespace SMS.common
         //public static DecodedShortMessage[] messages;
 
         public static int chooce = 0;
-        public static String i = "";
+        public static String id = "";
+        public static string Ma_tai_khoan_SMS = "";
     }
 }
