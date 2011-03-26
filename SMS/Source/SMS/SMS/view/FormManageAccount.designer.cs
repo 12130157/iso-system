@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManageAccount));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.but_Edit = new System.Windows.Forms.Button();
+            this.but_Details = new System.Windows.Forms.Button();
             this.but_Add = new System.Windows.Forms.Button();
             this.butClose = new System.Windows.Forms.Button();
             this.but_Delete = new System.Windows.Forms.Button();
@@ -52,7 +52,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.groupBox1.Controls.Add(this.but_Edit);
+            this.groupBox1.Controls.Add(this.but_Details);
             this.groupBox1.Controls.Add(this.but_Add);
             this.groupBox1.Controls.Add(this.butClose);
             this.groupBox1.Controls.Add(this.but_Delete);
@@ -69,20 +69,20 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // but_Edit
+            // but_Details
             // 
-            this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.but_Edit.BackColor = System.Drawing.Color.Blue;
-            this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
-            this.but_Edit.Location = new System.Drawing.Point(649, 340);
-            this.but_Edit.Name = "but_Edit";
-            this.but_Edit.Size = new System.Drawing.Size(75, 23);
-            this.but_Edit.TabIndex = 148;
-            this.but_Edit.Text = "Edit";
-            this.but_Edit.UseVisualStyleBackColor = false;
-            this.but_Edit.Click += new System.EventHandler(this.but_Edit_Click);
+            this.but_Details.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.but_Details.BackColor = System.Drawing.Color.Blue;
+            this.but_Details.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Details.ForeColor = System.Drawing.SystemColors.Control;
+            this.but_Details.Image = ((System.Drawing.Image)(resources.GetObject("but_Details.Image")));
+            this.but_Details.Location = new System.Drawing.Point(649, 340);
+            this.but_Details.Name = "but_Details";
+            this.but_Details.Size = new System.Drawing.Size(75, 23);
+            this.but_Details.TabIndex = 148;
+            this.but_Details.Text = "Details";
+            this.but_Details.UseVisualStyleBackColor = false;
+            this.but_Details.Click += new System.EventHandler(this.but_Edit_Click);
             // 
             // but_Add
             // 
@@ -248,7 +248,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgv_manageAccount;
-        private System.Windows.Forms.Button but_Edit;
+        private System.Windows.Forms.Button but_Details;
         private System.Windows.Forms.Button but_Add;
         private System.Windows.Forms.Button but_Delete;
         private System.Windows.Forms.Button but_Refresh;
