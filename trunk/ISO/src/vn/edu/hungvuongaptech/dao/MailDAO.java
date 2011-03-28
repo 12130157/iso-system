@@ -357,7 +357,7 @@ public class MailDAO {
 					} else {
 						thuBangChu = "Chủ Nhật";
 					}
-					result += "<u><p style='font-size: 22px'><b>" + thuBangChu + " " + chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getNgay() + "</b></p></u>";
+					result += "<u><p style='font-size: 18px'><b>" + thuBangChu + " " + chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getNgay() + "</b></p></u>";
 				}
 				if(!chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getBuoi().equals(buoi)) {
 					buoi = chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getBuoi();
@@ -365,9 +365,9 @@ public class MailDAO {
 						buoiBangChu = "Sáng";
 					else
 						buoiBangChu = "Chiều";
-					result += "<u><p style='font-size: 22px'>" + buoiBangChu + "</p></u>";
+					result += "<u><p style='font-size: 18px'>" + buoiBangChu + "</p></u>";
 				}
-				result += "<p style='font-size: 22px'>  - " + chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getGio() + "giờ" 
+				result += "<p style='font-size: 18px'>  - " + chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getGio() + "giờ" 
 					+ chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getPhut() + "phút : " 
 						+ chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getNoiDungCongTac();
 				if(!chiTietKHDTModel.getNoiDungChiTietKHDTModelList().get(i).getGhiChu().equals("") 
@@ -376,9 +376,9 @@ public class MailDAO {
 				result += "</p>";
 			}
 		}
-		result += "<p style='font-size: 22px'><b> Ghi chú </b> </p>";
-		result += "<p style='font-size: 22px'><b> " + chiTietKHDTModel.getGhiChu().replaceAll("\n", "<br/>") + " </b> </p>";
-		result += "<p style='font-size: 22px'><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
+		result += "<p style='font-size: 18px'><b> Ghi chú </b> </p>";
+		result += "<p style='font-size: 18px'><b> " + chiTietKHDTModel.getGhiChu().replaceAll("\n", "<br/>") + " </b> </p>";
+		result += "<p style='font-size: 18px'><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
 		return result;
 	}
