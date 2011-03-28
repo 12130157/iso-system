@@ -46,65 +46,60 @@ namespace SMS
             tblNormalMessDeletedInbox.DataSource = tableNormalMessDeletedInbox;
         }
 
+        private void deleteMessInbox(DataGridView tbl, string clmName)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
+            if (selectedRows.Count > 0)
+            {
+                if (MessageBox.Show("Ban co chac chan xoa nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in selectedRows)
+                    {
+                        bool result = HopThuDenDAO.deleteMesssInbox(row.Cells[clmName].Value.ToString());
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ban chua chon tin nhan.");
+            }
+        }
+
         private void btnDeleteMessInbox_Click(object sender, EventArgs e)
         {
             if (tabInbox.SelectedTab == tabSyntaxMess)
             {
-                DataGridViewSelectedRowCollection selectedSyntaxMessRows = tblSyntaxMess.SelectedRows;
-                if (selectedSyntaxMessRows.Count > 0)
-                {
-                    if (MessageBox.Show("Ban co chac chan xoa nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        foreach (DataGridViewRow row in selectedSyntaxMessRows)
-                        {
-                            
-                            bool result = HopThuDenDAO.deleteMesssInbox(row.Cells["clmIdSyntaxMessInbox"].Value.ToString());
-                            
-                            //if (result == true)
-                            //{
-                            //    MessageBox.Show("Update Thanh Cong");
-                            //}
-                            //else
-                            //{
-                            //    MessageBox.Show("Update That Bai");
-                            //}
-                        }
-                    }
-                    showSyntaxMessInbox();
-                    showSyntaxMessDeletedInbox();
-                }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+                deleteMessInbox(tblSyntaxMess,"clmIdSyntaxMessInbox");
+            
+                showSyntaxMessInbox();
+                showSyntaxMessDeletedInbox();
             }
             else if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessRows = tblNormalMess.SelectedRows;
-                if (selectedNormalMessRows.Count > 0)
-                {
-                    if (MessageBox.Show("Ban co chac chan xoa nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        foreach (DataGridViewRow row in selectedNormalMessRows)
-                        {
-                            bool result = HopThuDenDAO.deleteMesssInbox(row.Cells["clmIdNormalMessInBox"].Value.ToString());
-                        }
-                        //if (result == true)
-                        //{
-                        //    MessageBox.Show("Update Thanh Cong");
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Update That Bai");
-                        //}
-                    }
-                    showNormalMessInbox();
-                    showNormalMessDeletedInbox();
-                }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+                deleteMessInbox(tblNormalMess, "clmIdNormalMessInBox");
+
+                showNormalMessInbox();
+                showNormalMessDeletedInbox();
+            }
+        }
+
+        private void replyMessInbox(DataGridView tbl, string clmName)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+                FormCompose frmCompose = new FormCompose();
+                frmCompose.Show();
+                frmCompose.txtPhoneNumber.Text = row.Cells[clmName].Value.ToString();
+            }
+            else if (selectedRows.Count > 1)
+            {
+                MessageBox.Show("Ban chi duoc chon 1 tin nhan de tra loi .");
+            }
+            else
+            {
+                MessageBox.Show("Ban phai chon tin nhan de tra loi");
             }
         }
 
@@ -112,139 +107,68 @@ namespace SMS
         {
             if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessRows = tblNormalMess.SelectedRows;
-                if (selectedNormalMessRows.Count == 1)
-                {
-                    DataGridViewRow row = selectedNormalMessRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtPhoneNumber.Text = row.Cells["clmNbPhoneNormalMessInbox"].Value.ToString();
-                }
-                else if (selectedNormalMessRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de tra loi .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de tra loi");
-                }
+                replyMessInbox(tblNormalMess, "clmNbPhoneNormalMessInbox");
             }
             else if (tabInbox.SelectedTab == tabSyntaxMess)
             {
-                DataGridViewSelectedRowCollection selectedSyntaxMessRows = tblSyntaxMess.SelectedRows;
-                if (selectedSyntaxMessRows.Count == 1)
-                {
-                    DataGridViewRow row = selectedSyntaxMessRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtPhoneNumber.Text = row.Cells["clmNbPhoneSyntaxInbox"].Value.ToString();
-                }
-                else if (selectedSyntaxMessRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de tra loi .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de tra loi");
-                }
+                replyMessInbox(tblSyntaxMess, "clmNbPhoneSyntaxInbox");
             }
             else if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
             {
-                DataGridViewSelectedRowCollection selectedSyntaxMessDeletedRows = tblSyntaxMessDeletedInbox.SelectedRows;
-                if (selectedSyntaxMessDeletedRows.Count == 1)
-                {
-                    DataGridViewRow row = selectedSyntaxMessDeletedRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtPhoneNumber.Text = row.Cells["clmNbPhoneSyntaxMessDeletedInbox"].Value.ToString();
-                }
-                else if (selectedSyntaxMessDeletedRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de tra loi .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de tra loi");
-                }
+                replyMessInbox(tblSyntaxMessDeletedInbox, "clmNbPhoneSyntaxMessDeletedInbox");
             }
             else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessDeletedRows = tblNormalMessDeletedInbox.SelectedRows;
-                if (selectedNormalMessDeletedRows.Count == 1)
+                replyMessInbox(tblNormalMessDeletedInbox, "clmNbPhoneNormalMessDeletedInbox");
+            }
+        }
+
+        private void removeMessInbox(DataGridView tbl,string clmName)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
+            if (selectedRows.Count > 0)
+            {
+                if (MessageBox.Show("Ban co chac chan xoa vinh vien nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    DataGridViewRow row = selectedNormalMessDeletedRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtPhoneNumber.Text = row.Cells["clmNbPhoneNormalMessDeletedInbox"].Value.ToString();
-                }
-                else if (selectedNormalMessDeletedRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de tra loi .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de tra loi");
+                    foreach (DataGridViewRow row in selectedRows)
+                    {
+                        bool result = HopThuDenDAO.removeMesssInbox(row.Cells[clmName].Value.ToString());
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Ban chua chon tin nhan.");
+            }   
         }
 
         private void btnRemoveMessInbox_Click(object sender, EventArgs e)
         {
             if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
             {
-                DataGridViewSelectedRowCollection selectedSyntaxMessDeletedRows = tblSyntaxMessDeletedInbox.SelectedRows;
-                if (selectedSyntaxMessDeletedRows.Count > 0)
-                {
-                    if (MessageBox.Show("Ban co chac chan xoa vinh vien nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        foreach (DataGridViewRow row in selectedSyntaxMessDeletedRows)
-                        {
-
-                            bool result = HopThuDenDAO.removeMesssInbox(row.Cells["clmIdSyntaxMessDeletedInbox"].Value.ToString());
-
-                            //if (result == true)
-                            //{
-                            //    MessageBox.Show("Update Thanh Cong");
-                            //}
-                            //else
-                            //{
-                            //    MessageBox.Show("Update That Bai");
-                            //}
-                        }
-                    }
-                    showSyntaxMessDeletedInbox();
-                }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+                removeMessInbox(tblSyntaxMessDeletedInbox, "clmIdSyntaxMessDeletedInbox");
+                showSyntaxMessDeletedInbox();
             }
             else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessDeletedRows = tblNormalMessDeletedInbox.SelectedRows;
-                if (selectedNormalMessDeletedRows.Count > 0)
+                removeMessInbox(tblNormalMessDeletedInbox, "clmIdNormalMessDeletedInbox");
+                showNormalMessInbox();
+            }
+        }
+
+        private void maskReadMessInbox(DataGridView tbl, string clmName)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
+            if (selectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in selectedRows)
                 {
-                    if (MessageBox.Show("Ban co chac chan xoa vinh vien nhung tin nhan nay ?", "Xac Nhan Xoa .", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        foreach (DataGridViewRow row in selectedNormalMessDeletedRows)
-                        {
-                            bool result = HopThuDenDAO.removeMesssInbox(row.Cells["clmIdNormalMessDeletedInbox"].Value.ToString());
-                        }
-                        //if (result == true)
-                        //{
-                        //    MessageBox.Show("Update Thanh Cong");
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Update That Bai");
-                        //}
-                    }
-                    showNormalMessInbox();
+                    bool result = HopThuDenDAO.updateTinhTrangMessInbox(row.Cells[clmName].Value.ToString());
                 }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Ban chua chon tin nhan.");
             }
         }
 
@@ -252,51 +176,13 @@ namespace SMS
         {
             if (tabInbox.SelectedTab == tabSyntaxMess)
             {
-                DataGridViewSelectedRowCollection selectedSyntaxMessRows = tblSyntaxMess.SelectedRows;
-                if (selectedSyntaxMessRows.Count > 0)
-                {
-                    foreach (DataGridViewRow row in selectedSyntaxMessRows)
-                    {
-                        bool result = HopThuDenDAO.updateTinhTrangMessInbox(row.Cells["clmIdSyntaxMessInbox"].Value.ToString());
-                        //if (result == true)
-                        //{
-                        //    MessageBox.Show("Update Thanh Cong");
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Update That Bai");
-                        //}
-                    }
-                    showSyntaxMessInbox();
-                }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+                maskReadMessInbox(tblSyntaxMess, "clmIdSyntaxMessInbox");
+                showSyntaxMessInbox();
             }
             else if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessRows = tblNormalMess.SelectedRows;
-                if (selectedNormalMessRows.Count > 0)
-                {
-                    foreach (DataGridViewRow row in selectedNormalMessRows)
-                    {
-                        bool result = HopThuDenDAO.updateTinhTrangMessInbox(row.Cells["clmIdNormalMessInBox"].Value.ToString());
-                        //if (result == true)
-                        //{
-                        //    MessageBox.Show("Update Thanh Cong");
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Update That Bai");
-                        //}
-                    }
-                    showNormalMessInbox();
-                }
-                else
-                {
-                    MessageBox.Show("Ban chua chon tin nhan.");
-                }
+                maskReadMessInbox(tblNormalMess, "clmIdNormalMessInBox");
+                showNormalMessInbox();
             }
         }
 
@@ -341,45 +227,35 @@ namespace SMS
             }
         }
 
+        private void forwardMessInbox(DataGridView tbl,string clmName)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+                FormCompose frmCompose = new FormCompose();
+                frmCompose.Show();
+                frmCompose.txtMessage.Text = row.Cells[clmName].Value.ToString();
+            }
+            else if (selectedRows.Count > 1)
+            {
+                MessageBox.Show("Ban chi duoc chon 1 tin nhan de chuyen tiep .");
+            }
+            else
+            {
+                MessageBox.Show("Ban phai chon tin nhan de chuyen tiep");
+            }
+        }
+
         private void btnForwardMessInbox_Click(object sender, EventArgs e)
         {
             if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessRows = tblNormalMess.SelectedRows;
-                if (selectedNormalMessRows.Count == 1)
-                {
-                    DataGridViewRow row = selectedNormalMessRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtMessage.Text = row.Cells["clmContentNormalMessInbox"].Value.ToString();
-                }
-                else if (selectedNormalMessRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de chuyen tiep .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de chuyen tiep");
-                }   
+                forwardMessInbox(tblNormalMess,"clmContentNormalMessInbox");          
             }
             else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
-                DataGridViewSelectedRowCollection selectedNormalMessDeletedRows = tblNormalMessDeletedInbox.SelectedRows;
-                if (selectedNormalMessDeletedRows.Count == 1)
-                {
-                    DataGridViewRow row = selectedNormalMessDeletedRows[0];
-                    FormCompose frmCompose = new FormCompose();
-                    frmCompose.Show();
-                    frmCompose.txtMessage.Text = row.Cells["clmContentNormalMessDeletedInbox"].Value.ToString();
-                }
-                else if (selectedNormalMessDeletedRows.Count > 1)
-                {
-                    MessageBox.Show("Ban chi duoc chon 1 tin nhan de chuyen tiep .");
-                }
-                else
-                {
-                    MessageBox.Show("Ban phai chon tin nhan de chuyen tiep");
-                }       
+                forwardMessInbox(tblNormalMessDeletedInbox, "clmContentNormalMessDeletedInbox");       
             }
         }   
     }
