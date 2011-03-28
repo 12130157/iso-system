@@ -16,10 +16,6 @@
 /* ---------------------------------------------------------------------- */
 /* Add table "ThanhVien"                                                  */
 /* ---------------------------------------------------------------------- */
-create database SMS
-go
- use SMS
-go
 CREATE TABLE [ThanhVien] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_DN] VARCHAR(20),
