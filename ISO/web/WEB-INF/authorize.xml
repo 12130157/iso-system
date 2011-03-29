@@ -6,12 +6,79 @@
 		<role>0</role>
 		<role>1</role>	
 		<role>2</role>	
+		<role>6</role>
+		<role>5</role>		
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+		<page>
+		<page_name>/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
 		<role>8</role>	
 		<role>10</role>	
 	</page>	
+	<page>
+		<page_name>/ISO/KeHoachGiangDay/TimKeHoachGiangDay.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+	<page>
+		<page_name>/ISO/GiaoAn/GiaoAnLT.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+	<page>
+		<page_name>/ISO/GiaoAn/TimGiaoAn.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+		<page>
+		<page_name>/ISO/GiaoAn/GiaoAnTH.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+		<page>
+		<page_name>/ISO/GiaoAn/GiaoAnTHop.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+	
 	<alert>You couldn't view this page</alert>
 	<error>/error.jsp?stt=0</error>
 </authorize>

@@ -2,11 +2,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="vn.edu.hungvuongaptech.dao.SysRoleMenuDAO"%><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<%@page import="vn.edu.hungvuongaptech.dao.SysRoleMenuDAO"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/general.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/menu_files/cbcscbmenu.css" type="text/css">
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
-	
+<%@ taglib prefix="weblib" uri="http://weblib.kth.taglib" %>
+<weblib:authorize_role pathTo="/WEB-INF/authorize.xml" request="${pageContext.request}" response="${pageContext.response}"></weblib:authorize_role>
 <c:set var="sysRoleAppMenuList" value='<%= SysRoleMenuDAO.findSysRoleAppMenu(session.getAttribute("maBoPhan").toString(), Constant.APP_ISO) %>'></c:set>
 
 <div class = "header">
