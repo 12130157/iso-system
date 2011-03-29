@@ -6,7 +6,11 @@
 		 <!-- <welcome-file>/ISO/ChuongTrinhDaoTao/ChuongTrinhDaoTao.jsp?Them=ok</welcome-file>  -->
 		
 	</welcome-file-list>
-	
+	<taglib>
+            <taglib-uri>http://weblib.kth.taglib/taglib</taglib-uri>
+            <taglib-location>/WEB-INF/lib/weblib.jar</taglib-location>
+    </taglib>
+        
 	 <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

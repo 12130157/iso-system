@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<authorize>
+	<session_role>maVaiTro</session_role>
+	<page>
+		<page_name>/ISO/KeHoachGiangDay/showKeHoachGiangDay.jsp</page_name>
+		<role>0</role>
+		<role>1</role>	
+		<role>2</role>	
+		<role>5</role>	
+		<role>6</role>	
+		<role>7</role>	
+		<role>8</role>	
+		<role>10</role>	
+	</page>	
+	<alert>You couldn't view this page</alert>
+	<error>/error.jsp?stt=0</error>
+</authorize>
+
