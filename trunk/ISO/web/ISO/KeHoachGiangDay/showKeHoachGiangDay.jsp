@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib prefix="d" uri="http://weblib.kth.taglib" %>
 
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
@@ -13,7 +12,6 @@
 <%@page import="vn.edu.hungvuongaptech.dao.NamHocDAO"%><html>
 <head>
 
-<d:authorize_role pathTo="/WEB-INF/authorize.xml" request="${pageContext.request}" response="${pageContext.response}"></d:authorize_role>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
