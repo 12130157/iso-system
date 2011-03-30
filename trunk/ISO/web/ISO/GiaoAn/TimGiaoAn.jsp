@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
-
+<%@taglib prefix="w" uri="http://weblib.kth.taglib" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -448,28 +448,32 @@
 		<input type="hidden" name="pathPage" id="pathPage" value=""></input>
 		<input type="hidden" name="actionType" id="actionType"></input>
 		
-	<table border="1">
-		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
-		<tr style="background-color: transparent;">
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tên giáo án</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
-			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tình trạng</th>
-		</tr>
+		<p style='color:black;text-align:center;font-weight:bold'>Kết quả tìm kiếm</p>
+	<w:table  id="tbl2" border="1" nameForm="frmSearchGiaoAn2" idForm="frmSearchGiaoAn2" linkTo="TimGiaoAn.jsp">
+		<w:init_param_table nameSortType="sortType" nameColSort="colSort" nameIDTableSort="tbl2"></w:init_param_table>
+		<w:query_string>
+			<w:parameter name="view">true<%=path%></w:parameter>
+		</w:query_string>
+		<w:row_header style="background-color: transparent;">
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Môn học</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Giáo viên</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Lớp học</w:cell_header>
+			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;background-color:black' >Tên giáo án</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày dạy</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày gởi</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Người duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Tình trạng</w:cell_header>
+		</w:row_header>
 		
 		<c:if test="${ not empty param.view}">
 			<% int countEmail=0; %>
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 
-				<tr style="background-color: transparent;">		
+				<w:row style="background-color: transparent;">		
 				
 				
-					<td>
+					<w:cell>
 						<c:if test="${objKQTim.coHieu eq COHIEU_LT}">
 							<a href='GiaoAnLT.jsp?maCTKHGD=${objKQTim.maCTKHGD}&stt=update&soGA=${objKQTim.soGiaoAn}'>${objKQTim.tenMonHoc}</a>
 						</c:if>
@@ -480,15 +484,15 @@
 							<a href='GiaoAnTHop.jsp?maCTKHGD=${objKQTim.maCTKHGD}&stt=update&soGA=${objKQTim.soGiaoAn}'>${objKQTim.tenMonHoc}</a>
 						</c:if>
 					
-					</td>	
-					<td>${objKQTim.tenGiaoVien}</td>
-					<td>${objKQTim.tenLopHoc}</td>
-					<td>${objKQTim.soGiaoAn}</td>
-					<td>${objKQTim.ngayDay}</td>
-					<td>${objKQTim.ngayGui}</td>
-					<td>${objKQTim.tenNguoiDuyet}</td>
-					<td>${objKQTim.ngayDuyet}</td>
-					<td>
+					</w:cell>	
+					<w:cell>${objKQTim.tenGiaoVien}</w:cell>
+					<w:cell>${objKQTim.tenLopHoc}</w:cell>
+					<w:cell>${objKQTim.soGiaoAn}</w:cell>
+					<w:cell>${objKQTim.ngayDay}</w:cell>
+					<w:cell>${objKQTim.ngayGui}</w:cell>
+					<w:cell>${objKQTim.tenNguoiDuyet}</w:cell>
+					<w:cell>${objKQTim.ngayDuyet}</w:cell>
+					<w:cell>
 			
 					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
 						<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
@@ -519,13 +523,13 @@
 							<% countEmail++; %>
 						</c:if>
 						
-					</td>
-				</tr>
+					</w:cell>
+				</w:row>
 			</c:forEach>
 			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
 		</c:if>
 		
-	</table>	
+	</w:table>	
 	<br/>
 	<br/>
 	<br/>		 
