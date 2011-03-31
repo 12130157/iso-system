@@ -1145,4 +1145,23 @@ public class GiaoAnDAO {
 		}
 		return result;
 	}
+	
+	
+	public static void copyGiaoAnByMaKHGD(String maKHGDNew,String maKHGDCopy){
+	
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_ISO_CopyGiaoAn(?,?)}");
+			csmt.setString("MaKHGDNew", maKHGDNew);
+			csmt.setString("MaKHGDCopy", maKHGDCopy);
+			csmt.execute();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+
+		}
+		
+	}
 }
