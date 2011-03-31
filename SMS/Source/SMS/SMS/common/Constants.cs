@@ -22,9 +22,10 @@ namespace SMS.common
         public static int timeOut;
         //lu tru tin nhan 
         //public static DecodedShortMessage[] messages;
-
+        public static int chooseUpdate = 0;
         public static int chooce = 0;
         public static String id = "";
+        public static String idDetail = "";
         public static string Ma_tai_khoan_SMS = "";
     }
 }
