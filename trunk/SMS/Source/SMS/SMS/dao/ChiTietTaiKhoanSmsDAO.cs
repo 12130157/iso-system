@@ -79,15 +79,15 @@ namespace SMS.dao
         #endregion
 
         #region them 1 chi tiet tai khoan SMS vao CSDL
-        public static bool insertChiTietTaiKhoan(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel)
+        public bool insertChiTietTaiKhoan(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel)
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[10];
+                SqlParameter[] parameter = new SqlParameter[9];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.Id;
+                //parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+                //parameter[i++].Value = chiTietTaiKhoanModel.Id;
 
                 parameter[i] = new SqlParameter("Ma_tai_khoan_SMS", SqlDbType.NVarChar);
                 parameter[i++].Value = chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms;
@@ -99,22 +99,22 @@ namespace SMS.dao
                 parameter[i++].Value = chiTietTaiKhoanModel.Dang_Ki_Nam;
 
                 parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.Ngay_Cap_Nhat_Cuoi;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.User31;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_InertChiTietTaiKhoan", parameter);
                 return kq;
@@ -128,7 +128,7 @@ namespace SMS.dao
         #endregion
 
         #region update 1 chi tiet ti khoan SMS trong CSDL
-        public static Boolean updateChiTietTaiKhoanSMS(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanSMSModel)
+        public  Boolean updateChiTietTaiKhoanSMS(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanSMSModel)
         {
             try
             {
@@ -141,29 +141,29 @@ namespace SMS.dao
                 parameter[i] = new SqlParameter("Ma_tai_khoan_sms", SqlDbType.NVarChar);
                 parameter[i++].Value = chiTietTaiKhoanSMSModel.Ma_Tai_Khoan_Sms;
 
-                parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("Dang_ky_thang", SqlDbType.NVarChar);
                 parameter[i++].Value = chiTietTaiKhoanSMSModel.Dang_Ki_Thang;
 
-                parameter[i] = new SqlParameter("Cum_tu_2", SqlDbType.NVarChar);
+                parameter[i] = new SqlParameter("Dang_ky_nam", SqlDbType.NVarChar);
                 parameter[i++].Value = chiTietTaiKhoanSMSModel.Dang_Ki_Nam;
 
                 parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.User31;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = chiTietTaiKhoanSMSModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_UpdateChiTietTaiKhoanByID", parameter);
                 return kq;
