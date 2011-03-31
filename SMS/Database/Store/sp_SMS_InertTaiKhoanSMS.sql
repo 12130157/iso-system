@@ -12,7 +12,6 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertTaiKhoanSMS
-	@ID						int,
 	@So_dien_thoai			varchar(20),
 	@Ma_sinh_vien			int,
 	@Loai_tai_khoan			int,
