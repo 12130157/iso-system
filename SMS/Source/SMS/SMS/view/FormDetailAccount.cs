@@ -22,7 +22,7 @@ namespace SMS.view
         private void Loaddata()
         {
             dgv_AccountDetail.DataSource = ctTaiKhoanSMS.getAllChiTietTaiKhoanSms(Convert.ToInt32(common.Constants.id));
-            common.Constants.id = "";
+            lblYouChoose.Text = "";
         }
 
         private void FormDetailAccount_Load(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace SMS.view
 
         private void but_Edit_Click(object sender, EventArgs e)
         {
-            if (common.Constants.id.Equals(""))
+            if (lblYouChoose.Text.Equals(""))
             {
                 MessageBox.Show("Choose Account details: ");
             }
@@ -49,10 +49,10 @@ namespace SMS.view
 
         private void dgv_AccountDetail_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            common.Constants.id = dgv_AccountDetail.CurrentRow.Cells["ID"].Value.ToString();
-            common.Constants.Ma_tai_khoan_SMS = dgv_AccountDetail.CurrentRow.Cells["Account ID"].Value.ToString();
+            common.Constants.idDetail = dgv_AccountDetail.CurrentRow.Cells["ID"].Value.ToString();
+             common.Constants.Ma_tai_khoan_SMS = dgv_AccountDetail.CurrentRow.Cells["Account ID"].Value.ToString();
 
-            lblYouChoose.Text = "You Choose, ID: " + common.Constants.id;
+            lblYouChoose.Text = "You Choose, ID: " + common.Constants.idDetail;
         }
 
         private void but_Close_Click(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace SMS.view
 
         private void but_Delete_Click(object sender, EventArgs e)
         {
-            if (common.Constants.id.Equals(""))
+            if (lblYouChoose.Text.Equals(""))
             {
                 MessageBox.Show("You may choose to delete the line. Plesae choose again ");
             }
@@ -74,12 +74,11 @@ namespace SMS.view
                 String result1 = Convert.ToString(MessageBox.Show("Do you want to Deleting? ", "Important Question", MessageBoxButtons.YesNo));
                 if (result1.Equals("Yes"))
                 {
-                    Boolean result = ctTaiKhoanSMS.deletechiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
+                    Boolean result = ctTaiKhoanSMS.deletechiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.idDetail));
                     if (result.Equals(true))
                     {
                         MessageBox.Show("Deleting susseccfull!!! ");
                         Loaddata();
-                        common.Constants.id = "";
                     }
                     else
                     {
@@ -91,6 +90,18 @@ namespace SMS.view
                     Loaddata() ;
                 }
             }
+        }
+
+        private void but_Add_Click(object sender, EventArgs e)
+        {
+            
+            common.Constants.chooce = 1;
+            common.Constants.chooseUpdate = 1;
+            //view.FormAddAccount fr = new view.FormAddAccount();
+            //fr.MdiParent = this.MdiParent;
+            //this.Visible = false;
+            //fr.Show();
+            pnl_Add.Enabled = true;
         }
     }
 }

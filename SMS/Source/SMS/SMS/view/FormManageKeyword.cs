@@ -67,7 +67,7 @@ namespace SMS
 
         private void but_Edit_Click(object sender, EventArgs e)
         {
-            if (common.Constants.id.Equals(""))
+            if (lblYouChoose.Text.Equals(""))
             {
                 MessageBox.Show("Choose ");
             }
@@ -83,7 +83,7 @@ namespace SMS
 
         private void but_Delete_Click(object sender, EventArgs e)
         {
-            if (common.Constants.id.Equals(""))
+            if (lblYouChoose.Text.Equals(""))
             {
                 MessageBox.Show("You may choose to delete the line. Plesae choose again ");
             }
