@@ -29,12 +29,12 @@ namespace SMS.dao
                 loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
                 loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
                 loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                //loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                //loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
-                //loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
-                //loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
-                //loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
-                //loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
+                loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
+                loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
+                loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
+                loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
+                loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
 
                 listLoaiTaiKhoanSMS.Add(loaiTaiKhoanSMSModel);
             }
@@ -58,12 +58,12 @@ namespace SMS.dao
                 loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
                 loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
                 loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                //loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                //loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
-                //loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
-                //loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
-                //loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
-                //loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
+                loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
+                loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
+                loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
+                loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
+                loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
             }
             return loaiTaiKhoanSMSModel;
         }
