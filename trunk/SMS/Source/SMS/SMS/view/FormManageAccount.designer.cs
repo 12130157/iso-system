@@ -62,7 +62,7 @@
             this.groupBox1.Controls.Add(this.label28);
             this.groupBox1.Controls.Add(this.cbo_Choose);
             this.groupBox1.Controls.Add(this.dgv_manageAccount);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 58);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(942, 368);
@@ -74,6 +74,7 @@
             this.but_Details.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Details.BackColor = System.Drawing.Color.Blue;
             this.but_Details.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Details.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Details.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Details.Image = ((System.Drawing.Image)(resources.GetObject("but_Details.Image")));
             this.but_Details.Location = new System.Drawing.Point(649, 340);
@@ -89,6 +90,7 @@
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Add.BackColor = System.Drawing.Color.Blue;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.Location = new System.Drawing.Point(559, 341);
@@ -104,6 +106,7 @@
             this.butClose.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.butClose.BackColor = System.Drawing.Color.Blue;
             this.butClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.butClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butClose.ForeColor = System.Drawing.SystemColors.Control;
             this.butClose.Image = ((System.Drawing.Image)(resources.GetObject("butClose.Image")));
             this.butClose.Location = new System.Drawing.Point(832, 339);
@@ -119,6 +122,7 @@
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Delete.BackColor = System.Drawing.Color.Blue;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.Location = new System.Drawing.Point(739, 339);
@@ -133,6 +137,7 @@
             this.but_Refresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Refresh.BackColor = System.Drawing.Color.Blue;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
             this.but_Refresh.Location = new System.Drawing.Point(466, 341);
@@ -148,7 +153,7 @@
             this.chk_All.AutoSize = true;
             this.chk_All.Location = new System.Drawing.Point(420, 345);
             this.chk_All.Name = "chk_All";
-            this.chk_All.Size = new System.Drawing.Size(40, 17);
+            this.chk_All.Size = new System.Drawing.Size(37, 17);
             this.chk_All.TabIndex = 145;
             this.chk_All.Text = "All";
             this.chk_All.UseVisualStyleBackColor = true;
@@ -169,7 +174,7 @@
             this.label28.BackColor = System.Drawing.Color.Pink;
             this.label28.Location = new System.Drawing.Point(9, 349);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(49, 13);
+            this.label28.Size = new System.Drawing.Size(41, 13);
             this.label28.TabIndex = 143;
             this.label28.Text = "Filter>>";
             // 
@@ -219,9 +224,8 @@
             this.lblYouChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblYouChoose.Location = new System.Drawing.Point(21, 436);
             this.lblYouChoose.Name = "lblYouChoose";
-            this.lblYouChoose.Size = new System.Drawing.Size(83, 13);
+            this.lblYouChoose.Size = new System.Drawing.Size(0, 13);
             this.lblYouChoose.TabIndex = 3;
-            this.lblYouChoose.Text = "You Choose: ";
             // 
             // FormManageAccount
             // 

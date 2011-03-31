@@ -64,7 +64,7 @@
             this.groupBox1.Controls.Add(this.label28);
             this.groupBox1.Controls.Add(this.cbo_Choose);
             this.groupBox1.Controls.Add(this.dlv_ManageKeyword);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(22, 52);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1144, 440);
@@ -99,6 +99,7 @@
             this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Edit.BackColor = System.Drawing.Color.Blue;
             this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
             this.but_Edit.Location = new System.Drawing.Point(772, 391);
@@ -114,6 +115,7 @@
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Add.BackColor = System.Drawing.Color.Blue;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.Location = new System.Drawing.Point(654, 391);
@@ -129,6 +131,7 @@
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Delete.BackColor = System.Drawing.Color.Blue;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.Location = new System.Drawing.Point(891, 391);
@@ -144,6 +147,7 @@
             this.but_Refresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Refresh.BackColor = System.Drawing.Color.Blue;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
             this.but_Refresh.Location = new System.Drawing.Point(529, 391);
@@ -160,7 +164,7 @@
             this.chk_All.AutoSize = true;
             this.chk_All.Location = new System.Drawing.Point(468, 394);
             this.chk_All.Name = "chk_All";
-            this.chk_All.Size = new System.Drawing.Size(40, 17);
+            this.chk_All.Size = new System.Drawing.Size(37, 17);
             this.chk_All.TabIndex = 138;
             this.chk_All.Text = "All";
             this.chk_All.UseVisualStyleBackColor = true;
@@ -172,7 +176,7 @@
             this.label1.BackColor = System.Drawing.Color.Pink;
             this.label1.Location = new System.Drawing.Point(201, 393);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 136;
             this.label1.Text = "Enter:";
             // 
@@ -183,7 +187,7 @@
             this.label28.BackColor = System.Drawing.Color.Pink;
             this.label28.Location = new System.Drawing.Point(11, 393);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(49, 13);
+            this.label28.Size = new System.Drawing.Size(41, 13);
             this.label28.TabIndex = 136;
             this.label28.Text = "Filter>>";
             // 
@@ -230,9 +234,8 @@
             this.lblYouChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblYouChoose.Location = new System.Drawing.Point(22, 510);
             this.lblYouChoose.Name = "lblYouChoose";
-            this.lblYouChoose.Size = new System.Drawing.Size(83, 13);
+            this.lblYouChoose.Size = new System.Drawing.Size(0, 13);
             this.lblYouChoose.TabIndex = 2;
-            this.lblYouChoose.Text = "You Choose: ";
             // 
             // FormManageKeyword
             // 
