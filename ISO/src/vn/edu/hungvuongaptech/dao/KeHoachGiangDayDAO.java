@@ -234,6 +234,50 @@ public class KeHoachGiangDayDAO {
 		return result;
 	}
 	
+	public static Boolean insertKHGDCopy(KeHoachGiangDayModel keHoachGiangDayModel){
+		Boolean result = false;
+		String maKHGDNew = "";
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+					.prepareCall("{call sp_ISO_InsertKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("maMonHoc", keHoachGiangDayModel.getMaMonHoc());
+			csmt.setNString("tenGiaoVien", keHoachGiangDayModel.getTenGiaoVien());
+			csmt.setString("maLop", keHoachGiangDayModel.getMaLop());
+			csmt.setString("hocKi", keHoachGiangDayModel.getHocKi());
+			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());			
+			csmt.setString("soCaThucHanh", keHoachGiangDayModel.getSoCaThucHanh());
+			csmt.setString("maNguoiTao", keHoachGiangDayModel.getMaNguoiTao());
+			csmt.setString("ngayTao", keHoachGiangDayModel.getNgayTao());
+			csmt.setString("maNguoiDuyet", null);
+			csmt.setString("ngayDuyet", null);
+			csmt.setString("tinhTrang", Constant.TINHTRANG_NEW);
+			csmt.setString("soTietMoiBuoi", keHoachGiangDayModel.getSoTietMoiBuoi());
+			csmt.setNString("lyDoReject", keHoachGiangDayModel.getLyDoReject());
+			csmt.setString("soGioLT", keHoachGiangDayModel.getSoGioLT());
+			csmt.setString("soGioTH", keHoachGiangDayModel.getSoGioTH());
+			csmt.setString("maTruongKhoa", null);
+			csmt.setString("ngayTKDuyet", null);
+			csmt.setString("User1", keHoachGiangDayModel.getUser1());
+			csmt.setString("User2", keHoachGiangDayModel.getUser2());
+			csmt.setString("User3", keHoachGiangDayModel.getUser3());
+			csmt.setString("User4", keHoachGiangDayModel.getUser4());
+			csmt.setString("User5", keHoachGiangDayModel.getUser5());
+			csmt.registerOutParameter("ID",java.sql.Types.INTEGER);
+			csmt.registerOutParameter("tenKHGD",java.sql.Types.NVARCHAR);
+			csmt.registerOutParameter("ngayCapNhatCuoi",java.sql.Types.DATE);
+			Boolean ketQua = DataUtil.executeNonStore(csmt);
+			if (ketQua) { // Insert thanh cong
+				maKHGDNew = csmt.getString("ID");
+				GiaoAnDAO.copyGiaoAnByMaKHGD(maKHGDNew, keHoachGiangDayModel.getMaKHGD());
+				keHoachGiangDayModel.setMaKHGD(maKHGDNew);
+				result=ketQua;
+			}
+		} catch (Exception e) {
+		}
+		return result;
+	}
+	
 	public static Boolean updateKHGD(KeHoachGiangDayModel keHoachGiangDayModel){
 		Boolean result = false;		
 		try {
@@ -324,9 +368,10 @@ public class KeHoachGiangDayDAO {
 	public static String calSoPhutDCMHByMaKHGD(String maKHGD,String soPhut){
 		
 		String soTiet=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(maKHGD).getSoTietMoiBuoi();
-		int i;
+		int i=0;
 		
-		i=Integer.parseInt(soTiet)*Integer.parseInt(soPhut);
+		if(soTiet!=null)
+			i=Integer.parseInt(soTiet)*Integer.parseInt(soPhut);
 	
 		return i+"";
 	}

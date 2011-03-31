@@ -388,6 +388,11 @@
 			
 			<font color='red' id="ftAlertShow"></font>
 			<form action="<%=request.getContextPath()%>/keHoachGiangDayController?them=yes" method="post" name="KeHoachGiangDay">
+			
+				<c:if test="${param.cp eq 'true' and not empty param.maKHGD and not empty param.maTKBCopy and not empty param.maMonHocCopy  }">
+					<input type='hidden' name='sttKHGDCopy' value='true' id='sttKHGDCopy'></input>
+				</c:if>
+				
 				<input type='hidden' id='sttIsMaKHGD' value="<c:if test='${ empty param.maKHGD }'>false</c:if>"/>
 				
 				<input type="hidden" name="maKHGD" id="maKHGD" value="${objKHGD.maKHGD}" />
@@ -753,6 +758,10 @@
 					<!-- ------------------------------------------------------------------------------------------------------------- -->
 					
 					<c:if test="${not empty param.maKHGD}">
+					
+					
+						<input type='hidden' id="SoTietMoiBuoi" name="SoTietMoiBuoi" value="${objKHGD.soTietMoiBuoi}"/>
+					
 						<% int count1=0; %>
 						<% count3=0; %>
 						<% count4=0; %>

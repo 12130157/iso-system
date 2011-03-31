@@ -357,7 +357,14 @@ public class KeHoachGiangDayController extends HttpServlet{
 			else{
 				if(actionType.equalsIgnoreCase("ThemMoi")){
 					if(KeHoachGiangDayDAO.checkLopAndMonHocOfKHGD(keHoachGiangDayModel.getMaLop(), keHoachGiangDayModel.getMaMonHoc())) {
-						if (KeHoachGiangDayDAO.insertKHGD(keHoachGiangDayModel)) {
+						Boolean result=false;
+						if(request.getParameter("sttKHGDCopy")==null)
+							result=KeHoachGiangDayDAO.insertKHGD(keHoachGiangDayModel);
+						else {
+							if(request.getParameter("sttKHGDCopy").equals("true"))
+								result=KeHoachGiangDayDAO.insertKHGDCopy(keHoachGiangDayModel);
+						}
+						if (result) {
 							KeHoachGiangDayDAO.updateNgayDayKeHoachGiangDay(Integer.parseInt(keHoachGiangDayModel.getMaKHGD()));
 							/*
 							 * Update user2 cua ke hoach giang day bang cach them vao user2 ngay thuc hien

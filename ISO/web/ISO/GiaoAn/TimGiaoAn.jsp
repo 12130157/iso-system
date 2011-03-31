@@ -455,15 +455,15 @@
 			<w:parameter name="view">true<%=path%></w:parameter>
 		</w:query_string>
 		<w:row_header style="background-color: transparent;">
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Môn học</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Giáo viên</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Lớp học</w:cell_header>
-			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;background-color:black' >Tên giáo án</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày dạy</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày gởi</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Người duyệt</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Ngày duyệt</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:black' >Tình trạng</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Môn học</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Giáo viên</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Lớp học</w:cell_header>
+			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;background-color:#186fb2' >Tên giáo án</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày dạy</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày gởi</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Người duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Tình trạng</w:cell_header>
 		</w:row_header>
 		
 		<c:if test="${ not empty param.view}">
