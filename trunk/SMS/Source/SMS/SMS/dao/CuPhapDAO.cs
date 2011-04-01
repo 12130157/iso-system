@@ -301,5 +301,49 @@ namespace SMS
 
             return DataUtil.executeQuery(objCommand);
         }
+
+        public static DataTable getDiemByIDHocVienNIDMonHoc(string idHocVien, string idMonHoc)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("idSinhVien", SqlDbType.Int);
+                parameter[i++].Value = idHocVien;
+
+                parameter[i] = new SqlParameter("idMonHoc", SqlDbType.Int);
+                parameter[i++].Value = idMonHoc;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiem", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getTKBByIDHocVienNIDMonHoc(string idHocVien, string idMonHoc)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("idSinhVien", SqlDbType.Int);
+                parameter[i++].Value = idHocVien;
+
+                parameter[i] = new SqlParameter("idMonHoc", SqlDbType.Int);
+                parameter[i++].Value = idMonHoc;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getTKB", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
