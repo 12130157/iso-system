@@ -8,8 +8,8 @@ CREATE PROC sp_ISO_SMS_getDiem
 	@idMonHoc		int
 AS
 BEGIN
-	SELECT C.ma_hoc_vien,D.ten_mon_hoc,
-	E.ten_bai_kiem_tra+' '+F.ten_hinh_thuc AS 'Ten vs Hinh Thuc KT',A.Diem
+	SELECT D.ten_mon_hoc AS 'Ten Mon Hoc',
+	E.ten_bai_kiem_tra+' '+F.ten_hinh_thuc AS 'Ten vs Hinh Thuc KT',A.Diem AS 'Diem'
 
 	FROM chitietdiem AS A
 

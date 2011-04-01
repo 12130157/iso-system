@@ -8,10 +8,10 @@ CREATE PROC sp_ISO_SMS_getTKB
 	@idMonHoc		int
 AS
 BEGIN
-	SELECT C.id AS 'id thoi khoa bieu',
-	C.ngay_bat_dau AS 'Ngay bat dau hoc',C.ngay_ket_thuc AS 'Ngay ket thuc',
-	G.ki_hieu AS 'Ma lop',C.Tuan_bat_dau,C.Tuan_ket_thuc,
-	D.thu_trong_tuan,D.buoi,H.ki_hieu_phong,F.ten_mon_hoc
+	SELECT CAST(DATEPART(DAY,C.ngay_bat_dau) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,C.ngay_bat_dau) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,C.ngay_bat_dau) AS VARCHAR) AS 'Ngay bat dau hoc',
+	CAST(DATEPART(DAY,C.ngay_ket_thuc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,C.ngay_ket_thuc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,C.ngay_ket_thuc) AS VARCHAR) AS 'Ngay ket thuc',	
+	CAST(DATEPART(DAY,D.ngay_hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,D.ngay_hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,D.ngay_hoc) AS VARCHAR) AS 'Ngay hoc',	
+	D.buoi AS 'Buoi',H.ki_hieu_phong AS 'Ten Phong',F.ten_mon_hoc AS 'Mon Hoc'
 
 	FROM chitietthanhvien AS A 
 
