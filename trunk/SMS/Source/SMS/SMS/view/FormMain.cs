@@ -27,15 +27,38 @@ namespace SMS
             if (common.Constants.comm.IsConnected() == true)
             {
                 this.lbStatus.Text = "Connected";
-                InitializeTimer();
+            }
+        }
+        bool ena = false;
+
+        private void btnEnableMess_Click(object sender, EventArgs e)
+        {
+            if (common.Constants.comm.IsConnected() == true)
+            {
+                if (ena == false)
+                {
+                    ena = true;
+                    InitializeTimer(ena);
+                    btnEnableMess.Text = "Enable for Message";
+                }
+                if (ena == true)
+                {
+                    ena = false;
+                    InitializeTimer(ena);
+                    btnEnableMess.Text = "Disable for Message";
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Phone Connected");
             }
         }
 
-        public void InitializeTimer()
+        public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
             this.autoRecieveMess.Interval = 5000;
-            this.autoRecieveMess.Enabled = true;
+            this.autoRecieveMess.Enabled = en;
         }
 
         public void OnTimer(Object source, ElapsedEventArgs e)
@@ -68,7 +91,6 @@ namespace SMS
                 HopThuDenMODEL modelDen;
 
                 //bien luu tin nhan di
-                SmsSubmitPdu messageDi;
                 HopThuDiMODEL modelDi;
 
                 foreach (DecodedShortMessage message in messages)
@@ -125,6 +147,10 @@ namespace SMS
                     //mang noi dung tin nhan > 1 phan tu
                     else
                     {
+                        if (arrContentMess.Length == 2)
+                        {
+                            arrContentMess[2] = "-1";
+                        }
                         string cumCuPhap = "";
                         //lay ra ma cu phap trong tin nhan den
                         for (int i = 0; i <= arrContentMess.Length - 3; i++)
@@ -142,13 +168,17 @@ namespace SMS
                             modelDen.Loai_Hop_Thu = "0";
                             int lengtOfContentMessDen = arrContentMess.Length;
                             string result ="";
-                            if (cuPhapModel.Id.Equals("0"))
+                            if (cuPhapModel.Ten.Equals("DIEM"))
                             {
                                 result = getStringDiemByIDNMonHoc(arrContentMess[lengtOfContentMessDen - 2], arrContentMess[lengtOfContentMessDen - 1]);
                             }
-                            if (cuPhapModel.Id.Equals("1"))
+                            if (cuPhapModel.Ten.Equals("TKB"))
                             {
                                 result = getStringTKBByIDNMonHoc(arrContentMess[lengtOfContentMessDen - 2], arrContentMess[lengtOfContentMessDen - 1]);
+                            }
+                            if (cuPhapModel.Ten.Equals("MON"))
+                            { 
+                            
                             }
                             
 
@@ -161,7 +191,7 @@ namespace SMS
                             catch (Exception)
                             {
                                 j = 0;
-                                modelDi.Loai_Hop_Thu = "";
+                                modelDi.Loai_Hop_Thu = "4";
                                 throw;
                             }
                             modelDi.Noi_Dung_Tin_Nhan = result;
@@ -378,5 +408,6 @@ namespace SMS
             }
             return result;
         }
+
     } 
 }
