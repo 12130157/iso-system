@@ -100,7 +100,7 @@
 	if(request.getParameter("date2")!=null&&request.getParameter("date2")!="")
 	{
 		ngayKT=request.getParameter("date2");
-		path=path+"&khoa="+ngayKT;
+		path=path+"&date2="+ngayKT;
 	}
 	
 	int index=1;

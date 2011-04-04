@@ -41,22 +41,26 @@
 <%
 	String gv="";
 	String path="TimGiaoAn.jsp?view=true";
+	String path2="";
 	if(request.getParameter("gv")!=null&&request.getParameter("gv")!="")
 	{
 		gv=request.getParameter("gv").toString();
 		path=path+"&gv="+gv;
+		path2=path2+"&gv="+gv;
 	}
 	String nam="";
 	if(request.getParameter("nam")!=null&&request.getParameter("nam")!="")
 	{
 		nam=request.getParameter("nam");
 		path=path+"&nam="+nam;
+		path2=path2+"&nam="+nam;
 	}
 	String lop="";
 	if(request.getParameter("lop")!=null&&request.getParameter("lop")!="")
 	{
 		lop=request.getParameter("lop");
 		path=path+"&lop="+lop;
+		path2=path2+"&lop="+lop;
 	}
 	
 	String mon="";
@@ -64,6 +68,7 @@
 	{
 		mon=request.getParameter("mon");
 		path=path+"&mon="+mon;
+		path2=path2+"&mon="+mon;
 	}
 	
 	String hk="";
@@ -71,6 +76,7 @@
 	{
 		hk=request.getParameter("hk");
 		path=path+"&hk="+hk;
+		path2=path2+"&hk="+hk;
 	}
 	
 	String tt="";
@@ -78,6 +84,8 @@
 	{
 		tt=request.getParameter("tt");
 		path=path+"&tt="+tt;
+		path2=path2+"&tt="+tt;
+	
 	}
 	
 	String khoa="";
@@ -85,6 +93,7 @@
 	{
 		khoa=request.getParameter("khoa");
 		path=path+"&khoa="+khoa;
+		path2=path2+"&khoa="+khoa;
 	}
 	
 	String ngayBD="";
@@ -92,17 +101,22 @@
 	{
 		ngayBD=request.getParameter("date1");
 		path=path+"&date1="+ngayBD;
+		path2=path2+"&date1="+ngayBD;
 	}
 	
 	String ngayKT="";
 	if(request.getParameter("date2")!=null&&request.getParameter("date2")!="")
 	{
 		ngayKT=request.getParameter("date2");
-		path=path+"&khoa="+ngayKT;
+		path=path+"&date2="+ngayKT;
+		path2=path2+"&date2="+ngayKT;
 	}
+	
 	int index=1;
-	if(request.getParameter("index")!=null&&request.getParameter("index")!="")
-		index=Integer.parseInt(request.getParameter("index"));
+	if(request.getParameter("pIndex")!=null&&request.getParameter("pIndex")!=""){
+		index=Integer.parseInt(request.getParameter("pIndex"));
+		path=path+"&pIndex="+index;
+	}
 
 %>
 <c:if test="${empty param.khoa}">
@@ -143,8 +157,9 @@
 <%
 	String maBoPhan=(String) request.getSession().getAttribute("maBoPhan");
  %>
-<c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan)%>' scope="session"></c:set>
+<c:if test="${ not empty param.view}">
+	<c:set var="totalPage" value='<%=GiaoAnDAO.getLengthOfFindGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan) %>'></c:set>
+	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(request.getParameter("pIndex"),Constant.NUM_RECORD_TIMGIAOAN,gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan)%>' scope="session"></c:set>
 </c:if>
 
 
@@ -455,15 +470,15 @@
 			<w:parameter name="view">true<%=path%></w:parameter>
 		</w:query_string>
 		<w:row_header style="background-color: transparent;">
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Môn học</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Giáo viên</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Lớp học</w:cell_header>
-			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;background-color:#186fb2' >Tên giáo án</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày dạy</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày gởi</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Người duyệt</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Ngày duyệt</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2' >Tình trạng</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Môn học</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Giáo viên</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Lớp học</w:cell_header>
+			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;cursor:pointer;background-color:#186fb2' >Tên giáo án</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày dạy</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày gởi</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Người duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày duyệt</w:cell_header>
+			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Tình trạng</w:cell_header>
 		</w:row_header>
 		
 		<c:if test="${ not empty param.view}">
@@ -536,6 +551,17 @@
 	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
 	<div style='text-align:center'>
 			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<div>
+		<c:if test="${totalPage ne 0}">
+			<w:paging style="color:blue;cursor:pointer" styleIndexChoose="color:red;pointer:cursor" pathName="TimGiaoAn.jsp" pageName="pIndex" enableFirstPage="true" enableLastPage="true" index="<%=index %>" enableSubmit="true" enableIndexChoose="true"
+					idForm="frmSearchGiaoAn" nameForm="frmSearchGiaoAn" numRecordDivide="<%=Constant.NUM_RECORD_TIMGIAOAN %>" numPageDivide="5" totalRecord="${totalPage}">
+				<w:parameter name="view">true<%=path2%></w:parameter>
+			</w:paging>
+		</c:if>
 	</div>
 	</c:if>
 

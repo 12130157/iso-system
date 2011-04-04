@@ -687,8 +687,49 @@ public class GiaoAnDAO {
 		return result;
 	}
 	
-	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan)
+	public static int getLengthOfFindGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan)
 	{
+		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_iso_GetLengthOfFindGiaoAn(?,?,?,?,?,?,?,?,?)}");
+				
+			csmt.setString("MaNguoiTao",maNguoiTao);		
+			csmt.setString("MaNamHoc",maNamHoc);
+			csmt.setString("MaLop",maLop);
+			csmt.setString("MaMonHoc",maMonHoc);
+			csmt.setString("HocKi",hocKi);
+			csmt.setString("TinhTrang",tinhTrang);
+			csmt.setString("NgayTimBD",DateUtil.setDate(ngayTimBD));
+			csmt.setString("NgayTimKT",DateUtil.setDate(ngayTimKT));
+			csmt.setString("MaBoPhan",maBoPhan);
+			ResultSet rs = DataUtil.executeStore(csmt);
+			
+			
+			while(rs.next()){
+				return Integer.parseInt(rs.getString("TOTAL"));
+			}
+			
+		
+		}
+		catch(Exception e){
+			e.printStackTrace();	
+			return 0;
+		}
+		
+		return 0;
+	}
+	
+	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String indexPage,int lengthPage,String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan)
+	{
+		if(indexPage == null)
+			indexPage="1";
+		else if(indexPage.equals(""))
+			indexPage="1";
+		
+		indexPage=(Integer.parseInt(indexPage)*Constant.NUM_RECORD_TIMGIAOAN)+"";
+		
 		KetQuaTimGiaoAnModel ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
 		
 		ArrayList<KetQuaTimGiaoAnModel> ketQuaList=new ArrayList<KetQuaTimGiaoAnModel>();
@@ -696,8 +737,11 @@ public class GiaoAnDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?,?,?,?,?,?)}");
 			
+
+			csmt.setString("IndexPage",indexPage);	
+			csmt.setString("LengthPage",lengthPage+"");	
 			csmt.setString("MaNguoiTao",maNguoiTao);		
 			csmt.setString("MaNamHoc",maNamHoc);
 			csmt.setString("MaLop",maLop);
