@@ -78,19 +78,19 @@ namespace SMS
             // menuChangePassword
             // 
             this.menuChangePassword.Name = "menuChangePassword";
-            this.menuChangePassword.Size = new System.Drawing.Size(173, 22);
+            this.menuChangePassword.Size = new System.Drawing.Size(184, 22);
             this.menuChangePassword.Text = "Change Password";
             // 
             // menuSystemConfig
             // 
             this.menuSystemConfig.Name = "menuSystemConfig";
-            this.menuSystemConfig.Size = new System.Drawing.Size(173, 22);
+            this.menuSystemConfig.Size = new System.Drawing.Size(184, 22);
             this.menuSystemConfig.Text = "System Config";
             // 
             // menuLogout
             // 
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(173, 22);
+            this.menuLogout.Size = new System.Drawing.Size(184, 22);
             this.menuLogout.Text = "Logout";
             // 
             // menuMessage
@@ -106,21 +106,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(126, 22);
+            this.menuCompose.Size = new System.Drawing.Size(137, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(126, 22);
+            this.menuInbox.Size = new System.Drawing.Size(137, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(126, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -137,21 +137,21 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(171, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(182, 22);
             this.menuKeyword.Text = "Manage Keyword";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(171, 22);
+            this.menuAccount.Size = new System.Drawing.Size(182, 22);
             this.menuAccount.Text = "Manage Account";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(171, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(182, 22);
             this.menuAddressBook.Text = "Address Book";
             // 
             // menuHelp
@@ -166,13 +166,13 @@ namespace SMS
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem1.Text = "About ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
             // lbStatus
@@ -193,7 +193,7 @@ namespace SMS
             this.btnEnableMess.Name = "btnEnableMess";
             this.btnEnableMess.Size = new System.Drawing.Size(140, 48);
             this.btnEnableMess.TabIndex = 6;
-            this.btnEnableMess.Text = "Enable for Message";
+            this.btnEnableMess.Text = "Enable for Recieve Message";
             this.btnEnableMess.UseVisualStyleBackColor = true;
             this.btnEnableMess.Click += new System.EventHandler(this.btnEnableMess_Click);
             // 

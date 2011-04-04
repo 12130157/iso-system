@@ -257,6 +257,6 @@ namespace SMS
             {
                 forwardMessInbox(tblNormalMessDeletedInbox, "clmContentNormalMessDeletedInbox");       
             }
-        }   
+        }
     }
 }

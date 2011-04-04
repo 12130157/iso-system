@@ -364,7 +364,7 @@
             this.clmDateTimeNormalMessDeletedInbox});
             this.tblNormalMessDeletedInbox.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessDeletedInbox.Name = "tblNormalMessDeletedInbox";
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(864, 265);
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(864, 268);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
             // 
             // clmIdNormalMessDeletedInbox

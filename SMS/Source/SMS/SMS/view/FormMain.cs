@@ -39,13 +39,15 @@ namespace SMS
                 {
                     ena = true;
                     InitializeTimer(ena);
-                    btnEnableMess.Text = "Enable for Message";
+                    btnEnableMess.Text = "Disable for Recieve Message";
+                    return;
                 }
                 if (ena == true)
                 {
                     ena = false;
                     InitializeTimer(ena);
-                    btnEnableMess.Text = "Disable for Message";
+                    btnEnableMess.Text = "Enable for Recieve Message";
+                    return;
                 }
             }
             else
@@ -57,7 +59,7 @@ namespace SMS
         public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 5000;
+            this.autoRecieveMess.Interval = 1000;
             this.autoRecieveMess.Enabled = en;
         }
 
@@ -84,6 +86,10 @@ namespace SMS
                     {
                         MessageBox.Show("Đã nhận " + messages.Length.ToString() + " tin nhắn");
                     }
+                    //else
+                    //{
+                    //    MessageBox.Show("Chua co tin nhan nao");
+                    //}
                 
                 
                 //bien luu tin nhan den
@@ -130,7 +136,8 @@ namespace SMS
 
                         try
                         {
-                            sendOneMessage(contentMessDen,phoneNbMessDen);
+                            sendOneMessage(returnMessNotSyntax, phoneNbMessDen);
+                            //MessageBox.Show(returnMessNotSyntax);
                             j = 1;
                             modelDi.Loai_Hop_Thu = "6";
                         }
@@ -153,12 +160,14 @@ namespace SMS
                         }
                         string cumCuPhap = "";
                         //lay ra ma cu phap trong tin nhan den
-                        for (int i = 0; i <= arrContentMess.Length - 3; i++)
+                        for (int i = 0; i <= ((arrContentMess.Length) - 3); i++)
                         {
                             cumCuPhap += arrContentMess[i];
                         }
                         //kiem tra vum cu phap  do co trong db ko
-                        CuPhapMODEL cuPhapModel = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+                        CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+                        cuPhapModel = null;
+                        cuPhapModel =  CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
                         
                         //co cu phap trong danh sach 
                         if (cuPhapModel.Id != null)
@@ -168,31 +177,75 @@ namespace SMS
                             modelDen.Loai_Hop_Thu = "0";
                             int lengtOfContentMessDen = arrContentMess.Length;
                             string result ="";
-                            if (cuPhapModel.Ten.Equals("DIEM"))
+                            string test = cuPhapModel.Cum_Tu_1+cuPhapModel.Cum_Tu_2+cuPhapModel.Cum_Tu_3+cuPhapModel.Cum_Tu_4+cuPhapModel.Cum_Tu_5+cuPhapModel.Cum_Tu_6+cuPhapModel.Cum_Tu_7+cuPhapModel.Cum_Tu_8+cuPhapModel.Cum_Tu_9+cuPhapModel.Cum_Tu_10;
+                            if (test.Equals("DIEM"))
                             {
                                 result = getStringDiemByIDNMonHoc(arrContentMess[lengtOfContentMessDen - 2], arrContentMess[lengtOfContentMessDen - 1]);
                             }
-                            if (cuPhapModel.Ten.Equals("TKB"))
+                            else if (test.Equals("TKB"))
                             {
                                 result = getStringTKBByIDNMonHoc(arrContentMess[lengtOfContentMessDen - 2], arrContentMess[lengtOfContentMessDen - 1]);
                             }
-                            if (cuPhapModel.Ten.Equals("MON"))
-                            { 
-                            
-                            }
-                            
+                            else if (test.Equals("MON"))
+                            {
 
-                            try
-                            {
-                                sendOneMessage(result, phoneNbMessDen);
-                                j = 1;
-                                modelDi.Loai_Hop_Thu = "4";
                             }
-                            catch (Exception)
+                            else
                             {
-                                j = 0;
-                                modelDi.Loai_Hop_Thu = "4";
-                                throw;
+                                result = returnMessNotSyntax;
+                            }
+
+                            MessageBox.Show(result);
+
+                            if (((result.Length) / 150) >= 1)
+                            {
+                                char[] arrResult = result.ToCharArray();
+
+                                int cutMess = ((result.Length) / 150) + 1;
+
+                                int z = 150;
+                                int i = 1;
+                                int h = 0;
+                                string sub = "";
+                                while (i <= cutMess)
+                                {
+                                    for (int a = h; h < z; a++)
+                                    {
+                                        sub += arrResult[a];
+                                    }
+                                        try
+                                        {
+                                            sendOneMessage(sub, phoneNbMessDen);
+                                            j = 1;
+                                            modelDi.Loai_Hop_Thu = "4";
+                                        }
+                                        catch (Exception)
+                                        {
+                                            j = 0;
+                                            modelDi.Loai_Hop_Thu = "4";
+                                            throw;
+                                        }
+                                    i++;
+                                    h = h + 150;
+                                    z = z + 150;
+                                    sub = "";
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    sendOneMessage(result, phoneNbMessDen);
+                                    //MessageBox.Show(result);
+                                    j = 1;
+                                    modelDi.Loai_Hop_Thu = "4";
+                                }
+                                catch (Exception)
+                                {
+                                    j = 0;
+                                    modelDi.Loai_Hop_Thu = "4";
+                                    throw;
+                                }
                             }
                             modelDi.Noi_Dung_Tin_Nhan = result;
                             modelDi.Tinh_Trang = j.ToString();
@@ -208,6 +261,7 @@ namespace SMS
                             try
                             {
                                 sendOneMessage(returnMessNotSyntax, phoneNbMessDen);
+                                //MessageBox.Show(returnMessNotSyntax);
                                 j = 1;
                                 modelDi.Loai_Hop_Thu = "6";
                             }
@@ -246,14 +300,14 @@ namespace SMS
                     MessageBox.Show("No phone connnected");
                 }
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
                 MessageBox.Show(ex.Message);
             }
             Cursor.Current = Cursors.Default;
             MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
             int memUesd = memnoryStatus.Used;
-            if (memUesd != 0)
+            if (memUesd > 30)
             {
                 common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
             }
@@ -392,7 +446,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
             foreach (DataRow row in tbl.Rows)
             {
-                result += row["Ten Mon Hoc"] + " " + row["Ten vs Hinh Thuc KT"] + " " + row["Diem"] + "\n";
+                result += row["Ten Mon Hoc"] + " / " + row["Ten vs Hinh Thuc KT"] + " / " + row["Diem"] + "\n";
             }
             return result;
         }
