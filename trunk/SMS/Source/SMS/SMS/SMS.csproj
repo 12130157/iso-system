@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\Constants.cs" />
+    <Compile Include="common\KeyValuePair.cs" />
     <Compile Include="common\Validattion.cs" />
     <Compile Include="dao\ChiTietTaiKhoanSmsDAO.cs" />
     <Compile Include="dao\ChiTietTinNhanTuDongDAO.cs" />
@@ -110,6 +111,10 @@
       <DependentUpon>FormConnection.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\FormDetailAccount.resx">
+      <DependentUpon>FormDetailAccount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\FormInbox.resx">
       <DependentUpon>FormInbox.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -143,6 +148,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="images\Thumbs.db" />
     <None Include="model\Thumbs.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -195,6 +201,12 @@
     </Compile>
     <Compile Include="view\FormConnection.Designer.cs">
       <DependentUpon>FormConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FormDetailAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FormDetailAccount.Designer.cs">
+      <DependentUpon>FormDetailAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FormInbox.cs">
       <SubType>Form</SubType>
@@ -399,6 +411,7 @@
     <Content Include="images\Save.ico" />
     <Content Include="images\Search.ico" />
     <Content Include="images\secrecy-icon.png" />
+    <Content Include="images\send_free_sms_international_pc_computer_free_web_online.jpg" />
     <Content Include="images\sent.jpeg" />
     <Content Include="images\Sent1.jpeg" />
     <Content Include="images\sent2.jpeg" />
