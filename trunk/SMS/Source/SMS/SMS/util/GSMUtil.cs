@@ -14,18 +14,6 @@ namespace SMS
 {
     public class GSMUtil
     {
-        ////gan cong port mac dinh cho bien port
-        //int port = GsmCommMain.DefaultPortNumber;
-        ////gan mac dinh 9600 cho baudrate
-        //int baudRate = 9600; 
-        ////gan time out mac dinh
-        //int timeout = GsmCommMain.DefaultTimeout;
-
-        //public GsmCommMain comm;
-        //private delegate void SetTextCallback(string text);
-
-
-
         public bool connectGSM(int port, int baudRate, int timeout)
         {
             Cursor.Current = Cursors.WaitCursor;
