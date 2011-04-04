@@ -126,7 +126,7 @@ public class Constant {
 	public static String MA_MENU_THEM_CONG_TAC_ISO = "9";
 	
 	public static int NUM_RECORD_QLTB=10;
-	public static int NUM_RECORD_TIMGIAOAN=10;
+	public static int NUM_RECORD_TIMGIAOAN=30;
 	
 	//diem danh
 
