@@ -197,38 +197,30 @@ namespace SMS
 
                             MessageBox.Show(result);
 
-                            if (((result.Length) / 150) >= 1)
+                            int startIndex = 0;
+                            int lenghtFinal = 0;
+                            int i = result.Length / 150;
+
+                            if (i >= 1)
                             {
-                                char[] arrResult = result.ToCharArray();
-
-                                int cutMess = ((result.Length) / 150) + 1;
-
-                                int z = 150;
-                                int i = 1;
-                                int h = 0;
-                                string sub = "";
-                                while (i <= cutMess)
+                                while (true)
                                 {
-                                    for (int a = h; h < z; a++)
+                                    if (startIndex > result.Length)
                                     {
-                                        sub += arrResult[a];
+                                        break;
                                     }
-                                        try
-                                        {
-                                            sendOneMessage(sub, phoneNbMessDen);
-                                            j = 1;
-                                            modelDi.Loai_Hop_Thu = "4";
-                                        }
-                                        catch (Exception)
-                                        {
-                                            j = 0;
-                                            modelDi.Loai_Hop_Thu = "4";
-                                            throw;
-                                        }
-                                    i++;
-                                    h = h + 150;
-                                    z = z + 150;
-                                    sub = "";
+
+                                    if (startIndex + 150 > result.Length)
+                                    {
+                                        // lay ra chieu dai chuoi cuoi cung
+                                        lenghtFinal = result.Length - startIndex;
+                                        string subString = result.Substring(startIndex, lenghtFinal);
+                                    }
+                                    else
+                                    {
+                                        string subString = result.Substring(startIndex, 150);
+                                    }
+                                    startIndex += 150;
                                 }
                             }
                             else
