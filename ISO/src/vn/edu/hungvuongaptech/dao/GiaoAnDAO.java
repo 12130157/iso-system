@@ -687,13 +687,13 @@ public class GiaoAnDAO {
 		return result;
 	}
 	
-	public static int getLengthOfFindGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan)
+	public static int getLengthOfFindGiaoAn(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan,String maKhoa)
 	{
 		
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_iso_GetLengthOfFindGiaoAn(?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_iso_GetLengthOfFindGiaoAn(?,?,?,?,?,?,?,?,?,?)}");
 				
 			csmt.setString("MaNguoiTao",maNguoiTao);		
 			csmt.setString("MaNamHoc",maNamHoc);
@@ -704,6 +704,8 @@ public class GiaoAnDAO {
 			csmt.setString("NgayTimBD",DateUtil.setDate(ngayTimBD));
 			csmt.setString("NgayTimKT",DateUtil.setDate(ngayTimKT));
 			csmt.setString("MaBoPhan",maBoPhan);
+			csmt.setString("MaKhoa",maKhoa);
+			
 			ResultSet rs = DataUtil.executeStore(csmt);
 			
 			
@@ -721,7 +723,7 @@ public class GiaoAnDAO {
 		return 0;
 	}
 	
-	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String indexPage,int lengthPage,String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan)
+	public static ArrayList<KetQuaTimGiaoAnModel> findGiaoAn(String indexPage,int lengthPage,String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayTimBD,String ngayTimKT,String maBoPhan,String maKhoa)
 	{
 		if(indexPage == null)
 			indexPage="1";
@@ -737,7 +739,7 @@ public class GiaoAnDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_iso_findgiaoan(?,?,?,?,?,?,?,?,?,?,?,?)}");
 			
 
 			csmt.setString("IndexPage",indexPage);	
@@ -751,6 +753,8 @@ public class GiaoAnDAO {
 			csmt.setString("NgayTimBD",DateUtil.setDate(ngayTimBD));
 			csmt.setString("NgayTimKT",DateUtil.setDate(ngayTimKT));
 			csmt.setString("MaBoPhan",maBoPhan);
+			csmt.setString("MaKhoa",maKhoa);
+			
 			ResultSet rs = DataUtil.executeStore(csmt);
 			
 			

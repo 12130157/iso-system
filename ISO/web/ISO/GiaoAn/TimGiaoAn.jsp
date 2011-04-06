@@ -158,10 +158,10 @@
 	String maBoPhan=(String) request.getSession().getAttribute("maBoPhan");
  %>
 <c:if test="${ not empty param.view}">
-	<c:set var="totalPage" value='<%=GiaoAnDAO.getLengthOfFindGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan) %>'></c:set>
-	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(request.getParameter("pIndex"),Constant.NUM_RECORD_TIMGIAOAN,gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan)%>' scope="session"></c:set>
-</c:if>
 
+	<c:set var="totalPage" value='<%=GiaoAnDAO.getLengthOfFindGiaoAn(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan,khoa) %>'></c:set>
+	<c:set var="kqTimKiemList" value='<%=GiaoAnDAO.findGiaoAn(request.getParameter("pIndex"),Constant.NUM_RECORD_TIMGIAOAN,gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan,khoa)%>' scope="session"></c:set>
+</c:if>
 
 <c:set var="TT_SEND" value="<%=Constant.TINHTRANG_SEND %>"></c:set>
 <c:set var="TT_CHUATHUCHIEN" value="<%=Constant.TINHTRANG_CHUATHUCHIEN %>"></c:set>
@@ -552,10 +552,13 @@
 	<div style='text-align:center'>
 			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 	</div>
+	
+	</c:if>
+<br/>
 	<br/>
 	<br/>
-	<br/>
-	<div>
+	
+<div>
 		<c:if test="${totalPage ne 0}">
 			<w:paging style="color:blue;cursor:pointer" styleIndexChoose="color:red;pointer:cursor" pathName="TimGiaoAn.jsp" pageName="pIndex" enableFirstPage="true" enableLastPage="true" index="<%=index %>" enableSubmit="true" enableIndexChoose="true"
 					idForm="frmSearchGiaoAn" nameForm="frmSearchGiaoAn" numRecordDivide="<%=Constant.NUM_RECORD_TIMGIAOAN %>" numPageDivide="5" totalRecord="${totalPage}">
@@ -563,7 +566,6 @@
 			</w:paging>
 		</c:if>
 	</div>
-	</c:if>
 
 	</form>
 	<!-- S FOOT CONTENT -->

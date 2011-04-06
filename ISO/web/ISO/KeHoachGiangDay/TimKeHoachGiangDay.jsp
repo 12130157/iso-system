@@ -146,7 +146,7 @@
  %>
 
 <c:if test="${ not empty param.view }">
-	<c:set var="kqTimKiemList" value='<%=KeHoachGiangDayDAO.findKHGD(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan)%>' scope="session"></c:set>
+	<c:set var="kqTimKiemList" value='<%=KeHoachGiangDayDAO.findKHGD(gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan,khoa)%>' scope="session"></c:set>
 </c:if>
 
 
