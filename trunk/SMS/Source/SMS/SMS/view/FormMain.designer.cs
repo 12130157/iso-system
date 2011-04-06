@@ -188,10 +188,11 @@ namespace SMS
             // 
             // btnEnableMess
             // 
+            this.btnEnableMess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnEnableMess.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnableMess.Location = new System.Drawing.Point(12, 80);
+            this.btnEnableMess.Location = new System.Drawing.Point(232, 0);
             this.btnEnableMess.Name = "btnEnableMess";
-            this.btnEnableMess.Size = new System.Drawing.Size(140, 48);
+            this.btnEnableMess.Size = new System.Drawing.Size(264, 25);
             this.btnEnableMess.TabIndex = 6;
             this.btnEnableMess.Text = "Enable for Recieve Message";
             this.btnEnableMess.UseVisualStyleBackColor = true;

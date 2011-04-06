@@ -36,16 +36,12 @@ namespace SMS
             {
                 MessageBox.Show("Connect successfull");
                 this.Hide();
-                FormMain frmMain = new FormMain();
-                frmMain.Show();
-                
+                new FormLogin().Show();
             }
             else
             {
                 MessageBox.Show("Connect Failed");
-                this.Hide();
-                FormMain frmMain = new FormMain();
-                frmMain.Show();
+                Application.Exit();
             }
         }
 
