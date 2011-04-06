@@ -166,7 +166,6 @@ namespace SMS
         private void butClosse_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        
+        }  
     }
 }

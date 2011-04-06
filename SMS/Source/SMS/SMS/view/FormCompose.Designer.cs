@@ -262,6 +262,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(573, 353);
             this.Controls.Add(this.btnContacts);
@@ -277,6 +278,7 @@
             this.Controls.Add(this.lbMessage);
             this.Controls.Add(this.lbNumberPhone);
             this.ForeColor = System.Drawing.Color.Maroon;
+            this.MaximizeBox = false;
             this.Name = "FormCompose";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compose";

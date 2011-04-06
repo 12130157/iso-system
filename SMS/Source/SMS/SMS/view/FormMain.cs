@@ -215,10 +215,12 @@ namespace SMS
                                         // lay ra chieu dai chuoi cuoi cung
                                         lenghtFinal = result.Length - startIndex;
                                         string subString = result.Substring(startIndex, lenghtFinal);
+                                        sendOneMessage(subString, phoneNbMessDen);
                                     }
                                     else
                                     {
                                         string subString = result.Substring(startIndex, 150);
+                                        sendOneMessage(subString, phoneNbMessDen);
                                     }
                                     startIndex += 150;
                                 }
@@ -454,6 +456,5 @@ namespace SMS
             }
             return result;
         }
-
     } 
 }
