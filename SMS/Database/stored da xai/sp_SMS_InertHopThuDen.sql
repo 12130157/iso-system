@@ -1,6 +1,6 @@
 /***********************************************************
 * Purpose : INSERT HOPTHUDEN
-* Author : Nguyen VAN NUOI
+* Author : Nguyen Chi Tam
 * Date: 8 -3 - 2011
 * Description: INSERT HOPTHUDEN
 */
