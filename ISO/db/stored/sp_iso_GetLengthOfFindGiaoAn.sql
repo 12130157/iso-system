@@ -10,7 +10,8 @@ CREATE PROCEDURE sp_iso_GetLengthOfFindGiaoAn
 	@TinhTrang varchar(10),
 	@NgayTimBD varchar(11),
 	@NgayTimKT varchar(11),
-	@MaBoPhan varchar(5)
+	@MaBoPhan varchar(5),
+	@MaKhoa varchar(5)
 AS
 BEGIN			
 	DECLARE @DieuKienMaNguoiTao varchar(100)
@@ -31,13 +32,19 @@ BEGIN
 	SET @DieuKienMaNamHoc=''
 	SET @DieuKienTimNgay=''
 
-	IF @MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2
+	IF (@MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2)  AND @MaKhoa = ''
 	BEGIN
 		SET @DieuKienMaBoPhan=''
 	END
 	ELSE
 	BEGIN
-		SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
+		IF @MaKhoa = ''
+		BEGIN
+			SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
+		END
+		BEGIN
+			 SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaKhoa
+		END 
 	END
 
 		
