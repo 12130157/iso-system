@@ -15,7 +15,7 @@ AS
 BEGIN
 	UPDATE hopthuden
 	
-	SET ma_tin_nhan_tra_loi = -1 
+	SET ma_tin_nhan_tra_loi = null 
 	
 	WHERE ma_tin_nhan_tra_loi = @ma_tin_nhan_tra_loi
 END
