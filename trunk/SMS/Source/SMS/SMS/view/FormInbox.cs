@@ -152,7 +152,7 @@ namespace SMS
             else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
                 removeMessInbox(tblNormalMessDeletedInbox, "clmIdNormalMessDeletedInbox");
-                showNormalMessInbox();
+                showNormalMessDeletedInbox();
             }
         }
 

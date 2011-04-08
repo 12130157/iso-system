@@ -207,7 +207,7 @@ namespace SMS
                 {
                     foreach (DataGridViewRow row in selectedRows)
                     {
-                        bool result = HopThuDiDAO.removeIdMessSentInHopThuDen(row.Cells[clmName].Value.ToString());
+                        bool result = HopThuDiDAO.updateMaTinNhanTraLoiInbox(row.Cells[clmName].Value.ToString());
                         bool result1 = HopThuDiDAO.removeMessSent(row.Cells[clmName].Value.ToString());
                     }
                 }
