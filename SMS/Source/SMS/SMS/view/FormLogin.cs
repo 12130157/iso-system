@@ -28,17 +28,16 @@ namespace SMS
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            String username = txtTenDN.Text.Trim();
+            String userName = txtTenDN.Text.Trim();
             String password = txtMatKhau.Text.Trim();
 
-            MemberModel memberModel = MemberDAO.getMemberByUsernameAndPassword(username, password);
+            MemberModel memberModel = MemberDAO.getAdminByUserNameNPass(userName, password);
 
             if (memberModel != null)
             {
                 Constants.USER_LOGIN = memberModel;
                 FormMain formMain = new FormMain();
-                this.Visible = false;
-                formMain.Focus();
+                this.Hide();
                 formMain.ShowDialog();
             }
             else
@@ -46,9 +45,5 @@ namespace SMS
                 MessageBox.Show(this, "Đăng Nhập Thất Bại !", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-       
-
-        
     }
 }
