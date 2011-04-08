@@ -262,12 +262,14 @@ namespace SMS
 
         public static CuPhapMODEL getCuPhapByCumCuPhap(string cumCuPhap)
         {
-            CuPhapMODEL cuPhapModel = new CuPhapMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getCumCuPhap"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@cumCuPhap", cumCuPhap);
+            SqlParameter[] parameter = new SqlParameter[1];
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            parameter[0] = new SqlParameter("@cumCuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cumCuPhap;
+
+            CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+
+            DataTable result = DataUtil.executeStore("sp_SMS_getCumCuPhap", parameter);
 
             foreach (DataRow row in result.Rows)
             {
