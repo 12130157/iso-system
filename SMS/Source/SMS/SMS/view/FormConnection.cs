@@ -28,7 +28,7 @@ namespace SMS
             common.Constants.baudRate = int.Parse(cboBaudrate.Text);
             common.Constants.timeOut = int.Parse(cboTimeout.Text);
 
-            //Cursor.Current = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;
             //Cursor.Current = Cursors.Default;
 
             connected = connect.connectGSM(common.Constants.comPort, common.Constants.baudRate, common.Constants.timeOut);
@@ -41,7 +41,16 @@ namespace SMS
             else
             {
                 MessageBox.Show("Connect Failed");
-                Application.Exit();
+                if (MessageBox.Show("Ban co muon tiep tuc dang nhap ?", "Xac Nhan", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    this.Hide();
+                    new FormLogin().Show();
+                }
+                else
+                {
+                    Application.Exit();
+                    Dispose();
+                }
             }
         }
 
@@ -51,7 +60,6 @@ namespace SMS
             {
                 connect.closeConnect();
             }
-            
             Dispose();
         }
     }

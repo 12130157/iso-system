@@ -38,7 +38,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dgv_AddressBox = new System.Windows.Forms.DataGridView();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            //this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
@@ -141,7 +141,7 @@
             this.dgv_AddressBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_AddressBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Number,
-            this.Name,
+            //this.Name,
             this.Phone,
             this.Address});
             this.dgv_AddressBox.Location = new System.Drawing.Point(11, 16);
@@ -157,8 +157,14 @@
             // 
             // Name
             // 
+<<<<<<< .mine
+            //this.Name.HeaderText = "FullName";
+            //this.Name.Name = "Name";
+            //this.Name.Width = 180;
+=======
             this.Name.HeaderText = "FullName";
             this.Name.Name = "Name";
+>>>>>>> .r336
             // 
             // Phone
             // 
@@ -212,7 +218,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgv_AddressBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.Label label2;

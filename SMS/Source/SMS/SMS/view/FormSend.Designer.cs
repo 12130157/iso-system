@@ -589,7 +589,7 @@
             this.Controls.Add(this.lbFilterSyntaxMessSent);
             this.Name = "Sent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "n";
+            this.Text = "Sent";
             this.tabSent.ResumeLayout(false);
             this.tabSyntaxMessSent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessSent)).EndInit();
