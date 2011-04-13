@@ -46,7 +46,7 @@
             this.groupChangePass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupChangePass.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.groupChangePass.BackColor = System.Drawing.SystemColors.Control;
             this.groupChangePass.Controls.Add(this.label3);
             this.groupChangePass.Controls.Add(this.label2);
             this.groupChangePass.Controls.Add(this.label1);
@@ -154,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(658, 212);
             this.Controls.Add(this.groupChangePass);
             this.Name = "FormChangePassword";

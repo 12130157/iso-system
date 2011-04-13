@@ -37,12 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_Note = new System.Windows.Forms.TextBox();
             this.lbl_Note = new System.Windows.Forms.Label();
-            this.txt_Registrationyear = new System.Windows.Forms.TextBox();
-            this.txt_RegistrationMonth = new System.Windows.Forms.TextBox();
             this.txt_StudentID = new System.Windows.Forms.TextBox();
             this.txt_NumberPhone = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -62,19 +58,15 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txt_Note);
             this.groupBox1.Controls.Add(this.lbl_Note);
-            this.groupBox1.Controls.Add(this.txt_Registrationyear);
-            this.groupBox1.Controls.Add(this.txt_RegistrationMonth);
             this.groupBox1.Controls.Add(this.txt_StudentID);
             this.groupBox1.Controls.Add(this.txt_NumberPhone);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cbo_AccountType);
             this.groupBox1.Controls.Add(this.but_Close);
             this.groupBox1.Controls.Add(this.but_Add);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(22, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(556, 200);
@@ -85,9 +77,9 @@
             // 
             this.dtp_NgayDangKy.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dtp_NgayDangKy.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp_NgayDangKy.Location = new System.Drawing.Point(106, 119);
+            this.dtp_NgayDangKy.Location = new System.Drawing.Point(385, 11);
             this.dtp_NgayDangKy.Name = "dtp_NgayDangKy";
-            this.dtp_NgayDangKy.Size = new System.Drawing.Size(150, 20);
+            this.dtp_NgayDangKy.Size = new System.Drawing.Size(150, 22);
             this.dtp_NgayDangKy.TabIndex = 179;
             // 
             // txt_ServiceCharges
@@ -96,16 +88,16 @@
             this.txt_ServiceCharges.Enabled = false;
             this.txt_ServiceCharges.Location = new System.Drawing.Point(106, 93);
             this.txt_ServiceCharges.Name = "txt_ServiceCharges";
-            this.txt_ServiceCharges.Size = new System.Drawing.Size(150, 20);
+            this.txt_ServiceCharges.Size = new System.Drawing.Size(150, 22);
             this.txt_ServiceCharges.TabIndex = 178;
             // 
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 123);
+            this.label7.Location = new System.Drawing.Point(285, 16);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.Size = new System.Drawing.Size(101, 15);
             this.label7.TabIndex = 177;
             this.label7.Text = "Registration date:";
             // 
@@ -115,51 +107,35 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(5, 96);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(94, 15);
             this.label1.TabIndex = 177;
             this.label1.Text = "Service charges:";
             // 
             // txt_Note
             // 
             this.txt_Note.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Note.Location = new System.Drawing.Point(325, 66);
+            this.txt_Note.Location = new System.Drawing.Point(344, 37);
             this.txt_Note.Multiline = true;
             this.txt_Note.Name = "txt_Note";
-            this.txt_Note.Size = new System.Drawing.Size(210, 73);
+            this.txt_Note.Size = new System.Drawing.Size(191, 76);
             this.txt_Note.TabIndex = 174;
             // 
             // lbl_Note
             // 
             this.lbl_Note.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_Note.AutoSize = true;
-            this.lbl_Note.Location = new System.Drawing.Point(264, 69);
+            this.lbl_Note.Location = new System.Drawing.Point(285, 40);
             this.lbl_Note.Name = "lbl_Note";
-            this.lbl_Note.Size = new System.Drawing.Size(36, 13);
+            this.lbl_Note.Size = new System.Drawing.Size(39, 15);
             this.lbl_Note.TabIndex = 170;
             this.lbl_Note.Text = "Note: ";
-            // 
-            // txt_Registrationyear
-            // 
-            this.txt_Registrationyear.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Registrationyear.Location = new System.Drawing.Point(385, 40);
-            this.txt_Registrationyear.Name = "txt_Registrationyear";
-            this.txt_Registrationyear.Size = new System.Drawing.Size(150, 20);
-            this.txt_Registrationyear.TabIndex = 175;
-            // 
-            // txt_RegistrationMonth
-            // 
-            this.txt_RegistrationMonth.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_RegistrationMonth.Location = new System.Drawing.Point(385, 13);
-            this.txt_RegistrationMonth.Name = "txt_RegistrationMonth";
-            this.txt_RegistrationMonth.Size = new System.Drawing.Size(150, 20);
-            this.txt_RegistrationMonth.TabIndex = 175;
             // 
             // txt_StudentID
             // 
             this.txt_StudentID.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt_StudentID.Location = new System.Drawing.Point(106, 40);
             this.txt_StudentID.Name = "txt_StudentID";
-            this.txt_StudentID.Size = new System.Drawing.Size(150, 20);
+            this.txt_StudentID.Size = new System.Drawing.Size(150, 22);
             this.txt_StudentID.TabIndex = 175;
             // 
             // txt_NumberPhone
@@ -167,28 +143,8 @@
             this.txt_NumberPhone.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt_NumberPhone.Location = new System.Drawing.Point(106, 11);
             this.txt_NumberPhone.Name = "txt_NumberPhone";
-            this.txt_NumberPhone.Size = new System.Drawing.Size(150, 20);
+            this.txt_NumberPhone.Size = new System.Drawing.Size(150, 22);
             this.txt_NumberPhone.TabIndex = 176;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(264, 43);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 13);
-            this.label6.TabIndex = 166;
-            this.label6.Text = "Registration year: ";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(264, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 13);
-            this.label4.TabIndex = 166;
-            this.label4.Text = "Registration month :";
             // 
             // label3
             // 
@@ -196,7 +152,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(5, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(68, 15);
             this.label3.TabIndex = 166;
             this.label3.Text = "StudentID: ";
             // 
@@ -206,7 +162,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(5, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.Size = new System.Drawing.Size(89, 15);
             this.label2.TabIndex = 167;
             this.label2.Text = "Number phone:";
             // 
@@ -216,7 +172,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(5, 69);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 169;
             this.label5.Text = "Account type: ";
             // 
@@ -226,7 +182,7 @@
             this.cbo_AccountType.FormattingEnabled = true;
             this.cbo_AccountType.Location = new System.Drawing.Point(106, 66);
             this.cbo_AccountType.Name = "cbo_AccountType";
-            this.cbo_AccountType.Size = new System.Drawing.Size(150, 21);
+            this.cbo_AccountType.Size = new System.Drawing.Size(150, 23);
             this.cbo_AccountType.TabIndex = 171;
             this.cbo_AccountType.SelectedIndexChanged += new System.EventHandler(this.cbo_AccountType_SelectedIndexChanged);
             // 
@@ -235,7 +191,7 @@
             this.but_Close.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Close.BackColor = System.Drawing.Color.Blue;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Close.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.but_Close.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.Location = new System.Drawing.Point(287, 157);
@@ -251,7 +207,7 @@
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Add.BackColor = System.Drawing.Color.Blue;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.but_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.Location = new System.Drawing.Point(164, 157);
@@ -266,10 +222,10 @@
             // 
             this.lbl_TitleAccount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_TitleAccount.AutoSize = true;
-            this.lbl_TitleAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TitleAccount.Font = new System.Drawing.Font("Times New Roman", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_TitleAccount.Location = new System.Drawing.Point(211, 4);
             this.lbl_TitleAccount.Name = "lbl_TitleAccount";
-            this.lbl_TitleAccount.Size = new System.Drawing.Size(186, 31);
+            this.lbl_TitleAccount.Size = new System.Drawing.Size(178, 32);
             this.lbl_TitleAccount.TabIndex = 145;
             this.lbl_TitleAccount.Text = "New Account";
             // 
@@ -278,7 +234,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(599, 260);
             this.Controls.Add(this.lbl_TitleAccount);
             this.Controls.Add(this.groupBox1);
@@ -308,10 +264,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbo_AccountType;
         private System.Windows.Forms.Label lbl_TitleAccount;
-        private System.Windows.Forms.TextBox txt_Registrationyear;
-        private System.Windows.Forms.TextBox txt_RegistrationMonth;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_ServiceCharges;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtp_NgayDangKy;
