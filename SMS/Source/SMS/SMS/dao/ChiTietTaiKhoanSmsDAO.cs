@@ -14,41 +14,15 @@ namespace SMS.dao
     class ChiTietTaiKhoanSmsDAO
     {
         #region lay tat ca thong tin chi tiet tai khoan SMS
-        //public static ArrayList getAllChiTietTaiKhoanSms()
-        //{
-        //    ArrayList listChiTietTaiKhoan = new ArrayList();
-        //    String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSMS"];
-        //    SqlCommand objCommand = new SqlCommand(sql);
 
-        //    DataTable result = DataUtil.executeQuery(objCommand);
+            public DataTable getAllChiTietTaiKhoanSms(int Ma_tai_khoan_SMS)
+            {
+                String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSms"];
+                SqlCommand objCommand = new SqlCommand(sql);
+                objCommand.Parameters.AddWithValue("@id", Ma_tai_khoan_SMS);
+                return DataUtil.executeQuery(objCommand);
 
-        //    foreach (DataRow row in result.Rows)
-        //    {
-        //        ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel = new ChiTietTaiKhoanSmsMODEL();
-
-        //        chiTietTaiKhoanModel.Id = row["ID"].ToString();
-        //        chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms = row["Ma_tai_khoan_SMS"].ToString();
-        //        chiTietTaiKhoanModel.Dang_Ki_Thang = row["Dang_ki_thang"].ToString();
-        //        chiTietTaiKhoanModel.Dang_Ki_Nam = row["Dang_ki_nam"].ToString();
-        //        chiTietTaiKhoanModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-        //        chiTietTaiKhoanModel.User11 = row["User1"].ToString();
-        //        chiTietTaiKhoanModel.User21 = row["User2"].ToString();
-        //        chiTietTaiKhoanModel.User31 = row["User3"].ToString();
-        //        chiTietTaiKhoanModel.User41 = row["User4"].ToString();
-        //        chiTietTaiKhoanModel.User51 = row["User5"].ToString();
-
-        //        listChiTietTaiKhoan.Add(chiTietTaiKhoanModel);
-        //    }
-        //    return listChiTietTaiKhoan;
-        //}
-
-        public DataTable getAllChiTietTaiKhoanSms(int Ma_tai_khoan_SMS)
-        {
-            String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSms"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", Ma_tai_khoan_SMS);
-            return DataUtil.executeQuery(objCommand);
-        }
+            }
         #endregion
 
         #region lay ra chi tiet tai khoan SMS theo ID
@@ -79,15 +53,13 @@ namespace SMS.dao
         #endregion
 
         #region them 1 chi tiet tai khoan SMS vao CSDL
-        public bool insertChiTietTaiKhoan(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel)
+
+            public bool insertChiTietTaiKhoan(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel)
         {
             try
             {
                 SqlParameter[] parameter = new SqlParameter[9];
                 int i = 0;
-
-                //parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-                //parameter[i++].Value = chiTietTaiKhoanModel.Id;
 
                 parameter[i] = new SqlParameter("Ma_tai_khoan_SMS", SqlDbType.NVarChar);
                 parameter[i++].Value = chiTietTaiKhoanModel.Ma_Tai_Khoan_Sms;
@@ -128,7 +100,7 @@ namespace SMS.dao
         #endregion
 
         #region update 1 chi tiet ti khoan SMS trong CSDL
-        public  Boolean updateChiTietTaiKhoanSMS(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanSMSModel)
+            public  Boolean updateChiTietTaiKhoanSMS(ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanSMSModel)
         {
             try
             {
@@ -176,14 +148,56 @@ namespace SMS.dao
         #endregion
 
         #region delete 1 chi tiet tai khoan SMS trong CSDL
+        //public bool deletechiTietTaiKhoanSMS(int id)
+        //{
+        //    String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteChiTietTaiKhoanSMS"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
+        //    objCommand.Parameters.AddWithValue("@id", id);
+
+        //    Boolean kq = DataUtil.executeNonQuery(objCommand);
+        //    return kq;
+        //}
+
         public bool deletechiTietTaiKhoanSMS(int id)
         {
-            String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteChiTietTaiKhoanSMS"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
 
-            Boolean kq = DataUtil.executeNonQuery(objCommand);
+            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            Boolean kq = DataUtil.executeNonStore("sp_SMS_DeleteChiTietTaiKhoanSMS", parameter);
             return kq;
+        }
+
+        #endregion
+
+        #region delete tat ca chi tiet tai khoan SMS trong CSDL
+
+        //Cách 1 join file App.Config
+        //public bool deleteAllchiTietTaiKhoanSMS(int id)
+        //{
+        //    String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteAllChiTietTaiKhoanSMS"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
+        //    objCommand.Parameters.AddWithValue("@id", id);
+
+        //    Boolean kq = DataUtil.executeNonQuery(objCommand);
+        //    return kq;
+        //}
+
+
+        //cách  2 using Store
+        public bool deleteAllchiTietTaiKhoanSMS(int Ma_tai_khoan_sms)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("Ma_tai_khoan_sms", SqlDbType.NVarChar);
+            parameter[i++].Value = Ma_tai_khoan_sms;
+
+            Boolean kq = DataUtil.executeNonStore("sp_SMS_DeleteAllChiTietTaiKhoanSMS", parameter);
+            return kq;
+            
         }
         #endregion
     }

@@ -13,7 +13,7 @@ namespace SMS
     {
 
     #region lay ra tat ca cac cu phap trong CSDL
-        public static ArrayList getAllCuPhap()
+        public  ArrayList getAllCuPhap()
         {
             ArrayList listCuPhap = new ArrayList();
             String sql = ConfigurationManager.AppSettings["sql.getAllCuPhap"];
@@ -57,6 +57,45 @@ namespace SMS
             SqlCommand objCommand = new SqlCommand(sql);
 
             return DataUtil.executeQuery(objCommand);
+        }
+
+        public ArrayList getAllTenKeywordCuPhap()
+        {
+            ArrayList listCuPhap = new ArrayList();
+            String sql = ConfigurationManager.AppSettings["sql.getAllTenCuPhap"];
+            SqlCommand objCommand = new SqlCommand(sql);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+
+            foreach (DataRow row in result.Rows)
+            {
+                CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+
+                cuPhapModel.Ten = row["Ten"].ToString();
+
+                listCuPhap.Add(cuPhapModel);
+            }
+            return listCuPhap;
+        }
+
+        public ArrayList getAllKeyword1CuPhap(String ten)
+        {
+            ArrayList listCuPhap = new ArrayList();
+            String sql = ConfigurationManager.AppSettings["sql.getAllKeyword1CuPhap"];
+            SqlCommand objCommand = new SqlCommand(sql);
+            objCommand.Parameters.AddWithValue("@ten", ten);
+
+            DataTable result = DataUtil.executeQuery(objCommand);
+
+            foreach (DataRow row in result.Rows)
+            {
+                CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+
+                cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
+
+                listCuPhap.Add(cuPhapModel);
+            }
+            return listCuPhap;
         }
     #endregion
 
@@ -250,12 +289,23 @@ namespace SMS
     #region delete 1 cu phap trong CSDL
         public Boolean deleteCuPhap(int id)
         {
-            String sql = ConfigurationManager.AppSettings["sql.DeleteCuPhapByID"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            //String sql = ConfigurationManager.AppSettings["sql.DeleteCuPhapByID"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@id", id);
 
-            Boolean kq = DataUtil.executeNonQuery(objCommand);
+            //Boolean kq = DataUtil.executeNonQuery(objCommand);
+            //return kq;
+
+
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            Boolean kq = DataUtil.executeNonStore("sp_SMS_DeleteCuPhap", parameter);
             return kq;
+            
         }
     #endregion
 
@@ -303,6 +353,29 @@ namespace SMS
 
             return DataUtil.executeQuery(objCommand);
         }
+
+          public static DataTable getTenDRVCuPhapByID(String ten,String keyword1)
+        {
+            //String sql = ConfigurationManager.AppSettings["sql.getTenDRVCuPhapByID"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+
+            //objCommand.Parameters.AddWithValue("@ten", ten);
+            //objCommand.Parameters.AddWithValue("@keyword1", keyword1);
+
+            //return DataUtil.executeQuery(objCommand);
+
+            SqlParameter[] parameter = new SqlParameter[2];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
+            parameter[i++].Value = ten;
+
+            parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.NVarChar);
+            parameter[i++].Value = keyword1;
+            return DataUtil.executeStore("sp_Search_KeyworkName", parameter);
+              
+        }
+        
 
         public static DataTable getDiemByIDHocVienNIDMonHoc(string idHocVien, string idMonHoc)
         {

@@ -167,13 +167,22 @@ namespace SMS.dao
         #endregion
 
         #region delete 1 loai tai khoan SMS trong CSDL
-        public static bool deleteLoaiTaiKhoanSMS(int id)
+        public  bool deleteLoaiTaiKhoanSMS(int id)
         {
-            String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteLoaiTaiKhoanSMS"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            //String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteLoaiTaiKhoanSMS"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@id", id);
 
-            Boolean kq = DataUtil.executeNonQuery(objCommand);
+            //Boolean kq = DataUtil.executeNonQuery(objCommand);
+            //return kq;
+
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            Boolean kq = DataUtil.executeNonStore("sp_SMS_DeleteLoaiTaiKhoanSMS", parameter);
             return kq;
         }
         #endregion

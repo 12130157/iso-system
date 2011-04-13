@@ -211,15 +211,37 @@ namespace SMS.dao
         #endregion
 
         #region delete 1 tai khoan SMS trong CSDL
-        public static bool deleteTaiKhoanSMS(int id)
+        public  bool deleteTaiKhoanSMS(int id)
         {
-            String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteTaiKhoanSMS"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+        //    String sql = ConfigurationManager.AppSettings["sql.sp_SMS_DeleteTaiKhoanSMS"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
+        //    objCommand.Parameters.AddWithValue("@id", id);
 
-            Boolean kq = DataUtil.executeNonQuery(objCommand);
+        //    Boolean kq = DataUtil.executeNonQuery(objCommand);
+        //    return kq;
+
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            Boolean kq = DataUtil.executeNonStore("sp_SMS_DeleteTaiKhoanSMS", parameter);
             return kq;
         }
         #endregion
+
+        public DataTable getPhoneIDAllDRVTaiKhoanSMS(String phone, String id)
+        {
+            SqlParameter[] parameter = new SqlParameter[2];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.NVarChar);
+            parameter[i++].Value = phone;
+
+            parameter[i] = new SqlParameter("Ma_sinh_vien", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+            return DataUtil.executeStore("sp_Search_Account", parameter);
+        }
     }
 }
