@@ -140,7 +140,9 @@ namespace SMS
             this.Controls.Add(this.lbBaudrate);
             this.Controls.Add(this.lbComPort);
             this.Controls.Add(this.lbConnection);
+            this.MaximizeBox = false;
             this.Name = "frmConn";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connection";
             this.Load += new System.EventHandler(this.showCbo);
             this.ResumeLayout(false);

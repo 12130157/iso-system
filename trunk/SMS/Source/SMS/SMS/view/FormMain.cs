@@ -456,5 +456,13 @@ namespace SMS
             }
             return result;
         }
+
+        private void menuLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     } 
 }

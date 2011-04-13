@@ -92,6 +92,7 @@ namespace SMS
             this.menuLogout.Name = "menuLogout";
             this.menuLogout.Size = new System.Drawing.Size(184, 22);
             this.menuLogout.Text = "Logout";
+            this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
             // menuMessage
             // 
@@ -178,9 +179,10 @@ namespace SMS
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
+            this.lbStatus.BackColor = System.Drawing.SystemColors.Window;
             this.lbStatus.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbStatus.Location = new System.Drawing.Point(12, 35);
+            this.lbStatus.Location = new System.Drawing.Point(855, 0);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(140, 24);
             this.lbStatus.TabIndex = 4;
@@ -202,6 +204,7 @@ namespace SMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::SMS.Properties.Resources.bg;
             this.ClientSize = new System.Drawing.Size(854, 661);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
