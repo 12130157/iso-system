@@ -7,169 +7,30 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SMS.common;
 
 namespace SMS.view
 {
     public partial class FormAddKey : Form
     {
-        CuPhapMODEL cuPhapModel = new CuPhapMODEL();
-        CuPhapDAO cuphapDao = new CuPhapDAO();
-        FormManageKeyword fomKeyword = new FormManageKeyword();
-        common.Validattion validates = new common.Validattion();
-        Boolean kq =false;
         public FormAddKey()
         {
             InitializeComponent();
         }
 
-        private void desgin()
-        {
-            if (common.Constants.chooce.Equals(1))
-            {
-                lbl_TitleKeyword.Text = "New Keyword";
-                but_Add.Text = "Add";
-                common.Constants.chooce = 0;
-                txtID.Enabled = false;
-                txt_Name.Focus();
-            }
-            else if (common.Constants.chooce.Equals(2))
-            {
-                lbl_TitleKeyword.Text = "Edit Keyword";
-                but_Add.Text = "Apply";
-                txtID.Enabled = false;
-                loaddata();
-                txt_Name.Focus();
-                common.Constants.chooce = 0;
-            }
-        }
-        private void but_Add_Click(object sender, EventArgs e)
-        {
-            if (but_Add.Text.Equals("Add"))
-            {
+        #region
 
-                //cuPhapModel.Id = txtID.Text.ToString();
-                cuPhapModel.Ten = txt_Name.Text.ToString();
-                cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                checkform();
-                if (kq==true)
-                {
-                    CuPhapDAO cuphapDAO = new CuPhapDAO();
-                    Boolean result = cuphapDAO.insertCuPhap(cuPhapModel);
-                    if (result == true)
-                    {
-                        DialogResult mess = MessageBox.Show("Insert successfully");
-                    }
-                    else
-                    {
-                        DialogResult mess = MessageBox.Show("Insert failed");
-                    }
-                    DialogResult result1 = MessageBox.Show("Do you want to continue to add new?", "Important Question", MessageBoxButtons.YesNo);
-                    if (result.Equals(1))
-                    { clear(); }
-                    else
-                    {
-                        this.Close();
-                        fomKeyword.MdiParent = this.MdiParent;
-                        fomKeyword.Show();
-                        this.Close();
-                    }
-                }
-                else
-                {
-                    txt_Name.Focus();
-                }
-            }
+        CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+        CuPhapDAO cuphapDao = new CuPhapDAO();
+        FormManageKeyword fomKeyword = new FormManageKeyword();
+        Validattion validates = new Validattion();
+        Boolean kq = false;
 
-            else if (but_Add.Text.Equals("Apply"))
-            {
-                cuPhapModel.Id = txtID.Text.Trim();
-                cuPhapModel.Ten = txt_Name.Text.ToString();
-                cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                checkform();
-                if (kq == true)
-                {
-                    Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
-                    if (result == true)
-                    {
-                        MessageBox.Show("Update successfully");
-                        fomKeyword.MdiParent = this.MdiParent;
-                        fomKeyword.Show();
-                        this.Close();
-                    }
-                    else
-                    {
-                        DialogResult mess = MessageBox.Show("Update failed");
-                    }
-                } 
-            }
-        }
-        private void clear()
-        {
-            txtID.Text = "";
-            txt_Name.Text = "";
-            txtKeyword1.Text = "";
-            txtKeyword2.Text = "";
-            txtKeyword3.Text = "";
-            txtKeyword4.Text = "";
-            txtKeyword5.Text = "";
-            txtKeyword6.Text = "";
-            txtKeyword7.Text = "";
-            txtKeyword8.Text = "";
-            txtKeyword9.Text = "";
-            txtKeyword10.Text = "";
-            txt_Note.Text = "";
-            txt_Name.Focus();
-            
-        }
+        #endregion
+       
+        #region Function Xu ly
 
-        private void loaddata()
-        {
-            cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.id));
-            txtID.Text=cuPhapModel.Id;
-            txt_Name.Text = cuPhapModel.Ten;
-            txtKeyword1.Text = cuPhapModel.Cum_Tu_1;
-            txtKeyword2.Text= cuPhapModel.Cum_Tu_2;
-            txtKeyword3.Text=cuPhapModel.Cum_Tu_3 ;
-            txtKeyword4.Text = cuPhapModel.Cum_Tu_4;
-            txtKeyword5.Text=cuPhapModel.Cum_Tu_5;
-            txtKeyword6.Text= cuPhapModel.Cum_Tu_6;
-            txtKeyword7.Text = cuPhapModel.Cum_Tu_7;
-            txtKeyword8.Text=cuPhapModel.Cum_Tu_8;
-            txtKeyword9.Text=cuPhapModel.Cum_Tu_9 ;
-            txtKeyword10.Text=cuPhapModel.Cum_Tu_10;
-            txt_Note.Text = cuPhapModel.Ghi_Chu;
-            common.Constants.id = "";
-        }
-
-        private void but_Close_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            fomKeyword.MdiParent = this.MdiParent;
-            fomKeyword.Show();
-            this.Close();
-        }
-
-        private void checkform()
+            private void checkform()
         {
             if (txt_Name.Text.Equals(""))
             {
@@ -233,13 +94,148 @@ namespace SMS.view
             }
             else
             {
-                kq=true;
+                kq = true;
             }
         }
 
-        private void FormAddKey_Load(object sender, EventArgs e)
+            private void FormAddKey_Load(object sender, EventArgs e)
         {
-            desgin();
+            if (common.Constants.choose.Equals(1))
+            {
+                lbl_TitleKeyword.Text = "New Keyword";
+                but_Add.Text = "Add";
+                common.Constants.choose = 0;
+                txtID.Enabled = false;
+                txt_Name.Focus();
+            }
+            else if (common.Constants.choose.Equals(2))
+            {
+                lbl_TitleKeyword.Text = "Edit Keyword";
+                but_Add.Text = "Apply";
+                txtID.Enabled = false;
+                loaddata();
+                txt_Name.Focus();
+                common.Constants.choose = 0;
+            }
         }
+
+            private void clear()
+            {
+                txtID.Text = "";
+                txt_Name.Text = "";
+                txtKeyword1.Text = "";
+                txtKeyword2.Text = "";
+                txtKeyword3.Text = "";
+                txtKeyword4.Text = "";
+                txtKeyword5.Text = "";
+                txtKeyword6.Text = "";
+                txtKeyword7.Text = "";
+                txtKeyword8.Text = "";
+                txtKeyword9.Text = "";
+                txtKeyword10.Text = "";
+                txt_Note.Text = "";
+                txt_Name.Focus();
+
+            }
+
+            private void loaddata()
+            {
+                cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.id));
+                txtID.Text = cuPhapModel.Id;
+                txt_Name.Text = cuPhapModel.Ten;
+                txtKeyword1.Text = cuPhapModel.Cum_Tu_1;
+                txtKeyword2.Text = cuPhapModel.Cum_Tu_2;
+                txtKeyword3.Text = cuPhapModel.Cum_Tu_3;
+                txtKeyword4.Text = cuPhapModel.Cum_Tu_4;
+                txtKeyword5.Text = cuPhapModel.Cum_Tu_5;
+                txtKeyword6.Text = cuPhapModel.Cum_Tu_6;
+                txtKeyword7.Text = cuPhapModel.Cum_Tu_7;
+                txtKeyword8.Text = cuPhapModel.Cum_Tu_8;
+                txtKeyword9.Text = cuPhapModel.Cum_Tu_9;
+                txtKeyword10.Text = cuPhapModel.Cum_Tu_10;
+                txt_Note.Text = cuPhapModel.Ghi_Chu;
+                common.Constants.id = "";
+            }
+
+        #endregion
+
+        #region xu kien Double Click
+
+            private void but_Close_Click(object sender, EventArgs e)
+            {
+                this.Close();
+                fomKeyword.MdiParent = this.MdiParent;
+                fomKeyword.Show();
+                this.Close();
+            }
+
+            private void but_Add_Click(object sender, EventArgs e)
+            {
+                if (but_Add.Text.Equals("Add"))
+                {
+                    cuPhapModel.Ten = txt_Name.Text.ToString();
+                    cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                    cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                    cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                    cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                    cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                    cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                    cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                    cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                    cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                    cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                    cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+                    CuPhapDAO cuphapDAO = new CuPhapDAO();
+                    Boolean result = cuphapDAO.insertCuPhap(cuPhapModel);
+                    if (result == true)
+                    {
+                        if (MessageBox.Show(this, "Do you want to continue to add new?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        { clear(); }
+                        else
+                        {
+                            fomKeyword.MdiParent = this.MdiParent;
+                            fomKeyword.Show();
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        DialogResult mess = MessageBox.Show("Insert failed");
+                    }
+                }
+
+                else if (but_Add.Text.Equals("Apply"))
+                {
+                    cuPhapModel.Id = txtID.Text.Trim();
+                    cuPhapModel.Ten = txt_Name.Text.ToString();
+                    cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                    cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                    cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                    cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                    cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                    cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                    cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                    cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                    cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                    cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                    cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+                    Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
+                    if (result == true)
+                    {
+                        fomKeyword.MdiParent = this.MdiParent;
+                        fomKeyword.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        DialogResult mess = MessageBox.Show("Update failed");
+                    }
+                }
+            }
+
+        #endregion
+
+
+       
     }
 }

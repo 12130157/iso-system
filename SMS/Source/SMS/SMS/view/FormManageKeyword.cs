@@ -14,14 +14,14 @@ namespace SMS
 {
     public partial class FormManageKeyword : Form
     {
-
         CuPhapMODEL cuphapmodel = new CuPhapMODEL();
         CuPhapDAO cuphapdao = new CuPhapDAO();
+
         public FormManageKeyword()
         {
             InitializeComponent();
            loadGrid();
-           //loadComBo();
+           LoadCbo();
         }
 
         #region functions
@@ -30,9 +30,20 @@ namespace SMS
         {
             dlv_ManageKeyword.DataSource = CuPhapDAO.getAllDRVCuPhap();
         }
+        public void LoadCbo()
+        {
+            ArrayList arry = cuphapdao.getAllTenKeywordCuPhap();
+            cbo_Name.Items.Add("");
+            //cbo_Keyword.Items.Add("");
+            foreach (CuPhapMODEL cuphap in arry)
+            {
+                cbo_Name.Items.Add(cuphap.Ten).ToString();
+                //cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
+            }
+            
+        }
 
         #endregion
-
 
         #region events
 
@@ -47,17 +58,27 @@ namespace SMS
             loadGrid();
         }
 
-        //click event in DataGridView
-        private void dlv_ManageKeyword_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void cbo_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
-            common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
-            lblYouChoose.Text="You Choose, ID: " + common.Constants.id;
+            cbo_Keyword.Items.Clear();
+            cbo_Keyword.Text = "";
+            ArrayList arry = cuphapdao.getAllKeyword1CuPhap(cbo_Name.Text.ToString());
+            cbo_Keyword.Items.Add("");
+            foreach (CuPhapMODEL cuphap in arry)
+            {
+                cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
+            }
+            dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(),cbo_Keyword.Text.ToString());
+
         }
+
+        //click event in DataGridView
+        
           
         //event add
         private void but_Add_Click(object sender, EventArgs e)
         {
-            common.Constants.chooce = 1;
+            common.Constants.choose = 1;
             this.Visible = false;
             view.FormAddKey fr = new view.FormAddKey();
             fr.MdiParent=this.MdiParent;
@@ -69,11 +90,11 @@ namespace SMS
         {
             if (lblYouChoose.Text.Equals(""))
             {
-                MessageBox.Show("Choose ");
+                MessageBox.Show("You may choose to edit the line. Plesae choose again ");
             }
             else
             {
-                common.Constants.chooce = 2;
+                common.Constants.choose = 2;
                 view.FormAddKey fr = new view.FormAddKey();
                 fr.MdiParent = this.MdiParent;
                 this.Visible = false;
@@ -89,15 +110,14 @@ namespace SMS
             }
             else
             {
-                String result1 = Convert.ToString(MessageBox.Show("Do you want to Deleting? ", "Important Question", MessageBoxButtons.YesNo));
-                if (result1.Equals("Yes"))
+                if (MessageBox.Show(this, "Do you want deleted?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.id));
                     if (result.Equals(true))
                     {
-                        MessageBox.Show("Deleting susseccfull!!! ");
                         loadGrid();
                         common.Constants.id = "";
+                        lblYouChoose.Text = "Choose Row: ";
                     }
                     else
                     {
@@ -111,16 +131,21 @@ namespace SMS
             }
 
         }
-
-        private void but_Refresh_Click(object sender, EventArgs e)
-        {
-
-        } 
-
+ 
         #endregion
 
-       
+        private void cbo_Keyword_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
+        }
 
-                      
+        private void dlv_ManageKeyword_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
+            lblYouChoose.Text = "You Choose, ID: " + common.Constants.id;
+        }
+
+     
+             
     }
 }
