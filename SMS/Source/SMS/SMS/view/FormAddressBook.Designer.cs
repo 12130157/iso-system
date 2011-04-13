@@ -155,17 +155,6 @@
             this.Number.HeaderText = "Number";
             this.Number.Name = "Number";
             // 
-            // Name
-            // 
-<<<<<<< .mine
-            //this.Name.HeaderText = "FullName";
-            //this.Name.Name = "Name";
-            //this.Name.Width = 180;
-=======
-            this.Name.HeaderText = "FullName";
-            this.Name.Name = "Name";
->>>>>>> .r336
-            // 
             // Phone
             // 
             this.Phone.HeaderText = "Phone";
