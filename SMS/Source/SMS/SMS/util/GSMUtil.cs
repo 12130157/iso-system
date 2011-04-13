@@ -72,25 +72,9 @@ namespace SMS
         private void OnPhoneConnectionChange(bool connected)
         {
         }
-        //
-        //
-        //
-        //Receive Message
-        //public void mapAutoRecie(object sender, EventArgs e)
-        //{
-            
-        //}
         public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
-            //if (common.Constants.comm != null)
-            //{
-            //IMessageIndicationObject obj = e.IndicationObject;
-            //if (obj is MemoryLocation)
-            //{
                 MessageReceived();
-            //}
-            //}
-            
         }
         private void MessageReceived()
         {
