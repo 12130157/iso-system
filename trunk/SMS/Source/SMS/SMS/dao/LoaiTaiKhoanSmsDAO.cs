@@ -16,10 +16,11 @@ namespace SMS.dao
         public  ArrayList getAllLoaiTaiKhoanSMS()
         {
             ArrayList listLoaiTaiKhoanSMS = new ArrayList();
-            String sql = ConfigurationManager.AppSettings["sql.getAllLoaiTaiKhoanSMS"];
-            SqlCommand objCommand = new SqlCommand(sql);
+            //String sql = ConfigurationManager.AppSettings["sql.getAllLoaiTaiKhoanSMS"];
+            //SqlCommand objCommand = new SqlCommand(sql);
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            //DataTable result = DataUtil.executeQuery(objCommand);
+            DataTable result = DataUtil.executeStore("sp_getAllLoaiTaiKhoanSMS", null);
 
             foreach (DataRow row in result.Rows)
             {
@@ -46,11 +47,19 @@ namespace SMS.dao
         public  LoaiTaiKhoanSmsMODEL getLoaiTaiKhoanSMSByID(int id)
         {
             LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getLoaiTaiKhoanSMSByID"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            //String sql = ConfigurationManager.AppSettings["sql.getLoaiTaiKhoanSMSByID"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@id", id);
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            //DataTable result = DataUtil.executeQuery(objCommand);
+
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            DataTable result = DataUtil.executeStore("sp_getLoaiTaiKhoanSMSByID", parameter);
 
             foreach (DataRow row in result.Rows)
             {

@@ -16,10 +16,11 @@ namespace SMS.dao
         #region thong tin Loai hop thu
         public DataTable getAllLoaiHopThu()
         {
-            String sql = ConfigurationManager.AppSettings["sql.getAllLoaiHopThu"];
-            SqlCommand objCommand = new SqlCommand(sql);
+        //    String sql = ConfigurationManager.AppSettings["sql.getAllLoaiHopThu"];
+        //    SqlCommand objCommand = new SqlCommand(sql);
 
-            return DataUtil.executeQuery(objCommand);
+        //    return DataUtil.executeQuery(objCommand);
+            return DataUtil.executeStore("sp_getAllLoaiHopThu", null);
             
         }
         #endregion

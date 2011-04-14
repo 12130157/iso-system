@@ -16,10 +16,11 @@ namespace SMS.dao
 
         public static DataTable getAllDRVTaiKhoanSMS()
         {
-            String sql = ConfigurationManager.AppSettings["sql.getAllDRVTaiKhoanSMS"];
-            SqlCommand objCommand = new SqlCommand(sql);
+            //String sql = ConfigurationManager.AppSettings["sql.getAllDRVTaiKhoanSMS"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //return DataUtil.executeQuery(objCommand);
 
-            return DataUtil.executeQuery(objCommand);
+            return DataUtil.executeStore("sp_getAllDRVTaiKhoanSMS", null);
         }
 
         public static ArrayList getAllTaiKhoanSMS()
@@ -56,12 +57,19 @@ namespace SMS.dao
         public TaiKhoanSmsMODEL getTaiKhoanSMSByID(int Ma_tai_khoan_SMS)
         {
             TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSByID"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@Ma_tai_khoan_SMS", Ma_tai_khoan_SMS);
+            //String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSByID"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@Ma_tai_khoan_SMS", Ma_tai_khoan_SMS);
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            //DataTable result = DataUtil.executeQuery(objCommand);
 
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("Ma_tai_khoan_SMS", SqlDbType.NVarChar);
+            parameter[i++].Value = Ma_tai_khoan_SMS;
+
+            DataTable result = DataUtil.executeStore("sp_getTaiKhoanSMSByID", parameter);
             foreach (DataRow row in result.Rows)
             {
                 taiKhoanSMSModel.Id = row["ID"].ToString();
@@ -82,12 +90,21 @@ namespace SMS.dao
         public TaiKhoanSmsMODEL getTaiKhoanSMSBySDT_MSV(string so_Dien_Thoai, string ma_SV)
         {
             TaiKhoanSmsMODEL taiKhoanSMSModel = new TaiKhoanSmsMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSBySDT_MSV"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@so_Dien_Thoai", so_Dien_Thoai);
-            objCommand.Parameters.AddWithValue("@ma_SV", ma_SV);
+            //String sql = ConfigurationManager.AppSettings["sql.getTaiKhoanSMSBySDT_MSV"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@so_Dien_Thoai", so_Dien_Thoai);
+            //objCommand.Parameters.AddWithValue("@ma_SV", ma_SV);
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            //DataTable result = DataUtil.executeQuery(objCommand);
+            SqlParameter[] parameter = new SqlParameter[2];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.NVarChar);
+            parameter[i++].Value = so_Dien_Thoai;
+            parameter[i] = new SqlParameter("Ma_sinh_vien", SqlDbType.NVarChar);
+            parameter[i++].Value = ma_SV;
+
+            DataTable result = DataUtil.executeStore("sp_getTaiKhoanSMSBySDT_MSV", parameter);
 
             foreach (DataRow row in result.Rows)
             {

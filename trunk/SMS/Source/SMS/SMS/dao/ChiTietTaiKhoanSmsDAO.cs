@@ -15,12 +15,21 @@ namespace SMS.dao
     {
         #region lay tat ca thong tin chi tiet tai khoan SMS
 
-            public DataTable getAllChiTietTaiKhoanSms(int Ma_tai_khoan_SMS)
+            public DataTable getAllChiTietTaiKhoanSms(string Ma_tai_khoan_SMS)
             {
-                String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSms"];
-                SqlCommand objCommand = new SqlCommand(sql);
-                objCommand.Parameters.AddWithValue("@id", Ma_tai_khoan_SMS);
-                return DataUtil.executeQuery(objCommand);
+                //String sql = ConfigurationManager.AppSettings["sql.getAllChiTietTaiKhoanSms"];
+                //SqlCommand objCommand = new SqlCommand(sql);
+                //objCommand.Parameters.AddWithValue("@id", Ma_tai_khoan_SMS);
+                //return DataUtil.executeQuery(objCommand);
+
+                SqlParameter[] parameter = new SqlParameter[1];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("Ma_tai_khoan_SMS", SqlDbType.NVarChar);
+                parameter[i++].Value = Ma_tai_khoan_SMS;
+                DataTable td = DataUtil.executeStore("sp_getAllChiTietTaiKhoanSms", parameter);
+                return td;
+                
 
             }
         #endregion
@@ -29,12 +38,19 @@ namespace SMS.dao
         public ChiTietTaiKhoanSmsMODEL getChiTietTaiKhoanSMSByID(int id)
         {
             ChiTietTaiKhoanSmsMODEL chiTietTaiKhoanModel = new ChiTietTaiKhoanSmsMODEL();
-            String sql = ConfigurationManager.AppSettings["sql.getChiTietTaiKhoanSMSByID"];
-            SqlCommand objCommand = new SqlCommand(sql);
-            objCommand.Parameters.AddWithValue("@id", id);
+            //String sql = ConfigurationManager.AppSettings["sql.getChiTietTaiKhoanSMSByID"];
+            //SqlCommand objCommand = new SqlCommand(sql);
+            //objCommand.Parameters.AddWithValue("@id", id);
 
-            DataTable result = DataUtil.executeQuery(objCommand);
+            //DataTable result = DataUtil.executeQuery(objCommand);
 
+            SqlParameter[] parameter = new SqlParameter[1];
+            int i = 0;
+
+            parameter[i] = new SqlParameter("Ma_tai_khoan_SMS", SqlDbType.NVarChar);
+            parameter[i++].Value = id;
+
+            DataTable result = DataUtil.executeStore("sp_getChiTietTaiKhoanSMSByID", parameter);
             foreach (DataRow row in result.Rows)
             {
                 chiTietTaiKhoanModel.Id = row["ID"].ToString();
