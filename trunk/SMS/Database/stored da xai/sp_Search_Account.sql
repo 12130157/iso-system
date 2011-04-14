@@ -11,31 +11,34 @@ BEGIN
 	IF @So_dien_thoai = '' AND @ma_sinh_vien = ''
 	BEGIN
 		-- DIEU KIEN 1 ==> SEARCH ALL
-		select ID as 'ID', So_dien_thoai as 'Numberphone', Ma_sinh_vien as 'StudentID',Loai_tai_khoan as 'AccountType'
-		 ,Ngay_dang_ky 'RegisterDate' from TaiKhoanSMS
+		select TK.ID,So_dien_thoai as 'Number phone',Ma_sinh_vien as'StudentID'
+		   ,LTK.Ten as 'Account Name',Ngay_dang_ky as 'Registrantion Date',Ghi_chu as'Note'
+			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 	END
 
 	ELSE IF @So_dien_thoai <> '' AND @ma_sinh_vien = ''
 	BEGIN
 		-- DIEU KIEN 2 ==> SEARCH CUSTOMER NAME
 
-		select ID as 'ID', So_dien_thoai as 'Numberphone', Ma_sinh_vien as 'StudentID',Loai_tai_khoan as 'AccountType'
-		 ,Ngay_dang_ky 'RegisterDate' from TaiKhoanSMS
+		select TK.ID,So_dien_thoai as 'Number phone',Ma_sinh_vien as'StudentID'
+		   ,LTK.Ten as 'Account Name',Ngay_dang_ky as 'Registrantion Date',Ghi_chu as'Note'
+			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 		WHERE So_dien_thoai = @So_dien_thoai 
 	END
-	ELSE IF @So_dien_thoai = '' AND @
-ma_sinh_vien <> ''
+	ELSE IF @So_dien_thoai = '' AND @ma_sinh_vien <> ''
 	BEGIN
 		-- DIEU KIEN 3 ==> SEARCH PHONE
-		select ID as 'ID', So_dien_thoai as 'Numberphone', Ma_sinh_vien as 'StudentID',Loai_tai_khoan as 'AccountType'
-		 ,Ngay_dang_ky 'RegisterDate' from TaiKhoanSMS
+		select TK.ID,So_dien_thoai as 'Number phone',Ma_sinh_vien as'StudentID'
+		   ,LTK.Ten as 'Account Name',Ngay_dang_ky as 'Registrantion Date',Ghi_chu as'Note'
+			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 		WHERE  Ma_sinh_vien = @ma_sinh_vien 
 	END
 	ELSE IF @So_dien_thoai <> '' AND @ma_sinh_vien <> ''
 	BEGIN
 		-- DIEU KIEN 4 ==> SEARCH CUSTOMER NAME + PHONE
-		select ID as 'ID', So_dien_thoai as 'Numberphone', Ma_sinh_vien as 'StudentID',Loai_tai_khoan as 'AccountType'
-		 ,Ngay_dang_ky 'RegisterDate' from TaiKhoanSMS
+		select TK.ID,So_dien_thoai as 'Number phone',Ma_sinh_vien as'StudentID'
+		   ,LTK.Ten as 'Account Name',Ngay_dang_ky as 'Registrantion Date',Ghi_chu as'Note'
+			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 		WHERE So_dien_thoai  = @So_dien_thoai 
 			AND Ma_sinh_vien  = @ma_sinh_vien 
 	END
