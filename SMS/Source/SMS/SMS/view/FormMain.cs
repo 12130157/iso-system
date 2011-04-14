@@ -24,10 +24,10 @@ namespace SMS
         {
             
             InitializeComponent();
-            if (common.Constants.comm.IsConnected() == true)
-            {
-                this.lbStatus.Text = "Connected";
-            }
+            //if (common.Constants.comm.IsConnected() == true)
+            //{
+            //    this.lbStatus.Text = "Connected";
+            //}
         }
         bool ena = false;
 
