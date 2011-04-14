@@ -63,7 +63,7 @@ namespace SMS
             this.menuHelp});
             this.menuTool.Location = new System.Drawing.Point(0, 0);
             this.menuTool.Name = "menuTool";
-            this.menuTool.Size = new System.Drawing.Size(854, 24);
+            this.menuTool.Size = new System.Drawing.Size(911, 24);
             this.menuTool.TabIndex = 0;
             this.menuTool.Text = "menuTool";
             // 
@@ -193,7 +193,7 @@ namespace SMS
             this.lbStatus.BackColor = System.Drawing.SystemColors.Window;
             this.lbStatus.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbStatus.Location = new System.Drawing.Point(855, 0);
+            this.lbStatus.Location = new System.Drawing.Point(501, 0);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(140, 24);
             this.lbStatus.TabIndex = 4;
@@ -203,7 +203,7 @@ namespace SMS
             // 
             this.btnEnableMess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnEnableMess.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnableMess.Location = new System.Drawing.Point(302, 0);
+            this.btnEnableMess.Location = new System.Drawing.Point(231, 0);
             this.btnEnableMess.Name = "btnEnableMess";
             this.btnEnableMess.Size = new System.Drawing.Size(264, 25);
             this.btnEnableMess.TabIndex = 6;
@@ -216,7 +216,7 @@ namespace SMS
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(854, 444);
+            this.ClientSize = new System.Drawing.Size(911, 444);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
