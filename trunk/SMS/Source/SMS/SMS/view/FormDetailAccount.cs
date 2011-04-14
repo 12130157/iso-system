@@ -33,7 +33,7 @@ namespace SMS.view
 
             private void FormDetailAccount_Load(object sender, EventArgs e)
             {
-                dgv_AccountDetail.DataSource = ctTaiKhoanSMSDao.getAllChiTietTaiKhoanSms(Convert.ToInt32(common.Constants.id));
+                dgv_AccountDetail.DataSource = ctTaiKhoanSMSDao.getAllChiTietTaiKhoanSms(common.Constants.id);
                 lblYouChoose.Text = "Enter Choose row: ";
                 common.Constants.Ma_tai_khoan_SMS = "";
                 pnl_Add.Visible = false;
