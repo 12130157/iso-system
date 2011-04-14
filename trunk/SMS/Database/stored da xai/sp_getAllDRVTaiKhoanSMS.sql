@@ -13,4 +13,4 @@ AS
 		   ,LTK.Ten as 'Account Name',Ngay_dang_ky as 'Registrantion Date',Ghi_chu as'Note'
 			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 	END
-exec sp_getAllDRVTaiKhoanSMS
+--exec sp_getAllDRVTaiKhoanSMS

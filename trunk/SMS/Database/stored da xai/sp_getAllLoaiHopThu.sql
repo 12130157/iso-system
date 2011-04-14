@@ -13,3 +13,5 @@ AS
 	END
 --select * from ChiTietTaiKhoanSMS
 --exec sp_getAllLoaiHopThu 
+
+select * from ThanhVien
