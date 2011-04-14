@@ -6,6 +6,7 @@
 		<role>0</role>
 		<role>1</role>	
 		<role>2</role>	
+		<role>3</role>	
 		<role>6</role>
 		<role>5</role>		
 		<role>7</role>	
@@ -16,7 +17,8 @@
 		<page_name>/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp</page_name>
 		<role>0</role>
 		<role>1</role>	
-		<role>2</role>	
+		<role>2</role>
+		<role>3</role>		
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
@@ -26,7 +28,8 @@
 	<page>
 		<page_name>/ISO/KeHoachGiangDay/TimKeHoachGiangDay.jsp</page_name>
 		<role>0</role>
-		<role>1</role>	
+		<role>1</role>
+		<role>3</role>		
 		<role>2</role>	
 		<role>5</role>	
 		<role>6</role>	
@@ -38,7 +41,8 @@
 		<page_name>/ISO/GiaoAn/GiaoAnLT.jsp</page_name>
 		<role>0</role>
 		<role>1</role>	
-		<role>2</role>	
+		<role>2</role>
+		<role>3</role>		
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
@@ -49,7 +53,8 @@
 		<page_name>/ISO/GiaoAn/TimGiaoAn.jsp</page_name>
 		<role>0</role>
 		<role>1</role>	
-		<role>2</role>	
+		<role>2</role>
+		<role>3</role>		
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
@@ -61,6 +66,7 @@
 		<role>0</role>
 		<role>1</role>	
 		<role>2</role>	
+		<role>3</role>	
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
@@ -72,6 +78,7 @@
 		<role>0</role>
 		<role>1</role>	
 		<role>2</role>	
+		<role>3</role>	
 		<role>5</role>	
 		<role>6</role>	
 		<role>7</role>	
