@@ -163,7 +163,7 @@ namespace SMS
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
             this.typeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.typeToolStripMenuItem.Text = "Type";
+            this.typeToolStripMenuItem.Text = "Inbox Type";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
             // menuHelp
