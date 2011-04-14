@@ -59,7 +59,7 @@ namespace SMS
         public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 1000;
+            this.autoRecieveMess.Interval = 5000;
             this.autoRecieveMess.Enabled = en;
         }
 
