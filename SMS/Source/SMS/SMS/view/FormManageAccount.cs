@@ -29,7 +29,7 @@ namespace SMS
                 private void FormManageAccount_Load(object sender, EventArgs e)
                 {
                     dgv_manageAccount.DataSource = TaiKhoanSmsDAO.getAllDRVTaiKhoanSMS();
-                    lblYouChoose.Text = "Enter Choose row: ";
+                    lblYouChoose.Text = "Enter choose row: ";
 
                 }
 
@@ -64,7 +64,7 @@ namespace SMS
             {
                 if (common.Constants.id.Equals(""))
                 {
-                    MessageBox.Show("Choose Account: ");
+                    MessageBox.Show("You may choose to detail the line. Plesae choose again: ");
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace SMS
             {
                 if (common.Constants.id.Equals(""))
                 {
-                    MessageBox.Show("Choose Account details: ");
+                    MessageBox.Show("You may choose to edit the line. Plesae choose again: ");
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace SMS
             {
                 if (common.Constants.id.Equals(""))
                 {
-                    MessageBox.Show("Choose Account details: ");
+                    MessageBox.Show("You may choose to delete the line. Plesae choose again: ");
                 }
                 else
                 {
@@ -117,6 +117,10 @@ namespace SMS
                         }
                     }
                 }
+                but_Delete.Enabled = false;
+                but_Details.Enabled = false;
+                but_Edit.Enabled = false;
+               
             }
 
         #endregion
@@ -137,6 +141,10 @@ namespace SMS
             {
                 common.Constants.id = dgv_manageAccount.CurrentRow.Cells["ID"].Value.ToString();
                 lblYouChoose.Text = "You Choose ID: " + common.Constants.id;
+                but_Delete.Enabled = true;
+                but_Details.Enabled = true;
+                but_Edit.Enabled = true;
+               
             }
 
     }

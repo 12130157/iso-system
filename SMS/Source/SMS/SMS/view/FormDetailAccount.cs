@@ -45,6 +45,8 @@ namespace SMS.view
                 common.Constants.Ma_tai_khoan_SMS = dgv_AccountDetail.CurrentRow.Cells["Account ID"].Value.ToString();
 
                 lblYouChoose.Text = "You Choose, ID: " + common.Constants.idDetail;
+                but_Delete.Enabled = true;
+                but_Edit.Enabled = true;
             }
 
         #endregion
@@ -98,17 +100,24 @@ namespace SMS.view
                         FormDetailAccount_Load(sender, e);
                     }
                 }
+                but_Edit.Enabled = false;
+                but_Delete.Enabled = false;
             }
 
             private void but_Add_Click(object sender, EventArgs e)
             {
                 common.Constants.choose = 1;
                 pnl_Add.Visible = true;
+                lblYouChoose.Text = "Enter Choose row:";
+                txt_RegistrationMonth.Text = "";
+                txt_Registrationyear.Text = "";
             }
 
             private void but_Close2_Click(object sender, EventArgs e)
             {
                 pnl_Add.Visible = false;
+                but_Edit.Enabled = false;
+                but_Delete.Enabled = false;
             }
 
             private void but_Ok_Click(object sender, EventArgs e)
@@ -151,6 +160,8 @@ namespace SMS.view
                     else
                     { MessageBox.Show("Insert failed"); }
                 }
+                but_Edit.Enabled = false;
+                but_Delete.Enabled = false;
             }
         #endregion
 

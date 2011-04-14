@@ -24,10 +24,10 @@ namespace SMS
         {
             
             InitializeComponent();
-            if (common.Constants.comm.IsConnected() == true)
-            {
-                this.lbStatus.Text = "Connected";
-            }
+            //if (common.Constants.comm.IsConnected() == true)
+            //{
+            //    this.lbStatus.Text = "Connected";
+            //}
         }
         bool ena = false;
 
@@ -457,6 +457,20 @@ namespace SMS
             return result;
         }
 
+        private void menuAddressBook_Click(object sender, EventArgs e)
+        {
+            FormAddressBook fr = new FormAddressBook();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void typeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormInboxMessageType fr = new FormInboxMessageType();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
         private void menuLogout_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -464,5 +478,6 @@ namespace SMS
                 Application.Exit();
             }
         }
+
     } 
 }
