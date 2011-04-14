@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManageKeyword));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbo_Keyword = new System.Windows.Forms.ComboBox();
             this.cbo_Name = new System.Windows.Forms.ComboBox();
@@ -90,11 +89,10 @@
             // but_Close
             // 
             this.but_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Close.BackColor = System.Drawing.Color.Blue;
+            this.but_Close.BackColor = System.Drawing.SystemColors.Control;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Close.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Close.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
+            this.but_Close.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Close.Location = new System.Drawing.Point(1001, 390);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(110, 25);
@@ -106,11 +104,11 @@
             // but_Edit
             // 
             this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Edit.BackColor = System.Drawing.Color.Blue;
+            this.but_Edit.BackColor = System.Drawing.SystemColors.Control;
             this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Edit.Enabled = false;
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
+            this.but_Edit.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Edit.Location = new System.Drawing.Point(719, 390);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(110, 25);
@@ -122,11 +120,10 @@
             // but_Add
             // 
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Add.BackColor = System.Drawing.Color.Blue;
+            this.but_Add.BackColor = System.Drawing.SystemColors.Control;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Add.Location = new System.Drawing.Point(577, 391);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(110, 25);
@@ -138,12 +135,12 @@
             // but_Delete
             // 
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Delete.BackColor = System.Drawing.Color.Blue;
+            this.but_Delete.BackColor = System.Drawing.SystemColors.Control;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Delete.Enabled = false;
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
-            this.but_Delete.Location = new System.Drawing.Point(855, 391);
+            this.but_Delete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Delete.Location = new System.Drawing.Point(860, 390);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(110, 25);
             this.but_Delete.TabIndex = 140;
@@ -155,7 +152,6 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Pink;
             this.label1.Location = new System.Drawing.Point(272, 395);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 15);
@@ -166,7 +162,6 @@
             // 
             this.label28.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.Color.Pink;
             this.label28.Location = new System.Drawing.Point(11, 393);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(87, 15);
@@ -187,7 +182,6 @@
             this.dlv_ManageKeyword.Size = new System.Drawing.Size(1110, 357);
             this.dlv_ManageKeyword.TabIndex = 5;
             this.dlv_ManageKeyword.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dlv_ManageKeyword_CellMouseClick);
-            
             // 
             // label10
             // 

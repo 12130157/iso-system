@@ -56,6 +56,7 @@ namespace SMS
         private void FormManageKeyword_Load(object sender, EventArgs e)
         {
             loadGrid();
+            lblYouChoose.Text = "Enter choose row: ";
         }
 
         private void cbo_Name_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,6 +130,8 @@ namespace SMS
                     loadGrid();
                 }
             }
+            but_Edit.Enabled = false;
+            but_Delete.Enabled = false;
 
         }
  
@@ -143,9 +146,10 @@ namespace SMS
         {
             common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
             lblYouChoose.Text = "You Choose, ID: " + common.Constants.id;
-        }
+            but_Delete.Enabled = true;
+            but_Edit.Enabled = true;
 
-     
-             
+        }
+      
     }
 }

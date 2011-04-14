@@ -193,6 +193,7 @@
             // but_Delete
             // 
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.but_Delete.Enabled = false;
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Delete.Location = new System.Drawing.Point(388, 240);
             this.but_Delete.Name = "but_Delete";
@@ -205,6 +206,7 @@
             // but_Edit
             // 
             this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.but_Edit.Enabled = false;
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Edit.Location = new System.Drawing.Point(265, 240);
             this.but_Edit.Name = "but_Edit";

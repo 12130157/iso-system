@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManageAccount));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_StudentID = new System.Windows.Forms.TextBox();
             this.txt_Numberphone = new System.Windows.Forms.TextBox();
@@ -106,11 +105,11 @@
             // but_Details
             // 
             this.but_Details.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Details.BackColor = System.Drawing.Color.Blue;
+            this.but_Details.BackColor = System.Drawing.SystemColors.Control;
             this.but_Details.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Details.Enabled = false;
             this.but_Details.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.but_Details.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Details.Image = ((System.Drawing.Image)(resources.GetObject("but_Details.Image")));
+            this.but_Details.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Details.Location = new System.Drawing.Point(693, 333);
             this.but_Details.Name = "but_Details";
             this.but_Details.Size = new System.Drawing.Size(90, 25);
@@ -122,11 +121,11 @@
             // but_Edit
             // 
             this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Edit.BackColor = System.Drawing.Color.Blue;
+            this.but_Edit.BackColor = System.Drawing.SystemColors.Control;
             this.but_Edit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Edit.Enabled = false;
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.but_Edit.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
+            this.but_Edit.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Edit.Location = new System.Drawing.Point(600, 333);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(90, 25);
@@ -138,11 +137,10 @@
             // but_Add
             // 
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Add.BackColor = System.Drawing.Color.Blue;
+            this.but_Add.BackColor = System.Drawing.SystemColors.Control;
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Add.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Add.Location = new System.Drawing.Point(504, 332);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(90, 25);
@@ -154,11 +152,10 @@
             // butClose
             // 
             this.butClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.butClose.BackColor = System.Drawing.Color.Blue;
+            this.butClose.BackColor = System.Drawing.SystemColors.Control;
             this.butClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butClose.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.butClose.ForeColor = System.Drawing.SystemColors.Control;
-            this.butClose.Image = ((System.Drawing.Image)(resources.GetObject("butClose.Image")));
+            this.butClose.ForeColor = System.Drawing.SystemColors.ControlText;
             this.butClose.Location = new System.Drawing.Point(882, 332);
             this.butClose.Name = "butClose";
             this.butClose.Size = new System.Drawing.Size(90, 25);
@@ -170,11 +167,11 @@
             // but_Delete
             // 
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Delete.BackColor = System.Drawing.Color.Blue;
+            this.but_Delete.BackColor = System.Drawing.SystemColors.Control;
             this.but_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.but_Delete.Enabled = false;
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
-            this.but_Delete.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
+            this.but_Delete.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Delete.Location = new System.Drawing.Point(786, 333);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(90, 25);
@@ -186,11 +183,10 @@
             // but_Refresh
             // 
             this.but_Refresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.but_Refresh.BackColor = System.Drawing.Color.Blue;
+            this.but_Refresh.BackColor = System.Drawing.SystemColors.Control;
             this.but_Refresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Refresh.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Refresh.ForeColor = System.Drawing.SystemColors.Control;
-            this.but_Refresh.Image = ((System.Drawing.Image)(resources.GetObject("but_Refresh.Image")));
+            this.but_Refresh.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Refresh.Location = new System.Drawing.Point(408, 332);
             this.but_Refresh.Name = "but_Refresh";
             this.but_Refresh.Size = new System.Drawing.Size(90, 25);
@@ -203,7 +199,6 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Pink;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(211, 338);
             this.label1.Name = "label1";
@@ -215,7 +210,6 @@
             // 
             this.label28.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.Color.Pink;
             this.label28.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(17, 338);
             this.label28.Name = "label28";

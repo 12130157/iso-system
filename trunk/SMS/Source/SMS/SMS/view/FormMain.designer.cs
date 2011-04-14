@@ -30,6 +30,7 @@ namespace SMS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuTool = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChangePassword = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@ namespace SMS
             this.menuKeyword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddressBook = new System.Windows.Forms.ToolStripMenuItem();
+            this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +132,8 @@ namespace SMS
             this.menuSystem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuKeyword,
             this.menuAccount,
-            this.menuAddressBook});
+            this.menuAddressBook,
+            this.typeToolStripMenuItem});
             this.menuSystem.Name = "menuSystem";
             this.menuSystem.Size = new System.Drawing.Size(62, 20);
             this.menuSystem.Text = "System";
@@ -153,7 +156,15 @@ namespace SMS
             // 
             this.menuAddressBook.Name = "menuAddressBook";
             this.menuAddressBook.Size = new System.Drawing.Size(182, 22);
-            this.menuAddressBook.Text = "Address Book";
+            this.menuAddressBook.Text = "Contacts";
+            this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
+            // 
+            // typeToolStripMenuItem
+            // 
+            this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.typeToolStripMenuItem.Text = "Type";
+            this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
             // menuHelp
             // 
@@ -192,7 +203,7 @@ namespace SMS
             // 
             this.btnEnableMess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnEnableMess.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnableMess.Location = new System.Drawing.Point(232, 0);
+            this.btnEnableMess.Location = new System.Drawing.Point(302, 0);
             this.btnEnableMess.Name = "btnEnableMess";
             this.btnEnableMess.Size = new System.Drawing.Size(264, 25);
             this.btnEnableMess.TabIndex = 6;
@@ -204,8 +215,8 @@ namespace SMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMS.Properties.Resources.bg;
-            this.ClientSize = new System.Drawing.Size(854, 661);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(854, 444);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
@@ -243,5 +254,6 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Button btnEnableMess;
+        private System.Windows.Forms.ToolStripMenuItem typeToolStripMenuItem;
     }
 }
