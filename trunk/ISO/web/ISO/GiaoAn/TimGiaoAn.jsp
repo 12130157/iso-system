@@ -560,6 +560,7 @@
 	
 <div>
 <c:set var="TOTAL_RECORD_SHOW" value='<%=Constant.NUM_RECORD_TIMGIAOAN %>'></c:set>
+
 		<c:if test="${totalPage ge TOTAL_RECORD_SHOW}">
 			<w:paging style="color:blue;cursor:pointer" styleIndexChoose="color:red;pointer:cursor" pathName="TimGiaoAn.jsp" pageName="pIndex" enableFirstPage="true" enableLastPage="true" index="<%=index %>" enableSubmit="true" enableIndexChoose="true"
 					idForm="frmSearchGiaoAn" nameForm="frmSearchGiaoAn" numRecordDivide="${TOTAL_RECORD_SHOW}" numPageDivide="5" totalRecord="${totalPage}">
