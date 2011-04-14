@@ -730,7 +730,8 @@ public class GiaoAnDAO {
 		else if(indexPage.equals(""))
 			indexPage="1";
 		
-		indexPage=(Integer.parseInt(indexPage)*Constant.NUM_RECORD_TIMGIAOAN)+"";
+		if(!indexPage.equals("1"))
+			indexPage=(Integer.parseInt(indexPage)*Constant.NUM_RECORD_TIMGIAOAN)+"";
 		
 		KetQuaTimGiaoAnModel ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
 		
