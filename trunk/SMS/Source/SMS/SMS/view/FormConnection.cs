@@ -32,9 +32,9 @@ namespace SMS
             //Cursor.Current = Cursors.Default;
 
             connected = connect.connectGSM(common.Constants.comPort, common.Constants.baudRate, common.Constants.timeOut);
-            if (connected == true)
+            if (common.Constants.comm.IsConnected() == true)
             {
-                MessageBox.Show("Connect successfull");
+                //MessageBox.Show("Connect successfull");
                 this.Hide();
                 new FormLogin().Show();
             }
