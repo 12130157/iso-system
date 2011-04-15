@@ -24,10 +24,10 @@ namespace SMS
         {
             
             InitializeComponent();
-            //if (common.Constants.comm.IsConnected() == true)
-            //{
-            //    this.lbStatus.Text = "Connected";
-            //}
+            if (common.Constants.comm.IsConnected() == true)
+            {
+                this.lbStatus.Text = "Connected";
+            }
         }
         bool ena = false;
 
@@ -59,7 +59,7 @@ namespace SMS
         public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 5000;
+            this.autoRecieveMess.Interval = 1000;
             this.autoRecieveMess.Enabled = en;
         }
 
@@ -73,25 +73,23 @@ namespace SMS
             Cursor.Current = Cursors.WaitCursor;
 
             string returnMessNotSyntax = "Tin nhan cua ban khong theo cu phap ,ban hay thu lai mot lan nua.";
+            string storage = GetMessageStorage();
 
             try
             {
-                string storage = GetMessageStorage();
+                DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
-                if (common.Constants.comm.IsConnected() == true)
+                if (messages.Length > 0)
                 {
-                    DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+                    MessageBox.Show("Đã nhận " + messages.Length.ToString() + " tin nhắn");
+                }
 
-                    if (messages.Length != 0)
-                    {
-                        MessageBox.Show("Đã nhận " + messages.Length.ToString() + " tin nhắn");
-                    }
-                    //else
-                    //{
-                    //    MessageBox.Show("Chua co tin nhan nao");
-                    //}
-                
-                
+                //else
+                //{
+                //    MessageBox.Show("Chua co tin nhan nao");
+                //}
+
+
                 //bien luu tin nhan den
                 SmsPdu messageDen;
                 HopThuDenMODEL modelDen;
@@ -130,7 +128,7 @@ namespace SMS
                     if (arrContentMess.Length <= 1)
                     {
                         modelDen.Ma_Cu_Phap = "";
-                        
+
                         //loai hop thu = 2 ==> hop thu luu tin nhan binh thuong (normal message)
                         modelDen.Loai_Hop_Thu = "2";
 
@@ -149,15 +147,16 @@ namespace SMS
                         //gan noi dung tin nhan va tinh trang gui vao model hop thu di 
                         modelDi.Noi_Dung_Tin_Nhan = contentMessDen;
                         modelDi.Tinh_Trang = j.ToString();
-                        
+
                     }
                     //mang noi dung tin nhan > 1 phan tu
                     else
                     {
-                        if (arrContentMess.Length == 2)
-                        {
-                            arrContentMess[2] = "-1";
-                        }
+                        //if (arrContentMess.Length == 2)
+                        //{
+                            
+                        //    arrContentMess[2] = "-1";
+                        //}
                         string cumCuPhap = "";
                         //lay ra ma cu phap trong tin nhan den
                         for (int i = 0; i <= ((arrContentMess.Length) - 3); i++)
@@ -167,8 +166,8 @@ namespace SMS
                         //kiem tra vum cu phap  do co trong db ko
                         CuPhapMODEL cuPhapModel = new CuPhapMODEL();
                         cuPhapModel = null;
-                        cuPhapModel =  CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
-                        
+                        cuPhapModel = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+
                         //co cu phap trong danh sach 
                         if (cuPhapModel.Id != null)
                         {
@@ -176,8 +175,8 @@ namespace SMS
                             //loai_hop_thu = 0 --> hop thu cu phap 
                             modelDen.Loai_Hop_Thu = "0";
                             int lengtOfContentMessDen = arrContentMess.Length;
-                            string result ="";
-                            string test = cuPhapModel.Cum_Tu_1+cuPhapModel.Cum_Tu_2+cuPhapModel.Cum_Tu_3+cuPhapModel.Cum_Tu_4+cuPhapModel.Cum_Tu_5+cuPhapModel.Cum_Tu_6+cuPhapModel.Cum_Tu_7+cuPhapModel.Cum_Tu_8+cuPhapModel.Cum_Tu_9+cuPhapModel.Cum_Tu_10;
+                            string result = "";
+                            string test = cuPhapModel.Cum_Tu_1 + cuPhapModel.Cum_Tu_2 + cuPhapModel.Cum_Tu_3 + cuPhapModel.Cum_Tu_4 + cuPhapModel.Cum_Tu_5 + cuPhapModel.Cum_Tu_6 + cuPhapModel.Cum_Tu_7 + cuPhapModel.Cum_Tu_8 + cuPhapModel.Cum_Tu_9 + cuPhapModel.Cum_Tu_10;
                             if (test.Equals("DIEM"))
                             {
                                 result = getStringDiemByIDNMonHoc(arrContentMess[lengtOfContentMessDen - 2], arrContentMess[lengtOfContentMessDen - 1]);
@@ -243,9 +242,9 @@ namespace SMS
                             }
                             modelDi.Noi_Dung_Tin_Nhan = result;
                             modelDi.Tinh_Trang = j.ToString();
-                            
+
                         }
-                        
+
                         else
                         {
                             modelDen.Ma_Cu_Phap = "";
@@ -267,7 +266,7 @@ namespace SMS
                             }
                             modelDi.Noi_Dung_Tin_Nhan = returnMessNotSyntax;
                             modelDi.Tinh_Trang = j.ToString();
-                            
+
                         }
                     }
 
@@ -289,16 +288,13 @@ namespace SMS
 
                     bool resultDen = HopThuDenDAO.insertHopThuDen(modelDen);
                 }
-                }else
-                {
-                    MessageBox.Show("No phone connnected");
-                }
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             Cursor.Current = Cursors.Default;
+
             MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
             int memUesd = memnoryStatus.Used;
             if (memUesd > 30)
