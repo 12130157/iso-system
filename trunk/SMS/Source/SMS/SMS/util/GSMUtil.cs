@@ -16,76 +16,62 @@ namespace SMS
     {
         public bool connectGSM(int port, int baudRate, int timeout)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
-
-            Cursor.Current = Cursors.Default;
-
-            Cursor.Current = Cursors.WaitCursor;
-
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
+                common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
+
                 common.Constants.comm.Open();
-            }
-              
-            catch (Exception)
-            {
-                return false;
-            }
-            if (common.Constants.comm.IsConnected() == true)
-            {
+
+                Cursor.Current = Cursors.Default;
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                
                 //send message
-                common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
+                Thread thr = new Thread(new ThreadStart(phoneConnected));
+                thr.Start();
                 //receice message
-                common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
-
-                return true;
+                Thread thr1 = new Thread(new ThreadStart(messageRecieved));
+                thr.Start();
+                if (common.Constants.comm.IsConnected() == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 return false;
             }
-
-            
         }
-        //
-        //
-        //Close Connect
+
         public void closeConnect()
         {
             common.Constants.comm.Close();
-        }
-        //
-        //
-        //
-        //Phone Connected
-        private void comm_PhoneConnected(object sender, EventArgs e)
-        {
-            //if (common.Constants.comm != null)
-            //{
-                new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
-            //}
         }
 
         private delegate void ConnectedHandler(bool connected);
 
         private void OnPhoneConnectionChange(bool connected)
         {
+            
         }
+
         public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
         {
-                MessageReceived();
+            MessageReceived();
         }
-        private void MessageReceived()
+
+        private void comm_PhoneConnected(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-
-            string storage = GetMessageStorage();
-
-            DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
-            foreach (DecodedShortMessage message in messages)
-            { }
+            new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
         }
+
         private string GetMessageStorage()
         {
             string storage = string.Empty;
@@ -95,6 +81,25 @@ namespace SMS
                 throw new ApplicationException("Unknown message storage.");
             else
                 return storage;
+        }
+        
+        private void MessageReceived()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            string storage = GetMessageStorage();
+
+            DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+        }
+
+        public void phoneConnected()
+        {
+            common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
+        }   
+
+        public void messageRecieved()
+        {
+            common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
         }
     }
 }
