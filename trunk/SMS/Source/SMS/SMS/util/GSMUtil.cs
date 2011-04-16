@@ -29,11 +29,11 @@ namespace SMS
 
                 
                 //send message
-                Thread thr = new Thread(new ThreadStart(phoneConnected));
+                Thread thr = new Thread(phoneConnected);
                 thr.Start();
                 //receice message
-                Thread thr1 = new Thread(new ThreadStart(messageRecieved));
-                thr.Start();
+                Thread thr1 = new Thread(messageRecieved);
+                thr1.Start();
                 if (common.Constants.comm.IsConnected() == true)
                 {
                     return true;
@@ -89,7 +89,14 @@ namespace SMS
 
             string storage = GetMessageStorage();
 
-            DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            try
+            {
+                DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void phoneConnected()
