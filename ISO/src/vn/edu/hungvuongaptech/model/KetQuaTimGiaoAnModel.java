@@ -1,6 +1,8 @@
 package vn.edu.hungvuongaptech.model;
 
 public class KetQuaTimGiaoAnModel {
+	private static final long serialVersionUID = 1L;
+	
 	String tenMonHoc;
 	String tenLopHoc;
 	String soGiaoAn;
