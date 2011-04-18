@@ -483,9 +483,25 @@
 		
 		<c:if test="${ not empty param.view}">
 			<% int countEmail=0; %>
+			
+			<c:set var='color' value=''></c:set>
+			<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
+		
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
+				<c:if test="${ empty objKQTim.tinhTrang}">
+					<c:set var='color' value=';background-color:red'></c:set>
+				</c:if>
+				<c:if test="${ not empty objKQTim.tinhTrang}"> 
+					<c:set var='color' value=''></c:set>
+					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">
+						<c:set var='color' value=';background-color:red'></c:set>
+					</c:if>
+					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq false and objKQTim.tinhTrang eq TT_NEW }">
+						<c:set var='color' value=''></c:set>
+					</c:if>
+				</c:if>
 
-				<w:row style="background-color: transparent;">		
+				<w:row style="background-color: transparent;${color}">		
 				
 				
 					<w:cell>
