@@ -10,10 +10,6 @@ BEGIN
 	FROM chitietthietbi
 	WHERE Ma_thiet_bi = @ID	
 
-	DELETE 
-	FROM chitietphieumuon
-	WHERE Ma_thiet_bi = @ID	
-
 	DELETE
 	FROM thietbi 
 	WHERE ID = @ID	

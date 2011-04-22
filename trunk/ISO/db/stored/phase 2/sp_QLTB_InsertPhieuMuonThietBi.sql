@@ -5,29 +5,33 @@ drop procedure [dbo].[sp_QLTB_InsertPhieuMuonThietBi]
 GO
 CREATE PROC sp_QLTB_InsertPhieuMuonThietBi
 	--phieumuonthietbi
-    @Nguoi_muon			VARCHAR(3),
-    @Thoi_gian_tra		DATETIME,
-	@Ma_tinh_trang		VARCHAR(3),
-    @Ghi_chu		    NVARCHAR(100),
-    @Ngay_cap_nhat_cuoi DATETIME
+	@ID						INT OUTPUT,
+    @Nguoi_muon				VARCHAR(3),
+	--@Ngay_muon				DATETIME,
+    @Ghi_chu				NVARCHAR(200),
+	@Ma_lop					int,
+    @Ngay_cap_nhat_cuoi		DATETIME,
+	@User1					varchar(40),
+	@User2					varchar(40),
+	@User3					varchar(40),
+	@User4					varchar(40),
+	@User5					varchar(40)
 AS
 BEGIN
-
-	set @Thoi_gian_tra = GETDATE()
 	set @Ngay_cap_nhat_cuoi = GETDATE()
-
 --insert phieumuonthietbi
-	insert into phieumuonthietbi (
-		Nguoi_muon,
-		Thoi_gian_tra,
-		Tinh_trang,
-		Ghi_chu
-	)  
+	insert into phieumuonthietbi 
 	values (
 		@Nguoi_muon,
-		@Thoi_gian_tra,
-		@Ma_tinh_trang,
-		@Ghi_chu
+		GETDATE(),--@Ngay_muon,
+		@Ma_lop,
+		@Ghi_chu,
+		@Ngay_cap_nhat_cuoi,
+		@User1,
+		@User2,
+		@User3,
+		@User4,
+		@User5
 	)  	
-
+	SELECT @ID = ID FROM PhieuMuonThietBi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END
