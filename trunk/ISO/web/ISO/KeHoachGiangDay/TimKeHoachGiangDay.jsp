@@ -522,9 +522,15 @@
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
+							<c:if test="${color ne ''}">
+								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_KHGD %>&maID=${objKQTim.maKHGD}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
+							</c:if>
 					</c:if>
 					<c:if test="${empty objKQTim.tinhTrang }">
 							Chưa làm
+							<c:if test="${color ne ''}">
+								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_KHGD %>&maID=${objKQTim.maKHGD}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
+							</c:if>
 					</c:if>
 					
 					

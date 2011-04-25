@@ -783,6 +783,7 @@ public class GiaoAnDAO {
 				ketQuaGiaoAn.setCoHieu(rs.getString("CoHieu"));
 				ketQuaGiaoAn.setMaKHGD(rs.getString("MaKHGD"));
 				ketQuaGiaoAn.setMaGA(rs.getString("MaGiaoAn"));
+				ketQuaGiaoAn.setMaPhieuKPPN(rs.getString("MaPhieu"));
 				ketQuaList.add(ketQuaGiaoAn);
 			}
 			

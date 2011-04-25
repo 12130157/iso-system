@@ -204,5 +204,9 @@ public class Constant {
 	//***********************************************************************************************
 	
 	
+	public static final String MACHUONGTRINH_GIAOAN="1";
+	public static final String MACHUONGTRINH_KHGD="0";
+	
+	
 
 }

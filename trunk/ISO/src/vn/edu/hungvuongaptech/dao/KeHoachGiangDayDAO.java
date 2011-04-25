@@ -615,6 +615,8 @@ public class KeHoachGiangDayDAO {
 				ketQuaGiaoAn.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
 				ketQuaGiaoAn.setMaKHGD(rs.getString("maKHGD"));
 				ketQuaGiaoAn.setTinhTrangHT(rs.getString("TinhTrangHT"));
+				ketQuaGiaoAn.setMaPhieuKPPN(rs.getString("MaPhieu"));
+				
 				
 				ketQuaList.add(ketQuaGiaoAn);
 				i++;
