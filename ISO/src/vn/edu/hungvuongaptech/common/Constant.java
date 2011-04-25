@@ -147,10 +147,12 @@ public class Constant {
 
 	public static String THIET_BI_MODEL_LIST = "thietBiModelList";
 	public static String NHA_CUNG_CAP_MODEL_LIST = "nhaCungCapModelList";
+	public static String PHIEU_MUON_THIET_BI_MODEL = "phieuMuonThietBiModel";
 	
 	public static String THANH_VIEN_MODEL_LIST = "thanhVienModelList";
 
 	public static String THIET_BI = "thietBi";
+	public static String CHI_TIET_THIET_BI = "chiTietThietBi";
 	public static String THIET_BI_LIST = "thietBiList";
 	public static String THIET_BI_LIST_1 = "thietBiList1";
 	public static String THIET_BI_LIST_2 = "thietBiList2";

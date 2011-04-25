@@ -67,9 +67,24 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			themChiTietTKB(request, response);
 		} else if(request.getParameter("duyet1TKB") != null) {
 			duyetMotThoiKhoaBieu(request, response, request.getParameter("maThoiKhoaBieu")); 
+		} else if(request.getParameter("doiGiaoVien") != null) {
+			doiGiaoVien(request, response); 
 		}
 	}
-	
+	private void doiGiaoVien(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		String pageNext = "ISO/ThoiKhoaBieu/DoiGiaoVien.jsp";
+		String maGiaoVien = request.getParameter("cboGiaoVien");
+		String tenGiaoVien = StringUtil.toUTF8(request.getParameter("txtTenGiaoVien"));
+		if(MonHocTKBDAO.doiGiaoVien(maGiaoVien, request.getParameter("txtMaMonHocTKB"))) {
+			pageNext += "?Doi=ok&maGiaoVien="+maGiaoVien;
+		}
+		else
+			pageNext += "?Doi=fail";
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
+		request.setAttribute("tenGiaoVien", tenGiaoVien);
+		rd.forward(request, response);
+	}
 	private void duyetMotThoiKhoaBieu(HttpServletRequest request,
 			HttpServletResponse response, String maThoiKhoaBieu) throws ServletException, IOException{
 		String userLoginID = request.getSession().getAttribute("maThanhVien").toString();

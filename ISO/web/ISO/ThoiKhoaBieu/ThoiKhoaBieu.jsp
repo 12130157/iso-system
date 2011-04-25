@@ -43,6 +43,7 @@
 var duongDan = '';
 var arrSuDungKhongThuocTKB = new Array();
 var arrSuDungThuocTKB = new Array();
+var tinhTrangThoiKhoaBieu = "";
 <%
 	int size1 = 0, size2 = 0;
 	ThoiKhoaBieuModel thoiKhoaBieuModel = new ThoiKhoaBieuModel();
@@ -55,6 +56,10 @@ var arrSuDungThuocTKB = new Array();
 		//thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(thoiKhoaBieuModel.getMaThoiKhoaBieu());
 		out.print("duongDan = 'ISO/ThoiKhoaBieu/';");
 	}	
+	if(thoiKhoaBieuModel.getTinhTrang().equalsIgnoreCase(Constant.TINHTRANG_APPROVE) 
+			&& (thoiKhoaBieuModel.getMaNguoiTao().equals(request.getSession().getAttribute("maThanhVien"))
+				|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN)))
+		out.print("tinhTrangThoiKhoaBieu = '1';");
 	ArrayList<TuanLeModel> tuanLeModelList = TuanLeDAO.getAllTuanLe();
 	ArrayList<NamHocModel> namHocModelList = NamHocDAO.getAllNamHoc();
 	
@@ -448,8 +453,31 @@ function createRow(monHocTkb, action)
 			trChieu.cells[(thu[i].split("/"))[1]].innerHTML = trChieu.cells[(thu[i].split("/"))[1]].innerHTML + "<br/>" + (thu[i].split("/"))[2];
 		}
 	}
+	var strDau =  "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b>";
+	var strCuoi = "</b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
+	var aDau = "", aCuoi = "";
+	var obj = new Object();
+	
+	if(tinhTrangThoiKhoaBieu == "1")
+	{
+		
+		obj.strDau = strDau;
+		obj.strCuoi = strCuoi;
+		obj.trSang = trSang;
+		obj.trChieu = trChieu;
+		aCuoi = "</a>";
+	}
 	if(checkBuoiSang == false)
-		trSang.cells[0].innerHTML = "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b>" + monHocTkb.tenGiaoVien + "</b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
+	{
+		if(tinhTrangThoiKhoaBieu == "1")
+		{
+			aDau = "<a href = 'javascript: ' id = 'LinkMaMonHocTKB-" + monHocTkb.maMonHocTKB + "-MaMonHocTKB-Sang'>";
+			trSang.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+			document.getElementById('LinkMaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Sang').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(monHocTkb.maMonHocTKB, monHocTkb.maGiaoVien, obj);
+		}
+		else
+			trSang.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+	}
 	else
 	{
 		if(document.getElementById('MaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Sang') != null)
@@ -459,18 +487,55 @@ function createRow(monHocTkb, action)
 		}
 	}
 	if(checkBuoiChieu == false)
-		trChieu.cells[0].innerHTML = "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b>" + monHocTkb.tenGiaoVien + "</b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
+	{
+		if(tinhTrangThoiKhoaBieu == "1")
+		{
+			aDau = "<a href = 'javascript:' id = 'LinkMaMonHocTKB-" + monHocTkb.maMonHocTKB + "-MaMonHocTKB-Chieu'>";
+			trChieu.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+			document.getElementById('LinkMaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Chieu').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(monHocTkb.maMonHocTKB, monHocTkb.maGiaoVien, obj);
+		}
+		else
+			trChieu.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+	}
 	else
 	{
 		if(document.getElementById('MaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Chieu') != null)
 		{
 			rowChieu--;
 			tableChieu.deleteRow(document.getElementById('MaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Chieu').rowIndex);
+			
 		}
 	}
 	
 }
-
+function doiGiaoVien(maMonHocTKB, maGiaoVien, obj)
+{
+	var value = window.showModalDialog(duongDan + "DoiGiaoVien.jsp?maGiaoVien=" + maGiaoVien+"&maMonHocTKB="+maMonHocTKB,"","dialogHeight: 200px; dialogWidth: 350px; dialogTop: 150px; dialogLeft: 450px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
+	if(value != null)
+	{
+		var tenGiaoVien = value.tenGiaoVien;
+		maGiaoVien = value.maGiaoVien;
+		var strDau = obj.strDau;
+		var strCuoi = obj.strCuoi;
+		var trSang = obj.trSang;
+		var trChieu = obj.trChieu;
+		var aCuoi = "</a>";
+		
+		if(trSang != null)
+		{
+			aDau = "<a href = 'javascript:' id = 'LinkMaMonHocTKB-" + maMonHocTKB + "-MaMonHocTKB-Sang'>";
+			trSang.cells[0].innerHTML = strDau + aDau + tenGiaoVien + aCuoi + strCuoi;
+			document.getElementById('LinkMaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Sang').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(maMonHocTKB, maGiaoVien, obj);
+		}
+		if(trChieu != null)
+		{
+			aDau = "<a href = 'javascript:' id = 'LinkMaMonHocTKB-" + maMonHocTKB + "-MaMonHocTKB-Chieu'>";
+			trChieu.cells[0].innerHTML = strDau + aDau + tenGiaoVien + aCuoi + strCuoi;
+			document.getElementById('LinkMaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Chieu').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(maMonHocTKB, maGiaoVien, obj);
+		}
+	}
+	
+}
 function deleteRow()
 {
 	if(document.getElementById('cboXoaMonHoc').value != "")
@@ -553,7 +618,7 @@ function confirmDuyet(x)
 
 <title>Thêm Thời Khóa Biểu</title>
 </head>
-<body onload="pageLoad();">
+<body onload="pageLoad();"><a id = "abc"/>
 <div align="center" >
 <c:set var="ThoiKhoaBieu" 
 				value = "<%= thoiKhoaBieuModel %>" scope="session"></c:set>
