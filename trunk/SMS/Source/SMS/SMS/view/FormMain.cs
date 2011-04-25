@@ -71,6 +71,7 @@ namespace SMS
         SmsPdu messageDen;
         SmsDeliverPdu dataMessageDen;
         ArrayList listModelDen;
+        ArrayList listModelDi;
         string returnMessNotSyntax = "Tin nhan cua ban khong theo cu phap ,ban hay thu lai mot lan nua.";
         HopThuDenMODEL modelDen;
         HopThuDiMODEL modelDi;
@@ -109,6 +110,87 @@ namespace SMS
             }
         }
 
+        private string checkSyntax(string contentMess)
+        {
+            CuPhapMODEL cuPhapModelFn;
+            string idCuPhap = null;
+
+            string[] arrContentMess = contentMess.Split(' ');
+            int lenghtOfMess = arrContentMess.Length;
+
+            string cumCuPhap = arrContentMess[0] + arrContentMess[1];
+
+            if (lenghtOfMess < 3)
+            {
+                idCuPhap = null;
+            }
+            else if (lenghtOfMess == 3)
+            {
+                cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+                if (cuPhapModelFn != null)
+                {
+                    idCuPhap = "0";
+                }
+                else
+                {
+                    idCuPhap = null;
+                }
+            }
+            else if (lenghtOfMess == 4)
+            {
+                cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+                if (cuPhapModelFn != null)
+                {
+                    if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
+                    {
+                        if (Validattion.isSubject(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "1";
+                        }
+                        if (Validattion.isYear(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "2";
+                        }
+                        if (Validattion.isSemester(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "3";
+                        }
+                    }
+                    if (cuPhapModelFn.Id.Equals("4") || cuPhapModelFn.Id.Equals("5"))
+                    {
+                        if (Validattion.isYear(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "4";
+                        }
+                        if (Validattion.isSemester(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "5";
+                        }
+                    }
+                    if (cuPhapModelFn.Id.Equals("6") || cuPhapModelFn.Id.Equals("7"))
+                    {
+                        if (Validattion.isDDMMYYYY(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "6";
+                        }
+                        if (Validattion.isMMYYYY(arrContentMess[3]) == true)
+                        {
+                            idCuPhap = "7";
+                        }
+                    }
+                }
+                else
+                {
+                    idCuPhap = null;
+                }
+            }
+            else
+            {
+                idCuPhap = null;
+            }
+            return idCuPhap;
+        }
+
         private ArrayList getMessDen(DecodedShortMessage[] messages)
         {
             try
@@ -122,6 +204,15 @@ namespace SMS
 
                     modelDen.So_Dien_Thoai = dataMessageDen.OriginatingAddress;
                     modelDen.Noi_Dung_Tin_Nhan = dataMessageDen.UserDataText;
+                    modelDen.Ma_Cu_Phap = checkSyntax(dataMessageDen.UserDataText);
+                    if (modelDen.Ma_Cu_Phap == null)
+                    {
+                        modelDen.Loai_Hop_Thu = "2";
+                    }
+                    else
+                    {
+                        modelDen.Loai_Hop_Thu = "0";
+                    }
                     modelDen.Ngay_Nhan = dataMessageDen.SCTimestamp.ToString();
                     modelDen.Tinh_Trang = "0";
 
@@ -134,13 +225,28 @@ namespace SMS
                 MessageBox.Show(e.Message + "-------getMessDen");
                 return null;
             }
+        } 
+
+        private ArrayList getMessDi(ArrayList listModelDen)
+        {
+            ArrayList listModelDiFn = new ArrayList();
+            HopThuDiMODEL modelDiFn;
+
+            foreach (HopThuDenMODEL model in listModelDen)
+            {
+                modelDiFn = new HopThuDiMODEL();
+
+                modelDiFn.So_Dien_Thoai = model.So_Dien_Thoai;
+                
+            }
+            return listModelDen;
         }
 
-        //private int checkSyntax(string contentMess)
-        //{
-        //    string[] arrContentMess = contentMess.Split(' ');
-        //}
-            
+        private void sendOneMessage(string contentMess, string des)
+        {
+            SmsSubmitPdu pdu = new SmsSubmitPdu(contentMess, des, "");
+            common.Constants.comm.SendMessage(pdu);
+        }   
 
         private void recieveMessAuto()
         {
@@ -466,12 +572,6 @@ namespace SMS
             DataRow row = result.Rows[0];
 
             return row[0].ToString();
-        }
-
-        private void sendOneMessage(string contentMess, string des)
-        {
-            SmsSubmitPdu pdu = new SmsSubmitPdu(contentMess, des, "");
-            common.Constants.comm.SendMessage(pdu);
         }
 
         private void menuKeyword_Click(object sender, EventArgs e)
