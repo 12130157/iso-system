@@ -374,7 +374,7 @@ namespace SMS
             return DataUtil.executeStore("sp_getAllDRVCuPhap", null);
         }
 
-          public static DataTable getTenDRVCuPhapByID(String ten,String keyword1)
+        public static DataTable getTenDRVCuPhapByID(String ten,String keyword1)
         {
             //String sql = ConfigurationManager.AppSettings["sql.getTenDRVCuPhapByID"];
             //SqlCommand objCommand = new SqlCommand(sql);
