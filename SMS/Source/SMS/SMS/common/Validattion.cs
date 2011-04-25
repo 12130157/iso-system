@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SMS.common
+namespace SMS
 {
     class Validattion
     {
@@ -121,5 +121,85 @@ namespace SMS.common
                 // Invalid international phone number
             }
         }*/
+
+        public static bool isYear(string year)
+        {
+            bool result = false;
+            string pattern = @"\d{4}";
+            Regex myRegex = new Regex(pattern);
+            if (string.IsNullOrEmpty(year))
+            {
+                result = false;
+            }
+            else
+            {
+                result = myRegex.IsMatch(year);
+            }
+            return result;
+        }
+
+        public static bool isSubject(string subject)
+        {
+            bool result = false;
+            string pattern = @"[a-zA-Z]+";
+            Regex myRegex = new Regex(pattern);
+            if (string.IsNullOrEmpty(subject))
+            {
+                result = false;
+            }
+            else
+            {
+                result = myRegex.IsMatch(subject);
+            }
+            return result;
+        }
+
+        public static bool isSemester(string semester)
+        {
+            bool result = false;
+            string pattern = @"[(HK[1-4]|Hk[1-4]|hK[1-4]|hk[1-4])|(ALL|ALl|AlL|All|all|aLl|alL|aLL)]";
+            Regex myRegex = new Regex(pattern);
+            if (string.IsNullOrEmpty(semester))
+            {
+                result = false;
+            }
+            else
+            {
+                result = myRegex.IsMatch(semester);
+            }
+            return result;
+        }
+
+        public static bool isDDMMYYYY(string ddmmyyyy)
+        {
+            bool result = false;
+            string pattern = @"[0-9]{8}";
+            Regex myRegex = new Regex(pattern);
+            if (string.IsNullOrEmpty(ddmmyyyy))
+            {
+                result = false;
+            }
+            else
+            {
+                result = myRegex.IsMatch(ddmmyyyy);
+            }
+            return result;
+        }
+
+        public static bool isMMYYYY(string mmyyyy)
+        {
+            bool result = false;
+            string pattern = @"[0-9]{6}";
+            Regex myRegex = new Regex(pattern);
+            if (string.IsNullOrEmpty(mmyyyy))
+            {
+                result = false;
+            }
+            else
+            {
+                result = myRegex.IsMatch(mmyyyy);
+            }
+            return result;
+        }
     }
 }
