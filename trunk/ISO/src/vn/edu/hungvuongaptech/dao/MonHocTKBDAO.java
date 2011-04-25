@@ -263,7 +263,21 @@ public class MonHocTKBDAO {
 						
 		return result;
 	}
-	
+	public static Boolean doiGiaoVien(String maGiaoVien, String maMonHocTKB) {
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_ISO_DoiGiaoVien(?,?)}");		
+			csmt.setString("Ma_mon_hoc_TKB", maMonHocTKB);
+			csmt.setString("Ma_giao_vien", maGiaoVien);
+			result = DataUtil.executeNonStore(csmt);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+						
+		return result;
+	}
 
 	public static MonHocTKBModel getMonHocTKBByMaTKBAndMaMonHoc(String maThoiKhoaBieu,String maMonHoc) {
 		MonHocTKBModel monHocTKBModel= new MonHocTKBModel();;
