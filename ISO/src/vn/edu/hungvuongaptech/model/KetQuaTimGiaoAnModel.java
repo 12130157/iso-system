@@ -21,6 +21,7 @@ public class KetQuaTimGiaoAnModel {
  	String coHieu;
  	String tinhTrangHT;
  	String maGA;
+ 	String maPhieuKPPN;
  	
  	public void setTenMonHoc(String tenMonHoc){this.tenMonHoc=tenMonHoc; }
  	public void setTenLopHoc(String tenLopHoc){this.tenLopHoc=tenLopHoc; }
@@ -40,6 +41,7 @@ public class KetQuaTimGiaoAnModel {
  	public void setCoHieu(String coHieu){ this.coHieu=coHieu;}
  	public void setTinhTrangHT(String tinhTrangHT){this.tinhTrangHT=tinhTrangHT;}
  	public void setMaGA(String maGA){this.maGA=maGA; }
+ 	public void setMaPhieuKPPN(String maPhieuKPPN){this.maPhieuKPPN=maPhieuKPPN;}
 
  	public String getTenMonHoc(){return this.tenMonHoc; }
  	public String getTenLopHoc(){return this.tenLopHoc; }
@@ -59,4 +61,5 @@ public class KetQuaTimGiaoAnModel {
  	public String getCoHieu(){return this.coHieu;}
  	public String getTinhTrangHT(){return this.tinhTrangHT;}
  	public String getMaGA(){return this.maGA;}
+ 	public String getMaPhieuKPPN(){return this.maPhieuKPPN;}
 }

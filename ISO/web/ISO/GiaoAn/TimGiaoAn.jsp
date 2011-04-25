@@ -542,6 +542,10 @@
 					</c:if>
 					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
 							Mới
+							
+							<c:if test="${color ne ''}">
+								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_GIAOAN %>&maID=${objKQTim.maGA}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
+							</c:if>
 					</c:if>
 						
 						<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">

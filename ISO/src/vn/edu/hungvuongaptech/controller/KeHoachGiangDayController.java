@@ -96,6 +96,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 			
 					KeHoachGiangDayDAO.tkDuyetKHGD(userLoginID, maKHGD, Constant.TINHTRANG_APPROVE, null);
 					KeHoachGiangDayDAO.updateTinhTrangHTKeHoachGiangDayByMaKHGD(maKHGD,Constant.TINHTRANG_HT_SEND);
+					KeHoachGiangDayDAO.updateMaNguoiDuyetKHGDByMaKHGD(maKHGD,request.getSession().getAttribute("maThanhVien").toString());
 					
 					KeHoachGiangDayModel keHoachGiangDayModel = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(maKHGD);
 					keHoachGiangDayModel.setNgayDuyet(DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong()));
