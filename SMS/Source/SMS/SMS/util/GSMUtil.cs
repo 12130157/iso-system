@@ -19,21 +19,36 @@ namespace SMS
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
+
                 common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
+
+                Cursor.Current = Cursors.Default;
+
+                //common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
+                //common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
+
+                ////send message
+                //Thread thr = new Thread(phoneConnected);
+                //thr.Start();
+                ////receice message
+                //Thread thr1 = new Thread(messageRecieved);
+                //thr1.Start();
+
+                Cursor.Current = Cursors.WaitCursor;
 
                 common.Constants.comm.Open();
 
                 Cursor.Current = Cursors.Default;
 
-                Cursor.Current = Cursors.WaitCursor;
+                
 
                 
-                //send message
-                Thread thr = new Thread(phoneConnected);
-                thr.Start();
-                //receice message
-                Thread thr1 = new Thread(messageRecieved);
-                thr1.Start();
+                ////send message
+                //Thread thr = new Thread(phoneConnected);
+                //thr.Start();
+                ////receice message
+                //Thread thr1 = new Thread(messageRecieved);
+                //thr1.Start();
                 if (common.Constants.comm.IsConnected() == true)
                 {
                     return true;
@@ -69,7 +84,15 @@ namespace SMS
 
         private void comm_PhoneConnected(object sender, EventArgs e)
         {
-            new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
+            
+            try
+            {
+                new frmConn().Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
+            }
+            catch (Exception k)
+            {
+                MessageBox.Show(k.Message + "---------------comm_PhoneConnected");
+            }
         }
 
         private string GetMessageStorage()
@@ -99,14 +122,14 @@ namespace SMS
             }
         }
 
-        public void phoneConnected()
-        {
-            common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
-        }   
+        //public void phoneConnected()
+        //{
+        //    common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
+        //}
 
-        public void messageRecieved()
-        {
-            common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
-        }
+        //public void messageRecieved()
+        //{
+        //    common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
+        //}
     }
 }
