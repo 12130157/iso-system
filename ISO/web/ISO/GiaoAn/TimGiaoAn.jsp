@@ -422,19 +422,16 @@
 			
 			</td>
 		</tr>
-		<tr style="background-color: transparent;">
-			
+		<tr style="background-color: transparent;" >
 			<td>
-				Ngày dạy từ 
 			</td>
 			<td style="text-align:left">
-				<input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
+				<input type='hidden'  id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
 			</td>
 			<td>
-				Đến ngày 
 			</td>
 			<td colspan='5' style="text-align:left">
-				<input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
+				<input type='hidden' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
 			</td>
 
 			
@@ -474,11 +471,9 @@
 			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Giáo viên</w:cell_header>
 			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Lớp học</w:cell_header>
 			<w:cell_header enableSort="true" type="java.lang.Integer" style='font-weight:bold;color:white;cursor:pointer;background-color:#186fb2' >Tên giáo án</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày dạy</w:cell_header>
 			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày gởi</w:cell_header>
 			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Người duyệt</w:cell_header>
 			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Ngày duyệt</w:cell_header>
-			<w:cell_header enableSort="true" style='font-weight:bold;color:white;background-color:#186fb2;cursor:pointer' >Tình trạng</w:cell_header>
 		</w:row_header>
 		
 		<c:if test="${ not empty param.view}">
@@ -501,7 +496,7 @@
 					</c:if>
 				</c:if>
 
-				<w:row style="background-color: transparent;${color}">		
+				<w:row style="background-color: transparent;">		
 				
 				
 					<w:cell>
@@ -519,35 +514,10 @@
 					<w:cell>${objKQTim.tenGiaoVien}</w:cell>
 					<w:cell>${objKQTim.tenLopHoc}</w:cell>
 					<w:cell>${objKQTim.soGiaoAn}</w:cell>
-					<w:cell>${objKQTim.ngayDay}</w:cell>
 					<w:cell>${objKQTim.ngayGui}</w:cell>
 					<w:cell>${objKQTim.tenNguoiDuyet}</w:cell>
-					<w:cell>${objKQTim.ngayDuyet}</w:cell>
-					<w:cell>
-			
-					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
-						<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
-							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},${objKQTim.maGA},${objKQTim.maGiaoVien},"${objKQTim.ngayGui}",${objKQTim.soGiaoAn})'>Đã gửi</a>
-						</c:if>
-						<c:if test ="${vaiTro ne Admin and vaiTro ne vaiTroTK}">
-							Đã gởi
-						</c:if>
-						
-					</c:if>
-					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE}">
-							Approve
-					</c:if>
-					<c:if test="${objKQTim.tinhTrang eq TT_REJECT}">
-							REJECT
-					</c:if>
-					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
-							Mới
-							
-							<c:if test="${color ne ''}">
-								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_GIAOAN %>&maID=${objKQTim.maGA}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
-							</c:if>
-					</c:if>
-						
+					<w:cell>${objKQTim.ngayDuyet}
+					
 						<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">
 							<input type="hidden" value="${objKQTim.maGiaoVien}" name="txtMaGiaoVien_<%=countEmail %>" id="txtMaGiaoVien_<%=countEmail %>"></input>
 							<input type="hidden" value="${objKQTim.soGiaoAn}" name="txtSoGiaoAn_<%=countEmail %>" id="txtSoGiaoAn_<%=countEmail %>"></input>
@@ -557,8 +527,11 @@
 							<input type="hidden" value="${objKQTim.tenMonHoc}" name="txtTenMonHoc_<%=countEmail %>" id="txtTenMonHoc_<%=countEmail %>"></input>
 							<% countEmail++; %>
 						</c:if>
-						
+					
 					</w:cell>
+			
+						
+						
 				</w:row>
 			</c:forEach>
 			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
