@@ -163,7 +163,7 @@ namespace SMS
         private System.Windows.Forms.Button btnCancel;
 
         private int comPort = GsmCommMain.DefaultPortNumber;
-        private int baudRate = GsmCommMain.DefaultBaudRate;
+        //private int baudRate = GsmCommMain.DefaultBaudRate;
         private int timeOut = GsmCommMain.DefaultTimeout;
 
         public void showCbo(object sender, System.EventArgs e)
@@ -179,7 +179,7 @@ namespace SMS
             cboBaudrate.Items.Add("38400");
             cboBaudrate.Items.Add("57600");
             cboBaudrate.Items.Add("115200");
-            cboBaudrate.Text = baudRate.ToString();
+            cboBaudrate.Text = "115200";
 
             cboTimeout.Items.Add("150");
             cboTimeout.Items.Add("300");

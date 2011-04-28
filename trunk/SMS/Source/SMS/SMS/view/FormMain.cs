@@ -16,6 +16,8 @@ namespace SMS
 {
     public partial class FormMain : Form
     {
+        #region Declare Global Variables
+
         ArrayList listModelDen;
         ArrayList listModelDi;
         string returnMessNotSyntax = "Tin nhan cua ban khong theo cu phap ,ban hay thu lai mot lan nua.";
@@ -23,6 +25,8 @@ namespace SMS
         private System.Timers.Timer autoRecieveMess = new System.Timers.Timer();
 
         bool ena = false;
+
+        #endregion
 
         public FormMain()
         {
@@ -34,6 +38,8 @@ namespace SMS
             }
             messRecieveNphoneConnected();
         }
+
+        #region Khởi tạo hệ thống tin nhắn
 
         private delegate void ConnectedHandler(bool connected);
 
@@ -82,16 +88,75 @@ namespace SMS
             }
         }
 
-        private string GetMessageStorage()
-        {
-            string storage = "";
-            storage = PhoneStorageType.Sim;
+        #endregion
 
-            if (storage.Length == 0)
-                throw new ApplicationException("Unknown message storage.");
-            else
-                return storage;
+        #region Timer
+
+        public void InitializeTimer(bool en)
+        {
+            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
+            this.autoRecieveMess.Interval = 7000;
+            this.autoRecieveMess.Enabled = en;
         }
+
+        public void OnTimer(Object source, ElapsedEventArgs e)
+        {
+            doMessAuto();
+        }
+
+        #endregion 
+
+        #region lấy kết quả tin nhắn
+
+        private string getDiemByMaSV(string maSinhVien)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getDiemByMaSVNMonHoc(string maSinhVien, string monHoc)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getDiemByMaSVNNamHoc(string maSinhVien, string namHoc)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getDiemByMaSVNHocKi(string maSinhVien, string hocKi)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getTKBByMaSVNNamHoc(string maSinhVien, string namHoc)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getTKBByMaSVNHocKi(string maSinhVien, string hocKi)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getDDByMaSVNddmmyyy(string maSinhVien, string ddmmyyyy)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getDDByMaSVNmmyyyy(string maSinhVien, string mmyyyy)
+        {
+            string result = "";
+            return result;
+        }
+
+        #endregion    
 
         private void deleteMess()
         {
@@ -110,48 +175,17 @@ namespace SMS
             }
         }
 
-        private void btnEnableMess_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (common.Constants.comm.IsConnected() == true)
-                {
-                    if (ena == false)
-                    {
-                        ena = true;
-                        InitializeTimer(ena);
-                        btnEnableMess.Text = "Disable for Recieve Message";
-                        return;
-                    }
-                    if (ena == true)
-                    {
-                        ena = false;
-                        InitializeTimer(ena);
-                        btnEnableMess.Text = "Enable for Recieve Message";
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No Phone Connected");
-                }
-            }
-            catch (Exception k)
-            {
-                MessageBox.Show(k.Message + "-------------btnEnableMess_Click");
-            }
-        }
+        #region Xử lý tin nhắn đến
 
-        public void InitializeTimer(bool en)
+        private string GetMessageStorage()
         {
-            this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 7000;
-            this.autoRecieveMess.Enabled = en;
-        }
+            string storage = "";
+            storage = PhoneStorageType.Sim;
 
-        public void OnTimer(Object source, ElapsedEventArgs e)
-        {
-            doMessAuto();
+            if (storage.Length == 0)
+                throw new ApplicationException("Unknown message storage.");
+            else
+                return storage;
         }
 
         private DecodedShortMessage[] readMessages(string storage)
@@ -190,13 +224,6 @@ namespace SMS
                 MessageBox.Show(e.Message + "----------covertMessRead");
                 return null;
             }
-        }
-
-        private string[] splitContentMess(string contentMess)
-        {
-
-            string[] arrContentMessFn = contentMess.Split(' ');
-            return arrContentMessFn;
         }
 
         private string checkSyntax(string contentMess)
@@ -289,6 +316,12 @@ namespace SMS
                 MessageBox.Show(e.Message + "----------------checkSyntax");
             }
             return idCuPhapFn;
+        }
+
+        private string[] splitContentMess(string contentMess)
+        {
+            string[] arrContentMessFn = contentMess.Split(' ');
+            return arrContentMessFn;
         }
 
         private ArrayList getMessDen(DecodedShortMessage[] messages)
@@ -386,54 +419,6 @@ namespace SMS
             }
         }
 
-        private string getDiemByMaSV(string maSinhVien)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNMonHoc(string maSinhVien,string monHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNNamHoc(string maSinhVien,string namHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNHocKi(string maSinhVien,string hocKi)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getTKBByMaSVNNamHoc(string maSinhVien, string namHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getTKBByMaSVNHocKi(string maSinhVien, string hocKi)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDDByMaSVNddmmyyy(string maSinhVien, string ddmmyyyy)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDDByMaSVNmmyyyy(string maSinhVien, string mmyyyy)
-        {
-            string result = "";
-            return result;
-        }
-
         private ArrayList getMessDi(ArrayList listModelDen)
         {
             HopThuDiMODEL modelDiFn;
@@ -475,7 +460,15 @@ namespace SMS
         {
             SmsSubmitPdu pdu = new SmsSubmitPdu(contentMess, des, "");
             common.Constants.comm.SendMessage(pdu);
-        }   
+        }
+
+        private string getMaxIDHopThuDi()
+        {
+            DataTable result = HopThuDiDAO.getMaxId();
+            DataRow row = result.Rows[0];
+
+            return row[0].ToString();
+        }
 
         private void sendNinsertMessDi(ArrayList listModelDi,ArrayList listModelDen)
         {
@@ -514,6 +507,8 @@ namespace SMS
             }
         }
 
+        #endregion
+
         private void doMessAuto()
         {
             deleteMess();
@@ -534,9 +529,9 @@ namespace SMS
             sendNinsertMessDi(listModelDi, listModelDen);
         }
 
+        #region Xem lai
 
-
-                ////bien luu tin nhan den
+        ////bien luu tin nhan den
                 
                 //HopThuDenMODEL modelDen;
 
@@ -736,11 +731,6 @@ namespace SMS
                 //}
             //Cursor.Current = Cursors.Default;
 
-            
-
-        
-        #region Xem lai
-        
         //private void loadMenuFromDatabase()
         //{
         //    String roleID = common.Constants.USER_LOGIN.MaVaiTro;
@@ -793,8 +783,100 @@ namespace SMS
         //    }
         //}
 
-        #endregion
+        #endregion      
 
+        //private string getStringDiemByIDNMonHoc(string idSinhVien, string idMonHoc)
+        //{
+        //    string result = "";
+        //    DataTable tbl = CuPhapDAO.getDiemByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
+        //    foreach (DataRow row in tbl.Rows)
+        //    {
+        //        result += row["Ten Mon Hoc"] + " / " + row["Ten vs Hinh Thuc KT"] + " / " + row["Diem"] + "\n";
+        //    }
+        //    return result;
+        //}
+
+        //private string getStringTKBByIDNMonHoc(string idSinhVien, string idMonHoc)
+        //{
+        //    string result = "";
+        //    DataTable tbl = CuPhapDAO.getTKBByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
+
+        //    foreach (DataRow row in tbl.Rows)
+        //    {
+        //        result += row["Ngay hoc"] + " " + row["Buoi"] + " " + row["Ten Phong"] + "\n";
+        //    }
+        //    return result;
+        //}
+
+        #region Events
+
+        private void menuAddressBook_Click(object sender, EventArgs e)
+        {
+            FormAddressBook fr = new FormAddressBook();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void typeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormInboxMessageType fr = new FormInboxMessageType();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void menuLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void btnEnableMess_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (common.Constants.comm.IsConnected() == true)
+                {
+                    if (ena == false)
+                    {
+                        ena = true;
+                        InitializeTimer(ena);
+                        btnEnableMess.Text = "Disable for Recieve Message";
+                        return;
+                    }
+                    if (ena == true)
+                    {
+                        ena = false;
+                        InitializeTimer(ena);
+                        btnEnableMess.Text = "Enable for Recieve Message";
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Phone Connected");
+                }
+            }
+            catch (Exception k)
+            {
+                MessageBox.Show(k.Message + "-------------btnEnableMess_Click");
+            }
+        }
+
+        private void menuKeyword_Click(object sender, EventArgs e)
+        {
+            FormManageKeyword fr = new FormManageKeyword();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void menuAccount_Click(object sender, EventArgs e)
+        {
+            FormManageAccount fr = new FormManageAccount();
+            fr.MdiParent = this;
+            fr.Show();
+        }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -826,72 +908,6 @@ namespace SMS
             frmSend.Show();
         }
 
-        private string getMaxIDHopThuDi()
-        {
-            DataTable result = HopThuDiDAO.getMaxId();
-            DataRow row = result.Rows[0];
-
-            return row[0].ToString();
-        }
-
-        private void menuKeyword_Click(object sender, EventArgs e)
-        {
-            FormManageKeyword fr = new FormManageKeyword();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private void menuAccount_Click(object sender, EventArgs e)
-        {
-            FormManageAccount fr = new FormManageAccount();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private string getStringDiemByIDNMonHoc(string idSinhVien, string idMonHoc)
-        {
-            string result = "";
-            DataTable tbl = CuPhapDAO.getDiemByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
-            foreach (DataRow row in tbl.Rows)
-            {
-                result += row["Ten Mon Hoc"] + " / " + row["Ten vs Hinh Thuc KT"] + " / " + row["Diem"] + "\n";
-            }
-            return result;
-        }
-
-        private string getStringTKBByIDNMonHoc(string idSinhVien, string idMonHoc)
-        {
-            string result = "";
-            DataTable tbl = CuPhapDAO.getTKBByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
-
-            foreach (DataRow row in tbl.Rows)
-            {
-                result += row["Ngay hoc"] + " " + row["Buoi"] + " " + row["Ten Phong"] + "\n";
-            }
-            return result;
-        }
-
-        private void menuAddressBook_Click(object sender, EventArgs e)
-        {
-            FormAddressBook fr = new FormAddressBook();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private void typeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormInboxMessageType fr = new FormInboxMessageType();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private void menuLogout_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-        }
-
+        # endregion
     } 
 }

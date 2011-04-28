@@ -109,6 +109,7 @@ namespace SMS
             this.txtMatKhau.PasswordChar = '*';
             this.txtMatKhau.Size = new System.Drawing.Size(171, 20);
             this.txtMatKhau.TabIndex = 1;
+            this.txtMatKhau.Text = "ThienVD";
             // 
             // txtTenDN
             // 
@@ -117,6 +118,7 @@ namespace SMS
             this.txtTenDN.Name = "txtTenDN";
             this.txtTenDN.Size = new System.Drawing.Size(171, 20);
             this.txtTenDN.TabIndex = 0;
+            this.txtTenDN.Text = "ThienVD";
             // 
             // label2
             // 
