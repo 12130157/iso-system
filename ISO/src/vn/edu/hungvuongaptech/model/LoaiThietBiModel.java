@@ -1,6 +1,7 @@
 package vn.edu.hungvuongaptech.model;
 
 public class LoaiThietBiModel {
+	private static final long serialVersionUID = 1L;
 	private String maLoaiThietBi;
 	private String tenLoaiThietBi;
 	private String ghiChu;

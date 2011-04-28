@@ -63,7 +63,7 @@ function validateForm()
 	
 	if(rightSpace(email)!="")
 		document.getElementById("alertEmail").innerHTML="";
-	else if(re.test(txtEmail.value) == false){
+	else if(re.test(email.value) == false){
 		document.getElementById("alertEmail").innerHTML="*";
 	}
 	else{

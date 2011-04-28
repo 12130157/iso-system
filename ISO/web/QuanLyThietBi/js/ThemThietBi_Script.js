@@ -20,20 +20,20 @@ function checkAll()
 function validateFormThietBi()
 {
 	var stt=true;
-	var tenThietBi=document.getElementById("txtTenThietBi").value;
-	var objLoaiThietBi=document.getElementById("selLoaiThietBi");
-	var objKhoa=document.getElementById("selKhoa");
-	var objNhaCC=document.getElementById("selNhaCC");
-	var objPhong=document.getElementById("selPhong");
-	var objDonViTanSuat=document.getElementById("selDonViTanSuat");
-	var loaiThietBi=objLoaiThietBi.options[objLoaiThietBi.selectedIndex].text;
+	var ten = "";
+	if(document.getElementById("txtTenThietBi").value != null)
+		ten=document.getElementById("txtTenThietBi").value;
+	else
+		ten=document.getElementById("txtTenLinhKien").value;
+	var objLoaiThietBi=document.getElementById("cboLoaiThietBiLinhKien");
+	var objKhoa=document.getElementById("cboKhoa");
+	var objNhaCC=document.getElementById("cboNhaCungCap");
+	var objPhong=document.getElementById("cboPhongBan");
+	var loaiThietBiLinhKien=objLoaiThietBi.options[objLoaiThietBi.selectedIndex].text;
 	
 	var khoa=objKhoa.options[objKhoa.selectedIndex].text;
 	
 	var nhaCC=objNhaCC.options[objNhaCC.selectedIndex].text;
-	
-	var soLuong=document.getElementById("txtSoLuong").value;
-	var donViTinh=document.getElementById("selDonViTinh").value;
 	
 	var phong=objPhong.options[objPhong.selectedIndex].text;
 	
@@ -46,11 +46,7 @@ function validateFormThietBi()
 	
 	var giaMua=document.getElementById("txtGiaMua").value;
 	var kiHieu=document.getElementById("txtKiHieu").value;
-
 	
-	var donViTanSuat=objDonViTanSuat.options[objDonViTanSuat.selectedIndex].text;
-	
-	var phuKien=document.getElementById("txtPhuKien").value;
 	var nguyenTacSD=document.getElementById("txtNguyenTacSD").value;
 	var dacTinhKT=document.getElementById("txtDacTinhKT").value;
 	var giaMuaValidate=/^[0-9]{1,10}$/;
@@ -64,7 +60,7 @@ function validateFormThietBi()
 		document.getElementById("alertKiHieu").innerHTML="";
 	}
 	
-	if(rightSpace(tenThietBi)==""){
+	if(rightSpace(ten)==""){
 		document.getElementById("alertTenThietBi").innerHTML="*";
 		stt=false;
 	}
@@ -72,7 +68,7 @@ function validateFormThietBi()
 		document.getElementById("alertTenThietBi").innerHTML="";
 	}
 	
-	if(loaiThietBi=="--Chọn--"){
+	if(loaiThietBiLinhKien=="--Chọn--"){
 		document.getElementById("alertLoaiTB").innerHTML="*";
 		stt=false;
 	}
@@ -92,28 +88,6 @@ function validateFormThietBi()
 	}
 	else
 		document.getElementById("alertNhaCC").innerHTML="";
-		
-	if(rightSpace(soLuong)==""){
-		document.getElementById("alertSoLuong").innerHTML="*";
-		stt=false;
-	}
-	else{
-		document.getElementById("alertSoLuong").innerHTML="";
-		if(!validateNumberPhone(soLuong)){
-			document.getElementById("alertSoLuong").innerHTML="Số lượng không dung";
-			stt=false;
-		}
-		else
-			document.getElementById("alertSoLuong").innerHTML="";
-	}
-	
-	
-	if(donViTinh=="--Chọn--"){
-		document.getElementById("alertDonViTinh").innerHTML="*";
-		stt=false;
-	}
-	else
-		document.getElementById("alertDonViTinh").innerHTML="";
 	
 	if(phong=="--Chọn--"){
 		document.getElementById("alertPhong").innerHTML="*";
@@ -191,12 +165,6 @@ function validateFormThietBi()
 		else
 			document.getElementById("alertGiaMua").innerHTML="";
 	}
-	if(donViTanSuat=="--Chọn--"){
-		document.getElementById("alertDonViTanSuat").innerHTML="*";
-		stt=false;
-	}
-	else
-		document.getElementById("alertDonViTanSuat").innerHTML="";
 	
 	
 	var resultValidate=document.getElementById("alertValidate");

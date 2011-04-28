@@ -16,7 +16,8 @@
 <%@page import="vn.edu.hungvuongaptech.dao.TanSuatDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ThietBiModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%>
-<%@page import="org.zefer.html.doc.r"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietThietBiModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ChiTietThietBiDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -37,7 +38,7 @@
  </style>
 <![endif]-->
 
-<title>Hệ Thống Quản Lý Thiết Bị</title>
+<title>Thêm chi tiết thiết bị</title>
 <style>
 	.table1{
 		background:transparent;
@@ -69,18 +70,30 @@
 </style>
 <script language="type/text">
 	<%
-		ThietBiModel thietBiModel = new ThietBiModel();
-		if(request.getParameter("maThietBi") != null)
-			thietBiModel = ThietBiDAO.getThietBiByID(request.getParameter("maThietBi"));
-		else if(request.getAttribute("thietBi") != null)
-			thietBiModel = (ThietBiModel) request.getAttribute("thietBi");
+		ThietBiModel thietBi = new ThietBiModel();
+		ChiTietThietBiModel chiTietThietBi = new ChiTietThietBiModel();
+		if(request.getParameter("maThietBi") != null) {
+			thietBi = ThietBiDAO.getThietBiSimpleByID(request.getParameter("maThietBi"));
+			chiTietThietBi.setMaThietBi(thietBi.getMaThietBi());
+			chiTietThietBi.setKiHieuThietBi(thietBi.getKiHieu());
+			chiTietThietBi.setTenThietBi(thietBi.getTenThietBi());
+			chiTietThietBi.setNgayBatDauSuDung(thietBi.getNgayBatDauSuDung());
+			chiTietThietBi.setNgayMua(thietBi.getNgayMua());
+			chiTietThietBi.setNgaySanXuat(thietBi.getNgaySanXuat());
+			chiTietThietBi.setHanBaoHanh(thietBi.getHanBaoHanh());
+			chiTietThietBi.setMaNhaCungCap(thietBi.getMaNhaCungCap());
+		}
+		if(request.getParameter("maLinhKien") != null)
+			chiTietThietBi = ChiTietThietBiDAO.getLinhKienByID(request.getParameter("maLinhKien"));
+		else if(request.getAttribute("chiTietThietBi") != null)
+			chiTietThietBi = (ChiTietThietBiModel) request.getAttribute("chiTietThietBi");
 	%>
 </script>
 <c:set var='phongList' value='<%=PhongBanDAO.getAllPhongBan()%>' ></c:set>
 <c:set var='khoaList' value='<%=KhoaDAO.showAllKhoa()%>'></c:set>
 <c:set var='nhaCCList' value='<%=NhaCungCapDAO.getAllNhaCungCapByTen(1,NhaCungCapDAO.getTotalNhaCungCapByTen(""),"")%>'></c:set>
 <c:set var='loaiThietBiList' value='<%=LoaiThietBiDAO.getAllLoaiThietBi()%>' ></c:set>
-<c:set var = "ThietBi" value="<%=thietBiModel %>" scope = "session"/>
+<c:set var = "ChiTietThietBi" value="<%=chiTietThietBi %>" scope = "session"/>
 </head>
 <body>
 <div align="center">
@@ -91,55 +104,67 @@
 	
 	<a id="aFocus"></a>
 	<font color='red' id='alertValidate'></font>
-		<c:if test="${param.ThemThietBi eq 'ok'}">
+		<c:if test="${param.ThemLinhKien eq 'ok'}">
 			<font class="msg">Thêm thiết bị thành công</font>
 		</c:if>
-		<c:if test="${param.ThemThietBi eq 'fail'}">
+		<c:if test="${param.ThemLinhKien eq 'fail'}">
 			<font class="error">Thêm thiết bị thất bại</font>
 		</c:if>
 		
-		<c:if test="${param.UpdateThietBi eq 'ok'}">
+		<c:if test="${param.UpdateLinhKien eq 'ok'}">
 			<font class="msg">Cập nhật thiết bị thành công</font>
 		</c:if>
-		<c:if test="${param.UpdateThietBi eq 'fail'}">
+		<c:if test="${param.UpdateLinhKien eq 'fail'}">
 			<font class="error">Cập nhật thiết bị thất bại</font>
 		</c:if>
 	<br/><br/>
-			
-	<form name="frmThietBi" id="frmThietBi" method="post" action="<%=request.getContextPath()%>/ThietBiController">
+	<form name="frmLinhKien" id="frmLinhKien" method="post" action="<%=request.getContextPath()%>/ThietBiController">
 		<div>
 				<input type="hidden" name="actionType" id="actionType"/>
 				<input type="hidden" name="txtIndexRow" id="txtIndexRow"/>
+				
 		<table>
 			<tr style="background-color: transparent;">
 				<td colspan="9">
-					<div class = "div_thanhvientieude">Thiết Bị</div>
+					<div class = "div_thanhvientieude">Linh kiện</div>
 				</td>
+				
 			</tr>
+			<c:if test="${not empty ChiTietThietBi.maThietBi}">
+				<tr style="background-color: transparent;">
+					<td colspan="9">
+						Tên thiết bị : <input type = "text" readonly="readonly" id = "txtTenThietBi" name = "txtTenThietBi" value = "${ChiTietThietBi.tenThietBi }"/>
+						Kí hiệu : <input type = "text" readonly="readonly" id = "txtKiHieuThietBi" name = "txtKiHieuThietBi" value = "${ChiTietThietBi.kiHieuThietBi }"/>
+						<input type = "hidden" name = "txtMaThietBi" id = "txtMaThietBi" value = "${ChiTietThietBi.maThietBi }"/>
+						<a href="<%=Constant.PATH_RES.getString("qltb.XemThietBiPath") %>?maThietBi=${ChiTietThietBi.maThietBi }">Xem</a>
+					</td>
+				</tr>
+			</c:if>	
 		</table>
-
+		<br/>
+		<br/>
 				<table class="table1" width="500px" >
 						<tr>
-							<td style="text-align:right;background-color: transparent;">Tên thiết bị</td>
+							<td style="text-align:right;background-color: transparent;">Tên linh kiện</td>
 							<td>
-								<input type="text" size="25" name="txtTenThietBi" id="txtTenThietBi" value = "${ThietBi.tenThietBi }"/> <font color='red' id='alertTenThietBi'></font>
+								<input type="text" size="25" name="txtTenLinhKien" id="txtTenLinhKien" value = "${ChiTietThietBi.tenChiTietThietBi }"/> <font color='red' id='alertTenThietBi'></font>
 							</td>	
-							<td style="text-align:right">Kí hiệu máy</td>
+							<td style="text-align:right">Kí hiệu linh kiện</td>
 							<td>
-								<input type="text" size="25" id="txtKiHieu" name="txtKiHieu"  value = "${ThietBi.kiHieu }"/>
+								<input type="text" size="25" id="txtKiHieu" name="txtKiHieu"  value = "${ChiTietThietBi.kiHieu }"/>
 								<font color='red' id='alertKiHieu'></font>
 							</td>
 							
 						</tr>
 						<tr>
-							<td style="text-align:right;background-color: transparent;">Loại thiết bị</td>
+							<td style="text-align:right;background-color: transparent;">Loại linh kiện</td>
 							<td style="background-color: transparent;">
 								<select id="cboLoaiThietBiLinhKien" name="cboLoaiThietBiLinhKien" style="width: 178px">
 									<option>--Chọn--</option>
-									<c:forEach var="objLoaiThietBi" items="${loaiThietBiList}">
-											<option value="${objLoaiThietBi.maLoaiThietBi}"
-												<c:if test = "${ThietBi.maLoaiThietBi eq objLoaiThietBi.maLoaiThietBi}">selected</c:if>>
-													${objLoaiThietBi.tenLoaiThietBi}</option>
+									<c:forEach var="objLoaiLinhKien" items="${loaiThietBiList}">
+											<option value="${objLoaiLinhKien.maLoaiThietBi}"
+												<c:if test = "${ChiTietThietBi.maLoaiChiTietThietBi eq objLoaiLinhKien.maLoaiThietBi}">selected</c:if>>
+													${objLoaiLinhKien.tenLoaiThietBi}</option>
 									</c:forEach>
 								</select>
 								<font id='alertLoaiTB' color='red'></font>
@@ -150,7 +175,7 @@
 									<option>--Chọn--</option>
 									<c:forEach var="objNhaCungCap" items="${nhaCCList}">
 											<option value="${objNhaCungCap.maNhaCungCap}"
-												<c:if test = "${ThietBi.maNhaCungCap eq objNhaCungCap.maNhaCungCap}">selected</c:if>>
+												<c:if test = "${ChiTietThietBi.maNhaCungCap eq objNhaCungCap.maNhaCungCap}">selected</c:if>>
 													${objNhaCungCap.ten}</option>
 									</c:forEach>
 								</select>
@@ -165,7 +190,7 @@
 									<option>--Chọn--</option>
 									<c:forEach var="objKhoa" items="${khoaList}">
 										<option value='${objKhoa.maKhoa}'
-											<c:if test = "${ThietBi.maBoPhan eq objKhoa.maKhoa}">selected</c:if>>
+											<c:if test = "${ChiTietThietBi.maBoPhan eq objKhoa.maKhoa}">selected</c:if>>
 												${objKhoa.tenKhoa}</option>
 									</c:forEach>
 								</select>
@@ -178,7 +203,7 @@
 									<option>--Chọn--</option>
 									<c:forEach var="objPhong" items="${phongList}">
 										<option value='${objPhong.maPhongBan}'
-											<c:if test = "${ThietBi.maPhongBan eq objPhong.maPhongBan}">selected</c:if>>
+											<c:if test = "${ChiTietThietBi.maPhongBan eq objPhong.maPhongBan}">selected</c:if>>
 												${objPhong.kiHieu}</option>
 									</c:forEach>
 								</select>
@@ -188,33 +213,33 @@
 						</tr> 
 						<tr>
 							<td style="text-align:right">Ngày sản xuất</td>
-							<td><input type = "text" size="25" id="txtCalendar1" size = 8 name="txtCalendar1" style="background-color: transparent;" value = "${ThietBi.ngaySanXuat }"/>
+							<td><input type = "text" size="25" id="txtCalendar1" size = 8 name="txtCalendar1" style="background-color: transparent;" value = "${ChiTietThietBi.ngaySanXuat }"/>
 								<font id='alertNgaySanXuat' color='red'></font>
 							</td>
 							<td style="text-align:right">Hạn bảo hành</td>
-							<td><input type = "text" size="25" id="txtCalendar3" size = 8 name="txtCalendar3" style="background-color: transparent;" value = "${ThietBi.hanBaoHanh }"/>
+							<td><input type = "text" size="25" id="txtCalendar3" size = 8 name="txtCalendar3" style="background-color: transparent;" value = "${ChiTietThietBi.hanBaoHanh }"/>
 								<font id='alertNgayBaoHanh' color='red'></font>
 							</td>
 						</tr> 
 						<tr>
 							<td style="text-align:right">Ngày mua</td>
-							<td><input type = "text" size="25" id="txtCalendar2" size = 8 name="txtCalendar2" style="background-color: transparent;" value = "${ThietBi.ngayMua }"/>
+							<td><input type = "text" size="25" id="txtCalendar2" size = 8 name="txtCalendar2" style="background-color: transparent;" value = "${ChiTietThietBi.ngayMua }"/>
 								<font id='alertNgayMua' color='red'></font>
 							</td>
 							<td style="text-align:right">Giá mua</td>
 							<td>
-								<input name="txtGiaMua" size="25" id="txtGiaMua" type="text" width="50px"  value = "${ThietBi.giaMua }"/>
+								<input name="txtGiaMua" size="25" id="txtGiaMua" type="text" width="50px"  value = "${ChiTietThietBi.giaMua }"/>
 								<font id='alertGiaMua' color='red'></font>
 							</td>
 						</tr> 
 						<tr>
 							<td style="text-align:right">Ngày bắt đầu sử dụng</td>
-							<td><input type = "text" size="25" id="txtCalendar4" size = 8 name="txtCalendar4" style="background-color: transparent;" value = "${ThietBi.ngayBatDauSuDung }"/>
-								<font id='alertNgayMua' color='red'></font>
+							<td><input type = "text" size="25" id="txtCalendar4" size = 8 name="txtCalendar4" style="background-color: transparent;" value = "${ChiTietThietBi.ngayMua }"/>
+								<font id='alertNgayBatDauSuDung' color='red'></font>
 							</td>
 							<td style="text-align:right">Tần suất tối đa</td>
 							<td>
-								<input type="text" size="25" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ThietBi.tanSuatToiDa }"/>
+								<input type="text" size="25" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ChiTietThietBi.tanSuatToiDa }"/>
 								<font id='alertTanSuatToiDa' color='red'></font>
 							</td>
 							
@@ -223,30 +248,20 @@
 						<tr>
 							<td style="text-align:right">Số lần sử dụng</td>
 							<td>
-								<input type="text" size="25" id="txtSoLanSuDung" name="txtSoLanSuDung" value = "${ThietBi.soLanSuDung }" readonly="readonly"/>
+								<input type="text" size="25" id="txtSoLanSuDung" name="txtSoLanSuDung" value = "${ChiTietThietBi.soLanSuDung }" readonly="readonly"/>
 							</td>
 							<td style="text-align:right">Số lần bảo trì</td>
 							<td>
-								<input type="text" size="25" id="txtSoLanBaoTri" name="txtSoLanBaoTri"  value = "${ThietBi.soLanBaoTri }" readonly="readonly"/>
+								<input type="text" size="25" id="txtSoLanBaoTri" name="txtSoLanBaoTri"  value = "${ChiTietThietBi.soLanBaoTri }" readonly="readonly"/>
 							</td>
-							
-							
 						</tr> 
 						<tr>
 							<td style="text-align:right">Tần suất sử dụng</td>
 							<td>
-								<input type="text" size="25" id="txtTanSuatSuDung" name="txtTanSuatSuDung" value = "${ThietBi.tanSuatSuDung }%" readonly="readonly"/>
+								<input type="text" size="25" id="txtTanSuatSuDung" name="txtTanSuatSuDung" value = "${ChiTietThietBi.tanSuatSuDung }" readonly="readonly"/>
 							</td>
-							<c:if test = "${empty ThietBi.maThietBi}">
-								<td>Số lượng</td>
-								<td>
-									<select name = "cboSoLuong" id = "cboSoLuong">
-										<c:forEach var = "s" begin = "1" end="30">
-											<option value = "${s}">${s }</option>
-										</c:forEach>
-									</select>
-								</td>
-							</c:if>
+							<td></td>
+							<td></td>
 						</tr>
 				</table>
 				
@@ -261,21 +276,21 @@
 					<tr>
 						<td style="text-align:right">Nguyên tắc sử dụng</td>
 						<td>
-							<textarea rows="4" cols="30" id="txtNguyenTacSD" name="txtNguyenTacSD">${ThietBi.nguyenTacSuDung }</textarea>
+							<textarea rows="4" cols="30" id="txtNguyenTacSD" name="txtNguyenTacSD">${ChiTietThietBi.nguyenTacSuDung }</textarea>
 							<font id='alertNguyenTacSD' color='red'></font>
 						</td>
 					</tr> 
 					<tr>
 						<td style="text-align:right">Đặc tính kĩ thuật</td>
 						<td>
-							<textarea rows="4" cols="30" id="txtDacTinhKT" name="txtDacTinhKT">${ThietBi.dacTinhKyThuat }</textarea>
+							<textarea rows="4" cols="30" id="txtDacTinhKT" name="txtDacTinhKT">${ChiTietThietBi.dacTinhKyThuat }</textarea>
 										<font id='alertDacTinhKT' color='red'></font>
 						</td>
 					</tr> 	
 					<tr>
 						<td style="text-align:right">Ghi chú</td>
 						<td>
-							<textarea rows="4" cols="30" id="txtGhiChu" name="txtGhiChu">${ThietBi.ghiChu}</textarea>
+							<textarea rows="4" cols="30" id="txtGhiChu" name="txtGhiChu">${ChiTietThietBi.ghiChu}</textarea>
 						</td>
 					</tr> 		
 				</table>
@@ -283,61 +298,20 @@
 				
 				<br/>
 				<br/>
-				<p style="font-weight:bold">Linh kiện của thiết bị</p>
-				<%int c=1; %>
-				<table border="1"  id="frmChiTietThietBi" class="table3">
-					<tr style="color:white;background-color: #186fb2">
-						<th><input type="checkbox" onclick="checkAll()"/></th>
-						<th>Tên linh kiện</th>
-						<th>Kí hiệu</th>
-						<th>Nhà cung cấp</th>
-						<th>Số lần sử dụng</th>
-						<th>Số lần bảo trì</th>
-					</tr>
-					<c:forEach var = "LinhKien" items="${ThietBi.chiTietThietBiList}">
-						<tr>
-							<td><input type = "checkbox" value = "${LinhKien.maChiTietThietBi}" id = "chk<%=c %>"
-								<c:if test = "${LinhKien.soLanSuDung ne 0}">disabled</c:if>/></td>
-							<td><a href = "<%=Constant.PATH_RES.getString("qltb.XemChiTietThietBiPath")%>?maLinhKien=${LinhKien.maChiTietThietBi}">${LinhKien.tenChiTietThietBi }</a></td>
-							<td>${LinhKien.kiHieu }</td>
-							<td>${LinhKien.tenNhaCungCap }</td>
-							<td>${LinhKien.soLanSuDung }</td>
-							<td>${LinhKien.soLanBaoTri }</td>
-						</tr>
-						<%c++; %>
-					</c:forEach>
-					<c:set var = "count" value = "<%=c %>"/>
-					<c:if test = "${not empty ThietBi.maThietBi}">
-						<tr>
-							<td colspan="6">
-								<a href = "<%=Constant.PATH_RES.getString("qltb.XemChiTietThietBiPath")%>?maThietBi=${ThietBi.maThietBi}">
-									<img src="<%=request.getContextPath()%>/images/buttom/themdong.png" border = "0" />
-								</a>
-								<c:if test = "${count gt 1}">	
-									<a href = "javascript: click_btnXoaDong()">
-											<img src="<%=request.getContextPath()%>/images/buttom/xoadong.png" border = "0" />
-										</a>
-									<a id='aFocusThemDong'></a>
-								</c:if>	
-							</td>
-						</tr>
-					</c:if>
-				</table>
 				<br/>
 			<c:choose>
-				<c:when test="${not empty ThietBi.maThietBi}">
-					<a href = "javascript: click_btnUpdateThietBi();">
+				<c:when test="${not empty ChiTietThietBi.maChiTietThietBi}">
+					<a href = "javascript: click_btnUpdateLinhKien();">
 						<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" border = "0" />
 					</a>
 				</c:when>
 				<c:otherwise>
-					<a href = "javascript: click_btnThemThietBi();">
+					<a href = "javascript: click_btnThemLinhKien();">
 						<img src="<%=request.getContextPath()%>/images/buttom/them.png" border = "0" />
 					</a>
 				</c:otherwise>
-			</c:choose>	
-				
-			<input type = "hidden" id = "txtListLinhKien" name = "txtListLinhKien"/>
+			</c:choose>
+
 		</div>
 	</form>	
 	<br/>
@@ -386,35 +360,14 @@
 	ifFormat          : "%m-%d-%Y"
   });
 //]]>
-  var indexRow=1;
-
-  function click_btnXoaDong(){
-  	
-  	var listLinhKien = "";
-  	
-  	for(i=1;i<<%=c%>;i++){
-  		
-  		//alert("checkBox"+i+" : "+document.getElementById("checkBox"+i).checked);
-  		if(document.getElementById("chk"+i).checked==true){
-  			listLinhKien += "-" + document.getElementById("chk"+i).value;
-  		}
-  	}
-	if(listLinhKien != "")
-	{
-		document.getElementById('txtListLinhKien').value = listLinhKien;
-		if(confirm("Bạn có chắc muốn xóa các linh kiện này không???"))
-			document.getElementById('frmThietBi').submit();
-	}
-	else
-		alert("Hãy chọn linh kiện cần xóa!!!");
-  }
-  function click_btnThemThietBi()
+ 
+  function click_btnThemLinhKien()
   {
   	if(validateFormThietBi()&&validateFormChiTietThietBi())
   	{
-  			document.getElementById("actionType").value="ThemThietBi";		
+  			document.getElementById("actionType").value="ThemLinhKien";		
 	  		document.getElementById("txtIndexRow").value=indexRow;
-	  		document.forms['frmThietBi'].submit();
+	  		document.forms['frmLinhKien'].submit();
   
   	}
   	else
@@ -424,13 +377,13 @@
   		document.getElementById("aFocus").innerHTML="";
   	}
   }
-  function click_btnUpdateThietBi()
+  function click_btnUpdateLinhKien()
   {
   	if(validateFormThietBi()&&validateFormChiTietThietBi())
   	{
-  			document.getElementById("actionType").value="CapNhatThietBi";		
+  			document.getElementById("actionType").value="UpdateLinhKien";		
 	  		document.getElementById("txtIndexRow").value=indexRow;
-	  		document.forms['frmThietBi'].submit();
+	  		document.forms['frmLinhKien'].submit();
   
   	}
   	else

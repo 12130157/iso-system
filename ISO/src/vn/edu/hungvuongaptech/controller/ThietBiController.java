@@ -24,6 +24,7 @@ import vn.edu.hungvuongaptech.dao.KhoaDAO;
 import vn.edu.hungvuongaptech.dao.PhieuMuonThietBiDAO;
 import vn.edu.hungvuongaptech.dao.DiChuyenThietBiDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietThietBiDAO;
+import vn.edu.hungvuongaptech.model.ChiTietPhieuMuonModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.ChiTietThietBiModel;
 import vn.edu.hungvuongaptech.model.LoaiThietBiModel;
@@ -60,285 +61,222 @@ public class ThietBiController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionType=request.getParameter("actionType");
 		
-		
-		if(actionType.equalsIgnoreCase("tinhtrang"))
+		if(actionType.equalsIgnoreCase("ThemThietBi") || actionType.equalsIgnoreCase("CapNhatThietBi")){
+			themThietBi(request, response);
+		}
+		else if(actionType.equalsIgnoreCase("BaoHuThietBi")) {
+			baoHuThietBi(request, response);
+		}
+		else if(actionType.equalsIgnoreCase("XoaThietBi")) {
+			xoaThietBi(request, response);
+		}
+		else if(actionType.equalsIgnoreCase("searchThietBi"))
 		{
-			showThietBi(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("loaiThietBi"))
-		{
-			showLoaiThietBi(request, response);
-		}
-		else if(actionType.equalsIgnoreCase("insert")){
-			insertThietBi(request, response);
-		}
-		else if(actionType.equalsIgnoreCase("QLTB_updateTB")){//update 1 thiet bi
-			doPostUpdateTB(request, response);
-		}
-		else if(actionType.equalsIgnoreCase("dichuyen"))
-		{
-			diChuyenThietBi(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("searchTinhTrang"))
-		{
-			timTinhTrang(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("searchKiHieu"))
-		{
-			timKiHieu(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("searchPhongAndLoai"))
-		{
-			timPhongAndLoaiTB(request,response);
+			searchThietBi(request,response);
 		}
 		else if(actionType.equalsIgnoreCase("searchNhaCungCap"))
 		{
 			timNhaCungCap(request,response);
 		}
-		else if(actionType.equalsIgnoreCase("searchLoaiTB"))
+		else if(actionType.equalsIgnoreCase("ThemLinhKien") || actionType.equalsIgnoreCase("UpdateLinhKien")) {
+			themLinhKien(request,response);
+		}
+		else if(actionType.equalsIgnoreCase("XoaLinhKien")) {
+			xoaLinhKien(request, response);
+		}
+		else if(actionType.equalsIgnoreCase("searchLinhKien"))
 		{
-			timLoaiThietBi(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("searchPhongBan"))
-		{
-			timPhongBan(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("searchTT"))
-		{
-			timThongKeTinhTrang(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("timTenThietBi"))
-		{
-			searchTenThietBi(request,response);
-		}
-		//di chuyen thiet bi
-		else if(actionType.equalsIgnoreCase("PhongBanA")){
-			doPostSearchPhongBanA(request, response);
-		}
-		else if(actionType.equalsIgnoreCase("PhongBanB"))
-		{
-			doPostSearchPhongBanB(request,response);
-		}
-		//muon thiet bi
-		else if(actionType.equalsIgnoreCase("timThietBiMuon"))
-		{
-			searchMuonThietBi(request,response);
-		}
-		
-		else if(actionType.equalsIgnoreCase("muonTB"))
-		{
-			xuLyMuon(request,response);
-		}
-
-		//chi tiet thiet bi --- xu ly combobox thanhvien
-		else if(actionType.equalsIgnoreCase("timThanhVienByMaKhoa"))
-		{
-			searchThanhVien(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("hienthiThanhVien"))
-		{
-			listShowThanhVien(request,response);
-		}
-		
-		//thay doi thiet bi
-		else if(actionType.equalsIgnoreCase("timTenThanhVienByKhoa"))
-		{
-			searchTenThanhVien(request,response);
-		}
-		else if(actionType.equalsIgnoreCase("timThietBiDaMuon")){
-			doPostSearchThietBiDaMuon(request, response);
+			searchLinhKien(request,response);
 		}
 	}		
-	
-	protected void insertThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean result=true;
+	private void xoaLinhKien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean check = true;
+		String pageNext = Constant.PATH_RES.getString("qltb.XemLinhKienShortPath");
+		String[] listLinhKienCanXoa = request.getParameter("txtListLinhKien").split("-");
+		for(int i=1;i<listLinhKienCanXoa.length;i++) {
+			if(!ChiTietThietBiDAO.deleteChiTietThietBiByID(listLinhKienCanXoa[i]))
+				check = false;
+		}
+		if(check)
+			pageNext += "?XoaLinhKien=ok";
+		else
+			pageNext += "?XoaLinhKien=fail";
+		response.sendRedirect(pageNext);
+	}
+	private void themThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String pageNext = Constant.PATH_RES.getString("qltb.XemThietBiPath");
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		String pageNext = Constant.PATH_RES.getString("qltb.XemThietBiShortPath");
 		
-		int soLuong=Integer.parseInt(request.getParameter("txtSoLuong"));
-		ThietBiDAO thietBiDAO=new ThietBiDAO();
+		String actionType = request.getParameter("actionType");
 		ThietBiModel thietBiModel;
 		thietBiModel=new ThietBiModel();
 			
+		if(request.getSession().getAttribute("ThietBi") != null)
+			thietBiModel = (ThietBiModel) request.getSession().getAttribute("ThietBi");
 		//thietBiModel.setMaThietBi(request.getParameter("MaThietBi"));
-		thietBiModel.setMaThietBi(request.getParameter("MaThietBi"));
+		mapParameterToThietBiModel(request, response, thietBiModel);
+				
+		if(actionType.equals("ThemThietBi")){
+			if(ThietBiDAO.insertThietBi(thietBiModel))
+				pageNext += "?ThemThietBi=ok";
+			else
+				pageNext += "?ThemThietBi=fail";
+		}
+		else{
+			if(ThietBiDAO.updateThietBi(thietBiModel))
+				pageNext += "?UpdateThietBi=ok";
+			else
+				pageNext += "?UpdateThietBi=fail";
+		}		
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		request.setAttribute(Constant.THIET_BI, thietBiModel);
+		rd.forward(request, response);
+	}
+	protected void themLinhKien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String pageNext = Constant.PATH_RES.getString("qltb.XemChiTietThietBiShortPath");
+		
+		String actionType = request.getParameter("actionType");
+		ChiTietThietBiModel linhKien = new ChiTietThietBiModel();
+			
+		if(request.getSession().getAttribute("ChiTietThietBi") != null)
+			linhKien = (ChiTietThietBiModel) request.getSession().getAttribute("ChiTietThietBi");
+		//thietBiModel.setMaThietBi(request.getParameter("MaThietBi"));
+		mapParameterToLinhKienModel(request, response, linhKien);
+				
+		if(actionType.equals("ThemLinhKien")){
+			if(ChiTietThietBiDAO.insertChiTietThietBi(linhKien))
+				pageNext += "?ThemLinhKien=ok";
+			else
+				pageNext += "?ThemLinhKien=fail";
+		}
+		else{
+			if(ChiTietThietBiDAO.updateChiTietThietBi(linhKien))
+				pageNext += "?UpdateLinhKien=ok";
+			else
+				pageNext += "?UpdateLinhKien=fail";
+		}		
+		
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		request.setAttribute(Constant.CHI_TIET_THIET_BI, linhKien);
+		rd.forward(request, response);
+	}
+	private void mapParameterToLinhKienModel(HttpServletRequest request, HttpServletResponse response, 
+			ChiTietThietBiModel chiTietThietBiModel) {
+	if(chiTietThietBiModel.getMaNguoiTao() == null)
+		chiTietThietBiModel.setMaNguoiTao((String)request.getSession().getAttribute("maThanhVien"));
+	chiTietThietBiModel.setTenChiTietThietBi(StringUtil.toUTF8(request.getParameter("txtTenLinhKien")).trim());
+	chiTietThietBiModel.setMaLoaiChiTietThietBi(request.getParameter("cboLoaiThietBiLinhKien"));
+	chiTietThietBiModel.setMaBoPhan(request.getParameter("cboKhoa"));
+	chiTietThietBiModel.setMaNhaCungCap(request.getParameter("cboNhaCungCap"));
+	chiTietThietBiModel.setMaPhongBan(request.getParameter("cboPhongBan"));
+	chiTietThietBiModel.setTanSuatToiDa(request.getParameter("txtTanSuatToiDa").trim());
+	chiTietThietBiModel.setNgaySanXuat(request.getParameter("txtCalendar1").trim());
+	chiTietThietBiModel.setNgayMua(request.getParameter("txtCalendar2"));
+	chiTietThietBiModel.setGiaMua(request.getParameter("txtGiaMua").trim());
+	chiTietThietBiModel.setHanBaoHanh(request.getParameter("txtCalendar3").trim());
+	chiTietThietBiModel.setNgayBatDauSuDung(request.getParameter("txtCalendar4"));
+	chiTietThietBiModel.setNguyenTacSuDung(StringUtil.toUTF8(request.getParameter("txtNguyenTacSD")).trim());
+	chiTietThietBiModel.setDacTinhKyThuat(StringUtil.toUTF8(request.getParameter("txtDacTinhKT")).trim());
+	chiTietThietBiModel.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu")).trim());
+	chiTietThietBiModel.setKiHieu(StringUtil.toUTF8(request.getParameter("txtKiHieu")).trim());
+}	
+	private void baoHuThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		boolean check = true;
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBiPath");
+		String[] listThietBiBaoHu = request.getParameter("txtListThietBi").split("</>");
+		for(int i=1;i<listThietBiBaoHu.length;i++) {
+			String[] listLinhKienKhongHu = listThietBiBaoHu[i].split("<->");
+			for(int j=1;j<listLinhKienKhongHu.length;j++) {
+				if(!ChiTietThietBiDAO.thayDoiChiTietThietBiByID(listLinhKienKhongHu[i]))
+					check = false;
+			}
+			if(!ThietBiDAO.baoHuThietBi(listThietBiBaoHu[i]))
+				check = false;
+		}
+		if(check)
+			pageNext += "?BaoHuThietBi=ok";
+		else
+			pageNext += "?BaoHuThietBi=fail";
+		response.sendRedirect(pageNext);
+	}
+	private void xoaThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		boolean check = true;
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBiPath");
+		String[] listThietBiCanXoa = request.getParameter("txtListThietBi").split("-");
+		for(int i=1;i<listThietBiCanXoa.length;i++) {
+			if(!ThietBiDAO.xoaThietBi(listThietBiCanXoa[i]))
+				check = false;
+		}
+		if(check)
+			pageNext += "?XoaThietBi=ok";
+		else
+			pageNext += "?XoaThietBi=fail";
+		response.sendRedirect(pageNext);
+	}
+	private void mapParameterToThietBiModel(HttpServletRequest request, HttpServletResponse response, 
+				ThietBiModel thietBiModel) {
+		if(thietBiModel.getMaNguoiTao() == null)
+			thietBiModel.setMaNguoiTao((String)request.getSession().getAttribute("maThanhVien"));
 		thietBiModel.setTenThietBi(StringUtil.toUTF8(request.getParameter("txtTenThietBi")).trim());
-		thietBiModel.setMaLoaiThietBi(request.getParameter("selLoaiThietBi"));
-		thietBiModel.setMaBoPhan(request.getParameter("selKhoa"));
-		thietBiModel.setMaNhaCungCap(request.getParameter("selNhaCC"));
-		thietBiModel.setMaDonViTinh(request.getParameter("selDonViTinh"));
-		thietBiModel.setMaPhongBan(request.getParameter("selPhong"));
+		thietBiModel.setMaLoaiThietBi(request.getParameter("cboLoaiThietBiLinhKien"));
+		thietBiModel.setMaBoPhan(request.getParameter("cboKhoa"));
+		thietBiModel.setMaNhaCungCap(request.getParameter("cboNhaCungCap"));
+		thietBiModel.setMaPhongBan(request.getParameter("cboPhongBan"));
 		thietBiModel.setTanSuatToiDa(request.getParameter("txtTanSuatToiDa").trim());
 		thietBiModel.setNgaySanXuat(request.getParameter("txtCalendar1").trim());
-		thietBiModel.setMaDonViTanSuat(request.getParameter("selDonViTanSuat"));
 		thietBiModel.setNgayMua(request.getParameter("txtCalendar2"));
 		thietBiModel.setGiaMua(request.getParameter("txtGiaMua").trim());
-		thietBiModel.setNgayBaoHanh(request.getParameter("txtCalendar3").trim());
-		thietBiModel.setPhuKien(StringUtil.toUTF8(request.getParameter("txtPhuKien")).trim());
+		thietBiModel.setHanBaoHanh(request.getParameter("txtCalendar3").trim());
+		thietBiModel.setNgayBatDauSuDung(request.getParameter("txtCalendar4"));
 		thietBiModel.setNguyenTacSuDung(StringUtil.toUTF8(request.getParameter("txtNguyenTacSD")).trim());
 		thietBiModel.setDacTinhKyThuat(StringUtil.toUTF8(request.getParameter("txtDacTinhKT")).trim());
 		thietBiModel.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu")).trim());
 		thietBiModel.setMaNguoiTao(request.getSession().getAttribute("maThanhVien").toString());
 		thietBiModel.setKiHieu(StringUtil.toUTF8(request.getParameter("txtKiHieu")).trim());
-		
-		ChiTietThietBiModel chiTietThietBiModel;
+		if(request.getParameter("cboSoLuong") != null)
+			thietBiModel.setSoLuong(request.getParameter("cboSoLuong"));
+		/*ChiTietThietBiModel chiTietThietBiModel;
 		ArrayList<ChiTietThietBiModel> chiTietList=new ArrayList<ChiTietThietBiModel>();
 		
 		int index=1;
 		int lengthChiTiet=Integer.parseInt(request.getParameter("txtIndexRow"));
-		while(index<lengthChiTiet){
+		for(int i=1;i<=lengthChiTiet;i++){
 			chiTietThietBiModel=new ChiTietThietBiModel();
-			chiTietThietBiModel.setTenLinhKien(StringUtil.toUTF8(request.getParameter("txtTenLinhKien"+index)).trim());
+			if(thietBiModel.getChiTietThietBiList() != null && i<=thietBiModel.getChiTietThietBiList().size())
+				chiTietThietBiModel = thietBiModel.getChiTietThietBiList().get(i-1);
 			chiTietThietBiModel.setMaNhaCungCap(request.getParameter("selMaNhaCungCap"+index));
-			chiTietThietBiModel.setDungLuong(StringUtil.toUTF8(request.getParameter("txtDungLuong"+index)).trim());
 			chiTietThietBiModel.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu"+index)).trim());
 			chiTietList.add(chiTietThietBiModel);
-			index++;
 		}
-
-		thietBiModel.setListChiTietThietBi(chiTietList);
-		
-		for(int i=0;i<soLuong;i++){
-			result=thietBiDAO.insertThietBi(thietBiModel);
-			
+		for(int i=lengthChiTiet;i<thietBiModel.getChiTietThietBiList().size();i++) {
+			chiTietThietBiModel = thietBiModel.getChiTietThietBiList().get(i);
+			if(chiTietThietBiModel.getMaCTTB() != null)
+				ChiTietThietBiDAO.deleteChiTietThietBiByID(chiTietThietBiModel.getMaCTTB());
 		}
-		
-		if(result){
-			response.sendRedirect(Constant.PATH_RES.getString("qltb.DanhSachNhaCungCap")
-					+ "?errInsert=false&stt=insert");
-		}
-		else{
-			response.sendRedirect(Constant.PATH_RES.getString("qltb.DanhSachNhaCungCap")
-					+ "?errInsert=true&stt=insert");
-		}		
-
-	}
-	
-	private void timThietBiTheoPhong(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		String maPhong = request.getParameter("cboPhong");
-		
-		ArrayList<ThietBiModel> listThietBi = DiChuyenThietBiDAO.getAllThietBiByMaPhong(maPhong);
-		request.setAttribute("listThietBi", listThietBi);
-		String pageNext = Constant.PATH_RES.getString("qltb.XemThietBiPath") + "?maPhongBan=" + maPhong;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		rd.forward(request, response);
-	}
-	
-	
-	
-	protected void showThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String maThietBi="";
-		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?MaThietBi=" + maThietBi ;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		
-		ArrayList<ThietBiModel> thietBiModelList1  = new ArrayList<ThietBiModel>();
-		ArrayList<ThietBiModel> thietBiModelList2  = new ArrayList<ThietBiModel>();
-		if(request.getSession().getAttribute("listThietBi") != null)
-			thietBiModelList1 = (ArrayList<ThietBiModel>)request.getSession().getAttribute("listThietBi");
-		
-		for(Integer i = 1; i <= thietBiModelList1.size(); i++){
-			
-			ThietBiModel thietBiModel = thietBiModelList1.get(i-1);
-			
-			if(request.getParameter("xuly") != null && request.getParameter("xuly").equals("xoa") && request.getParameter("chk" + i.toString()) != null)
-			{
-				if(thietBiModel.getMaThietBi() != null){
-					ThietBiDAO.deleteThietBi(thietBiModel.getMaThietBi());
-				}
-			}
-			else{
-				thietBiModelList2.add(thietBiModel);
-			}
-		}
-		
-		if(request.getParameter("xuly").equals("xoa"))
-		{
-			
-			rd = request.getRequestDispatcher(pageNext);	
-			pageNext += "?xoa=DeleteTC";
-		}
-		request.setAttribute(Constant.THIET_BI_MODEL_LIST, thietBiModelList2);
-		rd.forward(request, response);
-	}
-	
-	protected void showLoaiThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maLoaiThietBi = request.getParameter("cboLoaiThietBi");
-		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?MaLoaiThietBi=" + maLoaiThietBi ;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		rd.forward(request, response);
-	}
-	
-	protected void diChuyenThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maPhong = request.getParameter("cboPhong1");		
-		request.setCharacterEncoding("UTF-8");
-		
-		ArrayList<ThietBiModel> thietBiList = new ArrayList<ThietBiModel>();
-		
-		if(request.getSession().getAttribute("ThietBiList") != null)
-		{
-			thietBiList = (ArrayList<ThietBiModel>) request.getSession().getAttribute("ThietBiList");
-		}
-		
-		request.setAttribute(Constant.THIET_BI_LIST, thietBiList);
-		String pageNext = Constant.PATH_RES.getString("qltb.XemThietBiPath") + "?MaPhong=" + maPhong;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		rd.forward(request, response);		
-	}
-	//tim kiem theo combobox
-	//danh sach thiet bi
-	protected void timTinhTrang(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maTinhTrang = request.getParameter("cboTinhTrang").toString();
-			
-			ArrayList<ThietBiModel> listThietBi = ThietBiDAO.getAllThietBiByMaTinhTrang(maTinhTrang);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?maTinhTrang=" + maTinhTrang ;
-			
-			if(maTinhTrang.equals("-1"))
-			{
-				listThietBi = ThietBiDAO.getAllThietBi();
-				request.setAttribute("listThietBi", listThietBi);
-				pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi");
-			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	
-	protected void timKiHieu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maThietBi = request.getParameter("cboKihieu").toString();
-			
-			ArrayList<ThietBiModel> listThietBi = ThietBiDAO.getAllThietBiByKiHieuTB(maThietBi);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?maThietBi=" + maThietBi ;
-			
-			if(maThietBi.equals("-1"))
-			{
-				listThietBi = ThietBiDAO.getAllThietBi();
-				request.setAttribute("listThietBi", listThietBi);
-				pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi");
-			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	
-	private void timPhongAndLoaiTB (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		thietBiModel.setListChiTietThietBi(chiTietList);*/
+	}	
+	private void searchThietBi (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String maPhongBan = request.getParameter("cboPhong").toString();
 		String maLoaiThietBi = request.getParameter("cboLoaiThietBi");
+		String maTinhTrang = request.getParameter("cboTinhTrang");
 		
-		ArrayList<ThietBiModel> listThietBi = ThietBiDAO.getAllThietBiByPhongAndLoaiTB(maPhongBan, maLoaiThietBi);
-		request.setAttribute("listThietBi", listThietBi);
-		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") 
-							+ "?maPhongBan=" + maPhongBan + "&maLoaiThietBi=" + maLoaiThietBi ;
-		if (maPhongBan.equals("-1") && maLoaiThietBi.equals("-1")) {
-			listThietBi = ThietBiDAO.getAllThietBi();
-			request.setAttribute("listThietBi", listThietBi);
-			pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi");
-		}		
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);						
-		rd.forward(request, response);
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?phongBan=" + maPhongBan
+			+ "&loaiThietBi=" + maLoaiThietBi + "&tinhTrang=" + maTinhTrang;
+			
+		response.sendRedirect(pageNext);
+	}
+	private void searchLinhKien (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String maPhongBan = request.getParameter("cboPhong").toString();
+		String maLoaiLinhKien = request.getParameter("cboLoaiLinhKien");
+		String maTinhTrang = request.getParameter("cboTinhTrang");
+		
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachLinhKien") + "?phongBan=" + maPhongBan
+			+ "&loaiLinhKien=" + maLoaiLinhKien + "&tinhTrang=" + maTinhTrang;
+			
+		response.sendRedirect(pageNext);
 	}
 	//thong ke
 	protected void timNhaCungCap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -354,314 +292,6 @@ public class ThietBiController extends HttpServlet {
 				request.setAttribute("listThietBi", listThietBi);
 				pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath");
 			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	protected void timLoaiThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maLoaiThietBi = request.getParameter("cboLoaiThietBi");
-			
-			ArrayList<ThietBiModel> listThietBi = ThongKeDAO.getAllThongKeByMaLoaiThietBi(maLoaiThietBi);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath") + "?maLoaiThietBi=" + maLoaiThietBi ;
-			
-			if(maLoaiThietBi.equals("-1"))
-			{
-				listThietBi = ThongKeDAO.showAllTanSuatThietBi();
-				request.setAttribute("listThietBi", listThietBi);
-				pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath");
-			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	protected void timPhongBan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maPhongBan = request.getParameter("cboPhongBan");
-			
-			ArrayList<ThietBiModel> listThietBi = ThongKeDAO.getAllThongKeByMaPhongBan(maPhongBan);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath") + "?maPhongBan=" + maPhongBan ;
-			
-			if(maPhongBan.equals("-1"))
-			{
-				listThietBi = ThongKeDAO.showAllTanSuatThietBi();
-				request.setAttribute("listThietBi", listThietBi);
-				pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath");
-			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	protected void timThongKeTinhTrang(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maTinhTrang = request.getParameter("cboTT");
-			
-			ArrayList<ThietBiModel> listThietBi = ThongKeDAO.getAllThongKeByMaTinhTrang(maTinhTrang);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath") + "?maTinhTrang=" + maTinhTrang ;
-			
-			if(maTinhTrang.equals("-1"))
-			{
-				listThietBi = ThongKeDAO.showAllTanSuatThietBi();
-				request.setAttribute("listThietBi", listThietBi);
-				pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath");
-			}
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	protected void searchTenThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tenThietBi = request.getParameter("txtTimKiemTheoTenThietBi");
-		request.setAttribute("ten", tenThietBi);
-		
-			ArrayList<ThietBiModel> listThietBi = ThongKeDAO.getAllThongKeByTenThietBi(tenThietBi);
-			request.setAttribute("listThietBi", listThietBi);
-			String pageNext = Constant.PATH_RES.getString("qltb.TimThongKePath") + "?tenThietBi=" + tenThietBi ;
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	// muon thiet bi
-	
-	protected void searchMuonThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ngay = request.getParameter("txtThoiGianTra").toString();		
-		request.setAttribute("ThoiGianTra", ngay);
-		
-		String tenThietBi = StringUtil.toUTF8(request.getParameter("txtTimThietBiMuon").toString());
-		request.setAttribute("tenThietBi", tenThietBi);
-		String kiHieu = request.getParameter("txtTimKiHieu");
-		request.setAttribute("kiHieu", kiHieu);
-		
-		String maLoaiThietBi = request.getParameter("cboLoaiThietBi").toString();
-		request.setAttribute("maLoaiThietBi", maLoaiThietBi);
-		
-		ArrayList<ThietBiModel> listThietBi = PhieuMuonThietBiDAO.getSearchTenAndKiHieuThietBi(tenThietBi,kiHieu,maLoaiThietBi);
-		request.setAttribute("listThietBi", listThietBi);
-		String pageNext = Constant.PATH_RES.getString("qltb.MuonThietBiPath") 
-							+ "?tenThietBi=" + tenThietBi + "&kiHieu=" + kiHieu + "&maLoaiThietBi=" + maLoaiThietBi ;
-		
-		if (tenThietBi.equals("") && kiHieu.equals("") && maLoaiThietBi.equals("-1")) {
-			listThietBi = ThietBiDAO.showAllMuonThietBi();
-			request.setAttribute("listThietBi", listThietBi);
-		}
-		pageNext = Constant.PATH_RES.getString("qltb.MuonThietBiPath");
-		
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);						
-		rd.forward(request, response);
-	}
-	
-	private void xuLyMuon (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean result=true;
-		PhieuMuonThietBiModel phieuMuon = new PhieuMuonThietBiModel();
-		
-		phieuMuon.setThoiGianTra(request.getParameter("txtThoiGianTra").trim());
-		phieuMuon.setNguoiMuon(StringUtil.toUTF8(request.getParameter("cboNguoiMuon")).trim());
-		
-		String maThietBi="";
-		String pageNext = Constant.PATH_RES.getString("qltb.MuonThietBiPath") + "?MaThietBi=" + maThietBi ;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		
-		ArrayList<ThietBiModel> thietBiModelList1  = new ArrayList<ThietBiModel>();
-		ArrayList<ThietBiModel> thietBiModelList2  = new ArrayList<ThietBiModel>();
-		if(request.getSession().getAttribute("listThietBi") != null)
-			thietBiModelList1 = (ArrayList<ThietBiModel>)request.getSession().getAttribute("listThietBi");
-		
-		for(Integer i = 1; i <= thietBiModelList1.size(); i++){
-			
-			ThietBiModel thietBiModel = thietBiModelList1.get(i-1);
-			
-			if(request.getParameter("xuly") != null && request.getParameter("xuly").equals("muon") && request.getParameter("chk" + i.toString()) != null)
-			{
-				if(thietBiModel.getMaThietBi() != null){
-					PhieuMuonThietBiDAO.muonThietBi(thietBiModel.getMaThietBi(),phieuMuon);
-				}
-			}
-			else{
-				thietBiModelList2.add(thietBiModel);
-			}
-		}
-		
-		if(request.getParameter("xuly").equals("muon"))
-		{			
-			rd = request.getRequestDispatcher(pageNext);	
-			pageNext += "?muon=DeleteTC";
-		}
-		if(result){
-			pageNext=Constant.PATH_RES.getString("qltb.MuonThietBiPath");
-		}
-		request.setAttribute(Constant.THIET_BI_MODEL_LIST, thietBiModelList2);
-		rd.forward(request, response);
-	}
-	
-	//chi tiet thiet bi
-	private void doPostUpdateTB (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maThietBi = request.getParameter("id");
-		String tenThietBi = request.getParameter("txtTenThietBi");
-		String tenDonViTanSuat = request.getParameter("cboDonViTanSuat");
-		String tenLinhKien = StringUtil.toUTF8(request.getParameter("txtTenLinhKien"));
-		String dungLuong = request.getParameter("txtDungLuong");
-
-		String kiHieu = StringUtil.toUTF8(request.getParameter("txtKiHieu"));
-		String soMay = request.getParameter("txtSoMay");
-		String ngaySanXuat = request.getParameter("txtNgaySanXuat").trim();
-		String tenTinhTrang = request.getParameter("cboTinhTrang");
-		String giaMua = request.getParameter("txtGiaMua").trim();
-		
-		String ngayMua = StringUtil.toUTF8(request.getParameter("txtNgayMua"));
-		String tanSuatToiDa = request.getParameter("txtTanSuatToiDa").trim();
-		String ngayBatDauSuDung = request.getParameter("txtNgayBatDauSuDung").trim();
-		String tanSuatSuDung = request.getParameter("txtTanSuatSuDung");
-		String soLanSuDung = request.getParameter("txtSoLanSuDung");
-		
-		String phuKien = request.getParameter("txtPhuKien");
-		String soLanBaoTri = request.getParameter("txtSoLanBaoTri");
-		String ngayBaoHanh = request.getParameter("txtNgayBaoHanh").trim();
-		String nguyenTacSuDung = request.getParameter("teaNguyenTacSuDung");
-		String dacTinhKyThuat = request.getParameter("teaDacTinhKyThuat");
-		
-		String tenLoaiThietBi = request.getParameter("cboLoaiThietBi");
-		String tenPhongBan = request.getParameter("cboPhong");
-		String tenBoPhan = request.getParameter("cboKhoa");
-		String tenNhaCungCap = request.getParameter("cboNhaCungCap");
-		String tenDonViTinh = request.getParameter("cboDonViTinh");
-		
-		String hoThanhVien = request.getParameter("cboNguoiTao");
-		String tenLot = request.getParameter("cboNguoiTao");
-		String tenThanhVien = request.getParameter("cboNguoiTao");
-		
-		//tinh txtHienTrang chua co table HienTrang
-			
-			ChiTietThietBiModel chiTietThietBiModel = new ChiTietThietBiModel();
-			
-			chiTietThietBiModel.setMaThietBi(maThietBi);
-			chiTietThietBiModel.setTenThietBi(tenThietBi);
-			chiTietThietBiModel.setTenDonViTanSuat(tenDonViTanSuat);
-			chiTietThietBiModel.setTenLinhKien(tenLinhKien);
-			chiTietThietBiModel.setDungLuong(dungLuong);
-			
-			
-			chiTietThietBiModel.setKiHieu(kiHieu);
-			chiTietThietBiModel.setSoMay(soMay);
-			chiTietThietBiModel.setNgaySanXuat(ngaySanXuat);
-			chiTietThietBiModel.setTenTinhTrang(tenTinhTrang);
-			chiTietThietBiModel.setGiaMua(giaMua);
-
-			chiTietThietBiModel.setNgayMua(ngayMua);
-			chiTietThietBiModel.setTanSuatToiDa(tanSuatToiDa);
-			chiTietThietBiModel.setNgayBatDauSuDung(ngayBatDauSuDung);
-			chiTietThietBiModel.setTanSuatSuDung(tanSuatSuDung);
-			chiTietThietBiModel.setSoLanSuDung(soLanSuDung);
-			
-			chiTietThietBiModel.setPhuKien(phuKien);
-			chiTietThietBiModel.setSoLanBaoTri(soLanBaoTri);
-			chiTietThietBiModel.setNgayBaoHanh(ngayBaoHanh);
-			chiTietThietBiModel.setNguyenTacSuDung(nguyenTacSuDung);
-			chiTietThietBiModel.setDacTinhKyThuat(dacTinhKyThuat);
-
-			chiTietThietBiModel.setTenLoaiThietBi(tenLoaiThietBi);
-			chiTietThietBiModel.setTenPhongBan(tenPhongBan);
-			chiTietThietBiModel.setTenBoPhan(tenBoPhan);
-			chiTietThietBiModel.setTenNhaCungCap(tenNhaCungCap);
-			chiTietThietBiModel.setTenDonViTinh(tenDonViTinh);
-			
-			chiTietThietBiModel.setTenThanhVien(tenThanhVien);
-			
-			if(ChiTietThietBiDAO.updateChiTietThietBi(chiTietThietBiModel)){
-				response.sendRedirect(Constant.PATH_RES
-						.getString("qltb.XemChiTietThietBiPath")
-						+ "?msg=" + "msg_1");
-			}else{
-				response.sendRedirect(Constant.PATH_RES
-						.getString("qltb.XemChiTietThietBiPath")
-						+ "?err=" + "err1");
-			}
-	}
-	
-	//chi tiet thiet bi ---xu ly combobox thanhvien
-	protected void searchThanhVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maKhoa = request.getParameter("cboKhoa").toString();
-		
-		ArrayList<ThanhVienModel> listThanhVien = PhieuMuonThietBiDAO.getAllThanhVienMuonThietBi(maKhoa);
-		request.setAttribute("listThanhVien", listThanhVien);
-		String pageNext = Constant.PATH_RES.getString("qltb.SearchThanhVienByMaKhoa") + "?maKhoa=" + maKhoa ;
-
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		rd.forward(request, response);
-	}
-	protected void listShowThanhVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String maThanhVien = request.getParameter("cboKhoa");
-		String pageNext = Constant.PATH_RES.getString("qltb.SearchThanhVienByMaKhoa") + "?MaThanhVien=" + maThanhVien ;
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		
-			ArrayList<ThanhVienModel> thanhVienModelList1  = new ArrayList<ThanhVienModel>();
-			ArrayList<ThanhVienModel> thanhVienModelList2  = new ArrayList<ThanhVienModel>();
-			if(request.getSession().getAttribute("listThanhVien") != null)
-				thanhVienModelList1 = (ArrayList<ThanhVienModel>)request.getSession().getAttribute("listThanhVien");
-			
-			for(Integer i = 1; i <=thanhVienModelList1.size(); i++){			
-				ThanhVienModel thanhVienModel = thanhVienModelList1.get(i-1);			
-				thanhVienModelList2.add(thanhVienModel);
-			}
-			request.setAttribute(Constant.THANH_VIEN_MODEL_LIST, thanhVienModelList2);
-			rd.forward(request, response);
-	}
-	
-	// di chuyen thiet bi
-	protected void doPostSearchPhongBanB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maPhongBan = request.getParameter("cboPhongBanB").toString();
-		String maPhongBan_1 = request.getParameter("cboPhongBanA").toString();	
-			ArrayList<ThietBiModel> listB = ThongKeDAO.getAllThongKeByMaPhongBan(maPhongBan);
-			ArrayList<ThietBiModel> listThietBi1 = new ArrayList<ThietBiModel>();
-			request.setAttribute(Constant.THIET_BI_LIST_2, listB);
-			if(request.getSession().getAttribute("thietBiList1") != null)
-				listThietBi1 = (ArrayList<ThietBiModel>)request.getSession().getAttribute("thietBiList1");
-			request.setAttribute(Constant.THIET_BI_LIST_1, listThietBi1);
-			String pageNext = Constant.PATH_RES.getString("qltb.DiChuyenThietBi") + "?PhongBanB=" + maPhongBan + "&PhongBanA=" + maPhongBan_1;
-			
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	
-	protected void doPostSearchPhongBanA(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maPhongBan_1 = request.getParameter("cboPhongBanA").toString();
-		String maPhongBan = request.getParameter("cboPhongBanB").toString();
-			ArrayList<ThietBiModel> listThietBi = ThietBiDAO.getAllThietBiDiChuyen(maPhongBan_1);
-			ArrayList<ThietBiModel> listThietBi2 = new ArrayList<ThietBiModel>();
-			request.setAttribute(Constant.THIET_BI_LIST_1, listThietBi);
-			if(request.getSession().getAttribute("thietBiList2") != null)
-				listThietBi2 = (ArrayList<ThietBiModel>)request.getSession().getAttribute("thietBiList2");
-			request.setAttribute(Constant.THIET_BI_LIST_2, listThietBi2);
-			String pageNext = Constant.PATH_RES.getString("qltb.DiChuyenThietBi") + "?PhongBanA=" + maPhongBan_1 + "&PhongBanB=" + maPhongBan;
-			
-			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-			rd.forward(request, response);
-	}
-	
-	// thay doi thiet bi	
-	protected void searchTenThanhVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maKhoa = request.getParameter("cboKhoa").toString();
-		request.setAttribute("maKhoa", maKhoa);
-		ArrayList<ThanhVienModel> listThanhVien = PhieuMuonThietBiDAO.getAllThanhVienMuonThietBi(maKhoa);
-		request.setAttribute("listThanhVien", listThanhVien);
-		String pageNext = Constant.PATH_RES.getString("qltb.ThayDoiThietBiPath") + "?maKhoa=" + maKhoa ;
-		
-		if(maKhoa.equals("-1"))
-		{
-			listThanhVien = ThanhVienDAO.timAllThanhVien();
-			request.setAttribute("listThanhVien", listThanhVien);
-			pageNext = Constant.PATH_RES.getString("qltb.ThayDoiThietBiPath");
-		}
-		
-		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
-		rd.forward(request, response);
-	}
-	
-	protected void doPostSearchThietBiDaMuon(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String maThanhVien = request.getParameter("cboNguoiMuon").toString();
-		
-		ArrayList<ThietBiModel> listThietBiDaMuon = PhieuMuonThietBiDAO.getAllThietBiByMaThanhVien(maThanhVien);
-		
-			if(request.getSession().getAttribute("thietBiDaMuon") != null)
-				listThietBiDaMuon = (ArrayList<ThietBiModel>)request.getSession().getAttribute("thietBiDaMuon");
-			request.setAttribute(Constant.THIET_BI_LIST, listThietBiDaMuon);
-			
-			String pageNext = Constant.PATH_RES.getString("qltb.ThayDoiThietBiPath") + "?maThanhVien=" + maThanhVien;
-			
 			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
 			rd.forward(request, response);
 	}

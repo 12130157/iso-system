@@ -224,7 +224,7 @@ function submitFormSave(){
 		{					
 			document.BangChuongTrinhDaoTao.checkReject.checked = false;	
 			<%
-			out.print("alert(" + Constant.CHECK_ROWS + ");");
+			
 				for (Integer i = 0; i < Constant.CHECK_ROWS; i++) {
 					out.print("document.BangChuongTrinhDaoTao.tinhtrang" + i.toString() +"[0].checked = true;\n");
 				}

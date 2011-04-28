@@ -273,6 +273,17 @@
 	    </servlet-mapping>
     <!-- ****************************End Of ThietBiController******* -->
 	
+	<!-- ****************************PhieuMuonController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>PhieuMuonController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.PhieuMuonThietBiController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>PhieuMuonController</servlet-name>
+	    	<url-pattern>/phieuMuonController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of PhieuMuonController******* -->
+	
 	<!-- ****************************KeHoachThangController************** -->
 	   <servlet>    	    	
 	    	<servlet-name>KeHoachThangController</servlet-name>

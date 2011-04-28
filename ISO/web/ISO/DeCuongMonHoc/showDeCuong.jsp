@@ -98,7 +98,7 @@ function submitFormSave(){
 								<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Reject</option>
 							</select>
 							<c:set var="khoaList" value='<%=KhoaDAO.getKhoaByBoPhan(Integer.parseInt((String) request.getSession().getAttribute("maBoPhan"))) %>'></c:set>
-						<c:if test="${vaiTro ne Truong_Bo_Mon and vaiTro ne Truong_khoa and vaiTro ne Pho_Khoa and vaiTro ne Giao_Vien}">	
+						<c:if test="${vaiTro ne Truong_Bo_Mon and vaiTro ne Truong_Khoa and vaiTro ne Pho_Khoa and vaiTro ne Giao_Vien}">	
 						Khoa : 
 							<select id = "cboKhoa" name="cboKhoa">
 								<option value="">All</option>
@@ -231,7 +231,7 @@ function submitFormSave(){
 		if(document.BangDeCuongMonHoc.checkApprove.checked == true)
 		{					
 			document.BangDeCuongMonHoc.checkReject.checked = false;	
-			<%out.print("alert(" + Constant.CHECK_ROWS + ");");
+			<%
 				for (Integer i = 0; i < Constant.CHECK_ROWS; i++) {
 					out.print("document.BangDeCuongMonHoc.tinhtrang" + i.toString() +"[0].checked = true;\n");
 				}
