@@ -97,7 +97,7 @@
             // 
             // lbTitle
             // 
-            this.lbTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbTitle.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTitle.AutoSize = true;
             this.lbTitle.Font = new System.Drawing.Font("Times New Roman", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitle.ForeColor = System.Drawing.Color.Red;
@@ -111,7 +111,9 @@
             // tabInbox
             // 
             this.tabInbox.AllowDrop = true;
-            this.tabInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tabInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabInbox.Controls.Add(this.tabSyntaxMess);
             this.tabInbox.Controls.Add(this.tabNormalMessage);
             this.tabInbox.Controls.Add(this.tabMessDeleted);
@@ -139,7 +141,9 @@
             // 
             this.tblSyntaxMess.AllowUserToAddRows = false;
             this.tblSyntaxMess.AllowUserToDeleteRows = false;
-            this.tblSyntaxMess.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tblSyntaxMess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblSyntaxMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSyntaxMess.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tblSyntaxMess.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
@@ -226,7 +230,9 @@
             // 
             this.tblNormalMess.AllowUserToAddRows = false;
             this.tblNormalMess.AllowUserToDeleteRows = false;
-            this.tblNormalMess.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tblNormalMess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblNormalMess.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblNormalMess.ColumnHeadersHeight = 40;
             this.tblNormalMess.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -318,7 +324,9 @@
             // 
             this.tblSyntaxMessDeletedInbox.AllowUserToAddRows = false;
             this.tblSyntaxMessDeletedInbox.AllowUserToDeleteRows = false;
-            this.tblSyntaxMessDeletedInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tblSyntaxMessDeletedInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblSyntaxMessDeletedInbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblSyntaxMessDeletedInbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tblSyntaxMessDeletedInbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -390,7 +398,9 @@
             // 
             this.tblNormalMessDeletedInbox.AllowUserToAddRows = false;
             this.tblNormalMessDeletedInbox.AllowUserToDeleteRows = false;
-            this.tblNormalMessDeletedInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tblNormalMessDeletedInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tblNormalMessDeletedInbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tblNormalMessDeletedInbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tblNormalMessDeletedInbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -400,7 +410,7 @@
             this.clmStatusNormalMessDeletedInbox,
             this.clmDateTimeNormalMessDeletedInbox,
             this.clmReplyNormalMessDeletedInbox});
-            this.tblNormalMessDeletedInbox.Location = new System.Drawing.Point(0, 2);
+            this.tblNormalMessDeletedInbox.Location = new System.Drawing.Point(0, 4);
             this.tblNormalMessDeletedInbox.Name = "tblNormalMessDeletedInbox";
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
             this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 309);
@@ -442,7 +452,7 @@
             // 
             // btnReplyMessInbox
             // 
-            this.btnReplyMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnReplyMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReplyMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReplyMessInbox.Location = new System.Drawing.Point(4, 424);
             this.btnReplyMessInbox.Name = "btnReplyMessInbox";
@@ -454,7 +464,7 @@
             // 
             // btnDeleteMessInbox
             // 
-            this.btnDeleteMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnDeleteMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDeleteMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteMessInbox.Location = new System.Drawing.Point(724, 455);
             this.btnDeleteMessInbox.Name = "btnDeleteMessInbox";
@@ -466,7 +476,7 @@
             // 
             // btnMaskReadMessInbox
             // 
-            this.btnMaskReadMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMaskReadMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMaskReadMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaskReadMessInbox.Location = new System.Drawing.Point(4, 482);
             this.btnMaskReadMessInbox.Name = "btnMaskReadMessInbox";
@@ -478,7 +488,7 @@
             // 
             // cboFilterSyntaxMessInbox
             // 
-            this.cboFilterSyntaxMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboFilterSyntaxMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboFilterSyntaxMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFilterSyntaxMessInbox.FormattingEnabled = true;
             this.cboFilterSyntaxMessInbox.Items.AddRange(new object[] {
@@ -494,7 +504,7 @@
             // 
             // btnRemoveMessInbox
             // 
-            this.btnRemoveMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnRemoveMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveMessInbox.Location = new System.Drawing.Point(724, 426);
             this.btnRemoveMessInbox.Name = "btnRemoveMessInbox";
@@ -506,7 +516,7 @@
             // 
             // btnForwardMessInbox
             // 
-            this.btnForwardMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnForwardMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnForwardMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnForwardMessInbox.Location = new System.Drawing.Point(4, 453);
             this.btnForwardMessInbox.Name = "btnForwardMessInbox";
@@ -518,7 +528,7 @@
             // 
             // txtContentFilterInbox
             // 
-            this.txtContentFilterInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtContentFilterInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtContentFilterInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContentFilterInbox.Location = new System.Drawing.Point(593, 21);
             this.txtContentFilterInbox.Name = "txtContentFilterInbox";
@@ -527,7 +537,7 @@
             // 
             // btnFilterMessInbox
             // 
-            this.btnFilterMessInbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnFilterMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFilterMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFilterMessInbox.Location = new System.Drawing.Point(512, 21);
             this.btnFilterMessInbox.Name = "btnFilterMessInbox";
@@ -538,6 +548,7 @@
             // 
             // lbNbPhoneDt
             // 
+            this.lbNbPhoneDt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbNbPhoneDt.AutoSize = true;
             this.lbNbPhoneDt.Location = new System.Drawing.Point(178, 440);
             this.lbNbPhoneDt.Name = "lbNbPhoneDt";
@@ -547,6 +558,7 @@
             // 
             // txtNbPhoneDe
             // 
+            this.txtNbPhoneDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtNbPhoneDe.Location = new System.Drawing.Point(259, 437);
             this.txtNbPhoneDe.Name = "txtNbPhoneDe";
             this.txtNbPhoneDe.Size = new System.Drawing.Size(138, 20);
@@ -554,6 +566,7 @@
             // 
             // lbSyntaxDe
             // 
+            this.lbSyntaxDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbSyntaxDe.AutoSize = true;
             this.lbSyntaxDe.Location = new System.Drawing.Point(178, 464);
             this.lbSyntaxDe.Name = "lbSyntaxDe";
@@ -563,6 +576,7 @@
             // 
             // txtSyntaxDe
             // 
+            this.txtSyntaxDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtSyntaxDe.Location = new System.Drawing.Point(259, 461);
             this.txtSyntaxDe.Name = "txtSyntaxDe";
             this.txtSyntaxDe.Size = new System.Drawing.Size(138, 20);
@@ -570,6 +584,7 @@
             // 
             // lbDateTimeDe
             // 
+            this.lbDateTimeDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbDateTimeDe.AutoSize = true;
             this.lbDateTimeDe.Location = new System.Drawing.Point(178, 488);
             this.lbDateTimeDe.Name = "lbDateTimeDe";
@@ -579,6 +594,7 @@
             // 
             // txtDateTimeDe
             // 
+            this.txtDateTimeDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDateTimeDe.Location = new System.Drawing.Point(259, 485);
             this.txtDateTimeDe.Name = "txtDateTimeDe";
             this.txtDateTimeDe.Size = new System.Drawing.Size(138, 20);
@@ -586,6 +602,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(403, 437);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -594,6 +612,8 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(400, 422);
             this.label1.Name = "label1";
@@ -631,7 +651,7 @@
             this.Name = "FormInbox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Inbook";
+            this.Text = "Hộp Thư Đến";
             this.tabInbox.ResumeLayout(false);
             this.tabSyntaxMess.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMess)).EndInit();
