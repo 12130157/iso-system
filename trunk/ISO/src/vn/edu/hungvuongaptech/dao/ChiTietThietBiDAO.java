@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.model.ChiTietPhieuMuonModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.ChiTietThietBiModel;
 import vn.edu.hungvuongaptech.model.PhieuMuonThietBiModel;
@@ -20,108 +21,6 @@ import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
 
 public class ChiTietThietBiDAO {
-	
-	
-	public static ArrayList<ThietBiModel> getAllThietBiByPhongAndLoaiTB(String maPhongBan, String maLoaiThietBi) {
-		ArrayList<ThietBiModel> thietBiModelList = new ArrayList<ThietBiModel>();
-		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_QLTB_getThietBiByPhongAndLoaiTB(?,?)}");
-	
-			csmt.setString("MaPhongBan", maPhongBan);
-			csmt.setString("MaLoaiThietBi", maLoaiThietBi);
-			ResultSet rs = DataUtil.executeStore(csmt);
-			while(rs.next())
-			{
-				ThietBiModel thietBiModel = new ThietBiModel();
-				
-				thietBiModel.setMaThietBi(rs.getString("MaThietBi"));
-				thietBiModel.setTenThietBi(rs.getString("TenThietBi"));
-				thietBiModel.setMaTinhTrang(rs.getString("MaTinhTrang"));
-				thietBiModel.setTenTinhTrang(rs.getString("TenTinhTrang"));
-				thietBiModel.setTenPhongBan(rs.getString("TenPhongBan"));
-				thietBiModel.setKiHieu(rs.getString("KiHieu"));
-				thietBiModel.setTenLoaiThietBi(rs.getString("TenLoaiThietBi"));
-				
-				thietBiModelList.add(thietBiModel);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return thietBiModelList;
-	}
-	
-	/*update chi tiet thiet bi*/
-	public static Boolean updateChiTietThietBi(ChiTietThietBiModel chiTietThietBiModel) {
-		Boolean result = false;		
-		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_QLTB_UpdateThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-			
-			csmt.setString("id", chiTietThietBiModel.getMaThietBi());
-			csmt.setNString("Ten_thiet_bi", StringUtil.toUTF8(chiTietThietBiModel.getTenThietBi()));
-			csmt.setString("Ma_don_vi_tan_suat", chiTietThietBiModel.getTenDonViTanSuat());
-			csmt.setNString("Ten_linh_kien", StringUtil.toUTF8(chiTietThietBiModel.getTenLinhKien()));
-			csmt.setString("Dung_luong", StringUtil.toUTF8(chiTietThietBiModel.getDungLuong()));
-			
-			csmt.setNString("Ki_hieu", StringUtil.toUTF8(chiTietThietBiModel.getKiHieu()));
-			csmt.setString("So_may", chiTietThietBiModel.getSoMay());
-			csmt.setString("Ngay_san_xuat", chiTietThietBiModel.getNgaySanXuat());
-			csmt.setString("Ma_tinh_trang", chiTietThietBiModel.getTenTinhTrang());
-			csmt.setString("Ngay_cap_nhat_cuoi", chiTietThietBiModel.getNgayCapNhatCuoi());
-			
-			csmt.setString("Gia_mua", StringUtil.toUTF8(chiTietThietBiModel.getGiaMua()));
-			csmt.setString("Ngay_mua", chiTietThietBiModel.getNgayMua());
-			csmt.setNString("Tan_Suat_Toi_Da", StringUtil.toUTF8(chiTietThietBiModel.getTanSuatToiDa()));
-			csmt.setString("Ngay_bat_dau_su_dung", chiTietThietBiModel.getNgayBatDauSuDung());
-			csmt.setNString("Tan_suat_su_dung", StringUtil.toUTF8(chiTietThietBiModel.getTanSuatSuDung()));
-			
-			csmt.setString("So_lan_su_dung", chiTietThietBiModel.getSoLanSuDung());
-			csmt.setNString("Phu_kien", StringUtil.toUTF8(chiTietThietBiModel.getPhuKien()));
-			csmt.setString("So_Lan_Bao_Tri", chiTietThietBiModel.getSoLanBaoTri());
-			csmt.setString("Ngay_bao_hanh", chiTietThietBiModel.getNgayBaoHanh());
-			csmt.setString("Nguyen_tac_su_dung", StringUtil.toUTF8(chiTietThietBiModel.getNguyenTacSuDung()));
-			
-			csmt.setNString("Dac_tinh_ky_thuat", StringUtil.toUTF8(chiTietThietBiModel.getDacTinhKyThuat()));
-			csmt.setString("Ma_loai", chiTietThietBiModel.getTenLoaiThietBi());
-			csmt.setString("Ma_phong", chiTietThietBiModel.getTenPhongBan());
-			csmt.setString("Ma_bo_phan", chiTietThietBiModel.getTenBoPhan());//chua update duoc
-			csmt.setString("Ma_nha_cung_cap", chiTietThietBiModel.getTenNhaCungCap());
-			
-			csmt.setString("Ma_don_vi_tinh", chiTietThietBiModel.getTenDonViTinh());
-			csmt.setString("Ma_nguoi_tao", chiTietThietBiModel.getTenThanhVien());
-			Boolean ketQua = DataUtil.executeNonStore(csmt);								
-			if (ketQua) { // Update thiet bi thanh cong
-				result = true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			result = false;
-		}						
-		return result;
-	}
-	
-	public static ArrayList<ChiTietThietBiModel> searchAllKhoa() {
-		ArrayList<ChiTietThietBiModel> listKetQua = new ArrayList<ChiTietThietBiModel>();
-		try {
-			PreparedStatement preparedStatement = DataUtil.getConnection()
-					.prepareStatement(
-							Constant.SQL_RES.getString("QLTB.sql.getAllKhoaTrungTam"));
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				ChiTietThietBiModel chiTietThietBiModel = new ChiTietThietBiModel();
-				chiTietThietBiModel.setMaKhoa(rs.getString("MaKhoa"));
-				chiTietThietBiModel.setTenKhoa(rs.getString("TenKhoa"));
-
-				listKetQua.add(chiTietThietBiModel);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listKetQua;
-	}
 	
 	public static ArrayList<ThanhVienModel> timAllThanhVienByMaKhoa() {
 		ArrayList<ThanhVienModel> listKetQua = new ArrayList<ThanhVienModel>();
@@ -181,5 +80,224 @@ public class ChiTietThietBiDAO {
 			e.printStackTrace();
 		}
 		return thanhVienModelList;
+	}
+	public static Boolean insertChiTietThietBi(ChiTietThietBiModel chiTietThietBi) { // Thêm chi tiết thiết bị
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_QLTB_InsertChiTietThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.registerOutParameter("ID",java.sql.Types.INTEGER);
+			csmt.setString("Ma_thiet_bi", chiTietThietBi.getMaThietBi());
+			csmt.setNString("Ten",chiTietThietBi.getTenChiTietThietBi());
+			csmt.setString("Ma_loai_linh_kien",chiTietThietBi.getMaLoaiChiTietThietBi());
+			csmt.setNString("Ghi_chu",chiTietThietBi.getGhiChu());
+			csmt.setString("Ma_bo_phan",chiTietThietBi.getMaBoPhan());
+			csmt.setString("Ma_nguoi_tao",chiTietThietBi.getMaNguoiTao());
+			
+			csmt.setString("Ma_phong",chiTietThietBi.getMaPhongBan());
+			csmt.setString("Ma_nha_cung_cap",chiTietThietBi.getMaNhaCungCap());
+			csmt.setString("Ngay_san_xuat",chiTietThietBi.getNgaySanXuat());
+			csmt.setString("Ngay_mua",chiTietThietBi.getNgayMua());			
+			csmt.setString("Han_bao_hanh",chiTietThietBi.getHanBaoHanh());
+			csmt.setString("Ma_tinh_trang","0");
+			csmt.setString("Ngay_bat_dau_su_dung",chiTietThietBi.getNgayBatDauSuDung());
+			
+			//csmt.setString("MaDonViTinh",chiTietThietBi.getMaDonViTinh());
+			csmt.setString("Tan_suat_toi_da",chiTietThietBi.getTanSuatToiDa());
+			//csmt.setString("Ma_don_vi_tan_suat",chiTietThietBi.getMaDonViTanSuat());
+			//csmt.setNString("PhuKien",chiTietThietBi.getPhuKien());
+			csmt.setString("Gia_mua",chiTietThietBi.getGiaMua());
+			
+			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
+			csmt.setNString("Dac_tinh_ky_thuat",chiTietThietBi.getDacTinhKyThuat());
+			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setString("So_lan_su_dung", "0");
+			csmt.setString("So_lan_bao_tri", "0");
+			//csmt.setString("Ma_chi_tiet_thiet_bi_truoc", chiTietThietBi.getMaChiThietThietBiTruoc());
+			csmt.setString("Ngay_cap_nhat_cuoi", null);
+			csmt.setNString("User1",chiTietThietBi.getUser1());
+			csmt.setString("User2",chiTietThietBi.getUser2());
+			
+			csmt.setNString("User3",chiTietThietBi.getUser3());
+			csmt.setNString("User4",chiTietThietBi.getUser4());
+			csmt.setString("User5",chiTietThietBi.getUser5());
+			result = DataUtil.executeNonStore(csmt);
+			if(result) {
+				String maChiTietThietBi = csmt.getString("ID");
+				chiTietThietBi.setMaChiTietThietBi(maChiTietThietBi);
+			}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	public static Boolean updateChiTietThietBi(ChiTietThietBiModel chiTietThietBi) { // Cập nhật chi tiết thiết bị
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_QLTB_UpdateChiTietThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("ID", chiTietThietBi.getMaChiTietThietBi());
+			csmt.setString("Ma_thiet_bi", chiTietThietBi.getMaThietBi());
+			csmt.setNString("Ten",chiTietThietBi.getTenChiTietThietBi());
+			csmt.setString("Ma_loai_linh_kien",chiTietThietBi.getMaLoaiChiTietThietBi());
+			csmt.setNString("Ghi_chu",chiTietThietBi.getGhiChu());
+			csmt.setString("Ma_bo_phan",chiTietThietBi.getMaBoPhan());
+			csmt.setString("Ma_nguoi_tao",chiTietThietBi.getMaNguoiTao());
+			
+			csmt.setString("Ma_phong",chiTietThietBi.getMaPhongBan());
+			csmt.setString("Ma_nha_cung_cap",chiTietThietBi.getMaNhaCungCap());
+			csmt.setString("Ngay_san_xuat",chiTietThietBi.getNgaySanXuat());
+			csmt.setString("Ngay_mua",chiTietThietBi.getNgayMua());			
+			csmt.setString("Han_bao_hanh",chiTietThietBi.getHanBaoHanh());
+			//csmt.setString("Ma_tinh_trang",chiTietThietBi.getMaTinhTrang());
+			csmt.setString("Ngay_bat_dau_su_dung",chiTietThietBi.getNgayBatDauSuDung());
+			
+			//csmt.setString("MaDonViTinh",chiTietThietBi.getMaDonViTinh());
+			csmt.setString("Tan_suat_toi_da",chiTietThietBi.getTanSuatToiDa());
+			//csmt.setString("Ma_don_vi_tan_suat",chiTietThietBi.getMaDonViTanSuat());
+			//csmt.setNString("PhuKien",chiTietThietBi.getPhuKien());
+			csmt.setString("Gia_mua",chiTietThietBi.getGiaMua());
+			
+			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
+			csmt.setNString("Dac_tinh_ky_thuat",chiTietThietBi.getDacTinhKyThuat());
+			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setString("So_lan_su_dung", "0");
+			csmt.setString("So_lan_bao_tri", "0");
+			csmt.setString("Ma_chi_tiet_thiet_bi_truoc", chiTietThietBi.getMaChiThietThietBiTruoc());
+			csmt.setString("Ngay_cap_nhat_cuoi", null);
+			csmt.setNString("User1",chiTietThietBi.getUser1());
+			csmt.setString("User2",chiTietThietBi.getUser2());
+			
+			csmt.setNString("User3",chiTietThietBi.getUser3());
+			csmt.setNString("User4",chiTietThietBi.getUser4());
+			csmt.setString("User5",chiTietThietBi.getUser5());
+			result = DataUtil.executeNonStore(csmt);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+	public static Boolean deleteChiTietThietBiByID(String id) {
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_ISO_DeleteChiTietThietBi(?)}");		
+			csmt.setString("ID", id);			
+			
+			result = DataUtil.executeNonStore(csmt);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+						
+		return result;
+	}
+	public static ChiTietThietBiModel getLinhKienByID(String id) {
+		ChiTietThietBiModel linhKien = new ChiTietThietBiModel();
+		try {
+			PreparedStatement preparedStatement = DataUtil.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES.getString("QLTB.sql.getLinhKienByID"));
+			preparedStatement.setString(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				linhKien.setMaChiTietThietBi(rs.getString("MaChiTietThietBi"));
+				linhKien.setMaThietBi(rs.getString("MaThietBi"));
+				linhKien.setTenThietBi(rs.getNString("TenThietBi"));
+				linhKien.setKiHieuThietBi(rs.getString("KiHieuThietBi"));
+				linhKien.setTenChiTietThietBi(rs.getString("TenLinhKien"));
+				linhKien.setMaBoPhan(rs.getString("MaBoPhan"));
+				linhKien.setKiHieu(rs.getString("KiHieu"));
+				linhKien.setMaLoaiChiTietThietBi(rs.getString("MaLoailinhKien"));
+				linhKien.setMaPhongBan(rs.getString("MaPhong"));
+				linhKien.setMaNhaCungCap(rs.getString("MaNhaCungCap"));
+				linhKien.setNgaySanXuat(rs.getString("NgaySanXuat"));
+				linhKien.setNgayMua(rs.getString("NgayMua"));
+				linhKien.setHanBaoHanh(rs.getString("HanBaoHanh"));
+				linhKien.setNgayBatDauSuDung(rs.getString("NgayBatDauSuDung"));
+				linhKien.setTanSuatToiDa(rs.getString("TanSuatToiDa"));
+				linhKien.setGiaMua(rs.getString("GiaMua"));
+				linhKien.setNguyenTacSuDung(rs.getString("NguyenTacSuDung"));
+				linhKien.setDacTinhKyThuat(rs.getNString("DacTinhKyThuat"));
+				linhKien.setSoLanSuDung(rs.getString("SoLanSuDung"));
+				linhKien.setSoLanBaoTri(rs.getString("SoLanBaoTri"));
+				linhKien.setGhiChu(rs.getString("GhiChu"));
+				linhKien.setMaNguoiTao(rs.getString("MaNguoiTao"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return linhKien;
+	}
+	public static int getCountChiTietThietBi(String loaiLinhKien, String phongBan, String tinhTrang, String tenLinhKien) {
+		int count = 0;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_QLTB_GetCountChiTietThietBi(?,?,?,?)}");
+			
+			csmt.setString("Loai_linh_kien",loaiLinhKien);
+			csmt.setString("Phong_ban", phongBan);
+			csmt.setString("Tinh_trang", tinhTrang);
+			csmt.setNString("Ten_linh_kien", tenLinhKien);
+			
+			ResultSet rs = DataUtil.executeStore(csmt);
+			if(rs.next()) {
+				count = Integer.parseInt(rs.getString("Count"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}						
+		return count;
+	}
+	public static ArrayList<ChiTietThietBiModel> getAllChiTietThietBiByDieuKien(String loaiLinhKien, String phongBan, String tinhTrang, 
+					int count, String currentPage, String tenLinhKien) {
+		ArrayList<ChiTietThietBiModel> linhKienList = new ArrayList<ChiTietThietBiModel>();		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call sp_QLTB_GetChiTietThietBiByDieuKien(?,?,?,?,?,?,?)}");
+			
+			csmt.setString("Loai_thiet_bi",loaiLinhKien);
+			csmt.setString("Phong_ban", phongBan);
+			csmt.setString("Tinh_trang", tinhTrang);
+			csmt.setString("Num_row", Constant.RECORDS_PER_PAGE + "");
+			csmt.setString("Total_row", count + "");
+			csmt.setString("CurrentPage", currentPage);
+			csmt.setNString("Ten_thiet_bi", tenLinhKien);
+			ResultSet rs = DataUtil.executeStore(csmt);
+			while(rs.next()) {
+				ChiTietThietBiModel linhKien = new ChiTietThietBiModel();
+				linhKien.setMaChiTietThietBi(rs.getString("MaLinhKien"));
+				linhKien.setTenThietBi(rs.getNString("tenLinhKien"));
+				linhKien.setKiHieu(rs.getString("KiHieu"));
+				linhKien.setTenLoaiChiTietThietBi(rs.getNString("LoaiLinhKien"));
+				linhKien.setTenTinhTrang(rs.getNString("TenTinhTrang"));
+				linhKien.setMaTinhTrang(rs.getString("MaTinhTrang"));
+				linhKienList.add(linhKien);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}						
+		return linhKienList;
+	}
+	public static boolean thayDoiChiTietThietBiByID(String maLinhKien) {
+		boolean result = false;		
+			try {
+		CallableStatement csmt = DataUtil
+			.getConnection()
+			.prepareCall("{call sp_QLTB_ThayDoiChiTietThietBiByID(?)}");
+		
+		csmt.setString("Ma_linh_kien",maLinhKien);
+		result = DataUtil.executeNonStore(csmt);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}						
+		return result;
 	}
 }

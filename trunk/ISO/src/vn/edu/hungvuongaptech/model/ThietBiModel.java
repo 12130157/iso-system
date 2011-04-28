@@ -1,9 +1,11 @@
 package vn.edu.hungvuongaptech.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ThietBiModel {
-	private String stt;
+public class ThietBiModel implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private String maThietBi;
 	private String tenThietBi;
 	private String maLoaiThietBi;
@@ -19,17 +21,13 @@ public class ThietBiModel {
 	private String maPhongBan;
 	private String tenPhongBan;
 	private String maNhaCungCap;
-	private String ten;
 	private String ngaySanXuat;
 	private String ngayMua;
-	private String ngayBaoHanh;
+	private String hanBaoHanh;
 	private String ngayBatDauSuDung;
-	private String maDonViTinh;
-	private String tenDonViTinh;
 	private String tanSuatToiDa;
+	private String maTanSuat;
 	private String tanSuatSuDung;
-	private String maDonViTanSuat;
-	private String tenDonViTanSuat;
 	private String phuKien;
 	private String giaMua;
 	private String nguyenTacSuDung;
@@ -37,64 +35,33 @@ public class ThietBiModel {
 	private String ngayCapNhatCuoi;
 	private String soLanSuDung;
 	private String soLanBaoTri;
-	private String maThanhVien;
-	private String hoThanhVien;
-	private String tenLot;
-	private String tenThanhVien;
-	private String soMay;
+	private String kiemTraTonTai;
 	private String user1;
 	private String user2;
 	private String user3;
 	private String user4;
 	private String user5;
+	
+	private String maThietBiTruoc;
+	private String soLuong;
+	private String tinhTrangDuocXoa;
+	
 	private ArrayList<ChiTietThietBiModel> chiTietThietBiList;
 	
-	public ThietBiModel(){
-			stt="";
-			maThietBi="";
-			tenThietBi="";
-			maLoaiThietBi="";
-			tenLoaiThietBi="";
-			kiHieu="";	 
-			maTinhTrang="";
-			tenTinhTrang="";		 
-			ghiChu="";
-			maBoPhan="";
-			tenBoPhan="";		 
-			maNguoiTao="";
-			tenNguoiTao="";
-			maPhongBan="";
-			tenPhongBan="";
-			maNhaCungCap="";
-			ten="";
-			ngaySanXuat="";
-			ngayMua="";
-			ngayBaoHanh="";
-			ngayBatDauSuDung="";
-			maDonViTinh="";
-			tenDonViTinh="";
-			tanSuatToiDa="";
-			tanSuatSuDung="";
-			maDonViTanSuat="";
-			tenDonViTanSuat="";
-			phuKien="";
-			giaMua="";
-			nguyenTacSuDung="";
-			dacTinhKyThuat="";
-			ngayCapNhatCuoi="";
-			soLanSuDung="";
-			soLanBaoTri="";
-			maThanhVien = "";
-			hoThanhVien="";
-			tenLot="";
-			tenThanhVien="";
-			soMay="";
-			user1="";
-			user2="";
-			user3="";
-			user4="";
-			user5="";
-		 chiTietThietBiList=new ArrayList<ChiTietThietBiModel>();
+	public String getTinhTrangDuocXoa() {
+		return tinhTrangDuocXoa;
+	}
+
+	public void setTinhTrangDuocXoa(String tinhTrangDuocXoa) {
+		this.tinhTrangDuocXoa = tinhTrangDuocXoa;
+	}
+
+	public String getKiemTraTonTai() {
+		return kiemTraTonTai;
+	}
+
+	public void setKiemTraTonTai(String kiemTraTonTai) {
+		this.kiemTraTonTai = kiemTraTonTai;
 	}
 
 	public String getUser1() {
@@ -137,88 +104,262 @@ public class ThietBiModel {
 		this.user5 = user5;
 	}
 
-	public void setStt(String stt) {this.stt = stt;}
-	public void setMaThietBi(String maThietBi){this.maThietBi=maThietBi; }
-	public void setTenThietBi(String tenThietBi){this.tenThietBi=tenThietBi; }
-	public void setMaLoaiThietBi(String maLoaiThietBi){this.maLoaiThietBi=maLoaiThietBi; }
-	public void setTenLoaiThietBi(String tenLoaiThietBi){this.tenLoaiThietBi=tenLoaiThietBi; }
-	public void setKiHieu(String kiHieu){ this.kiHieu=kiHieu; }
-	public void setMaTinhTrang(String maTinhTrang){this.maTinhTrang=maTinhTrang; }
-	public void setTenTinhTrang(String tenTinhTrang){this.tenTinhTrang = tenTinhTrang;}	
-	public void setGhiChu(String ghiChu){this.ghiChu=ghiChu; }
-	public void setMaBoPhan(String maBoPhan) {this.maBoPhan = maBoPhan;}
-	public void setTenBoPhan(String tenBoPhan) {this.tenBoPhan = tenBoPhan;}	
-	public void setMaNguoiTao(String maNguoiTao){this.maNguoiTao=maNguoiTao; }
-	public void setTenNguoiTao(String tenNguoiTao){this.tenNguoiTao=tenNguoiTao; }
 
-	public void setMaPhongBan(String maPhongBan){this.maPhongBan=maPhongBan; }
-	public void setTenPhongBan(String tenPhongBan){this.tenPhongBan=tenPhongBan; }
-	public void setMaNhaCungCap(String maNhaCungCap){this.maNhaCungCap=maNhaCungCap; }
-	public void setTenNhaCungCap(String ten){this.ten=ten; }
-	public void setNgaySanXuat(String ngaySanXuat){this.ngaySanXuat=ngaySanXuat; }
-	public void setNgayMua(String ngayMua){this.ngayMua=ngayMua; }
-	public void setNgayBaoHanh(String ngayBaoHanh){this.ngayBaoHanh=ngayBaoHanh; }
-	public void setNgayBatDauSuDung(String ngayBatDauSuDung){this.ngayBatDauSuDung=ngayBatDauSuDung; }
-	public void setMaDonViTinh(String maDonViTinh){this.maDonViTinh=maDonViTinh; }
-	public void setTenDonViTinh(String tenDonViTinh){this.tenDonViTinh=tenDonViTinh; }
-	public void setTanSuatToiDa(String tanSuatToiDa){this.tanSuatToiDa=tanSuatToiDa; }
-	public void setTanSuatSuDung(String tanSuatSuDung){this.tanSuatSuDung=tanSuatSuDung; }
-	public void setMaDonViTanSuat(String maDonViTanSuat){this.maDonViTanSuat=maDonViTanSuat; }
-	public void setTenDonViTanSuat(String tenDonViTanSuat){this.tenDonViTanSuat=tenDonViTanSuat; }
-	public void setPhuKien(String phuKien){this.phuKien=phuKien; }
-	public void setGiaMua(String giaMua){this.giaMua=giaMua; }
-	public void setNguyenTacSuDung(String nguyenTacSuDung){this.nguyenTacSuDung=nguyenTacSuDung; }
-	public void setDacTinhKyThuat(String dacTinhKyThuat){this.dacTinhKyThuat=dacTinhKyThuat; }
-	public void setNgayCapNhatCuoi(String ngayCapNhatCuoi){this.ngayCapNhatCuoi=ngayCapNhatCuoi; }
-	public void setSoLanSuDung(String soLanSuDung){this.soLanSuDung=soLanSuDung; }
-	public void setSoLanBaoTri(String soLanBaoTri){this.soLanBaoTri=soLanBaoTri; }
-	public void setMaThanhVien(String maThanhVien) {this.maThanhVien = maThanhVien;}
-	public void setHoThanhVien(String hoThanhVien) {this.hoThanhVien = hoThanhVien;}
-	public void setTenLot(String tenLot) {this.tenLot = tenLot;}	
-	public void setTenThanhVien(String tenThanhVien) {this.tenThanhVien = tenThanhVien;}
-	public void setSoMay(String soMay){this.soMay=soMay; }
+	public String getMaThietBiTruoc() {
+		return maThietBiTruoc;
+	}
 
-	public void setListChiTietThietBi(ArrayList<ChiTietThietBiModel> chiTiet){this.chiTietThietBiList=chiTiet;}	
-	
-	public String getStt() {return stt;}
-	public String getMaThietBi(){return this.maThietBi; }
-	public String getTenThietBi(){return this.tenThietBi; }
-	public String getMaLoaiThietBi(){return this.maLoaiThietBi; }
-	public String getTenLoaiThietBi(){return this.tenLoaiThietBi; }
-	public String getKiHieu(){return this.kiHieu;}
-	public String getMaTinhTrang(){return this.maTinhTrang; }
-	public String getTenTinhTrang() {return tenTinhTrang;}	
-	public String getGhiChu(){return this.ghiChu; }
-	public String getMaBoPhan() {	return maBoPhan;	}
-	public String getTenBoPhan() {return tenBoPhan;	}	
-	public String getMaNguoiTao(){return this.maNguoiTao; }
-	public String getTenNguoiTao(){return this.tenNguoiTao; }
-	public String getMaPhongBan(){return this.maPhongBan; }
-	public String getTenPhongBan(){return this.tenPhongBan; }
-	public String getMaNhaCungCap(){return this.maNhaCungCap; }
-	public String getTenNhaCungCap(){return this.ten; }
-	public String getNgaySanXuat(){return this.ngaySanXuat; }
-	public String getNgayMua(){return this.ngayMua; }
-	public String getNgayBaoHanh(){return this.ngayBaoHanh; }
-	public String getNgayBatDauSuDung(){return this.ngayBatDauSuDung; }
-	public String getMaDonViTinh(){return this.maDonViTinh; }
-	public String getTenDonViTinh(){return this.tenDonViTinh; }
-	public String getTanSuatToiDa(){return this.tanSuatToiDa; }
-	public String getTanSuatSuDung(){return this.tanSuatSuDung; }
-	public String getMaDonViTanSuat(){return this.maDonViTanSuat; }
-	public String getTenDonViTanSuat(){return this.tenDonViTanSuat; }
-	public String getPhuKien(){return this.phuKien; }
-	public String getGiaMua(){return this.giaMua; }
-	public String getNguyenTacSuDung(){return this.nguyenTacSuDung; }
-	public String getDacTinhKyThuat(){return this.dacTinhKyThuat; }
-	public String getNgayCapNhatCuoi(){return this.ngayCapNhatCuoi; }
-	public String getSoLanSuDung(){return this.soLanSuDung; }
-	public String getSoLanBaoTri(){return this.soLanBaoTri; }
-	public String getMaThanhVien() {return maThanhVien;}
-	public String getHoThanhVien() {return hoThanhVien;}
-	public String getTenLot() {return tenLot;}
-	public String getTenThanhVien() {return tenThanhVien;}
-	public String getSoMay(){return this.soMay; }
-	public ArrayList<ChiTietThietBiModel> getListChiTietThietBi(){return chiTietThietBiList;}
-	
+	public void setMaThietBiTruoc(String maThietBiTruoc) {
+		this.maThietBiTruoc = maThietBiTruoc;
+	}
+
+	public ArrayList<ChiTietThietBiModel> getChiTietThietBiList() {
+		return chiTietThietBiList;
+	}
+
+	public void setChiTietThietBiList(
+			ArrayList<ChiTietThietBiModel> chiTietThietBiList) {
+		this.chiTietThietBiList = chiTietThietBiList;
+	}
+
+	public String getMaThietBi() {
+		return maThietBi;
+	}
+
+	public void setMaThietBi(String maThietBi) {
+		this.maThietBi = maThietBi;
+	}
+
+	public String getTenThietBi() {
+		return tenThietBi;
+	}
+
+	public void setTenThietBi(String tenThietBi) {
+		this.tenThietBi = tenThietBi;
+	}
+
+	public String getMaLoaiThietBi() {
+		return maLoaiThietBi;
+	}
+
+	public void setMaLoaiThietBi(String maLoaiThietBi) {
+		this.maLoaiThietBi = maLoaiThietBi;
+	}
+
+	public String getTenLoaiThietBi() {
+		return tenLoaiThietBi;
+	}
+
+	public void setTenLoaiThietBi(String tenLoaiThietBi) {
+		this.tenLoaiThietBi = tenLoaiThietBi;
+	}
+
+	public String getKiHieu() {
+		return kiHieu;
+	}
+
+	public void setKiHieu(String kiHieu) {
+		this.kiHieu = kiHieu;
+	}
+
+	public String getMaTinhTrang() {
+		return maTinhTrang;
+	}
+
+	public void setMaTinhTrang(String maTinhTrang) {
+		this.maTinhTrang = maTinhTrang;
+	}
+
+	public String getTenTinhTrang() {
+		return tenTinhTrang;
+	}
+
+	public void setTenTinhTrang(String tenTinhTrang) {
+		this.tenTinhTrang = tenTinhTrang;
+	}
+
+	public String getGhiChu() {
+		return ghiChu;
+	}
+
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
+	}
+
+	public String getMaBoPhan() {
+		return maBoPhan;
+	}
+
+	public void setMaBoPhan(String maBoPhan) {
+		this.maBoPhan = maBoPhan;
+	}
+
+	public String getTenBoPhan() {
+		return tenBoPhan;
+	}
+
+	public void setTenBoPhan(String tenBoPhan) {
+		this.tenBoPhan = tenBoPhan;
+	}
+
+	public String getMaNguoiTao() {
+		return maNguoiTao;
+	}
+
+	public void setMaNguoiTao(String maNguoiTao) {
+		this.maNguoiTao = maNguoiTao;
+	}
+
+	public String getTenNguoiTao() {
+		return tenNguoiTao;
+	}
+
+	public void setTenNguoiTao(String tenNguoiTao) {
+		this.tenNguoiTao = tenNguoiTao;
+	}
+
+	public String getMaPhongBan() {
+		return maPhongBan;
+	}
+
+	public void setMaPhongBan(String maPhongBan) {
+		this.maPhongBan = maPhongBan;
+	}
+
+	public String getTenPhongBan() {
+		return tenPhongBan;
+	}
+
+	public void setTenPhongBan(String tenPhongBan) {
+		this.tenPhongBan = tenPhongBan;
+	}
+
+	public String getMaNhaCungCap() {
+		return maNhaCungCap;
+	}
+
+	public void setMaNhaCungCap(String maNhaCungCap) {
+		this.maNhaCungCap = maNhaCungCap;
+	}
+
+	public String getNgaySanXuat() {
+		return ngaySanXuat;
+	}
+
+	public void setNgaySanXuat(String ngaySanXuat) {
+		this.ngaySanXuat = ngaySanXuat;
+	}
+
+	public String getNgayMua() {
+		return ngayMua;
+	}
+
+	public void setNgayMua(String ngayMua) {
+		this.ngayMua = ngayMua;
+	}
+
+	public String getHanBaoHanh() {
+		return hanBaoHanh;
+	}
+
+	public void setHanBaoHanh(String hanBaoHanh) {
+		this.hanBaoHanh = hanBaoHanh;
+	}
+
+	public String getNgayBatDauSuDung() {
+		return ngayBatDauSuDung;
+	}
+
+	public void setNgayBatDauSuDung(String ngayBatDauSuDung) {
+		this.ngayBatDauSuDung = ngayBatDauSuDung;
+	}
+
+	public String getTanSuatToiDa() {
+		return tanSuatToiDa;
+	}
+
+	public void setTanSuatToiDa(String tanSuatToiDa) {
+		this.tanSuatToiDa = tanSuatToiDa;
+	}
+
+	public String getTanSuatSuDung() {
+		return tanSuatSuDung;
+	}
+
+	public void setTanSuatSuDung(String tanSuatSuDung) {
+		this.tanSuatSuDung = tanSuatSuDung;
+	}
+
+	public String getPhuKien() {
+		return phuKien;
+	}
+
+	public void setPhuKien(String phuKien) {
+		this.phuKien = phuKien;
+	}
+
+	public String getGiaMua() {
+		return giaMua;
+	}
+
+	public void setGiaMua(String giaMua) {
+		this.giaMua = giaMua;
+	}
+
+	public String getNguyenTacSuDung() {
+		return nguyenTacSuDung;
+	}
+
+	public void setNguyenTacSuDung(String nguyenTacSuDung) {
+		this.nguyenTacSuDung = nguyenTacSuDung;
+	}
+
+	public String getDacTinhKyThuat() {
+		return dacTinhKyThuat;
+	}
+
+	public void setDacTinhKyThuat(String dacTinhKyThuat) {
+		this.dacTinhKyThuat = dacTinhKyThuat;
+	}
+
+	public String getNgayCapNhatCuoi() {
+		return ngayCapNhatCuoi;
+	}
+
+	public void setNgayCapNhatCuoi(String ngayCapNhatCuoi) {
+		this.ngayCapNhatCuoi = ngayCapNhatCuoi;
+	}
+
+	public String getSoLanSuDung() {
+		return soLanSuDung;
+	}
+
+	public void setSoLanSuDung(String soLanSuDung) {
+		this.soLanSuDung = soLanSuDung;
+	}
+
+	public String getSoLanBaoTri() {
+		return soLanBaoTri;
+	}
+
+	public void setSoLanBaoTri(String soLanBaoTri) {
+		this.soLanBaoTri = soLanBaoTri;
+	}
+
+	public String getSoLuong() {
+		return soLuong;
+	}
+
+	public void setSoLuong(String soLuong) {
+		this.soLuong = soLuong;
+	}
+
+	public String getMaTanSuat() {
+		return maTanSuat;
+	}
+
+	public void setMaTanSuat(String maTanSuat) {
+		this.maTanSuat = maTanSuat;
+	}
+
 }

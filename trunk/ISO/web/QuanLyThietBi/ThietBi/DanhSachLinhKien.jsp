@@ -18,7 +18,9 @@
 <%@page import="vn.edu.hungvuongaptech.dao.ThietBiDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ThietBiModel"%>
 <%@page import="vn.edu.hungvuongaptech.controller.ThietBiController"%>
-<%@page import="vn.edu.hungvuongaptech.dao.TinhTrangThietBiDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.dao.TinhTrangThietBiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.LoaiLinhKienDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ChiTietThietBiDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -34,12 +36,12 @@
 <script type="text/javascript" language="JavaScript">	
 	function search()
 	{
-		document.getElementById('actionType').value = 'searchThietBi';
-		document.forms['formThietBi'].submit();
+		document.getElementById('actionType').value = 'searchLinhKien';
+		document.forms['formLinhKien'].submit();
 	}
 	function submit()
 	{
-		document.getElementById("formThietBi").submit();
+		document.getElementById("formLinhKien").submit();
 	}
 </script>
 <!--[if lt IE 7]>
@@ -56,38 +58,25 @@
 	<!-- E HEAD CONTENT -->
 	<br/><br/><br/>	
 	<c:set var="listPhong" value="<%= PhongBanDAO.getAllPhongBan() %>"></c:set>
-	<c:set var="listLoaiThietBi" value="<%= LoaiThietBiDAO.getAllLoaiThietBi() %>"></c:set>
+	<c:set var="listLoaiLinhKien" value="<%= LoaiLinhKienDAO.getAllLoaiLinhKien() %>"></c:set>
 	<c:set var="listTinhTrang" value="<%= TinhTrangThietBiDAO.getAllTinhTrangThietBi()%>" />
 	
-	<form action="<%=request.getContextPath()%>/ThietBiController" name  = "formThietBi" id = "formThietBi" method="post">
+	<form action="<%=request.getContextPath()%>/ThietBiController" name  = "formLinhKien" id = "formLinhKien" method="post">
 		<div>
 		<input type="hidden" id="actionType" value="tinhtrang" name = "actionType"/>		
 		<table>
 			<tr style="background-color: transparent;">
 				<td colspan="9">
-					<div class = "div_thanhvientieude">Danh Sách Các Thiết Bị</div>
+					<div class = "div_thanhvientieude">Danh Sách linh kiện</div>
 				</td>
 			</tr>
 		</table>
-			<c:choose>
-			<c:when test = "${param.BaoHuThietBi eq 'ok'}">
-				<font class="msg">Báo hư thiết bị thành công</font>
-			</c:when>
-			<c:when test = "${param.BaoHuThietBi eq 'fail'}">
-				<font class="error">Báo hư thiết bị thất bại</font>
-			</c:when>
-			<c:when test = "${param.XoaThietBi eq 'ok'}">
-				<font class="msg">Xóa thiết bị thành công</font>
-			</c:when>
-			<c:when test = "${param.XoaThietBi eq 'fail'}">
-				<font class="error">Xóa thiết bị thất bại</font>
-			</c:when>
-		</c:choose>
+			
 	
 		<% 
-			String loaiThietBi = "", phongBan = "", tinhTrang = "", currentPage = "1"; 
-			if(request.getParameter("loaiThietBi") != null)
-				loaiThietBi = request.getParameter("loaiThietBi");
+			String loaiLinhKien = "", phongBan = "", tinhTrang = "", currentPage = "1"; 
+			if(request.getParameter("loaiLinhKien") != null)
+				loaiThietBi = request.getParameter("loaiLinhKien");
 			
 			if(request.getParameter("phongBan") != null)
 				phongBan = request.getParameter("phongBan");
@@ -99,23 +88,23 @@
 				currentPage = request.getParameter("page");
 			
 			int c = 1, totalRow = 0;
-			totalRow = ThietBiDAO.getCountThietBi(loaiThietBi, phongBan, tinhTrang, "");
-			ArrayList<ThietBiModel> thietBiList = ThietBiDAO.getAllThietBiByDieuKien(loaiThietBi, phongBan, tinhTrang, totalRow, currentPage, "", "2");
+			totalRow = ChiTietThietBiDAO.getCountChiTietThietBi(loaiLinhKien, phongBan, tinhTrang, "");
+			ArrayList<ThietBiModel> chiTietThietBiList = ChiTietThietBiDAO.getAllChiTietThietBiByDieuKien(loaiLinhKien, phongBan, tinhTrang, totalRow, currentPage, "");
 		%>
 		<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
 		<table border='1' style="background-color: transparent;">
 			<tr>
 				<td>
 					Loại 	
-						<select id="cboLoaiThietBi" name="cboLoaiThietBi">
+						<select id="cboLoaiLinhKien" name="cboLoaiLinhKien">
 							<option 
-								<c:if test="${param.maLoaiThietBi eq ''}"> selected</c:if>
+								<c:if test="${param.maLoaiLinhKien eq ''}"> selected</c:if>
 									value = "" >Chọn</option>	
 												
-							<c:forEach var="loaiThietBi" items="${listLoaiThietBi}">
+							<c:forEach var="loaiLinhKien" items="${listLoaiLinhKien}">
 								<option 
-									<c:if test="${param.loaiThietBi eq loaiThietBi.maLoaiThietBi}">selected</c:if>
-										value="${loaiThietBi.maLoaiThietBi}">${loaiThietBi.tenLoaiThietBi}
+									<c:if test="${param.loaiLinhKien eq loaiLinhKien.maLoaiLinhKien}">selected</c:if>
+										value="${loaiLinhKien.maLoaiThietBi}">${loaiLinhKien.tenLoaiThietBi}
 								</option>
 							</c:forEach>
 						</select>	
@@ -161,9 +150,9 @@
 								</div>
 				</th>
 				<th style='background-color: #186fb2;color:white'>STT</th>
-				<th style='background-color: #186fb2;color:white'>Loại thiết bị</th>
+				<th style='background-color: #186fb2;color:white'>Loại linh kiện</th>
 				<th style='background-color: #186fb2;color:white'>Kí Hiệu</th>
-				<th style='background-color: #186fb2;color:white'>Tên thiết bị</th>
+				<th style='background-color: #186fb2;color:white'>Tên linh kiện</th>
 				<th style='background-color: #186fb2;color:white'>Tên phòng ban</th>
 				<th style='background-color: #186fb2;color:white'>Tình trạng</th>								
 			</tr>
@@ -173,13 +162,7 @@
 			
 			<c:forEach var="ThietBi" items="${listThietBi}">
 				<tr>
-					<td>
-						<c:if test = "${ThietBi.tinhTrangDuocXoa eq 1}">X</c:if>
-						<input type = "hidden" id = "txtTinhTrangDuocXoa<%=c %>" value = "${ThietBi.tinhTrangDuocXoa }"/>
-					</td>
-					<td>
-						<input type="checkbox" name="chk<%=c %>" id="chk<%=c %>" onclick="checkRow();" value="${ThietBi.maThietBi}"/>
-					</td>
+					<td><input type="checkbox" name="chk<%=c %>" id="chk<%=c %>" onclick="checkRow();" value="${ThietBi.maThietBi}"/></td>
 					<td><%=c %></td>
 					<td>
 						<a href = "<%= Constant.PATH_RES.getString("qltb.XemThietBiPath") %>?maThietBi=${ThietBi.maThietBi}">${ThietBi.tenLoaiThietBi }</a>
@@ -218,18 +201,16 @@
 						document.getElementById('chkAll').checked = false;
 				}
 				
-				function xoaThietBi()
+				function deleteRow()
 				{
 					var listThietBiCanXoa = "";
-					var check = false, check1 = true;
+					var check = false;
 					<%
 						for(int i=1;i<c;i++)
 						{
 							out.print("if(document.getElementById('chk" + i + "').checked == true) {");
 							out.print("check = true;");
-							out.print("if(document.getElementById('txtTinhTrangDuocXoa').value == '2') {");
-							out.print("check1 = false;");
-							out.print("listThietBiCanXoa += '-' + document.getElementById('chk" + i + "').value; }}");
+							out.print("listThietBiCanXoa += '-' + document.getElementById('chk" + i + "').value; }");
 						}
 					%>
 					if(check == false)
@@ -238,58 +219,28 @@
 					}
 					else if(check == true)
 					{
-						if(check1 == true) 
+						if(confirm("Bạn có chắc muốn xoá không???"))
 						{
-							if(confirm("Bạn có chắc muốn xoá không???"))
-							{
-								document.getElementById('actionType').value = 'XoaThietBi';
-								document.getElementById('txtListThietBi').value = listThietBiCanXoa;
-								document.forms["formThietBi"].submit();
-							}
-						}
-						else
-						{
-							alert("Hãy chọn đúng thiết bị được phép xóa!!!");
+							document.getElementById('actionType').value = 'BaoHuThietBi';
+							document.getElementById('txtListThietBiCanXoa').value = listThietBiCanXoa;
+							document.forms["formThietBi"].submit();
 						}
 					}
 				}
-				function baoHuThietBi()
-				{
-					var str = "";
-					for(var i=1;i<<%=c%>;i++)
-					{
-						if(document.getElementById('chk' + i).checked == true)
-							str += '-' + document.getElementById('chk' + i).value;
-					}
-					if(str != "")
-					{
-						var value = window.showModalDialog("BaoHuThietBi.jsp?listMaThietBi="+str,"","dialogHeight: 650px; dialogWidth: 750px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
-						if(value != null)
-						{
-							document.getElementById('txtListThietBi').value = value;
-							if(confirm("Bạn có chắc chắn muốn báo hư những thiết bị này không???"))
-							{
-								document.getElementById('actionType').value = 'BaoHuThietBi';
-								document.forms["formThietBi"].submit();
-							}
-						}
-					}
-					else
-						alert("Hãy chọn thiết bị!!!");
-				}
+				
 			</script>
 			<c:set var = "TotalPage" value="<%= (int) Math.round( ((float)totalRow) /Constant.RECORDS_PER_PAGE + 0.4)%>"></c:set>
 		<c:if test = "${TotalPage gt 1}">		
 		 	<tr style="background-color: transparent;">
 				<td colspan="7">
 					<c:if test = "${CurrentPage gt 1}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${CurrentPage - 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/lui.png" border="0" /></a>
+						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachLinhKienPath")%>?page=${CurrentPage - 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/lui.png" border="0" /></a>
 					</c:if>	
 					<c:forEach var = "PageCount" begin = "1" end = "${TotalPage}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${PageCount}&msg=${PhanLoai}">${PageCount}</a>
+						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachLinhKienPath")%>?page=${PageCount}&msg=${PhanLoai}">${PageCount}</a>
 					</c:forEach>
 					<c:if test = "${CurrentPage lt TotalPage}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${CurrentPage + 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/toi.png" border="0"/></a>
+						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachLinhKienPath")%>?page=${CurrentPage + 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/toi.png" border="0"/></a>
 					</c:if>	
 				</td>
 			</tr> 	
@@ -298,11 +249,11 @@
 		<table>
 			<tr>
 				<td>
-					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/ThemThietBi.jsp"><img src="<%=request.getContextPath()%>/images/buttom/themthietbi.png" alt="thêm thiết bị" border = "0" /></a>
-					<a href = "javascript: xoaThietBi()">
-						<img src="<%=request.getContextPath()%>/images/buttom/xoa.png" alt="Xóa Thiết bị" border = "0" />
+					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/ThemChiTietThietBi.jsp"><img src="<%=request.getContextPath()%>/images/buttom/themlinhkien.png" alt="thêm linh kiện" border = "0" /></a>
+					<a href = "javascript: deleteRow()">
+						<img src="<%=request.getContextPath()%>/images/buttom/xoa.png" alt="Xóa Dòng" border = "0" />
 					</a>
-					<a href = "javascript:baoHuThietBi();" alt="Báo Hư" border = "0" /><img src="<%=request.getContextPath()%>/images/buttom/baohu.png" alt="Báo hư" border = "0" /></a>	
+					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/BaoHu.jsp"><img src="<%=request.getContextPath()%>/images/buttom/baohu.png" alt="Báo Hư" border = "0" /></a>	
 					<input type = "hidden" name="xuly" id = "xuly" />									
 				</td>
 				<!--<td>
@@ -313,7 +264,6 @@
 			--></tr>
 		</table>
 		</div>
-		<input type = "hidden" name = "txtListThietBi" id = "txtListThietBi"/>
 	</form>	
 	<br/>
 	<!-- S FOOT CONTENT -->

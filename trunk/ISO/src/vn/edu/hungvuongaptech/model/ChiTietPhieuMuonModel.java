@@ -1,12 +1,17 @@
 package vn.edu.hungvuongaptech.model;
 
-public class ChiTietPhieuMuonModel extends ThietBiModel {
+import java.io.Serializable;
+
+public class ChiTietPhieuMuonModel implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String maCTPM;
 	private String maPhieuMuon;
 	private String maThietBi;
 	private String tenThietBi;
-	private String soLuong;
 	private String tinhTrang;
+	private String thoiGianMuon;
+	private String thoiGianTra;
+	private String phanLoai;
 	private String ghiChu;
 	private String ngayCapNhatCuoi;
 	private String user1;
@@ -14,22 +19,6 @@ public class ChiTietPhieuMuonModel extends ThietBiModel {
 	private String user3;
 	private String user4;
 	private String user5;
-	
-	public ChiTietPhieuMuonModel(){
-		this.maCTPM="";
-		this.maPhieuMuon="";
-		this.maThietBi="";
-		this.tenThietBi="";
-		this.soLuong="";
-		this.tinhTrang="";
-		this.ghiChu="";
-		this.ngayCapNhatCuoi="";
-		this.user1="";
-		this.user2="";
-		this.user3="";
-		this.user4="";
-		this.user5="";
-	}
 	
 	public String getMaCTPM(){
 		return this.maCTPM;
@@ -56,12 +45,6 @@ public class ChiTietPhieuMuonModel extends ThietBiModel {
 	public void setTenThietBi(String tenThietBi){
 		this.tenThietBi=tenThietBi;
 	}
-	public String getSoLuong(){
-		return this.soLuong;
-	}
-	public  void setSoLuong(String soLuong){
-		this.soLuong=soLuong;
-	}	
 	public String getTinhTrang() {
 		return tinhTrang;
 	}
@@ -111,4 +94,24 @@ public class ChiTietPhieuMuonModel extends ThietBiModel {
 	public String getUser5(){
 		return this.user5;
 	}
+	public String getThoiGianMuon() {
+		return thoiGianMuon;
+	}
+	public void setThoiGianMuon(String thoiGianMuon) {
+		this.thoiGianMuon = thoiGianMuon;
+	}
+	
+	public String getThoiGianTra() {
+		return thoiGianTra;
+	}
+	public void setThoiGianTra(String thoiGianTra) {
+		this.thoiGianTra = thoiGianTra;
+	}
+	public String getPhanLoai() {
+		return phanLoai;
+	}
+	public void setPhanLoai(String phanLoai) {
+		this.phanLoai = phanLoai;
+	}
+	
 }

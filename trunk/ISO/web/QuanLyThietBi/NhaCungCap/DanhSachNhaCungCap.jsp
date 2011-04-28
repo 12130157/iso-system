@@ -34,6 +34,7 @@ function xyLyComboboxTinhTrang(){
 		document.getElementById('actionType').value = 'searchTinhTrang';
 		document.forms['frmNhaCungCap'].submit();
 	}
+
 </script>
 <!--[if lt IE 7]>
  <style type="text/css">
