@@ -16,13 +16,9 @@ namespace SMS
 {
     public partial class FormMain : Form
     {
-        SmsPdu messageDen;
-        SmsDeliverPdu dataMessageDen;
         ArrayList listModelDen;
         ArrayList listModelDi;
         string returnMessNotSyntax = "Tin nhan cua ban khong theo cu phap ,ban hay thu lai mot lan nua.";
-        HopThuDenMODEL modelDen;
-        HopThuDiMODEL modelDi;
 
         private System.Timers.Timer autoRecieveMess = new System.Timers.Timer();
 
@@ -36,7 +32,7 @@ namespace SMS
             {
                 this.lbStatus.Text = "Connected";
             }
-            
+            messRecieveNphoneConnected();
         }
 
         private delegate void ConnectedHandler(bool connected);
@@ -97,35 +93,59 @@ namespace SMS
                 return storage;
         }
 
-        private void btnEnableMess_Click(object sender, EventArgs e)
+        private void deleteMess()
         {
-            if (common.Constants.comm.IsConnected() == true)
+            try
             {
-                if (ena == false)
+                MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
+                int memUesd = memnoryStatus.Used;
+                if (memUesd >= 35)
                 {
-                    ena = true;
-                    InitializeTimer(ena);
-                    btnEnableMess.Text = "Disable for Recieve Message";
-                    return;
-                }
-                if (ena == true)
-                {
-                    ena = false;
-                    InitializeTimer(ena);
-                    btnEnableMess.Text = "Enable for Recieve Message";
-                    return;
+                    common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
                 }
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show("No Phone Connected");
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void btnEnableMess_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (common.Constants.comm.IsConnected() == true)
+                {
+                    if (ena == false)
+                    {
+                        ena = true;
+                        InitializeTimer(ena);
+                        btnEnableMess.Text = "Disable for Recieve Message";
+                        return;
+                    }
+                    if (ena == true)
+                    {
+                        ena = false;
+                        InitializeTimer(ena);
+                        btnEnableMess.Text = "Enable for Recieve Message";
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Phone Connected");
+                }
+            }
+            catch (Exception k)
+            {
+                MessageBox.Show(k.Message + "-------------btnEnableMess_Click");
             }
         }
 
         public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 1000;
+            this.autoRecieveMess.Interval = 7000;
             this.autoRecieveMess.Enabled = en;
         }
 
@@ -138,17 +158,17 @@ namespace SMS
         {
             try
             {
-                DecodedShortMessage[] messages = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+                DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
-                if (messages.Length > 0)
+                if (messagesFn.Length > 0)
                 {
-                    MessageBox.Show("Đã nhận " + messages.Length.ToString() + " tin nhắn");
+                    MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
                 }
                 //else
                 //{
                 //    MessageBox.Show("Chua nhan duoc tin nhan nao");
                 //}
-                return messages;
+                return messagesFn;
             }
             catch (Exception e)
             {
@@ -161,9 +181,9 @@ namespace SMS
         {
             try
             {
-                messageDen = message.Data;
-                SmsDeliverPdu dataMessageDenFn = (SmsDeliverPdu)messageDen;
-                return dataMessageDen;
+                SmsPdu messageDenFn = message.Data;
+                SmsDeliverPdu dataMessageDenFn = (SmsDeliverPdu)messageDenFn;
+                return dataMessageDenFn;
             }
             catch (Exception e)
             {
@@ -175,177 +195,189 @@ namespace SMS
         private string[] splitContentMess(string contentMess)
         {
 
-            string[] arrContentMess = contentMess.Split(' ');
-            return arrContentMess;
+            string[] arrContentMessFn = contentMess.Split(' ');
+            return arrContentMessFn;
         }
 
         private string checkSyntax(string contentMess)
         {
             CuPhapMODEL cuPhapModelFn;
-            string idCuPhap = null;
+            string idCuPhapFn = "";
+            string cumCuPhapFn = "";
 
             try
             {
-                string[] arrContentMess = contentMess.Split(' ');
-                int lenghtOfMess = arrContentMess.Length;
+                string[] arrContentMessFn = contentMess.Split(' ');
+                int lenghtOfMessFn = arrContentMessFn.Length;
 
-                string cumCuPhap = arrContentMess[0] + arrContentMess[1];
-
-                if (lenghtOfMess < 3)
+                if (lenghtOfMessFn >= 3)
                 {
-                    idCuPhap = null;
+                    cumCuPhapFn = arrContentMessFn[0] + arrContentMessFn[1];
                 }
-                else if (lenghtOfMess == 3)
+
+                if (lenghtOfMessFn < 3)
                 {
-                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+                    idCuPhapFn = "";
+                }
+                else if (lenghtOfMessFn == 3)
+                {
+                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
                     if (cuPhapModelFn != null)
                     {
-                        idCuPhap = "0";
+                        idCuPhapFn = "0";
                     }
                     else
                     {
-                        idCuPhap = null;
+                        idCuPhapFn = "";
                     }
                 }
-                else if (lenghtOfMess == 4)
+                else if (lenghtOfMessFn == 4)
                 {
-                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhap);
+                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
                     if (cuPhapModelFn != null)
                     {
                         if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
                         {
-                            if (Validattion.isSubject(arrContentMess[3]) == true)
+                            if (Validattion.isSubject(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "1";
+                                idCuPhapFn = "1";
                             }
-                            if (Validattion.isYear(arrContentMess[3]) == true)
+                            if (Validattion.isYear(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "2";
+                                idCuPhapFn = "2";
                             }
-                            if (Validattion.isSemester(arrContentMess[3]) == true)
+                            if (Validattion.isSemester(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "3";
+                                idCuPhapFn = "3";
                             }
                         }
                         if (cuPhapModelFn.Id.Equals("4") || cuPhapModelFn.Id.Equals("5"))
                         {
-                            if (Validattion.isYear(arrContentMess[3]) == true)
+                            if (Validattion.isYear(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "4";
+                                idCuPhapFn = "4";
                             }
-                            if (Validattion.isSemester(arrContentMess[3]) == true)
+                            if (Validattion.isSemester(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "5";
+                                idCuPhapFn = "5";
                             }
                         }
                         if (cuPhapModelFn.Id.Equals("6") || cuPhapModelFn.Id.Equals("7"))
                         {
-                            if (Validattion.isDDMMYYYY(arrContentMess[3]) == true)
+                            if (Validattion.isDDMMYYYY(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "6";
+                                idCuPhapFn = "6";
                             }
-                            if (Validattion.isMMYYYY(arrContentMess[3]) == true)
+                            if (Validattion.isMMYYYY(arrContentMessFn[3]) == true)
                             {
-                                idCuPhap = "7";
+                                idCuPhapFn = "7";
                             }
                         }
                     }
                     else
                     {
-                        idCuPhap = null;
+                        idCuPhapFn = "";
                     }
                 }
                 else
                 {
-                    idCuPhap = null;
+                    idCuPhapFn = "";
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message + "----------------checkSyntax");
             }
-            return idCuPhap;
+            return idCuPhapFn;
         }
 
         private ArrayList getMessDen(DecodedShortMessage[] messages)
         {
             try
             {
-                listModelDen = new ArrayList();
+
+                HopThuDenMODEL modelDenFn;
+                SmsDeliverPdu dataMessageDenFn;
+                ArrayList listModelDenFn = new ArrayList();
+
                 foreach (DecodedShortMessage message in messages)
                 {
-                    modelDen = new HopThuDenMODEL();
+                    modelDenFn = new HopThuDenMODEL();
+                    dataMessageDenFn = new SmsDeliverPdu();
 
-                    dataMessageDen = covertMessRead(message);
+                    dataMessageDenFn = covertMessRead(message);
 
-                    modelDen.So_Dien_Thoai = dataMessageDen.OriginatingAddress;
-                    modelDen.Noi_Dung_Tin_Nhan = dataMessageDen.UserDataText;
-                    modelDen.Ma_Cu_Phap = checkSyntax(dataMessageDen.UserDataText);
-                    if (modelDen.Ma_Cu_Phap == null)
+                    modelDenFn.So_Dien_Thoai = dataMessageDenFn.OriginatingAddress;
+                    modelDenFn.Noi_Dung_Tin_Nhan = dataMessageDenFn.UserDataText;
+                    MessageBox.Show(modelDenFn.Noi_Dung_Tin_Nhan);
+                    modelDenFn.Ma_Cu_Phap = checkSyntax(dataMessageDenFn.UserDataText);
+                    if (modelDenFn.Ma_Cu_Phap.Equals(""))
                     {
-                        modelDen.Loai_Hop_Thu = "2";
+                        modelDenFn.Loai_Hop_Thu = "2";
                     }
                     else
                     {
-                        modelDen.Loai_Hop_Thu = "0";
+                        modelDenFn.Loai_Hop_Thu = "0";
                     }
-                    modelDen.Ngay_Nhan = dataMessageDen.SCTimestamp.ToString();
-                    modelDen.Tinh_Trang = "0";
+                    modelDenFn.Ngay_Nhan = dataMessageDenFn.SCTimestamp.ToString();
+                    modelDenFn.Tinh_Trang = "0";
 
-                    string[] arrContentMess = splitContentMess(dataMessageDen.UserDataText);
-                    if (modelDen.Ma_Cu_Phap.Equals("0"))
+                    string[] arrContentMessFn = splitContentMess(dataMessageDenFn.UserDataText);
+                    if (modelDenFn.Ma_Cu_Phap.Equals("0"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User31 = getDiemByMaSV(arrContentMess[2]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User31 = getDiemByMaSV(arrContentMessFn[2]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("1"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getDiemByMaSVNMonHoc(arrContentMess[2],arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getDiemByMaSVNMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("2"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("2"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getDiemByMaSVNNamHoc(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getDiemByMaSVNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("3"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("3"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getDiemByMaSVNHocKi(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getDiemByMaSVNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("4"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("4"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getTKBByMaSVNNamHoc(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getTKBByMaSVNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("5"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("5"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getTKBByMaSVNHocKi(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getTKBByMaSVNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("6"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("6"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getDDByMaSVNddmmyyy(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getDDByMaSVNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
-                    else if (modelDen.Ma_Cu_Phap.Equals("7"))
+                    else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
-                        modelDen.User11 = arrContentMess[2];
-                        modelDen.User21 = arrContentMess[3];
-                        modelDen.User31 = getDDByMaSVNmmyyyy(arrContentMess[2], arrContentMess[3]);
+                        modelDenFn.User11 = arrContentMessFn[2];
+                        modelDenFn.User21 = arrContentMessFn[3];
+                        modelDenFn.User31 = getDDByMaSVNmmyyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else
                     {
-                        modelDen.User31 = returnMessNotSyntax;
+                        modelDenFn.User31 = returnMessNotSyntax;
                     }
+
+                    listModelDenFn.Add(modelDenFn);
                 }
-                return listModelDen;
+                return listModelDenFn;
             }
             catch (Exception e)
             {
@@ -404,36 +436,39 @@ namespace SMS
 
         private ArrayList getMessDi(ArrayList listModelDen)
         {
-            listModelDi = new ArrayList();
+            HopThuDiMODEL modelDiFn;
+            ArrayList listModelDiFn = new ArrayList();
 
             try
             {
                 foreach (HopThuDenMODEL model in listModelDen)
                 {
-                    modelDi = new HopThuDiMODEL();
+                    modelDiFn = new HopThuDiMODEL();
 
-                    modelDi.So_Dien_Thoai = model.So_Dien_Thoai;
+                    modelDiFn.So_Dien_Thoai = model.So_Dien_Thoai;
                     if (!model.User31.Equals(""))
                     {
-                        modelDi.Noi_Dung_Tin_Nhan = model.User31;
+                        modelDiFn.Noi_Dung_Tin_Nhan = model.User31;
                         model.User31 = "";
                     }
 
                     if (model.Loai_Hop_Thu.Equals("0"))
                     {
-                        modelDi.Loai_Hop_Thu = "4";
+                        modelDiFn.Loai_Hop_Thu = "4";
                     }
                     if (model.Loai_Hop_Thu.Equals("2"))
                     {
-                        modelDi.Loai_Hop_Thu = "6";
+                        modelDiFn.Loai_Hop_Thu = "6";
                     }
+
+                    listModelDiFn.Add(modelDiFn);
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message + "--------------------getMessDi");
             }
-            return listModelDi;
+            return listModelDiFn;
         }
 
         private void sendOneMessage(string contentMess, string des)
@@ -448,27 +483,28 @@ namespace SMS
             {
                 string maTinNhanTraLoi = "";
                 int i = 0;
-                HopThuDenMODEL modelDen;
+                HopThuDenMODEL modelDenFn;
+
                 foreach (HopThuDiMODEL model in listModelDi)
                 {
                     try
                     {
                         sendOneMessage(model.Noi_Dung_Tin_Nhan, model.So_Dien_Thoai);
-                        modelDi.Tinh_Trang = "1";
+                        model.Tinh_Trang = "1";
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message + "----------------sendMess");
-                        modelDi.Tinh_Trang = "0";
+                        model.Tinh_Trang = "0";
                     }
 
                     bool resultDi = HopThuDiDAO.insertHopThuDi(model);
                     maTinNhanTraLoi = getMaxIDHopThuDi();
 
-                    modelDen = (HopThuDenMODEL)listModelDen[i];
-                    modelDen.Ma_Tin_Nhan_Tra_Loi = maTinNhanTraLoi;
+                    modelDenFn = (HopThuDenMODEL)listModelDen[i];
+                    modelDenFn.Ma_Tin_Nhan_Tra_Loi = maTinNhanTraLoi;
 
-                    bool resultDen = HopThuDenDAO.insertHopThuDen(modelDen);
+                    bool resultDen = HopThuDenDAO.insertHopThuDen(modelDenFn);
                     i++;
                 }
             }
@@ -480,12 +516,19 @@ namespace SMS
 
         private void doMessAuto()
         {
+            deleteMess();
             Cursor.Current = Cursors.WaitCursor;
             string storage = GetMessageStorage();
 
             DecodedShortMessage[] messages = readMessages(storage);
 
+            listModelDen = new ArrayList();
             listModelDen = getMessDen(messages);
+            if (listModelDen.Count > 0)
+            {
+                MessageBox.Show(listModelDen.Count.ToString());
+            }
+            listModelDi = new ArrayList();
             listModelDi = getMessDi(listModelDen);
 
             sendNinsertMessDi(listModelDi, listModelDen);
@@ -693,12 +736,7 @@ namespace SMS
                 //}
             //Cursor.Current = Cursors.Default;
 
-            //MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
-            //int memUesd = memnoryStatus.Used;
-            //if (memUesd > 30)
-            //{
-            //    common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
-            //}
+            
 
         
         #region Xem lai
