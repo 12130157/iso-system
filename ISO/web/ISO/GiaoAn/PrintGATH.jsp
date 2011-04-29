@@ -17,9 +17,9 @@
        	watermarkOpacity="50"
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
-<!-- <pd4ml:footer 
+ <pd4ml:footer 
 	   fontFace="Times New Roman"
-       titleTemplate="     BM03b–QT7.1/2           		                                                           Ngày hiệu lực: 15/9/2009"
+       titleTemplate=""
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -31,7 +31,7 @@
        watermarkOpacity="50"
 	   watermarkBounds="0,820,600,20"	      
        fontSize="12">       
- </pd4ml:footer> -->
+ </pd4ml:footer> 
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
