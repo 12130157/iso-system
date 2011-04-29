@@ -21,21 +21,6 @@
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
-<pd4ml:footer 
-	   fontFace="Times New Roman"
-       titleTemplate="     BM03b–QT7.1/2           		                                          Ngày hiệu lực: 15/9/2009"
-       pageNumberTemplate="Trang $[page]/$[total]"
-       titleAlignment="left"
-       pageNumberAlignment="right"       
-       color="#000000"             
-       initialPageNumber="1"       
-       pagesToSkip="0"
-       areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
-       watermarkOpacity="50"
-	   watermarkBounds="0,580,500,20"	      
-       fontSize="14">       
- </pd4ml:footer>
 
  
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -238,7 +223,11 @@
 			<td align="center">Giáo viên biên soạn</td>
 		</tr>
 		<tr style="background-color: transparent;">
-			<td align="center"><br/><br/><br/><br/><br/>${KHGD.tenNguoiDuyet}</td>
+			<td align="center"><br/><br/><br/><br/><br/>
+			<c:if test="${ not empty param.maKHGD and (KHGD.tinhTrangHT eq APPROVE or KHGD.tinhTrangHT eq REJECT) }">
+				${KHGD.tenNguoiDuyet}
+			</c:if>
+			</td>
 			<td align="center"><br/><br/><br/><br/><br/>${KHGD.tenTruongKhoa}</td>
 			<td align="center"><br/><br/><br/><br/><br/>${KHGD.tenNguoiTao}</td>
 		</tr>
