@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 
-
+ 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -401,14 +401,16 @@
 		<tr style="background-color: transparent;">
 			
 			<td>
+				Ngày dạy từ
 			</td>
 			<td style='text-align:left'> 
-				<input type='hidden' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
+				<input type='text' id="txtNgayDayBD" size = 8 name="txtNgayDayBD"  value='${param.date1 }' ></input>
 			</td>
 			<td>
+				Đến ngày 
 			</td>
 			<td style='text-align:left' colspan='5'>
-				<input type='hidden'' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
+				<input type='text' id='txtNgayDayKT' size = 8 value='${param.date2 }'  name='txtNgayDayKT'></input>
 			</td>
 			
 			
@@ -439,9 +441,11 @@
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Môn học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Lớp học</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Giáo viên</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày dạy</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày gởi</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Người duyệt</th>
 			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Ngày duyệt</th>
+			<th style='font-weight:bold;color:white' bgcolor= '#186fb2'>Tình trạng</th>
 		</tr>
 		<c:if test="${ not empty param.view}">
 		<c:set var='color' value=''></c:set>
@@ -464,7 +468,7 @@
 				</c:if>
 				
 			
-				<tr style="background-color: transparent;">
+				<tr style="background-color: transparent;${color}">
 					<td>${objKQTim.soGiaoAn} </td>
 					<td>
 							<c:if test="${ empty objKQTim.maKHGD}">
@@ -477,10 +481,60 @@
 					</td>
 					<td>${objKQTim.tenLopHoc}</td>
 					<td>${objKQTim.tenGiaoVien}</td>
+					<td>${objKQTim.ngayDay}</td>
 					<td>${objKQTim.ngayGui}</td>
 					<td>${objKQTim.tenNguoiDuyet}</td>
-					<td>${objKQTim.ngayDuyet}
-						<c:if test="${ empty objKQTim.tinhTrang or (sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW) }">
+					<td>${objKQTim.ngayDuyet}</td>
+					<td>
+					
+					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>Đã gửi</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+							Đã gửi
+						</c:if>
+					</c:if>
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_SEND}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroHT}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>TK Approve</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroHT}">
+							TK Approve
+						</c:if>
+					</c:if>
+					
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_REJECT}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>HT Reject</a>
+						</c:if>
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+							HT Reject
+						</c:if>
+					</c:if>
+					
+					
+					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_APPROVE}">
+							HT Approve		
+					</c:if>
+					<c:if test="${objKQTim.tinhTrang eq TT_REJECT}">
+							TK REJECT
+					</c:if>
+					<c:if test="${objKQTim.tinhTrang eq TT_NEW}">
+							Mới
+							<c:if test="${color ne ''}">
+								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_KHGD %>&maID=${objKQTim.maKHGD}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
+							</c:if>
+					</c:if>
+					<c:if test="${empty objKQTim.tinhTrang }">
+							Chưa làm
+							<c:if test="${color ne ''}">
+								<a href='<%=Constant.PATH_RES.getString("iso.PhieuKPPN") %>?loaiCT=<%=Constant.MACHUONGTRINH_KHGD %>&maID=${objKQTim.maKHGD}&maPhieu=${objKQTim.maPhieuKPPN}'>(Khắc phục)</a>
+							</c:if>
+					</c:if>
+					
+					
+					<c:if test="${ empty objKQTim.tinhTrang or (sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW) }">
 							<input type="hidden" value="${objKQTim.maGiaoVien}" name="txtMaGiaoVien_<%=countEmail %>" id="txtMaGiaoVien_<%=countEmail %>"></input>
 							<input type="hidden" value="${objKQTim.tenGiaoVien}" name="txtTenGiaoVien_<%=countEmail %>" id="txtTenGiaoVien_<%=countEmail %>"></input>
 							<input type="hidden" value="${objKQTim.tenLopHoc}" name="txtTenLopHoc_<%=countEmail %>" id="txtTenLopHoc_<%=countEmail %>"></input>
@@ -488,11 +542,8 @@
 							<input type="hidden" value="${objKQTim.tenMonHoc}" name="txtTenMonHoc_<%=countEmail %>" id="txtTenMonHoc_<%=countEmail %>"></input>
 							<% countEmail++; %>
 						</c:if>
-			
 					
 					</td>
-					
-					
 				</tr>
 			</c:forEach>
 			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
