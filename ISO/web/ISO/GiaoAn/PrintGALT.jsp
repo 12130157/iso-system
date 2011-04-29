@@ -111,14 +111,14 @@
 				<td colspan = "2">
 					<div class = "div_textleft">MỤC TIÊU CỦA BÀI : 
 					</div>
-					<div style="padding-left:20px">${sf:appendBrTag3(giaoAnLyThuyet.mucTieu)} </div>
+					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.mucTieu))} </div>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">
 					<div class = "div_textleft">ĐỒ DÙNG VÀO PHƯƠNG TIỆN DẠY HỌC : 
 					</div>
-					<div style="padding-left:20px">${sf:appendBrTag3(giaoAnLyThuyet.doDungPTDH)}</div>
+					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.doDungPTDH))}</div>
 					
 				</td>
 			</tr>
@@ -133,7 +133,7 @@
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">		
-					<div style="padding-left:20px">${sf:appendBrTag3(giaoAnLyThuyet.onDinhLH)}
+					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.onDinhLH))}
 					</div>
 				</td>
 			</tr>
@@ -162,13 +162,13 @@
 				<tr style="background-color: transparent;">
 				<td align="center">1</td>
 				<td>Dẫn nhập: <br />
-					${sf:appendBrTag3(giaoAnLyThuyet.danNhap)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.danNhap))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDDanNhapGV)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapGV))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDDanNhapHS)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapHS))}
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianDanNhap}
@@ -177,13 +177,13 @@
 			<tr style="background-color: transparent;">
 				<td align="center">2</td>
 				<td>Giảng bài mới: <br />
-					${sf:appendBrTag3(giaoAnLyThuyet.noiDungBaiGiang)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.noiDungBaiGiang))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDGiangBaiMoiGV)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDGiangBaiMoiGV))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDGiangBaiMoiHS)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDGiangBaiMoiHS))}
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianBaiGiang}
@@ -192,13 +192,13 @@
 			<tr style="background-color: transparent;">
 				<td align="center">3</td>
 				<td>Củng cố và kết thúc bài: <br />
-					${sf:appendBrTag3(giaoAnLyThuyet.cungCoKienThuc)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.cungCoKienThuc))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDCungCoGV)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDCungCoGV))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDCungCoHS)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDCungCoHS))}
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianCungCo}
@@ -207,13 +207,13 @@
 			<tr style="background-color: transparent;">
 				<td align="center">4</td>
 				<td>Hướng dẫn tự học: <br />
-					${sf:appendBrTag3(giaoAnLyThuyet.huongDanTuHoc)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.huongDanTuHoc))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDHDTHGV)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTHGV))}
 				</td>
 				<td>
-					${sf:appendBrTag3(giaoAnLyThuyet.HDHDTHHS)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTHHS))}
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianHDTH}
@@ -222,7 +222,7 @@
 			<tr style="background-color: transparent;">
 				<td colspan = "2">Nguồn tài liệu tham khảo:  </td>
 				<td colspan = "3">
-					${sf:appendBrTag3(giaoAnLyThuyet.taiLieuThamKhao)}
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.taiLieuThamKhao))}
 				</td>
 			</tr>
 			</table>
