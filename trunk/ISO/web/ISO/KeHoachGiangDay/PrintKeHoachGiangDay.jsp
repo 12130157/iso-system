@@ -18,6 +18,7 @@
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Times New Roman" monospace="Courier New" />
 <pd4ml:header 
+		watermarkUrl="http://localhost:8080/HungVuongISO/images/footer.gif"   
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
@@ -31,7 +32,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       
