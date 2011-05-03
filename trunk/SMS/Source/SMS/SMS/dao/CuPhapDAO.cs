@@ -397,20 +397,17 @@ namespace SMS
         }
         
 
-        public static DataTable getDiemByIDHocVienNIDMonHoc(string idHocVien, string idMonHoc)
+        public static DataTable getDiemByMaSinhVien(string maSinhVien)
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[2];
+                SqlParameter[] parameter = new SqlParameter[1];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("idSinhVien", SqlDbType.Int);
-                parameter[i++].Value = idHocVien;
+                parameter[0] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[0].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("idMonHoc", SqlDbType.Int);
-                parameter[i++].Value = idMonHoc;
-
-                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiem", parameter);
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemTatCaMonHocTrongHocKiHienTaiByMaSinhVien", parameter);
                 return tbl;
             }
             catch (Exception)
@@ -419,20 +416,108 @@ namespace SMS
             }
         }
 
-        public static DataTable getTKBByIDHocVienNIDMonHoc(string idHocVien, string idMonHoc)
+        public static DataTable getDiemByMaSinhVienNTenMonHoc(string maSinhVien, string tenMonHoc)
         {
             try
             {
                 SqlParameter[] parameter = new SqlParameter[2];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("idSinhVien", SqlDbType.Int);
-                parameter[i++].Value = idHocVien;
+                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("idMonHoc", SqlDbType.Int);
-                parameter[i++].Value = idMonHoc;
+                parameter[i] = new SqlParameter("IDMonHoc", SqlDbType.Int);
+                parameter[i++].Value = tenMonHoc;
 
-                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getTKB", parameter);
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getDiemByMaSinhVienNNamHoc(string maSinhVien, string namHoc)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("NamHoc", SqlDbType.VarChar);
+                parameter[i++].Value = namHoc;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNNamHoc", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getDiemByMaSinhVienNHocKi(string maSinhVien, string hocKi)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("HocKi", SqlDbType.VarChar);
+                parameter[i++].Value = hocKi;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNNamHoc", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getTKBByMaSinhVienNNamHoc(string maSinhVien, string namHoc)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("NamHoc", SqlDbType.VarChar);
+                parameter[i++].Value = namHoc;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getTKBByMaSinhVienNNamHoc", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getTKBByMaSinhVienNHocKi(string maSinhVien, string hocKi)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[2];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("HocKi", SqlDbType.VarChar);
+                parameter[i++].Value = hocKi;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getTKBByMaSinhVienNHocKi", parameter);
                 return tbl;
             }
             catch (Exception)
