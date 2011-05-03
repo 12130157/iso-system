@@ -785,28 +785,73 @@ namespace SMS
 
         #endregion      
 
-        //private string getStringDiemByIDNMonHoc(string idSinhVien, string idMonHoc)
-        //{
-        //    string result = "";
-        //    DataTable tbl = CuPhapDAO.getDiemByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
-        //    foreach (DataRow row in tbl.Rows)
-        //    {
-        //        result += row["Ten Mon Hoc"] + " / " + row["Ten vs Hinh Thuc KT"] + " / " + row["Diem"] + "\n";
-        //    }
-        //    return result;
-        //}
+        private string getStringDiemByMaSinhVien(string maSinhVien)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+            }
+            return result;
+        }
 
-        //private string getStringTKBByIDNMonHoc(string idSinhVien, string idMonHoc)
-        //{
-        //    string result = "";
-        //    DataTable tbl = CuPhapDAO.getTKBByIDHocVienNIDMonHoc(idSinhVien, idMonHoc);
+        private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, int tenMonHoc)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien,tenMonHoc);
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+            }
+            return result;            
+        }
 
-        //    foreach (DataRow row in tbl.Rows)
-        //    {
-        //        result += row["Ngay hoc"] + " " + row["Buoi"] + " " + row["Ten Phong"] + "\n";
-        //    }
-        //    return result;
-        //}
+        private string getStringDiemByMaSinhVienNNamHoc(string maSinhVien, string namHoc)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, namHoc);
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+            }
+            return result;
+        }
+
+        private string getStringDiemByMaSinhVienNHocKi(string maSinhVien, string hocKi)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, hocKi);
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+            }
+            return result;
+        }
+
+        private string getStringTKBByMaSinhVienNNamHoc(string maSinhVien, string namHoc)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNNamHoc(maSinhVien, namHoc);
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"]+ "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+            }
+            return result;
+        }
+
+        private string getStringTKBByMaSinhVienNHocKi(string maSinhVien, string hocKi)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNHocKi(maSinhVien, hocKi);
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+            }
+            return result;
+        }
 
         #region Events
 
