@@ -106,58 +106,6 @@ namespace SMS
 
         #endregion 
 
-        #region lấy kết quả tin nhắn
-
-        private string getDiemByMaSV(string maSinhVien)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNMonHoc(string maSinhVien, string monHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNNamHoc(string maSinhVien, string namHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDiemByMaSVNHocKi(string maSinhVien, string hocKi)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getTKBByMaSVNNamHoc(string maSinhVien, string namHoc)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getTKBByMaSVNHocKi(string maSinhVien, string hocKi)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDDByMaSVNddmmyyy(string maSinhVien, string ddmmyyyy)
-        {
-            string result = "";
-            return result;
-        }
-
-        private string getDDByMaSVNmmyyyy(string maSinhVien, string mmyyyy)
-        {
-            string result = "";
-            return result;
-        }
-
-        #endregion    
-
         private void deleteMess()
         {
             try
@@ -359,49 +307,49 @@ namespace SMS
                     if (modelDenFn.Ma_Cu_Phap.Equals("0"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
-                        modelDenFn.User31 = getDiemByMaSV(arrContentMessFn[2]);
+                        modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getDiemByMaSVNMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNTenMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("2"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getDiemByMaSVNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("3"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getDiemByMaSVNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("4"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getTKBByMaSVNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("5"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getTKBByMaSVNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("6"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getDDByMaSVNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getDDByMaSVNmmyyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else
                     {
@@ -480,15 +428,64 @@ namespace SMS
 
                 foreach (HopThuDiMODEL model in listModelDi)
                 {
-                    try
+                    int startIndex = 0;
+                    int lenghtFinal = 0;
+                    int j = model.Noi_Dung_Tin_Nhan.Length / 160;
+
+                    if (j >= 1)
                     {
-                        sendOneMessage(model.Noi_Dung_Tin_Nhan, model.So_Dien_Thoai);
-                        model.Tinh_Trang = "1";
+                        while (true)
+                        {
+                            if (startIndex > model.Noi_Dung_Tin_Nhan.Length)
+                            {
+                                break;
+                            }
+
+                            if (startIndex + 160 > model.Noi_Dung_Tin_Nhan.Length)
+                            {
+                                // lay ra chieu dai chuoi cuoi cung
+                                lenghtFinal = model.Noi_Dung_Tin_Nhan.Length - startIndex;
+                                string subString = model.Noi_Dung_Tin_Nhan.Substring(startIndex, lenghtFinal);
+                                try
+                                {
+                                    sendOneMessage(subString, model.So_Dien_Thoai);
+                                    model.Tinh_Trang = "1";
+                                }
+                                catch (Exception)
+                                {
+                                    model.Tinh_Trang = "0";
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                string subString = model.Noi_Dung_Tin_Nhan.Substring(startIndex, 160);
+                                try
+                                {
+                                    sendOneMessage(subString, model.So_Dien_Thoai);
+                                    model.Tinh_Trang = "1";
+                                }
+                                catch (Exception e)
+                                {
+                                    model.Tinh_Trang = "0";
+                                    break;
+                                }
+                            }
+                            startIndex += 160;
+                        }
                     }
-                    catch (Exception e)
+                    else
                     {
-                        MessageBox.Show(e.Message + "----------------sendMess");
-                        model.Tinh_Trang = "0";
+                        try
+                        {
+                            sendOneMessage(model.Noi_Dung_Tin_Nhan, model.So_Dien_Thoai);
+                            model.Tinh_Trang = "1";
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "----------------sendMess");
+                            model.Tinh_Trang = "0";
+                        }
                     }
 
                     bool resultDi = HopThuDiDAO.insertHopThuDi(model);
@@ -641,30 +638,7 @@ namespace SMS
                 //            int lenghtFinal = 0;
                 //            int i = result.Length / 150;
 
-                //            if (i >= 1)
-                //            {
-                //                while (true)
-                //                {
-                //                    if (startIndex > result.Length)
-                //                    {
-                //                        break;
-                //                    }
-
-                //                    if (startIndex + 150 > result.Length)
-                //                    {
-                //                        // lay ra chieu dai chuoi cuoi cung
-                //                        lenghtFinal = result.Length - startIndex;
-                //                        string subString = result.Substring(startIndex, lenghtFinal);
-                //                        sendOneMessage(subString, phoneNbMessDen);
-                //                    }
-                //                    else
-                //                    {
-                //                        string subString = result.Substring(startIndex, 150);
-                //                        sendOneMessage(subString, phoneNbMessDen);
-                //                    }
-                //                    startIndex += 150;
-                //                }
-                //            }
+                //            
                 //            else
                 //            {
                 //                try
@@ -796,7 +770,7 @@ namespace SMS
             return result;
         }
 
-        private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, int tenMonHoc)
+        private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, string tenMonHoc)
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien,tenMonHoc);
@@ -850,6 +824,18 @@ namespace SMS
             {
                 result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
             }
+            return result;
+        }
+
+        private string getStringDDByMaSinhVienNddmmyyy(string maSinhVien, string ddmmyyyy)
+        {
+            string result = "";
+            return result;
+        }
+
+        private string getStringDDByMaSinhVienNmmyyy(string maSinhVien, string mmyyyy)
+        {
+            string result = "";
             return result;
         }
 
