@@ -8,8 +8,8 @@ CREATE PROC sp_ISO_SMS_getTKBByMaSinhVienNNamHoc
 	@NamHoc			varchar(10)
 AS
 BEGIN
-	SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR),
-				J.Ki_Hieu_Phong,E.Ten_Mon_hoc,A.Hinh_Thuc_Day,G.Ho+' '+G.Ten_Lot+' '+G.Ten AS 'Giao Vien' 
+	SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay Hoc',
+				B.Hoc_Ki,J.Ki_Hieu_Phong,E.Ten_Mon_hoc,A.Hinh_Thuc_Day,G.Ho+' '+G.Ten_Lot+' '+G.Ten AS 'Giao Vien' 
 	FROM		ChiTietTKB	AS A 
 	INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
 	INNER JOIN	LopHoc				AS C	ON B.Ma_Lop = C.ID
