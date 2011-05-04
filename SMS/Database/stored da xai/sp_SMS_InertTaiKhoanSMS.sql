@@ -21,20 +21,29 @@ CREATE PROC sp_SMS_InertTaiKhoanSMS
 	@User2					varchar(100),
 	@User3					varchar(100), 
 	@User4					varchar(100),
-	@User5					varchar(100)	
+	@User5					varchar(100)
+--	@Result					int output	
 	
 AS 
 BEGIN
-	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
-	INSERT INTO TaiKhoanSMS 
-	VALUES (@So_dien_thoai,
-			@Ma_sinh_vien,
-			@Loai_tai_khoan,
-			@Ngay_dang_ky,
-			@Ngay_cap_nhat_cuoi,
-			@User1,
-			@User2,
-			@User3,
-			@User4,
-			@User5)
-END 
+	if not exists(select Ma_sinh_vien from TaiKhoanSMS where Ma_sinh_vien=@Ma_sinh_vien)
+		begin
+			SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
+			INSERT INTO TaiKhoanSMS 
+			VALUES (@So_dien_thoai,
+					@Ma_sinh_vien,
+					@Loai_tai_khoan,
+					@Ngay_dang_ky,
+					@Ngay_cap_nhat_cuoi,
+					@User1,
+					@User2,
+					@User3,
+					@User4,
+					@User5)
+		END 
+--else
+--	begin 
+--		set @Result=0
+--	end
+
+end
