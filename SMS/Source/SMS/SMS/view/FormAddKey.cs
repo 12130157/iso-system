@@ -18,8 +18,8 @@ namespace SMS.view
             InitializeComponent();
         }
 
-        #region
-
+        #region Khai bao bien
+        
         CuPhapMODEL cuPhapModel = new CuPhapMODEL();
         CuPhapDAO cuphapDao = new CuPhapDAO();
         FormManageKeyword fomKeyword = new FormManageKeyword();
@@ -99,25 +99,26 @@ namespace SMS.view
         }
 
             private void FormAddKey_Load(object sender, EventArgs e)
-        {
-            if (common.Constants.choose.Equals(1))
             {
-                lbl_TitleKeyword.Text = "New Keyword";
-                but_Add.Text = "Add";
-                common.Constants.choose = 0;
-                txtID.Enabled = false;
-                txt_Name.Focus();
+                if (common.Constants.choose.Equals(1))
+                {
+                    lbl_TitleKeyword.Text = "Thêm Mới Cú Pháp";
+                    but_Add.Text = "Thêm";
+                    common.Constants.choose = 0;
+                    txtID.Enabled = false;
+                    txt_Name.Enabled = true;
+                    txt_Name.Focus();
+                }
+                else if (common.Constants.choose.Equals(2))
+                {
+                    lbl_TitleKeyword.Text = "Cập Nhật Cú Pháp";
+                    but_Add.Text = "Cập Nhật";
+                    txtID.Enabled = false;
+                    loaddata();
+                    txt_Name.Enabled = true;
+                    common.Constants.choose = 0;
+                }
             }
-            else if (common.Constants.choose.Equals(2))
-            {
-                lbl_TitleKeyword.Text = "Edit Keyword";
-                but_Add.Text = "Apply";
-                txtID.Enabled = false;
-                loaddata();
-                txt_Name.Focus();
-                common.Constants.choose = 0;
-            }
-        }
 
             private void clear()
             {
@@ -138,23 +139,87 @@ namespace SMS.view
 
             }
 
+            private void enabled()
+            {
+                txtID.Enabled = false;
+                //txt_Name.Enabled = false;
+                txtKeyword1.Enabled = false;
+                txtKeyword2.Enabled = false;
+                txtKeyword3.Enabled = false;
+                txtKeyword4.Enabled = false;
+                txtKeyword5.Enabled = false;
+                txtKeyword6.Enabled = false;
+                txtKeyword7.Enabled = false;
+                txtKeyword8.Enabled = false;
+                txtKeyword9.Enabled = false;
+                txtKeyword10.Enabled = false;
+                txt_Note.Enabled = false;
+            }
+
             private void loaddata()
             {
-                cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.id));
-                txtID.Text = cuPhapModel.Id;
-                txt_Name.Text = cuPhapModel.Ten;
-                txtKeyword1.Text = cuPhapModel.Cum_Tu_1;
-                txtKeyword2.Text = cuPhapModel.Cum_Tu_2;
-                txtKeyword3.Text = cuPhapModel.Cum_Tu_3;
-                txtKeyword4.Text = cuPhapModel.Cum_Tu_4;
-                txtKeyword5.Text = cuPhapModel.Cum_Tu_5;
-                txtKeyword6.Text = cuPhapModel.Cum_Tu_6;
-                txtKeyword7.Text = cuPhapModel.Cum_Tu_7;
-                txtKeyword8.Text = cuPhapModel.Cum_Tu_8;
-                txtKeyword9.Text = cuPhapModel.Cum_Tu_9;
-                txtKeyword10.Text = cuPhapModel.Cum_Tu_10;
-                txt_Note.Text = cuPhapModel.Ghi_Chu;
-                common.Constants.id = "";
+                try
+                {
+                    cuPhapModel = cuphapDao.getCuPhapByID(Convert.ToInt32(common.Constants.id));
+                    txtID.Text = cuPhapModel.Id;
+                    txt_Name.Text = cuPhapModel.Ten;
+                    txtKeyword1.Text = cuPhapModel.Cum_Tu_1;
+                    txtKeyword2.Text = cuPhapModel.Cum_Tu_2;
+                    txtKeyword3.Text = cuPhapModel.Cum_Tu_3;
+                    txtKeyword4.Text = cuPhapModel.Cum_Tu_4;
+                    txtKeyword5.Text = cuPhapModel.Cum_Tu_5;
+                    txtKeyword6.Text = cuPhapModel.Cum_Tu_6;
+                    txtKeyword7.Text = cuPhapModel.Cum_Tu_7;
+                    txtKeyword8.Text = cuPhapModel.Cum_Tu_8;
+                    txtKeyword9.Text = cuPhapModel.Cum_Tu_9;
+                    txtKeyword10.Text = cuPhapModel.Cum_Tu_10;
+                    txt_Note.Text = cuPhapModel.Ghi_Chu;
+                    common.Constants.id = "";
+                    if (!txtKeyword1.Text.Equals(""))
+                    {
+                        txtKeyword1.Enabled = true;
+                        if (!txtKeyword2.Text.Equals(""))
+                        {
+                            txtKeyword2.Enabled = true;
+                            if (!txtKeyword3.Text.Equals(""))
+                            {
+                                txtKeyword3.Enabled = true;
+                                if (!txtKeyword4.Text.Equals(""))
+                                {
+                                    txtKeyword4.Enabled = true;
+                                    if (!txtKeyword5.Text.Equals(""))
+                                    {
+                                        txtKeyword5.Enabled = true;
+                                        if (!txtKeyword6.Text.Equals(""))
+                                        {
+                                            txtKeyword6.Enabled = true;
+                                            if (!txtKeyword7.Text.Equals(""))
+                                            {
+                                                txtKeyword7.Enabled = true;
+                                                if (!txtKeyword8.Text.Equals(""))
+                                                {
+                                                    txtKeyword9.Enabled = true;
+                                                    if (!txtKeyword10.Text.Equals(""))
+                                                    {
+                                                        txtKeyword10.Enabled = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!txt_Name.Text.Equals(""))
+                    {
+                        txt_Note.Enabled = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
             }
 
         #endregion
@@ -163,79 +228,211 @@ namespace SMS.view
 
             private void but_Close_Click(object sender, EventArgs e)
             {
-                this.Close();
-                fomKeyword.MdiParent = this.MdiParent;
-                fomKeyword.Show();
-                this.Close();
+                if (MessageBox.Show("Bạn có chắc là muốn thoát không? ","Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)== DialogResult.Yes)
+                {
+                    this.Close();
+                }
             }
 
             private void but_Add_Click(object sender, EventArgs e)
             {
-                if (but_Add.Text.Equals("Add"))
+                if (but_Add.Text.Equals("Thêm"))
                 {
-                    cuPhapModel.Ten = txt_Name.Text.ToString();
-                    cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                    cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                    cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                    cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                    cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                    cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                    cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                    cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                    cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                    cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                    cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                    CuPhapDAO cuphapDAO = new CuPhapDAO();
-                    Boolean result = cuphapDAO.insertCuPhap(cuPhapModel);
-                    if (result == true)
+                    try
                     {
-                        if (MessageBox.Show(this, "Do you want to continue to add new?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        { clear(); }
+                        cuPhapModel.Ten = txt_Name.Text.ToString();
+                        cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                        cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                        cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                        cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                        cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                        cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                        cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                        cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                        cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                        cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                        cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+                        CuPhapDAO cuphapDAO = new CuPhapDAO();
+                        Boolean result = cuphapDAO.insertCuPhap(cuPhapModel);
+                        if (result == true)
+                        {
+                            if (MessageBox.Show(this, "Bạn có muốn tiếp tục thêm mới không?  ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            { clear(); }
+                            else
+                            {
+                                //fomKeyword.MdiParent = this.MdiParent;
+                                //fomKeyword.Show();
+                                this.Visible=false;
+                            }
+                        }
                         else
                         {
-                            fomKeyword.MdiParent = this.MdiParent;
-                            fomKeyword.Show();
-                            this.Close();
+                            DialogResult mess = MessageBox.Show("Thêm mới thất bại");
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        DialogResult mess = MessageBox.Show("Insert failed");
+                        MessageBox.Show(Convert.ToString(ex));
                     }
                 }
 
-                else if (but_Add.Text.Equals("Apply"))
+                else if (but_Add.Text.Equals("Cập Nhật"))
                 {
-                    cuPhapModel.Id = txtID.Text.Trim();
-                    cuPhapModel.Ten = txt_Name.Text.ToString();
-                    cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                    cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                    cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                    cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                    cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                    cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                    cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                    cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                    cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                    cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                    cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                    Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
-                    if (result == true)
+                    try
                     {
-                        fomKeyword.MdiParent = this.MdiParent;
-                        fomKeyword.Show();
-                        this.Close();
+                        cuPhapModel.Id = txtID.Text.Trim();
+                        cuPhapModel.Ten = txt_Name.Text.ToString();
+                        cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                        cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                        cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                        cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                        cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                        cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                        cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                        cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                        cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                        cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                        cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+                        Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
+                        if (result == true)
+                        {
+                            //fomKeyword.MdiParent = this.MdiParent;
+                            //fomKeyword.Show();
+                            this.Visible=false;
+                        }
+                        else
+                        {
+                            DialogResult mess = MessageBox.Show("Cập nhật thất bại");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        DialogResult mess = MessageBox.Show("Update failed");
+                        MessageBox.Show(Convert.ToString(ex));
                     }
                 }
             }
 
         #endregion
 
+           #region xu kien
+            private void txtKeyword1_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword1.Text.Equals(""))
+                {
+                    txtKeyword2.Text = "";
+                    txtKeyword2.Enabled = false;
+                    txtKeyword2_TextChanged(sender, e);
+                }
+                else { txtKeyword2.Enabled = true; }
+            }
 
-       
+            private void txtKeyword2_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword2.Text.Equals(""))
+                {
+                    txtKeyword3.Text = "";
+                    txtKeyword3.Enabled = false;
+                    txtKeyword3_TextChanged(sender, e);
+                }
+                else { txtKeyword3.Enabled = true; }
+            }
+
+            private void txtKeyword3_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword3.Text.Equals(""))
+                {
+                    txtKeyword4.Text = "";
+                    txtKeyword4.Enabled = false;
+                    txtKeyword4_TextChanged(sender, e);
+                }
+                else { txtKeyword4.Enabled = true; }
+            }
+
+            private void txtKeyword4_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword4.Text.Equals(""))
+                {
+                    txtKeyword5.Text = "";
+                    txtKeyword5.Enabled = false;
+                    txtKeyword5_TextChanged(sender, e);
+                }
+                else { txtKeyword5.Enabled = true; }
+            }
+
+            private void txtKeyword5_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword5.Text.Equals(""))
+                {
+                    txtKeyword6.Text = "";
+                    txtKeyword6.Enabled = false;
+                    txtKeyword6_TextChanged(sender, e);
+                }
+                else { txtKeyword6.Enabled = true; }
+            }
+
+            private void txtKeyword6_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword6.Text.Equals(""))
+                {
+                    txtKeyword7.Text = "";
+                    txtKeyword7.Enabled = false;
+                    txtKeyword7_TextChanged(sender, e);
+                }
+                else { txtKeyword7.Enabled = true; }
+            }
+
+            private void txtKeyword7_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword7.Text.Equals(""))
+                {
+                    txtKeyword8.Text = "";
+                    txtKeyword8.Enabled = false;
+                    txtKeyword8_TextChanged(sender, e);
+                }
+                else { txtKeyword8.Enabled = true; }
+            }
+
+            private void txtKeyword8_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword8.Text.Equals(""))
+                {
+                    txtKeyword9.Text = "";
+                    txtKeyword9.Enabled = false;
+                    txtKeyword9_TextChanged(sender, e);
+                }
+                else
+                {
+                    txtKeyword9.Enabled = true;
+                }
+            }
+
+            private void txtKeyword9_TextChanged(object sender, EventArgs e)
+            {
+                if (txtKeyword9.Text.Equals(""))
+                {
+                    txtKeyword10.Text = "";
+                    txtKeyword10.Enabled = false;
+                }
+                else
+                {
+                    txtKeyword10.Enabled = true;
+                }
+            }
+
+            private void txt_Name_TextChanged(object sender, EventArgs e)
+            {
+                if (txt_Name.Text.Equals(""))
+                {
+                    clear();
+                    enabled();
+                }
+                else
+                {
+                    txtKeyword1.Enabled = true;
+                    txt_Note.Enabled = true;
+                }
+            }
+           #endregion
+
     }
 }

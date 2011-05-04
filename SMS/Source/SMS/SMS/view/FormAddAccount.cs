@@ -12,12 +12,14 @@ using SMS.model;
 using SMS.common;
 using System.Collections;
 using System.Reflection;
+using System.Threading;
+using System.Timers;
 
 namespace SMS.view
 {
     public partial class FormAddAccount : Form
     {
-
+       private int i;
         #region khia bao bien
 
             FormManageAccount formAccount = new FormManageAccount();
@@ -31,7 +33,12 @@ namespace SMS.view
         #endregion
 
         #region function
-
+            //FormManageAccount myForm;
+            //public FormAddAccount(ref FormManageAccount fr)
+            //{
+            //    InitializeComponent();
+            //    this.myForm = fr;
+            //}
             public FormAddAccount()
             {
                 InitializeComponent();
@@ -52,16 +59,13 @@ namespace SMS.view
                     txt_ServiceCharges.Text = loaiTaiKhoanSMSModel.Phi_Dich_Vu;
                     txt_Note.Text = loaiTaiKhoanSMSModel.Ghi_Chu;
 
-                //// tra ve gia tri ban dau cua bien
-                ////Constants.id = "";
-                //Constants.Ma_tai_khoan_SMS = "";
             }
 
             private void loadCombox()
             {
                 //load data combox
                 ArrayList arr = loaiTaiKhoanSMSDao.getAllLoaiTaiKhoanSMS();
-                
+                cbo_AccountType.Items.Add("[ Thêm mới ]");
                 foreach (LoaiTaiKhoanSmsMODEL loaiTKSMS in arr)
                 {
                     cbo_AccountType.Items.Add(new KeyValuePair(loaiTKSMS.Id, loaiTKSMS.Ten));
@@ -74,38 +78,38 @@ namespace SMS.view
            
             private void but_Close_Click(object sender, EventArgs e)
             {
-                formAccount.MdiParent = this.MdiParent;
-                formAccount.Show();
-                common.Constants.id = "";
-                this.Close();
+                if (MessageBox.Show(this, "Bạn có chắc là muốn thoát?  ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    common.Constants.id = "";
+                    this.Close();
+                }
             }
 
             private void but_Add_Click(object sender, EventArgs e)
             {
-                if (but_Add.Text.Equals("Add"))
+                if (but_Add.Text.Equals("Thêm Mới"))
                 {
 
                     taiKhoanSMSModel.So_Dien_Thoai = txt_NumberPhone.Text;
+                    taiKhoanSMSModel.User11 = txt_NumberPhone2.Text;
+                    taiKhoanSMSModel.User21 = txt_NumberPhone3.Text;
                     taiKhoanSMSModel.Ma_Sinh_Vien = txt_StudentID.Text;
                     taiKhoanSMSModel.Ngay_Dang_Ki = dtp_NgayDangKy.Text;
 
                     Boolean result1 = taiKhoanSMSDao.insertTaiKhoanSMS(taiKhoanSMSModel);
                     if (result1 == true)
                     {
-                        if (MessageBox.Show(this, "Do you want to continue?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            formAccount.MdiParent = this.MdiParent;
-                            formAccount.Show();
-                            this.Close();
-                        }
+                        //this.Hide();
+                        //formAccount.FormManageAccount_Load(sender,e);
+                        this.Visible = false;
                     }
                     else
                     {
-                        DialogResult mess = MessageBox.Show("Insert failed");
+                        DialogResult mess = MessageBox.Show("Thêm mới tài khoản thất bại!!!  ");
                     }
 
                 }
-                else if (but_Add.Text.Equals("Apply"))
+                else if (but_Add.Text.Equals("Cập Nhật"))
                 {
                     //update taikhoanSMS
                     taiKhoanSMSModel.So_Dien_Thoai = txt_NumberPhone.Text;
@@ -116,14 +120,14 @@ namespace SMS.view
 
                     if (result1 == true)
                     {
-                        formAccount.MdiParent = this.MdiParent;
-                        formAccount.Show();
+                        //this.Hide();
+                        //formAccount.FormManageAccount_Load(sender, e);
                         but_Add.Text = "Add";
-                        this.Close();
+                        this.Visible = false;
                     }
                     else
                     {
-                        DialogResult mess = MessageBox.Show("Update failed");
+                        DialogResult mess = MessageBox.Show("Cập nhật thất bại!!!  ");
                     }
                 }
             }
@@ -133,38 +137,151 @@ namespace SMS.view
         #region Xu kien Double Click
 
             private void cbo_AccountType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            KeyValuePair objKeyValuePair = (KeyValuePair)cbo_AccountType.SelectedItem;
-            int id = Convert.ToInt32(objKeyValuePair.m_objKey.ToString());
-            taiKhoanSMSModel.Loai_Tai_Khoan = objKeyValuePair.m_objKey.ToString();
-            loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(id);
-            txt_ServiceCharges.Text = loaiTaiKhoanSMSModel.Phi_Dich_Vu;
-        }
+            {
+                if (cbo_AccountType.Text.Equals("[ Thêm mới ]"))
+                {
+                    FormAddTypeSMS fr = new FormAddTypeSMS();
+                    fr.MdiParent = this.MdiParent;
+                    fr.Show();
+                }
+                else
+                {
+                    KeyValuePair objKeyValuePair = (KeyValuePair)cbo_AccountType.SelectedItem;
+                    int id = Convert.ToInt32(objKeyValuePair.m_objKey.ToString());
+                    taiKhoanSMSModel.Loai_Tai_Khoan = objKeyValuePair.m_objKey.ToString();
+                    loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(id);
+                    txt_ServiceCharges.Text = loaiTaiKhoanSMSModel.Phi_Dich_Vu;
+                }
+                dtp_NgayDangKy.Enabled = true;
+            }
 
             private void FormAddAccount_Load(object sender, EventArgs e)
             {
                 loadCombox();
                 if (common.Constants.choose.Equals(1))
                 {
-                    lbl_TitleAccount.Text = "New Account";
-                    but_Add.Text = "Add";
+                    lbl_TitleAccount.Text = "Thêm Mới Tài Khoản SMS";
+                    but_Add.Text = "Thêm Mới";
                     common.Constants.chooseUpdate = 0;
                     common.Constants.choose = 0;
                 }
                 else if (common.Constants.choose.Equals(2))
                 {
-                    lbl_TitleAccount.Text = "Edit Account";
-                    but_Add.Text = "Apply";
+                    lbl_TitleAccount.Text = "Cập Nhật Tài Khoản SMS";
+                    but_Add.Text = "Cập Nhật";
                     loaddata();
                     common.Constants.choose = 0;
                     common.Constants.id = "";
                 }
-
+                timer_giay.Start();
             }
 
         #endregion
 
+            private void timer_giay_Tick(object sender, EventArgs e)
+            {
+                pic_choose.Image = imageList1.Images[i];
+                i++;
+                if (i == 20)
+                {
+                    i = 0;
+                }
+            }
+            
+            private void txt_NumberPhone_Leave(object sender, EventArgs e)
+            {
+                if (!txt_NumberPhone.Text.Equals(""))
+                {
+                    txt_NumberPhone2.Enabled = true;
+                }
+                //else
+                //{
+                //    txt_NumberPhone.Focus();
+                //}
+            }
 
+            private void txt_StudentID_Leave(object sender, EventArgs e)
+            {
+                if (!txt_NumberPhone.Text.Equals(""))
+                {
+                    txt_NumberPhone.Focus();
+                }
+                //else
+                //{
+                //    txt_NumberPhone2.Focus();
+                //}
+            }
+
+            private void txt_NumberPhone_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            private void txt_StudentID_TextChanged(object sender, EventArgs e)
+            {
+                if (txt_StudentID.Text.Equals(""))
+                {
+                    txt_NumberPhone.Text = "";
+                    txt_Note.Text = "";
+
+                    txt_NumberPhone.Enabled = false;
+                    txt_Note.Enabled = false;
+                    txt_NumberPhone_TextChanged(sender, e);
+                }
+                else
+                {
+                    txt_NumberPhone.Enabled = true;
+                    txt_Note.Enabled = true;
+                }
+            }
+
+            private void txt_NumberPhone_TextChanged(object sender, EventArgs e)
+            {
+                if (txt_NumberPhone.Text.Equals(""))
+                {
+                    txt_NumberPhone2.Text = "";
+                    cbo_AccountType.SelectedIndex = 1;
+
+                    txt_NumberPhone2.Enabled = false;
+                    cbo_AccountType.Enabled = false;
+                    txt_NumberPhone2_TextChanged(sender, e);
+                }
+                else
+                {
+                    txt_NumberPhone2.Enabled = true;
+                    cbo_AccountType.Enabled = true;
+                }
+            }
+
+            private void txt_NumberPhone2_TextChanged(object sender, EventArgs e)
+            {
+                if (txt_NumberPhone2.Text.EndsWith(""))
+                {
+                    txt_NumberPhone3.Text = "";
+                    txt_NumberPhone3.Enabled = false;
+                }
+                else
+                { txt_NumberPhone3.Enabled = true; }
+            }
+
+            private void txt_NumberPhone2_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            private void txt_NumberPhone3_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
     }
 }
 

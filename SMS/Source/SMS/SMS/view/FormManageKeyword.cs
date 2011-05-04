@@ -28,11 +28,20 @@ namespace SMS
 
         public void loadGrid()
         {
-            dlv_ManageKeyword.DataSource = CuPhapDAO.getAllDRVCuPhap();
+            try
+            {
+                dlv_ManageKeyword.DataSource = CuPhapDAO.getAllDRVCuPhap();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
         public void LoadCbo()
         {
             ArrayList arry = cuphapdao.getAllTenKeywordCuPhap();
+            cbo_Name.Items.Clear();
             cbo_Name.Items.Add("");
             //cbo_Keyword.Items.Add("");
             foreach (CuPhapMODEL cuphap in arry)
@@ -40,7 +49,6 @@ namespace SMS
                 cbo_Name.Items.Add(cuphap.Ten).ToString();
                 //cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
             }
-            
         }
 
         #endregion
@@ -49,41 +57,44 @@ namespace SMS
 
         private void but_Close_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Ban có chắc là muốn thoát không! ","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         // pour data into DataGridView
         private void FormManageKeyword_Load(object sender, EventArgs e)
         {
             loadGrid();
-            lblYouChoose.Text = "Enter choose row: ";
+            lblYouChoose.Text = "Bạn chưa chọn dòng: ";
         }
 
         private void cbo_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbo_Keyword.Items.Clear();
-            cbo_Keyword.Text = "";
-            ArrayList arry = cuphapdao.getAllKeyword1CuPhap(cbo_Name.Text.ToString());
-            cbo_Keyword.Items.Add("");
-            foreach (CuPhapMODEL cuphap in arry)
-            {
-                cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
-            }
-            dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(),cbo_Keyword.Text.ToString());
+                cbo_Keyword.Items.Clear();
+                cbo_Keyword.Text = "";
+                ArrayList arry = cuphapdao.getAllKeyword1CuPhap(cbo_Name.Text.ToString());
+                cbo_Keyword.Items.Add("");
+                foreach (CuPhapMODEL cuphap in arry)
+                {
+                    cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
+                }
+                dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
 
+            
+          
         }
 
         //click event in DataGridView
         
-          
         //event add
+
         private void but_Add_Click(object sender, EventArgs e)
         {
             common.Constants.choose = 1;
-            this.Visible = false;
             view.FormAddKey fr = new view.FormAddKey();
             fr.MdiParent=this.MdiParent;
-            fr.Focus();
             fr.Show();
         }
 
@@ -91,44 +102,55 @@ namespace SMS
         {
             if (lblYouChoose.Text.Equals(""))
             {
-                MessageBox.Show("You may choose to edit the line. Plesae choose again ");
+                MessageBox.Show("Bạn chưa chọn dòng để chỉnh sửa. Vui lòng chọn lại: ");
             }
             else
             {
                 common.Constants.choose = 2;
                 view.FormAddKey fr = new view.FormAddKey();
                 fr.MdiParent = this.MdiParent;
-                this.Visible = false;
+                but_Edit.Enabled = false;
+                but_Delete.Enabled = false;
                 fr.Show();
             }
         }
 
         private void but_Delete_Click(object sender, EventArgs e)
         {
-            if (lblYouChoose.Text.Equals(""))
+            try
             {
-                MessageBox.Show("You may choose to delete the line. Plesae choose again ");
-            }
-            else
-            {
-                if (MessageBox.Show(this, "Do you want deleted?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (lblYouChoose.Text.Equals(""))
                 {
-                    Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.id));
-                    if (result.Equals(true))
-                    {
-                        loadGrid();
-                        common.Constants.id = "";
-                        lblYouChoose.Text = "Choose Row: ";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Deleting failed!!! ");
-                    }
+                    MessageBox.Show("YBạn chưa chọn dòng để Xóa. Vui lòng chọn lại: ");
                 }
                 else
                 {
-                    loadGrid();
+                    if (MessageBox.Show(this, "Bạn có chắc là muốn xóa không?  ", " Thông báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.id));
+                        if (result.Equals(true))
+                        {
+
+                            loadGrid();
+                            common.Constants.id = "";
+                            lblYouChoose.Text = "Chọn Dòng: ";
+                            but_Edit.Enabled = false;
+                            but_Delete.Enabled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể Xóa ");
+                        }
+                    }
+                    else
+                    {
+                        loadGrid();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Convert.ToString(ex));
             }
             but_Edit.Enabled = false;
             but_Delete.Enabled = false;
@@ -144,11 +166,16 @@ namespace SMS
 
         private void dlv_ManageKeyword_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["ID"].Value.ToString();
-            lblYouChoose.Text = "You Choose, ID: " + common.Constants.id;
+            common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["Ma cu phap"].Value.ToString();
+            lblYouChoose.Text = "Bạn chọn dòng có Ma CP là: " + common.Constants.id ;
             but_Delete.Enabled = true;
             but_Edit.Enabled = true;
 
+        }
+
+        private void FormManageKeyword_Activated(object sender, EventArgs e)
+        {
+            FormManageKeyword_Load(sender, e);
         }
       
     }

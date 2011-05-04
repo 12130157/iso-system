@@ -48,8 +48,9 @@ namespace SMS
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 66);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 106);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(87, 115);
             this.pictureBox1.TabIndex = 16;
@@ -67,7 +68,7 @@ namespace SMS
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-            this.groupBox1.Location = new System.Drawing.Point(119, 54);
+            this.groupBox1.Location = new System.Drawing.Point(145, 94);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(305, 135);
             this.groupBox1.TabIndex = 17;
@@ -83,7 +84,7 @@ namespace SMS
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(106, 28);
             this.btnThoat.TabIndex = 3;
-            this.btnThoat.Text = "Exit";
+            this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
@@ -97,7 +98,7 @@ namespace SMS
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(106, 28);
             this.btnDangNhap.TabIndex = 2;
-            this.btnDangNhap.Text = "Login";
+            this.btnDangNhap.Text = "Đăng Nhập";
             this.btnDangNhap.UseVisualStyleBackColor = true;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
             // 
@@ -128,9 +129,9 @@ namespace SMS
             this.label2.ForeColor = System.Drawing.Color.Navy;
             this.label2.Location = new System.Drawing.Point(10, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 17);
+            this.label2.Size = new System.Drawing.Size(76, 17);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Password";
+            this.label2.Text = "Mật khẩu:";
             // 
             // label1
             // 
@@ -140,36 +141,38 @@ namespace SMS
             this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Location = new System.Drawing.Point(10, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 17);
+            this.label1.Size = new System.Drawing.Size(109, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Admin ID :";
+            this.label1.Text = "Tên đăng nhập:";
             // 
             // lbTieuDe
             // 
             this.lbTieuDe.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbTieuDe.AutoSize = true;
+            this.lbTieuDe.BackColor = System.Drawing.Color.Transparent;
             this.lbTieuDe.Font = new System.Drawing.Font("Times New Roman", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTieuDe.ForeColor = System.Drawing.Color.Maroon;
-            this.lbTieuDe.Location = new System.Drawing.Point(126, 9);
+            this.lbTieuDe.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lbTieuDe.Location = new System.Drawing.Point(74, 49);
             this.lbTieuDe.Name = "lbTieuDe";
-            this.lbTieuDe.Size = new System.Drawing.Size(218, 40);
+            this.lbTieuDe.Size = new System.Drawing.Size(345, 40);
             this.lbTieuDe.TabIndex = 0;
-            this.lbTieuDe.Text = "Login System";
+            this.lbTieuDe.Text = "Đăng Nhập Hệ Thống";
             // 
             // FormLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(446, 207);
+            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(499, 286);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbTieuDe);
             this.MaximizeBox = false;
             this.Name = "FormLogin";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin Login ";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using SMS.model;
 using SMS.dao;
 using System.Reflection;
+using SMS.view;
+using System.Resources;
+
 
 namespace SMS
 {
@@ -26,17 +29,21 @@ namespace SMS
                     InitializeComponent();
                 }
 
-                private void FormManageAccount_Load(object sender, EventArgs e)
+               public void FormManageAccount_Load(object sender, EventArgs e)
                 {
-                    dgv_manageAccount.DataSource = TaiKhoanSmsDAO.getAllDRVTaiKhoanSMS();
-                    lblYouChoose.Text = "Enter choose row: ";
+                    try
+                    {
+                        dgv_manageAccount.DataSource = TaiKhoanSmsDAO.getAllDRVTaiKhoanSMS();
+                        dgv_manageAccount.Refresh();
+                        lblYouChoose.Text = "Bạn chọn dòng: ";
+                    }
+                    catch (Exception)
+                    {
+                        
+                        throw;
+                    }
 
                 }
-
-                //private void dgv_manageAccount_CellContentClick(object sender, DataGridViewCellEventArgs e)
-                //{
-                   
-                //}
 
             #endregion
  
@@ -56,95 +63,168 @@ namespace SMS
                 common.Constants.choose = 1;
                 view.FormAddAccount fr = new view.FormAddAccount();
                 fr.MdiParent = this.MdiParent;
-                this.Visible = false;
                 fr.Show();
+                
+                //FormManageAccount fr1 = new FormManageAccount();
+                //FormAddAccount lg = new FormAddAccount(ref fr1);
+                //lg.MdiParent = this.MdiParent;
+                //lg.Show();
+
             }
 
             private void but_Details_Click(object sender, EventArgs e)
             {
-                if (common.Constants.id.Equals(""))
+                try
                 {
-                    MessageBox.Show("You may choose to detail the line. Plesae choose again: ");
+                    if (common.Constants.id.Equals(""))
+                    {
+                        MessageBox.Show("Bạn chưa chọn dòng để xem. Vui lòng chọn lại: ");
+                    }
+                    else
+                    {
+                        view.FormDetailAccount fr = new view.FormDetailAccount();
+                        fr.MdiParent = this.MdiParent;
+                        fr.Show();
+                        Enablebut();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    //common.Constants.chooce = 2;
-                    view.FormDetailAccount fr = new view.FormDetailAccount();
-                    fr.MdiParent = this.MdiParent;
-                    this.Visible = false;
-                    fr.Show();
+                    
+                    throw;
                 }
             }
 
             private void but_Edit_Click(object sender, EventArgs e)
             {
-                if (common.Constants.id.Equals(""))
+                try
                 {
-                    MessageBox.Show("You may choose to edit the line. Plesae choose again: ");
+                    if (common.Constants.id.Equals(""))
+                    {
+                        MessageBox.Show("Bạn chưa chọn dòng để cập nhật. Vui lòng chọn lại: ");
+                    }
+                    else
+                    {
+                        common.Constants.choose = 2;
+                        view.FormAddAccount fr = new view.FormAddAccount();
+                        fr.MdiParent = this.MdiParent;
+                        fr.Show();
+                        Enablebut();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    common.Constants.choose = 2;
-                    view.FormAddAccount fr = new view.FormAddAccount();
-                    fr.MdiParent = this.MdiParent;
-                    this.Visible = false;
-                    fr.Show();
+                    
+                    throw;
                 }
             }
 
             private void but_Delete_Click(object sender, EventArgs e)
             {
-                if (common.Constants.id.Equals(""))
+                try
                 {
-                    MessageBox.Show("You may choose to delete the line. Plesae choose again: ");
-                }
-                else
-                {
-                    if (MessageBox.Show(this, "Are you sure you want to Deleted?  ", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (common.Constants.id.Equals(""))
                     {
-                        bool result = ctTaiKhoanSMSDao.deleteAllchiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
-                        bool result1 = taikhoanSMSDao.deleteTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
-                        if (result == true && result1 == true)
+                        MessageBox.Show("Bạn chưa chọn dòng để xóa. Vui lòng chọn lại: ");
+                    }
+                    else
+                    {
+                        if (MessageBox.Show(this, "Bạn có chắc là muốn xóa?  ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            FormManageAccount_Load(sender, e);
+                            bool result = ctTaiKhoanSMSDao.deleteAllchiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
+                            bool result1 = taikhoanSMSDao.deleteTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
+                            if (result == true && result1 == true)
+                            {
+                                FormManageAccount_Load(sender, e);
 
-                            common.Constants.id = "";
-                        }
-                        else
-                        {
-                            MessageBox.Show("Deleting faile!!!  ");
-                            common.Constants.id = "";
+                                common.Constants.id = "";
+                            }
+                            else
+                            {
+                                MessageBox.Show("Không Thể Xóa  ");
+                                common.Constants.id = "";
+                            }
                         }
                     }
+                    
                 }
-                but_Delete.Enabled = false;
-                but_Details.Enabled = false;
-                but_Edit.Enabled = false;
-               
+                catch (Exception)
+                {
+                    
+                    throw;
+                }
+                Enablebut();
             }
 
         #endregion
 
-            private void but_Refresh_Click(object sender, EventArgs e)
-            {
-                string phone = "";
-                String id = "";
-                phone = txt_Numberphone.Text;
-                id = txt_StudentID.Text;
-              
-                dgv_manageAccount.DataSource = taikhoanSMSDao.getPhoneIDAllDRVTaiKhoanSMS(phone,id);
-                txt_StudentID.Text = "";
-                txt_Numberphone.Text = "";
-            }
 
             private void dgv_manageAccount_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
             {
-                common.Constants.id = dgv_manageAccount.CurrentRow.Cells["ID"].Value.ToString();
-                lblYouChoose.Text = "You Choose ID: " + common.Constants.id;
-                but_Delete.Enabled = true;
-                but_Details.Enabled = true;
-                but_Edit.Enabled = true;
+                try
+                {
+                    common.Constants.id = dgv_manageAccount.CurrentRow.Cells["Ma TK SMS"].Value.ToString();
+                    lblYouChoose.Text = "Bạn đang chọn dòng có Mã Tài Khoản là: " + common.Constants.id;
+                    but_Delete.Enabled = true;
+                    but_Details.Enabled = true;
+                    but_Edit.Enabled = true;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
                
+            }
+
+            private void Enablebut()
+            {
+                but_Delete.Enabled = false;
+                but_Details.Enabled = false;
+                but_Edit.Enabled = false;
+                lblYouChoose.Text = "Bạn chọn dòng: ";
+            }
+
+            private void FormManageAccount_Activated(object sender, EventArgs e)
+            {
+                FormManageAccount_Load(sender, e);
+            }
+
+            private void txt_Numberphone_TextChanged(object sender, EventArgs e)
+            {
+                try
+                {
+                    string phone = "";
+                    String id = "";
+                    phone = txt_Numberphone.Text;
+                    id = txt_StudentID.Text;
+
+                    dgv_manageAccount.DataSource = taikhoanSMSDao.getPhoneIDAllDRVTaiKhoanSMS(phone, id);
+                    //txt_StudentID.Text = "";
+                    //txt_Numberphone.Text = "";
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            private void txt_StudentID_TextChanged(object sender, EventArgs e)
+            {
+                try
+                {
+                    string phone = "";
+                    String id = "";
+                    phone = txt_Numberphone.Text;
+                    id = txt_StudentID.Text;
+
+                    dgv_manageAccount.DataSource = taikhoanSMSDao.getPhoneIDAllDRVTaiKhoanSMS(phone, id);
+                    //txt_StudentID.Text = "";
+                    //txt_Numberphone.Text = "";
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
     }

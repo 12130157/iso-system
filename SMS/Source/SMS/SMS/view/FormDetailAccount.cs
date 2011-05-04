@@ -33,20 +33,34 @@ namespace SMS.view
 
             private void FormDetailAccount_Load(object sender, EventArgs e)
             {
-                dgv_AccountDetail.DataSource = ctTaiKhoanSMSDao.getAllChiTietTaiKhoanSms(common.Constants.id);
-                lblYouChoose.Text = "Enter Choose row: ";
-                common.Constants.Ma_tai_khoan_SMS = "";
-                pnl_Add.Visible = false;
+                try
+                {
+                    dgv_AccountDetail.DataSource = ctTaiKhoanSMSDao.getAllChiTietTaiKhoanSms(common.Constants.id);
+                    lblYouChoose.Text = "Bạn chọn dòng: ";
+                    common.Constants.Ma_tai_khoan_SMS = "";
+                    pnl_Add.Visible = false;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
             private void dgv_AccountDetail_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
             {
-                common.Constants.idDetail = dgv_AccountDetail.CurrentRow.Cells["ID"].Value.ToString();
-                common.Constants.Ma_tai_khoan_SMS = dgv_AccountDetail.CurrentRow.Cells["Account ID"].Value.ToString();
+                try
+                {
+                    common.Constants.idDetail = dgv_AccountDetail.CurrentRow.Cells["Ma CTTK SMS"].Value.ToString();
+                    common.Constants.Ma_tai_khoan_SMS = dgv_AccountDetail.CurrentRow.Cells["Ma TK SMS"].Value.ToString();
 
-                lblYouChoose.Text = "You Choose, ID: " + common.Constants.idDetail;
-                but_Delete.Enabled = true;
-                but_Edit.Enabled = true;
+                    lblYouChoose.Text = "Bạn chọn Ma CTTK SMS: " + common.Constants.idDetail;
+                    but_Delete.Enabled = true;
+                    but_Edit.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
             }
 
         #endregion
@@ -55,50 +69,72 @@ namespace SMS.view
         
             private void but_Edit_Click(object sender, EventArgs e)
             {
-                pnl_Add.Visible = true;
-                ctTaiKhoanSMSModel = ctTaiKhoanSMSDao.getChiTietTaiKhoanSMSByID(Convert.ToInt32(common.Constants.idDetail));
-                txt_RegistrationMonth.Text = ctTaiKhoanSMSModel.Dang_Ki_Thang;
-                txt_Registrationyear.Text = ctTaiKhoanSMSModel.Dang_Ki_Nam;
-                common.Constants.idDetail = "";
-                common.Constants.chooseUpdate = 1;
-                lblYouChoose.Text = "Enter Choose row: ";
+                try
+                {
+                    pnl_Add.Visible = true;
+                    lb_tilte.Text = "Cập Nhật Thông Tin Tài Khoản";
+                    but_Ok.Text = "Cập Nhật";
+                    ctTaiKhoanSMSModel = ctTaiKhoanSMSDao.getChiTietTaiKhoanSMSByID(Convert.ToInt32(common.Constants.idDetail));
+                    txt_RegistrationMonth.Text = ctTaiKhoanSMSModel.Dang_Ki_Thang;
+                    txt_Registrationyear.Text = ctTaiKhoanSMSModel.Dang_Ki_Nam;
+                    common.Constants.idDetail = "";
+                    common.Constants.chooseUpdate = 1;
+                    lblYouChoose.Text = "Bạn chọn dòng: ";
+                    but_Delete.Enabled = false;
+                    but_Edit.Enabled = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
 
             }
 
             private void but_Close_Click(object sender, EventArgs e)
             {
-                FormManageAccount fr = new FormManageAccount();
-                fr.MdiParent = this.MdiParent;
-                fr.Show();
                 common.Constants.id = "";
                 this.Close();
             }
 
             private void but_Delete_Click(object sender, EventArgs e)
             {
-                if (common.Constants.idDetail.Equals(""))
+                try
                 {
-                    MessageBox.Show("You may choose to delete the line. Plesae choose again ");
-                }
-                else
-                {
-                    if (MessageBox.Show(this, "Do you want to Deleting?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (common.Constants.idDetail.Equals(""))
                     {
-                        Boolean result = ctTaiKhoanSMSDao.deletechiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.idDetail));
-                        if (result.Equals(true))
-                        {
-                            FormDetailAccount_Load(sender, e);
-                            common.Constants.idDetail = "";
-                        }
-                        else
-                        {
-                            MessageBox.Show("Deleting failed!!! ");
-                        }
+                        MessageBox.Show("Bạn chưa chọn dòng để xóa. Vui long chọn lại!!!   ");
                     }
                     else
                     {
-                        FormDetailAccount_Load(sender, e);
+                        if (MessageBox.Show(this, "bạn có chắc là muốn Xóa không?   ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                Boolean result = ctTaiKhoanSMSDao.deletechiTietTaiKhoanSMS(Convert.ToInt32(common.Constants.idDetail));
+                                if (result.Equals(true))
+                                {
+                                    FormDetailAccount_Load(sender, e);
+                                    common.Constants.idDetail = "";
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Không thể Xóa!!! ");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(Convert.ToString(ex));
+                            }
+                        }
+                        else
+                        {
+                            FormDetailAccount_Load(sender, e);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
                 }
                 but_Edit.Enabled = false;
                 but_Delete.Enabled = false;
@@ -108,7 +144,9 @@ namespace SMS.view
             {
                 common.Constants.choose = 1;
                 pnl_Add.Visible = true;
-                lblYouChoose.Text = "Enter Choose row:";
+                lb_tilte.Text = "Thêm Thông Tin Tài Khoản";
+                but_Ok.Text = "Thêm";
+                lblYouChoose.Text = "Bạn chọn dòng:";
                 txt_RegistrationMonth.Text = "";
                 txt_Registrationyear.Text = "";
             }
@@ -124,41 +162,55 @@ namespace SMS.view
             {
                 if (common.Constants.chooseUpdate == 1)
                 {
-                    ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
-                    ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
-                    ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                    bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
-                    if (result == true)
+                    try
                     {
+                        ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
+                        ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
+                        ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
+                        bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
+                        if (result == true)
+                        {
                             FormDetailAccount_Load(sender, e);
                             pnl_Add.Visible = false;
                             common.Constants.chooseUpdate = 0;
+                        }
+                        else
+                        { MessageBox.Show("Cập nhật thất bại!!!  "); }
                     }
-                    else
-                    { MessageBox.Show("Insert failed"); }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(Convert.ToString(ex));
+                    }
                 }
                 else
                 {
-                    ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
-                    ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
-                    ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                    bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
-                    if (result == true)
+                    try
                     {
-                        if (MessageBox.Show(this, "Are you sure you want to continue? ", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
+                        ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
+                        ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
+                        bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
+                        if (result == true)
                         {
-                            FormDetailAccount_Load(sender, e);
-                            txt_RegistrationMonth.Text = "";
-                            txt_Registrationyear.Text = "";
+                            if (MessageBox.Show(this, "Bạn có muốn tiếp tục không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                FormDetailAccount_Load(sender, e);
+                                txt_RegistrationMonth.Text = "";
+                                txt_Registrationyear.Text = "";
+                            }
+                            else
+                            {
+                                FormDetailAccount_Load(sender, e);
+                                pnl_Add.Visible = false;
+                            }
                         }
                         else
-                        {
-                            FormDetailAccount_Load(sender, e);
-                            pnl_Add.Visible = false;
-                        }
+                        { MessageBox.Show("Thêm mới thất bại!  ,Vui lòng kiểm tra lại  "); }
                     }
-                    else
-                    { MessageBox.Show("Insert failed"); }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(Convert.ToString(ex));
+                    }
                 }
                 but_Edit.Enabled = false;
                 but_Delete.Enabled = false;

@@ -32,7 +32,7 @@
             this.pnl_Add = new System.Windows.Forms.Panel();
             this.but_Close2 = new System.Windows.Forms.Button();
             this.but_Ok = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lb_tilte = new System.Windows.Forms.Label();
             this.txt_Registrationyear = new System.Windows.Forms.TextBox();
             this.txt_RegistrationMonth = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@
             this.grp_DetailAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_DetailAccount.BackColor = System.Drawing.Color.Transparent;
             this.grp_DetailAccount.Controls.Add(this.pnl_Add);
             this.grp_DetailAccount.Controls.Add(this.but_Add);
             this.grp_DetailAccount.Controls.Add(this.lblYouChoose);
@@ -73,27 +74,28 @@
             this.pnl_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnl_Add.BackColor = System.Drawing.SystemColors.Control;
             this.pnl_Add.Controls.Add(this.but_Close2);
             this.pnl_Add.Controls.Add(this.but_Ok);
-            this.pnl_Add.Controls.Add(this.label2);
+            this.pnl_Add.Controls.Add(this.lb_tilte);
             this.pnl_Add.Controls.Add(this.txt_Registrationyear);
             this.pnl_Add.Controls.Add(this.txt_RegistrationMonth);
             this.pnl_Add.Controls.Add(this.label6);
             this.pnl_Add.Controls.Add(this.label4);
-            this.pnl_Add.Location = new System.Drawing.Point(161, 28);
+            this.pnl_Add.Location = new System.Drawing.Point(133, 21);
             this.pnl_Add.Name = "pnl_Add";
-            this.pnl_Add.Size = new System.Drawing.Size(316, 186);
+            this.pnl_Add.Size = new System.Drawing.Size(344, 157);
             this.pnl_Add.TabIndex = 6;
             // 
             // but_Close2
             // 
             this.but_Close2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Close2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Close2.Location = new System.Drawing.Point(174, 122);
+            this.but_Close2.Location = new System.Drawing.Point(194, 114);
             this.but_Close2.Name = "but_Close2";
             this.but_Close2.Size = new System.Drawing.Size(97, 23);
             this.but_Close2.TabIndex = 181;
-            this.but_Close2.Text = "Close";
+            this.but_Close2.Text = "Thoát";
             this.but_Close2.UseVisualStyleBackColor = true;
             this.but_Close2.Click += new System.EventHandler(this.but_Close2_Click);
             // 
@@ -101,29 +103,29 @@
             // 
             this.but_Ok.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Ok.Location = new System.Drawing.Point(57, 122);
+            this.but_Ok.Location = new System.Drawing.Point(77, 114);
             this.but_Ok.Name = "but_Ok";
             this.but_Ok.Size = new System.Drawing.Size(97, 23);
             this.but_Ok.TabIndex = 181;
-            this.but_Ok.Text = "Ok";
+            this.but_Ok.Text = "Thêm";
             this.but_Ok.UseVisualStyleBackColor = true;
             this.but_Ok.Click += new System.EventHandler(this.but_Ok_Click);
             // 
-            // label2
+            // lb_tilte
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(64, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 24);
-            this.label2.TabIndex = 180;
-            this.label2.Text = "Information Account";
+            this.lb_tilte.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lb_tilte.AutoSize = true;
+            this.lb_tilte.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_tilte.Location = new System.Drawing.Point(35, 9);
+            this.lb_tilte.Name = "lb_tilte";
+            this.lb_tilte.Size = new System.Drawing.Size(268, 24);
+            this.lb_tilte.TabIndex = 180;
+            this.lb_tilte.Text = "Thêm Thông Tin Tài Khoản";
             // 
             // txt_Registrationyear
             // 
             this.txt_Registrationyear.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Registrationyear.Location = new System.Drawing.Point(124, 77);
+            this.txt_Registrationyear.Location = new System.Drawing.Point(141, 77);
             this.txt_Registrationyear.Name = "txt_Registrationyear";
             this.txt_Registrationyear.Size = new System.Drawing.Size(164, 22);
             this.txt_Registrationyear.TabIndex = 178;
@@ -131,7 +133,7 @@
             // txt_RegistrationMonth
             // 
             this.txt_RegistrationMonth.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_RegistrationMonth.Location = new System.Drawing.Point(124, 50);
+            this.txt_RegistrationMonth.Location = new System.Drawing.Point(141, 50);
             this.txt_RegistrationMonth.Name = "txt_RegistrationMonth";
             this.txt_RegistrationMonth.Size = new System.Drawing.Size(164, 22);
             this.txt_RegistrationMonth.TabIndex = 179;
@@ -140,31 +142,31 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 80);
+            this.label6.Location = new System.Drawing.Point(34, 80);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 15);
+            this.label6.Size = new System.Drawing.Size(80, 15);
             this.label6.TabIndex = 176;
-            this.label6.Text = "Registration year: ";
+            this.label6.Text = "Đăng ký năm:";
             // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 53);
+            this.label4.Location = new System.Drawing.Point(34, 53);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 15);
+            this.label4.Size = new System.Drawing.Size(93, 15);
             this.label4.TabIndex = 177;
-            this.label4.Text = "Registration month :";
+            this.label4.Text = "Đăng ký Tháng:";
             // 
             // but_Add
             // 
             this.but_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Add.Location = new System.Drawing.Point(147, 240);
+            this.but_Add.Location = new System.Drawing.Point(210, 235);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(97, 23);
             this.but_Add.TabIndex = 5;
-            this.but_Add.Text = "Add";
+            this.but_Add.Text = "Thêm";
             this.but_Add.UseVisualStyleBackColor = true;
             this.but_Add.Click += new System.EventHandler(this.but_Add_Click);
             // 
@@ -182,11 +184,11 @@
             // 
             this.but_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.but_Close.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Close.Location = new System.Drawing.Point(510, 240);
+            this.but_Close.Location = new System.Drawing.Point(519, 235);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(97, 23);
             this.but_Close.TabIndex = 1;
-            this.but_Close.Text = "Close";
+            this.but_Close.Text = "Thoát";
             this.but_Close.UseVisualStyleBackColor = true;
             this.but_Close.Click += new System.EventHandler(this.but_Close_Click);
             // 
@@ -195,11 +197,11 @@
             this.but_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.but_Delete.Enabled = false;
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Delete.Location = new System.Drawing.Point(388, 240);
+            this.but_Delete.Location = new System.Drawing.Point(416, 235);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(97, 23);
             this.but_Delete.TabIndex = 1;
-            this.but_Delete.Text = "Delete";
+            this.but_Delete.Text = "Xóa";
             this.but_Delete.UseVisualStyleBackColor = true;
             this.but_Delete.Click += new System.EventHandler(this.but_Delete_Click);
             // 
@@ -208,11 +210,11 @@
             this.but_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.but_Edit.Enabled = false;
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Edit.Location = new System.Drawing.Point(265, 240);
+            this.but_Edit.Location = new System.Drawing.Point(313, 235);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(97, 23);
             this.but_Edit.TabIndex = 1;
-            this.but_Edit.Text = "Edit";
+            this.but_Edit.Text = "Chỉnh Sửa";
             this.but_Edit.UseVisualStyleBackColor = true;
             this.but_Edit.Click += new System.EventHandler(this.but_Edit_Click);
             // 
@@ -233,25 +235,26 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(206, 18);
+            this.label1.Location = new System.Drawing.Point(78, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 36);
+            this.label1.Size = new System.Drawing.Size(512, 36);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Account Detail";
+            this.label1.Text = "Thông Tin Chi Tiết Tài Khoản SMS";
             // 
             // FormDetailAccount
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(659, 351);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grp_DetailAccount);
             this.Name = "FormDetailAccount";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form Detail Account";
+            this.Text = "Chi Tiet Tai Khoan SMS";
             this.Load += new System.EventHandler(this.FormDetailAccount_Load);
             this.grp_DetailAccount.ResumeLayout(false);
             this.grp_DetailAccount.PerformLayout();
@@ -278,7 +281,7 @@
         private System.Windows.Forms.TextBox txt_RegistrationMonth;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lb_tilte;
         private System.Windows.Forms.Button but_Close2;
         private System.Windows.Forms.Button but_Ok;
     }
