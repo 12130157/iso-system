@@ -215,7 +215,7 @@ namespace SMS
                     cmd.CommandTimeout = 1000;
 
                     if (arrParam != null)
-                    {
+                     {
                         foreach (SqlParameter param in arrParam)
                         {
                             cmd.Parameters.Add(param);
@@ -237,5 +237,6 @@ namespace SMS
             }
             return true;
         }
+        
     }
 }
