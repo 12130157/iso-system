@@ -81,29 +81,35 @@ namespace SMS
 
         public ArrayList getAllKeyword1CuPhap(String ten)
         {
-            ArrayList listCuPhap = new ArrayList();
-            //String sql = ConfigurationManager.AppSettings["sql.getAllKeyword1CuPhap"];
-            //SqlCommand objCommand = new SqlCommand(sql);
-            //objCommand.Parameters.AddWithValue("@ten", ten);
+  
+                ArrayList listCuPhap = new ArrayList();
+                //String sql = ConfigurationManager.AppSettings["sql.getAllKeyword1CuPhap"];
+                //SqlCommand objCommand = new SqlCommand(sql);
+                //objCommand.Parameters.AddWithValue("@ten", ten);
 
-            //DataTable result = DataUtil.executeQuery(objCommand);
-            SqlParameter[] parameter = new SqlParameter[1];
-            int i = 0;
+                //DataTable result = DataUtil.executeQuery(objCommand);
+                SqlParameter[] parameter = new SqlParameter[1];
+                int i = 0;
 
-            parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
-            parameter[i++].Value = ten;
+                parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
+                parameter[i++].Value = ten;
 
-            DataTable result = DataUtil.executeStore("sp_getAllKeyword1CuPhap", parameter);
+                DataTable result = DataUtil.executeStore("sp_getAllKeyword1CuPhap", parameter);
+                if (result == null)
+                {
+                    return listCuPhap;
+                }
+                else{
+                    foreach (DataRow row in result.Rows)
+                    {
+                        CuPhapMODEL cuPhapModel = new CuPhapMODEL();
 
-            foreach (DataRow row in result.Rows)
-            {
-                CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+                        cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
 
-                cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
-
-                listCuPhap.Add(cuPhapModel);
-            }
-            return listCuPhap;
+                        listCuPhap.Add(cuPhapModel);
+                    }
+                return listCuPhap;
+                }
         }
     #endregion
 
