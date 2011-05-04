@@ -10,7 +10,7 @@ AS
 begin
 	if Exists(select * from ChiTietTaiKhoanSMS where Ma_tai_khoan_SMS=@Ma_tai_khoan_SMS)
 	BEGIN
-		select ID, Ma_tai_khoan_SMS as 'Account ID' ,Dang_ky_thang as 'Registration month',Dang_ky_nam as 'Registration year' from ChiTietTaiKhoanSMS where Ma_tai_khoan_SMS=@Ma_tai_khoan_SMS
+		select ID as 'Ma CTTK SMS', Ma_tai_khoan_SMS as 'Ma TK SMS' ,Dang_ky_thang as 'Dang ky thang',Dang_ky_nam as 'Dang ky nam' from ChiTietTaiKhoanSMS where Ma_tai_khoan_SMS=@Ma_tai_khoan_SMS
 	END
 end
 --select * from ChiTietTaiKhoanSMS

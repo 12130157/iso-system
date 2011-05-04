@@ -16,4 +16,4 @@ BEGIN
 END
 --
 --select * from LoaiHopThu
-exec sp_getAllKeyword1CuPhap 'TraCuu'
+exec sp_getAllKeyword1CuPhap 'Diem'
