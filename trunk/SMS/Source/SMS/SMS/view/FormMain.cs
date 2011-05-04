@@ -32,11 +32,19 @@ namespace SMS
         {
             
             InitializeComponent();
+<<<<<<< .mine
+            
+            //if (common.Constants.comm.IsConnected() == true)
+            //{
+            //    this.lbStatus.Text = "Connected";
+            //}
+=======
             if (common.Constants.comm.IsConnected() == true)
             {
                 this.lbStatus.Text = "Connected";
             }
             messRecieveNphoneConnected();
+>>>>>>> .r408
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -759,7 +767,11 @@ namespace SMS
 
         #endregion      
 
+<<<<<<< .mine
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+=======
         private string getStringDiemByMaSinhVien(string maSinhVien)
+>>>>>>> .r408
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
@@ -917,7 +929,23 @@ namespace SMS
             }
             Application.Exit();
         }
+      
+        public void loadMenu()
+        {
+            menuTool.Enabled = true;
+        }
 
+<<<<<<< .mine
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            FormMain fr = new FormMain();
+            fr=this;
+            FormLogin lg = new FormLogin(ref fr);
+            lg.MdiParent=this;
+            lg.Show();
+        }
+
+=======
         private void menuCompose_Click(object sender, EventArgs e)
         {
             FormCompose frmCompose = new FormCompose();
@@ -940,5 +968,6 @@ namespace SMS
         }
 
         # endregion
+>>>>>>> .r408
     } 
 }

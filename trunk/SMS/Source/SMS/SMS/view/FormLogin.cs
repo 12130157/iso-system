@@ -15,16 +15,23 @@ namespace SMS
 {
     public partial class FormLogin : Form
     {
+        FormMain myForm;
+        public FormLogin(ref FormMain fr)
+        {
+            InitializeComponent();
+            this.myForm = fr;
+            //this.BackColor = System.Drawing.SystemColors.WindowFrame;
+        }
         public FormLogin()
         {
             InitializeComponent();
+            this.BackColor = System.Drawing.Color.Transparent;
         }
 
         private void butCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
         }
-
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
@@ -36,9 +43,9 @@ namespace SMS
             if (memberModel != null)
             {
                 Constants.USER_LOGIN = memberModel;
-                FormMain formMain = new FormMain();
                 this.Hide();
-                formMain.ShowDialog();
+                myForm.loadMenu() ;
+                this.Visible = false;
             }
             else
             {

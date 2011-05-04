@@ -122,8 +122,7 @@
             this.txt_EnterTen.Name = "txt_EnterTen";
             this.txt_EnterTen.Size = new System.Drawing.Size(138, 22);
             this.txt_EnterTen.TabIndex = 111;
-            this.txt_EnterTen.Leave += new System.EventHandler(this.txt_EnterTen_Leave_1);
-            // 
+            this.txt_EnterTen.TextChanged += new System.EventHandler(this.txt_EnterTen_TextChanged);
             // but_Close
             // 
             this.but_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom;

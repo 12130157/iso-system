@@ -40,13 +40,6 @@ namespace SMS
             but_Delete.Enabled = true;
         }
 
-
-        private void txt_EnterTen_Leave_1(object sender, EventArgs e)
-        {
-            string name = txt_EnterTen.Text.ToString();
-            dlv_InboxType.DataSource = LoaiHopThuDAO.getTenLoaiHopThu(name);
-        }
-
         private void but_Add_Click(object sender, EventArgs e)
         {
             pnl_InboxType.Visible = true;
@@ -160,7 +153,10 @@ namespace SMS
             
         }
 
-       
-
+        private void txt_EnterTen_TextChanged(object sender, EventArgs e)
+        {
+            string name = txt_EnterTen.Text.ToString();
+            dlv_InboxType.DataSource = LoaiHopThuDAO.getTenLoaiHopThu(name);
+        }
     }
 }
