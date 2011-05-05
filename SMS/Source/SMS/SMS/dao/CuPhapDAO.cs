@@ -114,47 +114,56 @@ namespace SMS
     #endregion
 
     #region lay ra cu phap theo ID
-        public  CuPhapMODEL getCuPhapByID(int id)
+        public CuPhapMODEL getCuPhapByID(int id)
         {
             //String sql = ConfigurationManager.AppSettings["sql.getCuPhapByID"];
             //SqlCommand objCommand = new SqlCommand(sql);
             //CuPhapMODEL cuPhapModel = new CuPhapMODEL();
             //objCommand.Parameters.AddWithValue("@id",id);
-
             //DataTable result = DataUtil.executeQuery(objCommand);
 
-            CuPhapMODEL cuPhapModel = new CuPhapMODEL();
-            SqlParameter[] parameter = new SqlParameter[1];
-            int i = 0;
-
-            parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-            parameter[i++].Value = id;
-
-            DataTable result = DataUtil.executeStore("sp_getCuPhapByID", parameter);
-
-            foreach (DataRow row in result.Rows)
+            try
             {
-                cuPhapModel.Id = row["ID"].ToString();
-                cuPhapModel.Ten = row["Ten"].ToString();
-                cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
-                cuPhapModel.Cum_Tu_2 = row["Cum_tu_2"].ToString();
-                cuPhapModel.Cum_Tu_3 = row["Cum_tu_3"].ToString();
-                cuPhapModel.Cum_Tu_4 = row["Cum_tu_4"].ToString();
-                cuPhapModel.Cum_Tu_5 = row["Cum_tu_5"].ToString();
-                cuPhapModel.Cum_Tu_6 = row["Cum_tu_6"].ToString();
-                cuPhapModel.Cum_Tu_7 = row["Cum_tu_7"].ToString();
-                cuPhapModel.Cum_Tu_8 = row["Cum_tu_8"].ToString();
-                cuPhapModel.Cum_Tu_9 = row["Cum_tu_9"].ToString();
-                cuPhapModel.Cum_Tu_10 = row["Cum_tu_10"].ToString();
-                cuPhapModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                ////cuPhapModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                //cuPhapModel.User11 = row["User1"].ToString();
-                //cuPhapModel.User21 = row["User2"].ToString();
-                //cuPhapModel.User31 = row["User3"].ToString();
-                //cuPhapModel.User41 = row["User4"].ToString();
-                //cuPhapModel.User51 = row["User5"].ToString();
+                CuPhapMODEL cuPhapModel = new CuPhapMODEL();
+                SqlParameter[] parameter = new SqlParameter[1];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+                parameter[i++].Value = id;
+
+                DataTable result = DataUtil.executeStore("sp_getCuPhapByID", parameter);
+
+                foreach (DataRow row in result.Rows)
+                {
+                    cuPhapModel.Id = row["ID"].ToString();
+                    cuPhapModel.Ten = row["Ten"].ToString();
+                    cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
+                    cuPhapModel.Cum_Tu_2 = row["Cum_tu_2"].ToString();
+                    cuPhapModel.Cum_Tu_3 = row["Cum_tu_3"].ToString();
+                    cuPhapModel.Cum_Tu_4 = row["Cum_tu_4"].ToString();
+                    cuPhapModel.Cum_Tu_5 = row["Cum_tu_5"].ToString();
+                    cuPhapModel.Cum_Tu_6 = row["Cum_tu_6"].ToString();
+                    cuPhapModel.Cum_Tu_7 = row["Cum_tu_7"].ToString();
+                    cuPhapModel.Cum_Tu_8 = row["Cum_tu_8"].ToString();
+                    cuPhapModel.Cum_Tu_9 = row["Cum_tu_9"].ToString();
+                    cuPhapModel.Cum_Tu_10 = row["Cum_tu_10"].ToString();
+                    cuPhapModel.Ghi_Chu = row["Ghi_chu"].ToString();
+                    ////cuPhapModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
+                    //cuPhapModel.User11 = row["User1"].ToString();
+                    //cuPhapModel.User21 = row["User2"].ToString();
+                    //cuPhapModel.User31 = row["User3"].ToString();
+                    //cuPhapModel.User41 = row["User4"].ToString();
+                    //cuPhapModel.User51 = row["User5"].ToString();
+                }
+
+                return cuPhapModel;
             }
-            return cuPhapModel;
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
         #endregion
 
@@ -408,7 +417,7 @@ namespace SMS
             try
             {
                 SqlParameter[] parameter = new SqlParameter[1];
-                int i = 0;
+                //int i = 0;
 
                 parameter[0] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
                 parameter[0].Value = maSinhVien;
