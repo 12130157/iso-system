@@ -15,17 +15,20 @@ namespace SMS
 {
     public partial class FormLogin : Form
     {
-        FormMain myForm;
-        public FormLogin(ref FormMain fr)
-        {
-            InitializeComponent();
-            this.myForm = fr;
-            //this.BackColor = System.Drawing.SystemColors.WindowFrame;
-        }
+        #region xem lai
+        //FormMain myForm;
+        //public FormLogin(ref FormMain fr)
+        //{
+        //    InitializeComponent();
+        //    this.myForm = fr;
+        //    //this.BackColor = System.Drawing.SystemColors.WindowFrame;
+        //}
+        #endregion
+
         public FormLogin()
         {
             InitializeComponent();
-            this.BackColor = System.Drawing.Color.Transparent;
+            //this.BackColor = System.Drawing.Color.Transparent;
         }
 
         private void butCancel_Click(object sender, EventArgs e)
@@ -44,8 +47,10 @@ namespace SMS
             {
                 Constants.USER_LOGIN = memberModel;
                 this.Hide();
-                myForm.loadMenu() ;
-                this.Close();
+                //myForm.loadMenu() ;
+                //this.Close();   co the su dung lai
+                FormMain fr = new FormMain();
+                fr.Show();
             }
             else
             {

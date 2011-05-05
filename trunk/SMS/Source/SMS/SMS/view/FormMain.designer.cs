@@ -56,7 +56,6 @@ namespace SMS
             // 
             // menuTool
             // 
-            this.menuTool.Enabled = false;
             this.menuTool.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.menuTool.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
@@ -118,21 +117,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(137, 22);
+            this.menuCompose.Size = new System.Drawing.Size(152, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(137, 22);
+            this.menuInbox.Size = new System.Drawing.Size(152, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -222,9 +221,9 @@ namespace SMS
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(911, 444);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);

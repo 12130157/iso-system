@@ -33,11 +33,11 @@ namespace SMS
             
             InitializeComponent();
 
-            //if (common.Constants.comm.IsConnected() == true)
-            //{
-            //    this.lbStatus.Text = "Connected";
-            //}
-            //messRecieveNphoneConnected();
+            if (common.Constants.comm.IsConnected() == true)
+            {
+                this.lbStatus.Text = "Connected";
+            }
+            messRecieveNphoneConnected();
 
         }
 
@@ -761,20 +761,17 @@ namespace SMS
 
         #endregion      
 
-//<<<<<<< .mine
-//        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-//=======
-//        private string getStringDiemByMaSinhVien(string maSinhVien)
-//>>>>>>> .r408
-//        {
-//            string result = "";
-//            DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
-//            foreach (DataRow row in tbl.Rows)
-//            {
-//                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
-//            }
-//            return result;
-//        }
+
+        private string getStringDiemByMaSinhVien(string maSinhVien)
+        {
+            string result = "";
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
+            foreach (DataRow row in tbl.Rows)
+            {
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+            }
+            return result;
+        }
 
         private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, string tenMonHoc)
         {
@@ -932,11 +929,11 @@ namespace SMS
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            FormMain fr = new FormMain();
-            fr=this;
-            FormLogin lg = new FormLogin(ref fr);
-            lg.MdiParent=this;
-            lg.Show();
+            //FormMain fr = new FormMain();
+            //fr=this;
+            //FormLogin lg = new FormLogin(ref fr);
+            //lg.MdiParent=this;
+            //lg.Show();
         }
 
         private void menuCompose_Click(object sender, EventArgs e)
