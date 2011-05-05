@@ -13,7 +13,7 @@ END
 GO
 CREATE PROC sp_SMS_InertHopThuDi
 	@So_dien_thoai			varchar(40),
-	@Noi_dung_tin_nhan		nvarchar(200),
+	@Noi_dung_tin_nhan		nvarchar(max),
 	@Tinh_trang				int,
 	@Loai_hop_thu			int,
 	@User1					varchar(100),
@@ -27,8 +27,8 @@ BEGIN
 	DECLARE @Ngay_gui				datetime
 	DECLARE	@Ngay_cap_nhat_cuoi		datetime
 
-	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
-	SELECT	@Ngay_gui = GETDATE()
+	SET	@Ngay_cap_nhat_cuoi = GETDATE()
+	SET	@Ngay_gui = GETDATE()
 	INSERT INTO HopThuDi 
 	VALUES (@So_dien_thoai,
 			@Noi_dung_tin_nhan,
