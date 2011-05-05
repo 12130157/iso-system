@@ -122,6 +122,7 @@
             this.dtp_NgayDangKy.Name = "dtp_NgayDangKy";
             this.dtp_NgayDangKy.Size = new System.Drawing.Size(150, 22);
             this.dtp_NgayDangKy.TabIndex = 179;
+            this.dtp_NgayDangKy.Leave += new System.EventHandler(this.dtp_NgayDangKy_Leave);
             // 
             // txt_ServiceCharges
             // 
@@ -285,9 +286,11 @@
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.Location = new System.Drawing.Point(268, 238);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.Size = new System.Drawing.Size(118, 25);
             this.button1.TabIndex = 162;
             this.button1.Text = "In Thông Tin";
             this.button1.UseVisualStyleBackColor = false;
@@ -298,9 +301,11 @@
             this.but_Close.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.but_Close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Close.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
+            this.but_Close.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Close.Location = new System.Drawing.Point(143, 238);
             this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(98, 23);
+            this.but_Close.Size = new System.Drawing.Size(110, 25);
             this.but_Close.TabIndex = 162;
             this.but_Close.Text = "Thoát";
             this.but_Close.UseVisualStyleBackColor = false;
@@ -312,9 +317,11 @@
             this.but_Add.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Add.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Add.Location = new System.Drawing.Point(20, 238);
             this.but_Add.Name = "but_Add";
-            this.but_Add.Size = new System.Drawing.Size(98, 23);
+            this.but_Add.Size = new System.Drawing.Size(110, 25);
             this.but_Add.TabIndex = 163;
             this.but_Add.Text = "Thêm";
             this.but_Add.UseVisualStyleBackColor = false;
@@ -344,6 +351,10 @@
             this.imageList1.Images.SetKeyName(17, "18.bmp");
             this.imageList1.Images.SetKeyName(18, "19.bmp");
             this.imageList1.Images.SetKeyName(19, "20.bmp");
+            // 
+            // timer_giay
+            // 
+            this.timer_giay.Tick += new System.EventHandler(this.timer_giay_Tick);
             // 
             // FormAddAccount
             // 

@@ -53,10 +53,13 @@ namespace SMS
 
         #region xu kien onClick
 
-            private void butClose_Click(object sender, EventArgs e)
-                {
-                    this.Close();
-                }
+               private void butClose_Click(object sender, EventArgs e)
+               {
+                   if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                   {
+                       this.Close();
+                   }
+               }
 
             private void but_Add_Click(object sender, EventArgs e)
             {

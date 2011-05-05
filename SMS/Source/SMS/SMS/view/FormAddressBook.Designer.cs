@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressBook));
             this.groupAddress = new System.Windows.Forms.GroupBox();
             this.txt_Phone = new System.Windows.Forms.TextBox();
             this.txt_Name = new System.Windows.Forms.TextBox();
@@ -86,6 +85,7 @@
             this.but_Compose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.but_Compose.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Compose.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Compose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Compose.Location = new System.Drawing.Point(520, 370);
             this.but_Compose.Name = "but_Compose";
             this.but_Compose.Size = new System.Drawing.Size(82, 23);
@@ -179,7 +179,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(805, 463);
             this.Controls.Add(this.groupAddress);
             this.Controls.Add(this.label2);

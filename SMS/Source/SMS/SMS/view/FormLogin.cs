@@ -45,7 +45,7 @@ namespace SMS
                 Constants.USER_LOGIN = memberModel;
                 this.Hide();
                 myForm.loadMenu() ;
-                this.Visible = false;
+                this.Close();
             }
             else
             {

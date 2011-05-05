@@ -123,18 +123,22 @@
             // 
             // but_Close
             // 
-            this.but_Close.Location = new System.Drawing.Point(164, 151);
+            this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
+            this.but_Close.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.but_Close.Location = new System.Drawing.Point(161, 151);
             this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(75, 23);
+            this.but_Close.Size = new System.Drawing.Size(110, 25);
             this.but_Close.TabIndex = 3;
             this.but_Close.Text = "Thoát";
             this.but_Close.UseVisualStyleBackColor = true;
             // 
             // but_Add
             // 
-            this.but_Add.Location = new System.Drawing.Point(57, 151);
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.but_Add.Location = new System.Drawing.Point(17, 151);
             this.but_Add.Name = "but_Add";
-            this.but_Add.Size = new System.Drawing.Size(75, 23);
+            this.but_Add.Size = new System.Drawing.Size(110, 25);
             this.but_Add.TabIndex = 4;
             this.but_Add.Text = "Thêm";
             this.but_Add.UseVisualStyleBackColor = true;
@@ -155,7 +159,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(705, 273);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgv_Account);

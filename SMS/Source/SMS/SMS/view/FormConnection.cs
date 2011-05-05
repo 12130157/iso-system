@@ -36,7 +36,7 @@ namespace SMS
             {
                 //MessageBox.Show("Connect successfull");
                 this.Hide();
-                new FormLogin().Show();
+                new FormMain().Show();
             }
             else
             {
@@ -44,7 +44,7 @@ namespace SMS
                 if (MessageBox.Show("Ban co muon tiep tuc dang nhap ?", "Xac Nhan", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.Hide();
-                    new FormLogin().Show();
+                    new FormMain().Show();
                 }
                 else
                 {
