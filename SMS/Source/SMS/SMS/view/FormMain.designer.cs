@@ -51,7 +51,12 @@ namespace SMS
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lbStatus = new System.Windows.Forms.Label();
             this.btnEnableMess = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.clmNbPhone = new System.Windows.Forms.ColumnHeader();
+            this.clmContentMess = new System.Windows.Forms.ColumnHeader();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuTool.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuTool
@@ -82,26 +87,26 @@ namespace SMS
             // menuChangePassword
             // 
             this.menuChangePassword.Name = "menuChangePassword";
-            this.menuChangePassword.Size = new System.Drawing.Size(184, 22);
+            this.menuChangePassword.Size = new System.Drawing.Size(173, 22);
             this.menuChangePassword.Text = "Change Password";
             // 
             // menuSystemConfig
             // 
             this.menuSystemConfig.Name = "menuSystemConfig";
-            this.menuSystemConfig.Size = new System.Drawing.Size(184, 22);
+            this.menuSystemConfig.Size = new System.Drawing.Size(173, 22);
             this.menuSystemConfig.Text = "System Config";
             // 
             // menuLogout
             // 
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(184, 22);
+            this.menuLogout.Size = new System.Drawing.Size(173, 22);
             this.menuLogout.Text = "Logout";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
             // loginToolStripMenuItem
             // 
             this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            this.loginToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.loginToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.loginToolStripMenuItem.Text = "Login";
             // 
             // menuMessage
@@ -117,21 +122,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(152, 22);
+            this.menuCompose.Size = new System.Drawing.Size(126, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(152, 22);
+            this.menuInbox.Size = new System.Drawing.Size(126, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(126, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -149,28 +154,28 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(182, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(171, 22);
             this.menuKeyword.Text = "Manage Keyword";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(182, 22);
+            this.menuAccount.Size = new System.Drawing.Size(171, 22);
             this.menuAccount.Text = "Manage Account";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(182, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(171, 22);
             this.menuAddressBook.Text = "Contacts";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.typeToolStripMenuItem.Text = "Inbox Type";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
@@ -186,13 +191,13 @@ namespace SMS
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem1.Text = "About ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
             this.toolStripMenuItem2.Text = "Help";
             // 
             // lbStatus
@@ -219,12 +224,48 @@ namespace SMS
             this.btnEnableMess.UseVisualStyleBackColor = true;
             this.btnEnableMess.Click += new System.EventHandler(this.btnEnableMess_Click);
             // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listView1.BackColor = System.Drawing.SystemColors.Control;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clmNbPhone,
+            this.clmContentMess});
+            this.listView1.Location = new System.Drawing.Point(0, 27);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(331, 416);
+            this.listView1.TabIndex = 8;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // clmNbPhone
+            // 
+            this.clmNbPhone.Width = 105;
+            // 
+            // clmContentMess
+            // 
+            this.clmContentMess.Width = 220;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(331, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(580, 416);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(911, 444);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
@@ -238,6 +279,7 @@ namespace SMS
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,5 +307,9 @@ namespace SMS
         private System.Windows.Forms.Button btnEnableMess;
         private System.Windows.Forms.ToolStripMenuItem typeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader clmNbPhone;
+        private System.Windows.Forms.ColumnHeader clmContentMess;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
