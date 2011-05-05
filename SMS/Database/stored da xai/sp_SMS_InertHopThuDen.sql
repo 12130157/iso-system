@@ -15,11 +15,11 @@ CREATE PROC sp_SMS_InertHopThuDen
 	@Noi_dung_tin_nhan		nvarchar(500),
 	@Tinh_trang				int,
 	@Loai_hop_thu			int,
-	@User1					varchar(100),
-	@User2					varchar(100),
-	@User3					varchar(100),
-	@User4					varchar(100),
-	@User5					varchar(100)	
+	@User1					varchar(max),
+	@User2					varchar(max),
+	@User3					varchar(max),
+	@User4					varchar(max),
+	@User5					varchar(max)	
 	
 AS 
 BEGIN
@@ -27,8 +27,8 @@ BEGIN
 	DECLARE	@Ngay_cap_nhat_cuoi		datetime
 	DECLARE @Ma_tin_nhan_tra_loi	int
 
-	SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
-	SELECT	@Ngay_nhan = GETDATE()
+	SET	@Ngay_cap_nhat_cuoi = GETDATE()
+	SET	@Ngay_nhan = GETDATE()
 	SELECT	@Ma_tin_nhan_tra_loi = null
 	INSERT INTO HopThuDen 
 	VALUES (
