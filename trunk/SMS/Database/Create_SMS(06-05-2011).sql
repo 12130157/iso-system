@@ -16,7 +16,10 @@
 /* ---------------------------------------------------------------------- */
 /* Add table "ThanhVien"                                                  */
 /* ---------------------------------------------------------------------- */
-
+Create DataBase GSM
+go 
+use GSM
+go
 CREATE TABLE [ThanhVien] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_DN] VARCHAR(20),
