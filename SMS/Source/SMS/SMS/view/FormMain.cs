@@ -761,7 +761,6 @@ namespace SMS
 
         #endregion      
 
-
         private string getStringDiemByMaSinhVien(string maSinhVien)
         {
             string result = "";
