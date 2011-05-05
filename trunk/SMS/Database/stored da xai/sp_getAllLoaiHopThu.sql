@@ -9,9 +9,7 @@ Create PROC sp_getAllLoaiHopThu
 AS
 
 	BEGIN
-		select ID, Ten as 'Name' ,Ghi_chu as 'Note'  from LoaiHopThu
+		select ID as 'Ma Hop Thu', Ten as 'Ten Hop Thu' ,Ghi_chu as 'Ghi Chu'  from LoaiHopThu
 	END
 --select * from ChiTietTaiKhoanSMS
 --exec sp_getAllLoaiHopThu 
-
-select * from ThanhVien

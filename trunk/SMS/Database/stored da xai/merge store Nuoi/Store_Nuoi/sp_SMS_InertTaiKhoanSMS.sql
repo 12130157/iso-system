@@ -22,12 +22,9 @@ CREATE PROC sp_SMS_InertTaiKhoanSMS
 	@User3					varchar(100), 
 	@User4					varchar(100),
 	@User5					varchar(100)
---	@Result					int output	
 	
 AS 
 BEGIN
-	if not exists(select Ma_sinh_vien from TaiKhoanSMS where Ma_sinh_vien=@Ma_sinh_vien)
-		begin
 			SELECT	@Ngay_cap_nhat_cuoi = GETDATE()
 			INSERT INTO TaiKhoanSMS 
 			VALUES (@So_dien_thoai,
@@ -40,10 +37,4 @@ BEGIN
 					@User3,
 					@User4,
 					@User5)
-		END 
---else
---	begin 
---		set @Result=0
---	end
-
 end

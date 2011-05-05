@@ -52,8 +52,3 @@ BEGIN
 			@User4,
 			@User5)
 END 
-/*drop proc sp_SMS_InertCuPhap
-note
-*/
-
-select * from CuPhap
