@@ -29,16 +29,17 @@ namespace SMS
             
             dlv_InboxType.DataSource = loaHopThuDao.getAllLoaiHopThu();
             pnl_InboxType.Visible = false;
-            lbl_YouChoose.Text = "Enter choose row: ";
+            lbl_YouChoose.Text = "Bạn chọn dòng: ";
         }
 
         private void dlv_InboxType_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            common.Constants.id = dlv_InboxType.CurrentRow.Cells["ID"].Value.ToString();
-            lbl_YouChoose.Text = "You Choose, ID: " + common.Constants.id;
+            common.Constants.id = dlv_InboxType.CurrentRow.Cells["Ma Hop Thu"].Value.ToString();
+            lbl_YouChoose.Text = "Bạn chọn mã hộp thư là: " + common.Constants.id;
             but_Edit.Enabled = true;
             but_Delete.Enabled = true;
         }
+
 
         private void but_Add_Click(object sender, EventArgs e)
         {
@@ -60,9 +61,8 @@ namespace SMS
                 }
                 else
                 {
-                    MessageBox.Show("Insert failed");
+                    MessageBox.Show("Thêm mới thất bại!!!!! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                
             }
             else
             {
@@ -75,7 +75,7 @@ namespace SMS
                 }
                 else
                 {
-                    MessageBox.Show("Insert failed");
+                    MessageBox.Show("Cập nhật thất bại!!!!! ","Thông Báo", MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
             txt_IDInbox.Text = "";
@@ -100,18 +100,21 @@ namespace SMS
 
         private void but_Close_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("Bạn có chắc là muốn thoát không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void but_Delete_Click(object sender, EventArgs e)
         {
             if (Constants.id.Equals(""))
             {
-                MessageBox.Show("You may choose to delete the line. Plesae choose again:  ", "Warning!  ");
+                MessageBox.Show("Bạn chưa chọn dòng để xóa, Xin hãy chọn lại:",  "Thông Báo");
             }
             else
             {
-                if (MessageBox.Show(this, "Do you want to Deleting?  ", " Notice ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(this, "Bạn có chắc là muốn xóa không?  ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     bool result = LoaiHopThuDAO.deleteLoaiHopThu(Convert.ToInt32(Constants.id));
                     if (result == true)
@@ -121,7 +124,7 @@ namespace SMS
                     }
                     else
                     {
-                        MessageBox.Show("Deleting failed!!! ", "Warning! ");
+                        MessageBox.Show("Không thể xóa !!! ", "Thông Báo");
                     }
                 }
                 else
@@ -139,7 +142,7 @@ namespace SMS
             but_Add.Enabled = false;
             if (Constants.id.Equals(""))
             {
-                MessageBox.Show("You may choose to edit the line. Plesae choose again:", "Warning!  ");
+                MessageBox.Show("bạn chưa chọn dòng để thay đổi. Xin hãy chọn lại:", "Thông Báo");
             }
             else
             {

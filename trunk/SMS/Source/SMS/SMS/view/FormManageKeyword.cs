@@ -100,7 +100,7 @@ namespace SMS
 
         private void but_Edit_Click(object sender, EventArgs e)
         {
-            if (lblYouChoose.Text.Equals(""))
+            if (lblYouChoose.Text.Equals("") || common.Constants.id.Equals(""))
             {
                 MessageBox.Show("Bạn chưa chọn dòng để chỉnh sửa. Vui lòng chọn lại: ");
             }
@@ -119,9 +119,9 @@ namespace SMS
         {
             try
             {
-                if (lblYouChoose.Text.Equals(""))
+                if (lblYouChoose.Text.Equals("")|| common.Constants.id.Equals(""))
                 {
-                    MessageBox.Show("YBạn chưa chọn dòng để Xóa. Vui lòng chọn lại: ");
+                    MessageBox.Show("Bạn chưa chọn dòng để Xóa. Vui lòng chọn lại: ");
                 }
                 else
                 {

@@ -219,6 +219,7 @@ namespace SMS.view
                 catch (Exception ex)
                 {
                     MessageBox.Show(Convert.ToString(ex));
+                    Hide();
                 }
             }
 

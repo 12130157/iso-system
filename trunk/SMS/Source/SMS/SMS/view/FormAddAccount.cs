@@ -52,6 +52,8 @@ namespace SMS.view
                     txt_NumberPhone.Text = taiKhoanSMSModel.So_Dien_Thoai;
                     txt_StudentID.Text = taiKhoanSMSModel.Ma_Sinh_Vien;
                     dtp_NgayDangKy.Text = taiKhoanSMSModel.Ngay_Dang_Ki;
+                    txt_NumberPhone2.Text = taiKhoanSMSModel.User11;
+                    txt_NumberPhone3.Text = taiKhoanSMSModel.User21;
 
                     // kiện selected  cua cbo_AccountType
                     loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(Convert.ToInt32(taiKhoanSMSModel.Loai_Tai_Khoan));
@@ -115,6 +117,8 @@ namespace SMS.view
                     taiKhoanSMSModel.So_Dien_Thoai = txt_NumberPhone.Text;
                     taiKhoanSMSModel.Ma_Sinh_Vien = txt_StudentID.Text;
                     taiKhoanSMSModel.Ngay_Dang_Ki = dtp_NgayDangKy.Text;
+                    taiKhoanSMSModel.User11 = txt_NumberPhone2.Text;
+                    taiKhoanSMSModel.User21 = txt_NumberPhone3.Text;
 
                     Boolean result1 = taiKhoanSMSDao.updateTaiKhoanSMSById(taiKhoanSMSModel);
 
@@ -178,26 +182,13 @@ namespace SMS.view
 
         #endregion
 
-            private void timer_giay_Tick(object sender, EventArgs e)
-            {
-                pic_choose.Image = imageList1.Images[i];
-                i++;
-                if (i == 20)
-                {
-                    i = 0;
-                }
-            }
-            
+#region su kien text_change, leave, keypress
             private void txt_NumberPhone_Leave(object sender, EventArgs e)
             {
                 if (!txt_NumberPhone.Text.Equals(""))
                 {
                     txt_NumberPhone2.Enabled = true;
                 }
-                //else
-                //{
-                //    txt_NumberPhone.Focus();
-                //}
             }
 
             private void txt_StudentID_Leave(object sender, EventArgs e)
@@ -206,10 +197,7 @@ namespace SMS.view
                 {
                     txt_NumberPhone.Focus();
                 }
-                //else
-                //{
-                //    txt_NumberPhone2.Focus();
-                //}
+                
             }
 
             private void txt_NumberPhone_KeyPress(object sender, KeyPressEventArgs e)
@@ -258,7 +246,7 @@ namespace SMS.view
 
             private void txt_NumberPhone2_TextChanged(object sender, EventArgs e)
             {
-                if (txt_NumberPhone2.Text.EndsWith(""))
+                if (txt_NumberPhone2.Text.Equals(""))
                 {
                     txt_NumberPhone3.Text = "";
                     txt_NumberPhone3.Enabled = false;
@@ -282,6 +270,33 @@ namespace SMS.view
                     e.Handled = true;
                 }
             }
+
+            private void timer_giay_Tick(object sender, EventArgs e)
+            {
+                pic_choose.Image = imageList1.Images[i];
+                i++;
+                if (i == 20)
+                {
+                    i = 0;
+                }
+            }
+
+            private void dtp_NgayDangKy_Leave(object sender, EventArgs e)
+            {
+                DateTime dt = DateTime.Today;
+                DateTime dt1 = Convert.ToDateTime(dtp_NgayDangKy.Value);
+                int ngayHH = dt.DayOfYear;
+                int ngayDK = dt1.DayOfYear;
+                if (ngayDK < ngayHH)
+                {
+                    MessageBox.Show("Ngày đăng ký không được nhỏ hơn ngày hiện hành! ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    dtp_NgayDangKy.Focus();
+                }
+            }
+
+#endregion
+
+            
     }
 }
 

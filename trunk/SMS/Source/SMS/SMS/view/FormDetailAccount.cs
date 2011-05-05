@@ -69,7 +69,11 @@ namespace SMS.view
         
             private void but_Edit_Click(object sender, EventArgs e)
             {
-                try
+                if (common.Constants.idDetail.Equals(""))
+                {
+                    MessageBox.Show("Bạn chưa chọn dòng để cập nhật. Vui lòng chọn lại: ");
+                }
+                else
                 {
                     pnl_Add.Visible = true;
                     lb_tilte.Text = "Cập Nhật Thông Tin Tài Khoản";
@@ -83,17 +87,17 @@ namespace SMS.view
                     but_Delete.Enabled = false;
                     but_Edit.Enabled = false;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(Convert.ToString(ex));
-                }
+               
 
             }
 
             private void but_Close_Click(object sender, EventArgs e)
             {
-                common.Constants.id = "";
-                this.Close();
+                if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    common.Constants.id = "";
+                    this.Close();
+                }
             }
 
             private void but_Delete_Click(object sender, EventArgs e)
@@ -153,9 +157,12 @@ namespace SMS.view
 
             private void but_Close2_Click(object sender, EventArgs e)
             {
-                pnl_Add.Visible = false;
-                but_Edit.Enabled = false;
-                but_Delete.Enabled = false;
+                if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    pnl_Add.Visible = false;
+                    but_Edit.Enabled = false;
+                    but_Delete.Enabled = false;
+                }
             }
 
             private void but_Ok_Click(object sender, EventArgs e)
@@ -216,6 +223,64 @@ namespace SMS.view
                 but_Delete.Enabled = false;
             }
         #endregion
+
+            private void txt_RegistrationMonth_Validated(object sender, EventArgs e)
+            {
+
+                int thangHH = DateTime.Today.Month;
+                //int nam = DateTime.Today.Year;
+                int thangDK = Convert.ToInt16(txt_RegistrationMonth.Text);
+                if (thangDK < 13)
+                {
+                    if (thangDK < thangHH)
+                    {
+                        MessageBox.Show("Tháng đăng ký phải lớn hơn tháng hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        txt_RegistrationMonth.Focus();
+                        but_Ok.Enabled = false;
+                    }
+                    else
+                    { but_Ok.Enabled = true; }
+                }
+                else
+                {
+                    MessageBox.Show("Bạn nhập tháng không hợp lệ! , Vui lòng nhập lại", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    txt_RegistrationMonth.Focus();
+                }
+            }
+
+            private void txt_Registrationyear_Validated(object sender, EventArgs e)
+            {
+                int namDK = Convert.ToInt16(txt_Registrationyear.Text);
+                int namHH = DateTime.Today.Year;
+                
+                if (namDK < namHH)
+                {
+                    MessageBox.Show("Năm đăng ký phải lớn hơn năm hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    txt_Registrationyear.Focus();
+                    but_Ok.Enabled = false;
+                }
+                else
+                { but_Ok.Enabled = true; }
+            }
+
+            private void txt_RegistrationMonth_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            private void txt_Registrationyear_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                { e.Handled = true; }
+            }
+
+            private void txt_Registrationyear_TextChanged(object sender, EventArgs e)
+            {
+                but_Ok.Enabled = true;
+            }
 
         
     }

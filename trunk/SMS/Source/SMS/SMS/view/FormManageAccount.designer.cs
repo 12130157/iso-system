@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManageAccount));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblYouChoose = new System.Windows.Forms.Label();
             this.txt_StudentID = new System.Windows.Forms.TextBox();
@@ -118,6 +119,8 @@
             this.but_Details.Enabled = false;
             this.but_Details.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
             this.but_Details.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Details.Image = ((System.Drawing.Image)(resources.GetObject("but_Details.Image")));
+            this.but_Details.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Details.Location = new System.Drawing.Point(651, 387);
             this.but_Details.Name = "but_Details";
             this.but_Details.Size = new System.Drawing.Size(90, 25);
@@ -134,6 +137,8 @@
             this.but_Edit.Enabled = false;
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
             this.but_Edit.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
+            this.but_Edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Edit.Location = new System.Drawing.Point(540, 387);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(90, 25);
@@ -150,6 +155,8 @@
             this.but_Add.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Add.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
+            this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Add.Location = new System.Drawing.Point(434, 386);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(90, 25);
@@ -165,6 +172,8 @@
             this.butClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.butClose.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
             this.butClose.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.butClose.Image = ((System.Drawing.Image)(resources.GetObject("butClose.Image")));
+            this.butClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.butClose.Location = new System.Drawing.Point(870, 387);
             this.butClose.Name = "butClose";
             this.butClose.Size = new System.Drawing.Size(90, 25);
@@ -181,6 +190,8 @@
             this.but_Delete.Enabled = false;
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold);
             this.but_Delete.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
+            this.but_Delete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Delete.Location = new System.Drawing.Point(761, 386);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(90, 25);

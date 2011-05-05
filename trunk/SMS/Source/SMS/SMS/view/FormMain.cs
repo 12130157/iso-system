@@ -32,19 +32,13 @@ namespace SMS
         {
             
             InitializeComponent();
-<<<<<<< .mine
-            
+
             //if (common.Constants.comm.IsConnected() == true)
             //{
             //    this.lbStatus.Text = "Connected";
             //}
-=======
-            if (common.Constants.comm.IsConnected() == true)
-            {
-                this.lbStatus.Text = "Connected";
-            }
-            messRecieveNphoneConnected();
->>>>>>> .r408
+            //messRecieveNphoneConnected();
+
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -59,7 +53,7 @@ namespace SMS
         private void messRecieveNphoneConnected()
         {
             common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
-            common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);   
+            common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
         }
 
         public void comm_MessageReceived(object sender, GsmComm.GsmCommunication.MessageReceivedEventArgs e)
@@ -315,7 +309,7 @@ namespace SMS
                     if (modelDenFn.Ma_Cu_Phap.Equals("0"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
-                        modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
+                        //modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
@@ -473,7 +467,7 @@ namespace SMS
                                     sendOneMessage(subString, model.So_Dien_Thoai);
                                     model.Tinh_Trang = "1";
                                 }
-                                catch (Exception e)
+                                catch (Exception)
                                 {
                                     model.Tinh_Trang = "0";
                                     break;
@@ -767,20 +761,20 @@ namespace SMS
 
         #endregion      
 
-<<<<<<< .mine
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-=======
-        private string getStringDiemByMaSinhVien(string maSinhVien)
->>>>>>> .r408
-        {
-            string result = "";
-            DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
-            foreach (DataRow row in tbl.Rows)
-            {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
-            }
-            return result;
-        }
+//<<<<<<< .mine
+//        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+//=======
+//        private string getStringDiemByMaSinhVien(string maSinhVien)
+//>>>>>>> .r408
+//        {
+//            string result = "";
+//            DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
+//            foreach (DataRow row in tbl.Rows)
+//            {
+//                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+//            }
+//            return result;
+//        }
 
         private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, string tenMonHoc)
         {
@@ -935,7 +929,7 @@ namespace SMS
             menuTool.Enabled = true;
         }
 
-<<<<<<< .mine
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             FormMain fr = new FormMain();
@@ -945,7 +939,6 @@ namespace SMS
             lg.Show();
         }
 
-=======
         private void menuCompose_Click(object sender, EventArgs e)
         {
             FormCompose frmCompose = new FormCompose();
@@ -968,6 +961,6 @@ namespace SMS
         }
 
         # endregion
->>>>>>> .r408
+
     } 
 }
