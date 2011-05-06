@@ -327,7 +327,21 @@ namespace SMS
 
         private void cboFilterSyntaxMessInbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-                txtContentFilterInbox.Enabled = true;
+            txtContentFilterInbox.Enabled = true;
+            if (tabInbox.SelectedTab == tabNormalMessage)
+            {
+                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                {
+                    txtContentFilterInbox.Enabled = false;
+                }
+            }
+            if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+            {
+                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                {
+                    txtContentFilterInbox.Enabled = false;
+                }
+            }
         }
 
         private void txtContentFilterInbox_TextChanged(object sender, EventArgs e)
@@ -351,15 +365,11 @@ namespace SMS
             {
                 if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
                 {
-
+                    showSearchNormalMessInboxBySoDienThoai(txtContentFilterInbox.Text);
                 }
                 else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
                 {
-
-                }
-                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
-                {
-
+                    showSearchNormalMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                 }
             }
             else if (tabInbox.SelectedTab == tabMessDeleted)
@@ -368,30 +378,26 @@ namespace SMS
                 {
                     if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
                     {
-
+                        showSearchSyntaxMessDeletedInboxBySoDienThoai(txtContentFilterInbox.Text);
                     }
                     else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
                     {
-
+                        showSearchSytaxMessDeletedInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                     }
                     else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
                     {
-
+                        showSearchSytaxMessDeletedInboxByCuPhap(txtContentFilterInbox.Text);
                     }
                 }
                 else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
                 {
                     if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
                     {
-
+                        showSearchNormalMessDeletedInboxBySoDienThoai(txtContentFilterInbox.Text);
                     }
                     else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
                     {
-
-                    }
-                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
-                    {
-
+                        showSearchNormalDeletedMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                     }
                 }
             }
@@ -413,6 +419,48 @@ namespace SMS
         {
             DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessInboxByCuPhap(cuPhap);
             tblSyntaxMess.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchNormalMessInboxBySoDienThoai(string nbPhone)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getNormalMessInboxByNbPhone(nbPhone);
+            tblNormalMess.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchNormalMessInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getNormalMessInboxByNoiDungTinNhan(noiDungMess);
+            tblNormalMess.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchSyntaxMessDeletedInboxBySoDienThoai(string nbPhone)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessDeletedInboxByNbPhone(nbPhone);
+            tblSyntaxMessDeletedInbox.DataSource = tableShowSyntaxMessInbox; 
+        }
+
+        private void showSearchSytaxMessDeletedInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessDeletedInboxByNoiDungTinNhan(noiDungMess);
+            tblSyntaxMessDeletedInbox.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchSytaxMessDeletedInboxByCuPhap(string cuPhap)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessDeletedInboxByCuPhap(cuPhap);
+            tblSyntaxMessDeletedInbox.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchNormalMessDeletedInboxBySoDienThoai(string nbPhone)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getNormalMessDeletedInboxByNbPhone(nbPhone);
+            tblNormalMessDeletedInbox.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchNormalDeletedMessInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getNormalMessDeletedInboxByNoiDungTinNhan(noiDungMess);
+            tblNormalMessDeletedInbox.DataSource = tableShowSyntaxMessInbox;
         }
     }
 }
