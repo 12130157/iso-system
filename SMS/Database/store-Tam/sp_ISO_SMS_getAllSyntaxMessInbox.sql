@@ -28,3 +28,5 @@ BEGIN
 
 	ORDER BY A.tinh_trang ASC,A.id DESC 
 END
+
+--EXEC sp_ISO_SMS_getAllSyntaxMessInbox
