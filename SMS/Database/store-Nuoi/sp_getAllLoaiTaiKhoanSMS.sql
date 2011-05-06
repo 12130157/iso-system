@@ -6,9 +6,7 @@ End
 Go
 Create PROC sp_getAllLoaiTaiKhoanSMS
 AS
-
-	BEGIN
-		select * from LoaiTaiKhoanSMS
-	END
-
---exec sp_getAllLoaiTaiKhoanSMS 
+Begin
+		select ID ,Ten ,Phi_dich_vu ,Ghi_chu from LoaiTaiKhoanSMS
+END
+--exec sp_getAllLoaiTaiKhoanSMS

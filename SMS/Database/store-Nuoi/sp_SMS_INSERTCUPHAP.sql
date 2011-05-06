@@ -10,7 +10,7 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertCuPhap
-	@Ten					nvarchar(40),
+	@Ten					nvarchar(500),
 	@Cum_tu_1				varchar(10),
 	@Cum_tu_2				varchar(10),
 	@Cum_tu_3				varchar(10),
