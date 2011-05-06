@@ -40,13 +40,12 @@ namespace SMS
         }
         public void LoadCbo()
         {
-            ArrayList arry = cuphapdao.getAllTenKeywordCuPhap();
+            ArrayList arry = cuphapdao.getAllKeywordCuPhap();
             cbo_Name.Items.Clear();
             cbo_Name.Items.Add("");
-            //cbo_Keyword.Items.Add("");
             foreach (CuPhapMODEL cuphap in arry)
             {
-                cbo_Name.Items.Add(cuphap.Ten).ToString();
+                cbo_Name.Items.Add(cuphap.Cum_Tu_1).ToString();
                 //cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
             }
         }
@@ -74,11 +73,12 @@ namespace SMS
         {
                 cbo_Keyword.Items.Clear();
                 cbo_Keyword.Text = "";
+            
                 ArrayList arry = cuphapdao.getAllKeyword1CuPhap(cbo_Name.Text.ToString());
                 cbo_Keyword.Items.Add("");
                 foreach (CuPhapMODEL cuphap in arry)
                 {
-                    cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
+                    cbo_Keyword.Items.Add(cuphap.Cum_Tu_2).ToString();
                 }
                 dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
 
