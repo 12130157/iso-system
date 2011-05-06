@@ -45,6 +45,7 @@ namespace SMS
         {
             pnl_InboxType.Visible = true;
             Constants.choose = 1;
+            but_Ok.Text = "Thêm";
         }
 
         private void but_Ok_Click(object sender, EventArgs e)
@@ -152,6 +153,7 @@ namespace SMS
                 txt_IDInbox.Text = loaiHopThuModel.Id;
                 txt_NameInbox.Text = loaiHopThuModel.Ten;
                 txt_Note.Text = loaiHopThuModel.Ghi_Chu;
+                but_Ok.Text = "Cập Nhật";
             }
             
         }

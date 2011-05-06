@@ -185,7 +185,6 @@
             this.Name = "FormAddressBook";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormAddressBook";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.groupAddress.ResumeLayout(false);
             this.groupAddress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AddressBox)).EndInit();

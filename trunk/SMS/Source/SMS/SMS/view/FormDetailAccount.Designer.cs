@@ -136,8 +136,8 @@
             this.txt_Registrationyear.Size = new System.Drawing.Size(164, 22);
             this.txt_Registrationyear.TabIndex = 178;
             this.txt_Registrationyear.TextChanged += new System.EventHandler(this.txt_Registrationyear_TextChanged);
-            this.txt_Registrationyear.Validated += new System.EventHandler(this.txt_Registrationyear_Validated);
             this.txt_Registrationyear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Registrationyear_KeyPress);
+            this.txt_Registrationyear.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Registrationyear_Validating);
             // 
             // txt_RegistrationMonth
             // 
@@ -147,8 +147,9 @@
             this.txt_RegistrationMonth.Name = "txt_RegistrationMonth";
             this.txt_RegistrationMonth.Size = new System.Drawing.Size(164, 22);
             this.txt_RegistrationMonth.TabIndex = 179;
-            this.txt_RegistrationMonth.Validated += new System.EventHandler(this.txt_RegistrationMonth_Validated);
+            this.txt_RegistrationMonth.TextChanged += new System.EventHandler(this.txt_RegistrationMonth_TextChanged);
             this.txt_RegistrationMonth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_RegistrationMonth_KeyPress);
+            this.txt_RegistrationMonth.Validating += new System.ComponentModel.CancelEventHandler(this.txt_RegistrationMonth_Validating);
             // 
             // label6
             // 

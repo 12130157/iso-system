@@ -269,6 +269,7 @@
             this.txt_Note.MaxLength = 500;
             this.txt_Note.Multiline = true;
             this.txt_Note.Name = "txt_Note";
+            this.txt_Note.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_Note.Size = new System.Drawing.Size(162, 77);
             this.txt_Note.TabIndex = 111;
             // 

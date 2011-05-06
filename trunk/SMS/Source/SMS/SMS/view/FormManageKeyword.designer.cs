@@ -83,7 +83,7 @@
             // 
             this.cbo_Keyword.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cbo_Keyword.FormattingEnabled = true;
-            this.cbo_Keyword.Location = new System.Drawing.Point(374, 392);
+            this.cbo_Keyword.Location = new System.Drawing.Point(383, 390);
             this.cbo_Keyword.Name = "cbo_Keyword";
             this.cbo_Keyword.Size = new System.Drawing.Size(162, 23);
             this.cbo_Keyword.TabIndex = 144;
@@ -176,9 +176,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(283, 395);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.Size = new System.Drawing.Size(94, 15);
             this.label1.TabIndex = 136;
-            this.label1.Text = "Chọn cú pháp:";
+            this.label1.Text = "Chọn cú pháp 2:";
             // 
             // label28
             // 
@@ -186,16 +186,16 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(11, 393);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(108, 15);
+            this.label28.Size = new System.Drawing.Size(94, 15);
             this.label28.TabIndex = 136;
-            this.label28.Text = "Chọn tên cú Pháp :";
+            this.label28.Text = "Chọn cú Pháp 1:";
             // 
             // dlv_ManageKeyword
             // 
             this.dlv_ManageKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dlv_ManageKeyword.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dlv_ManageKeyword.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dlv_ManageKeyword.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dlv_ManageKeyword.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dlv_ManageKeyword.Location = new System.Drawing.Point(6, 28);

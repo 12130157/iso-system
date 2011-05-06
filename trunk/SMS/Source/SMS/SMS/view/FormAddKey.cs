@@ -237,79 +237,87 @@ namespace SMS.view
 
             private void but_Add_Click(object sender, EventArgs e)
             {
-                if (but_Add.Text.Equals("Thêm"))
+                try
                 {
-                    try
+                    if (but_Add.Text.Equals("Thêm"))
                     {
-                        cuPhapModel.Ten = txt_Name.Text.ToString();
-                        cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                        cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                        cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                        cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                        cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                        cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                        cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                        cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                        cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                        cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                        cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                        CuPhapDAO cuphapDAO = new CuPhapDAO();
-                        Boolean result = cuphapDAO.insertCuPhap(cuPhapModel);
-                        if (result == true)
+                        try
                         {
-                            if (MessageBox.Show(this, "Bạn có muốn tiếp tục thêm mới không?  ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            { clear(); }
+                            cuPhapModel.Ten = txt_Name.Text.ToString();
+                            cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                            cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                            cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                            cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                            cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                            cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                            cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                            cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                            cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                            cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                            cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+
+                            Boolean result = cuphapDao.insertCuPhap(cuPhapModel);
+                            if (result == true)
+                            {
+                                if (MessageBox.Show(this, "Bạn có muốn tiếp tục thêm mới không?  ", " Thông Báo ", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                { clear(); }
+                                else
+                                {
+                                    //fomKeyword.MdiParent = this.MdiParent;
+                                    //fomKeyword.Show();
+                                    this.Visible = false;
+                                }
+                            }
                             else
+                            {
+                                DialogResult mess = MessageBox.Show("Thêm mới thất bại");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(Convert.ToString(ex));
+                        }
+                    }
+
+                    else if (but_Add.Text.Equals("Cập Nhật"))
+                    {
+                        try
+                        {
+                            cuPhapModel.Id = txtID.Text.Trim();
+                            cuPhapModel.Ten = txt_Name.Text.ToString();
+                            cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
+                            cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
+                            cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
+                            cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
+                            cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
+                            cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
+                            cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
+                            cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
+                            cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
+                            cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
+                            cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
+                            Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
+                            if (result == true)
                             {
                                 //fomKeyword.MdiParent = this.MdiParent;
                                 //fomKeyword.Show();
-                                this.Visible=false;
+                                this.Visible = false;
+                            }
+                            else
+                            {
+                                DialogResult mess = MessageBox.Show("Cập nhật thất bại");
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            DialogResult mess = MessageBox.Show("Thêm mới thất bại");
+                            MessageBox.Show(Convert.ToString(ex));
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(Convert.ToString(ex));
                     }
                 }
-
-                else if (but_Add.Text.Equals("Cập Nhật"))
+                catch (Exception)
                 {
-                    try
-                    {
-                        cuPhapModel.Id = txtID.Text.Trim();
-                        cuPhapModel.Ten = txt_Name.Text.ToString();
-                        cuPhapModel.Cum_Tu_1 = txtKeyword1.Text.ToString();
-                        cuPhapModel.Cum_Tu_2 = txtKeyword2.Text.ToString();
-                        cuPhapModel.Cum_Tu_3 = txtKeyword3.Text.ToString();
-                        cuPhapModel.Cum_Tu_4 = txtKeyword4.Text.ToString();
-                        cuPhapModel.Cum_Tu_5 = txtKeyword5.Text.ToString();
-                        cuPhapModel.Cum_Tu_6 = txtKeyword6.Text.ToString();
-                        cuPhapModel.Cum_Tu_7 = txtKeyword7.Text.ToString();
-                        cuPhapModel.Cum_Tu_8 = txtKeyword8.Text.ToString();
-                        cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
-                        cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
-                        cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                        Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
-                        if (result == true)
-                        {
-                            //fomKeyword.MdiParent = this.MdiParent;
-                            //fomKeyword.Show();
-                            this.Visible=false;
-                        }
-                        else
-                        {
-                            DialogResult mess = MessageBox.Show("Cập nhật thất bại");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(Convert.ToString(ex));
-                    }
+                    
+                    throw;
                 }
             }
 
@@ -434,6 +442,33 @@ namespace SMS.view
                 }
             }
            #endregion
+
+            private void txt_Name_Validating(object sender, CancelEventArgs e)
+            {
+            }
+            //public bool ValidEmailAddress(string emailAddress, out string errorMessage)
+            //{
+            //    // Confirm that the e-mail address string is not empty.
+            //    if (emailAddress.Length == 0)
+            //    {
+            //        errorMessage = "e-mail address is required.";
+            //        return false;
+            //    }
+
+            //    // Confirm that there is an "@" and a "." in the e-mail address, and in the correct order.
+            //    if (emailAddress.IndexOf("@") > -1)
+            //    {
+            //        if (emailAddress.IndexOf(".", emailAddress.IndexOf("@")) > emailAddress.IndexOf("@"))
+            //        {
+            //            errorMessage = "";
+            //            return true;
+            //        }
+            //    }
+
+            //    errorMessage = "e-mail address must be valid e-mail address format.\n" +
+            //       "For example 'someone@example.com' ";
+            //    return false;
+            //}
 
     }
 }

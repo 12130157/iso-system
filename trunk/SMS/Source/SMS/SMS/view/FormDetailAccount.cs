@@ -157,111 +157,76 @@ namespace SMS.view
 
             private void but_Close2_Click(object sender, EventArgs e)
             {
-                if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
                     pnl_Add.Visible = false;
                     but_Edit.Enabled = false;
                     but_Delete.Enabled = false;
-                }
+                
             }
 
             private void but_Ok_Click(object sender, EventArgs e)
             {
-                if (common.Constants.chooseUpdate == 1)
+                if (!txt_RegistrationMonth.Text.Equals("") && !txt_Registrationyear.Text.Equals(""))
                 {
-                    try
+                    if (common.Constants.chooseUpdate == 1)
                     {
-                        ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
-                        ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
-                        ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                        bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
-                        if (result == true)
+                        try
                         {
-                            FormDetailAccount_Load(sender, e);
-                            pnl_Add.Visible = false;
-                            common.Constants.chooseUpdate = 0;
+                            ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
+                            ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
+                            ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
+                            bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
+                            if (result == true)
+                            {
+                                FormDetailAccount_Load(sender, e);
+                                pnl_Add.Visible = false;
+                                common.Constants.chooseUpdate = 0;
+                            }
+                            else
+                            { MessageBox.Show("Cập nhật thất bại!!!  "); }
                         }
-                        else
-                        { MessageBox.Show("Cập nhật thất bại!!!  "); }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(Convert.ToString(ex));
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(Convert.ToString(ex));
+                        try
+                        {
+                            ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
+                            ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
+                            ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
+                            bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
+                            if (result == true)
+                            {
+                                    //FormDetailAccount_Load(sender, e);
+                                    txt_RegistrationMonth.Text = "";
+                                    txt_Registrationyear.Text = "";
+                                
+                                    FormDetailAccount_Load(sender, e);
+                                    pnl_Add.Visible = false;
+                               
+                            }
+                            else
+                            { MessageBox.Show("Thêm mới thất bại!  ,Vui lòng kiểm tra lại  "); }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(Convert.ToString(ex));
+                        }
                     }
                 }
                 else
                 {
-                    try
-                    {
-                        ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
-                        ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
-                        ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                        bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
-                        if (result == true)
-                        {
-                            if (MessageBox.Show(this, "Bạn có muốn tiếp tục không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                FormDetailAccount_Load(sender, e);
-                                txt_RegistrationMonth.Text = "";
-                                txt_Registrationyear.Text = "";
-                            }
-                            else
-                            {
-                                FormDetailAccount_Load(sender, e);
-                                pnl_Add.Visible = false;
-                            }
-                        }
-                        else
-                        { MessageBox.Show("Thêm mới thất bại!  ,Vui lòng kiểm tra lại  "); }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(Convert.ToString(ex));
-                    }
+                    MessageBox.Show("Vui lòng kiểm tra lai tháng và năm để đăng ký!  ", "Thông Báo", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    txt_RegistrationMonth.Focus();
                 }
                 but_Edit.Enabled = false;
                 but_Delete.Enabled = false;
             }
         #endregion
 
-            private void txt_RegistrationMonth_Validated(object sender, EventArgs e)
-            {
-
-                int thangHH = DateTime.Today.Month;
-                //int nam = DateTime.Today.Year;
-                int thangDK = Convert.ToInt16(txt_RegistrationMonth.Text);
-                if (thangDK < 13)
-                {
-                    if (thangDK < thangHH)
-                    {
-                        MessageBox.Show("Tháng đăng ký phải lớn hơn tháng hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        txt_RegistrationMonth.Focus();
-                        but_Ok.Enabled = false;
-                    }
-                    else
-                    { but_Ok.Enabled = true; }
-                }
-                else
-                {
-                    MessageBox.Show("Bạn nhập tháng không hợp lệ! , Vui lòng nhập lại", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    txt_RegistrationMonth.Focus();
-                }
-            }
-
-            private void txt_Registrationyear_Validated(object sender, EventArgs e)
-            {
-                int namDK = Convert.ToInt16(txt_Registrationyear.Text);
-                int namHH = DateTime.Today.Year;
-                
-                if (namDK < namHH)
-                {
-                    MessageBox.Show("Năm đăng ký phải lớn hơn năm hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    txt_Registrationyear.Focus();
-                    but_Ok.Enabled = false;
-                }
-                else
-                { but_Ok.Enabled = true; }
-            }
+            #region validation 
 
             private void txt_RegistrationMonth_KeyPress(object sender, KeyPressEventArgs e)
             {
@@ -282,6 +247,51 @@ namespace SMS.view
                 but_Ok.Enabled = true;
             }
 
-        
+            private void txt_Registrationyear_Validating(object sender, CancelEventArgs e)
+            {
+                if (!txt_Registrationyear.Text.Equals(""))
+                {
+                    int namDK = Convert.ToInt16(txt_Registrationyear.Text);
+                    int namHH = DateTime.Today.Year;
+
+                    if (namDK < namHH)
+                    {
+                        MessageBox.Show("Năm đăng ký phải lớn hơn năm hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        txt_Registrationyear.Focus();
+                        but_Ok.Enabled = false;
+                    }
+                    else
+                    { but_Ok.Enabled = true; }
+                }
+            }
+
+            private void txt_RegistrationMonth_Validating(object sender, CancelEventArgs e)
+            {
+                int thangHH = DateTime.Today.Month;
+                int thangDK = Convert.ToInt16(txt_RegistrationMonth.Text);
+                if (thangDK < 13)
+                {
+                    if (thangDK < thangHH)
+                    {
+                        MessageBox.Show("Tháng đăng ký phải lớn hơn tháng hiện tại!  ", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        txt_RegistrationMonth.Focus();
+                        but_Ok.Enabled = false;
+                    }
+                    else
+                    { but_Ok.Enabled = true; }
+                }
+                else
+                {
+                    MessageBox.Show("Bạn nhập tháng không hợp lệ! , Vui lòng nhập lại", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    txt_RegistrationMonth.Focus();
+                }
+            }
+
+            private void txt_RegistrationMonth_TextChanged(object sender, EventArgs e)
+            {
+                but_Ok.Enabled = true;
+            }
+
+            #endregion
     }
 }
