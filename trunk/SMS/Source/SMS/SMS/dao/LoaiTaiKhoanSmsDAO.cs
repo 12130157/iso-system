@@ -13,33 +13,44 @@ namespace SMS.dao
     class LoaiTaiKhoanSmsDAO
     {
         #region thong tin loai tai khoan sms
+
+        public DataTable getAllLoaiTaiKhoanSMS2()
+        {
+                    //DataTable result = DataUtil.executeStore("sp_getAllLoaiTaiKhoanSMS2", null);
+            return DataUtil.executeStore("sp_getAllLoaiTaiKhoanSMS2", null);
+        }
         public  ArrayList getAllLoaiTaiKhoanSMS()
         {
-            ArrayList listLoaiTaiKhoanSMS = new ArrayList();
-            //String sql = ConfigurationManager.AppSettings["sql.getAllLoaiTaiKhoanSMS"];
-            //SqlCommand objCommand = new SqlCommand(sql);
+            LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel;
+           
+                try
+                {
+                    ArrayList listLoaiTaiKhoanSMS = new ArrayList();
+                    //String sql = ConfigurationManager.AppSettings["sql.getAllLoaiTaiKhoanSMS"];
+                    //SqlCommand objCommand = new SqlCommand(sql);
 
-            //DataTable result = DataUtil.executeQuery(objCommand);
-            DataTable result = DataUtil.executeStore("sp_getAllLoaiTaiKhoanSMS", null);
+                    //DataTable result = DataUtil.executeQuery(objCommand);
+                    DataTable result = DataUtil.executeStore("sp_getAllLoaiTaiKhoanSMS", null);
 
-            foreach (DataRow row in result.Rows)
-            {
-                LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
+                    foreach (DataRow row in result.Rows)
+                    {
+                        loaiTaiKhoanSMSModel = new LoaiTaiKhoanSmsMODEL();
+                        loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
+                        loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
+                        loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
+                        loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
 
-                loaiTaiKhoanSMSModel.Id = row["ID"].ToString();
-                loaiTaiKhoanSMSModel.Ten = row["Ten"].ToString();
-                loaiTaiKhoanSMSModel.Phi_Dich_Vu = row["Phi_dich_vu"].ToString();
-                loaiTaiKhoanSMSModel.Ghi_Chu = row["Ghi_chu"].ToString();
-                loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi = row["Ngay_cap_nhat_cuoi"].ToString();
-                loaiTaiKhoanSMSModel.User11 = row["User1"].ToString();
-                loaiTaiKhoanSMSModel.User21 = row["User2"].ToString();
-                loaiTaiKhoanSMSModel.User31 = row["User3"].ToString();
-                loaiTaiKhoanSMSModel.User41 = row["User4"].ToString();
-                loaiTaiKhoanSMSModel.User51 = row["User5"].ToString();
+                        listLoaiTaiKhoanSMS.Add(loaiTaiKhoanSMSModel);
+                    }
+                    return listLoaiTaiKhoanSMS;
+                }
+                catch (Exception)
+                {
 
-                listLoaiTaiKhoanSMS.Add(loaiTaiKhoanSMSModel);
-            }
-            return listLoaiTaiKhoanSMS;
+                    throw;
+                }
+            
+
         }
         #endregion
 
