@@ -12,7 +12,8 @@ GO
 CREATE PROC sp_ISO_SMS_getAllNormalMessDeletedInbox
 AS
 BEGIN
-	SELECT	ID,So_dien_thoai,Noi_dung_tin_nhan,Ngay_nhan
+	SELECT	ID,So_dien_thoai,Noi_dung_tin_nhan,Ngay_nhan,
+			dbo.fnc_ISO_SMS_statusReply(A.Ma_Tin_Nhan_Tra_Loi) AS 'Tinh_trang_Tra_loi'
 
 	FROM HopThuDen  
 
