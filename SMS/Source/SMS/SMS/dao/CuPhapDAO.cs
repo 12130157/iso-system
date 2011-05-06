@@ -59,7 +59,7 @@ namespace SMS
         //    return DataUtil.executeQuery(objCommand);
         //}
 
-        public ArrayList getAllTenKeywordCuPhap()
+        public ArrayList getAllKeywordCuPhap()
         {
             ArrayList listCuPhap = new ArrayList();
             //String sql = ConfigurationManager.AppSettings["sql.getAllTenCuPhap"];
@@ -72,14 +72,14 @@ namespace SMS
             {
                 CuPhapMODEL cuPhapModel = new CuPhapMODEL();
 
-                cuPhapModel.Ten = row["Ten"].ToString();
+                cuPhapModel.Cum_Tu_1 = row["Cum_Tu_1"].ToString();
 
                 listCuPhap.Add(cuPhapModel);
             }
             return listCuPhap;
         }
 
-        public ArrayList getAllKeyword1CuPhap(String ten)
+        public ArrayList getAllKeyword1CuPhap(String Cum_tu_1)
         {
   
                 ArrayList listCuPhap = new ArrayList();
@@ -91,8 +91,8 @@ namespace SMS
                 SqlParameter[] parameter = new SqlParameter[1];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
-                parameter[i++].Value = ten;
+                parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.NVarChar);
+                parameter[i++].Value = Cum_tu_1;
 
                 DataTable result = DataUtil.executeStore("sp_getAllKeyword1CuPhap", parameter);
                 if (result == null)
@@ -104,7 +104,7 @@ namespace SMS
                     {
                         CuPhapMODEL cuPhapModel = new CuPhapMODEL();
 
-                        cuPhapModel.Cum_Tu_1 = row["Cum_tu_1"].ToString();
+                        cuPhapModel.Cum_Tu_2 = row["Cum_tu_2"].ToString();
 
                         listCuPhap.Add(cuPhapModel);
                     }
@@ -174,9 +174,6 @@ namespace SMS
             {
                 SqlParameter[] parameter = new SqlParameter[18];
                 int i = 0;
-
-                //parameter[i] = new SqlParameter("ID", SqlDbType.Int);
-                //parameter[i++].Value = cuPhapModel.Id;
 
                 parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
                 parameter[i++].Value = cuPhapModel.Ten;
@@ -385,11 +382,10 @@ namespace SMS
 
             //return DataUtil.executeQuery(objCommand);
 
-
             return DataUtil.executeStore("sp_getAllDRVCuPhap", null);
         }
 
-        public static DataTable getTenDRVCuPhapByID(String ten,String keyword1)
+        public static DataTable getTenDRVCuPhapByID(String keyword1,String keyword2)
         {
             //String sql = ConfigurationManager.AppSettings["sql.getTenDRVCuPhapByID"];
             //SqlCommand objCommand = new SqlCommand(sql);
@@ -402,11 +398,11 @@ namespace SMS
             SqlParameter[] parameter = new SqlParameter[2];
             int i = 0;
 
-            parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
-            parameter[i++].Value = ten;
-
             parameter[i] = new SqlParameter("Cum_tu_1", SqlDbType.NVarChar);
             parameter[i++].Value = keyword1;
+
+            parameter[i] = new SqlParameter("Cum_tu_2", SqlDbType.NVarChar);
+            parameter[i++].Value = keyword2;
             return DataUtil.executeStore("sp_Search_KeyworkName", parameter);
               
         }

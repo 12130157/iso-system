@@ -132,9 +132,6 @@ namespace SMS.dao
                 SqlParameter[] parameter = new SqlParameter[10];
                 int i = 0;
 
-                //parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-                //parameter[i++].Value = taiKhoanSMSModel.Id;
-
                 parameter[i] = new SqlParameter("So_dien_thoai", SqlDbType.NVarChar);
                 parameter[i++].Value = taiKhoanSMSModel.So_Dien_Thoai;
 
