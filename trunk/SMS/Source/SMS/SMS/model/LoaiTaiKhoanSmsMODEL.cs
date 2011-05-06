@@ -18,6 +18,37 @@ namespace SMS.model
         private string User4;
         private string User5;
 
+
+
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public string Ten
+        {
+            get { return ten; }
+            set { ten = value; }
+        }
+        public string Phi_Dich_Vu
+        {
+            get { return phi_Dich_Vu; }
+            set { phi_Dich_Vu = value; }
+        }
+
+        public string Ghi_Chu
+        {
+            get { return ghi_Chu; }
+            set { ghi_Chu = value; }
+        }
+
+        public string Ngay_Cap_Nhat_Cuoi
+        {
+            get { return ngay_Cap_Nhat_Cuoi; }
+            set { ngay_Cap_Nhat_Cuoi = value; }
+        }
+
         public string User11
         {
             get { return User1; }
@@ -46,36 +77,6 @@ namespace SMS.model
         {
             get { return User5; }
             set { User5 = value; }
-        }
-
-        public string Ngay_Cap_Nhat_Cuoi
-        {
-            get { return ngay_Cap_Nhat_Cuoi; }
-            set { ngay_Cap_Nhat_Cuoi = value; }
-        }
-
-        public string Ghi_Chu
-        {
-            get { return ghi_Chu; }
-            set { ghi_Chu = value; }
-        }
-
-        public string Phi_Dich_Vu
-        {
-            get { return phi_Dich_Vu; }
-            set { phi_Dich_Vu = value; }
-        }
-
-        public string Ten
-        {
-            get { return ten; }
-            set { ten = value; }
-        }
-
-        public string Id
-        {
-            get { return id; }
-            set { id = value; }
         }
     }
 }
