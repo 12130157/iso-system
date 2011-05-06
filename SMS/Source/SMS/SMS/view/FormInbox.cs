@@ -20,6 +20,7 @@ namespace SMS
             showNormalMessDeletedInbox();
             this.btnRemoveMessInbox.Enabled = false;
             this.btnForwardMessInbox.Enabled = false;
+            txtContentFilterInbox.Enabled = false;
         }
 
         public void showSyntaxMessInbox()
@@ -208,6 +209,11 @@ namespace SMS
 
         private void tabControls_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cboFilterSyntaxMessInbox.Text = "Choose...";
+            if (cboFilterSyntaxMessInbox.Text.Equals("Choose..."))
+            {
+                txtContentFilterInbox.Enabled = false;
+            }
             if (tabInbox.SelectedTab == tabMessDeleted)
             {
                 this.btnForwardMessInbox.Enabled = false;
@@ -236,7 +242,11 @@ namespace SMS
 
         private void tabDeletedInbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            cboFilterSyntaxMessInbox.Text = "Choose...";
+            if (cboFilterSyntaxMessInbox.Text.Equals("Choose..."))
+            {
+                txtContentFilterInbox.Enabled = false;
+            }   
             if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
             {
                 this.btnForwardMessInbox.Enabled = false;
@@ -315,5 +325,94 @@ namespace SMS
             }
         }
 
+        private void cboFilterSyntaxMessInbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                txtContentFilterInbox.Enabled = true;
+        }
+
+        private void txtContentFilterInbox_TextChanged(object sender, EventArgs e)
+        {
+            if (tabInbox.SelectedTab == tabSyntaxMess)
+            {
+                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                {
+                    showSearchSytaxMessInboxBySoDienThoai(txtContentFilterInbox.Text);
+                }
+                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                {
+                    showSearchSytaxMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);   
+                }
+                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                {
+                    showSearchSytaxMessInboxByCuPhap(txtContentFilterInbox.Text);   
+                }
+            }
+            else if (tabInbox.SelectedTab == tabNormalMessage)
+            {
+                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                {
+
+                }
+                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                {
+
+                }
+                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                {
+
+                }
+            }
+            else if (tabInbox.SelectedTab == tabMessDeleted)
+            {
+                if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
+                {
+                    if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                    {
+
+                    }
+                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                    {
+
+                    }
+                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                    {
+
+                    }
+                }
+                else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+                {
+                    if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                    {
+
+                    }
+                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                    {
+
+                    }
+                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void showSearchSytaxMessInboxBySoDienThoai(string nbPhone)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessInboxByNbPhone(nbPhone);
+            tblSyntaxMess.DataSource = tableShowSyntaxMessInbox; 
+        }
+
+        private void showSearchSytaxMessInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessInboxByNoiDungTinNhan(noiDungMess);
+            tblSyntaxMess.DataSource = tableShowSyntaxMessInbox;
+        }
+
+        private void showSearchSytaxMessInboxByCuPhap(string cuPhap)
+        {
+            DataTable tableShowSyntaxMessInbox = HopThuDenDAO.getSyntaxMessInboxByCuPhap(cuPhap);
+            tblSyntaxMess.DataSource = tableShowSyntaxMessInbox;
+        }
     }
 }

@@ -435,7 +435,7 @@
             this.tblNormalMessDeletedInbox.ReadOnly = true;
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
             this.tblNormalMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 312);
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 315);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
             this.tblNormalMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedInbox_CellClick);
             // 
@@ -524,6 +524,7 @@
             this.cboFilterSyntaxMessInbox.Size = new System.Drawing.Size(138, 24);
             this.cboFilterSyntaxMessInbox.TabIndex = 7;
             this.cboFilterSyntaxMessInbox.Text = "Choose...";
+            this.cboFilterSyntaxMessInbox.SelectedIndexChanged += new System.EventHandler(this.cboFilterSyntaxMessInbox_SelectedIndexChanged);
             // 
             // btnRemoveMessInbox
             // 
@@ -557,6 +558,7 @@
             this.txtContentFilterInbox.Name = "txtContentFilterInbox";
             this.txtContentFilterInbox.Size = new System.Drawing.Size(152, 24);
             this.txtContentFilterInbox.TabIndex = 13;
+            this.txtContentFilterInbox.TextChanged += new System.EventHandler(this.txtContentFilterInbox_TextChanged);
             // 
             // lbNbPhoneDt
             // 
@@ -689,7 +691,6 @@
         private System.Windows.Forms.DataGridView tblNormalMess;
         private System.Windows.Forms.Button btnDeleteMessInbox;
         private System.Windows.Forms.Button btnMaskReadMessInbox;
-        private System.Windows.Forms.ComboBox cboFilterSyntaxMessInbox;
         private System.Windows.Forms.TabPage tabMessDeleted;
         private System.Windows.Forms.Button btnReplyMessInbox;
         private System.Windows.Forms.TabControl tabDeletedInbox;
@@ -732,5 +733,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmReplyNormalMessDeletedInbox;
+        private System.Windows.Forms.ComboBox cboFilterSyntaxMessInbox;
     }
 }
