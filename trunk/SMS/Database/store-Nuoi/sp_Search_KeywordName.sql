@@ -4,44 +4,260 @@ BEGIN
 End
 go
 CREATE PROC sp_Search_KeyworkName
-	@Ten		VARCHAR(40) ,
-	@Cum_tu_1	NVARCHAR(200)
+	@Cum_tu_1		VARCHAR(10) ,
+	@Cum_tu_2	NVARCHAR(10)
 AS
 BEGIN
-	IF @Ten = '' AND @Cum_tu_1 = ''
+	IF @Cum_tu_1 = '' AND @Cum_tu_2 = ''
 	BEGIN
 		-- DIEU KIEN 1 ==> SEARCH ALL
-		select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
-		 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
-		 ,Ghi_chu as 'Ghi Chu' from CuPhap
+		exec sp_getAllDRVCuPhap
 	END
 
-	ELSE IF @Ten <> '' AND @Cum_tu_1 = ''
+	ELSE IF @Cum_tu_1 <> '' AND @Cum_tu_2 = ''
 	BEGIN
 		-- DIEU KIEN 2 ==> SEARCH CUSTOMER NAME
 		
-		select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
-		 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
-		 ,Ghi_chu as 'Ghi Chu' from CuPhap
-		WHERE Ten LIKE '%' + @Ten + '%'
+		if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'' and Cum_tu_10 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9', Cum_tu_10 as 'Cu phap 10'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap 
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		END
+		
+------------
 	END
-	ELSE IF @Ten = '' AND @Cum_tu_1 <> ''
+	ELSE IF @Cum_tu_1 = '' AND @Cum_tu_2 <> ''
 	BEGIN
 		-- DIEU KIEN 3 ==> SEARCH PHONE
-		select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
-		 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
-		 ,Ghi_chu as 'Ghi Chu' from CuPhap
-		WHERE  Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'' and Cum_tu_10 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9', Cum_tu_10 as 'Cu phap 10'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE  Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+		
 	END
-	ELSE IF @Ten <> '' AND @Cum_tu_1 <> ''
+---------------
+	ELSE IF @Cum_tu_1 <> '' AND @Cum_tu_2 <> ''
 	BEGIN
 		-- DIEU KIEN 4 ==> SEARCH CUSTOMER NAME + PHONE
-		select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
-		 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
-		 ,Ghi_chu as 'Ghi Chu' from CuPhap
-		WHERE Ten LIKE '%' + @Ten + '%' 
-			AND Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%'
+		if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'' and Cum_tu_10 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9', Cum_tu_10 as 'Cu phap 10'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'' and Cum_tu_9 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8',Cum_tu_9 as 'Cu phap 9'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'' and Cum_tu_8 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7',Cum_tu_8 as 'Cu phap 8'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>''  and Cum_tu_7 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Cum_tu_7 as 'Cu phap 7'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>''  and Cum_tu_6 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5' ,Cum_tu_6 as 'Cu phap 6'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4 <>'' and Cum_tu_5 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4',Cum_tu_5 as 'Cu phap 5'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'' and Cum_tu_4<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3',Cum_tu_4 as 'Cu phap 4'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'' and Cum_tu_3<>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Cum_tu_3 as 'Cu phap 3'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'' and Cum_tu_2 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1',Cum_tu_2 as 'Cu phap 2'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
+	else if exists(select *  from CuPhap where Cum_tu_1 <>'')
+		BEGIN
+			select ID as 'Ma cu phap', Ten as 'Ten cu phap', Cum_tu_1 as 'Cu phap 1'
+			 ,Ghi_chu as 'Ghi Chu' from CuPhap
+				WHERE Cum_tu_1 LIKE '%' + @Cum_tu_1 + '%' 
+					AND Cum_tu_2 LIKE '%' + @Cum_tu_2 + '%'
+		END
 	END
+-------
 END
 --select * from CuPhap
 --exec sp_Search_KeyworkName '',''

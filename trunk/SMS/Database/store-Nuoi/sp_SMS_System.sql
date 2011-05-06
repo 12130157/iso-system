@@ -681,7 +681,7 @@ END
 GO
 CREATE PROC sp_SMS_UpdateCuPhapByID
 	@ID						int,
-	@Ten					nvarchar(40),
+	@Ten					nvarchar(500),
 	@Cum_tu_1				varchar(10),
 	@Cum_tu_2				varchar(10),
 	@Cum_tu_3				varchar(10),
