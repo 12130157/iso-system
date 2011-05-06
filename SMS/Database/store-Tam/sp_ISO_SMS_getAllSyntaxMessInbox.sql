@@ -18,7 +18,7 @@ BEGIN
 			' '+B.Cum_tu_7 +' '+B.Cum_tu_8 +' '+B.Cum_tu_9 +
 			' '+B.Cum_tu_10  AS 'Cu_phap'
 			,dbo.statusToString(A.Tinh_trang) AS 'Tinh_trang',
-			A.Ngay_nhan
+			A.Ngay_nhan,dbo.fnc_ISO_SMS_statusReply(A.Ma_Tin_Nhan_Tra_Loi) AS 'Tinh_trang_Tra_loi'
 	FROM HopThuDen AS A 
 
 	INNER JOIN CuPhap AS B

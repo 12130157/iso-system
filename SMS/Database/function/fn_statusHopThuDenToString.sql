@@ -10,7 +10,6 @@ CREATE FUNCTION statusToString
 RETURNS nvarchar(20)
 AS
 BEGIN
---http://aa.usno.navy.mil/faq/docs/easter.php
 declare @rs nvarchar(20)
 IF @status = 1
 	set @rs =  'Read'

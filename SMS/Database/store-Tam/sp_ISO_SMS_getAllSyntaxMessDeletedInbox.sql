@@ -16,7 +16,8 @@ BEGIN
 			B.Cum_tu_1+' '+B.Cum_tu_2+' '+B.Cum_tu_3+
 			' '+B.Cum_tu_4+' '+B.Cum_tu_5+' '+B.Cum_tu_6 +
 			' '+B.Cum_tu_7 +' '+B.Cum_tu_8 +' '+B.Cum_tu_9 +
-			' '+B.Cum_tu_10  AS 'Cu_phap',A.Ngay_nhan
+			' '+B.Cum_tu_10  AS 'Cu_phap',A.Ngay_nhan,
+			dbo.fnc_ISO_SMS_statusReply(A.Ma_Tin_Nhan_Tra_Loi) AS 'Tinh_trang_Tra_loi'
 	
 	FROM HopThuDen AS A 
 

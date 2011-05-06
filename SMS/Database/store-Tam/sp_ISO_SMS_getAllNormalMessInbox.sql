@@ -14,7 +14,7 @@ AS
 BEGIN
 	SELECT	A.ID,A.So_dien_thoai,A.Noi_dung_tin_nhan,
 			dbo.statusToString(A.Tinh_trang) AS 'Tinh_trang',
-			A.Ngay_nhan
+			A.Ngay_nhan,dbo.fnc_ISO_SMS_statusReply(A.Ma_Tin_Nhan_Tra_Loi) AS 'Tinh_trang_Tra_loi'
 
 	FROM HopThuDen AS A 
 
