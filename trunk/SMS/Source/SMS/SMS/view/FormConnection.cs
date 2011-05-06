@@ -40,7 +40,7 @@ namespace SMS
             }
             else
             {
-                MessageBox.Show("Connect Failed");
+                //MessageBox.Show("Connect Failed");
                 if (MessageBox.Show("Ban co muon tiep tuc dang nhap ?", "Xac Nhan", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.Hide();

@@ -179,6 +179,22 @@ namespace SMS
             }
         }
 
+        private void btnReSentMessSent_Click(object sender, EventArgs e)
+        {
+            if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
+            {
+                reSendMess(tblSyntaxMessErrorSent, "clmIdSyntaxMessError", "clmContentSyntaxMessErrorSent", "clmNbPhoneSyntaxMessErrorSent", "4");
+                showAllSyntaxMessSent();
+                showAllSyntaxMessErrorSent();
+            }
+            else if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+            {
+                reSendMess(tblNormalMessErrorSent, "clmIdNormalMessErrorSent", "clmContentNormalMessErrorSent", "clmNbPhoneNormalMessErrorSent", "6");
+                showAllNormalMessSent();
+                showAllNormalMessErrorSent();
+            }
+        }
+
         private void deleteMessSent(DataGridView tbl, string clmName)
         {
             DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
@@ -238,22 +254,6 @@ namespace SMS
             }
         }
 
-        private void btnReSentMessSent_Click(object sender, EventArgs e)
-        {
-            if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
-            {
-                reSendMess(tblSyntaxMessErrorSent, "clmIdSyntaxMessError", "clmContentSyntaxMessErrorSent", "clmNbPhoneSyntaxMessErrorSent", "4");
-                showAllSyntaxMessSent();
-                showAllSyntaxMessErrorSent();
-            }
-            else if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
-            {
-                reSendMess(tblNormalMessErrorSent, "clmIdNormalMessErrorSent", "clmContentNormalMessErrorSent", "clmNbPhoneNormalMessErrorSent", "6");
-                showAllNormalMessSent();
-                showAllNormalMessErrorSent();
-            }
-        }
-
         private void reSendMess(DataGridView tbl,string clmName, string clmConTentMess,string clmNbPhone,string loaihopthu)
         {
             DataGridViewSelectedRowCollection selectedRows = tbl.SelectedRows;
@@ -286,6 +286,90 @@ namespace SMS
             else
             {
                 MessageBox.Show("Ban phai chon tin nhan de gui lai");
+            }
+        }
+
+        private void tblSyntaxMessSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblSyntaxMessSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneSyntaxMessSent"].Value.ToString();
+                txtSyntaxDe.Text = row.Cells["clmSyntaxMessSent"].Value.ToString();
+                txtDateTimeDe.Text = row.Cells["clmDateTimeSyntaxMessSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentMessSent"].Value.ToString();
+            }
+        }
+
+        private void tblNormalMessSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblNormalMessSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneNormalMessSent"].Value.ToString();
+                txtSyntaxDe.Text = null;
+                txtDateTimeDe.Text = row.Cells["clmDateTimeNormalMessSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentNormalMessSent"].Value.ToString();
+            }
+        }
+
+        private void tblSyntaxMessErrorSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblSyntaxMessErrorSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneSyntaxMessErrorSent"].Value.ToString();
+                txtSyntaxDe.Text = row.Cells["clmSyntaxErrorMessSent"].Value.ToString();
+                txtDateTimeDe.Text = row.Cells["clmDateTimeSyntaxMessErrorSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentSyntaxMessErrorSent"].Value.ToString();
+            }
+        }
+
+        private void tblNormalMessErrorSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblNormalMessErrorSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneNormalMessErrorSent"].Value.ToString();
+                txtSyntaxDe.Text = null;
+                txtDateTimeDe.Text = row.Cells["clmDateTimeNormalMessErrorSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentNormalMessErrorSent"].Value.ToString();
+            }
+        }
+
+        private void tblSyntaxMessDeletedSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblSyntaxMessDeletedSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneSyntaxMessDeletedSent"].Value.ToString();
+                txtSyntaxDe.Text = row.Cells["clmSyntaxMessDeletedSent"].Value.ToString();
+                txtDateTimeDe.Text = row.Cells["clmDateTimeSyntaxMessDeletedSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentSyntaxMessDeletedSent"].Value.ToString();
+            }
+        }
+
+        private void tblNormalMessDeletedSent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = tblNormalMessDeletedSent.SelectedRows;
+            if (selectedRows.Count == 1)
+            {
+                DataGridViewRow row = selectedRows[0];
+
+                txtNbPhoneDe.Text = row.Cells["clmNbPhoneNormalMessDeletedSent"].Value.ToString();
+                txtSyntaxDe.Text = null;
+                txtDateTimeDe.Text = row.Cells["clmDateTimeNormalMessDeletedSent"].Value.ToString();
+                txtContentMessDe.Text = row.Cells["clmContentNormalMessDeletedSent"].Value.ToString();
             }
         }
     }

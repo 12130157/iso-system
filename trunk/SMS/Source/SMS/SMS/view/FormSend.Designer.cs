@@ -50,6 +50,7 @@
             this.clmIdSyntaxMessError = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNbPhoneSyntaxMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentSyntaxMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSyntaxErrorMessSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDateTimeSyntaxMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabNormalMessErrorSent = new System.Windows.Forms.TabPage();
             this.tblNormalMessErrorSent = new System.Windows.Forms.DataGridView();
@@ -64,6 +65,7 @@
             this.clmIdSyntaxMessDeletedSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNbPhoneSyntaxMessDeletedSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentSyntaxMessDeletedSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmSyntaxMessDeletedSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDateTimeSyntaxMessDeletedSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabNormalMessDeletedSent = new System.Windows.Forms.TabPage();
             this.tblNormalMessDeletedSent = new System.Windows.Forms.DataGridView();
@@ -78,9 +80,8 @@
             this.btnReSentMessSent = new System.Windows.Forms.Button();
             this.cboFilterMessSent = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnFilterMessSent = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtContentMessDe = new System.Windows.Forms.TextBox();
             this.txtDateTimeDe = new System.Windows.Forms.TextBox();
             this.txtSyntaxDe = new System.Windows.Forms.TextBox();
             this.lbDateTimeDe = new System.Windows.Forms.Label();
@@ -167,38 +168,47 @@
             this.tblSyntaxMessSent.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tblSyntaxMessSent.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessSent.Name = "tblSyntaxMessSent";
+            this.tblSyntaxMessSent.ReadOnly = true;
             this.tblSyntaxMessSent.RowHeadersVisible = false;
+            this.tblSyntaxMessSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblSyntaxMessSent.Size = new System.Drawing.Size(887, 338);
             this.tblSyntaxMessSent.TabIndex = 0;
+            this.tblSyntaxMessSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblSyntaxMessSent_CellClick);
             // 
             // clmIdSyntaxMessSent
             // 
             this.clmIdSyntaxMessSent.DataPropertyName = "id";
             this.clmIdSyntaxMessSent.HeaderText = "ID";
             this.clmIdSyntaxMessSent.Name = "clmIdSyntaxMessSent";
+            this.clmIdSyntaxMessSent.ReadOnly = true;
             // 
             // clmNbPhoneSyntaxMessSent
             // 
             this.clmNbPhoneSyntaxMessSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneSyntaxMessSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneSyntaxMessSent.Name = "clmNbPhoneSyntaxMessSent";
+            this.clmNbPhoneSyntaxMessSent.ReadOnly = true;
             // 
             // clmContentMessSent
             // 
             this.clmContentMessSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentMessSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentMessSent.Name = "clmContentMessSent";
+            this.clmContentMessSent.ReadOnly = true;
             // 
             // clmSyntaxMessSent
             // 
+            this.clmSyntaxMessSent.DataPropertyName = "Cu_Phap";
             this.clmSyntaxMessSent.HeaderText = "Cú Pháp";
             this.clmSyntaxMessSent.Name = "clmSyntaxMessSent";
+            this.clmSyntaxMessSent.ReadOnly = true;
             // 
             // clmDateTimeSyntaxMessSent
             // 
             this.clmDateTimeSyntaxMessSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeSyntaxMessSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeSyntaxMessSent.Name = "clmDateTimeSyntaxMessSent";
+            this.clmDateTimeSyntaxMessSent.ReadOnly = true;
             // 
             // tabNormalMessSent
             // 
@@ -229,33 +239,40 @@
             this.clmDateTimeNormalMessSent});
             this.tblNormalMessSent.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessSent.Name = "tblNormalMessSent";
+            this.tblNormalMessSent.ReadOnly = true;
             this.tblNormalMessSent.RowHeadersVisible = false;
+            this.tblNormalMessSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblNormalMessSent.Size = new System.Drawing.Size(887, 338);
             this.tblNormalMessSent.TabIndex = 16;
+            this.tblNormalMessSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessSent_CellClick);
             // 
             // clmIdNormalMessSent
             // 
             this.clmIdNormalMessSent.DataPropertyName = "id";
             this.clmIdNormalMessSent.HeaderText = "ID";
             this.clmIdNormalMessSent.Name = "clmIdNormalMessSent";
+            this.clmIdNormalMessSent.ReadOnly = true;
             // 
             // clmNbPhoneNormalMessSent
             // 
             this.clmNbPhoneNormalMessSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneNormalMessSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneNormalMessSent.Name = "clmNbPhoneNormalMessSent";
+            this.clmNbPhoneNormalMessSent.ReadOnly = true;
             // 
             // clmContentNormalMessSent
             // 
             this.clmContentNormalMessSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentNormalMessSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentNormalMessSent.Name = "clmContentNormalMessSent";
+            this.clmContentNormalMessSent.ReadOnly = true;
             // 
             // clmDateTimeNormalMessSent
             // 
             this.clmDateTimeNormalMessSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeNormalMessSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeNormalMessSent.Name = "clmDateTimeNormalMessSent";
+            this.clmDateTimeNormalMessSent.ReadOnly = true;
             // 
             // tabErrorMessSent
             // 
@@ -306,36 +323,51 @@
             this.clmIdSyntaxMessError,
             this.clmNbPhoneSyntaxMessErrorSent,
             this.clmContentSyntaxMessErrorSent,
+            this.clmSyntaxErrorMessSent,
             this.clmDateTimeSyntaxMessErrorSent});
             this.tblSyntaxMessErrorSent.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessErrorSent.Name = "tblSyntaxMessErrorSent";
+            this.tblSyntaxMessErrorSent.ReadOnly = true;
             this.tblSyntaxMessErrorSent.RowHeadersVisible = false;
+            this.tblSyntaxMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblSyntaxMessErrorSent.Size = new System.Drawing.Size(879, 309);
             this.tblSyntaxMessErrorSent.TabIndex = 0;
+            this.tblSyntaxMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblSyntaxMessErrorSent_CellClick);
             // 
             // clmIdSyntaxMessError
             // 
             this.clmIdSyntaxMessError.DataPropertyName = "id";
             this.clmIdSyntaxMessError.HeaderText = "ID";
             this.clmIdSyntaxMessError.Name = "clmIdSyntaxMessError";
+            this.clmIdSyntaxMessError.ReadOnly = true;
             // 
             // clmNbPhoneSyntaxMessErrorSent
             // 
             this.clmNbPhoneSyntaxMessErrorSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneSyntaxMessErrorSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneSyntaxMessErrorSent.Name = "clmNbPhoneSyntaxMessErrorSent";
+            this.clmNbPhoneSyntaxMessErrorSent.ReadOnly = true;
             // 
             // clmContentSyntaxMessErrorSent
             // 
             this.clmContentSyntaxMessErrorSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentSyntaxMessErrorSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentSyntaxMessErrorSent.Name = "clmContentSyntaxMessErrorSent";
+            this.clmContentSyntaxMessErrorSent.ReadOnly = true;
+            // 
+            // clmSyntaxErrorMessSent
+            // 
+            this.clmSyntaxErrorMessSent.DataPropertyName = "cu_phap";
+            this.clmSyntaxErrorMessSent.HeaderText = "Cú Pháp";
+            this.clmSyntaxErrorMessSent.Name = "clmSyntaxErrorMessSent";
+            this.clmSyntaxErrorMessSent.ReadOnly = true;
             // 
             // clmDateTimeSyntaxMessErrorSent
             // 
             this.clmDateTimeSyntaxMessErrorSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeSyntaxMessErrorSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeSyntaxMessErrorSent.Name = "clmDateTimeSyntaxMessErrorSent";
+            this.clmDateTimeSyntaxMessErrorSent.ReadOnly = true;
             // 
             // tabNormalMessErrorSent
             // 
@@ -362,35 +394,42 @@
             this.clmNbPhoneNormalMessErrorSent,
             this.clmContentNormalMessErrorSent,
             this.clmDateTimeNormalMessErrorSent});
-            this.tblNormalMessErrorSent.Location = new System.Drawing.Point(0, 2);
+            this.tblNormalMessErrorSent.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessErrorSent.Name = "tblNormalMessErrorSent";
+            this.tblNormalMessErrorSent.ReadOnly = true;
             this.tblNormalMessErrorSent.RowHeadersVisible = false;
+            this.tblNormalMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 309);
             this.tblNormalMessErrorSent.TabIndex = 1;
+            this.tblNormalMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessErrorSent_CellClick);
             // 
             // clmIdNormalMessErrorSent
             // 
             this.clmIdNormalMessErrorSent.DataPropertyName = "id";
             this.clmIdNormalMessErrorSent.HeaderText = "ID";
             this.clmIdNormalMessErrorSent.Name = "clmIdNormalMessErrorSent";
+            this.clmIdNormalMessErrorSent.ReadOnly = true;
             // 
             // clmNbPhoneNormalMessErrorSent
             // 
             this.clmNbPhoneNormalMessErrorSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneNormalMessErrorSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneNormalMessErrorSent.Name = "clmNbPhoneNormalMessErrorSent";
+            this.clmNbPhoneNormalMessErrorSent.ReadOnly = true;
             // 
             // clmContentNormalMessErrorSent
             // 
             this.clmContentNormalMessErrorSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentNormalMessErrorSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentNormalMessErrorSent.Name = "clmContentNormalMessErrorSent";
+            this.clmContentNormalMessErrorSent.ReadOnly = true;
             // 
             // clmDateTimeNormalMessErrorSent
             // 
             this.clmDateTimeNormalMessErrorSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeNormalMessErrorSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeNormalMessErrorSent.Name = "clmDateTimeNormalMessErrorSent";
+            this.clmDateTimeNormalMessErrorSent.ReadOnly = true;
             // 
             // tadDeletedMessSent
             // 
@@ -441,36 +480,51 @@
             this.clmIdSyntaxMessDeletedSent,
             this.clmNbPhoneSyntaxMessDeletedSent,
             this.clmContentSyntaxMessDeletedSent,
+            this.clmSyntaxMessDeletedSent,
             this.clmDateTimeSyntaxMessDeletedSent});
             this.tblSyntaxMessDeletedSent.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessDeletedSent.Name = "tblSyntaxMessDeletedSent";
+            this.tblSyntaxMessDeletedSent.ReadOnly = true;
             this.tblSyntaxMessDeletedSent.RowHeadersVisible = false;
+            this.tblSyntaxMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblSyntaxMessDeletedSent.Size = new System.Drawing.Size(879, 309);
             this.tblSyntaxMessDeletedSent.TabIndex = 2;
+            this.tblSyntaxMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblSyntaxMessDeletedSent_CellClick);
             // 
             // clmIdSyntaxMessDeletedSent
             // 
             this.clmIdSyntaxMessDeletedSent.DataPropertyName = "id";
             this.clmIdSyntaxMessDeletedSent.HeaderText = "ID";
             this.clmIdSyntaxMessDeletedSent.Name = "clmIdSyntaxMessDeletedSent";
+            this.clmIdSyntaxMessDeletedSent.ReadOnly = true;
             // 
             // clmNbPhoneSyntaxMessDeletedSent
             // 
             this.clmNbPhoneSyntaxMessDeletedSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneSyntaxMessDeletedSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneSyntaxMessDeletedSent.Name = "clmNbPhoneSyntaxMessDeletedSent";
+            this.clmNbPhoneSyntaxMessDeletedSent.ReadOnly = true;
             // 
             // clmContentSyntaxMessDeletedSent
             // 
             this.clmContentSyntaxMessDeletedSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentSyntaxMessDeletedSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentSyntaxMessDeletedSent.Name = "clmContentSyntaxMessDeletedSent";
+            this.clmContentSyntaxMessDeletedSent.ReadOnly = true;
+            // 
+            // clmSyntaxMessDeletedSent
+            // 
+            this.clmSyntaxMessDeletedSent.DataPropertyName = "Cu_Phap";
+            this.clmSyntaxMessDeletedSent.HeaderText = "Cú Pháp";
+            this.clmSyntaxMessDeletedSent.Name = "clmSyntaxMessDeletedSent";
+            this.clmSyntaxMessDeletedSent.ReadOnly = true;
             // 
             // clmDateTimeSyntaxMessDeletedSent
             // 
             this.clmDateTimeSyntaxMessDeletedSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeSyntaxMessDeletedSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeSyntaxMessDeletedSent.Name = "clmDateTimeSyntaxMessDeletedSent";
+            this.clmDateTimeSyntaxMessDeletedSent.ReadOnly = true;
             // 
             // tabNormalMessDeletedSent
             // 
@@ -498,35 +552,42 @@
             this.clmNbPhoneNormalMessDeletedSent,
             this.clmContentNormalMessDeletedSent,
             this.clmDateTimeNormalMessDeletedSent});
-            this.tblNormalMessDeletedSent.Location = new System.Drawing.Point(0, 2);
+            this.tblNormalMessDeletedSent.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessDeletedSent.Name = "tblNormalMessDeletedSent";
+            this.tblNormalMessDeletedSent.ReadOnly = true;
             this.tblNormalMessDeletedSent.RowHeadersVisible = false;
+            this.tblNormalMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 309);
             this.tblNormalMessDeletedSent.TabIndex = 2;
+            this.tblNormalMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedSent_CellClick);
             // 
             // clmIdNormalMessDeletedSent
             // 
             this.clmIdNormalMessDeletedSent.DataPropertyName = "id";
             this.clmIdNormalMessDeletedSent.HeaderText = "ID";
             this.clmIdNormalMessDeletedSent.Name = "clmIdNormalMessDeletedSent";
+            this.clmIdNormalMessDeletedSent.ReadOnly = true;
             // 
             // clmNbPhoneNormalMessDeletedSent
             // 
             this.clmNbPhoneNormalMessDeletedSent.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneNormalMessDeletedSent.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneNormalMessDeletedSent.Name = "clmNbPhoneNormalMessDeletedSent";
+            this.clmNbPhoneNormalMessDeletedSent.ReadOnly = true;
             // 
             // clmContentNormalMessDeletedSent
             // 
             this.clmContentNormalMessDeletedSent.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentNormalMessDeletedSent.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentNormalMessDeletedSent.Name = "clmContentNormalMessDeletedSent";
+            this.clmContentNormalMessDeletedSent.ReadOnly = true;
             // 
             // clmDateTimeNormalMessDeletedSent
             // 
             this.clmDateTimeNormalMessDeletedSent.DataPropertyName = "ngay_gui";
             this.clmDateTimeNormalMessDeletedSent.HeaderText = "Ngày Gửi";
             this.clmDateTimeNormalMessDeletedSent.Name = "clmDateTimeNormalMessDeletedSent";
+            this.clmDateTimeNormalMessDeletedSent.ReadOnly = true;
             // 
             // dataGridView4
             // 
@@ -590,15 +651,14 @@
             this.cboFilterMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFilterMessSent.FormattingEnabled = true;
             this.cboFilterMessSent.Items.AddRange(new object[] {
-            "All",
-            "Phone Number",
-            "Status",
-            "Date-Time"});
+            "Số Điện Thoại",
+            "Nội Dung Tin Nhắn",
+            "Cú Pháp"});
             this.cboFilterMessSent.Location = new System.Drawing.Point(751, 21);
             this.cboFilterMessSent.Name = "cboFilterMessSent";
             this.cboFilterMessSent.Size = new System.Drawing.Size(138, 24);
             this.cboFilterMessSent.TabIndex = 7;
-            this.cboFilterMessSent.Text = "All";
+            this.cboFilterMessSent.Text = "Choose...";
             // 
             // textBox1
             // 
@@ -608,17 +668,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(152, 24);
             this.textBox1.TabIndex = 12;
-            // 
-            // btnFilterMessSent
-            // 
-            this.btnFilterMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilterMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFilterMessSent.Location = new System.Drawing.Point(512, 21);
-            this.btnFilterMessSent.Name = "btnFilterMessSent";
-            this.btnFilterMessSent.Size = new System.Drawing.Size(75, 24);
-            this.btnFilterMessSent.TabIndex = 13;
-            this.btnFilterMessSent.Text = "Lọc";
-            this.btnFilterMessSent.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -631,15 +680,15 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "Nội Dung Tin Nhắn";
             // 
-            // textBox2
+            // txtContentMessDe
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtContentMessDe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(406, 435);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(302, 68);
-            this.textBox2.TabIndex = 27;
+            this.txtContentMessDe.Location = new System.Drawing.Point(406, 435);
+            this.txtContentMessDe.Multiline = true;
+            this.txtContentMessDe.Name = "txtContentMessDe";
+            this.txtContentMessDe.Size = new System.Drawing.Size(302, 68);
+            this.txtContentMessDe.TabIndex = 27;
             // 
             // txtDateTimeDe
             // 
@@ -702,14 +751,13 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(892, 509);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtContentMessDe);
             this.Controls.Add(this.txtDateTimeDe);
             this.Controls.Add(this.txtSyntaxDe);
             this.Controls.Add(this.lbDateTimeDe);
             this.Controls.Add(this.lbSyntaxDe);
             this.Controls.Add(this.txtNbPhoneDe);
             this.Controls.Add(this.lbNbPhoneDt);
-            this.Controls.Add(this.btnFilterMessSent);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnReSentMessSent);
             this.Controls.Add(this.tabSent);
@@ -771,39 +819,40 @@
         private System.Windows.Forms.DataGridView tblSyntaxMessDeletedSent;
         private System.Windows.Forms.DataGridView tblNormalMessDeletedSent;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnFilterMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessError;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessErrorSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessErrorSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessErrorSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessErrorSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessErrorSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessErrorSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessErrorSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessDeletedSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessDeletedSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessDeletedSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessDeletedSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessDeletedSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessDeletedSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessDeletedSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessDeletedSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentMessSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMessSent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessSent;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtContentMessDe;
         private System.Windows.Forms.TextBox txtDateTimeDe;
         private System.Windows.Forms.TextBox txtSyntaxDe;
         private System.Windows.Forms.Label lbDateTimeDe;
         private System.Windows.Forms.Label lbSyntaxDe;
         private System.Windows.Forms.TextBox txtNbPhoneDe;
         private System.Windows.Forms.Label lbNbPhoneDt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessError;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessErrorSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessErrorSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxErrorMessSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessErrorSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessDeletedSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessDeletedSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessDeletedSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMessDeletedSent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessDeletedSent;
     }
 }

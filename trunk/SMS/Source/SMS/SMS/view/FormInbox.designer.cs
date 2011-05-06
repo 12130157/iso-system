@@ -55,7 +55,6 @@
             this.clmNbPhoneSyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentSyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmSyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmStatusSyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDateTimeSyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmReplySyntaxMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabNormalMessDeletedInbox = new System.Windows.Forms.TabPage();
@@ -63,7 +62,6 @@
             this.clmIdNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNbPhoneNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmStatusNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDateTimeNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmReplyNormalMessDeletedInbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnReplyMessInbox = new System.Windows.Forms.Button();
@@ -73,14 +71,13 @@
             this.btnRemoveMessInbox = new System.Windows.Forms.Button();
             this.btnForwardMessInbox = new System.Windows.Forms.Button();
             this.txtContentFilterInbox = new System.Windows.Forms.TextBox();
-            this.btnFilterMessInbox = new System.Windows.Forms.Button();
             this.lbNbPhoneDt = new System.Windows.Forms.Label();
             this.txtNbPhoneDe = new System.Windows.Forms.TextBox();
             this.lbSyntaxDe = new System.Windows.Forms.Label();
             this.txtSyntaxDe = new System.Windows.Forms.TextBox();
             this.lbDateTimeDe = new System.Windows.Forms.Label();
             this.txtDateTimeDe = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtContentMessDe = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabInbox.SuspendLayout();
             this.tabSyntaxMess.SuspendLayout();
@@ -159,58 +156,68 @@
             this.tblSyntaxMess.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMess.Margin = new System.Windows.Forms.Padding(0);
             this.tblSyntaxMess.Name = "tblSyntaxMess";
+            this.tblSyntaxMess.ReadOnly = true;
             this.tblSyntaxMess.RowHeadersVisible = false;
             this.tblSyntaxMess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblSyntaxMess.Size = new System.Drawing.Size(887, 338);
             this.tblSyntaxMess.StandardTab = true;
             this.tblSyntaxMess.TabIndex = 0;
+            this.tblSyntaxMess.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblSyntaxMess_CellClick);
             // 
             // clmIdSyntaxMessInbox
             // 
-            this.clmIdSyntaxMessInbox.DataPropertyName = "id";
+            this.clmIdSyntaxMessInbox.DataPropertyName = "ID";
             this.clmIdSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmIdSyntaxMessInbox.HeaderText = "ID";
             this.clmIdSyntaxMessInbox.Name = "clmIdSyntaxMessInbox";
+            this.clmIdSyntaxMessInbox.ReadOnly = true;
             // 
             // clmNbPhoneSyntaxInbox
             // 
-            this.clmNbPhoneSyntaxInbox.DataPropertyName = "so_dien_thoai";
+            this.clmNbPhoneSyntaxInbox.DataPropertyName = "So_dien_thoai";
             this.clmNbPhoneSyntaxInbox.FillWeight = 113.7056F;
             this.clmNbPhoneSyntaxInbox.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneSyntaxInbox.Name = "clmNbPhoneSyntaxInbox";
+            this.clmNbPhoneSyntaxInbox.ReadOnly = true;
             // 
             // clmContentSyntaxMessInbox
             // 
-            this.clmContentSyntaxMessInbox.DataPropertyName = "noi_dung_tin_nhan";
+            this.clmContentSyntaxMessInbox.DataPropertyName = "Noi_dung_tin_nhan";
             this.clmContentSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmContentSyntaxMessInbox.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentSyntaxMessInbox.Name = "clmContentSyntaxMessInbox";
+            this.clmContentSyntaxMessInbox.ReadOnly = true;
             // 
             // clmSyntaxMessInbox
             // 
-            this.clmSyntaxMessInbox.DataPropertyName = "cu_phap";
+            this.clmSyntaxMessInbox.DataPropertyName = "Cu_phap";
             this.clmSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmSyntaxMessInbox.HeaderText = "Cú Pháp";
             this.clmSyntaxMessInbox.Name = "clmSyntaxMessInbox";
+            this.clmSyntaxMessInbox.ReadOnly = true;
             // 
             // clmStatusSyntaxMessInbox
             // 
-            this.clmStatusSyntaxMessInbox.DataPropertyName = "tinh_trang";
+            this.clmStatusSyntaxMessInbox.DataPropertyName = "Tinh_trang";
             this.clmStatusSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmStatusSyntaxMessInbox.HeaderText = "Đọc/Chưa Đọc";
             this.clmStatusSyntaxMessInbox.Name = "clmStatusSyntaxMessInbox";
+            this.clmStatusSyntaxMessInbox.ReadOnly = true;
             // 
             // clmDateTimeSyntaxMessInbox
             // 
-            this.clmDateTimeSyntaxMessInbox.DataPropertyName = "ngay_nhan";
+            this.clmDateTimeSyntaxMessInbox.DataPropertyName = "Ngay_nhan";
             this.clmDateTimeSyntaxMessInbox.FillWeight = 113.7056F;
             this.clmDateTimeSyntaxMessInbox.HeaderText = "Ngày Nhận";
             this.clmDateTimeSyntaxMessInbox.Name = "clmDateTimeSyntaxMessInbox";
+            this.clmDateTimeSyntaxMessInbox.ReadOnly = true;
             // 
             // clmReplySyntaxMessInbox
             // 
+            this.clmReplySyntaxMessInbox.DataPropertyName = "Tinh_Trang_Tra_Loi";
             this.clmReplySyntaxMessInbox.HeaderText = "Trả lời/Chưa Trả Lời";
             this.clmReplySyntaxMessInbox.Name = "clmReplySyntaxMessInbox";
+            this.clmReplySyntaxMessInbox.ReadOnly = true;
             // 
             // tabNormalMessage
             // 
@@ -244,44 +251,54 @@
             this.clmReplyNormalMessInbox});
             this.tblNormalMess.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMess.Name = "tblNormalMess";
+            this.tblNormalMess.ReadOnly = true;
             this.tblNormalMess.RowHeadersVisible = false;
+            this.tblNormalMess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblNormalMess.Size = new System.Drawing.Size(887, 338);
             this.tblNormalMess.TabIndex = 0;
+            this.tblNormalMess.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMess_CellClick);
             // 
             // clmIdNormalMessInBox
             // 
             this.clmIdNormalMessInBox.DataPropertyName = "id";
             this.clmIdNormalMessInBox.HeaderText = "ID";
             this.clmIdNormalMessInBox.Name = "clmIdNormalMessInBox";
+            this.clmIdNormalMessInBox.ReadOnly = true;
             // 
             // clmNbPhoneNormalMessInbox
             // 
             this.clmNbPhoneNormalMessInbox.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneNormalMessInbox.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneNormalMessInbox.Name = "clmNbPhoneNormalMessInbox";
+            this.clmNbPhoneNormalMessInbox.ReadOnly = true;
             // 
             // clmContentNormalMessInbox
             // 
             this.clmContentNormalMessInbox.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentNormalMessInbox.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentNormalMessInbox.Name = "clmContentNormalMessInbox";
+            this.clmContentNormalMessInbox.ReadOnly = true;
             // 
             // clmStatusNormalMessInbox
             // 
             this.clmStatusNormalMessInbox.DataPropertyName = "tinh_trang";
             this.clmStatusNormalMessInbox.HeaderText = "Đọc/Chưa Đọc";
             this.clmStatusNormalMessInbox.Name = "clmStatusNormalMessInbox";
+            this.clmStatusNormalMessInbox.ReadOnly = true;
             // 
             // clmDataTimeNormalMessInbox
             // 
             this.clmDataTimeNormalMessInbox.DataPropertyName = "ngay_nhan";
             this.clmDataTimeNormalMessInbox.HeaderText = "Ngày Nhận";
             this.clmDataTimeNormalMessInbox.Name = "clmDataTimeNormalMessInbox";
+            this.clmDataTimeNormalMessInbox.ReadOnly = true;
             // 
             // clmReplyNormalMessInbox
             // 
+            this.clmReplyNormalMessInbox.DataPropertyName = "tinh_trang_tra_loi";
             this.clmReplyNormalMessInbox.HeaderText = "Trả Lời/Chưa Trả Lời";
             this.clmReplyNormalMessInbox.Name = "clmReplyNormalMessInbox";
+            this.clmReplyNormalMessInbox.ReadOnly = true;
             // 
             // tabMessDeleted
             // 
@@ -334,54 +351,58 @@
             this.clmNbPhoneSyntaxMessDeletedInbox,
             this.clmContentSyntaxMessDeletedInbox,
             this.clmSyntaxMessDeletedInbox,
-            this.clmStatusSyntaxMessDeletedInbox,
             this.clmDateTimeSyntaxMessDeletedInbox,
             this.clmReplySyntaxMessDeletedInbox});
             this.tblSyntaxMessDeletedInbox.Location = new System.Drawing.Point(0, 0);
             this.tblSyntaxMessDeletedInbox.Name = "tblSyntaxMessDeletedInbox";
+            this.tblSyntaxMessDeletedInbox.ReadOnly = true;
             this.tblSyntaxMessDeletedInbox.RowHeadersVisible = false;
+            this.tblSyntaxMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblSyntaxMessDeletedInbox.Size = new System.Drawing.Size(879, 309);
             this.tblSyntaxMessDeletedInbox.TabIndex = 0;
+            this.tblSyntaxMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblSyntaxMessDeletedInbox_CellClick);
             // 
             // clmIdSyntaxMessDeletedInbox
             // 
             this.clmIdSyntaxMessDeletedInbox.DataPropertyName = "id";
             this.clmIdSyntaxMessDeletedInbox.HeaderText = "ID";
             this.clmIdSyntaxMessDeletedInbox.Name = "clmIdSyntaxMessDeletedInbox";
+            this.clmIdSyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // clmNbPhoneSyntaxMessDeletedInbox
             // 
             this.clmNbPhoneSyntaxMessDeletedInbox.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneSyntaxMessDeletedInbox.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneSyntaxMessDeletedInbox.Name = "clmNbPhoneSyntaxMessDeletedInbox";
+            this.clmNbPhoneSyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // clmContentSyntaxMessDeletedInbox
             // 
             this.clmContentSyntaxMessDeletedInbox.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentSyntaxMessDeletedInbox.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentSyntaxMessDeletedInbox.Name = "clmContentSyntaxMessDeletedInbox";
+            this.clmContentSyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // clmSyntaxMessDeletedInbox
             // 
             this.clmSyntaxMessDeletedInbox.DataPropertyName = "cu_phap";
             this.clmSyntaxMessDeletedInbox.HeaderText = "Cú Pháp";
             this.clmSyntaxMessDeletedInbox.Name = "clmSyntaxMessDeletedInbox";
-            // 
-            // clmStatusSyntaxMessDeletedInbox
-            // 
-            this.clmStatusSyntaxMessDeletedInbox.HeaderText = "Đọc/Chưa Đọc";
-            this.clmStatusSyntaxMessDeletedInbox.Name = "clmStatusSyntaxMessDeletedInbox";
+            this.clmSyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // clmDateTimeSyntaxMessDeletedInbox
             // 
             this.clmDateTimeSyntaxMessDeletedInbox.DataPropertyName = "ngay_nhan";
             this.clmDateTimeSyntaxMessDeletedInbox.HeaderText = "Ngày Nhận";
             this.clmDateTimeSyntaxMessDeletedInbox.Name = "clmDateTimeSyntaxMessDeletedInbox";
+            this.clmDateTimeSyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // clmReplySyntaxMessDeletedInbox
             // 
+            this.clmReplySyntaxMessDeletedInbox.DataPropertyName = "tinh_trang_tra_loi";
             this.clmReplySyntaxMessDeletedInbox.HeaderText = "Trả Lời/Chưa Trả Lời";
             this.clmReplySyntaxMessDeletedInbox.Name = "clmReplySyntaxMessDeletedInbox";
+            this.clmReplySyntaxMessDeletedInbox.ReadOnly = true;
             // 
             // tabNormalMessDeletedInbox
             // 
@@ -407,48 +428,51 @@
             this.clmIdNormalMessDeletedInbox,
             this.clmNbPhoneNormalMessDeletedInbox,
             this.clmContentNormalMessDeletedInbox,
-            this.clmStatusNormalMessDeletedInbox,
             this.clmDateTimeNormalMessDeletedInbox,
             this.clmReplyNormalMessDeletedInbox});
-            this.tblNormalMessDeletedInbox.Location = new System.Drawing.Point(0, 4);
+            this.tblNormalMessDeletedInbox.Location = new System.Drawing.Point(0, 0);
             this.tblNormalMessDeletedInbox.Name = "tblNormalMessDeletedInbox";
+            this.tblNormalMessDeletedInbox.ReadOnly = true;
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 309);
+            this.tblNormalMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 312);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
+            this.tblNormalMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedInbox_CellClick);
             // 
             // clmIdNormalMessDeletedInbox
             // 
             this.clmIdNormalMessDeletedInbox.DataPropertyName = "id";
             this.clmIdNormalMessDeletedInbox.HeaderText = "ID";
             this.clmIdNormalMessDeletedInbox.Name = "clmIdNormalMessDeletedInbox";
+            this.clmIdNormalMessDeletedInbox.ReadOnly = true;
             // 
             // clmNbPhoneNormalMessDeletedInbox
             // 
             this.clmNbPhoneNormalMessDeletedInbox.DataPropertyName = "so_dien_thoai";
             this.clmNbPhoneNormalMessDeletedInbox.HeaderText = "Số Điện Thoại";
             this.clmNbPhoneNormalMessDeletedInbox.Name = "clmNbPhoneNormalMessDeletedInbox";
+            this.clmNbPhoneNormalMessDeletedInbox.ReadOnly = true;
             // 
             // clmContentNormalMessDeletedInbox
             // 
             this.clmContentNormalMessDeletedInbox.DataPropertyName = "noi_dung_tin_nhan";
             this.clmContentNormalMessDeletedInbox.HeaderText = "Nội Dung Tin Nhắn";
             this.clmContentNormalMessDeletedInbox.Name = "clmContentNormalMessDeletedInbox";
-            // 
-            // clmStatusNormalMessDeletedInbox
-            // 
-            this.clmStatusNormalMessDeletedInbox.HeaderText = "Đọc/Chưa Đọc";
-            this.clmStatusNormalMessDeletedInbox.Name = "clmStatusNormalMessDeletedInbox";
+            this.clmContentNormalMessDeletedInbox.ReadOnly = true;
             // 
             // clmDateTimeNormalMessDeletedInbox
             // 
             this.clmDateTimeNormalMessDeletedInbox.DataPropertyName = "ngay_nhan";
             this.clmDateTimeNormalMessDeletedInbox.HeaderText = "Ngày Nhận";
             this.clmDateTimeNormalMessDeletedInbox.Name = "clmDateTimeNormalMessDeletedInbox";
+            this.clmDateTimeNormalMessDeletedInbox.ReadOnly = true;
             // 
             // clmReplyNormalMessDeletedInbox
             // 
+            this.clmReplyNormalMessDeletedInbox.DataPropertyName = "tinh_trang_tra_loi";
             this.clmReplyNormalMessDeletedInbox.HeaderText = "Trả Lời/Chưa Trả Lời";
             this.clmReplyNormalMessDeletedInbox.Name = "clmReplyNormalMessDeletedInbox";
+            this.clmReplyNormalMessDeletedInbox.ReadOnly = true;
             // 
             // btnReplyMessInbox
             // 
@@ -492,15 +516,14 @@
             this.cboFilterSyntaxMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFilterSyntaxMessInbox.FormattingEnabled = true;
             this.cboFilterSyntaxMessInbox.Items.AddRange(new object[] {
-            "All",
-            "Phone Number",
-            "Status",
-            "Date-Time"});
+            "Số Điện Thoại",
+            "Nội Dung Tin Nhắn ",
+            "Cú Pháp"});
             this.cboFilterSyntaxMessInbox.Location = new System.Drawing.Point(751, 21);
             this.cboFilterSyntaxMessInbox.Name = "cboFilterSyntaxMessInbox";
             this.cboFilterSyntaxMessInbox.Size = new System.Drawing.Size(138, 24);
             this.cboFilterSyntaxMessInbox.TabIndex = 7;
-            this.cboFilterSyntaxMessInbox.Text = "All";
+            this.cboFilterSyntaxMessInbox.Text = "Choose...";
             // 
             // btnRemoveMessInbox
             // 
@@ -534,17 +557,6 @@
             this.txtContentFilterInbox.Name = "txtContentFilterInbox";
             this.txtContentFilterInbox.Size = new System.Drawing.Size(152, 24);
             this.txtContentFilterInbox.TabIndex = 13;
-            // 
-            // btnFilterMessInbox
-            // 
-            this.btnFilterMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilterMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFilterMessInbox.Location = new System.Drawing.Point(512, 21);
-            this.btnFilterMessInbox.Name = "btnFilterMessInbox";
-            this.btnFilterMessInbox.Size = new System.Drawing.Size(75, 24);
-            this.btnFilterMessInbox.TabIndex = 14;
-            this.btnFilterMessInbox.Text = "Lọc";
-            this.btnFilterMessInbox.UseVisualStyleBackColor = true;
             // 
             // lbNbPhoneDt
             // 
@@ -600,15 +612,15 @@
             this.txtDateTimeDe.Size = new System.Drawing.Size(138, 20);
             this.txtDateTimeDe.TabIndex = 18;
             // 
-            // textBox1
+            // txtContentMessDe
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtContentMessDe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(403, 437);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(302, 68);
-            this.textBox1.TabIndex = 19;
+            this.txtContentMessDe.Location = new System.Drawing.Point(403, 437);
+            this.txtContentMessDe.Multiline = true;
+            this.txtContentMessDe.Name = "txtContentMessDe";
+            this.txtContentMessDe.Size = new System.Drawing.Size(302, 68);
+            this.txtContentMessDe.TabIndex = 19;
             // 
             // label1
             // 
@@ -631,14 +643,13 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(892, 509);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtContentMessDe);
             this.Controls.Add(this.txtDateTimeDe);
             this.Controls.Add(this.txtSyntaxDe);
             this.Controls.Add(this.lbDateTimeDe);
             this.Controls.Add(this.lbSyntaxDe);
             this.Controls.Add(this.txtNbPhoneDe);
             this.Controls.Add(this.lbNbPhoneDt);
-            this.Controls.Add(this.btnFilterMessInbox);
             this.Controls.Add(this.txtContentFilterInbox);
             this.Controls.Add(this.btnForwardMessInbox);
             this.Controls.Add(this.btnRemoveMessInbox);
@@ -688,6 +699,15 @@
         private System.Windows.Forms.DataGridView tblNormalMessDeletedInbox;
         private System.Windows.Forms.Button btnRemoveMessInbox;
         private System.Windows.Forms.Button btnForwardMessInbox;
+        private System.Windows.Forms.TextBox txtContentFilterInbox;
+        private System.Windows.Forms.Label lbNbPhoneDt;
+        private System.Windows.Forms.TextBox txtNbPhoneDe;
+        private System.Windows.Forms.Label lbSyntaxDe;
+        private System.Windows.Forms.TextBox txtSyntaxDe;
+        private System.Windows.Forms.Label lbDateTimeDe;
+        private System.Windows.Forms.TextBox txtDateTimeDe;
+        private System.Windows.Forms.TextBox txtContentMessDe;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessInbox;
@@ -695,8 +715,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmReplySyntaxMessInbox;
-        private System.Windows.Forms.TextBox txtContentFilterInbox;
-        private System.Windows.Forms.Button btnFilterMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessInBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessInbox;
@@ -707,22 +725,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneSyntaxMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentSyntaxMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmSyntaxMessDeletedInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusSyntaxMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeSyntaxMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmReplySyntaxMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessDeletedInbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmStatusNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmReplyNormalMessDeletedInbox;
-        private System.Windows.Forms.Label lbNbPhoneDt;
-        private System.Windows.Forms.TextBox txtNbPhoneDe;
-        private System.Windows.Forms.Label lbSyntaxDe;
-        private System.Windows.Forms.TextBox txtSyntaxDe;
-        private System.Windows.Forms.Label lbDateTimeDe;
-        private System.Windows.Forms.TextBox txtDateTimeDe;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
     }
 }
