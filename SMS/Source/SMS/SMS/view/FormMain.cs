@@ -919,21 +919,6 @@ namespace SMS
             }
             Application.Exit();
         }
-      
-        public void loadMenu()
-        {
-            menuTool.Enabled = true;
-        }
-
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            //FormMain fr = new FormMain();
-            //fr=this;
-            //FormLogin lg = new FormLogin(ref fr);
-            //lg.MdiParent=this;
-            //lg.Show();
-        }
 
         private void menuCompose_Click(object sender, EventArgs e)
         {

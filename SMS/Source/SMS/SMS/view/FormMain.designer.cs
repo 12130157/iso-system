@@ -51,12 +51,7 @@ namespace SMS
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lbStatus = new System.Windows.Forms.Label();
             this.btnEnableMess = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.clmNbPhone = new System.Windows.Forms.ColumnHeader();
-            this.clmContentMess = new System.Windows.Forms.ColumnHeader();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuTool.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuTool
@@ -224,48 +219,12 @@ namespace SMS
             this.btnEnableMess.UseVisualStyleBackColor = true;
             this.btnEnableMess.Click += new System.EventHandler(this.btnEnableMess_Click);
             // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.listView1.BackColor = System.Drawing.SystemColors.Control;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.clmNbPhone,
-            this.clmContentMess});
-            this.listView1.Location = new System.Drawing.Point(0, 27);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(331, 416);
-            this.listView1.TabIndex = 8;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // clmNbPhone
-            // 
-            this.clmNbPhone.Width = 105;
-            // 
-            // clmContentMess
-            // 
-            this.clmContentMess.Width = 220;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(331, 27);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(580, 416);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(911, 444);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
@@ -276,10 +235,8 @@ namespace SMS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,9 +264,5 @@ namespace SMS
         private System.Windows.Forms.Button btnEnableMess;
         private System.Windows.Forms.ToolStripMenuItem typeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader clmNbPhone;
-        private System.Windows.Forms.ColumnHeader clmContentMess;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
