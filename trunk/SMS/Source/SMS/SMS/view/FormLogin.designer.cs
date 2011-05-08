@@ -50,9 +50,7 @@ namespace SMS
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(87, 115);
             this.pictureBox1.TabIndex = 16;
@@ -70,9 +68,7 @@ namespace SMS
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-
             this.groupBox1.Location = new System.Drawing.Point(121, 52);
-
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(305, 135);
             this.groupBox1.TabIndex = 17;
@@ -154,15 +150,11 @@ namespace SMS
             this.lbTieuDe.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbTieuDe.AutoSize = true;
             this.lbTieuDe.BackColor = System.Drawing.Color.Transparent;
-
             this.lbTieuDe.Font = new System.Drawing.Font("Times New Roman", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTieuDe.ForeColor = System.Drawing.Color.DarkRed;
             this.lbTieuDe.Location = new System.Drawing.Point(115, 13);
-
             this.lbTieuDe.Name = "lbTieuDe";
-
-            this.lbTieuDe.Size = new System.Drawing.Size(315, 36);
-
+            this.lbTieuDe.Size = new System.Drawing.Size(314, 36);
             this.lbTieuDe.TabIndex = 0;
             this.lbTieuDe.Text = "Đăng Nhập Hệ Thống";
             // 
@@ -170,10 +162,8 @@ namespace SMS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-
-            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(448, 209);
-
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbTieuDe);

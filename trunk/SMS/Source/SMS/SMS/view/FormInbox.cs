@@ -209,9 +209,10 @@ namespace SMS
 
         private void tabControls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboFilterSyntaxMessInbox.Text = "Choose...";
-            if (cboFilterSyntaxMessInbox.Text.Equals("Choose..."))
+            cboFilterMessInbox.Text = "Choose...";
+            if (cboFilterMessInbox.Text.Equals("Choose..."))
             {
+                txtContentFilterInbox.Text = "";
                 txtContentFilterInbox.Enabled = false;
             }
             if (tabInbox.SelectedTab == tabMessDeleted)
@@ -242,11 +243,12 @@ namespace SMS
 
         private void tabDeletedInbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboFilterSyntaxMessInbox.Text = "Choose...";
-            if (cboFilterSyntaxMessInbox.Text.Equals("Choose..."))
+            cboFilterMessInbox.Text = "Choose...";
+            if (cboFilterMessInbox.Text.Equals("Choose..."))
             {
+                txtContentFilterInbox.Text = "";
                 txtContentFilterInbox.Enabled = false;
-            }   
+            }
             if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
             {
                 this.btnForwardMessInbox.Enabled = false;
@@ -330,14 +332,14 @@ namespace SMS
             txtContentFilterInbox.Enabled = true;
             if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
                 {
                     txtContentFilterInbox.Enabled = false;
                 }
             }
             if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
-                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
                 {
                     txtContentFilterInbox.Enabled = false;
                 }
@@ -348,26 +350,26 @@ namespace SMS
         {
             if (tabInbox.SelectedTab == tabSyntaxMess)
             {
-                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[0])
                 {
                     showSearchSytaxMessInboxBySoDienThoai(txtContentFilterInbox.Text);
                 }
-                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[1])
                 {
                     showSearchSytaxMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);   
                 }
-                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
                 {
                     showSearchSytaxMessInboxByCuPhap(txtContentFilterInbox.Text);   
                 }
             }
             else if (tabInbox.SelectedTab == tabNormalMessage)
             {
-                if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[0])
                 {
                     showSearchNormalMessInboxBySoDienThoai(txtContentFilterInbox.Text);
                 }
-                else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[1])
                 {
                     showSearchNormalMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                 }
@@ -376,26 +378,26 @@ namespace SMS
             {
                 if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
                 {
-                    if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                    if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[0])
                     {
                         showSearchSyntaxMessDeletedInboxBySoDienThoai(txtContentFilterInbox.Text);
                     }
-                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                    else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[1])
                     {
                         showSearchSytaxMessDeletedInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                     }
-                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[2])
+                    else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
                     {
                         showSearchSytaxMessDeletedInboxByCuPhap(txtContentFilterInbox.Text);
                     }
                 }
                 else if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
                 {
-                    if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[0])
+                    if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[0])
                     {
                         showSearchNormalMessDeletedInboxBySoDienThoai(txtContentFilterInbox.Text);
                     }
-                    else if (cboFilterSyntaxMessInbox.SelectedItem == cboFilterSyntaxMessInbox.Items[1])
+                    else if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[1])
                     {
                         showSearchNormalDeletedMessInboxByNoiDungTinNhan(txtContentFilterInbox.Text);
                     }
