@@ -67,7 +67,7 @@
             this.btnReplyMessInbox = new System.Windows.Forms.Button();
             this.btnDeleteMessInbox = new System.Windows.Forms.Button();
             this.btnMaskReadMessInbox = new System.Windows.Forms.Button();
-            this.cboFilterSyntaxMessInbox = new System.Windows.Forms.ComboBox();
+            this.cboFilterMessInbox = new System.Windows.Forms.ComboBox();
             this.btnRemoveMessInbox = new System.Windows.Forms.Button();
             this.btnForwardMessInbox = new System.Windows.Forms.Button();
             this.txtContentFilterInbox = new System.Windows.Forms.TextBox();
@@ -435,7 +435,7 @@
             this.tblNormalMessDeletedInbox.ReadOnly = true;
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
             this.tblNormalMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 315);
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 318);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
             this.tblNormalMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedInbox_CellClick);
             // 
@@ -510,21 +510,21 @@
             this.btnMaskReadMessInbox.UseVisualStyleBackColor = true;
             this.btnMaskReadMessInbox.Click += new System.EventHandler(this.btnMaskReadMessInbox_Click);
             // 
-            // cboFilterSyntaxMessInbox
+            // cboFilterMessInbox
             // 
-            this.cboFilterSyntaxMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboFilterSyntaxMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFilterSyntaxMessInbox.FormattingEnabled = true;
-            this.cboFilterSyntaxMessInbox.Items.AddRange(new object[] {
+            this.cboFilterMessInbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboFilterMessInbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFilterMessInbox.FormattingEnabled = true;
+            this.cboFilterMessInbox.Items.AddRange(new object[] {
             "Số Điện Thoại",
             "Nội Dung Tin Nhắn ",
             "Cú Pháp"});
-            this.cboFilterSyntaxMessInbox.Location = new System.Drawing.Point(751, 21);
-            this.cboFilterSyntaxMessInbox.Name = "cboFilterSyntaxMessInbox";
-            this.cboFilterSyntaxMessInbox.Size = new System.Drawing.Size(138, 24);
-            this.cboFilterSyntaxMessInbox.TabIndex = 7;
-            this.cboFilterSyntaxMessInbox.Text = "Choose...";
-            this.cboFilterSyntaxMessInbox.SelectedIndexChanged += new System.EventHandler(this.cboFilterSyntaxMessInbox_SelectedIndexChanged);
+            this.cboFilterMessInbox.Location = new System.Drawing.Point(751, 21);
+            this.cboFilterMessInbox.Name = "cboFilterMessInbox";
+            this.cboFilterMessInbox.Size = new System.Drawing.Size(138, 24);
+            this.cboFilterMessInbox.TabIndex = 7;
+            this.cboFilterMessInbox.Text = "Choose...";
+            this.cboFilterMessInbox.SelectedIndexChanged += new System.EventHandler(this.cboFilterSyntaxMessInbox_SelectedIndexChanged);
             // 
             // btnRemoveMessInbox
             // 
@@ -660,7 +660,7 @@
             this.Controls.Add(this.tabInbox);
             this.Controls.Add(this.lbTitle);
             this.Controls.Add(this.btnMaskReadMessInbox);
-            this.Controls.Add(this.cboFilterSyntaxMessInbox);
+            this.Controls.Add(this.cboFilterMessInbox);
             this.Name = "FormInbox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -733,6 +733,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDateTimeNormalMessDeletedInbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmReplyNormalMessDeletedInbox;
-        private System.Windows.Forms.ComboBox cboFilterSyntaxMessInbox;
+        private System.Windows.Forms.ComboBox cboFilterMessInbox;
     }
 }

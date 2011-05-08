@@ -58,7 +58,7 @@
             this.clmNbPhoneNormalMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmContentNormalMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmDateTimeNormalMessErrorSent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tadDeletedMessSent = new System.Windows.Forms.TabPage();
+            this.tabDeletedMessSent = new System.Windows.Forms.TabPage();
             this.tabMessDeletedSent = new System.Windows.Forms.TabControl();
             this.tabSyntaxMessDeletedSent = new System.Windows.Forms.TabPage();
             this.tblSyntaxMessDeletedSent = new System.Windows.Forms.DataGridView();
@@ -79,7 +79,7 @@
             this.btnForwardMessSent = new System.Windows.Forms.Button();
             this.btnReSentMessSent = new System.Windows.Forms.Button();
             this.cboFilterMessSent = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtFilterMessSent = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtContentMessDe = new System.Windows.Forms.TextBox();
             this.txtDateTimeDe = new System.Windows.Forms.TextBox();
@@ -99,7 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessErrorSent)).BeginInit();
             this.tabNormalMessErrorSent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblNormalMessErrorSent)).BeginInit();
-            this.tadDeletedMessSent.SuspendLayout();
+            this.tabDeletedMessSent.SuspendLayout();
             this.tabMessDeletedSent.SuspendLayout();
             this.tabSyntaxMessDeletedSent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessDeletedSent)).BeginInit();
@@ -128,7 +128,7 @@
             this.tabSent.Controls.Add(this.tabSyntaxMessSent);
             this.tabSent.Controls.Add(this.tabNormalMessSent);
             this.tabSent.Controls.Add(this.tabErrorMessSent);
-            this.tabSent.Controls.Add(this.tadDeletedMessSent);
+            this.tabSent.Controls.Add(this.tabDeletedMessSent);
             this.tabSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabSent.Location = new System.Drawing.Point(0, 53);
             this.tabSent.Name = "tabSent";
@@ -399,7 +399,7 @@
             this.tblNormalMessErrorSent.ReadOnly = true;
             this.tblNormalMessErrorSent.RowHeadersVisible = false;
             this.tblNormalMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 309);
+            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 312);
             this.tblNormalMessErrorSent.TabIndex = 1;
             this.tblNormalMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessErrorSent_CellClick);
             // 
@@ -431,15 +431,15 @@
             this.clmDateTimeNormalMessErrorSent.Name = "clmDateTimeNormalMessErrorSent";
             this.clmDateTimeNormalMessErrorSent.ReadOnly = true;
             // 
-            // tadDeletedMessSent
+            // tabDeletedMessSent
             // 
-            this.tadDeletedMessSent.Controls.Add(this.tabMessDeletedSent);
-            this.tadDeletedMessSent.Location = new System.Drawing.Point(4, 25);
-            this.tadDeletedMessSent.Name = "tadDeletedMessSent";
-            this.tadDeletedMessSent.Size = new System.Drawing.Size(887, 338);
-            this.tadDeletedMessSent.TabIndex = 2;
-            this.tadDeletedMessSent.Text = "Tin Nhắn Đã Gửi Được Xóa";
-            this.tadDeletedMessSent.UseVisualStyleBackColor = true;
+            this.tabDeletedMessSent.Controls.Add(this.tabMessDeletedSent);
+            this.tabDeletedMessSent.Location = new System.Drawing.Point(4, 25);
+            this.tabDeletedMessSent.Name = "tabDeletedMessSent";
+            this.tabDeletedMessSent.Size = new System.Drawing.Size(887, 338);
+            this.tabDeletedMessSent.TabIndex = 2;
+            this.tabDeletedMessSent.Text = "Tin Nhắn Đã Gửi Được Xóa";
+            this.tabDeletedMessSent.UseVisualStyleBackColor = true;
             // 
             // tabMessDeletedSent
             // 
@@ -557,7 +557,7 @@
             this.tblNormalMessDeletedSent.ReadOnly = true;
             this.tblNormalMessDeletedSent.RowHeadersVisible = false;
             this.tblNormalMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 309);
+            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 312);
             this.tblNormalMessDeletedSent.TabIndex = 2;
             this.tblNormalMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedSent_CellClick);
             // 
@@ -659,15 +659,17 @@
             this.cboFilterMessSent.Size = new System.Drawing.Size(138, 24);
             this.cboFilterMessSent.TabIndex = 7;
             this.cboFilterMessSent.Text = "Choose...";
+            this.cboFilterMessSent.SelectedIndexChanged += new System.EventHandler(this.cboFilterMessSent_SelectedIndexChanged);
             // 
-            // textBox1
+            // txtFilterMessSent
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(593, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(152, 24);
-            this.textBox1.TabIndex = 12;
+            this.txtFilterMessSent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilterMessSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilterMessSent.Location = new System.Drawing.Point(593, 21);
+            this.txtFilterMessSent.Name = "txtFilterMessSent";
+            this.txtFilterMessSent.Size = new System.Drawing.Size(152, 24);
+            this.txtFilterMessSent.TabIndex = 12;
+            this.txtFilterMessSent.TextChanged += new System.EventHandler(this.txtFilterMessSent_TextChanged);
             // 
             // label1
             // 
@@ -758,7 +760,7 @@
             this.Controls.Add(this.lbSyntaxDe);
             this.Controls.Add(this.txtNbPhoneDe);
             this.Controls.Add(this.lbNbPhoneDt);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtFilterMessSent);
             this.Controls.Add(this.btnReSentMessSent);
             this.Controls.Add(this.tabSent);
             this.Controls.Add(this.btnRemoveMessSent);
@@ -780,7 +782,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessErrorSent)).EndInit();
             this.tabNormalMessErrorSent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tblNormalMessErrorSent)).EndInit();
-            this.tadDeletedMessSent.ResumeLayout(false);
+            this.tabDeletedMessSent.ResumeLayout(false);
             this.tabMessDeletedSent.ResumeLayout(false);
             this.tabSyntaxMessDeletedSent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tblSyntaxMessDeletedSent)).EndInit();
@@ -799,7 +801,7 @@
         private System.Windows.Forms.TabPage tabSyntaxMessSent;
         private System.Windows.Forms.TabPage tabNormalMessSent;
         private System.Windows.Forms.DataGridView tblSyntaxMessSent;
-        private System.Windows.Forms.TabPage tadDeletedMessSent;
+        private System.Windows.Forms.TabPage tabDeletedMessSent;
         private System.Windows.Forms.TabPage tabErrorMessSent;
         private System.Windows.Forms.DataGridView tblNormalMessSent;
         private System.Windows.Forms.Button btnRemoveMessSent;
@@ -818,7 +820,7 @@
         private System.Windows.Forms.DataGridView tblNormalMessErrorSent;
         private System.Windows.Forms.DataGridView tblSyntaxMessDeletedSent;
         private System.Windows.Forms.DataGridView tblNormalMessDeletedSent;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtFilterMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIdNormalMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmNbPhoneNormalMessSent;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmContentNormalMessSent;

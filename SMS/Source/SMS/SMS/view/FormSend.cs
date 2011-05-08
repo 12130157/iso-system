@@ -25,6 +25,7 @@ namespace SMS
             this.btnDeleteMessSent.Enabled = true;
             this.btnReSentMessSent.Enabled = false;
             this.btnRemoveMessSent.Enabled = false;
+            this.txtFilterMessSent.Enabled = false;
         }
 
         public void showAllSyntaxMessSent()
@@ -65,6 +66,12 @@ namespace SMS
 
         private void tabSent_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cboFilterMessSent.Text = "Choose...";
+            if (cboFilterMessSent.Text.Equals("Choose..."))
+            {
+                txtFilterMessSent.Text = "";
+                txtFilterMessSent.Enabled = false;
+            }
             if (tabSent.SelectedTab == tabSyntaxMessSent)
             {
                 this.btnForwardMessSent.Enabled = false;
@@ -86,7 +93,7 @@ namespace SMS
                 this.btnReSentMessSent.Enabled = true;
                 this.btnRemoveMessSent.Enabled = false;
             }
-            if (tabSent.SelectedTab == tadDeletedMessSent)
+            if (tabSent.SelectedTab == tabDeletedMessSent)
             {
                 this.btnForwardMessSent.Enabled = false;
                 this.btnDeleteMessSent.Enabled = false;
@@ -97,6 +104,12 @@ namespace SMS
 
         private void tabMessErrorSent_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cboFilterMessSent.Text = "Choose...";
+            if (cboFilterMessSent.Text.Equals("Choose..."))
+            {
+                txtFilterMessSent.Text = "";
+                txtFilterMessSent.Enabled = false;
+            }
             if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
             {
                 btnForwardMessSent.Enabled = false;
@@ -110,6 +123,12 @@ namespace SMS
 
         private void tabMessDeletedSent_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cboFilterMessSent.Text = "Choose...";
+            if (cboFilterMessSent.Text.Equals("Choose..."))
+            {
+                txtFilterMessSent.Text = "";
+                txtFilterMessSent.Enabled = false;
+            }
             if (tabMessDeletedSent.SelectedTab == tabSyntaxMessDeletedSent)
             {
                 btnForwardMessSent.Enabled = false;
@@ -371,6 +390,210 @@ namespace SMS
                 txtDateTimeDe.Text = row.Cells["clmDateTimeNormalMessDeletedSent"].Value.ToString();
                 txtContentMessDe.Text = row.Cells["clmContentNormalMessDeletedSent"].Value.ToString();
             }
+        }
+
+        private void cboFilterMessSent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtFilterMessSent.Enabled = true;
+            if (tabSent.SelectedTab == tabNormalMessSent)
+            {
+                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                {
+                    txtFilterMessSent.Enabled = false;
+                }
+            }
+            if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+            {
+                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                {
+                    txtFilterMessSent.Enabled = false;
+                }
+            }
+            if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
+            {
+                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                {
+                    txtFilterMessSent.Enabled = false;
+                }
+            }
+        }
+
+        private void txtFilterMessSent_TextChanged(object sender, EventArgs e)
+        {
+            if (tabSent.SelectedTab == tabSyntaxMessSent)
+            {
+                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                {
+                    showSearchSytaxMessSentBySoDienThoai(txtFilterMessSent.Text);   
+                }
+                else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                {
+                    showSearchSytaxMessSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                }
+                else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                {
+                    showSearchSytaxMessSentByCuPhap(txtFilterMessSent.Text);
+                }
+            }
+            else if (tabSent.SelectedTab == tabNormalMessSent)
+            {
+                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                {
+                    showSearchNormalMessSentBySoDienThoai(txtFilterMessSent.Text);
+                }
+                else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                {
+                    showSearchNormalMessSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                }
+            }
+            else if (tabSent.SelectedTab == tabErrorMessSent)
+            {
+                if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
+                {
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                    {
+                        showSearchSytaxMessErrorSentBySoDienThoai(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                    {
+                        showSearchSytaxMessErrorSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                    {
+                        showSearchSytaxMessErrorSentByCuPhap(txtFilterMessSent.Text);
+                    }
+                }
+                else if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+                {
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                    {
+                        showSearchNormalMessErrorSentBySoDienThoai(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                    {
+                        showSearchNormalMessErrorSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                    }
+                }
+            }
+            else if (tabSent.SelectedTab == tabDeletedMessSent)
+            {
+                if (tabMessDeletedSent.SelectedTab == tabSyntaxMessDeletedSent)
+                {
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                    {
+                        showSearchSytaxMessDeletedSentBySoDienThoai(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                    {
+                        showSearchSytaxMessDeletedSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                    {
+                        showSearchSytaxMessDeletedSentByCuPhap(txtFilterMessSent.Text);
+                    }
+                }
+                else if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
+                {
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[0])
+                    {
+                        showSearchNormalMessDeletedSentBySoDienThoai(txtFilterMessSent.Text);
+                    }
+                    else if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[1])
+                    {
+                        showSearchNormalMessDeletedSentByNoiDungTinNhan(txtFilterMessSent.Text);
+                    }
+                }
+            }
+        }
+
+        private void showSearchSytaxMessSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessSentByNbPhone(nbPhone);
+            tblSyntaxMessSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessSentByNoiDungTinNhan(noiDungMess);
+            tblSyntaxMessSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessSentByCuPhap(string cuPhap)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessSentByCuPhap(cuPhap);
+            tblSyntaxMessSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessSentByNbPhone(nbPhone);
+            tblNormalMessSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessSentByNoiDungTinNhan(noiDungMess);
+            tblNormalMessSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessErrorSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessErrorSentByNbPhone(nbPhone);
+            tblSyntaxMessErrorSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessErrorSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessErrorSentByNoiDungTinNhan(noiDungMess);
+            tblSyntaxMessErrorSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessErrorSentByCuPhap(string cuPhap)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessErrorSentByCuPhap(cuPhap);
+            tblSyntaxMessErrorSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessErrorSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessErrorSentByNbPhone(nbPhone);
+            tblNormalMessErrorSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessErrorSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessErrorSentByNoiDungTinNhan(noiDungMess);
+            tblNormalMessErrorSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessDeletedSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessDeletedSentByNbPhone(nbPhone);
+            tblSyntaxMessDeletedSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessDeletedSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessDeletedSentByNoiDungTinNhan(noiDungMess);
+            tblSyntaxMessDeletedSent.DataSource = tbl;
+        }
+
+        private void showSearchSytaxMessDeletedSentByCuPhap(string cuPhap)
+        {
+            DataTable tbl = HopThuDiDAO.getSyntaxMessDeletedSentByCuPhap(cuPhap);
+            tblSyntaxMessDeletedSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessDeletedSentBySoDienThoai(string nbPhone)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessDeletedSentByNbPhone(nbPhone);
+            tblNormalMessDeletedSent.DataSource = tbl;
+        }
+
+        private void showSearchNormalMessDeletedSentByNoiDungTinNhan(string noiDungMess)
+        {
+            DataTable tbl = HopThuDiDAO.getNormalMessDeletedSentByNoiDungTinNhan(noiDungMess);
+            tblNormalMessDeletedSent.DataSource = tbl;
         }
     }
 }
