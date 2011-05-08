@@ -13,9 +13,9 @@ CREATE PROC sp_ISO_SMS_getAllSyntaxMessErrorSent
 AS
 BEGIN
 	SELECT	A.id,A.so_dien_thoai,A.noi_dung_tin_nhan,
-			C.cum_tu_1+''+C.cum_tu_2+''+C.cum_tu_3+''+C.cum_tu_4+''+
-			C.cum_tu_5+''+C.cum_tu_6+''+C.cum_tu_7+''+C.cum_tu_8+''+
-			C.cum_tu_9+''+C.cum_tu_10 AS 'Cu_Phap',A.ngay_gui 
+			C.cum_tu_1+' '+C.cum_tu_2+' '+C.cum_tu_3+' '+C.cum_tu_4+' '+
+			C.cum_tu_5+' '+C.cum_tu_6+' '+C.cum_tu_7+' '+C.cum_tu_8+' '+
+			C.cum_tu_9+' '+C.cum_tu_10 AS 'Cu_Phap',A.ngay_gui 
 
 	FROM HopThuDi AS A 
 	

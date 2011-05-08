@@ -17,4 +17,6 @@ BEGIN
 	FROM HopThuDi 
 
 	WHERE tinh_trang = 3 AND loai_hop_thu = 6
+
+	ORDER BY id DESC
 END
