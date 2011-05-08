@@ -75,25 +75,25 @@ namespace SMS
 
         public static DataTable getAllSyntaxMessInbox()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllSyntaxMessInbox",null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllSyntaxMessInbox", null);
             return result;
         }
 
         public static DataTable getAllNormalMessInbox()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllNormalMessInbox", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllNormalMessInbox", null);
             return result;
         }
 
         public static DataTable getAllSyntaxMessDeletedInbox()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllSyntaxMessDeletedInbox", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllSyntaxMessDeletedInbox", null);
             return result;
         }
 
         public static DataTable getAllNormalMessDeletedInbox()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllNormalMessDeletedInbox", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllNormalMessDeletedInbox", null);
             return result;
         }
 
@@ -104,7 +104,7 @@ namespace SMS
             parameter[0] = new SqlParameter("@id", SqlDbType.Int);
             parameter[0].Value = id;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_updateStatusMessInbox", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_updateStatusMessInbox", parameter);
             return kq;
         }
 
@@ -115,7 +115,7 @@ namespace SMS
             parameter[0] = new SqlParameter("@id", SqlDbType.Int);
             parameter[0].Value = id;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_deleteMessInbox", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_deleteMessInbox", parameter);
             return kq;
         }
 
@@ -126,8 +126,119 @@ namespace SMS
             parameter[0] = new SqlParameter("@id", SqlDbType.Int);
             parameter[0].Value = id;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_removeMessInbox", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_removeMessInbox", parameter);
             return kq;
         }
+
+        public static DataTable getSyntaxMessInboxByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessByNbPhone", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessInboxByCuPhap(string cuPhap)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@CuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cuPhap;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessByCuPhap", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessInboxByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessBySoDienThoai", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedInboxByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedByNbPhone", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedInboxByCuPhap(string cuPhap)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@CuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cuPhap;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedByCuPhap", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessDeletedInboxByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessDeletedBySoDienThoai", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessDeletedInboxByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessDeletedByNoiDungTinNhan", parameter);
+            return result;
+        }
+
     }
 }

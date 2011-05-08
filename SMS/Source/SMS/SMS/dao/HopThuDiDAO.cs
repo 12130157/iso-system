@@ -57,37 +57,37 @@ namespace SMS
 
         public static DataTable getAllSyntaxMessSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllSyntaxMessSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllSyntaxMessSent", null);
             return result;
         }
 
         public static DataTable getAllNormalMessSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllNormalMessSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllNormalMessSent", null);
             return result;
         }
 
         public static DataTable getAllSyntaxMessErrorSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllSyntaxMessErrorSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllSyntaxMessErrorSent", null);
             return result;
         }
         
         public static DataTable getAllNormalMessErrorSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllNormalMessErrorSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllNormalMessErrorSent", null);
             return result;
         }
 
         public static DataTable getAllSyntaxMessDeletedSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllSyntaxMessDeletedSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllSyntaxMessDeletedSent", null);
             return result;
         }
 
         public static DataTable getAllNormalMessDeletedSent()
         {
-            DataTable result = DataUtil.executeStore("sp_SMS_getAllNormalMessDeletedSent", null);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getAllNormalMessDeletedSent", null);
             return result;
         }
 
@@ -107,7 +107,7 @@ namespace SMS
             parameter[0] = new SqlParameter("@id", SqlDbType.Int);
             parameter[0].Value = id;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_deleteMessSent", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_deleteMessSent", parameter);
             return kq;
         }
 
@@ -118,7 +118,7 @@ namespace SMS
             parameter[0] = new SqlParameter("@ma_tin_nhan_tra_loi", SqlDbType.Int);
             parameter[0].Value = maTinNhanTraLoi;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_updateMaTinNhanTraLoiInbox", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_updateMaTinNhanTraLoiInbox", parameter);
             return kq;
         }
 
@@ -129,7 +129,7 @@ namespace SMS
             parameter[0] = new SqlParameter("@id", SqlDbType.Int);
             parameter[0].Value = id;
 
-            Boolean kq = DataUtil.executeNonStore("sp_SMS_removeMessSent", parameter);
+            Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_removeMessSent", parameter);
             return kq;
         }
 
@@ -148,7 +148,171 @@ namespace SMS
 
             Boolean kq = DataUtil.executeNonStore("sp_SMS_updateStatusResentMess", parameter);
             return kq;
-        } 
+        }
 
+        public static DataTable getSyntaxMessSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessSentByNbPhone", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessSentByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessSentByCuPhap(string cuPhap)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@CuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cuPhap;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessSentByCuPhap", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessSentBySoDienThoai", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessSentByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessErrorSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessErrorSentByNbPhone", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessErrorSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessErrorSentByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessErrorSentByCuPhap(string cuPhap)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@CuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cuPhap;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessErrorSentByCuPhap", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessErrorSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessErrorSentBySoDienThoai", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessErrorSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessErrorSentByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedSentByNbPhone", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedSentByNoiDungTinNhan", parameter);
+            return result;
+        }
+
+        public static DataTable getSyntaxMessDeletedSentByCuPhap(string cuPhap)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@CuPhap", SqlDbType.VarChar);
+            parameter[0].Value = cuPhap;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchSyntaxMessDeletedSentByCuPhap", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessDeletedSentByNbPhone(string nbPhone)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@SoDienThoai", SqlDbType.VarChar);
+            parameter[0].Value = nbPhone;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessDeletedSentBySoDienThoai", parameter);
+            return result;
+        }
+
+        public static DataTable getNormalMessDeletedSentByNoiDungTinNhan(string noiDungMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@NoiDungTinNhan", SqlDbType.VarChar);
+            parameter[0].Value = noiDungMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_searchNormalMessDeletedSentByNoiDungTinNhan", parameter);
+            return result;
+        }
     }
 }
