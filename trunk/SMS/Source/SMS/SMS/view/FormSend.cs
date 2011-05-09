@@ -425,6 +425,8 @@ namespace SMS
         private void cboFilterMessSent_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtFilterMessSent.Enabled = true;
+            txtFilterMessSent.Text = "";
+            txtFilterMessSent.Select();
             if (tabSent.SelectedTab == tabSyntaxMessSent)
             {
                 showAllSyntaxMessSent();

@@ -38,7 +38,6 @@ namespace SMS
                 this.lbStatus.Text = "Connected";
             }
             messRecieveNphoneConnected();
-
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -943,5 +942,30 @@ namespace SMS
 
         # endregion
 
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == WindowState)
+            {
+                Hide();
+            }
+        }
+
+        private void systemTrayIcon_DoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Maximized;
+        }
+
+        private void toolTripMenuRestore_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Maximized;
+        }
+
+        private void toolsTripMenuExit_Click(object sender, EventArgs e)
+        {
+            systemTrayIcon.Dispose();
+            Application.Exit();
+        }
     } 
 }
