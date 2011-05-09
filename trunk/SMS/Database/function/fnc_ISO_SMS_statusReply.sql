@@ -5,12 +5,12 @@ END
 GO
 
 CREATE FUNCTION fnc_ISO_SMS_statusReply
-	(@SoDienThoai int)
+	(@Ma_Tin_Nhan_Tra_Loi int)
 	RETURNS nvarchar(20)
 AS
 BEGIN
 declare @rs nvarchar(20)
-IF @SoDienThoai = null
+IF @Ma_Tin_Nhan_Tra_Loi = ''
 	set @rs =  'Not Reply'
 ELSE 
 	set @rs =  'Replied'
