@@ -78,6 +78,7 @@ namespace SMS
                 this.btnDeleteMessSent.Enabled = true;
                 this.btnReSentMessSent.Enabled = false;
                 this.btnRemoveMessSent.Enabled = false;
+                showAllSyntaxMessSent();
             }
             if (tabSent.SelectedTab == tabNormalMessSent)
             {
@@ -85,20 +86,45 @@ namespace SMS
                 this.btnDeleteMessSent.Enabled = true;
                 this.btnReSentMessSent.Enabled = false;
                 this.btnRemoveMessSent.Enabled = false;
+                showAllNormalMessSent();
             }
             if (tabSent.SelectedTab == tabErrorMessSent)
             {
-                this.btnForwardMessSent.Enabled = false;
-                this.btnDeleteMessSent.Enabled = true;
-                this.btnReSentMessSent.Enabled = true;
-                this.btnRemoveMessSent.Enabled = false;
+                if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
+                {
+                    showAllSyntaxMessErrorSent();
+                    this.btnForwardMessSent.Enabled = false;
+                    this.btnDeleteMessSent.Enabled = true;
+                    this.btnReSentMessSent.Enabled = true;
+                    this.btnRemoveMessSent.Enabled = false;
+                }
+                if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+                {
+                    showAllNormalMessErrorSent();
+                    this.btnForwardMessSent.Enabled = true;
+                    this.btnDeleteMessSent.Enabled = true;
+                    this.btnReSentMessSent.Enabled = true;
+                    this.btnRemoveMessSent.Enabled = false;      
+                }
             }
             if (tabSent.SelectedTab == tabDeletedMessSent)
             {
-                this.btnForwardMessSent.Enabled = false;
-                this.btnDeleteMessSent.Enabled = false;
-                this.btnReSentMessSent.Enabled = false;
-                this.btnRemoveMessSent.Enabled = true;
+                if (tabMessDeletedSent.SelectedTab == tabSyntaxMessDeletedSent)
+                {
+                    showAllSyntaxMessDeletedSent();
+                    this.btnForwardMessSent.Enabled = false;
+                    this.btnDeleteMessSent.Enabled = false;
+                    this.btnReSentMessSent.Enabled = false;
+                    this.btnRemoveMessSent.Enabled = true;
+                }
+                if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
+                {
+                    showAllNormalMessDeletedSent();
+                    this.btnForwardMessSent.Enabled = true;
+                    this.btnDeleteMessSent.Enabled = false;
+                    this.btnReSentMessSent.Enabled = false;
+                    this.btnRemoveMessSent.Enabled = true;
+                }
             }
         }
 
@@ -112,10 +138,12 @@ namespace SMS
             }
             if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
             {
+                showAllSyntaxMessErrorSent();
                 btnForwardMessSent.Enabled = false;
             }
             if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
             {
+                showAllNormalMessErrorSent();
                 btnForwardMessSent.Enabled = true;
             }
 
@@ -132,10 +160,12 @@ namespace SMS
             if (tabMessDeletedSent.SelectedTab == tabSyntaxMessDeletedSent)
             {
                 btnForwardMessSent.Enabled = false;
+                showAllSyntaxMessDeletedSent();
             }
             if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
             {
                 btnForwardMessSent.Enabled = true;
+                showAllNormalMessDeletedSent();
             }
         }
 
@@ -395,25 +425,46 @@ namespace SMS
         private void cboFilterMessSent_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtFilterMessSent.Enabled = true;
+            if (tabSent.SelectedTab == tabSyntaxMessSent)
+            {
+                showAllSyntaxMessSent();
+            }
             if (tabSent.SelectedTab == tabNormalMessSent)
             {
+                showAllNormalMessSent();
                 if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
                 {
                     txtFilterMessSent.Enabled = false;
                 }
             }
-            if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+            if (tabSent.SelectedTab == tabErrorMessSent)
             {
-                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                if (tabMessErrorSent.SelectedTab == tabSyntaxMessErrorSent)
                 {
-                    txtFilterMessSent.Enabled = false;
+                    showAllSyntaxMessErrorSent();
+                }
+                if (tabMessErrorSent.SelectedTab == tabNormalMessErrorSent)
+                {
+                    showAllNormalMessErrorSent();
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                    {
+                        txtFilterMessSent.Enabled = false;
+                    }
                 }
             }
-            if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
+            if (tabSent.SelectedTab == tabDeletedMessSent)
             {
-                if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                if (tabMessDeletedSent.SelectedTab == tabSyntaxMessDeletedSent)
                 {
-                    txtFilterMessSent.Enabled = false;
+                    showAllSyntaxMessDeletedSent();
+                }
+                if (tabMessDeletedSent.SelectedTab == tabNormalMessDeletedSent)
+                {
+                    showAllNormalMessDeletedSent();
+                    if (cboFilterMessSent.SelectedItem == cboFilterMessSent.Items[2])
+                    {
+                        txtFilterMessSent.Enabled = false;
+                    }
                 }
             }
         }
