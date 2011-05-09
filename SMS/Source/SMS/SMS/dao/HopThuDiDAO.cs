@@ -46,7 +46,7 @@ namespace SMS
                 parameter[i] = new SqlParameter("User5", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDiModel.User51;
 
-                Boolean kq = DataUtil.executeNonStore("sp_SMS_InertHopThuDi", parameter);
+                Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_insertMessSent", parameter);
                 return kq;
             }
             catch (Exception)

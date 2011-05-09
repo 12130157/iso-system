@@ -17,7 +17,7 @@ namespace SMS
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[10];
+                SqlParameter[] parameter = new SqlParameter[11];
                 int i = 0;
 
 
@@ -27,16 +27,17 @@ namespace SMS
                 parameter[i] = new SqlParameter("Ma_cu_phap", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.Ma_Cu_Phap;
 
-
                 parameter[i] = new SqlParameter("Noi_dung_tin_nhan", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.Noi_Dung_Tin_Nhan;
-
 
                 parameter[i] = new SqlParameter("Tinh_trang", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.Tinh_Trang;
 
                 parameter[i] = new SqlParameter("Loai_hop_thu", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.Loai_Hop_Thu;
+
+                parameter[i] = new SqlParameter("Ma_Tin_Nhan_Tra_Loi", SqlDbType.VarChar);
+                parameter[i++].Value = hopThuDenMODEL.Ma_Tin_Nhan_Tra_Loi;
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.User11;
@@ -53,7 +54,7 @@ namespace SMS
                 parameter[i] = new SqlParameter("User5", SqlDbType.VarChar);
                 parameter[i++].Value = hopThuDenMODEL.User51;
 
-                Boolean kq = DataUtil.executeNonStore("sp_SMS_InertHopThuDen", parameter);
+                Boolean kq = DataUtil.executeNonStore("sp_ISO_SMS_insertMessInbox", parameter);
                 return kq;
             }
             catch (Exception)
