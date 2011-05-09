@@ -348,7 +348,7 @@ namespace SMS
 
             CuPhapMODEL cuPhapModel = new CuPhapMODEL();
 
-            DataTable result = DataUtil.executeStore("sp_SMS_getCumCuPhap", parameter);
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getCumCuPhap", parameter);
 
             foreach (DataRow row in result.Rows)
             {
