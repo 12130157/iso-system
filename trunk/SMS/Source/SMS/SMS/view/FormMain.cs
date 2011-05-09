@@ -301,14 +301,15 @@ namespace SMS
                     {
                         modelDenFn.Loai_Hop_Thu = "0";
                     }
-                    modelDenFn.Ngay_Nhan = dataMessageDenFn.SCTimestamp.ToString();
+                    //modelDenFn.Ngay_Nhan = dataMessageDenFn.SCTimestamp.ToString();
                     modelDenFn.Tinh_Trang = "0";
 
                     string[] arrContentMessFn = splitContentMess(dataMessageDenFn.UserDataText);
                     if (modelDenFn.Ma_Cu_Phap.Equals("0"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
-                        //modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
+                        modelDenFn.User21 = "";
+                        modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
@@ -354,6 +355,8 @@ namespace SMS
                     }
                     else
                     {
+                        modelDenFn.User11 = "";
+                        modelDenFn.User21 = "";
                         modelDenFn.User31 = returnMessNotSyntax;
                     }
 
@@ -488,14 +491,37 @@ namespace SMS
                             model.Tinh_Trang = "0";
                         }
                     }
+                    model.User11 = "";
+                    model.User21 = "";
+                    model.User31 = "";
+                    model.User41 = "";
+                    model.User51 = "";
 
                     bool resultDi = HopThuDiDAO.insertHopThuDi(model);
+                    if (resultDi == true)
+                    {
+                        MessageBox.Show("Insert Hop THu Di Thanh Cong");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Insert Hop THu Di That bai");
+                    }
                     maTinNhanTraLoi = getMaxIDHopThuDi();
 
                     modelDenFn = (HopThuDenMODEL)listModelDen[i];
                     modelDenFn.Ma_Tin_Nhan_Tra_Loi = maTinNhanTraLoi;
+                    modelDenFn.User41 = "";
+                    modelDenFn.User51 = "";
 
                     bool resultDen = HopThuDenDAO.insertHopThuDen(modelDenFn);
+                    if (resultDen == true)
+                    {
+                        MessageBox.Show("Insert Hop THu Den Thanh Cong");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Insert Hop THu Den That bai");
+                    }
                     i++;
                 }
             }
@@ -517,10 +543,10 @@ namespace SMS
 
             listModelDen = new ArrayList();
             listModelDen = getMessDen(messages);
-            if (listModelDen.Count > 0)
-            {
-                MessageBox.Show(listModelDen.Count.ToString());
-            }
+            //if (listModelDen.Count > 0)
+            //{
+            //    MessageBox.Show(listModelDen.Count.ToString());
+            //}
             listModelDi = new ArrayList();
             listModelDi = getMessDi(listModelDen);
 
