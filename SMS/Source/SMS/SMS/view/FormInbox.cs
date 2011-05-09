@@ -348,6 +348,7 @@ namespace SMS
         {
             txtContentFilterInbox.Enabled = true;
             txtContentFilterInbox.Text = "";
+            txtContentFilterInbox.Select();
             if (tabInbox.SelectedTab == tabMessDeleted)
             {
                 if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)

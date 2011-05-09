@@ -30,13 +30,13 @@ namespace SMS
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuTool = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChangePassword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSystemConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
-            this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCompose = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInbox = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,12 @@ namespace SMS
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lbStatus = new System.Windows.Forms.Label();
             this.btnEnableMess = new System.Windows.Forms.Button();
+            this.systemTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.rightClickTrayIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolsTripMenuRestore = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsTripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTool.SuspendLayout();
+            this.rightClickTrayIcon.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuTool
@@ -73,8 +78,7 @@ namespace SMS
             this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuChangePassword,
             this.menuSystemConfig,
-            this.menuLogout,
-            this.loginToolStripMenuItem});
+            this.menuLogout});
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(38, 20);
             this.menuFile.Text = "File";
@@ -97,12 +101,6 @@ namespace SMS
             this.menuLogout.Size = new System.Drawing.Size(173, 22);
             this.menuLogout.Text = "Logout";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
-            // 
-            // loginToolStripMenuItem
-            // 
-            this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            this.loginToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.loginToolStripMenuItem.Text = "Login";
             // 
             // menuMessage
             // 
@@ -219,6 +217,36 @@ namespace SMS
             this.btnEnableMess.UseVisualStyleBackColor = true;
             this.btnEnableMess.Click += new System.EventHandler(this.btnEnableMess_Click);
             // 
+            // systemTrayIcon
+            // 
+            this.systemTrayIcon.ContextMenuStrip = this.rightClickTrayIcon;
+            this.systemTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("systemTrayIcon.Icon")));
+            this.systemTrayIcon.Text = "GSM System";
+            this.systemTrayIcon.Visible = true;
+            this.systemTrayIcon.DoubleClick += new System.EventHandler(this.systemTrayIcon_DoubleClick);
+            // 
+            // rightClickTrayIcon
+            // 
+            this.rightClickTrayIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsTripMenuRestore,
+            this.toolsTripMenuExit});
+            this.rightClickTrayIcon.Name = "rightClickTrayIcon";
+            this.rightClickTrayIcon.Size = new System.Drawing.Size(114, 48);
+            // 
+            // toolsTripMenuRestore
+            // 
+            this.toolsTripMenuRestore.Name = "toolsTripMenuRestore";
+            this.toolsTripMenuRestore.Size = new System.Drawing.Size(152, 22);
+            this.toolsTripMenuRestore.Text = "Restore";
+            this.toolsTripMenuRestore.Click += new System.EventHandler(this.toolTripMenuRestore_Click);
+            // 
+            // toolsTripMenuExit
+            // 
+            this.toolsTripMenuExit.Name = "toolsTripMenuExit";
+            this.toolsTripMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.toolsTripMenuExit.Text = "Exit";
+            this.toolsTripMenuExit.Click += new System.EventHandler(this.toolsTripMenuExit_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -235,8 +263,10 @@ namespace SMS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
+            this.rightClickTrayIcon.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,6 +293,9 @@ namespace SMS
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Button btnEnableMess;
         private System.Windows.Forms.ToolStripMenuItem typeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loginToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon systemTrayIcon;
+        private System.Windows.Forms.ContextMenuStrip rightClickTrayIcon;
+        private System.Windows.Forms.ToolStripMenuItem toolsTripMenuRestore;
+        private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
     }
 }
