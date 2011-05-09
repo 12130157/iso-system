@@ -217,14 +217,28 @@ namespace SMS
             }
             if (tabInbox.SelectedTab == tabMessDeleted)
             {
-                this.btnForwardMessInbox.Enabled = false;
-                this.btnDeleteMessInbox.Enabled = false;
-                this.btnRemoveMessInbox.Enabled = true;
-                this.btnMaskReadMessInbox.Enabled = false;
-                this.btnReplyMessInbox.Enabled = true;
+                if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
+                {
+                    showSyntaxMessDeletedInbox();
+                    this.btnForwardMessInbox.Enabled = false;
+                    this.btnDeleteMessInbox.Enabled = false;
+                    this.btnRemoveMessInbox.Enabled = true;
+                    this.btnMaskReadMessInbox.Enabled = false;
+                    this.btnReplyMessInbox.Enabled = true;
+                }
+                if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+                {
+                    showNormalMessDeletedInbox();
+                    this.btnForwardMessInbox.Enabled = true;
+                    this.btnDeleteMessInbox.Enabled = false;
+                    this.btnRemoveMessInbox.Enabled = true;
+                    this.btnMaskReadMessInbox.Enabled = false;
+                    this.btnReplyMessInbox.Enabled = true;
+                }
             }
             if (tabInbox.SelectedTab == tabSyntaxMess)
             {
+                showSyntaxMessInbox();
                 this.btnDeleteMessInbox.Enabled = true;
                 this.btnRemoveMessInbox.Enabled = false;
                 this.btnMaskReadMessInbox.Enabled = true;
@@ -233,6 +247,7 @@ namespace SMS
             }
             if (tabInbox.SelectedTab == tabNormalMessage)
             {
+                showNormalMessInbox();
                 this.btnDeleteMessInbox.Enabled = true;
                 this.btnRemoveMessInbox.Enabled = false;
                 this.btnMaskReadMessInbox.Enabled = true;
@@ -252,10 +267,12 @@ namespace SMS
             if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
             {
                 this.btnForwardMessInbox.Enabled = false;
+                showSyntaxMessDeletedInbox();
             }
             if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
             {
                 this.btnForwardMessInbox.Enabled = true;
+                showNormalMessDeletedInbox();
             }
         }
 
@@ -330,15 +347,29 @@ namespace SMS
         private void cboFilterSyntaxMessInbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtContentFilterInbox.Enabled = true;
-            if (tabInbox.SelectedTab == tabNormalMessage)
+            txtContentFilterInbox.Text = "";
+            if (tabInbox.SelectedTab == tabMessDeleted)
             {
-                if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
+                if (tabDeletedInbox.SelectedTab == tabSyntaxMessDeletedInbox)
                 {
-                    txtContentFilterInbox.Enabled = false;
+                    showSyntaxMessDeletedInbox();
+                }
+                if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+                {
+                    showNormalMessDeletedInbox();
+                    if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
+                    {
+                        txtContentFilterInbox.Enabled = false;
+                    }
                 }
             }
-            if (tabDeletedInbox.SelectedTab == tabNormalMessDeletedInbox)
+            if (tabInbox.SelectedTab == tabSyntaxMess)
             {
+                showSyntaxMessInbox();
+            }
+            if (tabInbox.SelectedTab == tabNormalMessage)
+            {
+                showNormalMessInbox();
                 if (cboFilterMessInbox.SelectedItem == cboFilterMessInbox.Items[2])
                 {
                     txtContentFilterInbox.Enabled = false;
