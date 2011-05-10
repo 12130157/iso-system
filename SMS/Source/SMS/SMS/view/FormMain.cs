@@ -25,6 +25,8 @@ namespace SMS
         private System.Timers.Timer autoRecieveMess = new System.Timers.Timer();
 
         bool ena = false;
+        byte dcs;
+        SmsSubmitPdu pdu;
 
         #endregion
 
@@ -218,11 +220,11 @@ namespace SMS
                             {
                                 idCuPhapFn = "1";
                             }
-                            if (Validattion.isYear(arrContentMessFn[3]) == true)
+                            else if (Validattion.isYear(arrContentMessFn[3]) == true)
                             {
                                 idCuPhapFn = "2";
                             }
-                            if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                            else if (Validattion.isSemester(arrContentMessFn[3]) == true)
                             {
                                 idCuPhapFn = "3";
                             }
@@ -233,7 +235,7 @@ namespace SMS
                             {
                                 idCuPhapFn = "4";
                             }
-                            if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                            else if (Validattion.isSemester(arrContentMessFn[3]) == true)
                             {
                                 idCuPhapFn = "5";
                             }
@@ -244,7 +246,7 @@ namespace SMS
                             {
                                 idCuPhapFn = "6";
                             }
-                            if (Validattion.isMMYYYY(arrContentMessFn[3]) == true)
+                            else if (Validattion.isMMYYYY(arrContentMessFn[3]) == true)
                             {
                                 idCuPhapFn = "7";
                             }
@@ -259,6 +261,7 @@ namespace SMS
                 {
                     idCuPhapFn = "";
                 }
+                MessageBox.Show("Ma Cu Phap" + idCuPhapFn);
             }
             catch (Exception e)
             {
@@ -321,7 +324,7 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("3"))
                     {
@@ -410,7 +413,8 @@ namespace SMS
 
         private void sendOneMessage(string contentMess, string des)
         {
-            SmsSubmitPdu pdu = new SmsSubmitPdu(contentMess, des, "");
+            dcs = DataCodingScheme.NoClass_16Bit;
+            pdu = new SmsSubmitPdu(contentMess, des, "",dcs);
             common.Constants.comm.SendMessage(pdu);
         }
 
@@ -434,22 +438,22 @@ namespace SMS
                 {
                     int startIndex = 0;
                     int lenghtFinal = 0;
-                    int j = model.Noi_Dung_Tin_Nhan.Length / 160;
+                    int j = (model.Noi_Dung_Tin_Nhan).Length / 70;
 
                     if (j >= 1)
                     {
                         while (true)
                         {
-                            if (startIndex > model.Noi_Dung_Tin_Nhan.Length)
+                            if (startIndex > (model.Noi_Dung_Tin_Nhan).Length)
                             {
                                 break;
                             }
 
-                            if (startIndex + 160 > model.Noi_Dung_Tin_Nhan.Length)
+                            if (startIndex + 70 > (model.Noi_Dung_Tin_Nhan).Length)
                             {
                                 // lay ra chieu dai chuoi cuoi cung
                                 lenghtFinal = model.Noi_Dung_Tin_Nhan.Length - startIndex;
-                                string subString = model.Noi_Dung_Tin_Nhan.Substring(startIndex, lenghtFinal);
+                                string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, lenghtFinal);
                                 try
                                 {
                                     sendOneMessage(subString, model.So_Dien_Thoai);
@@ -463,19 +467,20 @@ namespace SMS
                             }
                             else
                             {
-                                string subString = model.Noi_Dung_Tin_Nhan.Substring(startIndex, 160);
+                                string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, 70);
                                 try
                                 {
                                     sendOneMessage(subString, model.So_Dien_Thoai);
                                     model.Tinh_Trang = "1";
                                 }
-                                catch (Exception)
+                                catch (Exception e)
                                 {
                                     model.Tinh_Trang = "0";
+                                    MessageBox.Show(e.Message + "----------------sendSubMess");
                                     break;
                                 }
                             }
-                            startIndex += 160;
+                            startIndex += 70;
                         }
                     }
                     else
