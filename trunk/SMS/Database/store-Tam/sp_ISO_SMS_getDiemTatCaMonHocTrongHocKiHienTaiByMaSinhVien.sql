@@ -15,7 +15,7 @@ BEGIN
 					WHERE	A.Ten_Dang_Nhap = @MaSinhVien
 					AND		GETDATE() BETWEEN C.Ngay_Bat_Dau AND C.Ngay_Ket_Thuc
 				)
-	IF @HocKi <> NULL
+	IF @HocKi <> ''
 	BEGIN 
 		SELECT		D.Ten_Mon_Hoc , F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem ,J.Hoc_Ki			
 		FROM		ChiTietDiem		AS A
@@ -32,4 +32,4 @@ BEGIN
 	END
 END
 
---exec sp_ISO_SMS_getDiemTatCaMonHocTrongHocKiHienTaiByMaSinhVien 'an_ntt.hv'
+--exec sp_ISO_SMS_getDiemTatCaMonHocTrongHocKiHienTaiByMaSinhVien 'bai_ls.hv'

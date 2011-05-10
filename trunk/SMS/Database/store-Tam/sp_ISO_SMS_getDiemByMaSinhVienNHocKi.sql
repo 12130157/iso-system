@@ -39,4 +39,4 @@ BEGIN
 	END
 END
 
---exec sp_ISO_SMS_getDiemByMaSinhVienNHocKi 'an_ntt.hv','ALL'
+--exec sp_ISO_SMS_getDiemByMaSinhVienNHocKi 'bai_ls.hv','ALL'
