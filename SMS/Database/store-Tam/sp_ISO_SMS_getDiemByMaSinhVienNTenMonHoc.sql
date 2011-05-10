@@ -22,4 +22,24 @@ BEGIN
 	AND		C.Ma_Mon_Hoc = @IDMonHoc 
 END
 
---exec sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc 'an_ntt.hv',28
+--exec sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc 'bai_ls.hv',15
+
+
+--select * from chitietthanhvien where ten_dang_nhap = 'bai_ls.hv'
+--select * from thanhvien where ten_dn = 'bai_ls.hv'
+--select * from LopHoc where id=0
+--select * from thoikhoabieu where ma_lop = 0
+--select * from chitiettkb where ma_tkb = 3
+--select * from MonHoctkb where ma_tkb = 3
+--select * from DangKyMonHoc where ma_mon_hoc_tkb = 16 and ma_hoc_vien = 51
+--
+--select * from ChiTietDiem where ma_dang_ky_mon_hoc = 250
+--select * from DangKyMonHoc where ma_hoc_vien = 51
+--select * from MonHocTKB where id = 19
+--select * from MonHoc where id = 18
+--
+--select * from MonHoc where id= 17
+--select * from baikiemtra where id = 64
+--
+--Select * from baikiemtra where ma_mon_hoc = 19
+--select * from TenBaiKiemTra

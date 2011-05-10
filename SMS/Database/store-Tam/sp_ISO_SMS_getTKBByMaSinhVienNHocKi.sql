@@ -41,4 +41,4 @@ BEGIN
 	END
 END
 
---exec sp_ISO_SMS_getTKBByMaSinhVienNHocKi 'an_ntt.hv','1'
+--exec sp_ISO_SMS_getTKBByMaSinhVienNHocKi 'bai_ls.hv','1'

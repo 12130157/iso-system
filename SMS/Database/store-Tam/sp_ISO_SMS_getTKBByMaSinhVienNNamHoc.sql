@@ -23,4 +23,8 @@ BEGIN
 	AND			CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) = @NamHoc
 END
 
---exec sp_ISO_SMS_getTKBByMaSinhVienNNamHoc 'an_ntt.hv','2010'
+--exec sp_ISO_SMS_getTKBByMaSinhVienNNamHoc 'bai_ls.hv','2010'
+
+--select * from chitietthanhvien where ten_dang_nhap = 'bai_ls.hv'
+--select * From thoikhoabieu where ma_lop = 0
+--select * from chitietTKB where ma_tkb = 2 and CAST(DATEPART(YEAR,Ngay_Hoc) AS VARCHAR) = '2010'
