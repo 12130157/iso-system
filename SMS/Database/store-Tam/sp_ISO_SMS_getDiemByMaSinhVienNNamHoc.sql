@@ -22,4 +22,5 @@ BEGIN
 	AND		(CAST(DATEPART(YEAR,C.Ngay_Bat_Dau_LT) AS VARCHAR) = @NamHoc OR CAST(DATEPART(YEAR,C.Ngay_Bat_Dau_TH) AS VARCHAR) = @NamHoc)
 END
 
---exec sp_ISO_SMS_getDiemByMaSinhVienNNamHoc 'an_ntt.hv','2010'
+--exec sp_ISO_SMS_getDiemByMaSinhVienNNamHoc 'bai_ls.hv','2010'
+
