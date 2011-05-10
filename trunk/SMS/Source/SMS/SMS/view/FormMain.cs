@@ -330,7 +330,7 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("4"))
                     {
@@ -342,7 +342,7 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("6"))
                     {
@@ -797,7 +797,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
             foreach (DataRow row in tbl.Rows)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+                result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "-HK" + row["Hoc_Ki"] + "\n";
             }
             return result;
         }
@@ -808,7 +808,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien,tenMonHoc);
             foreach (DataRow row in tbl.Rows)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
             }
             return result;            
         }
@@ -819,7 +819,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, namHoc);
             foreach (DataRow row in tbl.Rows)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
             }
             return result;
         }
@@ -830,7 +830,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, hocKi);
             foreach (DataRow row in tbl.Rows)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/" + row["Hoc_Ki"] + "\n";
+                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
             }
             return result;
         }
