@@ -30,12 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCompose));
             this.piboCompose = new System.Windows.Forms.PictureBox();
-            this.txtTimes = new System.Windows.Forms.TextBox();
-            this.chkMultipleTimes = new System.Windows.Forms.CheckBox();
-            this.gboOptions = new System.Windows.Forms.GroupBox();
-            this.lbTimes = new System.Windows.Forms.Label();
             this.chkUnicode = new System.Windows.Forms.CheckBox();
-            this.chkAlert = new System.Windows.Forms.CheckBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.butClosse = new System.Windows.Forms.Button();
             this.but_Send = new System.Windows.Forms.Button();
@@ -44,10 +39,8 @@
             this.lbMessage = new System.Windows.Forms.Label();
             this.lbNumberPhone = new System.Windows.Forms.Label();
             this.lbTitle = new System.Windows.Forms.Label();
-            this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnContacts = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
-            this.gboOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // piboCompose
@@ -56,84 +49,23 @@
             this.piboCompose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.piboCompose.ErrorImage = ((System.Drawing.Image)(resources.GetObject("piboCompose.ErrorImage")));
             this.piboCompose.InitialImage = ((System.Drawing.Image)(resources.GetObject("piboCompose.InitialImage")));
-            this.piboCompose.Location = new System.Drawing.Point(319, 168);
+            this.piboCompose.Location = new System.Drawing.Point(317, 50);
             this.piboCompose.Name = "piboCompose";
             this.piboCompose.Size = new System.Drawing.Size(234, 100);
             this.piboCompose.TabIndex = 155;
             this.piboCompose.TabStop = false;
-            // 
-            // txtTimes
-            // 
-            this.txtTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimes.Location = new System.Drawing.Point(111, 79);
-            this.txtTimes.Name = "txtTimes";
-            this.txtTimes.Size = new System.Drawing.Size(46, 21);
-            this.txtTimes.TabIndex = 3;
-            this.txtTimes.Text = "1";
-            // 
-            // chkMultipleTimes
-            // 
-            this.chkMultipleTimes.AutoSize = true;
-            this.chkMultipleTimes.Checked = true;
-            this.chkMultipleTimes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMultipleTimes.Enabled = false;
-            this.chkMultipleTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMultipleTimes.ForeColor = System.Drawing.Color.Black;
-            this.chkMultipleTimes.Location = new System.Drawing.Point(18, 81);
-            this.chkMultipleTimes.Name = "chkMultipleTimes";
-            this.chkMultipleTimes.Size = new System.Drawing.Size(109, 19);
-            this.chkMultipleTimes.TabIndex = 2;
-            this.chkMultipleTimes.Text = "Send message";
-            this.chkMultipleTimes.UseVisualStyleBackColor = true;
-            // 
-            // gboOptions
-            // 
-            this.gboOptions.Controls.Add(this.lbTimes);
-            this.gboOptions.Controls.Add(this.txtTimes);
-            this.gboOptions.Controls.Add(this.chkMultipleTimes);
-            this.gboOptions.Controls.Add(this.chkUnicode);
-            this.gboOptions.Controls.Add(this.chkAlert);
-            this.gboOptions.Location = new System.Drawing.Point(319, 49);
-            this.gboOptions.Name = "gboOptions";
-            this.gboOptions.Size = new System.Drawing.Size(234, 113);
-            this.gboOptions.TabIndex = 154;
-            this.gboOptions.TabStop = false;
-            this.gboOptions.Text = "Options";
-            // 
-            // lbTimes
-            // 
-            this.lbTimes.AutoSize = true;
-            this.lbTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTimes.ForeColor = System.Drawing.Color.Black;
-            this.lbTimes.Location = new System.Drawing.Point(158, 82);
-            this.lbTimes.Name = "lbTimes";
-            this.lbTimes.Size = new System.Drawing.Size(41, 15);
-            this.lbTimes.TabIndex = 4;
-            this.lbTimes.Text = "Times";
             // 
             // chkUnicode
             // 
             this.chkUnicode.AutoSize = true;
             this.chkUnicode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkUnicode.ForeColor = System.Drawing.Color.Black;
-            this.chkUnicode.Location = new System.Drawing.Point(18, 52);
+            this.chkUnicode.Location = new System.Drawing.Point(79, 155);
             this.chkUnicode.Name = "chkUnicode";
             this.chkUnicode.Size = new System.Drawing.Size(163, 19);
             this.chkUnicode.TabIndex = 1;
             this.chkUnicode.Text = "Send as Unicode (UCS2)";
             this.chkUnicode.UseVisualStyleBackColor = true;
-            // 
-            // chkAlert
-            // 
-            this.chkAlert.AutoSize = true;
-            this.chkAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkAlert.ForeColor = System.Drawing.Color.Black;
-            this.chkAlert.Location = new System.Drawing.Point(18, 23);
-            this.chkAlert.Name = "chkAlert";
-            this.chkAlert.Size = new System.Drawing.Size(210, 19);
-            this.chkAlert.TabIndex = 0;
-            this.chkAlert.Text = "Request immediate display (alert)";
-            this.chkAlert.UseVisualStyleBackColor = true;
             // 
             // btnClear
             // 
@@ -143,7 +75,7 @@
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.SystemColors.Control;
             this.btnClear.Image = ((System.Drawing.Image)(resources.GetObject("btnClear.Image")));
-            this.btnClear.Location = new System.Drawing.Point(120, 244);
+            this.btnClear.Location = new System.Drawing.Point(107, 297);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 25);
             this.btnClear.TabIndex = 153;
@@ -159,7 +91,7 @@
             this.butClosse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butClosse.ForeColor = System.Drawing.SystemColors.Control;
             this.butClosse.Image = ((System.Drawing.Image)(resources.GetObject("butClosse.Image")));
-            this.butClosse.Location = new System.Drawing.Point(220, 244);
+            this.butClosse.Location = new System.Drawing.Point(201, 297);
             this.butClosse.Name = "butClosse";
             this.butClosse.Size = new System.Drawing.Size(79, 25);
             this.butClosse.TabIndex = 150;
@@ -175,7 +107,7 @@
             this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Send.ForeColor = System.Drawing.SystemColors.Control;
             this.but_Send.Image = ((System.Drawing.Image)(resources.GetObject("but_Send.Image")));
-            this.but_Send.Location = new System.Drawing.Point(24, 244);
+            this.but_Send.Location = new System.Drawing.Point(12, 297);
             this.but_Send.Name = "but_Send";
             this.but_Send.Size = new System.Drawing.Size(79, 25);
             this.but_Send.TabIndex = 149;
@@ -188,20 +120,22 @@
             this.txtMessage.AllowDrop = true;
             this.txtMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMessage.Location = new System.Drawing.Point(24, 117);
+            this.txtMessage.Location = new System.Drawing.Point(15, 180);
             this.txtMessage.MaxLength = 640;
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(275, 117);
+            this.txtMessage.Size = new System.Drawing.Size(537, 111);
             this.txtMessage.TabIndex = 152;
             // 
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhoneNumber.Location = new System.Drawing.Point(24, 72);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(16, 79);
+            this.txtPhoneNumber.Multiline = true;
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(190, 21);
+            this.txtPhoneNumber.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPhoneNumber.Size = new System.Drawing.Size(295, 71);
             this.txtPhoneNumber.TabIndex = 151;
             // 
             // lbMessage
@@ -210,7 +144,7 @@
             this.lbMessage.AutoSize = true;
             this.lbMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMessage.ForeColor = System.Drawing.Color.Black;
-            this.lbMessage.Location = new System.Drawing.Point(20, 95);
+            this.lbMessage.Location = new System.Drawing.Point(12, 156);
             this.lbMessage.Name = "lbMessage";
             this.lbMessage.Size = new System.Drawing.Size(61, 15);
             this.lbMessage.TabIndex = 147;
@@ -222,7 +156,7 @@
             this.lbNumberPhone.AutoSize = true;
             this.lbNumberPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNumberPhone.ForeColor = System.Drawing.Color.Black;
-            this.lbNumberPhone.Location = new System.Drawing.Point(20, 50);
+            this.lbNumberPhone.Location = new System.Drawing.Point(12, 50);
             this.lbNumberPhone.Name = "lbNumberPhone";
             this.lbNumberPhone.Size = new System.Drawing.Size(162, 15);
             this.lbNumberPhone.TabIndex = 148;
@@ -238,20 +172,9 @@
             this.lbTitle.TabIndex = 156;
             this.lbTitle.Text = "Compose Message";
             // 
-            // txtOutput
-            // 
-            this.txtOutput.AllowDrop = true;
-            this.txtOutput.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.txtOutput.Location = new System.Drawing.Point(24, 285);
-            this.txtOutput.Multiline = true;
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(529, 58);
-            this.txtOutput.TabIndex = 157;
-            this.txtOutput.WordWrap = false;
-            // 
             // btnContacts
             // 
-            this.btnContacts.Location = new System.Drawing.Point(220, 71);
+            this.btnContacts.Location = new System.Drawing.Point(236, 50);
             this.btnContacts.Name = "btnContacts";
             this.btnContacts.Size = new System.Drawing.Size(75, 23);
             this.btnContacts.TabIndex = 158;
@@ -264,12 +187,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(573, 353);
+            this.ClientSize = new System.Drawing.Size(566, 334);
+            this.Controls.Add(this.chkUnicode);
             this.Controls.Add(this.btnContacts);
-            this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.lbTitle);
             this.Controls.Add(this.piboCompose);
-            this.Controls.Add(this.gboOptions);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.butClosse);
             this.Controls.Add(this.but_Send);
@@ -283,8 +205,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compose";
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).EndInit();
-            this.gboOptions.ResumeLayout(false);
-            this.gboOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,12 +213,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox piboCompose;
-        private System.Windows.Forms.TextBox txtTimes;
-        private System.Windows.Forms.CheckBox chkMultipleTimes;
-        private System.Windows.Forms.GroupBox gboOptions;
-        private System.Windows.Forms.Label lbTimes;
         private System.Windows.Forms.CheckBox chkUnicode;
-        private System.Windows.Forms.CheckBox chkAlert;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button butClosse;
         private System.Windows.Forms.Button but_Send;
@@ -307,7 +222,6 @@
         internal System.Windows.Forms.Label lbMessage;
         internal System.Windows.Forms.Label lbNumberPhone;
         private System.Windows.Forms.Label lbTitle;
-        private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.Button btnContacts;
         
     }
