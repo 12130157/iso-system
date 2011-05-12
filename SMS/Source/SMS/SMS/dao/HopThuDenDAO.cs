@@ -248,5 +248,16 @@ namespace SMS
             string i = row[0].ToString();
             return i;
         }
+
+        public static DataTable getNewMessInbox(int newMess)
+        {
+            SqlParameter[] parameter = new SqlParameter[1];
+
+            parameter[0] = new SqlParameter("@newMess", SqlDbType.VarChar);
+            parameter[0].Value = newMess;
+
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getNewMessInbox", parameter);
+            return result;
+        }
     }
 }
