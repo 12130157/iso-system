@@ -7,11 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
-<<<<<<< .mine
 using System.Threading;
-=======
 using SMS.view;
->>>>>>> .r465
 
 using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
@@ -32,6 +29,7 @@ namespace SMS
         bool ena = false;
         byte dcs;
         SmsSubmitPdu pdu;
+        int newMess = 0;
 
         #endregion
 
@@ -45,7 +43,6 @@ namespace SMS
                 this.lbStatus.Text = "Connected";
             }
             messRecieveNphoneConnected();
-            common.Constants.unreadMess = HopThuDenDAO.getCountMessUnread();
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -147,6 +144,15 @@ namespace SMS
                 return storage;
         }
 
+        private delegate void updateNewMessDelegate(int n);
+        private void updateNewMess(int messLength)
+        {
+            newMess = newMess + messLength;
+            btnNewMess.Text = "New Message ( " + newMess.ToString() + " )";
+            btnNewMess.BackColor = Color.Yellow;
+            btnNewMess.ForeColor = Color.Red;    
+        }
+
         private DecodedShortMessage[] readMessages(string storage)
         {
             try
@@ -156,9 +162,7 @@ namespace SMS
                 if (messagesFn.Length > 0)
                 {
                     //MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
-                    btnNewMess.Text = "New Message ( " + messagesFn.Length.ToString() + " )";
-                    btnNewMess.BackColor = Color.Yellow;
-                    btnNewMess.ForeColor = Color.Red;
+                    btnNewMess.Invoke(new updateNewMessDelegate(updateNewMess),messagesFn.Length );
                 }
                 return messagesFn;
             }
@@ -268,7 +272,7 @@ namespace SMS
                 {
                     idCuPhapFn = "";
                 }
-                MessageBox.Show("Ma Cu Phap" + idCuPhapFn);
+                //MessageBox.Show("Ma Cu Phap" + idCuPhapFn);
             }
             catch (Exception e)
             {
@@ -301,7 +305,7 @@ namespace SMS
 
                     modelDenFn.So_Dien_Thoai = dataMessageDenFn.OriginatingAddress;
                     modelDenFn.Noi_Dung_Tin_Nhan = dataMessageDenFn.UserDataText;
-                    MessageBox.Show(modelDenFn.Noi_Dung_Tin_Nhan);
+                    //MessageBox.Show(modelDenFn.Noi_Dung_Tin_Nhan);
                     modelDenFn.Ma_Cu_Phap = checkSyntax(dataMessageDenFn.UserDataText);
                     if (modelDenFn.Ma_Cu_Phap.Equals(""))
                     {
@@ -445,7 +449,7 @@ namespace SMS
                 {
                     int startIndex = 0;
                     int lenghtFinal = 0;
-                    int j = (model.Noi_Dung_Tin_Nhan).Length / 70;
+                    int j = (model.Noi_Dung_Tin_Nhan).Length / 160;
 
                     if (j >= 1)
                     {
@@ -456,7 +460,7 @@ namespace SMS
                                 break;
                             }
 
-                            if (startIndex + 70 > (model.Noi_Dung_Tin_Nhan).Length)
+                            if (startIndex + 160 > (model.Noi_Dung_Tin_Nhan).Length)
                             {
                                 // lay ra chieu dai chuoi cuoi cung
                                 lenghtFinal = model.Noi_Dung_Tin_Nhan.Length - startIndex;
@@ -474,7 +478,7 @@ namespace SMS
                             }
                             else
                             {
-                                string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, 70);
+                                string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, 160);
                                 try
                                 {
                                     sendOneMessage(subString, model.So_Dien_Thoai);
@@ -487,7 +491,7 @@ namespace SMS
                                     break;
                                 }
                             }
-                            startIndex += 70;
+                            startIndex += 160;
                         }
                     }
                     else
@@ -549,12 +553,7 @@ namespace SMS
             listModelDi = getMessDi(listModelDen);
 
             sendNinsertMessDi(listModelDi, listModelDen);
-            common.Constants.unreadMess = HopThuDenDAO.getCountMessUnread();
-            if (common.Constants.unreadMess.Equals("0"))
-            {
-                btnNewMess.ForeColor = Color.Black;
-                btnNewMess.BackColor = Color.White;
-            }
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -1015,7 +1014,23 @@ namespace SMS
 
         private void menuMessage_Click(object sender, EventArgs e)
         {
-            menuInbox.Text = "Inbox (Unread : " + common.Constants.unreadMess + " messages)";
+            menuInbox.Text = "Inbox (Unread : " + common.Constants.getUnreadMess() + " messages)";
+        }
+
+        private void btnNewMess_Click(object sender, EventArgs e)
+        {
+            if (newMess != 0)
+            {
+                FormNewMessage frm = new FormNewMessage(newMess);
+                frm.Show();
+                newMess = 0;
+                if (newMess == 0)
+                {
+                    btnNewMess.Text = "New Message";
+                }
+                btnNewMess.ForeColor = Color.Black;
+                btnNewMess.BackColor = Color.White;
+            }
         }      
     } 
 }
