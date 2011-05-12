@@ -241,10 +241,12 @@ namespace SMS
             return result;
         }
 
-        public static DataTable getCountMessUnread()
+        public static string getCountMessUnread()
         {
             DataTable result = DataUtil.executeStore("sp_ISO_SMS_getCountMessUnread", null);
-            return result;
+            DataRow row = result.Rows[0];
+            string i = row[0].ToString();
+            return i;
         }
     }
 }
