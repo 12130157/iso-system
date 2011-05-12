@@ -26,11 +26,21 @@ namespace SMS.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ISO1\\SQL2005EXPRESS;Initial Catalog=GSM;Persist Security Info=True;Us" +
-            "er ID=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ISO1;Initial Catalog=GSM;Persist Security Info=True;User ID=sa")]
         public string GSMConnectionString {
             get {
                 return ((string)(this["GSMConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=NVNUOI;Persist Security Info=True;Password=30133663" +
+            "4;User ID=sa;Initial Catalog=GSM")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
             }
         }
     }
