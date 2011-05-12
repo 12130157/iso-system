@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddTypeSMS));
             this.dgv_Account = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -41,8 +42,12 @@
             this.but_Close = new System.Windows.Forms.Button();
             this.but_Add = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.lbl_choose = new System.Windows.Forms.Label();
+            this.menu_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xóaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.menu_Context.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Account
@@ -51,12 +56,14 @@
             this.dgv_Account.AllowUserToDeleteRows = false;
             this.dgv_Account.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Account.ContextMenuStrip = this.menu_Context;
             this.dgv_Account.Location = new System.Drawing.Point(392, 61);
             this.dgv_Account.Name = "dgv_Account";
             this.dgv_Account.RowHeadersVisible = false;
-            this.dgv_Account.Size = new System.Drawing.Size(359, 218);
+            this.dgv_Account.Size = new System.Drawing.Size(359, 201);
             this.dgv_Account.TabIndex = 3;
             this.dgv_Account.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Account_CellMouseClick);
+            this.dgv_Account.RightToLeftChanged += new System.EventHandler(this.dgv_Account_RightToLeftChanged);
             // 
             // groupBox1
             // 
@@ -80,6 +87,7 @@
             // 
             // txt_Note
             // 
+            this.txt_Note.Enabled = false;
             this.txt_Note.Location = new System.Drawing.Point(108, 74);
             this.txt_Note.MaxLength = 500;
             this.txt_Note.Multiline = true;
@@ -87,6 +95,7 @@
             this.txt_Note.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_Note.Size = new System.Drawing.Size(226, 85);
             this.txt_Note.TabIndex = 8;
+            this.txt_Note.TextChanged += new System.EventHandler(this.txt_Note_TextChanged);
             // 
             // label3
             // 
@@ -99,10 +108,14 @@
             // 
             // txt_ServiceCharges
             // 
+            this.txt_ServiceCharges.Enabled = false;
             this.txt_ServiceCharges.Location = new System.Drawing.Point(108, 48);
+            this.txt_ServiceCharges.MaxLength = 6;
             this.txt_ServiceCharges.Name = "txt_ServiceCharges";
             this.txt_ServiceCharges.Size = new System.Drawing.Size(163, 20);
             this.txt_ServiceCharges.TabIndex = 10;
+            this.txt_ServiceCharges.TextChanged += new System.EventHandler(this.txt_ServiceCharges_TextChanged);
+            this.txt_ServiceCharges.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_ServiceCharges_KeyPress);
             // 
             // label2
             // 
@@ -119,6 +132,7 @@
             this.txt_TypeAccount.Name = "txt_TypeAccount";
             this.txt_TypeAccount.Size = new System.Drawing.Size(163, 20);
             this.txt_TypeAccount.TabIndex = 9;
+            this.txt_TypeAccount.TextChanged += new System.EventHandler(this.txt_TypeAccount_TextChanged);
             // 
             // label1
             // 
@@ -140,6 +154,7 @@
             this.but_CapNhat.TabIndex = 3;
             this.but_CapNhat.Text = "Cập Nhật";
             this.but_CapNhat.UseVisualStyleBackColor = true;
+            this.but_CapNhat.Click += new System.EventHandler(this.but_CapNhat_Click);
             // 
             // but_Close
             // 
@@ -151,9 +166,11 @@
             this.but_Close.TabIndex = 3;
             this.but_Close.Text = "Thoát";
             this.but_Close.UseVisualStyleBackColor = true;
+            this.but_Close.Click += new System.EventHandler(this.but_Close_Click);
             // 
             // but_Add
             // 
+            this.but_Add.Enabled = false;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.but_Add.Location = new System.Drawing.Point(4, 174);
@@ -162,6 +179,7 @@
             this.but_Add.TabIndex = 4;
             this.but_Add.Text = "Thêm";
             this.but_Add.UseVisualStyleBackColor = true;
+            this.but_Add.Click += new System.EventHandler(this.but_Add_Click);
             // 
             // label4
             // 
@@ -175,6 +193,28 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Quản Lý Thông Tin  Loại Tài Khoản SMS";
             // 
+            // lbl_choose
+            // 
+            this.lbl_choose.AutoSize = true;
+            this.lbl_choose.Location = new System.Drawing.Point(392, 266);
+            this.lbl_choose.Name = "lbl_choose";
+            this.lbl_choose.Size = new System.Drawing.Size(83, 13);
+            this.lbl_choose.TabIndex = 5;
+            this.lbl_choose.Text = "Bạn chọn dòng:";
+            // 
+            // menu_Context
+            // 
+            this.menu_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xóaToolStripMenuItem});
+            this.menu_Context.Name = "menu_Context";
+            this.menu_Context.Size = new System.Drawing.Size(153, 48);
+            // 
+            // xóaToolStripMenuItem
+            // 
+            this.xóaToolStripMenuItem.Name = "xóaToolStripMenuItem";
+            this.xóaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.xóaToolStripMenuItem.Text = "Xóa";
+            // 
             // FormAddTypeSMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,6 +223,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgv_Account);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbl_choose);
             this.MaximizeBox = false;
             this.Name = "FormAddTypeSMS";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -191,6 +232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menu_Context.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,6 +252,9 @@
         private System.Windows.Forms.Button but_Add;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Button but_CapNhat;
+        private System.Windows.Forms.Label lbl_choose;
+        private System.Windows.Forms.ContextMenuStrip menu_Context;
+        private System.Windows.Forms.ToolStripMenuItem xóaToolStripMenuItem;
 
     }
 }

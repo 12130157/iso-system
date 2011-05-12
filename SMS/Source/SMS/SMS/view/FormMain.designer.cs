@@ -46,6 +46,7 @@ namespace SMS
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddressBook = new System.Windows.Forms.ToolStripMenuItem();
             this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_ManageTypeAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,22 +87,30 @@ namespace SMS
             // menuChangePassword
             // 
             this.menuChangePassword.Name = "menuChangePassword";
-            this.menuChangePassword.Size = new System.Drawing.Size(173, 22);
+            this.menuChangePassword.Size = new System.Drawing.Size(184, 22);
             this.menuChangePassword.Text = "Change Password";
             // 
             // menuSystemConfig
             // 
             this.menuSystemConfig.Name = "menuSystemConfig";
-            this.menuSystemConfig.Size = new System.Drawing.Size(173, 22);
+            this.menuSystemConfig.Size = new System.Drawing.Size(184, 22);
             this.menuSystemConfig.Text = "System Config";
             // 
             // menuLogout
             // 
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(173, 22);
+            this.menuLogout.Size = new System.Drawing.Size(184, 22);
             this.menuLogout.Text = "Logout";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
+
+            // loginToolStripMenuItem
+            // 
+            //this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
+            //this.loginToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            //this.loginToolStripMenuItem.Text = "Login";
+            // 
+
             // menuMessage
             // 
             this.menuMessage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -115,21 +124,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(126, 22);
+            this.menuCompose.Size = new System.Drawing.Size(152, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(126, 22);
+            this.menuInbox.Size = new System.Drawing.Size(152, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(126, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -139,38 +148,46 @@ namespace SMS
             this.menuKeyword,
             this.menuAccount,
             this.menuAddressBook,
-            this.typeToolStripMenuItem});
+            this.typeToolStripMenuItem,
+            this.menu_ManageTypeAccount});
             this.menuSystem.Name = "menuSystem";
-            this.menuSystem.Size = new System.Drawing.Size(62, 20);
-            this.menuSystem.Text = "System";
+            this.menuSystem.Size = new System.Drawing.Size(70, 20);
+            this.menuSystem.Text = "Hệ thống";
             // 
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(171, 22);
-            this.menuKeyword.Text = "Manage Keyword";
+            this.menuKeyword.Size = new System.Drawing.Size(210, 22);
+            this.menuKeyword.Text = "Quản lý cú pháp";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(171, 22);
-            this.menuAccount.Text = "Manage Account";
+            this.menuAccount.Size = new System.Drawing.Size(210, 22);
+            this.menuAccount.Text = "Quản lý tài khoản SMS";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(171, 22);
-            this.menuAddressBook.Text = "Contacts";
+            this.menuAddressBook.Size = new System.Drawing.Size(210, 22);
+            this.menuAddressBook.Text = "Danh bạ";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.typeToolStripMenuItem.Text = "Inbox Type";
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.typeToolStripMenuItem.Text = "Loại hộp thư";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
+            // 
+            // menu_ManageTypeAccount
+            // 
+            this.menu_ManageTypeAccount.Name = "menu_ManageTypeAccount";
+            this.menu_ManageTypeAccount.Size = new System.Drawing.Size(210, 22);
+            this.menu_ManageTypeAccount.Text = "Quản lý loại tài khoàn";
+            this.menu_ManageTypeAccount.Click += new System.EventHandler(this.menu_ManageTypeAccount_Click);
             // 
             // menuHelp
             // 
@@ -178,20 +195,20 @@ namespace SMS
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(44, 20);
-            this.menuHelp.Text = "Help";
+            this.menuHelp.Size = new System.Drawing.Size(54, 20);
+            this.menuHelp.Text = "Hỗ trợ";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
-            this.toolStripMenuItem1.Text = "About ";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Text = "Giới thiệu ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(111, 22);
-            this.toolStripMenuItem2.Text = "Help";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Text = "Giúp đỡ";
             // 
             // lbStatus
             // 
@@ -297,5 +314,6 @@ namespace SMS
         private System.Windows.Forms.ContextMenuStrip rightClickTrayIcon;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuRestore;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
     }
 }
