@@ -29,6 +29,9 @@ namespace SMS.common
         public static string Ma_tai_khoan_SMS = "";
         public static bool dangNhap = false;
 
-        public static string unreadMess = "50";
+        public static string getUnreadMess()
+        {
+            return HopThuDenDAO.getCountMessUnread();
+        }
     }
 }
