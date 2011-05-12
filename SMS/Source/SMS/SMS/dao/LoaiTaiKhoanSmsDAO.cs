@@ -90,15 +90,15 @@ namespace SMS.dao
         #endregion
 
         #region them 1 Loai tai khoan sms vao CSDL
-        public static bool insertLoaiTaiKhoanSMS(LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel)
+        public Boolean insertLoaiTaiKhoanSMS(LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel)
         {
             try
             {
-                SqlParameter[] parameter = new SqlParameter[10];
+                SqlParameter[] parameter = new SqlParameter[9];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.Id;
+                //parameter[i] = new SqlParameter("ID", SqlDbType.NVarChar);
+                //parameter[i++].Value = loaiTaiKhoanSMSModel.Id;
 
                 parameter[i] = new SqlParameter("Ten", SqlDbType.NVarChar);
                 parameter[i++].Value = loaiTaiKhoanSMSModel.Ten;
@@ -110,22 +110,22 @@ namespace SMS.dao
                 parameter[i++].Value = loaiTaiKhoanSMSModel.Ghi_Chu;
 
                 parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User31;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_InertLoaiTaiKhoanSMS", parameter);
                 return kq;
@@ -139,7 +139,7 @@ namespace SMS.dao
         #endregion
 
         #region update 1 Loai tai khoan SMS trong CSDL
-        public static Boolean updateLoaiTaiKhoanSMSById(LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel)
+        public Boolean updateLoaiTaiKhoanSMSById(LoaiTaiKhoanSmsMODEL loaiTaiKhoanSMSModel)
         {
             try
             {
@@ -159,22 +159,22 @@ namespace SMS.dao
                 parameter[i++].Value = loaiTaiKhoanSMSModel.Ghi_Chu;
 
                 parameter[i] = new SqlParameter("Ngay_cap_nhat_cuoi", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.Ngay_Cap_Nhat_Cuoi;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User31;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User4", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User41;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User5", SqlDbType.NVarChar);
-                parameter[i++].Value = loaiTaiKhoanSMSModel.User51;
+                parameter[i++].Value = "";
 
                 Boolean kq = DataUtil.executeNonStore("sp_SMS_UpdateLoaiTaiKhoanSMSByID", parameter);
                 return kq;
