@@ -435,7 +435,7 @@
             this.tblNormalMessDeletedInbox.ReadOnly = true;
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
             this.tblNormalMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 318);
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 321);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
             this.tblNormalMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedInbox_CellClick);
             // 
@@ -637,8 +637,7 @@
             // 
             // FormInbox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;

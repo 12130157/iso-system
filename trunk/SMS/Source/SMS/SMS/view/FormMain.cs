@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+<<<<<<< .mine
+using System.Threading;
+=======
 using SMS.view;
+>>>>>>> .r465
 
 using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
@@ -41,7 +45,7 @@ namespace SMS
                 this.lbStatus.Text = "Connected";
             }
             messRecieveNphoneConnected();
-            menuInbox.Text = "Inbox (Unread : " + getMessUnread() + " messages)";
+            common.Constants.unreadMess = HopThuDenDAO.getCountMessUnread();
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -106,7 +110,9 @@ namespace SMS
 
         public void OnTimer(Object source, ElapsedEventArgs e)
         {
-            doMessAuto();
+            Thread t = new Thread(doMessAuto);
+            t.Start();
+            //doMessAuto();
         }
 
         #endregion 
@@ -149,7 +155,10 @@ namespace SMS
 
                 if (messagesFn.Length > 0)
                 {
-                    MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
+                    //MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
+                    btnNewMess.Text = "New Message ( " + messagesFn.Length.ToString() + " )";
+                    btnNewMess.BackColor = Color.Yellow;
+                    btnNewMess.ForeColor = Color.Red;
                 }
                 return messagesFn;
             }
@@ -540,16 +549,13 @@ namespace SMS
             listModelDi = getMessDi(listModelDen);
 
             sendNinsertMessDi(listModelDi, listModelDen);
-     
+            common.Constants.unreadMess = HopThuDenDAO.getCountMessUnread();
+            if (common.Constants.unreadMess.Equals("0"))
+            {
+                btnNewMess.ForeColor = Color.Black;
+                btnNewMess.BackColor = Color.White;
+            }
             Cursor.Current = Cursors.Default;
-        }
-
-        private string getMessUnread()
-        {
-            DataTable tbl = HopThuDenDAO.getCountMessUnread();
-            DataRow row = tbl.Rows[0];
-            string i = row[0].ToString();
-            return i;
         }
 
         #region Xem lai
@@ -1006,5 +1012,10 @@ namespace SMS
         }
 
         #endregion
+
+        private void menuMessage_Click(object sender, EventArgs e)
+        {
+            menuInbox.Text = "Inbox (Unread : " + common.Constants.unreadMess + " messages)";
+        }      
     } 
 }
