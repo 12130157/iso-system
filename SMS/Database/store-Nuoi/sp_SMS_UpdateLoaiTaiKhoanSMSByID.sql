@@ -13,7 +13,7 @@ CREATE PROC sp_SMS_UpdateLoaiTaiKhoanSMSByID
 	@ID						int,
 	@Ten					nvarchar(40),
 	@Phi_dich_vu			float,
-	@Ghi_chu				nvarchar(100),
+	@Ghi_chu				nvarchar(500),
 	@Ngay_cap_nhat_cuoi		datetime,
 	@User1					varchar(100),
 	@User2					varchar(100),
@@ -40,3 +40,6 @@ BEGIN
 		WHERE ID = @ID
 	END
 END 
+
+select * from LoaiTaiKhoanSMS
+exec sp_SMS_UpdateLoaiTaiKhoanSMSByID 1,'DK_3_Ngay',50000,'Dang ky theo tuan (nhan thong tin theo tuan)',getdate(),'','','','',''
