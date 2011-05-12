@@ -35,14 +35,18 @@ namespace SMS
 
         public FormMain()
         {
-            
+            Thread t = new Thread(messRecieveNphoneConnected);
+            t.Start();
+            t.Join();
+
             InitializeComponent();
 
             if (common.Constants.comm.IsConnected() == true)
             {
                 this.lbStatus.Text = "Connected";
             }
-            messRecieveNphoneConnected();
+            
+            
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -148,7 +152,7 @@ namespace SMS
         private void updateNewMess(int messLength)
         {
             newMess = newMess + messLength;
-            btnNewMess.Text = "New Message ( " + newMess.ToString() + " )";
+            btnNewMess.Text = "New Message (" + newMess.ToString() + ")";
             btnNewMess.BackColor = Color.Yellow;
             btnNewMess.ForeColor = Color.Red;    
         }
@@ -162,7 +166,6 @@ namespace SMS
                 if (messagesFn.Length > 0)
                 {
                     //MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
-                    btnNewMess.Invoke(new updateNewMessDelegate(updateNewMess),messagesFn.Length );
                 }
                 return messagesFn;
             }
@@ -553,7 +556,10 @@ namespace SMS
             listModelDi = getMessDi(listModelDen);
 
             sendNinsertMessDi(listModelDi, listModelDen);
-
+            if (messages.Length > 0)
+            {
+                btnNewMess.Invoke(new updateNewMessDelegate(updateNewMess), messages.Length);
+            }
             Cursor.Current = Cursors.Default;
         }
 
