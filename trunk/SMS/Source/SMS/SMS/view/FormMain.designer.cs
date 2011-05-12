@@ -104,14 +104,6 @@ namespace SMS
             this.menuLogout.Text = "Logout";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
-
-            // loginToolStripMenuItem
-            // 
-            //this.loginToolStripMenuItem.Name = "loginToolStripMenuItem";
-            //this.loginToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            //this.loginToolStripMenuItem.Text = "Login";
-            // 
-
             // menuMessage
             // 
             this.menuMessage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -126,21 +118,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(152, 22);
+            this.menuCompose.Size = new System.Drawing.Size(137, 22);
             this.menuCompose.Text = "Compose";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(152, 22);
+            this.menuInbox.Size = new System.Drawing.Size(137, 22);
             this.menuInbox.Text = "Inbox";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(152, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(137, 22);
             this.menuI1Sent.Text = "Sent";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -203,13 +195,13 @@ namespace SMS
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.toolStripMenuItem1.Text = "Giới thiệu ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(141, 22);
             this.toolStripMenuItem2.Text = "Giúp đỡ";
             // 
             // lbStatus
@@ -250,19 +242,19 @@ namespace SMS
             this.toolsTripMenuRestore,
             this.toolsTripMenuExit});
             this.rightClickTrayIcon.Name = "rightClickTrayIcon";
-            this.rightClickTrayIcon.Size = new System.Drawing.Size(114, 48);
+            this.rightClickTrayIcon.Size = new System.Drawing.Size(124, 48);
             // 
             // toolsTripMenuRestore
             // 
             this.toolsTripMenuRestore.Name = "toolsTripMenuRestore";
-            this.toolsTripMenuRestore.Size = new System.Drawing.Size(113, 22);
+            this.toolsTripMenuRestore.Size = new System.Drawing.Size(123, 22);
             this.toolsTripMenuRestore.Text = "Restore";
             this.toolsTripMenuRestore.Click += new System.EventHandler(this.toolTripMenuRestore_Click);
             // 
             // toolsTripMenuExit
             // 
             this.toolsTripMenuExit.Name = "toolsTripMenuExit";
-            this.toolsTripMenuExit.Size = new System.Drawing.Size(113, 22);
+            this.toolsTripMenuExit.Size = new System.Drawing.Size(123, 22);
             this.toolsTripMenuExit.Text = "Exit";
             this.toolsTripMenuExit.Click += new System.EventHandler(this.toolsTripMenuExit_Click);
             // 
@@ -277,8 +269,9 @@ namespace SMS
             this.btnNewMess.Size = new System.Drawing.Size(134, 117);
             this.btnNewMess.TabIndex = 8;
             this.btnNewMess.Text = "New Message";
-            this.btnNewMess.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnNewMess.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnNewMess.UseVisualStyleBackColor = false;
+            this.btnNewMess.Click += new System.EventHandler(this.btnNewMess_Click);
             // 
             // FormMain
             // 
@@ -331,10 +324,8 @@ namespace SMS
         private System.Windows.Forms.ContextMenuStrip rightClickTrayIcon;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuRestore;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
-<<<<<<< .mine
         private System.Windows.Forms.Button btnNewMess;
-=======
         private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
->>>>>>> .r465
+
     }
 }

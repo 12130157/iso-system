@@ -18,13 +18,9 @@ namespace SMS
 
         public FormCompose()
         {
-            InitializeComponent();
-            
-            
+            InitializeComponent();  
         }
-        private delegate void SetTextCallback(string text);
-
-
+        //private delegate void SetTextCallback(string text);
 
         private void but_Send_Click(object sender, EventArgs e)
         {
@@ -289,6 +285,6 @@ namespace SMS
         private void butClosse_Click(object sender, EventArgs e)
         {
             this.Close();
-        }  
+        }
     }
 }

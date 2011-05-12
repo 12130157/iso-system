@@ -205,7 +205,6 @@ namespace SMS
                 maskReadMessInbox(tblNormalMess, "clmIdNormalMessInBox");
                 showNormalMessInbox();
             }
-            common.Constants.unreadMess = HopThuDenDAO.getCountMessUnread();
         }
 
         private void tabControls_SelectedIndexChanged(object sender, EventArgs e)
