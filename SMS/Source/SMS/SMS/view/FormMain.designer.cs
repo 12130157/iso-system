@@ -56,6 +56,7 @@ namespace SMS
             this.rightClickTrayIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolsTripMenuRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsTripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNewMess = new System.Windows.Forms.Button();
             this.menuTool.SuspendLayout();
             this.rightClickTrayIcon.SuspendLayout();
             this.SuspendLayout();
@@ -120,6 +121,7 @@ namespace SMS
             this.menuMessage.Name = "menuMessage";
             this.menuMessage.Size = new System.Drawing.Size(69, 20);
             this.menuMessage.Text = "Message";
+            this.menuMessage.Click += new System.EventHandler(this.menuMessage_Click);
             // 
             // menuCompose
             // 
@@ -253,23 +255,38 @@ namespace SMS
             // toolsTripMenuRestore
             // 
             this.toolsTripMenuRestore.Name = "toolsTripMenuRestore";
-            this.toolsTripMenuRestore.Size = new System.Drawing.Size(152, 22);
+            this.toolsTripMenuRestore.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuRestore.Text = "Restore";
             this.toolsTripMenuRestore.Click += new System.EventHandler(this.toolTripMenuRestore_Click);
             // 
             // toolsTripMenuExit
             // 
             this.toolsTripMenuExit.Name = "toolsTripMenuExit";
-            this.toolsTripMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.toolsTripMenuExit.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuExit.Text = "Exit";
             this.toolsTripMenuExit.Click += new System.EventHandler(this.toolsTripMenuExit_Click);
             // 
+            // btnNewMess
+            // 
+            this.btnNewMess.BackColor = System.Drawing.Color.White;
+            this.btnNewMess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewMess.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnNewMess.Image = ((System.Drawing.Image)(resources.GetObject("btnNewMess.Image")));
+            this.btnNewMess.Location = new System.Drawing.Point(5, 27);
+            this.btnNewMess.Name = "btnNewMess";
+            this.btnNewMess.Size = new System.Drawing.Size(134, 117);
+            this.btnNewMess.TabIndex = 8;
+            this.btnNewMess.Text = "New Message";
+            this.btnNewMess.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnNewMess.UseVisualStyleBackColor = false;
+            // 
             // FormMain
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(911, 444);
+            this.Controls.Add(this.btnNewMess);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.menuTool);
@@ -314,6 +331,10 @@ namespace SMS
         private System.Windows.Forms.ContextMenuStrip rightClickTrayIcon;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuRestore;
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
+<<<<<<< .mine
+        private System.Windows.Forms.Button btnNewMess;
+=======
         private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
+>>>>>>> .r465
     }
 }
