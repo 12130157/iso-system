@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using SMS.view;
 
 using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
@@ -968,6 +969,12 @@ namespace SMS
             frmSend.Show();
         }
 
+        private void menu_ManageTypeAccount_Click(object sender, EventArgs e)
+        {
+            FormAddTypeSMS fr = new FormAddTypeSMS();
+            fr.MdiParent = this;
+            fr.Show();
+        }
         # endregion
 
         #region TrayIcon

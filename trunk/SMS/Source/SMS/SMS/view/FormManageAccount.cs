@@ -20,6 +20,8 @@ namespace SMS
         #region khai bao bien
             ChiTietTaiKhoanSmsDAO ctTaiKhoanSMSDao = new ChiTietTaiKhoanSmsDAO();
             TaiKhoanSmsDAO taikhoanSMSDao = new TaiKhoanSmsDAO();
+            string phone = "";
+            String id = "";
         #endregion
 
         #region Xu kien double Click
@@ -196,8 +198,7 @@ namespace SMS
             {
                 try
                 {
-                    string phone = "";
-                    String id = "";
+                  
                     phone = txt_Numberphone.Text;
                     id = txt_StudentID.Text;
 
@@ -215,8 +216,7 @@ namespace SMS
             {
                 try
                 {
-                    string phone = "";
-                    String id = "";
+                    
                     phone = txt_Numberphone.Text;
                     id = txt_StudentID.Text;
 

@@ -176,6 +176,7 @@ namespace SMS
         private void FormManageKeyword_Activated(object sender, EventArgs e)
         {
             FormManageKeyword_Load(sender, e);
+            LoadCbo();
         }
       
     }

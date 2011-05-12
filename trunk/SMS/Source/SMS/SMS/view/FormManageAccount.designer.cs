@@ -82,18 +82,18 @@
             // txt_StudentID
             // 
             this.txt_StudentID.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txt_StudentID.Location = new System.Drawing.Point(309, 387);
+            this.txt_StudentID.Location = new System.Drawing.Point(121, 388);
             this.txt_StudentID.Name = "txt_StudentID";
-            this.txt_StudentID.Size = new System.Drawing.Size(93, 22);
+            this.txt_StudentID.Size = new System.Drawing.Size(79, 22);
             this.txt_StudentID.TabIndex = 150;
             this.txt_StudentID.TextChanged += new System.EventHandler(this.txt_StudentID_TextChanged);
             // 
             // txt_Numberphone
             // 
             this.txt_Numberphone.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txt_Numberphone.Location = new System.Drawing.Point(82, 388);
+            this.txt_Numberphone.Location = new System.Drawing.Point(277, 387);
             this.txt_Numberphone.Name = "txt_Numberphone";
-            this.txt_Numberphone.Size = new System.Drawing.Size(113, 22);
+            this.txt_Numberphone.Size = new System.Drawing.Size(122, 22);
             this.txt_Numberphone.TabIndex = 150;
             this.txt_Numberphone.TextChanged += new System.EventHandler(this.txt_Numberphone_TextChanged);
             // 
@@ -121,11 +121,11 @@
             this.but_Details.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Details.Image = ((System.Drawing.Image)(resources.GetObject("but_Details.Image")));
             this.but_Details.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Details.Location = new System.Drawing.Point(651, 387);
+            this.but_Details.Location = new System.Drawing.Point(627, 389);
             this.but_Details.Name = "but_Details";
-            this.but_Details.Size = new System.Drawing.Size(90, 25);
+            this.but_Details.Size = new System.Drawing.Size(105, 25);
             this.but_Details.TabIndex = 148;
-            this.but_Details.Text = "Chi Tiết";
+            this.but_Details.Text = "Thông Tin TK";
             this.but_Details.UseVisualStyleBackColor = false;
             this.but_Details.Click += new System.EventHandler(this.but_Details_Click);
             // 
@@ -139,7 +139,7 @@
             this.but_Edit.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
             this.but_Edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Edit.Location = new System.Drawing.Point(540, 387);
+            this.but_Edit.Location = new System.Drawing.Point(521, 389);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(90, 25);
             this.but_Edit.TabIndex = 146;
@@ -157,7 +157,7 @@
             this.but_Add.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Add.Location = new System.Drawing.Point(434, 386);
+            this.but_Add.Location = new System.Drawing.Point(415, 389);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(90, 25);
             this.but_Add.TabIndex = 146;
@@ -174,7 +174,7 @@
             this.butClose.ForeColor = System.Drawing.SystemColors.ControlText;
             this.butClose.Image = ((System.Drawing.Image)(resources.GetObject("butClose.Image")));
             this.butClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.butClose.Location = new System.Drawing.Point(870, 387);
+            this.butClose.Location = new System.Drawing.Point(861, 389);
             this.butClose.Name = "butClose";
             this.butClose.Size = new System.Drawing.Size(90, 25);
             this.butClose.TabIndex = 147;
@@ -192,7 +192,7 @@
             this.but_Delete.ForeColor = System.Drawing.SystemColors.ControlText;
             this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Delete.Location = new System.Drawing.Point(761, 386);
+            this.but_Delete.Location = new System.Drawing.Point(752, 388);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(90, 25);
             this.but_Delete.TabIndex = 147;
@@ -205,7 +205,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(201, 392);
+            this.label1.Location = new System.Drawing.Point(11, 394);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 15);
             this.label1.TabIndex = 143;
@@ -216,7 +216,7 @@
             this.label28.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(11, 390);
+            this.label28.Location = new System.Drawing.Point(206, 394);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(75, 15);
             this.label28.TabIndex = 143;

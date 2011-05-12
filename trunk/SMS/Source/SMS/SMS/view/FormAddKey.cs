@@ -24,79 +24,79 @@ namespace SMS.view
         CuPhapDAO cuphapDao = new CuPhapDAO();
         FormManageKeyword fomKeyword = new FormManageKeyword();
         Validattion validates = new Validattion();
-        Boolean kq = false;
+        ////Boolean kq = false;
 
         #endregion
        
         #region Function Xu ly
 
-            private void checkform()
-        {
-            if (txt_Name.Text.Equals(""))
-            {
-                MessageBox.Show("Name not empty, plase enter Name: ");
-            }
-            else if (!validates.IsAlphaNumeric(txt_Name.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Name: ");
-            }
-            else if (txtKeyword1.Text.Equals(""))
-            {
-                MessageBox.Show("Keyword 1 not empty, plase enter Keyword: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword1.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 1: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword2.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 2: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword3.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 3: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword4.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 4: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword5.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 5: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword6.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 6: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword7.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 7: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword8.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 8: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword9.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 9: ");
-            }
-            else if (!validates.IsAlphaNumeric(txtKeyword10.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 10: ");
-            }
-            else if (txt_Note.Text.Equals(""))
-            {
-                MessageBox.Show("Note not empty, plase enter Note: ");
-            }
-            else if (!validates.IsAlphaNumeric(txt_Note.Text))
-            {
-                MessageBox.Show("Only wrap up the letterpress and number,plase enter Note: ");
-            }
-            else
-            {
-                kq = true;
-            }
-        }
+        //    private void checkform()
+        //{
+        //    if (txt_Name.Text.Equals(""))
+        //    {
+        //        MessageBox.Show("Name not empty, plase enter Name: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txt_Name.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Name: ");
+        //    }
+        //    else if (txtKeyword1.Text.Equals(""))
+        //    {
+        //        MessageBox.Show("Keyword 1 not empty, plase enter Keyword: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword1.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 1: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword2.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 2: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword3.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 3: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword4.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 4: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword5.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 5: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword6.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 6: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword7.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 7: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword8.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 8: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword9.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 9: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txtKeyword10.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Keyword 10: ");
+        //    }
+        //    else if (txt_Note.Text.Equals(""))
+        //    {
+        //        MessageBox.Show("Note not empty, plase enter Note: ");
+        //    }
+        //    else if (!validates.IsAlphaNumeric(txt_Note.Text))
+        //    {
+        //        MessageBox.Show("Only wrap up the letterpress and number,plase enter Note: ");
+        //    }
+        //    else
+        //    {
+        //        kq = true;
+        //    }
+        //}
 
             private void FormAddKey_Load(object sender, EventArgs e)
             {
