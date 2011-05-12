@@ -28,5 +28,7 @@ namespace SMS.common
         public static String idDetail = "";
         public static string Ma_tai_khoan_SMS = "";
         public static bool dangNhap = false;
+
+        public static string unreadMess = "50";
     }
 }
