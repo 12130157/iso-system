@@ -40,6 +40,7 @@ namespace SMS
                 this.lbStatus.Text = "Connected";
             }
             messRecieveNphoneConnected();
+            menuInbox.Text = "Inbox (Unread : " + getMessUnread() + " messages)";
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -98,7 +99,7 @@ namespace SMS
         public void InitializeTimer(bool en)
         {
             this.autoRecieveMess.Elapsed += new ElapsedEventHandler(OnTimer);
-            this.autoRecieveMess.Interval = 7000;
+            this.autoRecieveMess.Interval = 5000;
             this.autoRecieveMess.Enabled = en;
         }
 
@@ -149,10 +150,6 @@ namespace SMS
                 {
                     MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
                 }
-                //else
-                //{
-                //    MessageBox.Show("Chua nhan duoc tin nhan nao");
-                //}
                 return messagesFn;
             }
             catch (Exception e)
@@ -503,14 +500,7 @@ namespace SMS
                     model.User51 = "";
 
                     bool resultDi = HopThuDiDAO.insertHopThuDi(model);
-                    if (resultDi == true)
-                    {
-                        MessageBox.Show("Insert Hop THu Di Thanh Cong");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Insert Hop THu Di That bai");
-                    }
+                    
                     maTinNhanTraLoi = getMaxIDHopThuDi();
 
                     modelDenFn = (HopThuDenMODEL)listModelDen[i];
@@ -519,14 +509,7 @@ namespace SMS
                     modelDenFn.User51 = "";
 
                     bool resultDen = HopThuDenDAO.insertHopThuDen(modelDenFn);
-                    if (resultDen == true)
-                    {
-                        MessageBox.Show("Insert Hop THu Den Thanh Cong");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Insert Hop THu Den That bai");
-                    }
+
                     i++;
                 }
             }
@@ -540,8 +523,8 @@ namespace SMS
 
         private void doMessAuto()
         {
-            deleteMess();
             Cursor.Current = Cursors.WaitCursor;
+            deleteMess();
             string storage = GetMessageStorage();
 
             DecodedShortMessage[] messages = readMessages(storage);
@@ -556,6 +539,16 @@ namespace SMS
             listModelDi = getMessDi(listModelDen);
 
             sendNinsertMessDi(listModelDi, listModelDen);
+     
+            Cursor.Current = Cursors.Default;
+        }
+
+        private string getMessUnread()
+        {
+            DataTable tbl = HopThuDenDAO.getCountMessUnread();
+            DataRow row = tbl.Rows[0];
+            string i = row[0].ToString();
+            return i;
         }
 
         #region Xem lai
@@ -791,6 +784,8 @@ namespace SMS
 
         #endregion      
 
+        #region Lay Noi Dung Tin Nhan Tra Loi
+
         private string getStringDiemByMaSinhVien(string maSinhVien)
         {
             string result = "";
@@ -870,6 +865,8 @@ namespace SMS
             string result = "";
             return result;
         }
+
+        #endregion
 
         #region Events
 
@@ -973,6 +970,8 @@ namespace SMS
 
         # endregion
 
+        #region TrayIcon
+
         private void FormMain_Resize(object sender, EventArgs e)
         {
             if (FormWindowState.Minimized == WindowState)
@@ -998,5 +997,7 @@ namespace SMS
             systemTrayIcon.Dispose();
             Application.Exit();
         }
+
+        #endregion
     } 
 }
