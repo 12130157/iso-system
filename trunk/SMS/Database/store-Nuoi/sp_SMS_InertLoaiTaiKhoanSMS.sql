@@ -12,7 +12,6 @@ BEGIN
 END
 GO
 CREATE PROC sp_SMS_InertLoaiTaiKhoanSMS
-	@ID						int,
 	@Ten					nvarchar(40),
 	@Phi_dich_vu			float,
 	@Ghi_chu				nvarchar(100),
