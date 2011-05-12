@@ -241,5 +241,10 @@ namespace SMS
             return result;
         }
 
+        public static DataTable getCountMessUnread()
+        {
+            DataTable result = DataUtil.executeStore("sp_ISO_SMS_getCountMessUnread", null);
+            return result;
+        }
     }
 }
