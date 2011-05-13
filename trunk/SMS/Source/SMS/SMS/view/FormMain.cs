@@ -45,8 +45,6 @@ namespace SMS
             {
                 this.lbStatus.Text = "Connected";
             }
-            
-            
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -118,6 +116,8 @@ namespace SMS
 
         #endregion 
 
+        #region Xử lý tin nhắn đến
+
         private void deleteMess()
         {
             try
@@ -134,8 +134,6 @@ namespace SMS
                 MessageBox.Show(e.Message);
             }
         }
-
-        #region Xử lý tin nhắn đến
 
         private string GetMessageStorage()
         {
@@ -205,65 +203,64 @@ namespace SMS
                 if (lenghtOfMessFn >= 3)
                 {
                     cumCuPhapFn = arrContentMessFn[0] + arrContentMessFn[1];
-                }
-
-                if (lenghtOfMessFn < 3)
-                {
-                    idCuPhapFn = "";
-                }
-                else if (lenghtOfMessFn == 3)
-                {
-                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
-                    if (cuPhapModelFn != null)
+                    if (lenghtOfMessFn == 3)
                     {
-                        idCuPhapFn = "0";
-                    }
-                    else
-                    {
-                        idCuPhapFn = "";
-                    }
-                }
-                else if (lenghtOfMessFn == 4)
-                {
-                    cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
-                    if (cuPhapModelFn != null)
-                    {
-                        if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
+                        cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
+                        if (cuPhapModelFn != null)
                         {
-                            if (Validattion.isSubject(arrContentMessFn[3]) == true)
+                            idCuPhapFn = "0";
+                        }
+                        else
+                        {
+                            idCuPhapFn = "";
+                        }
+                    }
+                    else if (lenghtOfMessFn == 4)
+                    {
+                        cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
+                        if (cuPhapModelFn != null)
+                        {
+                            if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
                             {
-                                idCuPhapFn = "1";
+                                if (Validattion.isSubject(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "1";
+                                }
+                                else if (Validattion.isYear(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "2";
+                                }
+                                else if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "3";
+                                }
                             }
-                            else if (Validattion.isYear(arrContentMessFn[3]) == true)
+                            else if (cuPhapModelFn.Id.Equals("4") || cuPhapModelFn.Id.Equals("5"))
                             {
-                                idCuPhapFn = "2";
+                                if (Validattion.isYear(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "4";
+                                }
+                                else if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "5";
+                                }
                             }
-                            else if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                            else if (cuPhapModelFn.Id.Equals("6") || cuPhapModelFn.Id.Equals("7"))
                             {
-                                idCuPhapFn = "3";
+                                if (Validattion.isDDMMYYYY(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "6";
+                                }
+                                else if (Validattion.isMMYYYY(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "7";
+                                }
                             }
                         }
-                        if (cuPhapModelFn.Id.Equals("4") || cuPhapModelFn.Id.Equals("5"))
+                        else
                         {
-                            if (Validattion.isYear(arrContentMessFn[3]) == true)
-                            {
-                                idCuPhapFn = "4";
-                            }
-                            else if (Validattion.isSemester(arrContentMessFn[3]) == true)
-                            {
-                                idCuPhapFn = "5";
-                            }
-                        }
-                        if (cuPhapModelFn.Id.Equals("6") || cuPhapModelFn.Id.Equals("7"))
-                        {
-                            if (Validattion.isDDMMYYYY(arrContentMessFn[3]) == true)
-                            {
-                                idCuPhapFn = "6";
-                            }
-                            else if (Validattion.isMMYYYY(arrContentMessFn[3]) == true)
-                            {
-                                idCuPhapFn = "7";
-                            }
+                            idCuPhapFn = "";
                         }
                     }
                     else
@@ -273,9 +270,9 @@ namespace SMS
                 }
                 else
                 {
+                    cumCuPhapFn = "";
                     idCuPhapFn = "";
                 }
-                //MessageBox.Show("Ma Cu Phap" + idCuPhapFn);
             }
             catch (Exception e)
             {
@@ -802,9 +799,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "-HK" + row["Hoc_Ki"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "-HK" + row["Hoc_Ki"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;
         }
@@ -813,9 +817,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien,tenMonHoc);
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;            
         }
@@ -824,9 +835,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, namHoc);
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;
         }
@@ -835,9 +853,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, hocKi);
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;
         }
@@ -846,10 +871,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNNamHoc(maSinhVien, namHoc);
-
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"]+ "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;
         }
@@ -858,10 +889,16 @@ namespace SMS
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNHocKi(maSinhVien, hocKi);
-
-            foreach (DataRow row in tbl.Rows)
+            if (tbl != null)
             {
-                result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                foreach (DataRow row in tbl.Rows)
+                {
+                    result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                }
+            }
+            else
+            {
+                result = returnMessNotSyntax;
             }
             return result;
         }
@@ -986,6 +1023,23 @@ namespace SMS
             fr.MdiParent = this;
             fr.Show();
         }
+
+        private void btnNewMess_Click(object sender, EventArgs e)
+        {
+            if (newMess != 0)
+            {
+                FormNewMessage frm = new FormNewMessage(newMess);
+                frm.Show();
+                newMess = 0;
+                if (newMess == 0)
+                {
+                    btnNewMess.Text = "New Message";
+                }
+                btnNewMess.ForeColor = Color.Black;
+                btnNewMess.BackColor = Color.White;
+            }
+        }      
+
         # endregion
 
         #region TrayIcon
@@ -1018,25 +1072,22 @@ namespace SMS
 
         #endregion
 
-        private void menuMessage_Click(object sender, EventArgs e)
+        private void menuMessage_MouseMove(object sender, MouseEventArgs e)
         {
-            menuInbox.Text = "Inbox (Unread : " + common.Constants.getUnreadMess() + " messages)";
+            if (common.Constants.getUnreadMess().Equals(""))
+            {
+                menuInbox.Text = "Inbox (Chưa đọc : " + 0 + " tin nhắn)";
+            }
+            else
+            {
+                menuInbox.Text = "Inbox (Chưa đọc : " + common.Constants.getUnreadMess() + " tin nhắn)";
+            }
+            
         }
 
-        private void btnNewMess_Click(object sender, EventArgs e)
+        private void FormMain_MdiChildActivate(object sender, EventArgs e)
         {
-            if (newMess != 0)
-            {
-                FormNewMessage frm = new FormNewMessage(newMess);
-                frm.Show();
-                newMess = 0;
-                if (newMess == 0)
-                {
-                    btnNewMess.Text = "New Message";
-                }
-                btnNewMess.ForeColor = Color.Black;
-                btnNewMess.BackColor = Color.White;
-            }
-        }      
+            MessageBox.Show("1");
+        }
     } 
 }
