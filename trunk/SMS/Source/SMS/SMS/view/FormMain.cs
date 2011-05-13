@@ -45,6 +45,11 @@ namespace SMS
             {
                 this.lbStatus.Text = "Connected";
             }
+
+            if (!common.Constants.getUnreadMess().Equals("0"))
+            {
+                menuMessage.BackColor = Color.Yellow;
+            }
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -1038,7 +1043,32 @@ namespace SMS
                 btnNewMess.ForeColor = Color.Black;
                 btnNewMess.BackColor = Color.White;
             }
-        }      
+        }
+
+        private void menuMessage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (common.Constants.getUnreadMess().Equals(""))
+            {
+                menuInbox.Text = "Hộp Thư Đến (Chưa đọc : " + 0 + " tin nhắn)";
+            }
+            else
+            {
+                menuInbox.Text = "Hộp Thư Đến (Chưa đọc : " + common.Constants.getUnreadMess() + " tin nhắn)";
+            }
+        }
+
+        private void FormMain_MdiChildActivate(object sender, EventArgs e)
+        {
+            if (!common.Constants.getUnreadMess().Equals("0"))
+            {
+                menuMessage.BackColor = Color.Yellow;
+            }
+            else
+            {
+                menuMessage.BackColor = SystemColors.Control;
+            }
+        }
+
 
         # endregion
 
@@ -1072,22 +1102,5 @@ namespace SMS
 
         #endregion
 
-        private void menuMessage_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (common.Constants.getUnreadMess().Equals(""))
-            {
-                menuInbox.Text = "Inbox (Chưa đọc : " + 0 + " tin nhắn)";
-            }
-            else
-            {
-                menuInbox.Text = "Inbox (Chưa đọc : " + common.Constants.getUnreadMess() + " tin nhắn)";
-            }
-            
-        }
-
-        private void FormMain_MdiChildActivate(object sender, EventArgs e)
-        {
-            MessageBox.Show("1");
-        }
     } 
 }
