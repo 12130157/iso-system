@@ -37,7 +37,7 @@
             this.txtPhoneNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chkUnicode = new System.Windows.Forms.CheckBox();
-            this.but_Send = new System.Windows.Forms.Button();
+            this.btnSent = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.butClosse = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
@@ -128,29 +128,29 @@
             this.chkUnicode.Text = "Tiếng Việt (UCS2)";
             this.chkUnicode.UseVisualStyleBackColor = true;
             // 
-            // but_Send
+            // btnSent
             // 
-            this.but_Send.BackColor = System.Drawing.Color.Navy;
-            this.but_Send.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.but_Send.ForeColor = System.Drawing.Color.White;
-            this.but_Send.Location = new System.Drawing.Point(5, 203);
-            this.but_Send.Name = "but_Send";
-            this.but_Send.Size = new System.Drawing.Size(75, 23);
-            this.but_Send.TabIndex = 164;
-            this.but_Send.Text = "Send";
-            this.but_Send.UseVisualStyleBackColor = false;
-            this.but_Send.Click += new System.EventHandler(this.but_Send_Click);
+            this.btnSent.BackColor = System.Drawing.Color.Navy;
+            this.btnSent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSent.ForeColor = System.Drawing.Color.White;
+            this.btnSent.Location = new System.Drawing.Point(5, 203);
+            this.btnSent.Name = "btnSent";
+            this.btnSent.Size = new System.Drawing.Size(99, 23);
+            this.btnSent.TabIndex = 164;
+            this.btnSent.Text = "Gửi";
+            this.btnSent.UseVisualStyleBackColor = false;
+            this.btnSent.Click += new System.EventHandler(this.but_Send_Click);
             // 
             // btnClear
             // 
             this.btnClear.BackColor = System.Drawing.Color.Navy;
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(86, 203);
+            this.btnClear.Location = new System.Drawing.Point(110, 203);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.Size = new System.Drawing.Size(99, 23);
             this.btnClear.TabIndex = 165;
-            this.btnClear.Text = "Clear";
+            this.btnClear.Text = "Xóa Trường";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -159,11 +159,11 @@
             this.butClosse.BackColor = System.Drawing.Color.Navy;
             this.butClosse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butClosse.ForeColor = System.Drawing.Color.White;
-            this.butClosse.Location = new System.Drawing.Point(167, 203);
+            this.butClosse.Location = new System.Drawing.Point(215, 203);
             this.butClosse.Name = "butClosse";
-            this.butClosse.Size = new System.Drawing.Size(75, 23);
+            this.butClosse.Size = new System.Drawing.Size(99, 23);
             this.butClosse.TabIndex = 166;
-            this.butClosse.Text = "Close";
+            this.butClosse.Text = "Đóng";
             this.butClosse.UseVisualStyleBackColor = false;
             this.butClosse.Click += new System.EventHandler(this.butClosse_Click);
             // 
@@ -176,7 +176,7 @@
             this.ClientSize = new System.Drawing.Size(566, 229);
             this.Controls.Add(this.butClosse);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.but_Send);
+            this.Controls.Add(this.btnSent);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.chkUnicode);
             this.Controls.Add(this.label2);
@@ -205,7 +205,7 @@
         public System.Windows.Forms.TextBox txtPhoneNumber;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkUnicode;
-        private System.Windows.Forms.Button but_Send;
+        private System.Windows.Forms.Button btnSent;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button butClosse;
         public System.Windows.Forms.TextBox txtMessage;

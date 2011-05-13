@@ -48,37 +48,37 @@ namespace SMS
             this.lbConnection.ForeColor = System.Drawing.Color.Maroon;
             this.lbConnection.Location = new System.Drawing.Point(12, 9);
             this.lbConnection.Name = "lbConnection";
-            this.lbConnection.Size = new System.Drawing.Size(277, 40);
+            this.lbConnection.Size = new System.Drawing.Size(351, 40);
             this.lbConnection.TabIndex = 0;
-            this.lbConnection.Text = "GSM Connection";
+            this.lbConnection.Text = "Kết Nối Thiết Bị GSM";
             // 
             // lbComPort
             // 
             this.lbComPort.AutoSize = true;
-            this.lbComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lbComPort.Location = new System.Drawing.Point(35, 75);
             this.lbComPort.Name = "lbComPort";
-            this.lbComPort.Size = new System.Drawing.Size(66, 13);
+            this.lbComPort.Size = new System.Drawing.Size(80, 16);
             this.lbComPort.TabIndex = 1;
             this.lbComPort.Text = "Com-Port :";
             // 
             // lbBaudrate
             // 
             this.lbBaudrate.AutoSize = true;
-            this.lbBaudrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBaudrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lbBaudrate.Location = new System.Drawing.Point(35, 115);
             this.lbBaudrate.Name = "lbBaudrate";
-            this.lbBaudrate.Size = new System.Drawing.Size(66, 13);
+            this.lbBaudrate.Size = new System.Drawing.Size(79, 16);
             this.lbBaudrate.TabIndex = 2;
             this.lbBaudrate.Text = "Baudrate :";
             // 
             // lbTimeout
             // 
             this.lbTimeout.AutoSize = true;
-            this.lbTimeout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTimeout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lbTimeout.Location = new System.Drawing.Point(35, 155);
             this.lbTimeout.Name = "lbTimeout";
-            this.lbTimeout.Size = new System.Drawing.Size(60, 13);
+            this.lbTimeout.Size = new System.Drawing.Size(72, 16);
             this.lbTimeout.TabIndex = 3;
             this.lbTimeout.Text = "Timeout :";
             // 
@@ -87,7 +87,7 @@ namespace SMS
             this.cboComPort.FormattingEnabled = true;
             this.cboComPort.Location = new System.Drawing.Point(137, 72);
             this.cboComPort.Name = "cboComPort";
-            this.cboComPort.Size = new System.Drawing.Size(121, 21);
+            this.cboComPort.Size = new System.Drawing.Size(185, 21);
             this.cboComPort.TabIndex = 4;
             // 
             // cboBaudrate
@@ -95,7 +95,7 @@ namespace SMS
             this.cboBaudrate.FormattingEnabled = true;
             this.cboBaudrate.Location = new System.Drawing.Point(137, 112);
             this.cboBaudrate.Name = "cboBaudrate";
-            this.cboBaudrate.Size = new System.Drawing.Size(121, 21);
+            this.cboBaudrate.Size = new System.Drawing.Size(185, 21);
             this.cboBaudrate.TabIndex = 5;
             // 
             // cboTimeout
@@ -103,34 +103,40 @@ namespace SMS
             this.cboTimeout.FormattingEnabled = true;
             this.cboTimeout.Location = new System.Drawing.Point(137, 152);
             this.cboTimeout.Name = "cboTimeout";
-            this.cboTimeout.Size = new System.Drawing.Size(121, 21);
+            this.cboTimeout.Size = new System.Drawing.Size(185, 21);
             this.cboTimeout.TabIndex = 6;
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(57, 199);
+            this.btnConnect.BackColor = System.Drawing.Color.Navy;
+            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnConnect.ForeColor = System.Drawing.Color.White;
+            this.btnConnect.Location = new System.Drawing.Point(89, 189);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnConnect.Size = new System.Drawing.Size(75, 33);
             this.btnConnect.TabIndex = 7;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Text = "Kết Nối";
+            this.btnConnect.UseVisualStyleBackColor = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(161, 199);
+            this.btnCancel.BackColor = System.Drawing.Color.Navy;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Location = new System.Drawing.Point(213, 189);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 33);
             this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Text = "Thoát";
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmConn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 244);
+            this.ClientSize = new System.Drawing.Size(369, 244);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.cboTimeout);
