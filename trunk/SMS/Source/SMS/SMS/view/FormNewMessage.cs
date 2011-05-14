@@ -16,5 +16,10 @@ namespace SMS.view
             InitializeComponent();
             dataBridVwNewMess.DataSource = HopThuDenDAO.getNewMessInbox(newMess);
         }
+
+        private void dataBridVwNewMess_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            new FormInbox().Show();
+        }
     }
 }

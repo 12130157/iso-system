@@ -50,6 +50,7 @@
             this.dataBridVwNewMess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataBridVwNewMess.Size = new System.Drawing.Size(294, 350);
             this.dataBridVwNewMess.TabIndex = 0;
+            this.dataBridVwNewMess.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataBridVwNewMess_CellMouseDoubleClick);
             // 
             // clmSoDienThoai
             // 
@@ -76,6 +77,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormNewMessage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "FormNewMessage";
             ((System.ComponentModel.ISupportInitialize)(this.dataBridVwNewMess)).EndInit();
             this.ResumeLayout(false);

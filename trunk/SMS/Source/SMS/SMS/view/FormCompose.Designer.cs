@@ -188,7 +188,7 @@
             this.ForeColor = System.Drawing.Color.Maroon;
             this.MaximizeBox = false;
             this.Name = "FormCompose";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Compose";
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).EndInit();
             this.ResumeLayout(false);
