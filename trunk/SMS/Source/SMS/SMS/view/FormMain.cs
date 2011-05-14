@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
 using SMS.view;
+using SMS.common;
 
 using GsmComm.GsmCommunication;
 using GsmComm.PduConverter;
