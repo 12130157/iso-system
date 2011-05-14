@@ -32,6 +32,7 @@ namespace SMS.view
         private void dgv_Account_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             but_CapNhat.Enabled = true;
+            but_Xoa.Enabled = true;
             Constants.id = dgv_Account.CurrentRow.Cells["Ma hop thu"].Value.ToString();
             txt_TypeAccount.Text = dgv_Account.CurrentRow.Cells["Ten hop thu"].Value.ToString();
             txt_ServiceCharges.Text = dgv_Account.CurrentRow.Cells["Phi dich vu"].Value.ToString();
@@ -39,14 +40,7 @@ namespace SMS.view
             lbl_choose.Text = "Bạn đang chọn dòng có ID là: "+Constants.id;
         }
 
-        private void but_Close_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                this.Close();
-            }
-        }
-
+        
         private void but_CapNhat_Click(object sender, EventArgs e)
         {
 
@@ -61,6 +55,7 @@ namespace SMS.view
                 {
                     FormAddTypeSMS_Load(sender, e);
                     but_CapNhat.Enabled = false;
+                    but_Xoa.Enabled = false;
                     txt_TypeAccount.Text = "";
                     txt_ServiceCharges.Text = "";
                     txt_Note.Text = "";
@@ -141,9 +136,51 @@ namespace SMS.view
             }
         }
 
-        private void dgv_Account_RightToLeftChanged(object sender, EventArgs e)
+        private void but_Close_Click(object sender, EventArgs e)
         {
-        //    dgv_Account.CurrentCell
+            if (MessageBox.Show("Bạn có muốn thoát không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void but_Xoa_Click(object sender, EventArgs e)
+        {
+            if (Constants.id.Equals(""))
+            {
+                MessageBox.Show("Bạn chưa chọn dòng để xóa! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn có chắc là muốn xóa không? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Boolean result = loaitaikhoansmsDao.deleteLoaiTaiKhoanSMS(int.Parse(Constants.id));
+                    if (result == false)
+                    {
+                        MessageBox.Show("Không thể xóa! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        FormAddTypeSMS_Load(sender, e);
+                        but_CapNhat.Enabled = false;
+                        but_Xoa.Enabled = false;
+                        txt_TypeAccount.Text = "";
+                        txt_ServiceCharges.Text = "";
+                        txt_Note.Text = "";
+                        Constants.id = "";
+                    }
+                }
+                else
+                {
+                    FormAddTypeSMS_Load(sender, e);
+                    but_CapNhat.Enabled = false;
+                    but_Xoa.Enabled = false;
+                    txt_TypeAccount.Text = "";
+                    txt_ServiceCharges.Text = "";
+                    txt_Note.Text = "";
+                    Constants.id = "";
+                }
+            }
         }
 
        

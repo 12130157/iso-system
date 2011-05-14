@@ -31,23 +31,24 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddTypeSMS));
             this.dgv_Account = new System.Windows.Forms.DataGridView();
+            this.menu_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xóaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_Note = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_ServiceCharges = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_TypeAccount = new System.Windows.Forms.TextBox();
+            this.but_Xoa = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.but_CapNhat = new System.Windows.Forms.Button();
             this.but_Close = new System.Windows.Forms.Button();
             this.but_Add = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lbl_choose = new System.Windows.Forms.Label();
-            this.menu_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.xóaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.menu_Context.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv_Account
@@ -57,13 +58,25 @@
             this.dgv_Account.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Account.ContextMenuStrip = this.menu_Context;
-            this.dgv_Account.Location = new System.Drawing.Point(392, 61);
+            this.dgv_Account.Location = new System.Drawing.Point(375, 52);
             this.dgv_Account.Name = "dgv_Account";
             this.dgv_Account.RowHeadersVisible = false;
-            this.dgv_Account.Size = new System.Drawing.Size(359, 201);
+            this.dgv_Account.Size = new System.Drawing.Size(387, 201);
             this.dgv_Account.TabIndex = 3;
             this.dgv_Account.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Account_CellMouseClick);
-            this.dgv_Account.RightToLeftChanged += new System.EventHandler(this.dgv_Account_RightToLeftChanged);
+            // 
+            // menu_Context
+            // 
+            this.menu_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xóaToolStripMenuItem});
+            this.menu_Context.Name = "menu_Context";
+            this.menu_Context.Size = new System.Drawing.Size(104, 26);
+            // 
+            // xóaToolStripMenuItem
+            // 
+            this.xóaToolStripMenuItem.Name = "xóaToolStripMenuItem";
+            this.xóaToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.xóaToolStripMenuItem.Text = "Xóa";
             // 
             // groupBox1
             // 
@@ -74,11 +87,12 @@
             this.groupBox1.Controls.Add(this.txt_ServiceCharges);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txt_TypeAccount);
+            this.groupBox1.Controls.Add(this.but_Xoa);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.but_CapNhat);
             this.groupBox1.Controls.Add(this.but_Close);
             this.groupBox1.Controls.Add(this.but_Add);
-            this.groupBox1.Location = new System.Drawing.Point(29, 63);
+            this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(357, 216);
             this.groupBox1.TabIndex = 4;
@@ -134,6 +148,19 @@
             this.txt_TypeAccount.TabIndex = 9;
             this.txt_TypeAccount.TextChanged += new System.EventHandler(this.txt_TypeAccount_TextChanged);
             // 
+            // but_Xoa
+            // 
+            this.but_Xoa.Enabled = false;
+            this.but_Xoa.Image = ((System.Drawing.Image)(resources.GetObject("but_Xoa.Image")));
+            this.but_Xoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.but_Xoa.Location = new System.Drawing.Point(176, 174);
+            this.but_Xoa.Name = "but_Xoa";
+            this.but_Xoa.Size = new System.Drawing.Size(76, 25);
+            this.but_Xoa.TabIndex = 3;
+            this.but_Xoa.Text = "Xóa";
+            this.but_Xoa.UseVisualStyleBackColor = true;
+            this.but_Xoa.Click += new System.EventHandler(this.but_Xoa_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -148,9 +175,9 @@
             this.but_CapNhat.Enabled = false;
             this.but_CapNhat.Image = ((System.Drawing.Image)(resources.GetObject("but_CapNhat.Image")));
             this.but_CapNhat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_CapNhat.Location = new System.Drawing.Point(120, 174);
+            this.but_CapNhat.Location = new System.Drawing.Point(85, 174);
             this.but_CapNhat.Name = "but_CapNhat";
-            this.but_CapNhat.Size = new System.Drawing.Size(110, 25);
+            this.but_CapNhat.Size = new System.Drawing.Size(84, 25);
             this.but_CapNhat.TabIndex = 3;
             this.but_CapNhat.Text = "Cập Nhật";
             this.but_CapNhat.UseVisualStyleBackColor = true;
@@ -160,9 +187,9 @@
             // 
             this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Close.Location = new System.Drawing.Point(241, 174);
+            this.but_Close.Location = new System.Drawing.Point(258, 174);
             this.but_Close.Name = "but_Close";
-            this.but_Close.Size = new System.Drawing.Size(110, 25);
+            this.but_Close.Size = new System.Drawing.Size(76, 25);
             this.but_Close.TabIndex = 3;
             this.but_Close.Text = "Thoát";
             this.but_Close.UseVisualStyleBackColor = true;
@@ -173,9 +200,9 @@
             this.but_Add.Enabled = false;
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Add.Location = new System.Drawing.Point(4, 174);
+            this.but_Add.Location = new System.Drawing.Point(6, 174);
             this.but_Add.Name = "but_Add";
-            this.but_Add.Size = new System.Drawing.Size(110, 25);
+            this.but_Add.Size = new System.Drawing.Size(73, 25);
             this.but_Add.TabIndex = 4;
             this.but_Add.Text = "Thêm";
             this.but_Add.UseVisualStyleBackColor = true;
@@ -187,7 +214,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(131, 9);
+            this.label4.Location = new System.Drawing.Point(131, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(532, 32);
             this.label4.TabIndex = 5;
@@ -195,34 +222,22 @@
             // 
             // lbl_choose
             // 
+            this.lbl_choose.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_choose.AutoSize = true;
-            this.lbl_choose.Location = new System.Drawing.Point(392, 266);
+            this.lbl_choose.Location = new System.Drawing.Point(372, 256);
             this.lbl_choose.Name = "lbl_choose";
             this.lbl_choose.Size = new System.Drawing.Size(83, 13);
             this.lbl_choose.TabIndex = 5;
             this.lbl_choose.Text = "Bạn chọn dòng:";
             // 
-            // menu_Context
-            // 
-            this.menu_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xóaToolStripMenuItem});
-            this.menu_Context.Name = "menu_Context";
-            this.menu_Context.Size = new System.Drawing.Size(153, 48);
-            // 
-            // xóaToolStripMenuItem
-            // 
-            this.xóaToolStripMenuItem.Name = "xóaToolStripMenuItem";
-            this.xóaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.xóaToolStripMenuItem.Text = "Xóa";
-            // 
             // FormAddTypeSMS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 302);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dgv_Account);
+            this.ClientSize = new System.Drawing.Size(774, 301);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.dgv_Account);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbl_choose);
             this.MaximizeBox = false;
             this.Name = "FormAddTypeSMS";
@@ -230,9 +245,9 @@
             this.Text = "Them Loai Tai Khoan SMS";
             this.Load += new System.EventHandler(this.FormAddTypeSMS_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).EndInit();
+            this.menu_Context.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.menu_Context.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,6 +270,7 @@
         private System.Windows.Forms.Label lbl_choose;
         private System.Windows.Forms.ContextMenuStrip menu_Context;
         private System.Windows.Forms.ToolStripMenuItem xóaToolStripMenuItem;
+        private System.Windows.Forms.Button but_Xoa;
 
     }
 }
