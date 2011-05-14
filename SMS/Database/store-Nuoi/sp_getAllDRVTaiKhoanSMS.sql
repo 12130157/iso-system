@@ -10,7 +10,7 @@ AS
 
 	BEGIN
 
-		select TK.ID as 'Ma TK SMS', Ma_sinh_vien as'Ma sinh vien',So_dien_thoai as 'So dien thoai 1',TK.User1 as 'So dien thoai 2',TK.User2 as 'So dien thoai 3'
+		select TK.ID as 'Ma TK SMS', Ma_sinh_vien as'Ma sinh vien',So_dien_thoai + ' , ' + TK.User1 + ' , ' + TK.User2 as 'So dien thoai'
 		   ,LTK.Ten as 'Ten loai TK', convert(varchar,Ngay_dang_ky , 103) as 'Ngay dang ky',Ghi_chu as'Ghi chu'
 			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 	END
