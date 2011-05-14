@@ -410,7 +410,7 @@
             this.tabNormalMessDeletedInbox.Location = new System.Drawing.Point(4, 4);
             this.tabNormalMessDeletedInbox.Name = "tabNormalMessDeletedInbox";
             this.tabNormalMessDeletedInbox.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 309);
+            this.tabNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 312);
             this.tabNormalMessDeletedInbox.TabIndex = 1;
             this.tabNormalMessDeletedInbox.Text = "Tin Nhắn Thủ Công Đã Xóa";
             this.tabNormalMessDeletedInbox.UseVisualStyleBackColor = true;
@@ -435,7 +435,7 @@
             this.tblNormalMessDeletedInbox.ReadOnly = true;
             this.tblNormalMessDeletedInbox.RowHeadersVisible = false;
             this.tblNormalMessDeletedInbox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 321);
+            this.tblNormalMessDeletedInbox.Size = new System.Drawing.Size(879, 324);
             this.tblNormalMessDeletedInbox.TabIndex = 1;
             this.tblNormalMessDeletedInbox.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedInbox_CellClick);
             // 
@@ -662,7 +662,7 @@
             this.Controls.Add(this.cboFilterMessInbox);
             this.Name = "FormInbox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hộp Thư Đến";
             this.tabInbox.ResumeLayout(false);
             this.tabSyntaxMess.ResumeLayout(false);

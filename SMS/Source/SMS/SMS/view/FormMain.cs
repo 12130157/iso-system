@@ -81,7 +81,7 @@ namespace SMS
             }
             catch (Exception k)
             {
-                MessageBox.Show(k.Message + "---------------comm_PhoneConnected");
+                txtLog.Text += k.Message + " (comm_PhoneConnected)\n";
             }
         }
 
@@ -97,7 +97,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                txtLog.Text += e.Message + " (MessageReceived)\n";
             }
         }
 
@@ -116,6 +116,7 @@ namespace SMS
         {
             Thread t = new Thread(doMessAuto);
             t.Start();
+            t.Join();
             //doMessAuto();
         }
 
@@ -136,19 +137,23 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                txtLog.Text += e.Message + " (deleteMess)\n";
             }
         }
 
         private string GetMessageStorage()
         {
-            string storage = "";
-            storage = PhoneStorageType.Sim;
-
-            if (storage.Length == 0)
-                throw new ApplicationException("Unknown message storage.");
-            else
+            try
+            {
+                string storage = "";
+                storage = PhoneStorageType.Sim;
                 return storage;
+            }
+            catch (Exception)
+            {
+                txtLog.Text += "Unknown message storage (GetMessageStorage)\n";
+                return null;
+            }
         }
 
         private delegate void updateNewMessDelegate(int n);
@@ -166,15 +171,11 @@ namespace SMS
             {
                 DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
 
-                if (messagesFn.Length > 0)
-                {
-                    //MessageBox.Show("Đã nhận " + messagesFn.Length.ToString() + " tin nhắn");
-                }
                 return messagesFn;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "-------------readMessages");
+                txtLog.Text = e.Message + " (readMessages)\n";
                 return null;
             }
         }
@@ -189,7 +190,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "----------covertMessRead");
+                txtLog.Text = e.Message + " (covertMessRead)\n";
                 return null;
             }
         }
@@ -211,6 +212,7 @@ namespace SMS
                     if (lenghtOfMessFn == 3)
                     {
                         cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
+
                         if (cuPhapModelFn != null)
                         {
                             idCuPhapFn = "0";
@@ -222,7 +224,7 @@ namespace SMS
                     }
                     else if (lenghtOfMessFn == 4)
                     {
-                        cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);
+                        cuPhapModelFn = CuPhapDAO.getCuPhapByCumCuPhap(cumCuPhapFn);                        
                         if (cuPhapModelFn != null)
                         {
                             if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
@@ -281,7 +283,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "----------------checkSyntax");
+                txtLog.Text = e.Message + " (checkSyntax)\n";
             }
             return idCuPhapFn;
         }
@@ -328,49 +330,105 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = "";
-                        modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
+                        }
+                        catch (Exception i)
+                        {
+                            txtLog.Text += i.Message + " (getStringDiemByMaSinhVien)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDiemByMaSinhVienNTenMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDiemByMaSinhVienNTenMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception j)
+                        {
+                            txtLog.Text += j.Message + " (getStringDiemByMaSinhVienNTenMonHoc)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("2"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDiemByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDiemByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception k)
+                        {
+                            txtLog.Text += k.Message + " (getStringDiemByMaSinhVienNNamHoc)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("3"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDiemByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDiemByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception h)
+                        {
+                            txtLog.Text += h.Message + " (getStringDiemByMaSinhVienNHocKi)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("4"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception g)
+                        {
+                            txtLog.Text += g.Message + " (getStringTKBByMaSinhVienNNamHoc)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("5"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception m)
+                        {
+                            txtLog.Text += m.Message + " (getStringTKBByMaSinhVienNHocKi)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("6"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception n)
+                        {
+                            txtLog.Text += n.Message + " (getStringDDByMaSinhVienNddmmyyy)\n";
+                        }
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        try
+                        {
+                            modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        }
+                        catch (Exception z)
+                        {
+                            txtLog.Text += z.Message + " (getStringDDByMaSinhVienNmmyyy)\n";
+                        }
                     }
                     else
                     {
@@ -422,16 +480,23 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "--------------------getMessDi");
+                txtLog.Text = e.Message + " (getMessDi)\n";
             }
             return listModelDiFn;
         }
 
         private void sendOneMessage(string contentMess, string des)
         {
-            dcs = DataCodingScheme.NoClass_16Bit;
-            pdu = new SmsSubmitPdu(contentMess, des, "",dcs);
-            common.Constants.comm.SendMessage(pdu);
+            try
+            {
+                dcs = DataCodingScheme.NoClass_16Bit;
+                pdu = new SmsSubmitPdu(contentMess, des, "", dcs);
+                common.Constants.comm.SendMessage(pdu);
+            }
+            catch (Exception e)
+            {
+                txtLog.Text += e.Message + " (sendOneMessage)\n";
+            }
         }
 
         private string getMaxIDHopThuDi()
@@ -534,7 +599,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "----------------sendNinsertMess");
+                txtLog.Text = e.Message + " (sendNinsertMess)\n";
             }
         }
 
@@ -821,7 +886,7 @@ namespace SMS
         private string getStringDiemByMaSinhVienNTenMonHoc(string maSinhVien, string tenMonHoc)
         {
             string result = "";
-            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien,tenMonHoc);
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
             if (tbl != null)
             {
                 foreach (DataRow row in tbl.Rows)
@@ -1034,6 +1099,7 @@ namespace SMS
             if (newMess != 0)
             {
                 FormNewMessage frm = new FormNewMessage(newMess);
+                frm.MdiParent = this;
                 frm.Show();
                 newMess = 0;
                 if (newMess == 0)
@@ -1101,6 +1167,5 @@ namespace SMS
         }
 
         #endregion
-
     } 
 }

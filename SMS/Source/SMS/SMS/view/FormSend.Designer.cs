@@ -399,7 +399,7 @@
             this.tblNormalMessErrorSent.ReadOnly = true;
             this.tblNormalMessErrorSent.RowHeadersVisible = false;
             this.tblNormalMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 312);
+            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 315);
             this.tblNormalMessErrorSent.TabIndex = 1;
             this.tblNormalMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessErrorSent_CellClick);
             // 
@@ -557,7 +557,7 @@
             this.tblNormalMessDeletedSent.ReadOnly = true;
             this.tblNormalMessDeletedSent.RowHeadersVisible = false;
             this.tblNormalMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 312);
+            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 315);
             this.tblNormalMessDeletedSent.TabIndex = 2;
             this.tblNormalMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedSent_CellClick);
             // 
@@ -769,7 +769,7 @@
             this.Controls.Add(this.cboFilterMessSent);
             this.Controls.Add(this.btnForwardMessSent);
             this.Name = "Sent";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hộp Thư Đi";
             this.tabSent.ResumeLayout(false);
             this.tabSyntaxMessSent.ResumeLayout(false);

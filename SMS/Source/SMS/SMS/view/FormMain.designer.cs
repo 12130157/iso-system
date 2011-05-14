@@ -57,6 +57,7 @@ namespace SMS
             this.toolsTripMenuRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsTripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewMess = new System.Windows.Forms.Button();
+            this.txtLog = new System.Windows.Forms.TextBox();
             this.menuTool.SuspendLayout();
             this.rightClickTrayIcon.SuspendLayout();
             this.SuspendLayout();
@@ -260,11 +261,12 @@ namespace SMS
             // 
             // btnNewMess
             // 
+            this.btnNewMess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNewMess.BackColor = System.Drawing.Color.White;
             this.btnNewMess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewMess.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.btnNewMess.Image = ((System.Drawing.Image)(resources.GetObject("btnNewMess.Image")));
-            this.btnNewMess.Location = new System.Drawing.Point(5, 27);
+            this.btnNewMess.Location = new System.Drawing.Point(776, 325);
             this.btnNewMess.Name = "btnNewMess";
             this.btnNewMess.Size = new System.Drawing.Size(134, 117);
             this.btnNewMess.TabIndex = 8;
@@ -273,15 +275,29 @@ namespace SMS
             this.btnNewMess.UseVisualStyleBackColor = false;
             this.btnNewMess.Click += new System.EventHandler(this.btnNewMess_Click);
             // 
+            // txtLog
+            // 
+            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLog.Location = new System.Drawing.Point(0, 325);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(776, 117);
+            this.txtLog.TabIndex = 10;
+            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(911, 444);
-            this.Controls.Add(this.btnNewMess);
+            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
+            this.Controls.Add(this.btnNewMess);
             this.Controls.Add(this.menuTool);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F);
             this.IsMdiContainer = true;
@@ -327,6 +343,7 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
         private System.Windows.Forms.Button btnNewMess;
         private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
+        private System.Windows.Forms.TextBox txtLog;
 
     }
 }
