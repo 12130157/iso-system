@@ -660,6 +660,7 @@
             this.Controls.Add(this.lbTitle);
             this.Controls.Add(this.btnMaskReadMessInbox);
             this.Controls.Add(this.cboFilterMessInbox);
+            this.MaximizeBox = false;
             this.Name = "FormInbox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
