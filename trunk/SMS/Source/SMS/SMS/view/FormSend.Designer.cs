@@ -768,6 +768,7 @@
             this.Controls.Add(this.btnDeleteMessSent);
             this.Controls.Add(this.cboFilterMessSent);
             this.Controls.Add(this.btnForwardMessSent);
+            this.MaximizeBox = false;
             this.Name = "Sent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Hộp Thư Đi";
