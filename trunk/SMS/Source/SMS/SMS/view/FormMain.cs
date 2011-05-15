@@ -75,14 +75,13 @@ namespace SMS
 
         private void comm_PhoneConnected(object sender, EventArgs e)
         {
-
             try
             {
                 this.Invoke(new ConnectedHandler(OnPhoneConnectionChange), new object[] { true });
             }
             catch (Exception k)
             {
-                txtLog.Text += k.Message + " (comm_PhoneConnected)\n";
+                txtLog.AppendText( k.Message + " (comm_PhoneConnected)\n");
             }
         }
 
@@ -98,7 +97,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.Text += e.Message + " (MessageReceived)\n";
+                txtLog.AppendText(e.Message + " (MessageReceived)\n");
             }
         }
 
@@ -138,7 +137,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText(e.Message + " (deleteMess)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "deleteMess");
             }
         }
 
@@ -150,20 +149,11 @@ namespace SMS
                 storage = PhoneStorageType.Sim;
                 return storage;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                txtLog.AppendText("Unknown message storage (GetMessageStorage)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "GetMessageStorage");
                 return null;
             }
-        }
-
-        private delegate void updateNewMessDelegate(int n);
-        private void updateNewMess(int messLength)
-        {
-            newMess = newMess + messLength;
-            btnNewMess.Text = "New Message (" + newMess.ToString() + ")";
-            btnNewMess.BackColor = Color.Yellow;
-            btnNewMess.ForeColor = Color.Red;    
         }
 
         private DecodedShortMessage[] readMessages(string storage)
@@ -176,7 +166,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText(e.Message + " (readMessages)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "readMessages");
                 return null;
             }
         }
@@ -191,7 +181,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText(e.Message + " (covertMessRead)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "covertMessRead");
                 return null;
             }
         }
@@ -284,7 +274,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText( e.Message + " (checkSyntax)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "checkSyntax");
             }
             return idCuPhapFn;
         }
@@ -313,7 +303,6 @@ namespace SMS
 
                     modelDenFn.So_Dien_Thoai = dataMessageDenFn.OriginatingAddress;
                     modelDenFn.Noi_Dung_Tin_Nhan = dataMessageDenFn.UserDataText;
-                    //MessageBox.Show(modelDenFn.Noi_Dung_Tin_Nhan);
                     modelDenFn.Ma_Cu_Phap = checkSyntax(dataMessageDenFn.UserDataText);
                     if (modelDenFn.Ma_Cu_Phap.Equals(""))
                     {
@@ -323,7 +312,6 @@ namespace SMS
                     {
                         modelDenFn.Loai_Hop_Thu = "0";
                     }
-                    //modelDenFn.Ngay_Nhan = dataMessageDenFn.SCTimestamp.ToString();
                     modelDenFn.Tinh_Trang = "0";
 
                     string[] arrContentMessFn = splitContentMess(dataMessageDenFn.UserDataText);
@@ -331,105 +319,50 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = "";
-                        try
-                        {
-                            modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
-                        }
-                        catch (Exception i)
-                        {
-                            txtLog.AppendText( i.Message + " (getStringDiemByMaSinhVien)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDiemByMaSinhVien(arrContentMessFn[2]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("1"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringDiemByMaSinhVienNTenMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception j)
-                        {
-                            txtLog.AppendText( j.Message + " (getStringDiemByMaSinhVienNTenMonHoc)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNTenMonHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("2"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringDiemByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception k)
-                        {
-                            txtLog.AppendText( k.Message + " (getStringDiemByMaSinhVienNNamHoc)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
+
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("3"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringDiemByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception h)
-                        {
-                            txtLog.AppendText( h.Message + " (getStringDiemByMaSinhVienNHocKi)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDiemByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("4"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception g)
-                        {
-                            txtLog.AppendText( g.Message + " (getStringTKBByMaSinhVienNNamHoc)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNNamHoc(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("5"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception m)
-                        {
-                            txtLog.AppendText( m.Message + " (getStringTKBByMaSinhVienNHocKi)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringTKBByMaSinhVienNHocKi(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("6"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception n)
-                        {
-                            txtLog.AppendText( n.Message + " (getStringDDByMaSinhVienNddmmyyy)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        try
-                        {
-                            modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
-                        }
-                        catch (Exception z)
-                        {
-                            txtLog.AppendText( z.Message + " (getStringDDByMaSinhVienNmmyyy)"+"\n");
-                        }
+                        modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else
                     {
@@ -444,7 +377,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText(e.Message + " (getMessDen)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "getMessDen");
                 return null;
             }
         }
@@ -481,7 +414,7 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText( e.Message + " (getMessDi)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "getMessDi");
             }
             return listModelDiFn;
         }
@@ -490,13 +423,13 @@ namespace SMS
         {
             try
             {
-                dcs = DataCodingScheme.NoClass_16Bit;
-                pdu = new SmsSubmitPdu(contentMess, des, "", dcs);
+                //dcs = DataCodingScheme.NoClass_16Bit;
+                pdu = new SmsSubmitPdu(contentMess, des, "");
                 common.Constants.comm.SendMessage(pdu);
             }
             catch (Exception e)
             {
-                txtLog.AppendText( e.Message + " (sendOneMessage)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "sendOneMessage");
             }
         }
 
@@ -535,6 +468,7 @@ namespace SMS
                             {
                                 // lay ra chieu dai chuoi cuoi cung
                                 lenghtFinal = model.Noi_Dung_Tin_Nhan.Length - startIndex;
+                                
                                 string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, lenghtFinal);
                                 try
                                 {
@@ -544,13 +478,14 @@ namespace SMS
                                 catch (Exception e)
                                 {
                                     model.Tinh_Trang = "0";
-                                    txtLog.AppendText(e.Message + " (sendSubMess)" + "\n");
+                                    txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "sendOneSubMessageFinal");
                                     break;
                                 }
                             }
                             else
                             {
                                 string subString = (model.Noi_Dung_Tin_Nhan).Substring(startIndex, 160);
+                                
                                 try
                                 {
                                     sendOneMessage(subString, model.So_Dien_Thoai);
@@ -559,7 +494,7 @@ namespace SMS
                                 catch (Exception e)
                                 {
                                     model.Tinh_Trang = "0";
-                                    txtLog.AppendText(e.Message + " (sendSubMess)"+"\n");
+                                    txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "sendOneSubMessage");
                                     break;
                                 }
                             }
@@ -575,7 +510,7 @@ namespace SMS
                         }
                         catch (Exception e)
                         {
-                            txtLog.AppendText(e.Message + " (sendMess)" + "\n");
+                            txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "sendMessage");
                             model.Tinh_Trang = "0";
                         }
                     }
@@ -601,8 +536,33 @@ namespace SMS
             }
             catch (Exception e)
             {
-                txtLog.AppendText(e.Message + " (sendNinsertMess)"+"\n");
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "sendNinsertMess");
             }
+        }
+
+        #endregion
+
+        #region delegate
+
+        private delegate void soMessNhanInTxtDeledate(int n);
+        private void soMessNhanInTxt(int messLength)
+        {
+            txtLog.AppendText("Nhận được " + messLength.ToString() + " tin nhắn.\n");
+        }
+
+        private delegate void updateNewMessDelegate(int n);
+        private void updateNewMess(int messLength)
+        {
+            newMess = newMess + messLength;
+            btnNewMess.Text = "New Message (" + newMess.ToString() + ")";
+            btnNewMess.BackColor = Color.Yellow;
+            btnNewMess.ForeColor = Color.Red;
+        }
+
+        private delegate void errorCatchMessDelegate(Exception e, string txt);
+        private void errorCatchMess(Exception e, string txt)
+        {
+            txtLog.AppendText(e.Message + " (" + txt + ")\n");
         }
 
         #endregion
@@ -617,10 +577,6 @@ namespace SMS
 
             listModelDen = new ArrayList();
             listModelDen = getMessDen(messages);
-            if (listModelDen.Count > 0)
-            {
-                txtLog.AppendText("Nhận được "+listModelDen.Count.ToString()+" tin nhắn ."+"\n");
-            }
             
             listModelDi = new ArrayList();
             listModelDi = getMessDi(listModelDen);
@@ -629,6 +585,7 @@ namespace SMS
             if (messages.Length > 0)
             {
                 btnNewMess.Invoke(new updateNewMessDelegate(updateNewMess), messages.Length);
+                txtLog.Invoke(new soMessNhanInTxtDeledate(soMessNhanInTxt), messages.Length);
             }
             Cursor.Current = Cursors.Default;
         }
@@ -876,7 +833,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "-HK" + row["Hoc_Ki"] + "\n";
+                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
                 }
             }
             else
@@ -894,7 +851,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
                 }
             }
             else
@@ -912,7 +869,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
                 }
             }
             else
@@ -925,12 +882,12 @@ namespace SMS
         private string getStringDiemByMaSinhVienNHocKi(string maSinhVien, string hocKi)
         {
             string result = "";
-            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, hocKi);
+            DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "/" + row["Ten vs Hinh Thuc KT"] + "/" + row["Diem"] + "/HK" + row["Hoc_Ki"] + "\n";
+                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
                 }
             }
             else
@@ -948,7 +905,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                    result += row["Buoi"] + "-" + row["Ngay Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
                 }
             }
             else
@@ -966,7 +923,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Buoi"] + "/" + row["Ngay Hoc"] + "/HK " + row["Hoc_Ki"] + "/" + row["Ki_Hieu_Phong"] + "/" + row["Ten_Mon_Hoc"] + "/" + row["Hinh_Thuc_Day"] + "/" + row["Giao Vien"] + "\n";
+                    result += row["Buoi"] + "-" + row["Ngay Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
                 }
             }
             else
@@ -1025,7 +982,7 @@ namespace SMS
                         ena = true;
                         InitializeTimer(ena);
                         btnEnableMess.Text = "Disable for Recieve Message";
-                        txtLog.AppendText("Bắt đầu nhận tin nhắn ."+"\n");
+                        txtLog.AppendText("Bắt đầu nhận tin nhắn \n");
                         return;
                     }
                     if (ena == true)
@@ -1033,18 +990,18 @@ namespace SMS
                         ena = false;
                         InitializeTimer(ena);
                         btnEnableMess.Text = "Enable for Recieve Message";
-                        txtLog.AppendText("Kết thúc nhận tin nhắn ." + "\n");
+                        txtLog.AppendText("Kết thúc nhận tin nhắn \n");
                         return;
                     }
                 }
                 else
                 {
-                    txtLog.AppendText("No Phone Connected" + "\n");
+                    txtLog.AppendText("No Phone Connected\n");
                 }
             }
             catch (Exception k)
             {
-                MessageBox.Show(k.Message + "-------------btnEnableMess_Click");
+                txtLog.AppendText(k.Message + " (btnEnableMess_Click)\n");
             }
         }
 
