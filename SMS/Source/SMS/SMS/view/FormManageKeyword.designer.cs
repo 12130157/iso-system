@@ -192,14 +192,19 @@
             // 
             // dlv_ManageKeyword
             // 
+            this.dlv_ManageKeyword.AllowUserToAddRows = false;
+            this.dlv_ManageKeyword.AllowUserToDeleteRows = false;
             this.dlv_ManageKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dlv_ManageKeyword.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dlv_ManageKeyword.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dlv_ManageKeyword.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dlv_ManageKeyword.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dlv_ManageKeyword.Location = new System.Drawing.Point(6, 28);
             this.dlv_ManageKeyword.Name = "dlv_ManageKeyword";
+            this.dlv_ManageKeyword.ReadOnly = true;
+            this.dlv_ManageKeyword.RowHeadersVisible = false;
+            this.dlv_ManageKeyword.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dlv_ManageKeyword.Size = new System.Drawing.Size(1110, 357);
             this.dlv_ManageKeyword.TabIndex = 5;
             this.dlv_ManageKeyword.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dlv_ManageKeyword_CellMouseClick);
@@ -224,7 +229,7 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormManageKeyword";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Quan Ly Cu Phap SMS";
             this.Load += new System.EventHandler(this.FormManageKeyword_Load);
             this.Activated += new System.EventHandler(this.FormManageKeyword_Activated);
