@@ -8,7 +8,7 @@ CREATE PROC sp_ISO_SMS_getTKBByMaSinhVienNNamHoc
 	@NamHoc			varchar(10)
 AS
 BEGIN
-	SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay Hoc',
+	SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
 				B.Hoc_Ki,J.Ki_Hieu_Phong,E.User2 AS 'Ten_Mon_hoc',A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien' 
 	FROM		ChiTietTKB	AS A 
 	INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
@@ -23,7 +23,7 @@ BEGIN
 	AND			CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) = @NamHoc
 END
 
---exec sp_ISO_SMS_getTKBByMaSinhVienNNamHoc 'bai_ls.hv','2010'
+--exec sp_ISO_SMS_getTKBByMaSinhVienNNamHoc 'bai_ls.hv','2011'
 
 --select * from chitietthanhvien where ten_dang_nhap = 'bai_ls.hv'
 --select * From thoikhoabieu where ma_lop = 0
