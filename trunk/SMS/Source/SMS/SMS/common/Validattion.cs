@@ -67,7 +67,7 @@ namespace SMS
             objNumberPattern.IsMatch(strNumber);
         }
         // Function To test for Alphabets.
-        public bool IsAlpha(String strToCheck)
+        public static bool IsAlpha(String strToCheck)
         {
             Regex objAlphaPattern = new Regex("[^a-zA-Z]");
             return !objAlphaPattern.IsMatch(strToCheck);
@@ -125,7 +125,7 @@ namespace SMS
         public static bool isYear(string year)
         {
             bool result = false;
-            string pattern = @"\d{4}";
+            string pattern = @"^\d{4}$";
             Regex myRegex = new Regex(pattern);
             if (string.IsNullOrEmpty(year))
             {
@@ -141,7 +141,7 @@ namespace SMS
         public static bool isSubject(string subject)
         {
             bool result = false;
-            string pattern = @"[a-zA-Z]+";
+            string pattern = @"^[a-zA-Z]{1,10}[0-9]*$";
             Regex myRegex = new Regex(pattern);
             if (string.IsNullOrEmpty(subject))
             {
@@ -149,15 +149,16 @@ namespace SMS
             }
             else
             {
-                result = myRegex.IsMatch(subject);
+                result =myRegex.IsMatch(subject);
             }
             return result;
         }
 
         public static bool isSemester(string semester)
         {
+            //
             bool result = false;
-            string pattern = @"[(HK[1-4]|Hk[1-4]|hK[1-4]|hk[1-4])|(ALL|ALl|AlL|All|all|aLl|alL|aLL)]";
+            string pattern = @"^((HK[1-6]|Hk[1-6]|hK[1-6]|hk[1-6])|(ALL|ALl|AlL|All|all|aLl|alL|aLL))$";
             Regex myRegex = new Regex(pattern);
             if (string.IsNullOrEmpty(semester))
             {
@@ -173,7 +174,7 @@ namespace SMS
         public static bool isDDMMYYYY(string ddmmyyyy)
         {
             bool result = false;
-            string pattern = @"[0-9]{8}";
+            string pattern = @"^[0-9]{8}$";
             Regex myRegex = new Regex(pattern);
             if (string.IsNullOrEmpty(ddmmyyyy))
             {
@@ -189,7 +190,7 @@ namespace SMS
         public static bool isMMYYYY(string mmyyyy)
         {
             bool result = false;
-            string pattern = @"[0-9]{6}";
+            string pattern = @"^[0-9]{6}$";
             Regex myRegex = new Regex(pattern);
             if (string.IsNullOrEmpty(mmyyyy))
             {
