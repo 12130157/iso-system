@@ -407,7 +407,6 @@ namespace SMS
               
         }
         
-
         public static DataTable getDiemByMaSinhVien(string maSinhVien)
         {
             try
@@ -434,10 +433,10 @@ namespace SMS
                 SqlParameter[] parameter = new SqlParameter[2];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("@MaSinhVien", SqlDbType.VarChar);
                 parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("IDMonHoc", SqlDbType.Int);
+                parameter[i] = new SqlParameter("@TenMonHoc", SqlDbType.Int);
                 parameter[i++].Value = tenMonHoc;
 
                 DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc", parameter);
@@ -456,10 +455,10 @@ namespace SMS
                 SqlParameter[] parameter = new SqlParameter[2];
                 int i = 0;
 
-                parameter[i] = new SqlParameter("MaSinhVien", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("@MaSinhVien", SqlDbType.VarChar);
                 parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("NamHoc", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("@NamHoc", SqlDbType.VarChar);
                 parameter[i++].Value = namHoc;
 
                 DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNNamHoc", parameter);
@@ -484,7 +483,7 @@ namespace SMS
                 parameter[i] = new SqlParameter("HocKi", SqlDbType.VarChar);
                 parameter[i++].Value = hocKi;
 
-                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNNamHoc", parameter);
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNHocKi", parameter);
                 return tbl;
             }
             catch (Exception)
