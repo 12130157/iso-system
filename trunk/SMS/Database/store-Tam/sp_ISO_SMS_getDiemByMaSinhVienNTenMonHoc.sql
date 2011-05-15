@@ -5,10 +5,10 @@ END
 GO
 CREATE PROC sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc
 	@MaSinhVien		varchar(50),
-	@IDMonHoc		int
+	@TenMonHoc		varchar(20)
 AS
 BEGIN
-	SELECT		D.User2 , F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki
+	SELECT		D.User2 AS 'Ten_Mon_Hoc' , F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki
 	FROM		ChiTietDiem		AS A
 	INNER JOIN	DangKyMonHoc	AS B	ON A.Ma_Dang_Ky_Mon_Hoc = B.ID
 	INNER JOIN	MonHocTKB		AS C	ON B.Ma_Mon_Hoc_TKB = C.ID
@@ -19,10 +19,10 @@ BEGIN
 	INNER JOIN	TenBaiKiemTra	AS F	ON E.Ma_Bai_Kiem_Tra = F.ID
 	INNER JOIN	HinhThuc		AS G	ON E.Ma_Hinh_Thuc = G.ID
 	WHERE	H.Ten_DN = @MaSinhVien
-	AND		C.Ma_Mon_Hoc = @IDMonHoc 
+	AND		D.User1 = @TenMonHoc 
 END
 
---exec sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc 'bai_ls.hv',15
+--exec sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc 'bai_ls.hv','MCB'
 
 
 --select * from chitietthanhvien where ten_dang_nhap = 'bai_ls.hv'
