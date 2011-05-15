@@ -277,14 +277,14 @@ namespace SMS
             // 
             // txtLog
             // 
-            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLog.Location = new System.Drawing.Point(0, 325);
+            this.txtLog.Location = new System.Drawing.Point(776, 27);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(776, 117);
+            this.txtLog.Size = new System.Drawing.Size(134, 297);
             this.txtLog.TabIndex = 10;
             // 
             // FormMain
@@ -294,11 +294,11 @@ namespace SMS
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(911, 444);
-            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnEnableMess);
+            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.lbStatus);
-            this.Controls.Add(this.btnNewMess);
             this.Controls.Add(this.menuTool);
+            this.Controls.Add(this.btnNewMess);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuTool;
