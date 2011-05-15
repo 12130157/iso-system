@@ -36,10 +36,7 @@ namespace SMS
 
         public FormMain()
         {
-            Thread t = new Thread(messRecieveNphoneConnected);
-            t.Start();
-            t.Join();
-
+            Cursor.Current = Cursors.WaitCursor;
             InitializeComponent();
 
             if (common.Constants.comm.IsConnected() == true)
@@ -51,6 +48,9 @@ namespace SMS
             {
                 menuMessage.BackColor = Color.Yellow;
             }
+
+            messRecieveNphoneConnected();
+            Cursor.Current = Cursors.Default;
         }
 
         #region Khởi tạo hệ thống tin nhắn
@@ -126,18 +126,11 @@ namespace SMS
 
         private void deleteMess()
         {
-            try
+            MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
+            int memUesd = memnoryStatus.Used;
+            if (memUesd >= 35)
             {
-                MemoryStatus memnoryStatus = common.Constants.comm.GetMessageMemoryStatus(PhoneStorageType.Sim);
-                int memUesd = memnoryStatus.Used;
-                if (memUesd >= 35)
-                {
-                    common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
-                }
-            }
-            catch (Exception e)
-            {
-                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "deleteMess");
+                common.Constants.comm.DeleteMessages(DeleteScope.All, PhoneStorageType.Sim);
             }
         }
 
@@ -158,32 +151,15 @@ namespace SMS
 
         private DecodedShortMessage[] readMessages(string storage)
         {
-            try
-            {
-                DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
-
-                return messagesFn;
-            }
-            catch (Exception e)
-            {
-                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "readMessages");
-                return null;
-            }
+            DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+            return messagesFn;
         }
 
         private SmsDeliverPdu covertMessRead(DecodedShortMessage message)
         {
-            try
-            {
-                SmsPdu messageDenFn = message.Data;
-                SmsDeliverPdu dataMessageDenFn = (SmsDeliverPdu)messageDenFn;
-                return dataMessageDenFn;
-            }
-            catch (Exception e)
-            {
-                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "covertMessRead");
-                return null;
-            }
+            SmsPdu messageDenFn = message.Data;
+            SmsDeliverPdu dataMessageDenFn = (SmsDeliverPdu)messageDenFn;
+            return dataMessageDenFn;
         }
 
         private string checkSyntax(string contentMess)
@@ -914,7 +890,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Buoi"] + "-" + row["Ngay Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
+                    result += row["Buoi"] + "-" + row["Ngay_Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
                 }
             }
             else
@@ -932,7 +908,7 @@ namespace SMS
             {
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Buoi"] + "-" + row["Ngay Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
+                    result += row["Buoi"] + "-" + row["Ngay_Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
                 }
             }
             else
@@ -977,6 +953,7 @@ namespace SMS
             if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Application.Exit();
+                Environment.Exit(0);
             }
         }
 
@@ -1130,22 +1107,35 @@ namespace SMS
         }
 
         #endregion
-<<<<<<< .mine
 
-        private void tàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void taiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormManageAccount fr = new FormManageAccount();
             fr.MdiParent = this;
             fr.Show();
         }
 
-        private void loạiTaiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loaiTaiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAddTypeSMS fr = new FormAddTypeSMS();
             fr.MdiParent = this;
             fr.Show();
         }
-=======
+
+        private void FormMain_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            Environment.Exit(0);
+        }
+
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    string maSinhVien = "bai_ls.hv";
+        //    string tenMonHoc = "mcb";
+
+        //    DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
+        //    MessageBox.Show(tbl.Rows.Count.ToString());
+        //}
 
         //private void button1_Click(object sender, EventArgs e)
         //{
@@ -1168,6 +1158,5 @@ namespace SMS
         //        MessageBox.Show("Khong La Gi Het");
         //    }
         //}
->>>>>>> .r498
     } 
 }

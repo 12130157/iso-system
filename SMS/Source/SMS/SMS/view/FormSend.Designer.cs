@@ -399,7 +399,7 @@
             this.tblNormalMessErrorSent.ReadOnly = true;
             this.tblNormalMessErrorSent.RowHeadersVisible = false;
             this.tblNormalMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 315);
+            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 318);
             this.tblNormalMessErrorSent.TabIndex = 1;
             this.tblNormalMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessErrorSent_CellClick);
             // 
@@ -557,7 +557,7 @@
             this.tblNormalMessDeletedSent.ReadOnly = true;
             this.tblNormalMessDeletedSent.RowHeadersVisible = false;
             this.tblNormalMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 315);
+            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 318);
             this.tblNormalMessDeletedSent.TabIndex = 2;
             this.tblNormalMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedSent_CellClick);
             // 
@@ -748,8 +748,8 @@
             // 
             // Sent
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(892, 509);
             this.Controls.Add(this.label1);
