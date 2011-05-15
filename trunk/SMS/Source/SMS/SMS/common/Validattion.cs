@@ -113,7 +113,7 @@ namespace SMS
         /*
         public bool isPhone ( String phone) 
         {
-             Regex objPhone= new Regex ("^[1-9]\d{2}-[1-9]\d{2}-\d{4}$");
+             Regex objPhone= new Regex ("^[1-9]\d{2}-[1-9]\d{2}-\  d{4}$");
 
             if (regex.test(phone)) {
                 // Valid international phone number
