@@ -58,6 +58,7 @@ namespace SMS
             this.toolsTripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewMess = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuTool.SuspendLayout();
             this.rightClickTrayIcon.SuspendLayout();
             this.SuspendLayout();
@@ -287,6 +288,16 @@ namespace SMS
             this.txtLog.Size = new System.Drawing.Size(776, 117);
             this.txtLog.TabIndex = 10;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(369, 96);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -294,6 +305,7 @@ namespace SMS
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(911, 444);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
@@ -344,6 +356,7 @@ namespace SMS
         private System.Windows.Forms.Button btnNewMess;
         private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
         private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.Button button1;
 
     }
 }

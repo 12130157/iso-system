@@ -276,6 +276,7 @@ namespace SMS
             {
                 txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "checkSyntax");
             }
+            MessageBox.Show(idCuPhapFn);
             return idCuPhapFn;
         }
 
@@ -1129,5 +1130,12 @@ namespace SMS
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string hk = "hk1";
+            bool test = Validattion.isSemester(hk);
+            MessageBox.Show(test.ToString());
+        }
     } 
 }
