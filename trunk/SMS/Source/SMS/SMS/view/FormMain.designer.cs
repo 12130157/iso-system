@@ -44,8 +44,8 @@ namespace SMS
             this.menuSystem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuKeyword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
-            this.tàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loạiTaiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.taiKhoanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loaiTaiKhoanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddressBook = new System.Windows.Forms.ToolStripMenuItem();
             this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,6 +136,7 @@ namespace SMS
             this.menuI1Sent.Name = "menuI1Sent";
             this.menuI1Sent.Size = new System.Drawing.Size(158, 22);
             this.menuI1Sent.Text = "Hộp Thư Đi";
+            this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
             // menuSystem
             // 
@@ -151,44 +152,44 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(206, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(167, 22);
             this.menuKeyword.Text = "Cú Pháp";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tàiKhoảnToolStripMenuItem,
-            this.loạiTaiKhoảnToolStripMenuItem});
+            this.taiKhoanToolStripMenuItem,
+            this.loaiTaiKhoanToolStripMenuItem});
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(206, 22);
+            this.menuAccount.Size = new System.Drawing.Size(167, 22);
             this.menuAccount.Text = "Tài Khoản SMS";
             // 
-            // tàiKhoảnToolStripMenuItem
+            // taiKhoanToolStripMenuItem
             // 
-            this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.tàiKhoảnToolStripMenuItem.Text = "Tài Khoản";
-            this.tàiKhoảnToolStripMenuItem.Click += new System.EventHandler(this.tàiKhoảnToolStripMenuItem_Click);
+            this.taiKhoanToolStripMenuItem.Name = "taiKhoanToolStripMenuItem";
+            this.taiKhoanToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.taiKhoanToolStripMenuItem.Text = "Tài Khoản";
+            this.taiKhoanToolStripMenuItem.Click += new System.EventHandler(this.taiKhoanToolStripMenuItem_Click);
             // 
-            // loạiTaiKhoảnToolStripMenuItem
+            // loaiTaiKhoanToolStripMenuItem
             // 
-            this.loạiTaiKhoảnToolStripMenuItem.Name = "loạiTaiKhoảnToolStripMenuItem";
-            this.loạiTaiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.loạiTaiKhoảnToolStripMenuItem.Text = "Loại Tai Khoản";
-            this.loạiTaiKhoảnToolStripMenuItem.Click += new System.EventHandler(this.loạiTaiKhoảnToolStripMenuItem_Click);
+            this.loaiTaiKhoanToolStripMenuItem.Name = "loaiTaiKhoanToolStripMenuItem";
+            this.loaiTaiKhoanToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.loaiTaiKhoanToolStripMenuItem.Text = "Loại Tai Khoản";
+            this.loaiTaiKhoanToolStripMenuItem.Click += new System.EventHandler(this.loaiTaiKhoanToolStripMenuItem_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(206, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(167, 22);
             this.menuAddressBook.Text = "Danh bạ";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.typeToolStripMenuItem.Text = "Loại hộp thư";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
@@ -274,9 +275,9 @@ namespace SMS
             this.btnNewMess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewMess.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.btnNewMess.Image = ((System.Drawing.Image)(resources.GetObject("btnNewMess.Image")));
-            this.btnNewMess.Location = new System.Drawing.Point(776, 325);
+            this.btnNewMess.Location = new System.Drawing.Point(788, 325);
             this.btnNewMess.Name = "btnNewMess";
-            this.btnNewMess.Size = new System.Drawing.Size(134, 117);
+            this.btnNewMess.Size = new System.Drawing.Size(122, 117);
             this.btnNewMess.TabIndex = 8;
             this.btnNewMess.Text = "New Message";
             this.btnNewMess.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -287,12 +288,12 @@ namespace SMS
             // 
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLog.Location = new System.Drawing.Point(776, 27);
+            this.txtLog.Location = new System.Drawing.Point(788, 27);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(134, 297);
+            this.txtLog.Size = new System.Drawing.Size(122, 297);
             this.txtLog.TabIndex = 10;
             // 
             // FormMain
@@ -315,6 +316,7 @@ namespace SMS
             this.Text = "GSM System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.MdiChildActivate += new System.EventHandler(this.FormMain_MdiChildActivate);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing_1);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.menuTool.ResumeLayout(false);
             this.menuTool.PerformLayout();
@@ -351,8 +353,8 @@ namespace SMS
         private System.Windows.Forms.ToolStripMenuItem toolsTripMenuExit;
         private System.Windows.Forms.Button btnNewMess;
         private System.Windows.Forms.TextBox txtLog;
-        private System.Windows.Forms.ToolStripMenuItem tàiKhoảnToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loạiTaiKhoảnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem taiKhoanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loaiTaiKhoanToolStripMenuItem;
 
     }
 }
