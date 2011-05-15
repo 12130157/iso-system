@@ -58,7 +58,6 @@ namespace SMS
             this.toolsTripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNewMess = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuTool.SuspendLayout();
             this.rightClickTrayIcon.SuspendLayout();
             this.SuspendLayout();
@@ -90,19 +89,19 @@ namespace SMS
             // menuChangePassword
             // 
             this.menuChangePassword.Name = "menuChangePassword";
-            this.menuChangePassword.Size = new System.Drawing.Size(190, 22);
+            this.menuChangePassword.Size = new System.Drawing.Size(179, 22);
             this.menuChangePassword.Text = "Đội Mật Khẩu";
             // 
             // menuSystemConfig
             // 
             this.menuSystemConfig.Name = "menuSystemConfig";
-            this.menuSystemConfig.Size = new System.Drawing.Size(190, 22);
+            this.menuSystemConfig.Size = new System.Drawing.Size(179, 22);
             this.menuSystemConfig.Text = "Cấu Hình Hệ Thống";
             // 
             // menuLogout
             // 
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(190, 22);
+            this.menuLogout.Size = new System.Drawing.Size(179, 22);
             this.menuLogout.Text = "Đăng Xuất";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
@@ -120,21 +119,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(158, 22);
+            this.menuCompose.Size = new System.Drawing.Size(147, 22);
             this.menuCompose.Text = "Gửi Tin Nhắn";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(158, 22);
+            this.menuInbox.Size = new System.Drawing.Size(147, 22);
             this.menuInbox.Text = "Hộp Thư Đến";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(158, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(147, 22);
             this.menuI1Sent.Text = "Hộp Thư Đi";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -153,35 +152,35 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(210, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(199, 22);
             this.menuKeyword.Text = "Quản lý cú pháp";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
             // menuAccount
             // 
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(210, 22);
+            this.menuAccount.Size = new System.Drawing.Size(199, 22);
             this.menuAccount.Text = "Quản lý tài khoản SMS";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(210, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(199, 22);
             this.menuAddressBook.Text = "Danh bạ";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.typeToolStripMenuItem.Text = "Loại hộp thư";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
             // menu_ManageTypeAccount
             // 
             this.menu_ManageTypeAccount.Name = "menu_ManageTypeAccount";
-            this.menu_ManageTypeAccount.Size = new System.Drawing.Size(210, 22);
+            this.menu_ManageTypeAccount.Size = new System.Drawing.Size(199, 22);
             this.menu_ManageTypeAccount.Text = "Quản lý loại tài khoàn";
             this.menu_ManageTypeAccount.Click += new System.EventHandler(this.menu_ManageTypeAccount_Click);
             // 
@@ -197,13 +196,13 @@ namespace SMS
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.toolStripMenuItem1.Text = "Giới thiệu ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.toolStripMenuItem2.Text = "Giúp đỡ";
             // 
             // lbStatus
@@ -244,19 +243,19 @@ namespace SMS
             this.toolsTripMenuRestore,
             this.toolsTripMenuExit});
             this.rightClickTrayIcon.Name = "rightClickTrayIcon";
-            this.rightClickTrayIcon.Size = new System.Drawing.Size(124, 48);
+            this.rightClickTrayIcon.Size = new System.Drawing.Size(114, 48);
             // 
             // toolsTripMenuRestore
             // 
             this.toolsTripMenuRestore.Name = "toolsTripMenuRestore";
-            this.toolsTripMenuRestore.Size = new System.Drawing.Size(123, 22);
+            this.toolsTripMenuRestore.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuRestore.Text = "Restore";
             this.toolsTripMenuRestore.Click += new System.EventHandler(this.toolTripMenuRestore_Click);
             // 
             // toolsTripMenuExit
             // 
             this.toolsTripMenuExit.Name = "toolsTripMenuExit";
-            this.toolsTripMenuExit.Size = new System.Drawing.Size(123, 22);
+            this.toolsTripMenuExit.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuExit.Text = "Exit";
             this.toolsTripMenuExit.Click += new System.EventHandler(this.toolsTripMenuExit_Click);
             // 
@@ -288,16 +287,6 @@ namespace SMS
             this.txtLog.Size = new System.Drawing.Size(776, 117);
             this.txtLog.TabIndex = 10;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(369, 96);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -305,7 +294,6 @@ namespace SMS
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(911, 444);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnEnableMess);
             this.Controls.Add(this.lbStatus);
@@ -356,7 +344,6 @@ namespace SMS
         private System.Windows.Forms.Button btnNewMess;
         private System.Windows.Forms.ToolStripMenuItem menu_ManageTypeAccount;
         private System.Windows.Forms.TextBox txtLog;
-        private System.Windows.Forms.Button button1;
 
     }
 }
