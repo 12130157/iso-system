@@ -52,8 +52,6 @@ namespace SMS.view
                     txt_NumberPhone.Text = taiKhoanSMSModel.So_Dien_Thoai;
                     txt_StudentID.Text = taiKhoanSMSModel.Ma_Sinh_Vien;
                     dtp_NgayDangKy.Text = taiKhoanSMSModel.Ngay_Dang_Ki;
-                    txt_NumberPhone2.Text = taiKhoanSMSModel.User11;
-                    txt_NumberPhone3.Text = taiKhoanSMSModel.User21;
 
                     // kiện selected  cua cbo_AccountType
                     loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(Convert.ToInt32(taiKhoanSMSModel.Loai_Tai_Khoan));
@@ -93,16 +91,12 @@ namespace SMS.view
                 {
 
                     taiKhoanSMSModel.So_Dien_Thoai = txt_NumberPhone.Text;
-                    taiKhoanSMSModel.User11 = txt_NumberPhone2.Text;
-                    taiKhoanSMSModel.User21 = txt_NumberPhone3.Text;
                     taiKhoanSMSModel.Ma_Sinh_Vien = txt_StudentID.Text;
                     taiKhoanSMSModel.Ngay_Dang_Ki = dtp_NgayDangKy.Text;
 
                     Boolean result1 = taiKhoanSMSDao.insertTaiKhoanSMS(taiKhoanSMSModel);
                     if (result1 == true)
                     {
-                        //this.Hide();
-                        //formAccount.FormManageAccount_Load(sender,e);
                         this.Visible = false;
                     }
                     else
@@ -117,8 +111,6 @@ namespace SMS.view
                     taiKhoanSMSModel.So_Dien_Thoai = txt_NumberPhone.Text;
                     taiKhoanSMSModel.Ma_Sinh_Vien = txt_StudentID.Text;
                     taiKhoanSMSModel.Ngay_Dang_Ki = dtp_NgayDangKy.Text;
-                    taiKhoanSMSModel.User11 = txt_NumberPhone2.Text;
-                    taiKhoanSMSModel.User21 = txt_NumberPhone3.Text;
 
                     Boolean result1 = taiKhoanSMSDao.updateTaiKhoanSMSById(taiKhoanSMSModel);
 
@@ -187,7 +179,7 @@ namespace SMS.view
             {
                 if (!txt_NumberPhone.Text.Equals(""))
                 {
-                    txt_NumberPhone2.Enabled = true;
+                    //txt_NumberPhone2.Enabled = true;
                 }
             }
 
@@ -230,46 +222,15 @@ namespace SMS.view
             {
                 if (txt_NumberPhone.Text.Equals(""))
                 {
-                    txt_NumberPhone2.Text = "";
                     cbo_AccountType.SelectedIndex = 1;
-
-                    txt_NumberPhone2.Enabled = false;
                     cbo_AccountType.Enabled = false;
-                    txt_NumberPhone2_TextChanged(sender, e);
                 }
                 else
                 {
-                    txt_NumberPhone2.Enabled = true;
                     cbo_AccountType.Enabled = true;
                 }
             }
 
-            private void txt_NumberPhone2_TextChanged(object sender, EventArgs e)
-            {
-                if (txt_NumberPhone2.Text.Equals(""))
-                {
-                    txt_NumberPhone3.Text = "";
-                    txt_NumberPhone3.Enabled = false;
-                }
-                else
-                { txt_NumberPhone3.Enabled = true; }
-            }
-
-            private void txt_NumberPhone2_KeyPress(object sender, KeyPressEventArgs e)
-            {
-                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-            }
-
-            private void txt_NumberPhone3_KeyPress(object sender, KeyPressEventArgs e)
-            {
-                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-            }
 
             private void timer_giay_Tick(object sender, EventArgs e)
             {

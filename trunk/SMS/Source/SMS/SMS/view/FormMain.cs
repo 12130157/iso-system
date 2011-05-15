@@ -1021,12 +1021,6 @@ namespace SMS
             fr.Show();
         }
 
-        private void menuAccount_Click(object sender, EventArgs e)
-        {
-            FormManageAccount fr = new FormManageAccount();
-            fr.MdiParent = this;
-            fr.Show();
-        }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1060,9 +1054,7 @@ namespace SMS
 
         private void menu_ManageTypeAccount_Click(object sender, EventArgs e)
         {
-            FormAddTypeSMS fr = new FormAddTypeSMS();
-            fr.MdiParent = this;
-            fr.Show();
+            
         }
 
         private void btnNewMess_Click(object sender, EventArgs e)
@@ -1138,6 +1130,22 @@ namespace SMS
         }
 
         #endregion
+<<<<<<< .mine
+
+        private void tàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormManageAccount fr = new FormManageAccount();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void loạiTaiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAddTypeSMS fr = new FormAddTypeSMS();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+=======
 
         //private void button1_Click(object sender, EventArgs e)
         //{
@@ -1160,5 +1168,6 @@ namespace SMS
         //        MessageBox.Show("Khong La Gi Het");
         //    }
         //}
+>>>>>>> .r498
     } 
 }
