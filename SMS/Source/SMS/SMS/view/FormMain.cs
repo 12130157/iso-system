@@ -220,7 +220,11 @@ namespace SMS
                         {
                             if (cuPhapModelFn.Id.Equals("1") || cuPhapModelFn.Id.Equals("2") || cuPhapModelFn.Id.Equals("3"))
                             {
-                                if (Validattion.isSubject(arrContentMessFn[3]) == true)
+                                if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                                {
+                                    idCuPhapFn = "3";
+                                }
+                                else if (Validattion.isSubject(arrContentMessFn[3]) == true)
                                 {
                                     idCuPhapFn = "1";
                                 }
@@ -228,9 +232,9 @@ namespace SMS
                                 {
                                     idCuPhapFn = "2";
                                 }
-                                else if (Validattion.isSemester(arrContentMessFn[3]) == true)
+                                else
                                 {
-                                    idCuPhapFn = "3";
+                                    idCuPhapFn = "";
                                 }
                             }
                             else if (cuPhapModelFn.Id.Equals("4") || cuPhapModelFn.Id.Equals("5"))
@@ -242,6 +246,10 @@ namespace SMS
                                 else if (Validattion.isSemester(arrContentMessFn[3]) == true)
                                 {
                                     idCuPhapFn = "5";
+                                }
+                                else
+                                {
+                                    idCuPhapFn = "";
                                 }
                             }
                             else if (cuPhapModelFn.Id.Equals("6") || cuPhapModelFn.Id.Equals("7"))
@@ -1131,11 +1139,26 @@ namespace SMS
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string hk = "hk1";
-            bool test = Validattion.isSemester(hk);
-            MessageBox.Show(test.ToString());
-        }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    string hk = "hfdkjhfkjdshfksfhsakjfhskdj";
+
+        //    if (Validattion.isSemester(hk) == true)
+        //    {
+        //        MessageBox.Show("La Hoc Ki");
+        //    }
+        //    else if (Validattion.isSubject(hk) == true)
+        //    {
+        //        MessageBox.Show("La Mon Hoc");
+        //    }
+        //    else if (Validattion.isYear(hk) == true)
+        //    {
+        //        MessageBox.Show("La Nam Hoc");
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Khong La Gi Het");
+        //    }
+        //}
     } 
 }
