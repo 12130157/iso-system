@@ -29,7 +29,6 @@ namespace SMS
             SmsSubmitPdu pdu;
 
             string[] phones = (txtPhoneNumber.Text).Split(';');
-            //MessageBox.Show(phones.Length.ToString());
             string mess = txtMessage.Text;
 
             bool unicode = chkUnicode.Checked;
@@ -44,12 +43,12 @@ namespace SMS
 
                     if (!unicode)
                     {
-                        pdu = new SmsSubmitPdu(phones[0],mess, "");
+                        pdu = new SmsSubmitPdu(mess,phones[0], "");
                     }
                     else
                     {
                         byte dcs = DataCodingScheme.NoClass_16Bit;
-                        pdu = new SmsSubmitPdu(txtMessage.Text, txtPhoneNumber.Text, "", dcs);
+                        pdu = new SmsSubmitPdu(txtMessage.Text, phones[0], "", dcs);
                     }
 
                     model.So_Dien_Thoai = phones[0];
