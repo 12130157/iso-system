@@ -11,7 +11,7 @@ BEGIN
 	IF @HocKi = 'ALL'
 	BEGIN
 		SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
-					B.Hoc_Ki,J.Ki_Hieu_Phong,E.Ten_Mon_hoc,A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
+					B.Hoc_Ki,J.Ki_Hieu_Phong,E.User2 AS 'Ten_Mon_hoc',A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
 		FROM		ChiTietTKB	AS A 
 		INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
 		INNER JOIN	LopHoc				AS C	ON B.Ma_Lop = C.ID
@@ -26,7 +26,7 @@ BEGIN
 	ELSE
 	BEGIN
 		SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
-					B.Hoc_Ki,J.Ki_Hieu_Phong,E.Ten_Mon_hoc,A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
+					B.Hoc_Ki,J.Ki_Hieu_Phong,E.User2 AS 'Ten_Mon_hoc',A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
 		FROM		ChiTietTKB	AS A 
 		INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
 		INNER JOIN	LopHoc				AS C	ON B.Ma_Lop = C.ID
@@ -37,8 +37,8 @@ BEGIN
 		INNER JOIN	ChiTietThanhVien	AS G	ON F.Ten_DN = G.Ten_Dang_Nhap
 		INNER JOIN	PhongBan			AS J	ON A.Ma_Phong = J.ID
 		WHERE		H.Ten_Dang_Nhap = @MaSinhVien
-		AND			B.Hoc_Ki = @HocKi		
+		AND			'HK'+CAST((B.Hoc_Ki) AS VARCHAR) = @HocKi		
 	END
 END
 
---exec sp_ISO_SMS_getTKBByMaSinhVienNHocKi 'bai_ls.hv','1'
+--exec sp_ISO_SMS_getTKBByMaSinhVienNHocKi 'bai_ls.hv','all'

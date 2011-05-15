@@ -10,7 +10,7 @@ AS
 BEGIN
 	IF @HocKi = 'ALL'
 	BEGIN
-		SELECT		D.User2 , F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki		
+		SELECT		D.User2 AS 'Ten_Mon_Hoc', F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki		
 		FROM		ChiTietDiem		AS A
 		INNER JOIN	DangKyMonHoc	AS B	ON A.Ma_Dang_Ky_Mon_Hoc = B.ID
 		INNER JOIN	MonHocTKB		AS C	ON B.Ma_Mon_Hoc_TKB = C.ID
@@ -24,7 +24,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		SELECT		D.User2 , F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki			
+		SELECT		D.User2 AS 'Ten_Mon_Hoc', F.Ten_Bai_Kiem_Tra + '/' + G.Ten_Hinh_Thuc AS 'Ten vs Hinh Thuc KT',A.Diem,J.Hoc_Ki			
 		FROM		ChiTietDiem		AS A
 		INNER JOIN	DangKyMonHoc	AS B	ON A.Ma_Dang_Ky_Mon_Hoc = B.ID
 		INNER JOIN	MonHocTKB		AS C	ON B.Ma_Mon_Hoc_TKB = C.ID
@@ -35,8 +35,8 @@ BEGIN
 		INNER JOIN	TenBaiKiemTra	AS F	ON E.Ma_Bai_Kiem_Tra = F.ID
 		INNER JOIN	HinhThuc		AS G	ON E.Ma_Hinh_Thuc = G.ID
 		WHERE	H.Ten_DN = @MaSinhVien
-		AND		J.Hoc_Ki = @HocKi
+		AND		'HK'+CAST((J.Hoc_Ki) AS VARCHAR) = @HocKi
 	END
 END
 
---exec sp_ISO_SMS_getDiemByMaSinhVienNHocKi 'bai_ls.hv','ALL'
+--exec sp_ISO_SMS_getDiemByMaSinhVienNHocKi 'bai_ls.hv','all'
