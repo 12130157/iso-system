@@ -443,7 +443,7 @@ namespace SMS
                 parameter[i] = new SqlParameter("@MaSinhVien", SqlDbType.VarChar);
                 parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("@TenMonHoc", SqlDbType.Int);
+                parameter[i] = new SqlParameter("@TenMonHoc", SqlDbType.VarChar);
                 parameter[i++].Value = tenMonHoc;
 
                 DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDiemByMaSinhVienNTenMonHoc", parameter);
