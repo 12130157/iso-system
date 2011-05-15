@@ -148,10 +148,10 @@ namespace SMS.dao
                 parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
-                parameter[i++].Value = taiKhoanSMSModel.User11;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = taiKhoanSMSModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
                 parameter[i++].Value = "";
@@ -200,10 +200,10 @@ namespace SMS.dao
                 parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User1", SqlDbType.VarChar);
-                parameter[i++].Value =taiKhoanSMSModel.User11;
+                parameter[i++].Value ="";
 
                 parameter[i] = new SqlParameter("User2", SqlDbType.NVarChar);
-                parameter[i++].Value = taiKhoanSMSModel.User21;
+                parameter[i++].Value = "";
 
                 parameter[i] = new SqlParameter("User3", SqlDbType.NVarChar);
                 parameter[i++].Value ="";
