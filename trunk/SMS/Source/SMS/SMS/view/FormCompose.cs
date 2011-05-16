@@ -64,11 +64,12 @@ namespace SMS
                     {
                         common.Constants.comm.SendMessage(pdu);
                         model.Tinh_Trang = "1";
+                        txtLog.AppendText ("Gui 1 tin nhan thanh cong .\n");
                     }
                     catch (Exception k)
                     {
                         model.Tinh_Trang = "0";
-                        MessageBox.Show(k.Message);
+                        MessageBox.Show("Gui tin nhan that bai . " +k.Message+"\n");
                     }
 
                     bool result = HopThuDiDAO.insertHopThuDi(model);
@@ -101,10 +102,11 @@ namespace SMS
                         try
                         {
                             common.Constants.comm.SendMessages(desPhones);
+                            txtLog.AppendText("Gui "+ desPhones.Length.ToString() +" tin nhan thanh cong .\n");
                         }
                         catch (Exception i)
                         {
-                            MessageBox.Show(i.Message);
+                            txtLog.AppendText(i.Message + "\n");
                         }
                     }
                     else
@@ -135,10 +137,11 @@ namespace SMS
                         try
                         {
                             common.Constants.comm.SendMessages(desPhones);
+                            txtLog.AppendText("Gui " + desPhones.Length.ToString() + " tin nhan thanh cong .\n");
                         }
                         catch (Exception j)
                         {
-                            MessageBox.Show(j.Message);
+                            txtLog.AppendText(j.Message + "\n");
                         }
                     }
                     Cursor.Current = Cursors.Default;

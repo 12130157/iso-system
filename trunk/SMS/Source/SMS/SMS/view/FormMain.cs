@@ -24,11 +24,8 @@ namespace SMS
         ArrayList listModelDen;
         ArrayList listModelDi;
         string returnMessNotSyntax = "Tin nhan cua ban khong theo cu phap ,ban hay thu lai mot lan nua.";
-
         private System.Timers.Timer autoRecieveMess = new System.Timers.Timer();
-
         bool ena = false;
-        byte dcs;
         SmsSubmitPdu pdu;
         int newMess = 0;
 
@@ -260,7 +257,7 @@ namespace SMS
             {
                 txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "checkSyntax");
             }
-            MessageBox.Show(idCuPhapFn);
+            //MessageBox.Show(idCuPhapFn);
             return idCuPhapFn;
         }
 
@@ -1075,6 +1072,26 @@ namespace SMS
             }
         }
 
+        private void taiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormManageAccount fr = new FormManageAccount();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void loaiTaiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAddTypeSMS fr = new FormAddTypeSMS();
+            fr.MdiParent = this;
+            fr.Show();
+        }
+
+        private void FormMain_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            Environment.Exit(0);
+        }
+
 
         # endregion
 
@@ -1107,26 +1124,6 @@ namespace SMS
         }
 
         #endregion
-
-        private void taiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormManageAccount fr = new FormManageAccount();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private void loaiTaiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAddTypeSMS fr = new FormAddTypeSMS();
-            fr.MdiParent = this;
-            fr.Show();
-        }
-
-        private void FormMain_FormClosing_1(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-            Environment.Exit(0);
-        }
 
         //private void button1_Click(object sender, EventArgs e)
         //{

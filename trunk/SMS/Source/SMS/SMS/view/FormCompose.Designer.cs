@@ -40,6 +40,7 @@
             this.btnSent = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.butClosse = new System.Windows.Forms.Button();
+            this.txtLog = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.piboCompose)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,13 +168,23 @@
             this.butClosse.UseVisualStyleBackColor = false;
             this.butClosse.Click += new System.EventHandler(this.butClosse_Click);
             // 
+            // txtLog
+            // 
+            this.txtLog.Location = new System.Drawing.Point(5, 232);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.Size = new System.Drawing.Size(556, 75);
+            this.txtLog.TabIndex = 167;
+            // 
             // FormCompose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(566, 229);
+            this.ClientSize = new System.Drawing.Size(566, 312);
+            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.butClosse);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSent);
@@ -209,6 +220,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button butClosse;
         public System.Windows.Forms.TextBox txtMessage;
+        private System.Windows.Forms.TextBox txtLog;
         
     }
 }
