@@ -1669,7 +1669,7 @@ BEGIN
 END 
 
 select * from LoaiTaiKhoanSMS
-exec sp_SMS_UpdateLoaiTaiKhoanSMSByID 1,'DK_3_Ngay',50000,'Dang ky theo tuan (nhan thong tin theo tuan)',getdate(),'','','','',''
+--exec sp_SMS_UpdateLoaiTaiKhoanSMSByID 1,'DK_3_Ngay',50000,'Dang ky theo tuan (nhan thong tin theo tuan)',getdate(),'','','','',''
 GO
 
 --sp_SMS_UpdateTaiKhoanSMSByID.sql
