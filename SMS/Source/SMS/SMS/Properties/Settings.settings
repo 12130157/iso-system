@@ -18,5 +18,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=NVNUOI;Persist Security Info=True;Password=301336634;User ID=sa;Initial Catalog=GSM</Value>
     </Setting>
+    <Setting Name="GSMConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=NVNUOI;Initial Catalog=GSM;Persist Security Info=True;User ID=sa;Password=301336634&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=NVNUOI;Initial Catalog=GSM;Persist Security Info=True;User ID=sa;Password=301336634</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
