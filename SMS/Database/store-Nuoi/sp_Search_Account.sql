@@ -34,6 +34,7 @@ BEGIN
 		   ,LTK.Ten as 'Ten loai TK SMS',convert(varchar,Ngay_dang_ky , 103) as 'Ngay dang ky',Ghi_chu as'Ghi chu'
 			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 		WHERE Ma_sinh_vien = @ma_sinh_vien 
+		order by TK.ID desc
 	END
 	ELSE IF @So_dien_thoai <> '' AND @ma_sinh_vien <> ''
 	BEGIN
@@ -43,6 +44,7 @@ BEGIN
 			from (TaiKhoanSMS TK inner join LoaiTaiKhoanSMS LTK on TK.Loai_tai_khoan=LTK.ID)
 		WHERE  So_dien_thoai like '%' + @So_dien_thoai + '%' 
 			AND Ma_sinh_vien = @ma_sinh_vien 
+		order by TK.ID desc
 	END
 END
 --select * from TaiKhoanSMS
