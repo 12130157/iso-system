@@ -888,9 +888,33 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
+                ArrayList listDSMonHoc;
+                ArrayList listMonHoc;
+                MonHoc monHoc;
+                string tenMonHocTruoc = "";
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
+                    if (tenMonHocTruoc != row["Ten_Mon_Hoc"].ToString())
+                    {
+                        listMonHoc = new ArrayList();
+
+                        monHoc = new MonHoc();
+
+                        monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
+                        monHoc.TenBaiKT = row["Ten Bai KT"].ToString();
+                        monHoc.Diem = row["Diem"].ToString();
+                        monHoc.HocKi = row["Hoc_Ki"].ToString();
+                        monHoc.DiemTB = row["Diem_Trung_Binh"].ToString();
+
+                        listMonHoc.Add(monHoc);
+                    }
+                    else
+                    {
+                        
+                        
+                    }
+                    tenMonHocTruoc = row["Ten Mon Hoc"].ToString();
+                    //result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
                 }
             }
             else
@@ -1147,50 +1171,46 @@ namespace SMS
         }
 
         #endregion
+    }
+    class MonHoc
+    {
+        string tenMonHoc;
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    string maSinhVien = "an_ntt.hva";
-        //    string tenMonHoc = "ctri";
+        public string TenMonHoc
+        {
+          get { return tenMonHoc; }
+          set { tenMonHoc = value; }
+        }
 
-        //    string result = getStringDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
-        //    MessageBox.Show(result);
-        //}
+        string tenBaiKT;
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    string maSinhVien = "bai_ls.hv";
-        //    string tenMonHoc = "mcb";
+        public string TenBaiKT
+        {
+            get { return tenBaiKT; }
+            set { tenBaiKT = value; }
+        }
 
-       
+        string diem;
 
-        //    DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
-        //    MessageBox.Show(tbl.Rows.Count.ToString());
-        //}
+        public string Diem
+        {
+            get { return diem; }
+            set { diem = value; }
+        }
+        string hocKi;
 
+        public string HocKi
+        {
+            get { return hocKi; }
+            set { hocKi = value; }
+        }
 
+        string diemTB;
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    string hk = "hfdkjhfkjdshfksfhsakjfhskdj";
-
-        //    if (Validattion.isSemester(hk) == true)
-        //    {
-        //        MessageBox.Show("La Hoc Ki");
-        //    }
-        //    else if (Validattion.isSubject(hk) == true)
-        //    {
-        //        MessageBox.Show("La Mon Hoc");
-        //    }
-        //    else if (Validattion.isYear(hk) == true)
-        //    {
-        //        MessageBox.Show("La Nam Hoc");
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Khong La Gi Het");
-        //    }
-        //}
-
-    } 
+        public string DiemTB
+        {
+            get { return diemTB; }
+            set { diemTB = value; }
+        }
+    }
 }
