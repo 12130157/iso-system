@@ -78,7 +78,7 @@
             this.groupBox1.Controls.Add(this.but_Close);
             this.groupBox1.Controls.Add(this.but_Add);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(22, 1);
+            this.groupBox1.Location = new System.Drawing.Point(22, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(556, 251);
             this.groupBox1.TabIndex = 20;
@@ -90,6 +90,7 @@
             this.lbl_TitleAccount.AutoSize = true;
             this.lbl_TitleAccount.BackColor = System.Drawing.Color.Transparent;
             this.lbl_TitleAccount.Font = new System.Drawing.Font("Times New Roman", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TitleAccount.ForeColor = System.Drawing.Color.Red;
             this.lbl_TitleAccount.Location = new System.Drawing.Point(128, 6);
             this.lbl_TitleAccount.Name = "lbl_TitleAccount";
             this.lbl_TitleAccount.Size = new System.Drawing.Size(291, 32);
@@ -310,10 +311,11 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(599, 261);
+            this.ClientSize = new System.Drawing.Size(599, 265);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "FormAddAccount";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "FormAddAccount";
             this.Load += new System.EventHandler(this.FormAddAccount_Load);
             this.groupBox1.ResumeLayout(false);

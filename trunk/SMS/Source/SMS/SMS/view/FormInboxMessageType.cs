@@ -17,6 +17,7 @@ namespace SMS
     {
         LoaiHopThuDAO loaHopThuDao = new LoaiHopThuDAO();
         LoaiHopThuMODEL loaiHopThuModel = new LoaiHopThuMODEL();
+        String lblTenHopThu = "";
         public FormInboxMessageType()
         {
             InitializeComponent();
@@ -35,7 +36,8 @@ namespace SMS
         private void dlv_InboxType_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             common.Constants.id = dlv_InboxType.CurrentRow.Cells["Ma Hop Thu"].Value.ToString();
-            lbl_YouChoose.Text = "Bạn chọn mã hộp thư là: " + common.Constants.id;
+            lblTenHopThu=dlv_InboxType.CurrentRow.Cells["Ten hop thu"].Value.ToString();
+            lbl_YouChoose.Text = "Bạn chọn mã hộp thư là: " + common.Constants.id + ", tên hộp thư là: " + lblTenHopThu;
             but_Edit.Enabled = true;
             but_Delete.Enabled = true;
         }
@@ -67,22 +69,25 @@ namespace SMS
             }
             else
             {
-                bool result = LoaiHopThuDAO.updateLoaiHopThuById(loaiHopThuModel);
-                if (result == true)
+                if (MessageBox.Show("Bạn có muốn cập nhật? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    FormInboxMessageType_Load(sender, e);
-                    Constants.choose = 0;
-                    Constants.id = "";
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật thất bại!!!!! ","Thông Báo", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    bool result = LoaiHopThuDAO.updateLoaiHopThuById(loaiHopThuModel);
+                    if (result == true)
+                    {
+                        FormInboxMessageType_Load(sender, e);
+                        Constants.choose = 0;
+                        Constants.id = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại!!!!! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             txt_IDInbox.Text = "";
             txt_NameInbox.Text = "";
             txt_Note.Text = "";
-            but_Add.Enabled = true;
+
             but_Edit.Enabled = false;
             but_Delete.Enabled = false;
         }
@@ -93,7 +98,7 @@ namespace SMS
             FormInboxMessageType_Load(sender, e);
             but_Edit.Enabled = false;
             but_Delete.Enabled = false;
-            but_Add.Enabled = true;
+            //but_Add.Enabled = true;
             txt_IDInbox.Text = "";
             txt_NameInbox.Text = "";
             txt_Note.Text = "";
@@ -130,12 +135,12 @@ namespace SMS
                 }
                 else
                 {
-                    FormInboxMessageType_Load(sender, e);
+                    //FormInboxMessageType_Load(sender, e);
                 }
             }
             but_Edit.Enabled = false;
             but_Delete.Enabled = false;
-            but_Add.Enabled = true;
+            //but_Add.Enabled = true;
         }
 
         private void but_Edit_Click(object sender, EventArgs e)
@@ -163,5 +168,6 @@ namespace SMS
             string name = txt_EnterTen.Text.ToString();
             dlv_InboxType.DataSource = LoaiHopThuDAO.getTenLoaiHopThu(name);
         }
+
     }
 }

@@ -64,9 +64,9 @@
             this.grp_DetailAccount.Controls.Add(this.but_Edit);
             this.grp_DetailAccount.Controls.Add(this.dgv_AccountDetail);
             this.grp_DetailAccount.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grp_DetailAccount.Location = new System.Drawing.Point(12, 65);
+            this.grp_DetailAccount.Location = new System.Drawing.Point(14, 48);
             this.grp_DetailAccount.Name = "grp_DetailAccount";
-            this.grp_DetailAccount.Size = new System.Drawing.Size(633, 274);
+            this.grp_DetailAccount.Size = new System.Drawing.Size(524, 240);
             this.grp_DetailAccount.TabIndex = 0;
             this.grp_DetailAccount.TabStop = false;
             // 
@@ -83,9 +83,9 @@
             this.pnl_Add.Controls.Add(this.txt_RegistrationMonth);
             this.pnl_Add.Controls.Add(this.label6);
             this.pnl_Add.Controls.Add(this.label4);
-            this.pnl_Add.Location = new System.Drawing.Point(140, 46);
+            this.pnl_Add.Location = new System.Drawing.Point(86, 45);
             this.pnl_Add.Name = "pnl_Add";
-            this.pnl_Add.Size = new System.Drawing.Size(344, 157);
+            this.pnl_Add.Size = new System.Drawing.Size(332, 123);
             this.pnl_Add.TabIndex = 6;
             // 
             // but_Close2
@@ -94,7 +94,7 @@
             this.but_Close2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Close2.Image = ((System.Drawing.Image)(resources.GetObject("but_Close2.Image")));
             this.but_Close2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Close2.Location = new System.Drawing.Point(184, 114);
+            this.but_Close2.Location = new System.Drawing.Point(178, 97);
             this.but_Close2.Name = "but_Close2";
             this.but_Close2.Size = new System.Drawing.Size(97, 23);
             this.but_Close2.TabIndex = 181;
@@ -108,7 +108,7 @@
             this.but_Ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Ok.Image = ((System.Drawing.Image)(resources.GetObject("but_Ok.Image")));
             this.but_Ok.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Ok.Location = new System.Drawing.Point(67, 114);
+            this.but_Ok.Location = new System.Drawing.Point(61, 97);
             this.but_Ok.Name = "but_Ok";
             this.but_Ok.Size = new System.Drawing.Size(97, 23);
             this.but_Ok.TabIndex = 181;
@@ -121,7 +121,8 @@
             this.lb_tilte.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lb_tilte.AutoSize = true;
             this.lb_tilte.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_tilte.Location = new System.Drawing.Point(73, 10);
+            this.lb_tilte.ForeColor = System.Drawing.Color.Red;
+            this.lb_tilte.Location = new System.Drawing.Point(57, 6);
             this.lb_tilte.Name = "lb_tilte";
             this.lb_tilte.Size = new System.Drawing.Size(208, 24);
             this.lb_tilte.TabIndex = 180;
@@ -130,10 +131,10 @@
             // txt_Registrationyear
             // 
             this.txt_Registrationyear.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_Registrationyear.Location = new System.Drawing.Point(141, 77);
+            this.txt_Registrationyear.Location = new System.Drawing.Point(160, 60);
             this.txt_Registrationyear.MaxLength = 4;
             this.txt_Registrationyear.Name = "txt_Registrationyear";
-            this.txt_Registrationyear.Size = new System.Drawing.Size(164, 22);
+            this.txt_Registrationyear.Size = new System.Drawing.Size(115, 22);
             this.txt_Registrationyear.TabIndex = 178;
             this.txt_Registrationyear.TextChanged += new System.EventHandler(this.txt_Registrationyear_TextChanged);
             this.txt_Registrationyear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Registrationyear_KeyPress);
@@ -142,10 +143,10 @@
             // txt_RegistrationMonth
             // 
             this.txt_RegistrationMonth.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_RegistrationMonth.Location = new System.Drawing.Point(141, 50);
+            this.txt_RegistrationMonth.Location = new System.Drawing.Point(160, 33);
             this.txt_RegistrationMonth.MaxLength = 2;
             this.txt_RegistrationMonth.Name = "txt_RegistrationMonth";
-            this.txt_RegistrationMonth.Size = new System.Drawing.Size(164, 22);
+            this.txt_RegistrationMonth.Size = new System.Drawing.Size(115, 22);
             this.txt_RegistrationMonth.TabIndex = 179;
             this.txt_RegistrationMonth.TextChanged += new System.EventHandler(this.txt_RegistrationMonth_TextChanged);
             this.txt_RegistrationMonth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_RegistrationMonth_KeyPress);
@@ -155,7 +156,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(34, 80);
+            this.label6.Location = new System.Drawing.Point(58, 63);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(80, 15);
             this.label6.TabIndex = 176;
@@ -165,7 +166,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 53);
+            this.label4.Location = new System.Drawing.Point(58, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 15);
             this.label4.TabIndex = 177;
@@ -177,7 +178,7 @@
             this.but_Add.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Add.Image = ((System.Drawing.Image)(resources.GetObject("but_Add.Image")));
             this.but_Add.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Add.Location = new System.Drawing.Point(158, 243);
+            this.but_Add.Location = new System.Drawing.Point(40, 209);
             this.but_Add.Name = "but_Add";
             this.but_Add.Size = new System.Drawing.Size(110, 25);
             this.but_Add.TabIndex = 5;
@@ -190,10 +191,11 @@
             this.lblYouChoose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblYouChoose.AutoSize = true;
             this.lblYouChoose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYouChoose.Location = new System.Drawing.Point(12, 227);
+            this.lblYouChoose.Location = new System.Drawing.Point(37, 193);
             this.lblYouChoose.Name = "lblYouChoose";
-            this.lblYouChoose.Size = new System.Drawing.Size(0, 13);
+            this.lblYouChoose.Size = new System.Drawing.Size(65, 13);
             this.lblYouChoose.TabIndex = 4;
+            this.lblYouChoose.Text = "Bạn chọn:";
             // 
             // but_Close
             // 
@@ -201,7 +203,7 @@
             this.but_Close.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Close.Image = ((System.Drawing.Image)(resources.GetObject("but_Close.Image")));
             this.but_Close.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Close.Location = new System.Drawing.Point(506, 243);
+            this.but_Close.Location = new System.Drawing.Point(388, 209);
             this.but_Close.Name = "but_Close";
             this.but_Close.Size = new System.Drawing.Size(110, 25);
             this.but_Close.TabIndex = 1;
@@ -216,7 +218,7 @@
             this.but_Delete.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Delete.Image = ((System.Drawing.Image)(resources.GetObject("but_Delete.Image")));
             this.but_Delete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Delete.Location = new System.Drawing.Point(390, 243);
+            this.but_Delete.Location = new System.Drawing.Point(272, 209);
             this.but_Delete.Name = "but_Delete";
             this.but_Delete.Size = new System.Drawing.Size(110, 25);
             this.but_Delete.TabIndex = 1;
@@ -231,7 +233,7 @@
             this.but_Edit.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.but_Edit.Image = ((System.Drawing.Image)(resources.GetObject("but_Edit.Image")));
             this.but_Edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.but_Edit.Location = new System.Drawing.Point(274, 243);
+            this.but_Edit.Location = new System.Drawing.Point(156, 209);
             this.but_Edit.Name = "but_Edit";
             this.but_Edit.Size = new System.Drawing.Size(110, 25);
             this.but_Edit.TabIndex = 1;
@@ -241,6 +243,8 @@
             // 
             // dgv_AccountDetail
             // 
+            this.dgv_AccountDetail.AllowUserToAddRows = false;
+            this.dgv_AccountDetail.AllowUserToDeleteRows = false;
             this.dgv_AccountDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -248,7 +252,10 @@
             this.dgv_AccountDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_AccountDetail.Location = new System.Drawing.Point(15, 19);
             this.dgv_AccountDetail.Name = "dgv_AccountDetail";
-            this.dgv_AccountDetail.Size = new System.Drawing.Size(601, 205);
+            this.dgv_AccountDetail.ReadOnly = true;
+            this.dgv_AccountDetail.RowHeadersVisible = false;
+            this.dgv_AccountDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_AccountDetail.Size = new System.Drawing.Size(492, 171);
             this.dgv_AccountDetail.TabIndex = 0;
             this.dgv_AccountDetail.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_AccountDetail_CellMouseClick);
             // 
@@ -257,10 +264,11 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(134, 9);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(94, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(378, 36);
+            this.label1.Size = new System.Drawing.Size(338, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Thông Tin Tháng Đăng ký";
             // 
@@ -270,11 +278,12 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(659, 351);
+            this.ClientSize = new System.Drawing.Size(550, 300);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grp_DetailAccount);
+            this.MaximizeBox = false;
             this.Name = "FormDetailAccount";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Chi Tiet Tai Khoan SMS";
             this.Load += new System.EventHandler(this.FormDetailAccount_Load);
             this.grp_DetailAccount.ResumeLayout(false);

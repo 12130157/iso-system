@@ -56,11 +56,15 @@
             this.dgv_Account.AllowUserToAddRows = false;
             this.dgv_Account.AllowUserToDeleteRows = false;
             this.dgv_Account.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dgv_Account.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgv_Account.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgv_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Account.ContextMenuStrip = this.menu_Context;
             this.dgv_Account.Location = new System.Drawing.Point(375, 52);
             this.dgv_Account.Name = "dgv_Account";
+            this.dgv_Account.ReadOnly = true;
             this.dgv_Account.RowHeadersVisible = false;
+            this.dgv_Account.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_Account.Size = new System.Drawing.Size(387, 201);
             this.dgv_Account.TabIndex = 3;
             this.dgv_Account.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_Account_CellMouseClick);
@@ -214,6 +218,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(131, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(532, 32);
@@ -241,7 +246,7 @@
             this.Controls.Add(this.lbl_choose);
             this.MaximizeBox = false;
             this.Name = "FormAddTypeSMS";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Them Loai Tai Khoan SMS";
             this.Load += new System.EventHandler(this.FormAddTypeSMS_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Account)).EndInit();

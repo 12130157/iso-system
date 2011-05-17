@@ -22,6 +22,8 @@ namespace SMS
             TaiKhoanSmsDAO taikhoanSMSDao = new TaiKhoanSmsDAO();
             string phone = "";
             String id = "";
+            String lblSo_Dien_Thoai = "";
+            int edit = 0;
         #endregion
 
         #region Xu kien double Click
@@ -110,6 +112,7 @@ namespace SMS
                     }
                     else
                     {
+                        edit = 1;
                         common.Constants.choose = 2;
                         view.FormAddAccount fr = new view.FormAddAccount();
                         fr.MdiParent = this.MdiParent;
@@ -140,9 +143,17 @@ namespace SMS
                             bool result1 = taikhoanSMSDao.deleteTaiKhoanSMS(Convert.ToInt32(common.Constants.id));
                             if (result == true && result1 == true)
                             {
-                                FormManageAccount_Load(sender, e);
-
-                                common.Constants.id = "";
+                                if (edit == 1)
+                                {
+                                    txt_StudentID_TextChanged(sender, e);
+                                    txt_Numberphone_TextChanged(sender, e);
+                                    edit = 0;
+                                }
+                                else
+                                {
+                                    FormManageAccount_Load(sender, e);
+                                    common.Constants.id = "";
+                                }
                             }
                             else
                             {
@@ -169,7 +180,9 @@ namespace SMS
                 try
                 {
                     common.Constants.id = dgv_manageAccount.CurrentRow.Cells["Ma TK SMS"].Value.ToString();
-                    lblYouChoose.Text = "Bạn đang chọn dòng có Mã Tài Khoản là: " + common.Constants.id;
+                    lblSo_Dien_Thoai = dgv_manageAccount.CurrentRow.Cells["So dien thoai"].Value.ToString();
+                    lblYouChoose.Text = "Bạn đang chọn dòng có Mã Tài Khoản là: " + common.Constants.id + ", Số Điện thoai: " + lblSo_Dien_Thoai;
+
                     but_Delete.Enabled = true;
                     but_Details.Enabled = true;
                     but_Edit.Enabled = true;
@@ -178,7 +191,6 @@ namespace SMS
                 {
                     throw;
                 }
-               
             }
 
             private void Enablebut()
@@ -191,17 +203,26 @@ namespace SMS
 
             private void FormManageAccount_Activated(object sender, EventArgs e)
             {
-                FormManageAccount_Load(sender, e);
+                if (edit == 1)
+                {
+                    txt_Numberphone_TextChanged(sender, e);
+                    txt_StudentID_TextChanged(sender, e);
+                    edit = 0;
+                }
+                else
+                {
+                    FormManageAccount_Load(sender, e);
+                }
+                Enablebut();
             }
 
             private void txt_Numberphone_TextChanged(object sender, EventArgs e)
             {
                 try
                 {
-                  
                     phone = txt_Numberphone.Text;
                     id = txt_StudentID.Text;
-
+                    edit = 1;
                     dgv_manageAccount.DataSource = taikhoanSMSDao.getPhoneIDAllDRVTaiKhoanSMS(phone, id);
                     //txt_StudentID.Text = "";
                     //txt_Numberphone.Text = "";
@@ -219,7 +240,7 @@ namespace SMS
                     
                     phone = txt_Numberphone.Text;
                     id = txt_StudentID.Text;
-
+                    edit = 1;
                     dgv_manageAccount.DataSource = taikhoanSMSDao.getPhoneIDAllDRVTaiKhoanSMS(phone, id);
                     //txt_StudentID.Text = "";
                     //txt_Numberphone.Text = "";
@@ -227,6 +248,22 @@ namespace SMS
                 catch (Exception)
                 {
                     throw;
+                }
+            }
+
+            private void txt_StudentID_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            private void txt_Numberphone_KeyPress(object sender, KeyPressEventArgs e)
+            {
+                if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
                 }
             }
 

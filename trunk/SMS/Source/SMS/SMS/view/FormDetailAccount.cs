@@ -76,7 +76,7 @@ namespace SMS.view
                 else
                 {
                     pnl_Add.Visible = true;
-                    lb_tilte.Text = "Cập Nhật Thông Tin Tài Khoản";
+                    lb_tilte.Text = "Cập Nhật Thông Tin TK";
                     but_Ok.Text = "Cập Nhật";
                     ctTaiKhoanSMSModel = ctTaiKhoanSMSDao.getChiTietTaiKhoanSMSByID(Convert.ToInt32(common.Constants.idDetail));
                     txt_RegistrationMonth.Text = ctTaiKhoanSMSModel.Dang_Ki_Thang;
@@ -123,6 +123,7 @@ namespace SMS.view
                                 else
                                 {
                                     MessageBox.Show("Không thể Xóa!!! ");
+                                    FormDetailAccount_Load(sender, e);
                                 }
                             }
                             catch (Exception ex)
@@ -174,15 +175,18 @@ namespace SMS.view
                             ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
                             ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
                             ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                            bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
-                            if (result == true)
+                            if (MessageBox.Show("Bạn có muốn cập nhật? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                FormDetailAccount_Load(sender, e);
-                                pnl_Add.Visible = false;
-                                common.Constants.chooseUpdate = 0;
+                                bool result = ctTaiKhoanSMSDao.updateChiTietTaiKhoanSMS(ctTaiKhoanSMSModel);
+                                if (result == true)
+                                {
+                                    FormDetailAccount_Load(sender, e);
+                                    pnl_Add.Visible = false;
+                                    common.Constants.chooseUpdate = 0;
+                                }
+                                else
+                                { MessageBox.Show("Cập nhật thất bại!!!  "); }
                             }
-                            else
-                            { MessageBox.Show("Cập nhật thất bại!!!  "); }
                         }
                         catch (Exception ex)
                         {
@@ -196,23 +200,23 @@ namespace SMS.view
                             ctTaiKhoanSMSModel.Ma_Tai_Khoan_Sms = common.Constants.id;
                             ctTaiKhoanSMSModel.Dang_Ki_Thang = txt_RegistrationMonth.Text.ToString();
                             ctTaiKhoanSMSModel.Dang_Ki_Nam = txt_Registrationyear.Text.ToString();
-                            bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
-                            if (result == true)
-                            {
+                              bool result = ctTaiKhoanSMSDao.insertChiTietTaiKhoan(ctTaiKhoanSMSModel);
+                                if (result == true)
+                                {
                                     //FormDetailAccount_Load(sender, e);
                                     txt_RegistrationMonth.Text = "";
                                     txt_Registrationyear.Text = "";
-                                
+
                                     FormDetailAccount_Load(sender, e);
                                     pnl_Add.Visible = false;
-                               
+
+                                }
+                                else
+                                { MessageBox.Show("Thêm mới thất bại!  ,Vui lòng kiểm tra lại  "); }
                             }
-                            else
-                            { MessageBox.Show("Thêm mới thất bại!  ,Vui lòng kiểm tra lại  "); }
-                        }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(Convert.ToString(ex));
+                            MessageBox.Show(Convert.ToString(ex)); 
                         }
                     }
                 }

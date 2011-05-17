@@ -27,6 +27,7 @@ namespace SMS.view
         {
             dgv_Account.DataSource = loaitaikhoansmsDao.getAllLoaiTaiKhoanSMS2();
             txt_TypeAccount.Focus();
+            lbl_choose.Text = "Bạn chọn dòng: ";
         }
 
         private void dgv_Account_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -50,20 +51,23 @@ namespace SMS.view
                 loaitaikhoansmsModel.Ten = txt_TypeAccount.Text;
                 loaitaikhoansmsModel.Phi_Dich_Vu = txt_ServiceCharges.Text;
                 loaitaikhoansmsModel.Ghi_Chu = txt_Note.Text;
-                Boolean result = loaitaikhoansmsDao.updateLoaiTaiKhoanSMSById(loaitaikhoansmsModel);
-                if (result == true)
+                if (MessageBox.Show("bạn có muốn cập nhật? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    FormAddTypeSMS_Load(sender, e);
-                    but_CapNhat.Enabled = false;
-                    but_Xoa.Enabled = false;
-                    txt_TypeAccount.Text = "";
-                    txt_ServiceCharges.Text = "";
-                    txt_Note.Text = "";
-                    Constants.id = "";
-                }
-                else
-                {
-                    MessageBox.Show(" Cập nhật thất bại! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Boolean result = loaitaikhoansmsDao.updateLoaiTaiKhoanSMSById(loaitaikhoansmsModel);
+                    if (result == true)
+                    {
+                        FormAddTypeSMS_Load(sender, e);
+                        but_CapNhat.Enabled = false;
+                        but_Xoa.Enabled = false;
+                        txt_TypeAccount.Text = "";
+                        txt_ServiceCharges.Text = "";
+                        txt_Note.Text = "";
+                        Constants.id = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show(" Cập nhật thất bại! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             catch (Exception)
@@ -85,6 +89,7 @@ namespace SMS.view
                 txt_Note.Text = "";
                 txt_ServiceCharges.Text = "";
                 txt_TypeAccount.Text = "";
+                but_Add.Enabled = false;
             }
             else
             {
@@ -158,6 +163,7 @@ namespace SMS.view
                     if (result == false)
                     {
                         MessageBox.Show("Không thể xóa! ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        FormAddTypeSMS_Load(sender, e);
                     }
                     else
                     {
@@ -179,6 +185,7 @@ namespace SMS.view
                     txt_ServiceCharges.Text = "";
                     txt_Note.Text = "";
                     Constants.id = "";
+                    lbl_choose.Text = "Bạn chọn dòng: ";
                 }
             }
         }

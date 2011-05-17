@@ -296,16 +296,19 @@ namespace SMS.view
                             cuPhapModel.Cum_Tu_9 = txtKeyword9.Text.ToString();
                             cuPhapModel.Cum_Tu_10 = txtKeyword10.Text.ToString();
                             cuPhapModel.Ghi_Chu = txt_Note.Text.ToString();
-                            Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
-                            if (result == true)
+                            if (MessageBox.Show("bạn có muốn cập nhật? ", "Thông Báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                //fomKeyword.MdiParent = this.MdiParent;
-                                //fomKeyword.Show();
-                                this.Visible = false;
-                            }
-                            else
-                            {
-                                DialogResult mess = MessageBox.Show("Cập nhật thất bại");
+                                Boolean result = cuphapDao.updateCuPhap(cuPhapModel);
+                                if (result == true)
+                                {
+                                    //fomKeyword.MdiParent = this.MdiParent;
+                                    //fomKeyword.Show();
+                                    this.Visible = false;
+                                }
+                                else
+                                {
+                                    DialogResult mess = MessageBox.Show("Cập nhật thất bại");
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -443,9 +446,6 @@ namespace SMS.view
             }
            #endregion
 
-            private void txt_Name_Validating(object sender, CancelEventArgs e)
-            {
-            }
             //public bool ValidEmailAddress(string emailAddress, out string errorMessage)
             //{
             //    // Confirm that the e-mail address string is not empty.

@@ -147,6 +147,7 @@ namespace SMS.view
                     taiKhoanSMSModel.Loai_Tai_Khoan = objKeyValuePair.m_objKey.ToString();
                     loaiTaiKhoanSMSModel = loaiTaiKhoanSMSDao.getLoaiTaiKhoanSMSByID(id);
                     txt_ServiceCharges.Text = loaiTaiKhoanSMSModel.Phi_Dich_Vu;
+                    txt_Note.Text = loaiTaiKhoanSMSModel.Ghi_Chu;
                 }
                 dtp_NgayDangKy.Enabled = true;
             }
