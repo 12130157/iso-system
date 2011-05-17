@@ -49,6 +49,7 @@ namespace SMS
                 else
                 {
                     Application.Exit();
+                    Environment.Exit(0);
                     Dispose();
                 }
             }
@@ -61,6 +62,12 @@ namespace SMS
                 connect.closeConnect();
             }
             Dispose();
+        }
+
+        private void frmConn_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }

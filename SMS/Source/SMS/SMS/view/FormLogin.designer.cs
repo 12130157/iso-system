@@ -154,7 +154,7 @@ namespace SMS
             this.lbTieuDe.ForeColor = System.Drawing.Color.DarkRed;
             this.lbTieuDe.Location = new System.Drawing.Point(115, 13);
             this.lbTieuDe.Name = "lbTieuDe";
-            this.lbTieuDe.Size = new System.Drawing.Size(314, 36);
+            this.lbTieuDe.Size = new System.Drawing.Size(315, 36);
             this.lbTieuDe.TabIndex = 0;
             this.lbTieuDe.Text = "Đăng Nhập Hệ Thống";
             // 
@@ -172,6 +172,7 @@ namespace SMS
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin Login ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLogin_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

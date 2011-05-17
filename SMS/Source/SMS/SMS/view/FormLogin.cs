@@ -63,8 +63,15 @@ namespace SMS
             if (MessageBox.Show("Ban co chac chan thoat khoi ung dung ?", "Xac Nhan Thoat .", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Application.Exit();
+                Environment.Exit(0);
                 Dispose();
             }
+        }
+
+        private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }

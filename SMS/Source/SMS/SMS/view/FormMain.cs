@@ -148,8 +148,18 @@ namespace SMS
 
         private DecodedShortMessage[] readMessages(string storage)
         {
-            DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
-            return messagesFn;
+            try
+            {
+                DecodedShortMessage[] messagesFn = common.Constants.comm.ReadMessages(PhoneMessageStatus.ReceivedUnread, storage);
+                return messagesFn;
+            }
+            catch (Exception e)
+            {
+                txtLog.Invoke(new errorCatchMessDelegate(errorCatchMess), e, "readMessages");
+                return null;
+            }
+
+            
         }
 
         private SmsDeliverPdu covertMessRead(DecodedShortMessage message)
@@ -831,10 +841,21 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
             if (tbl != null)
             {
+                result += tbl.Rows[0].ItemArray[0] + ":\n";
                 foreach (DataRow row in tbl.Rows)
                 {
-                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
+                    string diem;
+                    if (row["Diem"].ToString().Equals(""))
+                    {
+                         diem = "chua co ";
+                    }
+                    else
+                    {
+                        diem = row["Diem"].ToString();
+                    }
+                    result += row["Ten Bai KT"] + "/" + diem + "d/HK" + row["Hoc_Ki"] + "\n";
                 }
+                result += "TB Mon : " + tbl.Rows[0].ItemArray[4];
             }
             else
             {
@@ -1126,6 +1147,15 @@ namespace SMS
         }
 
         #endregion
+
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    string maSinhVien = "an_ntt.hva";
+        //    string tenMonHoc = "ctri";
+
+        //    string result = getStringDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
+        //    MessageBox.Show(result);
+        //}
 
         //private void button1_Click(object sender, EventArgs e)
         //{
