@@ -165,7 +165,7 @@
 												<td style="text-align:center;width:150px"> Từ ${tuanLeObj.tuNgay} đến ${tuanLeObj.denNgay}
 												<td style="text-align:center;width:40px">
 														<c:if test="${obj1.coHieu eq coHieuLT}">
-															5
+															${KHGD.soTietMoiBuoi}
 														</c:if>
 														<c:if test="${obj1.coHieu eq coHieuTH}">
 															0
@@ -181,10 +181,10 @@
 															0
 														</c:if>
 														<c:if test="${obj1.coHieu eq coHieuTH}">
-															5
+															${KHGD.soTietMoiBuoi}
 														</c:if>
 														<c:if test="${obj1.coHieu ne coHieuLT and obj1.coHieu ne coHieuTH}">
-															5
+															${KHGD.soTietMoiBuoi}
 														</c:if>
 												</td>
 												
