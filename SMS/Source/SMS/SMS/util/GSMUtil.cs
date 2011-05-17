@@ -20,21 +20,14 @@ namespace SMS
             {
                 Cursor.Current = Cursors.WaitCursor;
 
-                common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
-
-                Cursor.Current = Cursors.Default;
-
-                //common.Constants.comm.PhoneConnected += new EventHandler(comm_PhoneConnected);
-                //common.Constants.comm.MessageReceived += new MessageReceivedEventHandler(comm_MessageReceived);
-
-                ////send message
-                //Thread thr = new Thread(phoneConnected);
-                //thr.Start();
-                ////receice message
-                //Thread thr1 = new Thread(messageRecieved);
-                //thr1.Start();
-
-                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    common.Constants.comm = new GsmCommMain(port, baudRate, timeout);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
 
                 common.Constants.comm.Open();
 
@@ -68,6 +61,8 @@ namespace SMS
         public void closeConnect()
         {
             common.Constants.comm.Close();
+            Application.Exit();
+            Environment.Exit(0);
         }
 
         private delegate void ConnectedHandler(bool connected);
