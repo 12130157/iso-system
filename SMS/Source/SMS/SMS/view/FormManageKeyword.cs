@@ -16,6 +16,8 @@ namespace SMS
     {
         CuPhapMODEL cuphapmodel = new CuPhapMODEL();
         CuPhapDAO cuphapdao = new CuPhapDAO();
+        String lblCuPhap = "";
+        int edit = 0;
 
         public FormManageKeyword()
         {
@@ -42,12 +44,13 @@ namespace SMS
         {
             ArrayList arry = cuphapdao.getAllKeywordCuPhap();
             cbo_Name.Items.Clear();
-            cbo_Name.Items.Add("");
+            cbo_Name.Items.Add("All");
             foreach (CuPhapMODEL cuphap in arry)
             {
                 cbo_Name.Items.Add(cuphap.Cum_Tu_1).ToString();
                 //cbo_Keyword.Items.Add(cuphap.Cum_Tu_1).ToString();
             }
+            cbo_Keyword.SelectedIndex = -1;
         }
 
         #endregion
@@ -71,18 +74,28 @@ namespace SMS
 
         private void cbo_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!cbo_Name.Text.Equals("All"))
+            {
+                edit = 1;
                 cbo_Keyword.Items.Clear();
-                cbo_Keyword.Text = "";
-            
+                cbo_Keyword.Text = "All";
+                cbo_Keyword.Enabled = true;
                 ArrayList arry = cuphapdao.getAllKeyword1CuPhap(cbo_Name.Text.ToString());
-                cbo_Keyword.Items.Add("");
+                cbo_Keyword.Items.Add("All");
                 foreach (CuPhapMODEL cuphap in arry)
                 {
                     cbo_Keyword.Items.Add(cuphap.Cum_Tu_2).ToString();
                 }
                 dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
 
-            
+            }
+            else
+            {
+                cbo_Keyword.Items.Clear();
+                cbo_Keyword.Enabled = false;
+                cbo_Keyword.Text = "All";
+                dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
+            }
           
         }
 
@@ -106,7 +119,9 @@ namespace SMS
             }
             else
             {
+                edit = 1;
                 common.Constants.choose = 2;
+                lblYouChoose.Text = "Bạn chọn dòng: ";
                 view.FormAddKey fr = new view.FormAddKey();
                 fr.MdiParent = this.MdiParent;
                 but_Edit.Enabled = false;
@@ -130,23 +145,34 @@ namespace SMS
                         Boolean result = cuphapdao.deleteCuPhap(Convert.ToInt32(common.Constants.id));
                         if (result.Equals(true))
                         {
-
-                            loadGrid();
-                            common.Constants.id = "";
-                            lblYouChoose.Text = "Chọn Dòng: ";
-                            but_Edit.Enabled = false;
-                            but_Delete.Enabled = false;
+                            if (edit == 1)
+                            {
+                                cbo_Keyword_SelectedIndexChanged(sender, e);
+                                edit = 0;
+                            }
+                            else
+                            {
+                                loadGrid();
+                                LoadCbo();
+                                common.Constants.id = "";
+                                lblYouChoose.Text = "Chọn Dòng: ";
+                                but_Edit.Enabled = false;
+                                but_Delete.Enabled = false;
+                            }
                         }
                         else
                         {
                             MessageBox.Show("Không thể Xóa ");
+                            loadGrid();
+                            LoadCbo();
                         }
                     }
                     else
                     {
-                        loadGrid();
+                        //LoadCbo();
                     }
                 }
+                lblYouChoose.Text = "Bạn chọn dòng: ";
             }
             catch (Exception ex)
             {
@@ -161,13 +187,16 @@ namespace SMS
 
         private void cbo_Keyword_SelectedIndexChanged(object sender, EventArgs e)
         {
+            edit = 1;
             dlv_ManageKeyword.DataSource = CuPhapDAO.getTenDRVCuPhapByID(cbo_Name.Text.ToString(), cbo_Keyword.Text.ToString());
         }
 
         private void dlv_ManageKeyword_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             common.Constants.id = dlv_ManageKeyword.CurrentRow.Cells["Ma cu phap"].Value.ToString();
-            lblYouChoose.Text = "Bạn chọn dòng có Ma CP là: " + common.Constants.id ;
+            lblCuPhap = dlv_ManageKeyword.CurrentRow.Cells["Cu phap"].Value.ToString();
+            lblYouChoose.Text = "Bạn chọn dòng có Ma Cú pháp là: " + common.Constants.id  + " Cú pháp là: " + lblCuPhap;
+            
             but_Delete.Enabled = true;
             but_Edit.Enabled = true;
 
@@ -175,8 +204,17 @@ namespace SMS
 
         private void FormManageKeyword_Activated(object sender, EventArgs e)
         {
-            FormManageKeyword_Load(sender, e);
-            LoadCbo();
+            if (edit == 1)
+            {
+                cbo_Keyword_SelectedIndexChanged(sender, e);
+                edit = 0;
+                lblYouChoose.Text = "Bạn chọn dòng: ";
+            }
+            else
+            {
+                FormManageKeyword_Load(sender, e);
+                //LoadCbo();
+            }
         }
       
     }

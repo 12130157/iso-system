@@ -1072,12 +1072,14 @@ namespace SMS
             }
         }
 
+
         private void taiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormManageAccount fr = new FormManageAccount();
             fr.MdiParent = this;
             fr.Show();
         }
+
 
         private void loaiTaiKhoanToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1130,9 +1132,13 @@ namespace SMS
         //    string maSinhVien = "bai_ls.hv";
         //    string tenMonHoc = "mcb";
 
+       
+
         //    DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
         //    MessageBox.Show(tbl.Rows.Count.ToString());
         //}
+
+
 
         //private void button1_Click(object sender, EventArgs e)
         //{
@@ -1155,5 +1161,6 @@ namespace SMS
         //        MessageBox.Show("Khong La Gi Het");
         //    }
         //}
+
     } 
 }
