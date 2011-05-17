@@ -48,7 +48,7 @@ namespace SMS
             this.lbConnection.ForeColor = System.Drawing.Color.Maroon;
             this.lbConnection.Location = new System.Drawing.Point(12, 9);
             this.lbConnection.Name = "lbConnection";
-            this.lbConnection.Size = new System.Drawing.Size(351, 40);
+            this.lbConnection.Size = new System.Drawing.Size(352, 40);
             this.lbConnection.TabIndex = 0;
             this.lbConnection.Text = "Kết Nối Thiết Bị GSM";
             // 
@@ -151,6 +151,7 @@ namespace SMS
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connection";
             this.Load += new System.EventHandler(this.showCbo);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmConn_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

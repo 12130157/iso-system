@@ -40,15 +40,28 @@ namespace SMS
                 if (phones.Length == 1)
                 {
                     model = new HopThuDiMODEL();
-
+                    int testTV = 0;
                     if (!unicode)
                     {
-                        pdu = new SmsSubmitPdu(mess,phones[0], "");
+                        pdu = new SmsSubmitPdu();
+                        try
+                        {
+                            pdu.UserDataText = mess;
+                            pdu.DestinationAddress = phones[0];
+                            pdu.SmscAddress = "";
+                            testTV = 1;
+                        }
+                        catch (Exception)
+                        {
+                            txtLog.AppendText("Ban phai check vao Tieng Viet de gui tin nhan co dau .\n");
+                            testTV = 0;
+                        }
                     }
                     else
                     {
                         byte dcs = DataCodingScheme.NoClass_16Bit;
                         pdu = new SmsSubmitPdu(txtMessage.Text, phones[0], "", dcs);
+                        testTV = 1; 
                     }
 
                     model.So_Dien_Thoai = phones[0];
@@ -59,28 +72,41 @@ namespace SMS
                     model.User31 = "";
                     model.User41 = "";
                     model.User51 = "";
-
-                    try
+                    if (testTV == 1)
                     {
-                        common.Constants.comm.SendMessage(pdu);
-                        model.Tinh_Trang = "1";
-                        txtLog.AppendText ("Gui 1 tin nhan thanh cong .\n");
-                    }
-                    catch (Exception k)
-                    {
-                        model.Tinh_Trang = "0";
-                        MessageBox.Show("Gui tin nhan that bai . " +k.Message+"\n");
+                        try
+                        {
+                            common.Constants.comm.SendMessage(pdu);
+                            model.Tinh_Trang = "1";
+                            txtLog.AppendText("Gui 1 tin nhan thanh cong .\n");
+                        }
+                        catch (Exception k)
+                        {
+                            model.Tinh_Trang = "0";
+                            MessageBox.Show("Gui tin nhan that bai . " + k.Message + "\n");
+                        }
                     }
 
                     bool result = HopThuDiDAO.insertHopThuDi(model);
                 }
                 else if (phones.Length > 1)
                 {
+                    int testTV = 0;
                     if (!unicode)
                     {
                         foreach (string phone in phones)
                         {
-                            pdu = new SmsSubmitPdu(mess, phone, "");
+                            try
+                            {
+                                pdu = new SmsSubmitPdu(mess, phone, "");
+                                testTV = 1; 
+                            }
+                            catch (Exception)
+                            {
+                                txtLog.AppendText("Ban phai check vao Tieng Viet de gui tin nhan co dau .\n");
+                                testTV = 0;
+                                break;
+                            }
                             listPdu.Add(pdu);
 
                             model = new HopThuDiMODEL();
@@ -99,14 +125,17 @@ namespace SMS
                         }
 
                         desPhones = (SmsSubmitPdu[])listPdu.ToArray(typeof(SmsSubmitPdu));
-                        try
+                        if (testTV == 1)
                         {
-                            common.Constants.comm.SendMessages(desPhones);
-                            txtLog.AppendText("Gui "+ desPhones.Length.ToString() +" tin nhan thanh cong .\n");
-                        }
-                        catch (Exception i)
-                        {
-                            txtLog.AppendText(i.Message + "\n");
+                            try
+                            {
+                                common.Constants.comm.SendMessages(desPhones);
+                                txtLog.AppendText("Gui " + desPhones.Length.ToString() + " tin nhan thanh cong .\n");
+                            }
+                            catch (Exception i)
+                            {
+                                txtLog.AppendText(i.Message + "\n");
+                            }
                         }
                     }
                     else
