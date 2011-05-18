@@ -293,7 +293,7 @@ function openAdd()
 		obj.tuanLe = tuanLe;
 		obj.monHocList = monHocList;
 		var maLop = document.getElementById('Lop').value;
-		value = window.showModalDialog(duongDan + "AddThoiKhoaBieu.jsp?maChuongTrinh="+maChuongTrinh+"&hocKi="+hocKi+"&maNamHoc="+maNamHoc+"&maTKB="+maTKB+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 750px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
+		value = window.showModalDialog(duongDan + "AddThoiKhoaBieu.jsp?maChuongTrinh="+maChuongTrinh+"&hocKi="+hocKi+"&maNamHoc="+maNamHoc+"&maTKB="+maTKB+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 800px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
 		if(value != null)
 		{
 				addTKB[addTKB.length] = value;
@@ -329,7 +329,7 @@ function openUpdate(x)
 	var tableSang = document.getElementById('tableSang');
 	var tableChieu = document.getElementById('tableChieu');
 	var maLop = document.getElementById('Lop').value;
-	value = window.showModalDialog(duongDan + "UpdateThoiKhoaBieu.jsp?maTKB="+maTKB+"&maNamHoc="+maNamHoc+"&maMonHocTKB="+maMonHocTKB + "&capNhat=" + x+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 750px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
+	value = window.showModalDialog(duongDan + "UpdateThoiKhoaBieu.jsp?maTKB="+maTKB+"&maNamHoc="+maNamHoc+"&maMonHocTKB="+maMonHocTKB + "&capNhat=" + x+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 800px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
 	if(value != null)
 	{
 		addTKB[index] = value;
