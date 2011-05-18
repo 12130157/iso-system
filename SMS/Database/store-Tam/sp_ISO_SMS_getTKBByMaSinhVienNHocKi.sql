@@ -10,8 +10,8 @@ AS
 BEGIN
 	IF @HocKi = 'ALL'
 	BEGIN
-		SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
-					B.Hoc_Ki,J.Ki_Hieu_Phong,E.User2 AS 'Ten_Mon_hoc',A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
+		SELECT		E.User2 AS 'Ten_Mon_hoc',A.Buoi,A.Thu_Trong_Tuan,J.Ki_Hieu_Phong,G.User1 AS 'Giao Vien',
+					CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc'
 		FROM		ChiTietTKB	AS A 
 		INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
 		INNER JOIN	LopHoc				AS C	ON B.Ma_Lop = C.ID
@@ -25,8 +25,8 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		SELECT		A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
-					B.Hoc_Ki,J.Ki_Hieu_Phong,E.User2 AS 'Ten_Mon_hoc',A.Hinh_Thuc_Day,G.User1 AS 'Giao Vien'
+		SELECT		E.User2 AS 'Ten_Mon_hoc',A.Buoi,A.Thu_Trong_Tuan,J.Ki_Hieu_Phong,G.User1 AS 'Giao Vien',
+					CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc'
 		FROM		ChiTietTKB	AS A 
 		INNER JOIN	ThoiKhoaBieu		AS B	ON A.Ma_TKB = B.ID
 		INNER JOIN	LopHoc				AS C	ON B.Ma_Lop = C.ID
@@ -42,3 +42,5 @@ BEGIN
 END
 
 --exec sp_ISO_SMS_getTKBByMaSinhVienNHocKi 'bai_ls.hv','hk1'
+
+--select * from chitiettkb
