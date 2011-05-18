@@ -815,6 +815,8 @@ namespace SMS
 
         #endregion      
 
+        #region Lay Noi Dung Tin Nhan Tra Loi
+
         private string mapOutMessDiem(DataTable tbl)
         {
             string result = "";
@@ -841,7 +843,7 @@ namespace SMS
                 }
                 else
                 {
-                    if (tenMonHocTruoc == "")
+                    if (tenMonHocTruoc.Equals(""))
                     {
                         listMonHoc = new ArrayList();
                         listMonHoc.Add(monHoc);
@@ -877,7 +879,102 @@ namespace SMS
             return result;
         }
 
-        #region Lay Noi Dung Tin Nhan Tra Loi
+        private string mapOutMessTKB(DataTable tbl)
+        {
+            string result = "";
+            ArrayList listDSMonHoc = new ArrayList();
+            ArrayList listMonHoc = new ArrayList();
+            MonHoc monHoc;
+            string tenMonHocTruoc = "";
+            foreach (DataRow row in tbl.Rows)
+            {
+                monHoc = new MonHoc();
+                monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
+                monHoc.Buoi = row["Buoi"].ToString();
+                monHoc.GiaoVien = row["Giao Vien"].ToString();
+                monHoc.ThuTrongTuan = row["Thu_Trong_Tuan"].ToString();
+                monHoc.KiHieuPhong = row["Ki_Hieu_Phong"].ToString();
+                monHoc.NgayHoc = row["Ngay_Hoc"].ToString();
+
+                if (row["Ten_Mon_Hoc"].ToString().Equals(tenMonHocTruoc))
+                {
+                    listMonHoc.Add(monHoc);
+                    if (tbl.Rows[tbl.Rows.Count - 1] == row)
+                    {
+                        listDSMonHoc.Add(listMonHoc);
+                    }
+                }
+                else
+                {
+                    if (tenMonHocTruoc.Equals(""))
+                    {
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                    else
+                    {
+                        listDSMonHoc.Add(listMonHoc);
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                }
+                tenMonHocTruoc = row["Ten_Mon_Hoc"].ToString();
+            }
+
+            foreach (ArrayList listMH in listDSMonHoc)
+            {
+                string tenMH = "";
+                string buoi = "";
+                string kiHieuPhong = "";
+                string giaoVien = "";
+                string ngayBatDau = "";
+                string ngayKetThuc = "";
+                ArrayList thu = new ArrayList();
+                int testThu = 0;
+                string subThu = "";
+                foreach (MonHoc mH in listMH)
+                {
+                    tenMH = mH.TenMonHoc;
+                    buoi = mH.Buoi;
+                    kiHieuPhong = mH.KiHieuPhong;
+                    giaoVien = mH.GiaoVien;
+                    if (mH == (MonHoc)listMH[0])
+                    {
+                        ngayBatDau = mH.NgayHoc;
+                    }
+                    if (mH == (MonHoc)listMH[listMH.Count - 1])
+                    {
+                        ngayKetThuc = mH.NgayHoc;
+                    }
+                    if (thu.Count == 0)
+                    {
+                        thu.Add(mH.ThuTrongTuan);
+                    }
+                    else
+                    {
+                        foreach (string t in thu)
+                        {
+                            if (mH.ThuTrongTuan.Equals(t))
+                            {
+                                testThu = 1;
+                                break;
+                            }
+                        }
+                        if (testThu != 1)
+                        {
+                            thu.Add(mH.ThuTrongTuan);
+                        }
+                    }
+                }
+                foreach (string t in thu)
+                {
+                    subThu += t + ",";
+                }
+                result += tenMH + "/" + buoi + "/" + subThu + "/" + kiHieuPhong + "/" + giaoVien + "(" + ngayBatDau + "-" + ngayKetThuc + ")\n";
+            }
+            MessageBox.Show(result);
+            return result;
+        }
 
         private string getStringDiemByMaSinhVien(string maSinhVien)
         {
@@ -959,10 +1056,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNNamHoc(maSinhVien, namHoc);
             if (tbl != null)
             {
-                foreach (DataRow row in tbl.Rows)
-                {
-                    result += row["Buoi"] + "-" + row["Ngay_Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
-                }
+                result = mapOutMessTKB(tbl);
             }
             else
             {
@@ -977,10 +1071,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
-                foreach (DataRow row in tbl.Rows)
-                {
-                    result += row["Buoi"] + "-" + row["Ngay_Hoc"] + "-HK " + row["Hoc_Ki"] + "-" + row["Ki_Hieu_Phong"] + "-" + row["Ten_Mon_Hoc"] + "-" + row["Hinh_Thuc_Day"] + "-" + row["Giao Vien"] + "\n";
-                }
+                result = mapOutMessTKB(tbl);
             }
             else
             {
@@ -1240,6 +1331,46 @@ namespace SMS
         {
             get { return diemTB; }
             set { diemTB = value; }
+        }
+
+        string buoi;
+
+        public string Buoi
+        {
+            get { return buoi; }
+            set { buoi = value; }
+        }
+
+        string thuTrongTuan;
+
+        public string ThuTrongTuan
+        {
+            get { return thuTrongTuan; }
+            set { thuTrongTuan = value; }
+        }
+
+        string kiHieuPhong;
+
+        public string KiHieuPhong
+        {
+            get { return kiHieuPhong; }
+            set { kiHieuPhong = value; }
+        }
+
+        string giaoVien;
+
+        public string GiaoVien
+        {
+            get { return giaoVien; }
+            set { giaoVien = value; }
+        }
+
+        string ngayHoc;
+
+        public string NgayHoc
+        {
+            get { return ngayHoc; }
+            set { ngayHoc = value; }
         }
     }
 }
