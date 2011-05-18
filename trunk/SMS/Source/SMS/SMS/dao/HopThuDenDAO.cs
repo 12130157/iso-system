@@ -244,9 +244,16 @@ namespace SMS
         public static string getCountMessUnread()
         {
             DataTable result = DataUtil.executeStore("sp_ISO_SMS_getCountMessUnread", null);
-            DataRow row = result.Rows[0];
-            string i = row[0].ToString();
-            return i;
+            if (result != null)
+            {
+                DataRow row = result.Rows[0];
+                string i = row[0].ToString();
+                return i;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public static DataTable getNewMessInbox(int newMess)
