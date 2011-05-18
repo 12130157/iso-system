@@ -47,10 +47,7 @@ namespace SMS
             {
                 Constants.USER_LOGIN = memberModel;
                 this.Hide();
-                //myForm.loadMenu() ;
-                //this.Close();   co the su dung lai
-                FormMain fr = new FormMain();
-                fr.Show();
+                new FormMain().Show();
             }
             else
             {

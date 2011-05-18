@@ -815,6 +815,68 @@ namespace SMS
 
         #endregion      
 
+        private string mapOutMessDiem(DataTable tbl)
+        {
+            string result = "";
+            ArrayList listDSMonHoc = new ArrayList();
+            ArrayList listMonHoc = new ArrayList();
+            MonHoc monHoc;
+            string tenMonHocTruoc = "";
+            foreach (DataRow row in tbl.Rows)
+            {
+                monHoc = new MonHoc();
+                monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
+                monHoc.TenBaiKT = row["Ten_Bai_KT"].ToString();
+                monHoc.Diem = row["Diem"].ToString();
+                monHoc.HocKi = row["Hoc_Ki"].ToString();
+                monHoc.DiemTB = row["Diem_Trung_Binh"].ToString();
+
+                if (row["Ten_Mon_Hoc"].ToString().Equals(tenMonHocTruoc))
+                {
+                    listMonHoc.Add(monHoc);
+                    if (tbl.Rows[tbl.Rows.Count - 1] == row)
+                    {
+                        listDSMonHoc.Add(listMonHoc);
+                    }
+                }
+                else
+                {
+                    if (tenMonHocTruoc == "")
+                    {
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                    else
+                    {
+                        listDSMonHoc.Add(listMonHoc);
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                }
+                tenMonHocTruoc = row["Ten_Mon_Hoc"].ToString();
+            }
+
+
+            foreach (ArrayList listMH in listDSMonHoc)
+            {
+                string totalMh = "";
+                string tenMH = "";
+                string chiTietDiemMH = "";
+                string diemTB = "";
+
+                foreach (MonHoc mH in listMH)
+                {
+                    tenMH = mH.TenMonHoc + "\n";
+                    chiTietDiemMH += mH.TenBaiKT + "/" + mH.Diem + "d/HK" + mH.HocKi + "\n";
+                    diemTB = "TB Mon :" + mH.DiemTB + "\n";
+                    totalMh = tenMH + chiTietDiemMH + diemTB;
+                }
+                result += totalMh;
+            }
+            MessageBox.Show(result);
+            return result;
+        }
+
         #region Lay Noi Dung Tin Nhan Tra Loi
 
         private string getStringDiemByMaSinhVien(string maSinhVien)
@@ -823,10 +885,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
             if (tbl != null)
             {
-                foreach (DataRow row in tbl.Rows)
-                {
-                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
-                }
+                result = mapOutMessDiem(tbl);
             }
             else
             {
@@ -870,10 +929,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, namHoc);
             if (tbl != null)
             {
-                foreach (DataRow row in tbl.Rows)
-                {
-                    result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
-                }
+                result = mapOutMessDiem(tbl);
             }
             else
             {
@@ -888,34 +944,7 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
-                ArrayList listDSMonHoc;
-                ArrayList listMonHoc;
-                MonHoc monHoc;
-                string tenMonHocTruoc = "";
-                foreach (DataRow row in tbl.Rows)
-                {
-                    if (tenMonHocTruoc != row["Ten_Mon_Hoc"].ToString())
-                    {
-                        listMonHoc = new ArrayList();
-
-                        monHoc = new MonHoc();
-
-                        monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
-                        monHoc.TenBaiKT = row["Ten Bai KT"].ToString();
-                        monHoc.Diem = row["Diem"].ToString();
-                        monHoc.HocKi = row["Hoc_Ki"].ToString();
-                        monHoc.DiemTB = row["Diem_Trung_Binh"].ToString();
-
-                        listMonHoc.Add(monHoc);
-                    }
-                    else
-                    {
-                        
-                        
-                    }
-                    tenMonHocTruoc = row["Ten Mon Hoc"].ToString();
-                    //result += row["Ten_Mon_Hoc"] + "-" + row["Ten vs Hinh Thuc KT"] + "-" + row["Diem"] + "d-HK" + row["Hoc_Ki"] + "\n";
-                }
+                result = mapOutMessDiem(tbl);
             }
             else
             {

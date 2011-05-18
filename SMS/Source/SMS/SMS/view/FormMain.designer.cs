@@ -90,19 +90,19 @@ namespace SMS
             // menuChangePassword
             // 
             this.menuChangePassword.Name = "menuChangePassword";
-            this.menuChangePassword.Size = new System.Drawing.Size(190, 22);
+            this.menuChangePassword.Size = new System.Drawing.Size(179, 22);
             this.menuChangePassword.Text = "Đội Mật Khẩu";
             // 
             // menuSystemConfig
             // 
             this.menuSystemConfig.Name = "menuSystemConfig";
-            this.menuSystemConfig.Size = new System.Drawing.Size(190, 22);
+            this.menuSystemConfig.Size = new System.Drawing.Size(179, 22);
             this.menuSystemConfig.Text = "Cấu Hình Hệ Thống";
             // 
             // menuLogout
             // 
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(190, 22);
+            this.menuLogout.Size = new System.Drawing.Size(179, 22);
             this.menuLogout.Text = "Đăng Xuất";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
@@ -120,21 +120,21 @@ namespace SMS
             // menuCompose
             // 
             this.menuCompose.Name = "menuCompose";
-            this.menuCompose.Size = new System.Drawing.Size(158, 22);
+            this.menuCompose.Size = new System.Drawing.Size(147, 22);
             this.menuCompose.Text = "Gửi Tin Nhắn";
             this.menuCompose.Click += new System.EventHandler(this.menuCompose_Click);
             // 
             // menuInbox
             // 
             this.menuInbox.Name = "menuInbox";
-            this.menuInbox.Size = new System.Drawing.Size(158, 22);
+            this.menuInbox.Size = new System.Drawing.Size(147, 22);
             this.menuInbox.Text = "Hộp Thư Đến";
             this.menuInbox.Click += new System.EventHandler(this.menuInbox_Click);
             // 
             // menuI1Sent
             // 
             this.menuI1Sent.Name = "menuI1Sent";
-            this.menuI1Sent.Size = new System.Drawing.Size(158, 22);
+            this.menuI1Sent.Size = new System.Drawing.Size(147, 22);
             this.menuI1Sent.Text = "Hộp Thư Đi";
             this.menuI1Sent.Click += new System.EventHandler(this.menuI1Sent_Click);
             // 
@@ -152,7 +152,7 @@ namespace SMS
             // menuKeyword
             // 
             this.menuKeyword.Name = "menuKeyword";
-            this.menuKeyword.Size = new System.Drawing.Size(167, 22);
+            this.menuKeyword.Size = new System.Drawing.Size(156, 22);
             this.menuKeyword.Text = "Cú Pháp";
             this.menuKeyword.Click += new System.EventHandler(this.menuKeyword_Click);
             // 
@@ -162,34 +162,34 @@ namespace SMS
             this.taiKhoanToolStripMenuItem,
             this.loaiTaiKhoanToolStripMenuItem});
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(167, 22);
+            this.menuAccount.Size = new System.Drawing.Size(156, 22);
             this.menuAccount.Text = "Tài Khoản SMS";
             // 
             // taiKhoanToolStripMenuItem
             // 
             this.taiKhoanToolStripMenuItem.Name = "taiKhoanToolStripMenuItem";
-            this.taiKhoanToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.taiKhoanToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.taiKhoanToolStripMenuItem.Text = "Tài Khoản";
             this.taiKhoanToolStripMenuItem.Click += new System.EventHandler(this.taiKhoanToolStripMenuItem_Click);
             // 
             // loaiTaiKhoanToolStripMenuItem
             // 
             this.loaiTaiKhoanToolStripMenuItem.Name = "loaiTaiKhoanToolStripMenuItem";
-            this.loaiTaiKhoanToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.loaiTaiKhoanToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.loaiTaiKhoanToolStripMenuItem.Text = "Loại Tai Khoản";
             this.loaiTaiKhoanToolStripMenuItem.Click += new System.EventHandler(this.loaiTaiKhoanToolStripMenuItem_Click);
             // 
             // menuAddressBook
             // 
             this.menuAddressBook.Name = "menuAddressBook";
-            this.menuAddressBook.Size = new System.Drawing.Size(167, 22);
+            this.menuAddressBook.Size = new System.Drawing.Size(156, 22);
             this.menuAddressBook.Text = "Danh bạ";
             this.menuAddressBook.Click += new System.EventHandler(this.menuAddressBook_Click);
             // 
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.typeToolStripMenuItem.Text = "Loại hộp thư";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
@@ -205,13 +205,13 @@ namespace SMS
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.toolStripMenuItem1.Text = "Giới thiệu ";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(141, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(130, 22);
             this.toolStripMenuItem2.Text = "Giúp đỡ";
             // 
             // lbStatus
@@ -252,19 +252,19 @@ namespace SMS
             this.toolsTripMenuRestore,
             this.toolsTripMenuExit});
             this.rightClickTrayIcon.Name = "rightClickTrayIcon";
-            this.rightClickTrayIcon.Size = new System.Drawing.Size(124, 48);
+            this.rightClickTrayIcon.Size = new System.Drawing.Size(114, 48);
             // 
             // toolsTripMenuRestore
             // 
             this.toolsTripMenuRestore.Name = "toolsTripMenuRestore";
-            this.toolsTripMenuRestore.Size = new System.Drawing.Size(123, 22);
+            this.toolsTripMenuRestore.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuRestore.Text = "Restore";
             this.toolsTripMenuRestore.Click += new System.EventHandler(this.toolTripMenuRestore_Click);
             // 
             // toolsTripMenuExit
             // 
             this.toolsTripMenuExit.Name = "toolsTripMenuExit";
-            this.toolsTripMenuExit.Size = new System.Drawing.Size(123, 22);
+            this.toolsTripMenuExit.Size = new System.Drawing.Size(113, 22);
             this.toolsTripMenuExit.Text = "Exit";
             this.toolsTripMenuExit.Click += new System.EventHandler(this.toolsTripMenuExit_Click);
             // 

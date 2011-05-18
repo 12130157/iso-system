@@ -73,6 +73,7 @@ namespace SMS
             {
                 DataGridViewRow row = selectedRows[0];
                 FormCompose frmCompose = new FormCompose();
+                frmCompose.MdiParent = this.MdiParent;
                 frmCompose.Show();
                 frmCompose.txtMessage.Text = row.Cells[clmName].Value.ToString();
             }
@@ -112,6 +113,7 @@ namespace SMS
             {
                 DataGridViewRow row = selectedRows[0];
                 FormCompose frmCompose = new FormCompose();
+                frmCompose.MdiParent = this.MdiParent;
                 frmCompose.Show();
                 frmCompose.txtPhoneNumber.Text = row.Cells[clmName].Value.ToString();
             }
