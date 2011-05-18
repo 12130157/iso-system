@@ -394,12 +394,12 @@ function selectSogio(x, y) {
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanI_' + i).value);
 			tongLT += a;
-			document.getElementById('TongSoLyThuyet_PhanI').value = tongLT;
 			var b = parseInt(document.getElementById('ThucHanh_PhanI_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSoThucHanh_PhanI').value = tongTH;
 			document.getElementById('TongSo_PhanI_' + i).value = a + b;
 		}
+		document.getElementById('TongSoLyThuyet_PhanI').value = tongLT;
+		document.getElementById('TongSoThucHanh_PhanI').value = tongTH;
 		document.getElementById('TongSo_PhanI').value = tongLT + tongTH;
 		if(y != null)
 		{
@@ -427,12 +427,12 @@ function selectSogio(x, y) {
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanII_' + i).value);
 			tongLT += a;
-			document.getElementById('TongSoLyThuyet_PhanI').value = tongLT;
 			var b = parseInt(document.getElementById('ThucHanh_PhanII_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSoThucHanh_PhanII').value = tongTH;
 			document.getElementById('TongSo_PhanII_' + i).value = a + b;
 		}
+		document.getElementById('TongSoLyThuyet_PhanII').value = tongLT;
+		document.getElementById('TongSoThucHanh_PhanII').value = tongTH;
 		document.getElementById('TongSo_PhanII').value = tongLT + tongTH;
 		if(y != null)
 		{
@@ -460,12 +460,12 @@ function selectSogio(x, y) {
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanIII_' + i).value);
 			tongLT += a;
-			document.getElementById('TongSoLyThuyet_PhanIII').value = tongLT;
 			var b = parseInt(document.getElementById('ThucHanh_PhanIII_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSoThucHanh_PhanIII').value = tongTH;
 			document.getElementById('TongSo_PhanIII_' + i).value = a + b;
 		}
+		document.getElementById('TongSoLyThuyet_PhanIII').value = tongLT;
+		document.getElementById('TongSoThucHanh_PhanIII').value = tongTH;
 		document.getElementById('TongSo_PhanIII').value = tongLT + tongTH;
 		if(y != null)
 		{

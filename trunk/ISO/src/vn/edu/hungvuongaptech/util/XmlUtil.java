@@ -6,8 +6,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.*;
 
+import javax.mail.Folder;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -517,14 +518,23 @@ public class XmlUtil {
 			transformer.transform(source, result);
 			String xmlString = sw.toString();
 
-			File file = new File("E:/DCMH_" + deCuongMonHoc.getTenMonHoc() + "_" + sysParamsModel.getNgayHeThong() + '_' 
+		
+			boolean checkPath = true;
+			File file = new File("C:/DeCuongMonHoc/DCMH_" + deCuongMonHoc.getTenMonHoc() + "_" + sysParamsModel.getNgayHeThong() + '_' 
 					+ sysParamsModel.getGioHeThong() + "[" + deCuongMonHoc.getMaMonHoc() + "-" + deCuongMonHoc.getLyThuyetCTMH() 
 					+ "-" + deCuongMonHoc.getThucHanhCTMH() + "].xml");
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(file), "UTF-8"));
-			bw.write(xmlString);
-			bw.flush();
-			bw.close();
+			if(!file.exists())
+				checkPath = (new File("C:/DeCuongMonHoc").mkdir());
+			if(checkPath)
+			{
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream(file), "UTF-8"));
+				bw.write(xmlString);
+				bw.flush();
+				bw.close();
+			}
+			else
+				check = false;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

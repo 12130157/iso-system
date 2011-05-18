@@ -209,6 +209,11 @@ public class Constant {
 	public static final String MACHUONGTRINH_GIAOAN="1";
 	public static final String MACHUONGTRINH_KHGD="0";
 	
-	
+	//***********************************************************************************************
+	public static final String TINHTRANGTHIETBIRANH = "0";
+	public static final String TINHTRANGTHIETBIBAN = "1";
+	public static final String TINHTRANGTHIETBIBAOTRI = "2";
+	public static final String TINHTRANGTHIETBIBAOHANH = "3";
+	public static final String TINHTRANGTHIETBIHONG = "4";
 
 }

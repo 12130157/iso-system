@@ -83,5 +83,57 @@ public class TuanLeModel implements Serializable {
 	public void setUser5(String user5) {
 		this.user5 = user5;
 	}
+	// cac ngay trong tuan
+	private String thuHai;
+	private String thuBa;
+	private String thuTu;
+	private String thuNam;
+	private String thuSau;
+	private String thuBay;
+	private String chuNhat;
+
+	public String getThuHai() {
+		return thuHai;
+	}
+	public void setThuHai(String thuHai) {
+		this.thuHai = thuHai;
+	}
+	public String getThuBa() {
+		return thuBa;
+	}
+	public void setThuBa(String thuBa) {
+		this.thuBa = thuBa;
+	}
+	public String getThuTu() {
+		return thuTu;
+	}
+	public void setThuTu(String thuTu) {
+		this.thuTu = thuTu;
+	}
+	public String getThuNam() {
+		return thuNam;
+	}
+	public void setThuNam(String thuNam) {
+		this.thuNam = thuNam;
+	}
+	public String getThuSau() {
+		return thuSau;
+	}
+	public void setThuSau(String thuSau) {
+		this.thuSau = thuSau;
+	}
+	public String getThuBay() {
+		return thuBay;
+	}
+	public void setThuBay(String thuBay) {
+		this.thuBay = thuBay;
+	}
+	public String getChuNhat() {
+		return chuNhat;
+	}
+	public void setChuNhat(String chuNhat) {
+		this.chuNhat = chuNhat;
+	}
+	
 	
 }

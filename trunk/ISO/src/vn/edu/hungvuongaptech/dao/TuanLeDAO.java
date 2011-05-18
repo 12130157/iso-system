@@ -178,4 +178,34 @@ public class TuanLeDAO {
 		}
 		return soTuan;
 	}
+	public static ArrayList<TuanLeModel> getNgayTrongTuanByTuanBatDauVaTuanKetThucVaMaNamHoc(String tuanBatDau, String tuanKetThuc, String maNamHoc) {
+		ArrayList<TuanLeModel> tuanLeList = new ArrayList<TuanLeModel>();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getNgayTrongTuanByTuanBatDauVaTuanKetThucVaMaNamHoc"));
+			preparedStatement.setString(1, maNamHoc);
+			preparedStatement.setString(2, tuanBatDau);
+			preparedStatement.setString(3, tuanKetThuc);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				TuanLeModel tuanLe = new TuanLeModel();
+				tuanLe.setSoThuTu(rs.getString("SoThuTu"));
+				tuanLe.setThuHai(rs.getString("ThuHai"));
+				tuanLe.setThuBa(rs.getString("ThuBa"));
+				tuanLe.setThuTu(rs.getString("ThuTu"));
+				tuanLe.setThuNam(rs.getString("ThuNam"));
+				tuanLe.setThuSau(rs.getString("ThuSau"));
+				tuanLe.setThuBay(rs.getString("ThuBay"));
+				tuanLe.setChuNhat(rs.getString("ChuNhat"));
+				tuanLeList.add(tuanLe);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tuanLeList;
+	}
 }

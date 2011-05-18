@@ -25,7 +25,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,820,600,20"	      
        fontSize="14">       
@@ -64,7 +64,7 @@
 			<td colspan="2">${CTDT.tenChuongTrinhDaoTao }</td>
 		</tr>
 		<tr align="right">
-			<td colspan="2"><p style="background-color: yellow;">${CTDT.tenChuongTrinhDaoTao }</p></td>
+			<td colspan="2"><p style="background-color: yellow;">${CTDTSoSanh.tenChuongTrinhDaoTao }</p></td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
@@ -93,7 +93,7 @@
 				<td colspan = "2">
 					<p style="font-weight: bold">Đối tượng tuyển sinh:</p>${sf:appendPTag(CTDT.doiTuong1)} ${sf:appendPTagWithColor(CTDTSoSanh.doiTuong1)}
 				</td>
-			</tr>
+		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent;">
@@ -267,29 +267,29 @@
 	<c:set var="count1SoSanh" value="0"></c:set>
 	<c:set var="count2SoSanh" value="0"></c:set>
 	<c:set var="count3SoSanh" value="0"></c:set>
-	<c:forEach var="iterator" items="${CTDT.chiTietMonHocCTDTModelList}">
-		<c:if test="${iterator.maHocPhan eq 1}">
-			<c:set var="count1" value="${count1 + 1}"></c:set>
-		</c:if>
-		<c:if test="${iterator.maHocPhan eq 2}">
-			<c:set var="count2" value="${count2 + 1}"></c:set>
-		</c:if>
-		<c:if test="${iterator.maHocPhan eq 3}">
-			<c:set var="count3" value="${count3 + 1}"></c:set>
-		</c:if>
-	</c:forEach>
-	<c:forEach var="iterator" items="${CTDTSoSanh.chiTietMonHocCTDTModelList}">
-		<c:if test="${iterator.maHocPhan eq 1}">
-			<c:set var="count1SoSanh" value="${count1SoSanh + 1}"></c:set>
-		</c:if>
-		<c:if test="${iterator.maHocPhan eq 2}">
-			<c:set var="count2SoSanh" value="${count2SoSanh + 1}"></c:set>
-		</c:if>
-		<c:if test="${iterator.maHocPhan eq 3}">
-			<c:set var="count3SoSanh" value="${count3SoSanh + 1}"></c:set>
-		</c:if>
+	<c:forEach var="iterator" items="${CTDT.chiTietMonHocCTDTModelList1}">
+		<c:set var="count1" value="${count1 + 1}"></c:set>
 	</c:forEach>
 	
+	<c:forEach var="iterator" items="${CTDT.chiTietMonHocCTDTModelList2}">	
+		<c:set var="count2" value="${count2 + 1}"></c:set>
+	</c:forEach>
+	
+	<c:forEach var="iterator" items="${CTDT.chiTietMonHocCTDTModelList3}">	
+		<c:set var="count3" value="${count3 + 1}"></c:set>
+	</c:forEach>
+	
+	<c:forEach var="iterator" items="${CTDTSoSanh.chiTietMonHocCTDTModelList1}">
+		<c:set var="count1SoSanh" value="${count1SoSanh + 1}"></c:set>
+	</c:forEach>
+		
+	<c:forEach var="iterator" items="${CTDTSoSanh.chiTietMonHocCTDTModelList2}">
+			<c:set var="count2SoSanh" value="${count2SoSanh + 1}"></c:set>
+	</c:forEach>
+		
+	<c:forEach var="iterator" items="${CTDTSoSanh.chiTietMonHocCTDTModelList3}">
+			<c:set var="count3SoSanh" value="${count3SoSanh + 1}"></c:set>
+	</c:forEach>
 	<c:choose>
 			<c:when test="${count1 ge count1SoSanh}">
 				<c:set var="end1" value = "${count1}"></c:set>
@@ -317,40 +317,44 @@
 		</c:choose>
 		
 	<c:forEach var = "count" begin = "1" end ="${count1}">
-		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList[count-1]}"></c:set>
+		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1[count-1]}"></c:set>
 		<c:set var = "TongSoLyThuyet_PhanI" value = "${TongSoLyThuyet_PhanI + ChiTietList.lyThuyet}"></c:set>
 		<c:set var = "TongSoThucHanh_PhanI" value = "${TongSoThucHanh_PhanI + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanI" value = "${TongSoLyThuyet_PhanI + TongSoThucHanh_PhanI}"></c:set>
-	<c:forEach var = "count" begin = "${count1 + 1}" end ="${count1 + count2}">
-		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList[count-1]}"></c:set>
+	
+	<c:forEach var = "count" begin = "1" end ="${count2}">
+		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2[count-1]}"></c:set>
 		<c:set var = "TongSoLyThuyet_PhanII" value = "${TongSoLyThuyet_PhanII + ChiTietList.lyThuyet}"></c:set>
 		<c:set var = "TongSoThucHanh_PhanII" value = "${TongSoThucHanh_PhanII + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanII" value = "${TongSoLyThuyet_PhanII + TongSoThucHanh_PhanII}"></c:set>
-	<c:forEach var = "count" begin = "${count1+count2+ 1}" end = "${count1+count2+count3}">
-		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList[count-1]}"></c:set>
+	
+	<c:forEach var = "count" begin = "1" end = "${count3}">
+		<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3[count-1]}"></c:set>
 		<c:set var = "TongSoLyThuyet_PhanIII" value = "${TongSoLyThuyet_PhanIII + ChiTietList.lyThuyet}"></c:set>
 		<c:set var = "TongSoThucHanh_PhanIII" value = "${TongSoThucHanh_PhanIII + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanIII" value = "${TongSoLyThuyet_PhanIII + TongSoThucHanh_PhanIII}"></c:set>
 	
 	<c:forEach var = "count" begin = "1" end ="${count1SoSanh}">
-		<c:set var = "ChiTietListSoSanh" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList[count-1]}"></c:set>
-		<c:set var = "TongSoLyThuyet_PhanI_SoSanh" value = "${TongSoLyThuyet_PhanI_SoSanh + ChiTietListSoSanh.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanI_SoSanh" value = "${TongSoThucHanh_PhanI_SoSanh + ChiTietListSoSanh.thucHanh}"></c:set>
+		<c:set var = "ChiTietList" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList1[count-1]}"></c:set>
+		<c:set var = "TongSoLyThuyet_PhanI_SoSanh" value = "${TongSoLyThuyet_PhanI_SoSanh + ChiTietList.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanI_SoSanh" value = "${TongSoThucHanh_PhanI_SoSanh + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanI_SoSanh" value = "${TongSoLyThuyet_PhanI_SoSanh + TongSoThucHanh_PhanI_SoSanh}"></c:set>
-	<c:forEach var = "count" begin = "${count1 + 1}" end ="${count1 + count2}">
-		<c:set var = "ChiTietListSoSanh" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList[count-1]}"></c:set>
-		<c:set var = "TongSoLyThuyet_PhanII_SoSanh" value = "${TongSoLyThuyet_PhanII_SoSanh + ChiTietListSoSanh.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanII_SoSanh" value = "${TongSoThucHanh_PhanII_SoSanh + ChiTietListSoSanh.thucHanh}"></c:set>
+	
+	<c:forEach var = "count" begin = "1" end ="${count2SoSanh}">
+		<c:set var = "ChiTietList" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList2[count-1]}"></c:set>
+		<c:set var = "TongSoLyThuyet_PhanII_SoSanh" value = "${TongSoLyThuyet_PhanII_SoSanh + ChiTietList.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanII_SoSanh" value = "${TongSoThucHanh_PhanII_SoSanh + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanII_SoSanh" value = "${TongSoLyThuyet_PhanII_SoSanh + TongSoThucHanh_PhanII_SoSanh}"></c:set>
-	<c:forEach var = "count" begin = "${count1+count2+ 1}" end = "${count1+count2+count3}">
-		<c:set var = "ChiTietListSoSanh" value = "${CTDT.chiTietMonHocCTDTModelList[count-1]}"></c:set>
-		<c:set var = "TongSoLyThuyet_PhanIII_SoSanh" value = "${TongSoLyThuyet_PhanIII_SoSanh + ChiTietListSoSanh.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanIII_SoSanh" value = "${TongSoThucHanh_PhanIII_SoSanh + ChiTietListSoSanh.thucHanh}"></c:set>
+	
+	<c:forEach var = "count" begin = "1" end = "${count3SoSanh}">
+		<c:set var = "ChiTietList" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList3[count-1]}"></c:set>
+		<c:set var = "TongSoLyThuyet_PhanIII_SoSanh" value = "${TongSoLyThuyet_PhanIII_SoSanh + ChiTietList.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanIII_SoSanh" value = "${TongSoThucHanh_PhanIII_SoSanh + ChiTietList.thucHanh}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanIII_SoSanh" value = "${TongSoLyThuyet_PhanIII_SoSanh + TongSoThucHanh_PhanIII_SoSanh}"></c:set>
 	
@@ -400,8 +404,8 @@
 		<td><p></td>
 	</tr>
 		<c:forEach var = "count" begin = "1" end="${end1}">
-			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList[count-1]}">
-				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList[count-1]}"></c:set>
+			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList1[count-1]}">
+				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList1[count-1]}"></c:set>
 				<tr align="left" style="background-color: transparent; background-position: center; ">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -413,8 +417,8 @@
 					<td>${iterator.tinhChat}</td>
 				</tr>
 			</c:if>
-			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList[count-1]}">
-				<c:set var="iterator" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList[count-1]}"></c:set>
+			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList1[count-1]}">
+				<c:set var="iterator" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList1[count-1]}"></c:set>
 				<tr align="left" style="background-color: transparent; background-position: center; background-color: yellow;">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -442,14 +446,14 @@
 			<td>CÁC MÔN HỌC CƠ SỞ</td>
 			<td><p></td>
 			<td><p></td>
-			<td>${TongSo_PhanIISoSanh}</td>
-			<td>${TongSoLyThuyet_PhanIISoSanh}</td>
-			<td>${TongSoThucHanh_PhanIISoSanh}</td>
+			<td>${TongSo_PhanII_SoSanh}</td>
+			<td>${TongSoLyThuyet_PhanII_SoSanh}</td>
+			<td>${TongSoThucHanh_PhanII_SoSanh}</td>
 			<td><p></td>
 		</tr>
 		<c:forEach var = "count" begin = "1" end="${end2}">
-			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList[count+count1-1]}">
-				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList[count+count1-1]}"></c:set>			
+			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList2[count-1]}">
+				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList2[count-1]}"></c:set>			
 				<tr align="left" style="background-color: transparent; background-position: center;">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -461,8 +465,8 @@
 					<td>${iterator.tinhChat}</td>
 				</tr>
 			</c:if>	
-			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList[count+count1SoSanh-1]}">
-				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList[count+count1SoSanh-1]}"></c:set>			
+			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList2[count-1]}">
+				<c:set var="iterator" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList2[count-1]}"></c:set>			
 				<tr align="left" style="background-color: transparent; background-position: center; background-color: yellow;">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -490,15 +494,15 @@
 			<td>CÁC MÔN HỌC CHUYÊN NGÀNH</td>
 			<td><p></td>
 			<td><p></td>
-			<td>${TongSo_PhanIIISoSanh}</td>
-			<td>${TongSoLyThuyet_PhanIIISoSanh}</td>
-			<td>${TongSoThucHanh_PhanIIISoSanh}</td>
+			<td>${TongSo_PhanIII_SoSanh}</td>
+			<td>${TongSoLyThuyet_PhanIII_SoSanh}</td>
+			<td>${TongSoThucHanh_PhanIII_SoSanh}</td>
 			<td><p></td>
 		</tr>
 		
 		<c:forEach var = "count" begin = "1" end="${end3}">
-			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList[count+count1+count2-1]}">
-				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList[count+count1+count2-1]}"></c:set>			
+			<c:if test="${not empty CTDT.chiTietMonHocCTDTModelList3[count-1]}">
+				<c:set var="iterator" value = "${CTDT.chiTietMonHocCTDTModelList3[count-1]}"></c:set>			
 				<tr align="left" style="background-color: transparent; background-position: center;">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -510,8 +514,8 @@
 					<td>${iterator.tinhChat}</td>
 				</tr>
 			</c:if>
-			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList[count+count1SoSanh+count2SoSanh-1]}">
-				<c:set var="iterator" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList[count+count1SoSanh+count2SoSanh-1]}"></c:set>			
+			<c:if test="${not empty CTDTSoSanh.chiTietMonHocCTDTModelList3[count-1]}">
+				<c:set var="iterator" value = "${CTDTSoSanh.chiTietMonHocCTDTModelList3[count-1]}"></c:set>			
 				<tr align="left" style="background-color: transparent; background-position: center; background-color: yellow;">
 					<td>${count}</td>
 					<td>${iterator.tenMonHoc}</td>
@@ -539,9 +543,9 @@
 			<td>TỔNG CỘNG</td>
 			<td><p></td>
 			<td><p></td>
-			<td>${TongSo_PhanISoSanh + TongSo_PhanIISoSanh + TongSo_PhanIIISoSanh}</td>
-			<td>${TongSoLyThuyet_PhanISoSanh + TongSoLyThuyet_PhanIISoSanh + TongSoLyThuyet_PhanIIISoSanh}</td>
-			<td>${TongSoThucHanh_PhanISoSanh + TongSoThucHanh_PhanIISoSanh + TongSoThucHanh_PhanIIISoSanh}</td>
+			<td>${TongSo_PhanI_SoSanh + TongSo_PhanII_SoSanh + TongSo_PhanIII_SoSanh}</td>
+			<td>${TongSoLyThuyet_PhanI_SoSanh + TongSoLyThuyet_PhanII_SoSanh + TongSoLyThuyet_PhanIII_SoSanh}</td>
+			<td>${TongSoThucHanh_PhanI_SoSanh + TongSoThucHanh_PhanII_SoSanh + TongSoThucHanh_PhanIII_SoSanh}</td>
 			<td><p></td>
 		</tr>		
 	</table>
