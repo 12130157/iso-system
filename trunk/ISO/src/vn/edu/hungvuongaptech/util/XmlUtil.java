@@ -523,7 +523,8 @@ public class XmlUtil {
 			File file = new File("C:/DeCuongMonHoc/DCMH_" + deCuongMonHoc.getTenMonHoc() + "_" + sysParamsModel.getNgayHeThong() + '_' 
 					+ sysParamsModel.getGioHeThong() + "[" + deCuongMonHoc.getMaMonHoc() + "-" + deCuongMonHoc.getLyThuyetCTMH() 
 					+ "-" + deCuongMonHoc.getThucHanhCTMH() + "].xml");
-			if(!file.exists())
+			
+			if(file.getParentFile().exists() == false)
 				checkPath = (new File("C:/DeCuongMonHoc").mkdir());
 			if(checkPath)
 			{
@@ -546,7 +547,7 @@ public class XmlUtil {
 		boolean check = true;
 		ArrayList<NoiDungDCMHModel> noiDungDCMHList = new ArrayList<NoiDungDCMHModel>();
 		try {
-			File file = new File("E:/" + fileName);
+			File file = new File("C:/DeCuongMonHoc/" + fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
