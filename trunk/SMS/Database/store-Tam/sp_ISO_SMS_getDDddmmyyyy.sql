@@ -16,21 +16,29 @@ CREATE PROC sp_ISO_SMS_getDDddmmyyyy
 	@yyyy			int
 AS
 BEGIN
-	SELECT		H.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+
+	SELECT		E.User1 AS 'Ten_Sinh_Vien',A.Buoi,CAST(DATEPART(DAY,A.Ngay_Hoc) AS VARCHAR)+'/'+
 				CAST(DATEPART(MONTH,A.Ngay_Hoc) AS VARCHAR)+'/'+
-				CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay Hoc',
-				G.User2,dbo.fnc_ISO_SMS_statusDiemDanh(A.Tinh_Trang)				
+				CAST(DATEPART(YEAR,A.Ngay_Hoc) AS VARCHAR) AS 'Ngay_Hoc',
+				F.User2 AS 'Ten_Mon_Hoc',dbo.fnc_ISO_SMS_statusDiemDanh(A.Tinh_Trang) AS 'Tinh_Trang'				
 	FROM		ChiTietDiemDanh		AS A
-	INNER JOIN	ThanhVienDiemDanh	AS B	ON A.Ma_TVDD		= B.ID
-	INNER JOIN	DiemDanh			AS C	ON B.Ma_Diem_Danh	= C.ID
-	INNER JOIN	ThoiKhoaBieu		AS D	ON C.Ma_CT_TKB		= D.ID
-	INNER JOIN	LopHoc				AS E	ON D.Ma_Lop			= E.ID
-	INNER JOIN	ChiTietThanhVien	AS F	ON E.ID				= F.Ma_Lop_Hoc
-	INNER JOIN	MonHoc				AS G	ON C.Ma_Mon_Hoc		= G.ID
-	INNER JOIN	ChiTietTKB			AS H	ON D.ID				= H.Ma_TKB
-											AND A.Ngay_Hoc	= H.Ngay_Hoc
-	WHERE		F.Ten_Dang_Nhap							= @maSinhVien
-	AND			CAST(DATEPART(DAY,A.Ngay_Hoc) AS INT)	= @mm 
+	INNER JOIN	ThanhVienDiemDanh	AS B	ON	A.Ma_TVDD			= B.ID
+	INNER JOIN	DiemDanh			AS C	ON	B.Ma_Diem_Danh		= C.ID
+	INNER JOIN	ThanhVien			AS D	ON	B.Ma_Thanh_Vien		= D.ID
+	INNER JOIN	ChiTietThanhVien	AS E	ON	D.Ten_DN			= E.Ten_Dang_Nhap
+	INNER JOIN	MonHoc				AS F	ON	C.Ma_Mon_Hoc		= F.ID
+	
+	WHERE		E.Ten_Dang_Nhap							= @maSinhVien
+	AND			CAST(DATEPART(DAY,A.Ngay_Hoc) AS INT)	= @dd 
 	AND			CAST(DATEPART(MONTH,A.Ngay_Hoc) AS INT) = @mm 
 	AND			CAST(DATEPART(YEAR,A.Ngay_Hoc) AS INT)	= @yyyy
 END
+
+--exec sp_ISO_SMS_getDDddmmyyyy 'an_tc.hv',20,09,2010
+
+--select * from DiemDanh where Ma_CT_TKB = 4
+--select * from ThanhVienDiemDanh where Ma_Diem_Danh = 20
+--select * from ThanhVien Where id = 66
+--select dbo.fnc_ISO_SMS_statusDiemDanh(Tinh_Trang) from ChiTietDiemDanh Where Ma_TVDD = 271
+--select * from ChiTietThanhVien Where Ten_Dang_Nhap = 'an_tc.hv'
+--select * from ThanhVien where Ten_DN = 'an_tc.hv'
+--select * from LopHoc Where ID = 7
