@@ -32,12 +32,11 @@ BEGIN
 	AND			CAST(DATEPART(YEAR,A.Ngay_Hoc) AS INT)	= @yyyy
 END
 
---exec sp_ISO_SMS_getDDddmmyyyy 'an_tc.hv',20,09,2010
-
---select * from DiemDanh where Ma_CT_TKB = 4
---select * from ThanhVienDiemDanh where Ma_Diem_Danh = 20
---select * from ThanhVien Where id = 66
---select dbo.fnc_ISO_SMS_statusDiemDanh(Tinh_Trang) from ChiTietDiemDanh Where Ma_TVDD = 271
+--exec sp_ISO_SMS_getDDddmmyyyy 'an_tc.hv',20,9,2010
+--select * from DiemDanh where Ma_CT_TKB = 3
+--select * from ThanhVienDiemDanh where Ma_Diem_Danh = 16
+--select * from ThanhVien Where id = 56
+--select * from ChiTietDiemDanh Where Ma_TVDD = 219
 --select * from ChiTietThanhVien Where Ten_Dang_Nhap = 'an_tc.hv'
 --select * from ThanhVien where Ten_DN = 'an_tc.hv'
 --select * from LopHoc Where ID = 7
