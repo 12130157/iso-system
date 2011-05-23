@@ -543,7 +543,7 @@ namespace SMS
             }
         }
 
-        public static DataTable getDDByMaSinhVienNddmmyyyy(string maSinhVien, string dd, string mm, string yyyy)
+        public static DataTable getDDByMaSinhVienNddmmyyyy(string maSinhVien, int dd, int mm, int yyyy)
         {
             try
             {
@@ -553,13 +553,13 @@ namespace SMS
                 parameter[i] = new SqlParameter("maSinhVien", SqlDbType.VarChar);
                 parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("dd", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("dd", SqlDbType.Int);
                 parameter[i++].Value = dd;
 
-                parameter[i] = new SqlParameter("mm", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("mm", SqlDbType.Int);
                 parameter[i++].Value = mm;
 
-                parameter[i] = new SqlParameter("yyyy", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("yyyy", SqlDbType.Int);
                 parameter[i++].Value = yyyy;
 
                 DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDDddmmyyyy", parameter);
@@ -571,7 +571,7 @@ namespace SMS
             }
         }
 
-        public static DataTable getDDByMaSinhVienNmmyyyy(string maSinhVien, string mm, string yyyy)
+        public static DataTable getDDByMaSinhVienNmmyyyy(string maSinhVien, int mm, int yyyy)
         {
             try
             {
@@ -581,10 +581,10 @@ namespace SMS
                 parameter[i] = new SqlParameter("maSinhVien", SqlDbType.VarChar);
                 parameter[i++].Value = maSinhVien;
 
-                parameter[i] = new SqlParameter("mm", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("mm", SqlDbType.Int);
                 parameter[i++].Value = mm;
 
-                parameter[i] = new SqlParameter("yyyy", SqlDbType.VarChar);
+                parameter[i] = new SqlParameter("yyyy", SqlDbType.Int);
                 parameter[i++].Value = yyyy;
 
                 DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDDmmyyyy", parameter);
