@@ -348,13 +348,20 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        //modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        char[] arr = arrContentMessFn[3].ToCharArray();
+                        int dd = int.Parse(arr[0].ToString() + arr[1].ToString());
+                        int mm = int.Parse(arr[2].ToString() + arr[3].ToString());
+                        int yyyy = int.Parse(arr[4].ToString() + arr[5].ToString() + arr[6].ToString() + arr[7].ToString());
+                        modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], dd ,mm,yyyy);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        //modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        char[] arr = arrContentMessFn[3].ToCharArray();
+                        int mm = int.Parse(arr[0].ToString() + arr[1].ToString());
+                        int yyyy = int.Parse(arr[2].ToString() + arr[3].ToString() + arr[4].ToString() + arr[5].ToString());
+                        modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2],mm,yyyy);
                     }
                     else
                     {
@@ -984,50 +991,62 @@ namespace SMS
             MonHoc monHoc;
             string tenMonHocTruoc = "";
 
-            foreach (DataRow row in tbl.Rows)
+            if (tbl.Rows.Count == 1)
             {
-                monHoc = new MonHoc();
-                monHoc.TenSinhVien = row["Ten_Sinh_Vien"].ToString();
-                monHoc.Buoi = row["Buoi"].ToString();
-                monHoc.NgayHoc = row["Ngay_Hoc"].ToString();
-                monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
-                monHoc.TinhTrangDD = row["Tinh_Trang"].ToString();
-
-                if (tenMonHocTruoc.Equals(row["Ten_Mon_Hoc"].ToString()))
+                DataRow row = tbl.Rows[0];
+                result = row["Ten_Sinh_Vien"].ToString() + "(" + row["Ten_Mon_Hoc"].ToString() + ")\n" + row["Buoi"].ToString() + "-" + row["Ngay_Hoc"].ToString() + "-" + row["Tinh_Trang"].ToString();
+            }
+            else
+            {
+                foreach (DataRow row in tbl.Rows)
                 {
-                    listMonHoc.Add(monHoc);
-                }
-                else
-                { 
-                    if (tenMonHocTruoc.Equals(""))
+                    monHoc = new MonHoc();
+                    monHoc.TenSinhVien = row["Ten_Sinh_Vien"].ToString();
+                    monHoc.Buoi = row["Buoi"].ToString();
+                    monHoc.NgayHoc = row["Ngay_Hoc"].ToString();
+                    monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
+                    monHoc.TinhTrangDD = row["Tinh_Trang"].ToString();
+
+                    if (tenMonHocTruoc.Equals(row["Ten_Mon_Hoc"].ToString()))
                     {
-                        listMonHoc = new ArrayList();
                         listMonHoc.Add(monHoc);
+                        if (tbl.Rows[tbl.Rows.Count - 1] == row)
+                        {
+                            listDSMonHoc.Add(listMonHoc);
+                        }
                     }
                     else
                     {
-                        listDSMonHoc.Add(listMonHoc);
-                        listMonHoc = new ArrayList();
-                        listMonHoc.Add(monHoc);
+                        if (tenMonHocTruoc.Equals(""))
+                        {
+                            listMonHoc = new ArrayList();
+                            listMonHoc.Add(monHoc);
+                        }
+                        else
+                        {
+                            listDSMonHoc.Add(listMonHoc);
+                            listMonHoc = new ArrayList();
+                            listMonHoc.Add(monHoc);
+                        }
                     }
+                    tenMonHocTruoc = row["Ten_Mon_Hoc"].ToString();
                 }
-                tenMonHocTruoc = row["Ten_Mon_Hoc"].ToString();
-            }
 
-            foreach (ArrayList listMH in listDSMonHoc)
-            {
-                string tenSinhVien = "";
-                string tenMonHoc = "";
-                string noiDungDD = "";
-                string totalDD = "";
-                foreach (MonHoc mH in listMH)
+                foreach (ArrayList listMH in listDSMonHoc)
                 {
-                    tenSinhVien = mH.TenSinhVien;
-                    tenMonHoc = mH.TenMonHoc;
-                    noiDungDD += mH.Buoi + "-" + mH.NgayHoc + "-" + mH.TinhTrangDD+"\n";
-                    totalDD = tenSinhVien+"("+tenMonHoc+")\n"+noiDungDD;
+                    string tenSinhVien = "";
+                    string tenMonHoc = "";
+                    string noiDungDD = "";
+                    string totalDD = "";
+                    foreach (MonHoc mH in listMH)
+                    {
+                        tenSinhVien = mH.TenSinhVien;
+                        tenMonHoc = mH.TenMonHoc;
+                        noiDungDD += mH.Buoi + "-" + mH.NgayHoc + "-" + mH.TinhTrangDD + "\n";
+                        totalDD = tenSinhVien + "(" + tenMonHoc + ")\n" + noiDungDD;
+                    }
+                    result += totalDD;
                 }
-                result += totalDD;
             }
             return result;
         }
@@ -1038,7 +1057,14 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVien(maSinhVien);
             if (tbl != null)
             {
-                result = mapOutMessDiem(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Sinh Vien : " + maSinhVien + "chua co diem trong HK hien tai .";
+                }
+                else
+                {
+                    result = mapOutMessDiem(tbl);
+                }
             }
             else
             {
@@ -1053,21 +1079,28 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNTenMonHoc(maSinhVien, tenMonHoc);
             if (tbl != null)
             {
-                result += tbl.Rows[0].ItemArray[0] + ":\n";
-                foreach (DataRow row in tbl.Rows)
+                if (tbl.Rows.Count == 0)
                 {
-                    string diem;
-                    if (row["Diem"].ToString().Equals(""))
-                    {
-                         diem = "chua co ";
-                    }
-                    else
-                    {
-                        diem = row["Diem"].ToString();
-                    }
-                    result += row["Ten Bai KT"] + "/" + diem + "d/HK" + row["Hoc_Ki"] + "\n";
+                    result = "Sinh Vien : " + maSinhVien + "chua co diem mon hoc : "+tenMonHoc;
                 }
-                result += "TB Mon : " + tbl.Rows[0].ItemArray[4];
+                else
+                {
+                    result += tbl.Rows[0].ItemArray[0] + ":\n";
+                    foreach (DataRow row in tbl.Rows)
+                    {
+                        string diem;
+                        if (row["Diem"].ToString().Equals(""))
+                        {
+                            diem = "chua co ";
+                        }
+                        else
+                        {
+                            diem = row["Diem"].ToString();
+                        }
+                        result += row["Ten Bai KT"] + "/" + diem + "d/HK" + row["Hoc_Ki"] + "\n";
+                    }
+                    result += "TB Mon : " + tbl.Rows[0].ItemArray[4];
+                }
             }
             else
             {
@@ -1082,7 +1115,14 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNNamHoc(maSinhVien, namHoc);
             if (tbl != null)
             {
-                result = mapOutMessDiem(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Sinh Vien : " + maSinhVien + "chua co diem trong nam hoc : "+namHoc;
+                }
+                else
+                {
+                    result = mapOutMessDiem(tbl);
+                }
             }
             else
             {
@@ -1097,7 +1137,14 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getDiemByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
-                result = mapOutMessDiem(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Sinh Vien : " + maSinhVien + "chua co diem trong HK : "+hocKi;
+                }
+                else
+                {
+                    result = mapOutMessDiem(tbl);
+                }
             }
             else
             {
@@ -1112,7 +1159,14 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNNamHoc(maSinhVien, namHoc);
             if (tbl != null)
             {
-                result = mapOutMessTKB(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Sinh Vien : " + maSinhVien + "chua co TKB trong nam hoc : "+namHoc;
+                }
+                else
+                {
+                    result = mapOutMessTKB(tbl);
+                }
             }
             else
             {
@@ -1127,7 +1181,14 @@ namespace SMS
             DataTable tbl = CuPhapDAO.getTKBByMaSinhVienNHocKi(maSinhVien, hocKi);
             if (tbl != null)
             {
-                result = mapOutMessTKB(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Sinh Vien : " + maSinhVien + "chua co TKB trong HK : "+hocKi;
+                }
+                else
+                {
+                    result = mapOutMessTKB(tbl);
+                }
             }
             else
             {
@@ -1136,13 +1197,20 @@ namespace SMS
             return result;
         }
 
-        private string getStringDDByMaSinhVienNddmmyyy(string maSinhVien, string dd,string mm,string yyyy)
+        private string getStringDDByMaSinhVienNddmmyyy(string maSinhVien, int dd,int mm,int yyyy)
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDDByMaSinhVienNddmmyyyy(maSinhVien, dd, mm, yyyy);
             if (tbl != null)
             {
-                result = mapOutMessDD(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Lich hoc cua SV : "+maSinhVien+" khong co trong ngay : "+dd+"/"+mm+"/"+yyyy ;
+                }
+                else
+                {
+                    result = mapOutMessDD(tbl);
+                }
             }
             else
             {
@@ -1151,13 +1219,20 @@ namespace SMS
             return result;
         }
 
-        private string getStringDDByMaSinhVienNmmyyy(string maSinhVien, string mm,string yyyy)
+        private string getStringDDByMaSinhVienNmmyyy(string maSinhVien, int mm,int yyyy)
         {
             string result = "";
             DataTable tbl = CuPhapDAO.getDDByMaSinhVienNmmyyyy(maSinhVien, mm, yyyy);
             if (tbl != null)
             {
-                result = mapOutMessDD(tbl);
+                if (tbl.Rows.Count == 0)
+                {
+                    result = "Lich hoc cua SV : " + maSinhVien + " khong co trong thang : " + mm + "/" + yyyy;
+                }
+                else
+                {
+                    result = mapOutMessDD(tbl);
+                }
             }
             else
             {
@@ -1365,13 +1440,6 @@ namespace SMS
         }
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string nam = "123456";
-            string[] arr = nam.Split();
-            MessageBox.Show(arr.Length.ToString());
-        }
     }
     class MonHoc
     {
