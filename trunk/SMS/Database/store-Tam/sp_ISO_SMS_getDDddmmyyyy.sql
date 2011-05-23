@@ -26,7 +26,6 @@ BEGIN
 	INNER JOIN	ThanhVien			AS D	ON	B.Ma_Thanh_Vien		= D.ID
 	INNER JOIN	ChiTietThanhVien	AS E	ON	D.Ten_DN			= E.Ten_Dang_Nhap
 	INNER JOIN	MonHoc				AS F	ON	C.Ma_Mon_Hoc		= F.ID
-	
 	WHERE		E.Ten_Dang_Nhap							= @maSinhVien
 	AND			CAST(DATEPART(DAY,A.Ngay_Hoc) AS INT)	= @dd 
 	AND			CAST(DATEPART(MONTH,A.Ngay_Hoc) AS INT) = @mm 

@@ -13,6 +13,6 @@ declare @rs nvarchar(20)
 IF @tinhTrangDiemDanh = 4
 	set @rs =  'Co'
 ELSE 
-	set @rs =  'Khong'
+	set @rs =  'Vang'
 return @rs
 END
