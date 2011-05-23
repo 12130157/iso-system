@@ -348,13 +348,13 @@ namespace SMS
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        //modelDenFn.User31 = getStringDDByMaSinhVienNddmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else if (modelDenFn.Ma_Cu_Phap.Equals("7"))
                     {
                         modelDenFn.User11 = arrContentMessFn[2];
                         modelDenFn.User21 = arrContentMessFn[3];
-                        modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
+                        //modelDenFn.User31 = getStringDDByMaSinhVienNmmyyy(arrContentMessFn[2], arrContentMessFn[3]);
                     }
                     else
                     {
@@ -875,7 +875,7 @@ namespace SMS
                 }
                 result += totalMh;
             }
-            MessageBox.Show(result);
+            //MessageBox.Show(result);
             return result;
         }
 
@@ -973,6 +973,62 @@ namespace SMS
                 result += tenMH + "/" + buoi + "/" + subThu + "/" + kiHieuPhong + "/" + giaoVien + "(" + ngayBatDau + "-" + ngayKetThuc + ")\n";
             }
             MessageBox.Show(result);
+            return result;
+        }
+
+        private string mapOutMessDD(DataTable tbl)
+        {
+            string result = "";
+            ArrayList listDSMonHoc = new ArrayList();
+            ArrayList listMonHoc = new ArrayList();
+            MonHoc monHoc;
+            string tenMonHocTruoc = "";
+
+            foreach (DataRow row in tbl.Rows)
+            {
+                monHoc = new MonHoc();
+                monHoc.TenSinhVien = row["Ten_Sinh_Vien"].ToString();
+                monHoc.Buoi = row["Buoi"].ToString();
+                monHoc.NgayHoc = row["Ngay_Hoc"].ToString();
+                monHoc.TenMonHoc = row["Ten_Mon_Hoc"].ToString();
+                monHoc.TinhTrangDD = row["Tinh_Trang"].ToString();
+
+                if (tenMonHocTruoc.Equals(row["Ten_Mon_Hoc"].ToString()))
+                {
+                    listMonHoc.Add(monHoc);
+                }
+                else
+                { 
+                    if (tenMonHocTruoc.Equals(""))
+                    {
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                    else
+                    {
+                        listDSMonHoc.Add(listMonHoc);
+                        listMonHoc = new ArrayList();
+                        listMonHoc.Add(monHoc);
+                    }
+                }
+                tenMonHocTruoc = row["Ten_Mon_Hoc"].ToString();
+            }
+
+            foreach (ArrayList listMH in listDSMonHoc)
+            {
+                string tenSinhVien = "";
+                string tenMonHoc = "";
+                string noiDungDD = "";
+                string totalDD = "";
+                foreach (MonHoc mH in listMH)
+                {
+                    tenSinhVien = mH.TenSinhVien;
+                    tenMonHoc = mH.TenMonHoc;
+                    noiDungDD += mH.Buoi + "-" + mH.NgayHoc + "-" + mH.TinhTrangDD+"\n";
+                    totalDD = tenSinhVien+"("+tenMonHoc+")\n"+noiDungDD;
+                }
+                result += totalDD;
+            }
             return result;
         }
 
@@ -1080,15 +1136,33 @@ namespace SMS
             return result;
         }
 
-        private string getStringDDByMaSinhVienNddmmyyy(string maSinhVien, string ddmmyyyy)
+        private string getStringDDByMaSinhVienNddmmyyy(string maSinhVien, string dd,string mm,string yyyy)
         {
             string result = "";
+            DataTable tbl = CuPhapDAO.getDDByMaSinhVienNddmmyyyy(maSinhVien, dd, mm, yyyy);
+            if (tbl != null)
+            {
+                result = mapOutMessDD(tbl);
+            }
+            else
+            {
+                result = returnMessNotSyntax;
+            }
             return result;
         }
 
-        private string getStringDDByMaSinhVienNmmyyy(string maSinhVien, string mmyyyy)
+        private string getStringDDByMaSinhVienNmmyyy(string maSinhVien, string mm,string yyyy)
         {
             string result = "";
+            DataTable tbl = CuPhapDAO.getDDByMaSinhVienNmmyyyy(maSinhVien, mm, yyyy);
+            if (tbl != null)
+            {
+                result = mapOutMessDD(tbl);
+            }
+            else
+            {
+                result = returnMessNotSyntax;
+            }
             return result;
         }
 
@@ -1291,6 +1365,13 @@ namespace SMS
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string nam = "123456";
+            string[] arr = nam.Split();
+            MessageBox.Show(arr.Length.ToString());
+        }
     }
     class MonHoc
     {
@@ -1371,6 +1452,22 @@ namespace SMS
         {
             get { return ngayHoc; }
             set { ngayHoc = value; }
+        }
+
+        string tenSinhVien;
+
+        public string TenSinhVien
+        {
+            get { return tenSinhVien; }
+            set { tenSinhVien = value; }
+        }
+
+        string tinhTrangDD;
+
+        public string TinhTrangDD
+        {
+            get { return tinhTrangDD; }
+            set { tinhTrangDD = value; }
         }
     }
 }
