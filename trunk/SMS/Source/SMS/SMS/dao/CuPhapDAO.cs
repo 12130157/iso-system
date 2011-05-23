@@ -542,5 +542,58 @@ namespace SMS
                 throw;
             }
         }
+
+        public static DataTable getDDByMaSinhVienNddmmyyyy(string maSinhVien, string dd, string mm, string yyyy)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[4];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("maSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("dd", SqlDbType.VarChar);
+                parameter[i++].Value = dd;
+
+                parameter[i] = new SqlParameter("mm", SqlDbType.VarChar);
+                parameter[i++].Value = mm;
+
+                parameter[i] = new SqlParameter("yyyy", SqlDbType.VarChar);
+                parameter[i++].Value = yyyy;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDDddmmyyyy", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable getDDByMaSinhVienNmmyyyy(string maSinhVien, string mm, string yyyy)
+        {
+            try
+            {
+                SqlParameter[] parameter = new SqlParameter[3];
+                int i = 0;
+
+                parameter[i] = new SqlParameter("maSinhVien", SqlDbType.VarChar);
+                parameter[i++].Value = maSinhVien;
+
+                parameter[i] = new SqlParameter("mm", SqlDbType.VarChar);
+                parameter[i++].Value = mm;
+
+                parameter[i] = new SqlParameter("yyyy", SqlDbType.VarChar);
+                parameter[i++].Value = yyyy;
+
+                DataTable tbl = DataUtil.executeStore("sp_ISO_SMS_getDDmmyyyy", parameter);
+                return tbl;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
