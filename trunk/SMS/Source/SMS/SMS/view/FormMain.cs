@@ -114,7 +114,6 @@ namespace SMS
             Thread t = new Thread(doMessAuto);
             t.Start();
             t.Join();
-            //doMessAuto();
         }
 
         #endregion 
