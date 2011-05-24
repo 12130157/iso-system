@@ -575,6 +575,7 @@
             this.txtNbPhoneDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtNbPhoneDe.Location = new System.Drawing.Point(259, 437);
             this.txtNbPhoneDe.Name = "txtNbPhoneDe";
+            this.txtNbPhoneDe.ReadOnly = true;
             this.txtNbPhoneDe.Size = new System.Drawing.Size(138, 20);
             this.txtNbPhoneDe.TabIndex = 16;
             // 
@@ -593,6 +594,7 @@
             this.txtSyntaxDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtSyntaxDe.Location = new System.Drawing.Point(259, 461);
             this.txtSyntaxDe.Name = "txtSyntaxDe";
+            this.txtSyntaxDe.ReadOnly = true;
             this.txtSyntaxDe.Size = new System.Drawing.Size(138, 20);
             this.txtSyntaxDe.TabIndex = 18;
             // 
@@ -611,6 +613,7 @@
             this.txtDateTimeDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDateTimeDe.Location = new System.Drawing.Point(259, 485);
             this.txtDateTimeDe.Name = "txtDateTimeDe";
+            this.txtDateTimeDe.ReadOnly = true;
             this.txtDateTimeDe.Size = new System.Drawing.Size(138, 20);
             this.txtDateTimeDe.TabIndex = 18;
             // 
@@ -621,6 +624,7 @@
             this.txtContentMessDe.Location = new System.Drawing.Point(403, 437);
             this.txtContentMessDe.Multiline = true;
             this.txtContentMessDe.Name = "txtContentMessDe";
+            this.txtContentMessDe.ReadOnly = true;
             this.txtContentMessDe.Size = new System.Drawing.Size(302, 68);
             this.txtContentMessDe.TabIndex = 19;
             // 

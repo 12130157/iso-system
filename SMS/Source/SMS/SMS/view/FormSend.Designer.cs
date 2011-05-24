@@ -375,7 +375,7 @@
             this.tabNormalMessErrorSent.Location = new System.Drawing.Point(4, 4);
             this.tabNormalMessErrorSent.Name = "tabNormalMessErrorSent";
             this.tabNormalMessErrorSent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNormalMessErrorSent.Size = new System.Drawing.Size(879, 309);
+            this.tabNormalMessErrorSent.Size = new System.Drawing.Size(879, 312);
             this.tabNormalMessErrorSent.TabIndex = 1;
             this.tabNormalMessErrorSent.Text = "Tin Nhắn Thủ Công Lỗi";
             this.tabNormalMessErrorSent.UseVisualStyleBackColor = true;
@@ -399,7 +399,7 @@
             this.tblNormalMessErrorSent.ReadOnly = true;
             this.tblNormalMessErrorSent.RowHeadersVisible = false;
             this.tblNormalMessErrorSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 318);
+            this.tblNormalMessErrorSent.Size = new System.Drawing.Size(879, 321);
             this.tblNormalMessErrorSent.TabIndex = 1;
             this.tblNormalMessErrorSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessErrorSent_CellClick);
             // 
@@ -533,7 +533,7 @@
             this.tabNormalMessDeletedSent.Location = new System.Drawing.Point(4, 4);
             this.tabNormalMessDeletedSent.Name = "tabNormalMessDeletedSent";
             this.tabNormalMessDeletedSent.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNormalMessDeletedSent.Size = new System.Drawing.Size(879, 309);
+            this.tabNormalMessDeletedSent.Size = new System.Drawing.Size(879, 312);
             this.tabNormalMessDeletedSent.TabIndex = 1;
             this.tabNormalMessDeletedSent.Text = "Tin Nhắn Thủ Công Gửi Đã Xóa";
             this.tabNormalMessDeletedSent.UseVisualStyleBackColor = true;
@@ -557,7 +557,7 @@
             this.tblNormalMessDeletedSent.ReadOnly = true;
             this.tblNormalMessDeletedSent.RowHeadersVisible = false;
             this.tblNormalMessDeletedSent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 318);
+            this.tblNormalMessDeletedSent.Size = new System.Drawing.Size(879, 321);
             this.tblNormalMessDeletedSent.TabIndex = 2;
             this.tblNormalMessDeletedSent.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tblNormalMessDeletedSent_CellClick);
             // 
@@ -689,6 +689,7 @@
             this.txtContentMessDe.Location = new System.Drawing.Point(406, 435);
             this.txtContentMessDe.Multiline = true;
             this.txtContentMessDe.Name = "txtContentMessDe";
+            this.txtContentMessDe.ReadOnly = true;
             this.txtContentMessDe.Size = new System.Drawing.Size(302, 68);
             this.txtContentMessDe.TabIndex = 27;
             // 
@@ -697,6 +698,7 @@
             this.txtDateTimeDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtDateTimeDe.Location = new System.Drawing.Point(262, 483);
             this.txtDateTimeDe.Name = "txtDateTimeDe";
+            this.txtDateTimeDe.ReadOnly = true;
             this.txtDateTimeDe.Size = new System.Drawing.Size(138, 20);
             this.txtDateTimeDe.TabIndex = 25;
             // 
@@ -705,6 +707,7 @@
             this.txtSyntaxDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtSyntaxDe.Location = new System.Drawing.Point(262, 459);
             this.txtSyntaxDe.Name = "txtSyntaxDe";
+            this.txtSyntaxDe.ReadOnly = true;
             this.txtSyntaxDe.Size = new System.Drawing.Size(138, 20);
             this.txtSyntaxDe.TabIndex = 26;
             // 
@@ -733,6 +736,7 @@
             this.txtNbPhoneDe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtNbPhoneDe.Location = new System.Drawing.Point(262, 435);
             this.txtNbPhoneDe.Name = "txtNbPhoneDe";
+            this.txtNbPhoneDe.ReadOnly = true;
             this.txtNbPhoneDe.Size = new System.Drawing.Size(138, 20);
             this.txtNbPhoneDe.TabIndex = 22;
             // 
