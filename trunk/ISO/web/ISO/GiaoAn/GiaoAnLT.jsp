@@ -796,8 +796,9 @@
 			<tr style="background-color: transparent;">
 				<td><br />TRƯỞNG KHOA/TRƯỞNG TỔ MÔN</td>
 				<td>
-					<input type = "hidden" id="txtCalendar1" size = 8 name="txtCalendar1"   <c:if test="${param.stt eq 'update'}">value="${giaoAnLyThuyet.ngayTao}"</c:if> />
-					${giaoAnLyThuyet.ngayTao}
+					<input type = "hidden" id="txtCalendar1" size = 8 name="txtCalendar1"   <c:if test="${param.stt eq 'update'}">value="${giaoAnLyThuyet.ngayThucHien}"</c:if> />
+					<!-- ${giaoAnLyThuyet.ngayTao}-->
+					${giaoAnLyThuyet.ngayThucHien}
 				<br />GIÁO VIÊN</td>
 			</tr>
 			<tr style="background-color: transparent;">
