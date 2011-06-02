@@ -4,7 +4,7 @@
 * Date: 21-11-2010S
 * Description: Generate giao an
 ***********************************************************/
-
+ 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[sp_iso_GenerateGiaoAn]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[sp_iso_GenerateGiaoAn]
 GO
