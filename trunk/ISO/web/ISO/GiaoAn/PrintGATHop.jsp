@@ -95,7 +95,7 @@
 				<tr style="background-color: transparent;">
 					<td></td>
 					<td colspan="2" style="padding-left:40px">
-						Thực hiện :	${sf:setFormatDate(giaoAnLyThuyet.ngayThucHien)}
+						Thực hiện :	<!-- ${sf:setFormatDate(giaoAnLyThuyet.ngayThucHien)}  -->
 					</td>
 				</tr>
 		</table>
@@ -267,7 +267,13 @@
 		<table style="background-color: transparent;width:750px;padding-right:100px">
 			<tr style="background-color: transparent;">
 				<td align='center' width="325px"><br />TRƯỞNG KHOA/TRƯỞNG TỔ MÔN</td>
-				<td align='center' width="325px">${giaoAnLyThuyet.ngayTao}
+				<td align='center' width="325px"><!-- ${giaoAnLyThuyet.ngayTao}  -->
+			<table>
+					<tr>
+						<td width="60">Ngày</td><td width="60">Tháng</td><td width="65">Năm</td>
+					</tr>
+				</table>
+			
 				<br />GIÁO VIÊN</td>
 			</tr>
 			<tr style="background-color: transparent;">
