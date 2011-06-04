@@ -180,7 +180,7 @@
 	var pathKHGD=window.location;
 	
 	function loadData(){
-		document.getElementById("pathPage").value=pathGA;	
+		document.getElementById("pathPage").value=pathKHGD;	
 	}
 	
 	function change_selLopHoc()
@@ -433,6 +433,7 @@
 	<input type="hidden" name="Duyet" id="Duyet"></input>
 	<input type="hidden" name="maKHGD" id="maKHGD"></input>
 	<input type="hidden" name="pathPage" id="pathPage"></input>
+			<% int countEmail=0; %>
 	
 	<table border="1">
 		<tr style="background-color: transparent;"><td style='color:black;text-align:center;font-weight:bold' colspan="9">Kết quả tìm kiếm</td></tr>
@@ -451,7 +452,6 @@
 		<c:set var='color' value=''></c:set>
 		<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
 		
-			<% int countEmail=0; %>
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 				
 				<c:if test="${ empty objKQTim.tinhTrang}">
@@ -546,16 +546,16 @@
 					</td>
 				</tr>
 			</c:forEach>
-			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
 		</c:if>
 		
 	</table>	
+			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
 	
 	</form>
 	<br/>
 	<br/>
 	<br/>
-	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or boPhan eq boPhanPKD}">
 		<div style='text-align:center'>
 				<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 		</div>

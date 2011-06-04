@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.common.DateType;
 
 public class DateUtil {
 	public static String setDate(String value) {
@@ -91,6 +92,27 @@ public class DateUtil {
 			result = arrayValue[1] + "-" + arrayValue[0] + "-" + arrayValue[2].substring(0,4);
 		}
 		return result;
+	}
+	
+	
+	public static String setDate(String value,DateType type){
+		//value is must dd-mm-yyyy
+		String str="";
+		if(!value.equals("")){
+			String[] strs=value.split("-");
+			if(strs.length==3){
+				if(type==DateType.TYPE_1){
+					str=strs[2]+"/"+strs[1]+"/"+strs[0];
+				}else if(type==DateType.TYPE_2){
+					str=strs[1]+"/"+strs[0]+"/"+strs[2];
+				} else if(type==DateType.TYPE_3){
+					str=strs[0]+"/"+strs[1]+"/"+strs[2];
+					
+				}
+			}
+		}
+		
+		return str;
 	}
 	
 

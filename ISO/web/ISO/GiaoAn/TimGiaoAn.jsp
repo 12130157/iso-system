@@ -21,7 +21,8 @@
 <%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ChiTietThanhVienModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.MonHocTKBDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.MonHocTKBDAO"%>
+<%@page import="vn.edu.hungvuongaptech.common.DateType"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -171,7 +172,7 @@
 <c:set var="COHIEU_LT" value="<%=Constant.COHIEULT %>"></c:set>
 <c:set var="COHIEU_TH" value="<%=Constant.COHIEUTH %>"></c:set>
 <c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
-
+<c:set var='TGNhacNhoGoiGA' value='7'></c:set>
 <!--[if lt IE 7]>
  <style type="text/css">
  div, img { behavior: url("<%=request.getContextPath()%>/css/iepngfix.htc") }
@@ -464,6 +465,8 @@
 		<input type="hidden" name="actionType" id="actionType"></input>
 		
 		<p style='color:black;text-align:center;font-weight:bold'>Kết quả tìm kiếm</p>
+		<% int countEmail=0; %>
+		
 	<w:table  id="tbl2" border="1" nameForm="frmSearchGiaoAn2" idForm="frmSearchGiaoAn2" linkTo="TimGiaoAn.jsp">
 		<w:init_param_table nameSortType="sortType" nameColSort="colSort" nameIDTableSort="tbl2"></w:init_param_table>
 		<w:query_string>
@@ -482,10 +485,10 @@
 		</w:row_header>
 		
 		<c:if test="${ not empty param.view}">
-			<% int countEmail=0; %>
 			
 			<c:set var='color' value=''></c:set>
 			<c:set var='ngayHienTai' value='<%=DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong()) %>'></c:set>
+			<c:set var='dateType' value='<%=DateType.TYPE_2%>'></c:set>
 		
 			<c:forEach var="objKQTim" items="${kqTimKiemList}"> 
 				<c:if test="${ empty objKQTim.tinhTrang}">
@@ -496,8 +499,13 @@
 					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">
 						<c:set var='color' value=';background-color:red'></c:set>
 					</c:if>
+					<c:set var='TGResult' value='${ sf:diffDate(sf:setFormatDate2(ngayHienTai,dateType),sf:setFormatDate2(objKQTim.ngayDay,dateType))}'></c:set>
+					
 					<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq false and objKQTim.tinhTrang eq TT_NEW }">
 						<c:set var='color' value=''></c:set>
+						<c:if test="${ (TGResult le TGNhacNhoGoiGA and TGResult ge 0)}">
+							<c:set var='color' value=';background-color:orange'></c:set>
+						</c:if>
 					</c:if>
 				</c:if>
 
@@ -561,14 +569,17 @@
 					</w:cell>
 				</w:row>
 			</c:forEach>
-			<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
+			
+			
 		</c:if>
 		
 	</w:table>	
+	<input type="hidden" name="totalEmail" id="totalEmail" value="<%=countEmail %>"></input>
+	
 	<br/>
 	<br/>
 	<br/>		 
-	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK}">
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or boPhan eq boPhanPKD}">
 	<div style='text-align:center'>
 			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 	</div>

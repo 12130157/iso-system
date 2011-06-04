@@ -9,10 +9,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.common.DateType;
 import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.SendMailListCongTacModel;
+import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel;
+import vn.edu.hungvuongaptech.taglib.ChangeStringTaglib;
 import vn.edu.hungvuongaptech.util.DataUtil;
+import vn.edu.hungvuongaptech.util.DateUtil;
+import vn.edu.hungvuongaptech.util.StringUtil;
 
 /**
  * @author ThienVD
@@ -435,6 +440,29 @@ public class MailDAO {
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
+		return result;
+	}
+	
+	public static String getContentEmailNhacNho2ByChucNang(ArrayList<ThanhVienNhacNhoModel> thanhVienList){
+		String result="";
+		result=" <p> Hệ thống ISO xin thông báo. </p><br/>";
+		result=result+"<p>Danh sách các giáo viên yêu cầu: </p>";
+		//********************************************************
+		result=result+"<table border='1'><tr><th>Giáo viên</th><th>Chương trình</th><th>Ngày dạy</th></tr>";
+		for(int i=0;i<thanhVienList.size();i++){
+			String tenChuongTrinh=thanhVienList.get(i).getTenChuongTrinh();
+			result=result+"<tr><td>"+thanhVienList.get(i).getTenThanhVien()+"</td><td>"+
+			tenChuongTrinh
+			+"</td><td>"+thanhVienList.get(i).getNgayDay()+"</td></tr>";
+		}
+		result=result+"</table>";
+			
+		//********************************************************
+		result  = result+ "<br/><br/>Hiện tại đã là ngày: "+ DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong(),DateType.TYPE_2)+" nhưng giáo viên vẫn chưa hoàn thành.";
+
+		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để duyệt chương trình này.<br/>";
+
+		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 		return result;
 	}
 	
