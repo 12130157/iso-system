@@ -101,6 +101,16 @@
 	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
 	  	<function-signature>java.lang.String setFormatDate(java.lang.String)</function-signature> 
 	</function>
+	<function>
+	  	<name>diffDate</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.Integer diffDate(java.lang.String,java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>setFormatDate2</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String setFormatDate2(java.lang.String,vn.edu.hungvuongaptech.common.DateType)</function-signature> 
+	</function>
 
 	
 </taglib>

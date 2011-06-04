@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import vn.edu.hungvuongaptech.common.DateType;
 import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -212,4 +213,15 @@ public class ChangeStringTaglib {
 		return value;
 	}
 
+	public static Integer diffDate(String value1,String value2){
+		int result=0;
+		String soNgay=DateUtil.diffDate(value1, value2);
+		if(!soNgay.equals(""))
+			result=Integer.parseInt(soNgay);
+		return result;
+	}
+	
+	public static String setFormatDate2(String value,DateType type){
+		return DateUtil.setDate(value, type);
+	}
 }

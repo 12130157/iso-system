@@ -216,4 +216,5 @@ public class Constant {
 	public static final String TINHTRANGTHIETBIBAOHANH = "3";
 	public static final String TINHTRANGTHIETBIHONG = "4";
 
+	public static final String MAILTO_THANHVIENNHACNHO="phamhongtam27989@gmail.com";
 }

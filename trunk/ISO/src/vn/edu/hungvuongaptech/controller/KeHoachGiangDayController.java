@@ -16,6 +16,7 @@ import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
+import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel;
 import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
@@ -560,24 +561,38 @@ public class KeHoachGiangDayController extends HttpServlet{
 	}
 	
 	private void sendMailsNhacNhoCacGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		int total=Integer.parseInt(request.getParameter("totalEmail"));
-		for(int i=0;i<total;i++){
-			String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
-			String tenChuongTrinh=request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i);
-			String ngayDay=request.getParameter("txtNgayDay_"+i);
-			String maNguoiTao=request.getParameter("txtMaGiaoVien_"+i);
-			emailNhacNho(tenGiaoVien, tenChuongTrinh, ngayDay,maNguoiTao);
+		if(request.getParameter("totalEmail")!=null){
+			int total=Integer.parseInt(request.getParameter("totalEmail"));
+			if(total!=0){
+				//*****************GOM MAIL********************************
+				ThanhVienNhacNhoModel thanhVienModel;
+				ArrayList<ThanhVienNhacNhoModel> thanhVienList=new ArrayList<ThanhVienNhacNhoModel>();
+				for(int i=0;i<total;i++){
+					thanhVienModel=new ThanhVienNhacNhoModel();
+					String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
+					String tenChuongTrinh=request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i);
+					String ngayDay=request.getParameter("txtNgayDay_"+i);
+					String maNguoiTao=request.getParameter("txtMaGiaoVien_"+i);
+					thanhVienModel.setMaThanhVien(maNguoiTao);
+					thanhVienModel.setTenThanhVien(StringUtil.toUTF8(tenGiaoVien));
+					thanhVienModel.setTenChuongTrinh(StringUtil.toUTF8(tenChuongTrinh));
+					thanhVienModel.setNgayDay(ngayDay);
+					thanhVienList.add(thanhVienModel);
+				}
+				emailNhacNho(thanhVienList,request,response);
+			}
 		}
-		
 		response.sendRedirect(request.getParameter("pathPage"));
 	}
 	
-	private void emailNhacNho(String tenGiaoVien,String tenChuongTrinh,String ngayDay,String maThanhVien){
-		String mailTo=MailDAO.getMailByMaThanhVien(maThanhVien);
-		String mailCC="";
+	private void emailNhacNho(ArrayList<ThanhVienNhacNhoModel> thanhVienList,HttpServletRequest request,HttpServletResponse response){
+		String mailTo=Constant.MAILTO_THANHVIENNHACNHO;
+		String mailCC=MailDAO.getMailByMaThanhVien(request.getSession().getAttribute("maThanhVien").toString());
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY);
-		String content=MailDAO.getContentEmailNhacNhoByChucNang(StringUtil.toUTF8(tenChuongTrinh),StringUtil.toUTF8(tenGiaoVien),ngayDay,StringUtil.toUTF8("KE HOACH GIANG DAY"));
+		String content=MailDAO.getContentEmailNhacNho2ByChucNang(thanhVienList);
 		MailUtil.sendEmail(mailTo, mailCC, subject, content);
+		//*************************GOM MAIL****************************
+		
 	}
 	
 
