@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import vn.edu.hungvuongaptech.common.DateType;
-import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
-import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
 import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
 
@@ -34,10 +32,10 @@ public class ChangeStringTaglib {
 		String result = "";
 		String[] arrayValue = value.split("\n");
 		for (int i = 0; i< arrayValue.length; i++) {
-			result += "<p>-" + arrayValue[i] + "</p>" ;
-		}
-		if (arrayValue.length == 1) { // Chuoi khong chua ki tu "-"
-			result = "<p>-" + value + "</p>";
+			if(arrayValue[i].charAt(0) == '-')
+				result += "<p>&nbsp;&nbsp;&nbsp;" + arrayValue[i] + "</p>" ;
+			else
+				result += "<p>&nbsp;&nbsp;&nbsp;- " + arrayValue[i] + "</p>" ;
 		}
 		return result;
 	}
@@ -45,11 +43,14 @@ public class ChangeStringTaglib {
 		String result = "";
 		String[] arrayValue = value.split("\n");
 		for (int i = 0; i< arrayValue.length; i++) {
-			result += "<p style='background-color: yellow;'>-" + arrayValue[i] + "</p>" ;
+			if(arrayValue[i].charAt(0) == '-')
+				result += "<p style='background-color: yellow;'>&nbsp;&nbsp;&nbsp;" + arrayValue[i] + "</p>" ;
+			else
+				result += "<p style='background-color: yellow;'>&nbsp;&nbsp;&nbsp;- " + arrayValue[i] + "</p>" ;
 		}
-		if (arrayValue.length == 1) { // Chuoi khong chua ki tu "-"
+		/*if (arrayValue.length == 1) { // Chuoi khong chua ki tu "-"
 			result = "<p style='background-color: yellow;'>-" + value + "</p>";
-		}
+		}*/
 		return result;
 	}
 	
@@ -223,5 +224,11 @@ public class ChangeStringTaglib {
 	
 	public static String setFormatDate2(String value,DateType type){
 		return DateUtil.setDate(value, type);
+	}
+	public static ArrayList<String> splitTenChuong(String tenChuong) {
+		ArrayList<String> str = new ArrayList<String>();
+		str.add(tenChuong.substring(0, tenChuong.indexOf("1.")));
+		str.add(tenChuong.substring(tenChuong.indexOf("1."), tenChuong.length()));
+		return str;
 	}
 }

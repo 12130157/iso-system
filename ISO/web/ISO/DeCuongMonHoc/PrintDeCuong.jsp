@@ -66,7 +66,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
 			<tr style="background-color: transparent; font-size: 14px;">
 				<td colspan = "2">
-					<p>-Tên môn học:${DeCuongMonHoc.tenMonHoc}</p>
+					<p>-Tên môn học:<font style="font-weight: bold;">${DeCuongMonHoc.tenMonHoc}</font></p>
 				</td>
 			</tr>						
 	</table>
@@ -99,7 +99,7 @@
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent;">
+			<tr style="background-color: transparent; font-size: 14px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">1/Kiến thức chuyên môn:</p> <p> ${sf:appendPTag(DeCuongMonHoc.mucTieu1)} </p>
 				</td>
