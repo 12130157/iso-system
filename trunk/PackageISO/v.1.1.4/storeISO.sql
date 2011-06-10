@@ -8175,7 +8175,7 @@ GO
 * Date: 21-11-2010S
 * Description: Generate giao an
 ***********************************************************/
-
+ 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[sp_iso_GenerateGiaoAn]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[sp_iso_GenerateGiaoAn]
 GO
@@ -8201,6 +8201,7 @@ BEGIN
 	DECLARE @CoHieuTemp int
 	DECLARE @Muc_Tieu_Bai_Hoc nvarchar(2000)
 	DECLARE @Ngay_BD datetime
+	DECLARE @SoTietMoiBuoi int
 	---------SET---------------------------------------
 	SET @CoHieuLT=0
 	SET @CoHieuTH=1
@@ -8381,7 +8382,7 @@ BEGIN
 
 	SET @TempSTTND =-1
 	SET @CoHieuTemp=-1
-	SELECT @MaGiaoVien=Ma_nguoi_tao FROM KeHoachGiangDay WHERE ID=@MaKHGD
+	SELECT @MaGiaoVien=Ma_nguoi_tao,@SoTietMoiBuoi=So_tiet_moi_buoi FROM KeHoachGiangDay WHERE ID=@MaKHGD
 	
 	WHILE @@FETCH_STATUS=0
 	BEGIN
@@ -8399,7 +8400,7 @@ BEGIN
 				SET @DanNhap=@Muc_Tieu_Bai_Hoc
 				SET @NoiDungBaiGiang=@TenChuong
 				SET @CungCoKienThuc=@Muc_Tieu_Bai_Hoc
-		
+				SET @ThoiGianTHBH=@SoTietMoiBuoi*45
 				--------------------CALL STORE INSERT GiaoAn LY THUYET--------------------------
 				Execute sp_ISO_InsertGiaoAnLyThuyet
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu,@DoDungPTDH,@OnDinhLH
@@ -8414,6 +8415,7 @@ BEGIN
 				SET @DanNhap2=@Muc_Tieu_Bai_Hoc
 				SET @TenChuong=@NoiDungTH
 				SET @HuongDanBanDau2=@NoiDungTH
+				SET @ThoiGianTHBH2=@SoTietMoiBuoi*60
 				--------------------CALL STORE INSERT GiaoAn THUC HANH--------------------------
 				Execute sp_ISO_InsertGiaoAnThucHanh
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu2,@DoDungPTDH2,@HinhThucTCDH2,@OnDinhLH2,@ThoiGianOnDinh2
@@ -8428,7 +8430,7 @@ BEGIN
 				SET @GioiThieuChuDe3=@TenChuong
 				SET	@MucTieu3=@Muc_Tieu_Bai_Hoc
 				SET @DanNhap3=@Muc_Tieu_Bai_Hoc
-			
+				SET @ThoiGianTHBH3=@SoTietMoiBuoi*45
 				Execute sp_ISO_InsertGiaoAnTichHop
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu3,@DoDungPTDH3,@HinhThucTCDH3,@OnDinhLH3,@ThoiGianOnDinh3,@ThoiGianTHBH3
 						,@DanNhap3,@HDDanNhapGV3,@HDDanNhapHS3,@ThoiGianDanNhap3,@GioiThieuChuDe3,@HDGTCDGV3,@HDGTCDHS3,@ThoiGianGTCD3,@GiaiQuyetVanDe3,@HDGQVDGV3,@HDGQVDHS3
