@@ -6,11 +6,15 @@
 
 <html>
 <head>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietKHGDModel"%>
 
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
+
+<%@page import="vn.edu.hungvuongaptech.model.GiaoAnModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.KeHoachGiangDayModel"%>
 
 
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
@@ -532,7 +536,11 @@ function capnhatRKN(str)
 		<br/>
 		<br/>
 	 	<br/>	
-	
+	<% 
+		GiaoAnModel giaoAnModel=new GiaoAnModel();
+		KeHoachGiangDayModel keHoachGiangDayModel=new KeHoachGiangDayModel(); 
+		ChiTietKHGDModel chiTietKHGDModel=new ChiTietKHGDModel();
+	%>	
 	<c:choose>
 	<c:when test="${not empty param.maCTKHGD}">
 		<c:set var="isMaCTKHGD" value='<%=ChiTietKHGDDAO.isMaCTKHGD(request.getParameter("maCTKHGD"))%>'></c:set>
@@ -547,12 +555,15 @@ function capnhatRKN(str)
 		
 		<c:if test="${param.stt eq 'update'}">
 			<% String maGA=ChiTietKHGDDAO.getMaGiaoAnByMaCTKHGD(request.getParameter("maCTKHGD"));%>
-		
-			<c:set var="giaoAnLyThuyet" value='<%=GiaoAnDAO.getGiaoAnThucHanhByMaGA(ChiTietKHGDDAO.getMaGiaoAnByMaCTKHGD(request.getParameter("maCTKHGD")))%>' scope="session"></c:set>
+			<% giaoAnModel=GiaoAnDAO.getGiaoAnThucHanhByMaGA(maGA); %>	
+			<% String maKHGD=ChiTietKHGDDAO.getMaKHGDByMaCTKHGD(request.getParameter("maCTKHGD")); %>
+			<% keHoachGiangDayModel=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(maKHGD);%>
+			<% chiTietKHGDModel=ChiTietKHGDDAO.getChiTietKHGDByByMaCTKHGD(request.getParameter("maCTKHGD")); %>
+			<c:set var="giaoAnLyThuyet" value='<%=giaoAnModel%>' scope="session"></c:set>
 			<c:set var="listTenChuong" value='<%=ChiTietKHGDDAO.getListTenChuongByMaCTKHGD(request.getParameter("maCTKHGD"))%>' scope="session"></c:set>
-			<c:set var="chiTietKHGD" value='<%=ChiTietKHGDDAO.getChiTietKHGDByByMaCTKHGD(request.getParameter("maCTKHGD"))%>' scope="session"></c:set>
-			<c:set var="soPhut" value='<%=KeHoachGiangDayDAO.calSoPhutDCMHByMaKHGD(ChiTietKHGDDAO.getMaKHGDByMaCTKHGD(request.getParameter("maCTKHGD")),Constant.phutQDTH)%>' scope="session"></c:set>
-			<c:set var="objKHGD" value = '<%=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(ChiTietKHGDDAO.getMaKHGDByMaCTKHGD(request.getParameter("maCTKHGD")))%>' scope="session"></c:set>
+			<c:set var="chiTietKHGD" value='<%=chiTietKHGDModel%>' scope="session"></c:set>
+			<c:set var="soPhut" value='<%=KeHoachGiangDayDAO.calSoPhutDCMHByMaKHGD(maKHGD,Constant.phutQDTH)%>' scope="session"></c:set>
+			<c:set var="objKHGD" value = '<%=keHoachGiangDayModel%>' scope="session"></c:set>
 			<c:if test="${empty chiTietKHGD.maGiaoAn}">
 				<jsp:forward page=""/>
 			</c:if>
@@ -865,6 +876,19 @@ function capnhatRKN(str)
 						</c:if>
 				</td>
 			</tr>
+				<tr style="background-color: transparent;">
+				<td colspan="2" style='text-align:center'>
+					<c:set var='lstSoSanhGA' value='<%=GiaoAnDAO.getGiaoAnSoSanhByCoHieuAndSoGiaoAn(chiTietKHGDModel.getCoHieu(),request.getParameter("soGA"),keHoachGiangDayModel.getMaMonHoc()) %>'></c:set>	
+					<select id="selSoSanhGA" name="selSoSanhGA">
+						<c:forEach var="soSanhGA" items="${lstSoSanhGA}">
+								<option value="&maGA=${soSanhGA.maGiaoAn}&maCTKHGD=${soSanhGA.maCTKHGD}&maKHGD=${soSanhGA.maKHGD}" >Giáo án (HK ${soSanhGA.hocKi}/${soSanhGA.namBatDau}) của giáo viên ${soSanhGA.giaoVienTao} thuộc lớp ${soSanhGA.lopHoc } </option>
+						</c:forEach>
+					</select>
+					<input type="button" value="So Sánh" onclick="clickSoSanh()"></input>
+					<input type="hidden" value="<%=chiTietKHGDModel.getCoHieu()%>" name="txtCoHieuGiaoAn"></input>
+			
+				</td>
+			</tr>
 		</table>
 		
 		<c:choose>
@@ -902,6 +926,13 @@ function capnhatRKN(str)
 	ifFormat          : "%d-%m-%Y"
   });
 //]]>
+
+ function clickSoSanh(){
+ 	
+ 	document.getElementById("actionType").value="soSanhGA";
+	document.forms['GiaoAn'].submit();	
+ 
+ }
 
  </script>
 

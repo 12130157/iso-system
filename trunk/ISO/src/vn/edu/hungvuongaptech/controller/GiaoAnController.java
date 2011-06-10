@@ -106,7 +106,27 @@ public class GiaoAnController extends HttpServlet {
 		}
 		else if(actionType.equalsIgnoreCase("emailNhacNho")){
 			sendMailsNhacNhoCacGiaoVien(request,response);
+		}
+		else if(actionType.equalsIgnoreCase("soSanhGA")){
+			String path="?true=true";
+			String coHieu=request.getParameter("txtCoHieuGiaoAn");
+
+			path=path+request.getParameter("selSoSanhGA");
 			
+			if(coHieu.equals(Constant.COHIEULT)){
+				path=Constant.PATH_RES.getString("iso.SoSanhGiaoAnLT")+path;
+			}
+			else if(coHieu.equals(Constant.COHIEUTH)){
+				path=Constant.PATH_RES.getString("iso.SoSanhGiaoAnTH")+path;
+			}
+			else if(coHieu.equals(Constant.COHIEUTHOP) || coHieu.equals(Constant.COHIEUKT)){
+
+				path=Constant.PATH_RES.getString("iso.SoSanhGiaoAnTHop")+path;
+			}
+			else{
+				path="";
+			}
+			response.sendRedirect(path);
 		}
 		
 	}

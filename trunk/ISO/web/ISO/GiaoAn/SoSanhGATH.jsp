@@ -5,6 +5,9 @@
 
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO"%>
 
+<%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
+
 <pd4ml:transform
 	screenWidth="700"
 	pageFormat="A4"
@@ -38,7 +41,7 @@
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.KeHoachDaoTaoDao"%><html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -55,6 +58,13 @@
 <c:set var="chiTietKHGD" value="${sessionScope.chiTietKHGD}"></c:set>
 
 
+<c:set var="giaoAnSoSanh" value='<%=GiaoAnDAO.getGiaoAnThucHanhByMaGA(request.getParameter("maGA"))%>' ></c:set>		
+<c:set var="listTenChuongSS" value='<%=ChiTietKHGDDAO.getListTenChuongByMaCTKHGD(request.getParameter("maCTKHGD"))%>' ></c:set>
+<c:set var="soPhutSS" value='<%=KeHoachGiangDayDAO.calSoPhutDCMHByMaKHGD(request.getParameter("maKHGD"),Constant.phutQDLT)%>' ></c:set>
+<c:set var="objKHGDSS" value='<%=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(request.getParameter("maKHGD"))%>'></c:set>
+<c:set var="chiTietKHGDSS" value='<%=ChiTietKHGDDAO.getChiTietKHGDByByMaCTKHGD(request.getParameter("maCTKHGD")) %>'></c:set>
+
+
 <table width="100%" height="100%" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');">
 	<tr><td>
 		<table border="0" width = "650px" style="background-color: transparent;">
@@ -67,7 +77,7 @@
 						GIÁO ÁN SỐ : ${giaoAnLyThuyet.soGiaoAn}
 					</td>
 					<td colspan="2" style="padding-left:40px">
-						Thời gian thực hiện : ${soPhut} phút<br />
+						Thời gian thực hiện : ${soPhut} phút <span style='background-color:yellow'>${soPhutSS} phút</span><br />
 					</td>
 				</tr>
 				<tr style="background-color: transparent;">
@@ -82,6 +92,15 @@
 						
 							<% int count=1; %>
 							<c:forEach items="${listTenChuong}" var="obj">
+								<b><%=count%>/ ${obj}</b><br/>					
+								<%count++; %>
+							</c:forEach>
+						
+						</div>	
+						<div style="text-align:left;font-weight:bold;background-color:yellow">
+						
+							<% count=1; %>
+							<c:forEach items="${listTenChuongSS}" var="obj">
 								<b><%=count%>/ ${obj}</b><br/>					
 								<%count++; %>
 							</c:forEach>
@@ -109,13 +128,24 @@
 						</c:forEach>	
 					
 					</div>	
+					<div style="text-align:left;font-weight:bold;background-color:yellow">
+					
+						<% count=1; %>
+						<c:forEach items="${listTenChuongSS}" var="obj">
+							<b><%=count%>/ ${obj}</b><br/>					
+							<%count++; %>
+						</c:forEach>	
+					
+					</div>	
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">
 					<div class = "div_textleft">MỤC TIÊU CỦA BÀI : 
 					</div>
-					<div style="padding-left:20px">- ${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.mucTieu))} </div>
+					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.mucTieu))} </div>
+					
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.mucTieu))} </div>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -123,6 +153,7 @@
 					<div class = "div_textleft">ĐỒ DÙNG VÀO PHƯƠNG TIỆN DẠY HỌC : 
 					</div>
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.doDungPTDH))}</div>
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.doDungPTDH))}</div>
 					
 				</td>
 			</tr>
@@ -131,7 +162,8 @@
 					<div class = "div_textleft">HÌNH THỨC TỔ CHỨC VÀ DẠY HỌC : 
 					</div>
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.hinhThucTCDH))}</div>
-					
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.hinhThucTCDH))}</div>
+						
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -140,12 +172,14 @@
 				</td>
 				<td style="padding-right:40px">
 					Thời gian : ${giaoAnLyThuyet.thoiGianOnDinh} phút
-					
+					<span style="background-color:yellow">${giaoAnSoSanh.thoiGianOnDinh} phút</span>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">		
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.onDinhLH))}
+					</div>
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.onDinhLH))}
 					</div>
 				</td>
 			</tr>
@@ -155,6 +189,8 @@
 				</td>
 				<td style="padding-right:40px">
 					Thời gian : ${giaoAnLyThuyet.thoiGianTHBH} phút
+					
+					<span style="background-color:yellow">${giaoAnSoSanh.thoiGianTHBH} phút</span>
 				</td>
 			</tr>
 		</table>
@@ -177,72 +213,138 @@
 				<td>Dẫn nhập : <a class='error' id='aDanNhap'></a>
 				<br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.danNhap))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.danNhap))}
+					</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapGV))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDDanNhapGV))}
+					</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapHS))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDDanNhapHS))}</p>
+					
 				</td>
 				<td align='center'>
 					${giaoAnLyThuyet.thoiGianDanNhap}
+					<p style='background-color:yellow'>
+					${giaoAnSoSanh.thoiGianDanNhap}</p>
+					
 				</td>
 			</tr>
 			<tr>
 				<td align='center'>2</td>
 				<td>Hướng Dẫn Ban Đầu : <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.huongDanBanDau))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.huongDanBanDau))}
+					</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDBDGV))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDBDGV))}
+					</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDBDHS))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDBDHS))}
+					</p>
+					
 				</td>
 				<td align='center'>
 					${giaoAnLyThuyet.thoiGianHDBD}
+					<p style='background-color:yellow'>
+					${giaoAnSoSanh.thoiGianHDBD}</p>
+					
 				</td>
 			</tr>
 			<tr>
 				<td align='center'>3</td>
 				<td>Hướng dẫn thường xuyên : <br />
 					${sf:appendBrTag3(sf:appendBrTag2(chiTietKHGD.noiDungTH))}
+					<p style='background-color:yellow'>
+					<!-- ChiTietKHGD lay ra noi dung thuc hanh chua lay ra duoc -->
+					
+					${sf:appendBrTag3(sf:appendBrTag2(chiTietKHGDSS.noiDungTH))}
+					</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTXGV))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDTXGV))}</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTXHS))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDTXHS))}
+					</p>
+					
 				</td>
 				<td align='center'>
 					${giaoAnLyThuyet.thoiGianHDTX}
+					<p style='background-color:yellow'>
+					${giaoAnSoSanh.thoiGianHDTX}</p>
+					
 				</td>
 			</tr>
 			<tr>
 				<td align='center'>4</td>
 				<td>Hướng dẫn kết thúc : <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.huongDanKetThuc))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.huongDanKetThuc))}</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDKTGV))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDKTGV))}</p>
+					
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDKTHS))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDKTHS))}</p>
+					
 				</td>
 				<td align='center'>
 					${giaoAnLyThuyet.thoiGianHDKT}
+					<p style='background-color:yellow'>
+					${giaoAnSoSanh.thoiGianHDKT}</p>
+					
 				</td>
 			</tr>
 			<tr>
 				<td align='center'>5</td>
 				<td>Hướng dẫn rèn luyện : <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.huongDanRenLuyen))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.huongDanRenLuyen))}</p>
+					
 				</td>
 				<td colspan="2">
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDRLGV))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDRLGV))}</p>
+					
 				</td>
 				<td align='center'>
 					${giaoAnLyThuyet.thoiGianHDRL}
+					<p style='background-color:yellow'>
+					${giaoAnSoSanh.thoiGianHDRL}</p>
+					
 				</td>
 			</tr>
 		</table>
@@ -255,6 +357,10 @@
 			<tr>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.rutKinhNghiem))}
+					<p style='background-color:yellow'>
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.rutKinhNghiem))}
+					</p>
+					
 				</td>
 			</tr>
 		</table>
@@ -271,8 +377,14 @@
 				<br />GIÁO VIÊN</td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td align="center"><br/><br/><br/><br/><br/><br/>${objKHGD.tenTruongKhoa}</td>
-				<td align="center"><br/><br/><br/><br/><br/><br/>${objKHGD.tenGiaoVien}</td>
+				<td align="center"><br/><br/><br/><br/><br/><br/>${objKHGD.tenTruongKhoa}
+				<p style="background-color:yellow">
+					${objKHGDSS.tenTruongKhoa}</p></td>
+				<td align="center"><br/><br/><br/><br/><br/><br/>${objKHGD.tenGiaoVien}
+				<p style="background-color:yellow">
+					${objKHGDSS.tenGiaoVien}
+				</p>
+				</td>
 			</tr>
 		</table>
 	</td></tr>	

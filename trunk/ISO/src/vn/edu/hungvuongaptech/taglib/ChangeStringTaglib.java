@@ -225,10 +225,13 @@ public class ChangeStringTaglib {
 	public static String setFormatDate2(String value,DateType type){
 		return DateUtil.setDate(value, type);
 	}
+	
 	public static ArrayList<String> splitTenChuong(String tenChuong) {
 		ArrayList<String> str = new ArrayList<String>();
 		str.add(tenChuong.substring(0, tenChuong.indexOf("1.")));
 		str.add(tenChuong.substring(tenChuong.indexOf("1."), tenChuong.length()));
 		return str;
 	}
+	
+	
 }

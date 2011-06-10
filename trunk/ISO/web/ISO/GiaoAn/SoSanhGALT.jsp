@@ -5,6 +5,9 @@
 
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO"%>
 
+<%@page import="vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.GiaoAnDAO"%>
+
 <pd4ml:transform
 	screenWidth="700"
 	pageFormat="A4"
@@ -38,7 +41,7 @@
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.KeHoachDaoTaoDao"%><html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -49,8 +52,15 @@
 <div class = "div_body">
 <c:set var="giaoAnLyThuyet" value="${sessionScope.giaoAnLyThuyet}"></c:set>
 <c:set var="objKHGD" value="${sessionScope.objKHGD}"></c:set>
+<c:set var="listTenChuong" value="${sessionScope.listTenChuong}"></c:set>
 <c:set var="soPhut" value="${sessionScope.soPhut}"></c:set>
 
+<c:set var="giaoAnSoSanh" value='<%=GiaoAnDAO.getGiaoAnLyThuyetByMaGA(request.getParameter("maGA"))%>' ></c:set>		
+<c:set var="listTenChuongSS" value='<%=ChiTietKHGDDAO.getListTenChuongByMaCTKHGD(request.getParameter("maCTKHGD"))%>' ></c:set>
+<c:set var="soPhutSS" value='<%=KeHoachGiangDayDAO.calSoPhutDCMHByMaKHGD(request.getParameter("maKHGD"),Constant.phutQDLT)%>' ></c:set>
+<c:set var="objKHGDSS" value='<%=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(request.getParameter("maKHGD"))%>'></c:set>
+
+			
 <table width="100%" height="100%" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');padding-left:15px;padding-right:15px">
 	<tr>
 		<td>
@@ -64,7 +74,7 @@
 						GIÁO ÁN SỐ : ${giaoAnLyThuyet.soGiaoAn}
 					</td>
 					<td colspan="2" style="padding-left:40px">
-						Thời gian thực hiện : ${soPhut} phút<br />
+						Thời gian thực hiện : ${soPhut} phút <span style="background-color:yellow">${soPhutSS} phút</span><br />
 					</td>
 				</tr>
 				<tr style="background-color: transparent;">
@@ -82,7 +92,20 @@
 								<b><%=count%>/ ${obj}</b><br/>					
 								<%count++; %>
 							</c:forEach>
+							
+							
 						
+						</div>	
+						<div style="text-align:left;font-weight:bold;background-color:yellow">
+						
+						
+							
+								<% count=1; %>
+								<c:forEach items="${listTenChuongSS}" var="obj">
+									<b><%=count%>/ ${obj}</b><br/>					
+									<%count++; %>
+								</c:forEach>
+							
 						</div>	
 					</td>
 				</tr>
@@ -107,6 +130,17 @@
 						</c:forEach>	
 					
 					</div>	
+					<div style="text-align:left;font-weight:bold;background-color:yellow">
+						
+						
+							
+								<% count=1; %>
+								<c:forEach items="${listTenChuongSS}" var="obj">
+									<b><%=count%>/ ${obj}</b><br/>					
+									<%count++; %>
+								</c:forEach>
+							
+					</div>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -114,6 +148,8 @@
 					<div class = "div_textleft">MỤC TIÊU CỦA BÀI : 
 					</div>
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.mucTieu))} </div>
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.mucTieu))} </div>
+				
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -121,6 +157,7 @@
 					<div class = "div_textleft">ĐỒ DÙNG VÀO PHƯƠNG TIỆN DẠY HỌC : 
 					</div>
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.doDungPTDH))}</div>
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.doDungPTDH))}</div>
 					
 				</td>
 			</tr>
@@ -130,12 +167,14 @@
 				</td>
 				<td style='padding-right:40px'>
 					Thời gian : ${giaoAnLyThuyet.thoiGianOnDinh} phút
-					
+								<span style="background-color:yellow">${giaoAnSoSanh.thoiGianOnDinh} phút</span>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">		
 					<div style="padding-left:20px">${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.onDinhLH))}
+					</div>
+					<div style="padding-left:20px;background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.onDinhLH))}
 					</div>
 				</td>
 			</tr>
@@ -145,6 +184,8 @@
 				</td>
 				<td style='padding-right:40px'>
 					Thời gian : ${giaoAnLyThuyet.thoiGianTHBH} phút
+					
+					<span style="background-color:yellow">${giaoAnSoSanh.thoiGianTHBH} phút</span>
 				</td>
 			</tr>
 		</table>
@@ -165,66 +206,109 @@
 				<td align="center">1</td>
 				<td>Dẫn nhập: <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.danNhap))}
+					
+					<p style="background-color:yellow">${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.danNhap))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapGV))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDDanNhapGV))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDDanNhapHS))}
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDDanNhapHS))}</p>
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianDanNhap}
+					<p style="background-color:yellow">${giaoAnSoSanh.thoiGianDanNhap}</p>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td align="center">2</td>
 				<td>Giảng bài mới: <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.noiDungBaiGiang))}
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.noiDungBaiGiang))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDGiangBaiMoiGV))}
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDGiangBaiMoiGV))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDGiangBaiMoiHS))}
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDGiangBaiMoiHS))}</p>
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianBaiGiang}
+					<p style="background-color:yellow">
+					${giaoAnSoSanh.thoiGianBaiGiang}</p>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td align="center">3</td>
 				<td>Củng cố và kết thúc bài: <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.cungCoKienThuc))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.cungCoKienThuc))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDCungCoGV))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDCungCoGV))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDCungCoHS))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDCungCoHS))}</p>
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianCungCo}
+					
+					<p style="background-color:yellow">
+					${giaoAnSoSanh.thoiGianCungCo}</p>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td align="center">4</td>
 				<td>Hướng dẫn tự học: <br />
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.huongDanTuHoc))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.huongDanTuHoc))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTHGV))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDTHGV))}</p>
 				</td>
 				<td>
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.HDHDTHHS))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.HDHDTHHS))}</p>
 				</td>
 				<td align="center">
 					${giaoAnLyThuyet.thoiGianHDTH}
+					
+					<p style="background-color:yellow">
+					${giaoAnSoSanh.thoiGianHDTH}</p>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td colspan = "2">Nguồn tài liệu tham khảo:  </td>
 				<td colspan = "3">
 					${sf:appendBrTag3(sf:appendBrTag2(giaoAnLyThuyet.taiLieuThamKhao))}
+					
+					<p style="background-color:yellow">
+					${sf:appendBrTag3(sf:appendBrTag2(giaoAnSoSanh.taiLieuThamKhao))}</p>
 				</td>
 			</tr>
 			</table>
@@ -245,8 +329,15 @@
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td align="center"><br/><br/><br/><br/>${objKHGD.tenTruongKhoa}</td>
-				<td align="center"><br/><br/><br/><br/>${objKHGD.tenGiaoVien}</td>
+				<td align="center"><br/><br/><br/><br/>${objKHGD.tenTruongKhoa} 
+				<p style="background-color:yellow">
+					${objKHGDSS.tenTruongKhoa}</p>
+				</td>
+				<td align="center"><br/><br/><br/><br/>${objKHGD.tenGiaoVien}
+				<p style="background-color:yellow">
+					${objKHGDSS.tenGiaoVien}
+				</p>
+				</td>
 			</tr>
 		</table>
 	</td></tr>	
