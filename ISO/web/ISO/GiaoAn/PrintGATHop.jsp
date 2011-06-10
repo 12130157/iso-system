@@ -52,11 +52,10 @@
 <div align="center">
 <div class = "div_body">
 
-<c:set var="GATichHop" value="${sessionScope.giaoAnLyThuyet}"></c:set>
-<c:set var="TenChuongList" value="${sessionScope.listTenChuong}"></c:set>
-<c:set var="chiTietKeHoachGiangDay" value="${sessionScope.chiTietKHGD}"></c:set>
-<c:set var="KHGD" value="${sessionScope.objKHGD}"></c:set>
-<c:set var="Phut" value="${sessionScope.soPhut}"></c:set>
+<c:set var="giaoAnLyThuyet" value="${sessionScope.giaoAnLyThuyet}"></c:set>
+<c:set var="listTenChuong" value="${sessionScope.listTenChuong}"></c:set>
+<c:set var="objKHGD" value="${sessionScope.objKHGD}"></c:set>
+<c:set var="soPhut" value="${sessionScope.soPhut}"></c:set>
 
 <table width="100%" height="100%" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');padding-left : 15px;padding-right : 15px;">
 	<tr><td>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.GiaoAnModel;
 import vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel;
+import vn.edu.hungvuongaptech.model.SoSanhGiaoAnModel;
 
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -1212,6 +1213,41 @@ public class GiaoAnDAO {
 			e.printStackTrace();
 
 		}
+	}
+	
+	public static ArrayList<SoSanhGiaoAnModel> getGiaoAnSoSanhByCoHieuAndSoGiaoAn(String coHieu,String soGiaoAn,String maMonHoc){
+		ArrayList<SoSanhGiaoAnModel> listSoSanh=new ArrayList<SoSanhGiaoAnModel>();
+		SoSanhGiaoAnModel soSanhGAModel;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.getGiaoAnSoSanh"));
+			preparedStatement.setString(1, soGiaoAn);
+			preparedStatement.setString(2,maMonHoc);
+			preparedStatement.setString(3, coHieu);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				soSanhGAModel=new  SoSanhGiaoAnModel();
+				soSanhGAModel.setMaCTKHGD(rs.getString("MaCTKHGD"));
+				soSanhGAModel.setSoGiaoAn(rs.getString("SoGiaoAn"));
+				soSanhGAModel.setHocKi(rs.getString("HocKi"));
+				soSanhGAModel.setNamBatDau(rs.getString("NamBatDau"));
+				soSanhGAModel.setGiaoVienTao(rs.getNString("GiaoVienTao"));
+				soSanhGAModel.setTenMonHoc(rs.getNString("TenMonHoc"));
+				soSanhGAModel.setLopHoc(rs.getNString("LopHoc"));
+				soSanhGAModel.setMaGiaoAn(rs.getString("MaGiaoAn"));
+				soSanhGAModel.setMaKHGD(rs.getString("MaKHGD"));
+				
+				
+				listSoSanh.add(soSanhGAModel);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		
+		return listSoSanh;
 	}
 }
