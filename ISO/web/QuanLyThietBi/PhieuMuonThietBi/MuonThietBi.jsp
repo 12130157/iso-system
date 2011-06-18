@@ -32,6 +32,7 @@
 <script src="<%=request.getContextPath()%>/js/interface.js" type="text/javascript"></script>
 <title>Mượn thiết bị</title>
 <script type="text/javascript">
+var duongDan = "QuanLyThietBi/PhieuMuonThietBi/";
 function timKiemChiTietPhieuMuon()
 {
 	document.getElementById('txtHiddenTinhTrangXemPhieuMuon').value = document.getElementById('cboTinhTrang').value;
@@ -56,7 +57,7 @@ function chonCheDoXem()
 		document.getElementById('txtChoice').value = "2";
 	document.getElementById('formMuonThietBi').submit();
 }
-function showCustomer(str)
+/*function kiemTraThietBiMuon(str)
 {
 	var xmlhttp;    
 	if (str=="")
@@ -81,7 +82,7 @@ function showCustomer(str)
 	  }
 	xmlhttp.open("GET","getcustomer.asp?q="+str,true);
 	xmlhttp.send();
-}
+}*/
 </script>
 </head>
 <body>
@@ -118,8 +119,7 @@ function showCustomer(str)
 					<br/>
 					<br/>
 					Người mượn : <input type="text" id = "txtNguoiMuon" value = "${PhieuMuonSimple.tenNguoiMuon }"/>
-					Ngày mượn : <input type="text" id = "txtNgayMuon" value = "${PhieuMuonSimple.ngayMuon }"/>
-					Lớp : <input type="text" id = "txtLop" value = "${PhieuMuonSimple.kiHieuLop }"/>
+					Ngày mượn : <input type="text" name="txtNgayMuon" id = "txtNgayMuon" value = "${PhieuMuonSimple.ngayMuon }"/>
 					<br/>
 					<br/>
 				</td>
@@ -270,7 +270,7 @@ function showCustomer(str)
 				<th style='background-color: #186fb2;color:white'>Kí Hiệu</th>
 				<th style='background-color: #186fb2;color:white'>Tên thiết bị</th>
 				<th style='background-color: #186fb2;color:white'>Tên phòng ban</th>
-				<th style='background-color: #186fb2;color:white'>Tình trạng</th>								
+				<th style='background-color: #186fb2;color:white'>Kiểm tra</th>								
 			</tr>
 					
 			<c:set var="listThietBi" value="<%= thietBiList %>" scope = "session"></c:set>
@@ -287,7 +287,7 @@ function showCustomer(str)
 					<td>${ThietBi.kiHieu }</td>
 					<td>${ThietBi.tenThietBi }</td>
 					<td>${ThietBi.tenPhongBan }</td>
-					<td>${ThietBi.tenTinhTrang }</td>					
+					<td id = "tdKiemTra${ThietBi.maThietBi }"></td>					
 				</tr>
 				<%c++; %>
 				
@@ -310,9 +310,11 @@ function showCustomer(str)
 			</tr>
 		</c:if>	
 		</table>
+		<input type = "hidden" id = "txtThoiGianMuon" name = "txtThoiGianMuon"/>
+		<input type = "hidden" id = "txtThoiGianTra" name = "txtThoiGianTra"/>
 		<c:if test = "${SoSanhNgay ne true}">
 			<p align="center">
-				<a href = "javascript: xuLy('MuonThietBi')">
+				<a href = "javascript: muonThietBi();">
 					<img src="<%=request.getContextPath()%>/images/buttom/muon.png" alt="Mượn thiết bị" border = "0" />
 			</a></p>
 		</c:if>
@@ -320,6 +322,7 @@ function showCustomer(str)
 				function muonThietBi()
 				{
 					var str = "";
+					var check = true;
 					for(var i=1;i<<%=c%>;i++)
 					{
 						if(document.getElementById('chk' + i).checked == true)
@@ -327,9 +330,33 @@ function showCustomer(str)
 					}
 					if(str != "")
 					{
-						document.getElementById('txtListThietBiMuon').value = str;	
-						document.getElementById('actionType').value = "MuonThietBi";
-						document.getElementById('formMuonThietBi').submit();
+						var ngayMuon = document.getElementById('txtNgayMuon').value;
+						var value = window.showModalDialog(duongDan + "NhapThoiGian.jsp",ngayMuon,"dialogHeight: 450px; dialogWidth: 450px; dialogTop: 120px; dialogLeft: 400px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
+						if(value != null)
+						{
+							var mang = value.split('</>');
+							if(mang[0] != "")
+							{
+								
+								var arr = value.split('-');
+								for(var i=1;i<value.length;i++)
+								{
+									if(document.getElementById('tdKiemTra' + value[i]) != null)
+									{
+										document.getElementById('tdKiemTra' + value[i]).innerHTML = "<font color = 'red'>x</font>";
+										check = false;
+									}
+								}
+							}
+							if(check)
+							{
+								document.getElementById('txtThoiGianMuon').value = mang[1];
+								document.getElementById('txtThoiGianTra').value = mang[2];
+								document.getElementById('txtListXuLy').value = str;	
+								document.getElementById('actionType').value = "MuonThietBi";
+								document.getElementById('formMuonThietBi').submit();
+							}
+						}
 					}
 					else
 						alert("Bạn chưa chọn thiết bị nào!!!");
@@ -386,11 +413,53 @@ function showCustomer(str)
 							</td>
 							<td><%=c %></td>
 							<td>${ChiTietPhieuMuon.tenThietBi}</td>
-							<td>${ChiTietPhieuMuon.thoiGianMuon}</td>
-							<td>${ChiTietPhieuMuon.thoiGianTra}</td>
+						<c:choose>
+							<c:when test = "${ChiTietPhieuMuon.tinhTrang eq '1'}">
+								<td>
+								<select name = "cboGioMuon">
+									<c:forEach var = "GioMuon" begin = "7" end = "20">
+										<option value = "${GioMuon }" 
+											<c:if test = "${GioMuon eq ChiTietPhieuMuon.gioMuon }">selected</c:if>>${GioMuon }</option>
+									</c:forEach>
+								</select>
+								Giờ
+								<select name = "cboPhutMuon">
+									<c:forEach var = "PhutMuon" begin = "0" end = "55" step = "5">
+										<option value = "${PhutMuon }" 
+											<c:if test = "${PhutMuon eq ChiTietPhieuMuon.phutMuon }">selected</c:if>>${PhutMuon }</option>
+									</c:forEach>
+								</select>
+								Phút
+							</td>
+							<td>
+								<select name = "cboGioTra">
+									<c:forEach var = "GioTra" begin = "7" end = "20">
+										<option value = "${GioTra }" 
+											<c:if test = "${GioTra eq ChiTietPhieuMuon.gioTra }">selected</c:if>>${GioTra }</option>
+									</c:forEach>
+								</select>
+								Giờ
+								<select name = "cboPhutTra">
+									<c:forEach var = "PhutTra" begin = "0" end = "55" step = "5">
+										<option value = "${PhutTra }" 
+											<c:if test = "${PhutTra eq ChiTietPhieuMuon.phutTra }">selected</c:if>>${PhutTra }</option>
+									</c:forEach>
+								</select>
+								Phút
+							</td>
+							</c:when>
+							<c:otherwise>
+								<td>${ChiTietPhieuMuon.ngayMuon } ${ChiTietPhieuMuon.gioMuon }:${ChiTietPhieuMuon.phutMuon }</td>
+								<td>${ChiTietPhieuMuon.ngayTra } ${ChiTietPhieuMuon.gioTra }:${ChiTietPhieuMuon.phutTra }</td>
+							</c:otherwise>
+						</c:choose>	
+							
 							<td>
 								<c:choose>
 									<c:when test="${ChiTietPhieuMuon.tinhTrang eq '1'}">
+										Chưa xác thực
+									</c:when>
+									<c:when test="${ChiTietPhieuMuon.tinhTrang eq '2'}">
 										Đang mượn
 									</c:when>
 									<c:otherwise>
@@ -461,16 +530,19 @@ function showCustomer(str)
 					{
 						if(document.getElementById('chk' + i).checked == true)
 							str += "-" + document.getElementById('chk' + i).value;
+						
 					}
 					if(str != "")
 					{
 						document.getElementById('txtListXuLy').value = str;	
 						document.getElementById('actionType').value = x;
 						document.getElementById('formMuonThietBi').submit();
+						
 					}
 					else
 						alert("Bạn chưa chọn thiết bị nào!!!");
 				}
+				
 			</script>	
 			<input type = "hidden" id = "txtPage" name = "txtPage" value = "1"/>
 	</form>
