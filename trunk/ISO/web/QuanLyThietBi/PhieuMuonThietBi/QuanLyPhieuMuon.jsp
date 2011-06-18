@@ -27,7 +27,7 @@
 	var duongDan = "";
 	function pageLoad()
 	{
-		duongDan = 'QuanLyThietBi/PhieuMuonThietBi/';
+		//duongDan = 'QuanLyThietBi/PhieuMuonThietBi/';
 	}
 	function themPhieuMuon()
 	{
@@ -113,7 +113,6 @@
 			<tr>
 				<th style='background-color: #186fb2;color:white'>STT</th>
 				<th style='background-color: #186fb2;color:white'>Họ Tên</th>
-				<th style="background-color: #186fb2;color:white">Lớp</th>
 				<th style='background-color: #186fb2;color:white'>Khoa</th>	
 				<th style='background-color: #186fb2;color:white'>Ngày mượn</th>							
 			</tr>
@@ -125,7 +124,6 @@
 				<tr>
 					<td><%=c %></td>
 					<td><a href = "<%= Constant.PATH_RES.getString("qltb.MuonThietBiPath") %>?maPhieuMuon=${PhieuMuon.maPhieuMuon}">${PhieuMuon.tenNguoiMuon }</a></td>
-					<td>${PhieuMuon.kiHieuLop }</td>
 					<td>${PhieuMuon.khoa }</td>		
 					<td>${PhieuMuon.ngayMuon }</td>			
 				</tr>

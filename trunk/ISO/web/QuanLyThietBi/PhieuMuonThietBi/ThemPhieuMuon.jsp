@@ -9,9 +9,16 @@
 <%@page import="vn.edu.hungvuongaptech.model.PhieuMuonThietBiModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.PhieuMuonThietBiDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.LopHocModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.util.DateUtil"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/General.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/zapatec.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar-en.js"></script>
 <title>Thêm phiếu mượn</title>
 <script type="text/javascript">
 <%
@@ -20,6 +27,7 @@
 function pageLoad()
 {
 	<%
+	 String ngay = DateUtil.setDate(SysParamsDAO.getNgayGioHeThong().getNgayHeThong());
 		if(request.getParameter("ThemPhieuMuon") != null) {
 			if(request.getParameter("ThemPhieuMuon").equals("ok")) {
 				out.print("alert('Thêm phiếu mượn thành công');");
@@ -37,8 +45,6 @@ function themThietBi()
 
 	if(document.getElementById('cboNguoiMuon').value == "")
 		alert("Hãy chọn người mượn !!!");
-	else if(document.getElementById('cboLop').value == "")
-		alert("Hãy chọn lớp !!!");
 	else 
 	{
 		<%
@@ -65,14 +71,14 @@ function themThietBi()
 	<c:set var = "listLop" value = "<%= LopHocDAO.getAllKiHieuLop()%>"/>
 	
 		<input type = "hidden" name = "actionType" id = "actionType"/>
-		<table>
+		<table border="1">
 			<tr style="background-color: transparent;">
 				<td >
 					<div style="font-weight: bold; font-style: inherit; color: blue;" align="center">Thêm phiếu mượn thiết bị</div>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td>Tên :
+				<td>Người mượn :
 					<select id = "cboNguoiMuon" name="cboNguoiMuon">
 						<option value = "">  ---  Chọn tên  ---  </option>
 						<c:forEach var = "NguoiMuon" items="${listNguoiMuon}">
@@ -80,13 +86,8 @@ function themThietBi()
 								<c:if test = "${param.nguoiMuon eq NguoiMuon.maThanhVien}">selected</c:if>>${NguoiMuon.hoThanhVien} ${NguoiMuon.tenLot} ${NguoiMuon.tenThanhVien }</option>
 						</c:forEach>
 					</select>
-					Lớp :
-					<select id = "cboLop" name="cboLop">
-						<option value = "">  ---  Chọn lớp  ---  </option>
-						<c:forEach var = "Lop" items="${listLop}">
-							<option value = "${Lop.maLopHoc}">${Lop.kiHieu }</option>
-						</c:forEach>
-					</select>
+					Ngày mượn :
+					<input type="text" id = "txtNgayMuon" name = "txtNgayMuon" value = "<%=ngay %>"/>
 				</td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -105,6 +106,18 @@ function themThietBi()
 		</table>
 		</p>
 	</form>
-
+<script>
+	//<![CDATA[
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [2010.01, 2020.12],
+	electric          : false,
+	inputField        : "txtNgayMuon",
+	button            : "Calendar",
+	ifFormat          : "%m-%d-%Y"
+  });
+//]]>
+</script>	
 </body>
 </html>
