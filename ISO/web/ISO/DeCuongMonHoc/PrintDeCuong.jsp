@@ -56,7 +56,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; background-position: center; font-size: 12px;">
 			<td>TRƯỜNG TCNKTCN HÙNG VƯƠNG<br/>
-			<font style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khoa ${DeCuongMonHoc.tenKhoa}</font></td>
+			<font style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khoa ${DeCuongMonHoc.tenKhoa}</font></td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<th colspan = "2"><br /> <p style="font-weight: bold">ĐỀ CƯƠNG CHI TIẾT CHƯƠNG TRÌNH MÔN HỌC</p><br /></th>
