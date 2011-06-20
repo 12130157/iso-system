@@ -90,8 +90,9 @@ public class MonHocTKBDAO {
 		Boolean result = false;
 		try {
 			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_ISO_UpdateMonHocTKBByID(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			.getConnection()
+			.prepareCall("{call sp_ISO_UpdateMonHocTKBByID(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");;
+				
 			csmt.setString("ID", monHocTKBModel.getMaMonHocTKB());
 			csmt.setString("So_noi_dung", monHocTKBModel.getSoNoiDung());
 			csmt.setString("So_ca_thuc_hanh", monHocTKBModel.getSoCaThucHanh());
@@ -189,61 +190,124 @@ public class MonHocTKBDAO {
 		return monHocTKBModelList;
 	}
 	
-	public static ArrayList<MonHocTKBModel> getMonHocTKBByMaTKB(String maThoiKhoaBieu) {
+	public static ArrayList<MonHocTKBModel> getMonHocTKBANDChiTietTKBByMaTKB(String maThoiKhoaBieu) {
 		ArrayList<MonHocTKBModel> monHocTKBModelList = new ArrayList<MonHocTKBModel>();
-		String chuoiThuTrongTuan = "";
-		int count = 0;
+		String maMonHocTKB = "na";
+		String chuoiThu = "";
+		String str = "";
+		String chuoiPhongLT = "";
+		String chuoiPhongTH = "";
+		String chuoi = "";
+		ArrayList<ChiTietTKBModel> chiTietTKBList = new ArrayList<ChiTietTKBModel>(); 
+		MonHocTKBModel monHocTKBModel = new MonHocTKBModel();
 		try {
 			PreparedStatement preparedStatement = DataUtil
 			.getConnection()
 			.prepareStatement(
 					Constant.SQL_RES
-							.getString("iso.sql.getMonHocTKBByMaTKB"));
+							.getString("iso.sql.getMonHocTKBANDChiTietTKBByMaTKB"));
 			preparedStatement.setString(1, maThoiKhoaBieu);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				count++;
-				MonHocTKBModel monHocTKBModel = new MonHocTKBModel();
-				monHocTKBModel.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
-				monHocTKBModel.setMaTKB(rs.getString("MaTKB"));
-				monHocTKBModel.setMaGiaoVien(rs.getString("MaGiaoVien"));
-				monHocTKBModel.setTenGiaoVien(rs.getString("TenGiaoVien"));
-				monHocTKBModel.setMaMonHoc(rs.getString("MaMonHoc"));
-				monHocTKBModel.setTenMonHoc(rs.getString("TenMonHoc"));
-				monHocTKBModel.setSoCaThucHanh(rs.getString("SoCaThucHanh"));
-				monHocTKBModel.setSoNoiDung(rs.getString("SoNoiDung"));
-				if(rs.getString("TuanBatDauLT") == null)
-					monHocTKBModel.setTuanBatDauLT("0");
-				else
-					monHocTKBModel.setTuanBatDauLT(rs.getString("TuanBatDauLT"));
-				if(rs.getString("TuanBatDauTH") == null)
-					monHocTKBModel.setTuanBatDauTH("0");
-				else
-					monHocTKBModel.setTuanBatDauTH(rs.getString("TuanBatDauTH"));
-				monHocTKBModel.setNgayBatDauLT(DateUtil.setDate(rs.getString("NgayBatDauLT")));
-				monHocTKBModel.setNgayBatDauTH(DateUtil.setDate(rs.getString("NgayBatDauTH")));
-				monHocTKBModel.setNgayKetThucLT(DateUtil.setDate(rs.getString("NgayKetThucLT")));
-				monHocTKBModel.setNgayKetThucTH(DateUtil.setDate(rs.getString("NgayKetThucTH")));
-				monHocTKBModel.setGhiChu(rs.getNString("GhiChu"));
-				monHocTKBModel.setKieuBienSoan(rs.getString("KieuBienSoan"));
-				monHocTKBModel.setLyThuyetCTMH(rs.getString("LyThuyetCTMH"));
-				monHocTKBModel.setThucHanhCTMH(rs.getString("ThucHanhCTMH"));
-				monHocTKBModel.setUser1(rs.getString("MaPhongLT"));
-				monHocTKBModel.setUser2(rs.getString("MaPhongTH"));
-				monHocTKBModel.setSoTietHoc1Buoi(rs.getString("SoTiet1Buoi"));
-				monHocTKBModel.setUser4(rs.getString("SoCaLyThuyet"));
-				
-				ArrayList<ChiTietTKBModel> chiTietTKBList = new ArrayList<ChiTietTKBModel>();
-				//ArrayList<SuDungModel> suDungList = SuDungDAO.getAllSuDungPhongByMaMonHocTKB(monHocTKBModel.getMaMonHocTKB());
-				monHocTKBModel.setChiTietTKBModelList(chiTietTKBList);
-				//monHocTKBModel.setSuDungModelList(suDungList);
-				//monHocTKBModel.setChuoiThuTrongTuan(chuoiThuTrongTuan);
-				
-				monHocTKBModelList.add(monHocTKBModel);
+				if(!rs.getString("MaMonHocTKB").equals(maMonHocTKB)) {
+					monHocTKBModel = new MonHocTKBModel();
+					monHocTKBModel.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
+					monHocTKBModel.setMaTKB(rs.getString("MaTKB"));
+					monHocTKBModel.setMaGiaoVien(rs.getString("MaGiaoVien"));
+					monHocTKBModel.setTenGiaoVien(rs.getString("TenGiaoVien"));
+					monHocTKBModel.setMaMonHoc(rs.getString("MaMonHoc"));
+					monHocTKBModel.setTenMonHoc(rs.getString("TenMonHoc"));
+					monHocTKBModel.setSoCaThucHanh(rs.getString("SoCaThucHanh"));
+					monHocTKBModel.setSoNoiDung(rs.getString("SoNoiDung"));
+					if(rs.getString("TuanBatDauLT") == null)
+						monHocTKBModel.setTuanBatDauLT("0");
+					else
+						monHocTKBModel.setTuanBatDauLT(rs.getString("TuanBatDauLT"));
+					if(rs.getString("TuanBatDauTH") == null)
+						monHocTKBModel.setTuanBatDauTH("0");
+					else
+						monHocTKBModel.setTuanBatDauTH(rs.getString("TuanBatDauTH"));
+					monHocTKBModel.setNgayBatDauLT(DateUtil.setDate(rs.getString("NgayBatDauLT")));
+					monHocTKBModel.setNgayBatDauTH(DateUtil.setDate(rs.getString("NgayBatDauTH")));
+					monHocTKBModel.setNgayKetThucLT(DateUtil.setDate(rs.getString("NgayKetThucLT")));
+					monHocTKBModel.setNgayKetThucTH(DateUtil.setDate(rs.getString("NgayKetThucTH")));
+					monHocTKBModel.setGhiChu(rs.getNString("GhiChu"));
+					monHocTKBModel.setKieuBienSoan(rs.getString("KieuBienSoan"));
+					monHocTKBModel.setLyThuyetCTMH(rs.getString("LyThuyetCTMH"));
+					monHocTKBModel.setThucHanhCTMH(rs.getString("ThucHanhCTMH"));
+					monHocTKBModel.setUser1(rs.getString("MaPhongLT"));
+					monHocTKBModel.setUser2(rs.getString("MaPhongTH"));
+					monHocTKBModel.setSoTietHoc1Buoi(rs.getString("SoTiet1Buoi"));
+					monHocTKBModel.setUser4(rs.getString("SoCaLyThuyet"));
+					monHocTKBModel.setMaMonHocTKBThayDoi(rs.getString("MaMonHocTKBThayDoi"));
+					if(rs.getString("MaMonHocTKBThayDoi") != null)
+						monHocTKBModel.setThayDoiMonHocTKB("1");
+					
+					
+					chiTietTKBList = new ArrayList<ChiTietTKBModel>();
+					//ArrayList<SuDungModel> suDungList = SuDungDAO.getAllSuDungPhongByMaMonHocTKB(monHocTKBModel.getMaMonHocTKB());
+					monHocTKBModel.setChiTietTKBModelList(chiTietTKBList);
+					//monHocTKBModel.setSuDungModelList(suDungList);
+					//monHocTKBModel.setChuoiThuTrongTuan(chuoiThuTrongTuan);
+					
+					monHocTKBModelList.add(monHocTKBModel);
+					maMonHocTKB = rs.getString("MaMonHocTKB");
+				}
+				ChiTietTKBModel chiTiet = new ChiTietTKBModel();
+				chiTiet.setMaChiTietTKB(rs.getString("MaChiTiet"));
+				chiTiet.setBuoi(rs.getString("Buoi"));
+				chiTiet.setCoHieu(rs.getString("CoHieu"));
+				chiTiet.setHinhThucDay(rs.getString("HinhThucDay"));
+				chiTiet.setsTTNoiDung(rs.getString("STTNoiDung"));
+				chiTiet.setMaPhong(rs.getString("MaPhong"));
+				chiTiet.setTuan(rs.getString("Tuan"));
+				chiTiet.setSoThuTu(rs.getString("SoThuTu"));
+				chiTiet.setThuTrongTuan(rs.getString("ThuTrongTuan"));
+				chiTiet.setNhom(rs.getString("Nhom"));
+				chiTiet.setTietBatDau(rs.getString("TietBatDau"));
+				if(rs.getString("TenChuong") != null) {
+					chiTiet.setTenChuong(rs.getString("TenChuong").replaceAll("\r\n", "<+++>"));
+					chiTiet.setTenChuong(chiTiet.getTenChuong().replace("'", "-DAUNHAY-"));
+					chiTiet.setTenChuong(chiTiet.getTenChuong().replace("\"", "-DAUNHAY1-"));
+				} else
+					chiTiet.setTenChuong(rs.getString("TenChuong"));
+				if(rs.getString("MucTieu") != null && !rs.getString("MucTieu").equals("")) {
+					chiTiet.setMucTieu(rs.getString("MucTieu").replaceAll("\r\n", "<+++>"));
+					chiTiet.setMucTieu(chiTiet.getMucTieu().replace("'", "-DAUNHAY-"));
+					chiTiet.setMucTieu(chiTiet.getMucTieu().replace("\"", "-DAUNHAY1-"));
+				} else
+					chiTiet.setMucTieu(null);
+				chuoi = rs.getString("Buoi") + "/" + rs.getString("ThuTrongTuan") + "/" + rs.getString("HinhThucDay");
+				if(chuoiThu.matches(".*" + chuoi + ".*") == false)
+				{
+					chuoiThu += str + chuoi;
+				}
+				if(rs.getString("HinhThucDay").equals("LT")) {
+					if(chuoiPhongLT.matches(".*" + rs.getNString("KiHieuPhong") + ".*") == false) {
+						if(chuoiPhongLT.equals(""))
+							chuoiPhongLT += rs.getNString("KiHieuPhong");
+						else
+							chuoiPhongLT += "-" + rs.getNString("KiHieuPhong");
+					}
+				} else {
+					if(chuoiPhongTH.matches(".*" + rs.getNString("KiHieuPhong") + ".*") == false) {
+						if(chuoiPhongTH.equals(""))
+							chuoiPhongTH += rs.getNString("KiHieuPhong");
+						else
+							chuoiPhongTH += "-" + rs.getNString("KiHieuPhong");
+					}
+				}
+				str = "-";
+				chiTietTKBList.add(chiTiet);
+				monHocTKBModel.setChuoiThuTrongTuan(chuoiThu);
+				monHocTKBModel.setChuoiPhongLT(chuoiPhongLT);
+				monHocTKBModel.setChuoiPhongTH(chuoiPhongTH);
+				if(rs.getString("MaChiTietTKBThayDoi") != null)
+					monHocTKBModel.setThayDoiChiTietTKB("1");
 			}
-			for(int i=0;i<count;i++) {
+			/*for(int i=0;i<count;i++) {
 				ChiTietTKBDAO.getThuTrongTuanCuaMonHocByMaMonHocTKB(monHocTKBModelList.get(i));
-			}
+			}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -448,4 +512,39 @@ public class MonHocTKBDAO {
 		}
 		return arrayList;
 	}
+	public static MonHocTKBModel getMonHocTKBByID(String iD) {
+		MonHocTKBModel monHocTKB = new MonHocTKBModel();
+		String maMonHocTKB = "na";
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getMonHocTKBByID"));
+			preparedStatement.setString(1, iD);
+			ResultSet rs = preparedStatement.executeQuery();
+			ArrayList<ChiTietTKBModel> chiTietList = new ArrayList<ChiTietTKBModel>();
+			if(rs.next()) {
+				if(!maMonHocTKB.equals(rs.getString("MaMonHocTKB"))) {
+					monHocTKB.setMaGiaoVien(rs.getString("MaGiaoVien"));
+				}
+				
+				ChiTietTKBModel chiTiet = new ChiTietTKBModel();
+				chiTiet.setMaChiTietTKB(rs.getString("MaChiTietTKB"));
+				chiTiet.setMaPhong(rs.getString("MaPhong"));
+				chiTiet.setThuTrongTuan(rs.getString("ThuTrongTuan"));
+				chiTiet.setTietBatDau(rs.getString("TietBatDau"));
+				chiTiet.setTuan(rs.getString("Tuan"));
+				chiTiet.setBuoi(rs.getString("Buoi"));
+				
+				chiTietList.add(chiTiet);
+				
+			}
+			monHocTKB.setChiTietTKBModelList(chiTietList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return monHocTKB;
+	}	
+
 }

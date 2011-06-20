@@ -12,6 +12,7 @@ import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.PhanCongGiaoVienModel;
 import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
+import vn.edu.hungvuongaptech.model.ToTrinhModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
 
@@ -137,7 +138,32 @@ public class ThoiKhoaBieuDAO {
 			
 		return result;
 	}
-
+	public static ThoiKhoaBieuModel getThoiKhoaBieuSimpleByID(String id) {
+		// TODO Auto-generated method stub
+		ThoiKhoaBieuModel thoiKhoaBieu = new ThoiKhoaBieuModel();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getThoiKhoaBieuSimpleByID"));
+			preparedStatement.setString(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				thoiKhoaBieu.setMaThoiKhoaBieu(rs.getString("MaThoiKhoaBieu"));
+				thoiKhoaBieu.setTenThoiKhoaBieu(rs.getNString("TenThoiKhoaBieu"));
+				thoiKhoaBieu.setTenNguoiTao(rs.getNString("TenNguoiTao"));
+				thoiKhoaBieu.setNgayGui(rs.getString("NgayGui"));
+				thoiKhoaBieu.setGioGui(rs.getString("GioGui"));
+				thoiKhoaBieu.setTenNguoiDuyet(rs.getNString("TenNguoiDuyet"));
+				thoiKhoaBieu.setNgayDuyet(rs.getString("NgayDuyet"));
+				thoiKhoaBieu.setGioDuyet(rs.getString("GioDuyet"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return thoiKhoaBieu;
+	}
 	public static ThoiKhoaBieuModel getThoiKhoaBieuByID(String maThoiKhoaBieu) {
 		// TODO Auto-generated method stub
 		ThoiKhoaBieuModel thoiKhoaBieuModel = new ThoiKhoaBieuModel();
@@ -175,7 +201,7 @@ public class ThoiKhoaBieuDAO {
 				thoiKhoaBieuModel.setNgayDuyet(rs.getString("NgayDuyet"));
 				thoiKhoaBieuModel.setGioDuyet(rs.getString("GioDuyet"));
 				
-				ArrayList<MonHocTKBModel> monHocTKBModelList = MonHocTKBDAO.getMonHocTKBByMaTKB(thoiKhoaBieuModel.getMaThoiKhoaBieu());
+				ArrayList<MonHocTKBModel> monHocTKBModelList = MonHocTKBDAO.getMonHocTKBANDChiTietTKBByMaTKB(thoiKhoaBieuModel.getMaThoiKhoaBieu());
 				thoiKhoaBieuModel.setMonHocTKBModelList(monHocTKBModelList);
 			}
 		} catch (Exception e) {

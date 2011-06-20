@@ -27,7 +27,13 @@
 <%@page import="vn.edu.hungvuongaptech.model.TuanLeModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.NgayLeModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.TuanLeDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietTKBThayDoiModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ChiTietTKBThayDoiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.MonHocTKBThayDoiModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.MonHocTKBThayDoiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%>
+<%@page import="vn.edu.hungvuongaptech.common.Constant"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cập nhật môn học TKB</title>
@@ -50,6 +56,7 @@ var listMonHoc = new Array();
 var listLopHoc = new Array();
 var ngayHocList = new Array();
 var ngayLeList = new Array();
+var listChiTietThayDoi = new Array();
 <%
 	ArrayList<PhongBanModel> phongBanModelList = PhongBanDAO.getAllPhongBan();
 	ArrayList<ThanhVienModel> thanhVienModelList = ThanhVienDAO.getAllGiaoVienOrderByTen();
@@ -57,7 +64,26 @@ var ngayLeList = new Array();
 	ArrayList<LopHocModel> lopHocList = LopHocDAO.getAllKiHieuLop();
 	ArrayList<TuanLeModel> tuanLeList = TuanLeDAO.getNgayTrongTuanByTuanBatDauVaTuanKetThucVaMaNamHoc(request.getParameter("tuTuan"), request.getParameter("denTuan"), request.getParameter("maNamHoc"));
 	ArrayList<NgayLeModel> ngayLeList = NgayLeDAO.getAllNgayLe();
+	ArrayList<ChiTietTKBThayDoiModel> thayDoiList = ChiTietTKBThayDoiDAO.getChiTietTKBThayDoiByMaMonHocTKB(request.getParameter("maMonHocTKB"));
+	MonHocTKBThayDoiModel monHocTKBThayDoi = MonHocTKBThayDoiDAO.getThayDoiByMaMonHocTKB(request.getParameter("maMonHocTKB"));
+	String ngayHeThong = SysParamsDAO.getNgayGioHeThong().getNgayHeThong();
 %>
+function taoListThayDoi()
+{
+	<%
+		for(int i=0;i<thayDoiList.size();i++) {
+			out.print("var objThayDoi = new Object();");
+			out.print("objThayDoi.maThayDoi = '" + thayDoiList.get(i).getId() + "';");
+			out.print("objThayDoi.tuan = '" + thayDoiList.get(i).getTuan() + "';");
+			out.print("objThayDoi.thuTrongTuan = '" + thayDoiList.get(i).getThuTrongTuan() + "';");
+			out.print("objThayDoi.buoi = '" + thayDoiList.get(i).getBuoi() + "';");
+			out.print("objThayDoi.ngayHoc = '" + thayDoiList.get(i).getNgayHoc() + "';");
+			out.print("objThayDoi.maChiTietTKB = '" + thayDoiList.get(i).getMaChiTietTKB() + "';");
+			out.print("objThayDoi.tinhTrang = '" + thayDoiList.get(i).getTinhTrang() + "';");
+			out.print("listChiTietThayDoi[" + i + "] = objThayDoi;");
+		}
+	%>
+}
 function taoNgayLe()
 {
 	<%
@@ -115,82 +141,14 @@ function loadPage()
 	<%
 		out.print("document.getElementById('txtMaTKB').value = '" + request.getParameter("maTKB") + "';");
 		out.print("document.getElementById('txtMaMonHocTKB').value = '" + request.getParameter("maMonHocTKB") + "';");
-		// code moi sua
-		if(request.getAttribute("monHocTKB") != null && request.getParameter("UpdateThanhCong") != null)
-		{
+		if(request.getParameter("ThayDoiMonHoc") != null && request.getParameter("ThayDoiChiTiet") != null) 
+			out.print("param = 3;");
+		else if(request.getParameter("ThayDoiMonHoc") != null)
+			out.print("param = 2;");
+		else if(request.getParameter("ThayDoiChiTiet") != null)
 			out.print("param = 1;");
-			MonHocTKBModel monHocModel = (MonHocTKBModel) request.getAttribute("monHocTKB");
-			out.print("addTKB.maMonHocTKB = '" + monHocModel.getMaMonHocTKB() + "';");
-			out.print("addTKB.soNoiDung = '" + monHocModel.getSoNoiDung() + "';");
-			out.print("addTKB.soCaThucHanh = '" + monHocModel.getSoCaThucHanh() + "';");
-			out.print("addTKB.soCaLyThuyet = '" + monHocModel.getUser4() + "';");
-			out.print("addTKB.maMonHoc = '" + monHocModel.getMaMonHoc() + "';");
-			out.print("addTKB.tenMonHoc = '" + monHocModel.getTenMonHoc() + "';");
-			out.print("addTKB.maGiaoVien = '" + monHocModel.getMaGiaoVien() + "';");
-			out.print("addTKB.tenGiaoVien = '" + monHocModel.getTenGiaoVien() + "';");
-			out.print("addTKB.ghiChu = '" + monHocModel.getGhiChu() + "';");
-			if(monHocModel.getTuanBatDauLT().equals(""))
-				out.print("addTKB.tuanBatDauLT = '0';");
-			else
-				out.print("addTKB.tuanBatDauLT = '" + monHocModel.getTuanBatDauLT() + "';");
-			if(monHocModel.getTuanBatDauTH().equals(""))
-				out.print("addTKB.tuanBatDauTH = '0';");
-			else
-				out.print("addTKB.tuanBatDauTH = '" + monHocModel.getTuanBatDauTH() + "';");
-			
-			//out.print("addTKB.tuanKetThucLT = '" + monHocModel.getTuanKetThucLT() + "';");
-			//out.print("addTKB.tuanKetThucTH = '" + monHocModel.getTuanKetThucTH() + "';");
-			out.print("addTKB.ngayBatDauLT = '" + monHocModel.getNgayBatDauLT().replaceAll("-","/") + "';");
-			out.print("addTKB.ngayBatDauTH = '" + monHocModel.getNgayBatDauTH().replaceAll("-","/") + "';");
-			out.print("addTKB.ngayKetThucLT = '" + monHocModel.getNgayKetThucLT().replaceAll("-","/") + "';");
-			out.print("addTKB.ngayKetThucTH = '" + monHocModel.getNgayKetThucTH().replaceAll("-","/") + "';");
-			out.print("addTKB.chuoiThuTrongTuan = '" + monHocModel.getChuoiThuTrongTuan() + "';");
-			out.print("addTKB.phongLT= '" + monHocModel.getChuoiPhongLT() + "';");
-			out.print("addTKB.phongTH= '" + monHocModel.getChuoiPhongTH() + "';");
-			out.print("addTKB.kieuBienSoan = '" + monHocModel.getKieuBienSoan() + "';");
-			out.print("addTKB.soTietLT = '" + monHocModel.getLyThuyetCTMH() + "';");
-			out.print("addTKB.soTietTH = '" + monHocModel.getThucHanhCTMH() + "';");
-			out.print("addTKB.maPhongLT = '" + monHocModel.getUser1() + "';");
-			out.print("addTKB.maPhongTH = '" + monHocModel.getUser2() + "';");
-			out.print("addTKB.soTiet1Buoi = '" + monHocModel.getSoTietHoc1Buoi() + "';");
-			out.print("var chiTietTKBList = new Array();");
-			for(int i=0;i<monHocModel.getChiTietTKBModelList().size();i++)
-			{
-				ChiTietTKBModel chiTietTKB = monHocModel.getChiTietTKBModelList().get(i);
-				out.print("var chiTietTKB = new Object();");
-				out.print("chiTietTKB.maChiTietTKB = '" + chiTietTKB.getMaChiTietTKB() + "';");
-				out.print("chiTietTKB.buoi = '" + chiTietTKB.getBuoi() + "';");
-				out.print("chiTietTKB.sTTNoiDung = '" + chiTietTKB.getsTTNoiDung() + "';");
-				out.print("chiTietTKB.coHieu = '" + chiTietTKB.getCoHieu() + "';");
-				out.print("chiTietTKB.hinhThucDay = '" + chiTietTKB.getHinhThucDay() + "';");
-				out.print("chiTietTKB.thuTrongTuan = '" + chiTietTKB.getThuTrongTuan() + "';");
-				out.print("chiTietTKB.phong = '" + chiTietTKB.getMaPhong() + "';");
-				out.print("chiTietTKB.tuan = '" + chiTietTKB.getTuan() + "';");
-				out.print("chiTietTKB.soThuTu = '" + chiTietTKB.getSoThuTu() + "';");
-				out.print("chiTietTKB.nhom = '" + chiTietTKB.getNhom() + "';");
-				out.print("chiTietTKB.tenChuong = '" + chiTietTKB.getTenChuong() + "';");
-				out.print("chiTietTKB.mucTieu = '" + chiTietTKB.getMucTieu() + "';");
-				out.print("chiTietTKB.tietBatDau = '" + chiTietTKB.getTietBatDau() + "';");
-				//out.print("chiTietTKB.maSuDung = '" + monHocModel.getSuDungModelList().get(i).getMaSuDung() + "';");
-		
-				out.print("chiTietTKBList[chiTietTKBList.length] = chiTietTKB;");
-			}
-			out.print("addTKB.chiTietTKBList = chiTietTKBList;");
-			out.print("if(navigator.appName != 'Netscape') {");
-			out.print("var winOpen = window.opener;");
-			out.print("winOpen.traVe(addTKB);");
-			out.print("winOpen.returnValue = winOpen.addTKB;");
-			out.print("winOpen.close(); }");
-			out.print("else { ");
-			out.print("window.returnValue = addTKB; }");
-			out.print("window.close(); ");
-		} else if(request.getParameter("Error") != null)
-		{
-			out.print("param = 1;");
-			out.print("alert('Thêm môn học thời khóa biểu không thành công');");
-			out.print("window.close();");
-		}
-		//
+		else if(request.getParameter("Error") != null)
+			out.print("param = 4;");
 	%>
 	if(param == 0)
 	{
@@ -204,14 +162,13 @@ function loadPage()
 		document.getElementById('MangChiTietLength').value = objMonHocTKB.chiTietTKBList.length;
 		
 		createGiaoVien();
-		createTuanLe();
+		//createTuanLe();
 		createPhongBan('phongLyThuyet');
 		createPhongBan('phongThucHanh');
 		
 		//cap nhat mon hoc tkb
 		document.getElementById('txtTenMonHoc').value = objMonHocTKB.tenMonHoc;
 		document.getElementById('txtMonHoc').value = objMonHocTKB.maMonHoc; // co the khong can
-		document.getElementById('SoNoiDung').value = objMonHocTKB.soNoiDung;
 		document.getElementById('txtSoNoiDung').value = objMonHocTKB.soNoiDung;
 		document.getElementById('giaoVien').value = objMonHocTKB.maGiaoVien;
 		document.getElementById('phongLyThuyet').value = objMonHocTKB.phongLyThuyet; 
@@ -243,14 +200,27 @@ function loadPage()
 		}
 		taoNgayHoc();
 		taoNgayLe();
+		taoListThayDoi();
 		createTableKieuDay();
-		taoBang(1);
+		selectKieuDay(2,'1');
 		taoListMonHocVaListLopHoc();
+		<%
+			if(monHocTKBThayDoi.getId() != null) {
+				out.print("document.getElementById('giaoVien').style.background = 'lime';");	 
+				if(monHocTKBThayDoi.getTinhTrang().equals(Constant.TINHTRANG_SEND))
+					out.print("document.getElementById('giaoVien').disabled = true;");
+				out.print("document.getElementById('giaoVien').alt = '" + monHocTKBThayDoi.getTenGiaoVien() + "';");
+				out.print("document.getElementById('txtMaGVThayDoi').value = '" + monHocTKBThayDoi.getId() + "';");
+			}
+		%>
 		
-		//taoListSuDungPhong();
-	//
 	}
-	
+	else
+	{
+		if(param != 4)
+			window.returnValue = param;
+		window.close();
+	}
 }
 function taoListSuDungPhong()
 {
@@ -312,14 +282,7 @@ function taoListSuDungPhong()
 		}
 	%>
 }
-function createTuanLe()
-{	
-	for(var i= parseInt(obj.tuanLe[0]);i<=parseInt(obj.tuanLe[1]);i++)
-	{
-		var opt = new Option(i,i);
-		document.getElementById('TuanLeBatDau').add(opt, undefined);
-	}
-}
+
 
 function createGiaoVien()
 {
@@ -495,78 +458,9 @@ function createTableKieuDay()// tao bang 1 de chon thu tu cac buoi hoc ly thuyet
 			document.getElementById('TableHidden').rows[0].cells[0].innerHTML = document.getElementById('TableHidden').rows[0].cells[0].innerHTML + hidden;
 		}
 	}
-	createButton();
+	
 }
-function createButton()// tao ra 2 button tao bang va xoa bang
-{
-	document.getElementById('TableButton').rows[0].cells[0].innerHTML = "<input type = 'button' value = 'Tạo bảng' id = 'TaoBang' onclick = 'taoBang(0)'/> <input type = 'button' value = 'Xóa bảng' id = 'XoaBang' onclick = 'xoaBang()' disabled = 'disabled'/>";
-}
-function taoBang(x)
-{
-	var kiemTraSoBuoi = true;
-	if(document.getElementById('TuanLeBatDau').value != '')
-	{
-		if(objMonHocTKB.kieuBienSoan == '0' && objMonHocTKB.soTietLT != '0' && objMonHocTKB.soTietTH != '0')
-		{
-			kiemTraSoBuoi = kiemTraKieuDay();
-			if(kiemTraSoBuoi)
-			{
-				for(var i=1;i<=STT;i++)
-				{
-					document.getElementById('KieuDay_LT' + i).disabled = true;
-					document.getElementById('KieuDay_TH' + i).disabled = true;
-				}
-			}
-		}
-		if(kiemTraSoBuoi)
-		{
-			var nh = true;
-			if(x == 0)
-				nh = selectKieuDay('1',0);
-			else
-				selectKieuDay('1',1);
-			if(nh == false) {
-				alert("Số tuần không phù hợp");
-				selectKieuDay('0');
-				soBuoiTongCong = 0;
-			} else {
-				document.getElementById('TaoBang').disabled = true;
-				document.getElementById('SoNoiDung').disabled = true;
-				document.getElementById('SoCa').readOnly = true;
-				document.getElementById('SoCaLyThuyet').readOnly = true;
-				document.getElementById('XoaBang').disabled = false;
-				document.getElementById('TuanLeBatDau').disabled = true;
-				tonTaiBang = true;
-			}
-		}
-		else
-			alert("Số buổi học lý thuyết và thực hành không đúng");	
-	}
-	else
-	{
-		alert("Hãy chọn tuần bắt đầu");
-	}	
-}
-function xoaBang()
-{
-	selectKieuDay('0');
-	document.getElementById('TaoBang').disabled = false;
-	document.getElementById('SoNoiDung').disabled = false;
-	document.getElementById('SoCa').readOnly = false;
-	document.getElementById('SoCaLyThuyet').readOnly = false;
-	document.getElementById('XoaBang').disabled = true;
-	soBuoiTongCong = 0;
-	document.getElementById('TuanLeBatDau').disabled = false;
-	if(objMonHocTKB.kieuBienSoan == '0' && objMonHocTKB.soTietLT != '0' && objMonHocTKB.soTietTH != '0')
-	{
-		for(var i=1;i<=STT;i++)
-		{
-			document.getElementById('KieuDay_LT' + i).disabled = false;
-			document.getElementById('KieuDay_TH' + i).disabled = false;
-		}
-	}
-	tonTaiBang = false;
-}
+
 function kiemTraKieuDay() // kiem tra lai trinh tu hoc o bang 1 va sap xep lai cho dung
 {
 	var demLT = 0, demTH = 0;
@@ -607,10 +501,7 @@ function kiemTraKieuDay() // kiem tra lai trinh tu hoc o bang 1 va sap xep lai c
 	else
 		return false;
 }
-function selectSoNoiDung()
-{
-	document.getElementById('txtSoNoiDung').value = document.getElementById('SoNoiDung').value;
-}
+
 function selectKieuDay(act, up) // tao bang 2
 {
 	if(objMonHocTKB.kieuBienSoan == '0' && objMonHocTKB.soTietLT != '0' && objMonHocTKB.soTietTH != '0')
@@ -634,17 +525,16 @@ function selectKieuDay(act, up) // tao bang 2
 	var so = -1;
 	var phongBan = "";
 	var soBuoiMoiTuan = 0;
-	var selectThu = "";
 	var selectNhom = "";
 	var chonPhong = "";
 	var tenChuong = "";
 	var mucTieu = "";
 	var hiddenTenChuong;
 	var hiddenMucTieu;
-	var selectNhomHoc = "";
-	var selectBuoiHoc = "";
 	var ngayHoc = "";
 	var baoNgayLe = "";
+	var selectThu = "";
+	var selectBuoiHoc = "";
 	var optionTietHoc = "<option value = '1'>1</option><option value = '2'>2</option><option value = '3'>3</option><option value = '4'>4</option><option value = '5'>5</option>";
 	if(act == '0')
 	{
@@ -697,16 +587,7 @@ function selectKieuDay(act, up) // tao bang 2
 			}
 			if((parseInt((document.getElementById('Day' + i).value.split("<-->"))[1])%parseInt(document.getElementById('txtSoNoiDung').value) == 0 && so == 0) || i == STT)
 			{
-				selectThu = "";
-				selectNhomHoc = "";
-				selectBuoiHoc = "";
 				soTuan++;
-				if(soTuan == 1)
-				{
-					selectThu = "selectThuTrongTuan();";
-					selectNhomHoc = "onchange = 'selectNhom()'";
-					selectBuoiHoc = "onclick = 'selectBuoi()'";
-				}
 				for(var j=x;j<=i;j++)
 				{
 					dem = 1;
@@ -772,14 +653,17 @@ function selectKieuDay(act, up) // tao bang 2
 							tr = table.insertRow(soBuoiTongCong);
 							dem = 1;
 						}
-						tr.insertCell(1-dem).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/>";
+						selectThu = "selectThuTrongTuan(" + soBuoiTongCong + ");";
+						selectBuoiHoc = "onclick = 'selectBuoi(" + soBuoiTongCong + ")'";
+						tr.id = "tr" + soBuoiTongCong;
+						tr.insertCell(1-dem).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtDong" + soBuoiTongCong + "' name = 'txtDong" + soBuoiTongCong + "' value = '0'/><input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/><input type = 'hidden' id = 'txtMaThayDoi" + soBuoiTongCong + "' name = 'txtMaThayDoi" + soBuoiTongCong + "' value = '-1'><input type = 'hidden' id = 'txtMaChiTietTKB" + soBuoiTongCong + "' name = 'txtMaChiTietTKB" + soBuoiTongCong + "' value = '-1'>";
 						tr.insertCell(2-dem).innerHTML = "<input type = 'text' id = 'txtNgayHoc" + soBuoiTongCong + "' name = 'txtNgayHoc" + soBuoiTongCong + "' value = '" + ngayHoc + "'" + baoNgayLe + " size = '10'/>";
 						tr.insertCell(3-dem).innerHTML = "<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiSang" + soBuoiTongCong + "' value = 'Sáng-" + soNoiDung + "-" + ch + "' checked='checked' " + selectBuoiHoc + "/>Sáng<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiChieu" + soBuoiTongCong + "' value = 'Chiều-" + soNoiDung + "-" + ch + "' " + selectBuoiHoc + "/>Chiều";
-						tr.insertCell(4-dem).innerHTML = "<select name = 'cboTietBatDau" +soBuoiTongCong + "' id = 'cboTietBatDau" + soBuoiTongCong + "' onchange = 'selectTietBatDau(" + soBuoiTongCong + ")' onclick = 'getSoTiet(" + soBuoiTongCong + ")'>" + optionTietHoc + "</select>";
+						tr.insertCell(4-dem).innerHTML = "<select name = 'cboTietBatDau" +soBuoiTongCong + "' id = 'cboTietBatDau" + soBuoiTongCong + "' disabled = 'disabled'>" + optionTietHoc + "</select>";
 						tr.insertCell(5-dem).innerHTML = "<input type = 'text' name = 'HinhThucDay" + soBuoiTongCong + "' value = '" + kieuDay + "' id = 'HinhThucDay" + soBuoiTongCong + "' readonly = 'readonly' size = '3'/>";
-						tr.insertCell(6-dem).innerHTML = "<select name = 'Nhom" + soBuoiTongCong + "' id = 'Nhom" + soBuoiTongCong + "' " + selectNhom + selectNhomHoc + ">" + option + "</select>";
+						tr.insertCell(6-dem).innerHTML = "<select name = 'Nhom" + soBuoiTongCong + "' id = 'Nhom" + soBuoiTongCong + "' disabled = 'disabled'>" + option + "</select>";
 						tr.insertCell(7-dem).innerHTML = "<select name = 'Thu" + soBuoiTongCong + "' id = 'Thu" + soBuoiTongCong + "' onchange = '" + selectThu + " showNgayHoc(" + hienThiTuan + "," + soBuoiTongCong + ")'><option value = '1'>Thứ hai</option><option value = '2'>Thứ ba</option><option value = '3'>Thứ tư</option><option value = '4'>Thứ năm</option><option value = '5'>Thứ sáu</option><option value = '6'>Thứ bảy</option><option value = '7'>Chủ nhật</option></select>";
-						tr.insertCell(8-dem).innerHTML = "<select id = 'Phong" + soBuoiTongCong + "' name = 'Phong" + soBuoiTongCong + "'>" + phongBan + "</select>";
+						tr.insertCell(8-dem).innerHTML = "<select id = 'Phong" + soBuoiTongCong + "' name = 'Phong" + soBuoiTongCong + "' onchange = 'thayDoiPhong(" + soBuoiTongCong + ")'>" + phongBan + "</select>";
 						tr.insertCell(9-dem).innerHTML = "&nbsp;";
 						tr.cells[9-dem].id = "tdTinhTrang" + soBuoiTongCong;
 						tr.cells[9-dem].onclick = (function(a) {return function(){ thongBaoChiTietLoi(a); }})(soBuoiTongCong);
@@ -794,6 +678,19 @@ function selectKieuDay(act, up) // tao bang 2
 							var objChiTiet = new Object();
 							objChiTiet = objMonHocTKB.chiTietTKBList[soBuoiTongCong-1];
 							document.getElementById('ChuoiMaChiTietTKB').value += objChiTiet.maChiTietTKB + "<->";
+							document.getElementById('txtMaChiTietTKB' + soBuoiTongCong).value = objChiTiet.maChiTietTKB;
+							var tinhTrangThayDoi = "";
+							for(var d=0;d<listChiTietThayDoi.length;d++)
+							{
+								var objThayDoi =  listChiTietThayDoi[d];
+								if(objThayDoi.maChiTietTKB == objChiTiet.maChiTietTKB)
+								{
+									document.getElementById('txtMaThayDoi' + soBuoiTongCong).value = objThayDoi.maThayDoi;
+									tinhTrangThayDoi = objThayDoi.tinhTrang;
+									document.getElementById('tr' + soBuoiTongCong).style.background = "lime";
+									break;
+								}
+							}
 							if(objChiTiet.buoi == 'Sáng')
 								document.getElementById('BuoiSang' + soBuoiTongCong).checked = true;
 							else
@@ -838,6 +735,16 @@ function selectKieuDay(act, up) // tao bang 2
 									break;
 								}
 							}
+							var m1 = <%="'" + ngayHeThong + "'"%>.split("-");
+							if(Date.UTC(m[2], m[1], m[0]) <= Date.UTC(m1[2], m1[1], m1[0]) || tinhTrangThayDoi == '1')
+							{
+								document.getElementById('BuoiSang' + soBuoiTongCong).disabled = true;
+								document.getElementById('BuoiChieu' + soBuoiTongCong).disabled = true;
+								document.getElementById('Nhom' + soBuoiTongCong).disabled = true;
+								document.getElementById('Thu' + soBuoiTongCong).disabled = true;
+								document.getElementById('Phong' + soBuoiTongCong).disabled = true;
+								document.getElementById('cboTietBatDau' + soBuoiTongCong).disabled = true;
+							}
 						}
 					}
 				}
@@ -845,10 +752,39 @@ function selectKieuDay(act, up) // tao bang 2
 				soBuoiMoiTuan = 0;
 			}
 		}
-		if((soTuan + tuanBatDau - 1) > parseInt(document.getElementById('TuanLeBatDau').options[document.getElementById('TuanLeBatDau').options.length-1].value))
+		if((soTuan + tuanBatDau - 1) > obj.tuanLe[1])
 			return false;
 	}
 	return true;
+}
+function thayDoiPhong(x)
+{
+	var objChiTiet = new Object();
+	objChiTiet = objMonHocTKB.chiTietTKBList[x - 1];
+	if(document.getElementById('Phong' + x).value != objChiTiet.phong)
+	{
+		document.getElementById("txtDong" + x).value = "1";
+		document.getElementById("tr" + x).style.background = "lime";
+	}
+	else
+	{
+		if(document.getElementById('BuoiSang' + x).checked == true)
+		{
+			if('Sáng' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
+			{
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
+			}
+		}
+		else
+		{
+			if('Chiều' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
+			{
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
+			}
+		}
+	}
 }
 function showNgayHoc(tuanLePhuThuoc, x)
 {
@@ -887,11 +823,6 @@ function showNgayHoc(tuanLePhuThuoc, x)
 	if(checkNgayHoc == true)
 		document.getElementById('txtNgayHoc' + x).style.color = "black";
 }
-function changeMonHoc()
-{
-	document.getElementById('txtMonHoc').value = document.getElementById('monHoc').value;
-	document.getElementById('txtTenMonHoc').value = document.getElementById('monHoc').options[document.getElementById('monHoc').selectedIndex].text;
-}
 function getTuanHoc(tuanMacDinh)
 {
 	checkTuanHoc = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
@@ -908,9 +839,36 @@ function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 			if(objNgayHoc.tuan == document.getElementById('txtTuanHoc' + tuanMacDinh).value)
 				break;
 		}
+		var x = buoiBatDau;
 		for(var i=buoiBatDau; i< buoiBatDau + soBuoi; i++)
 		{
 			document.getElementById('hiddenTuan' + i).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
+			var objChiTiet = new Object();
+			objChiTiet = objMonHocTKB.chiTietTKBList[x - 1];
+			if(document.getElementById('hiddenTuan' + x).value != objChiTiet.tuan)
+			{
+				document.getElementById("txtDong" + x).value = "1";
+				document.getElementById("tr" + x).style.background = "lime";
+			}
+			else
+			{
+				if(document.getElementById('BuoiSang' + x).checked == true)
+				{
+					if('Sáng' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong)
+					{
+						document.getElementById("txtDong" + x).value = "0";
+						document.getElementById("tr" + x).style.background = "";
+					}
+				}
+				else
+				{
+					if('Chiều' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong)
+					{
+						document.getElementById("txtDong" + x).value = "0";
+						document.getElementById("tr" + x).style.background = "";
+					}
+				}				
+			}
 			if(document.getElementById('Thu' + i).value == '1')
 				ngayHoc = objNgayHoc.thuHai;
 			else if(document.getElementById('Thu' + i).value == '2')
@@ -949,7 +907,7 @@ function validateTuan(tuanMacDinh)
 			else
 			{
 				var tuanTruoc = document.getElementById('TuanLeBatDau').value;
-				var tuanSau = document.getElementById('TuanLeBatDau').options[document.getElementById('TuanLeBatDau').options.length - 1].value;
+				var tuanSau = obj.tuanLe[1];
 				if(document.getElementById('txtTuanHoc' + (tuanMacDinh - 1)) != null)
 					tuanTruoc = document.getElementById('txtTuanHoc' + (tuanMacDinh - 1)).value;
 				if(document.getElementById('txtTuanHoc' + (tuanMacDinh + 1)) != null)
@@ -967,10 +925,6 @@ function validateTuan(tuanMacDinh)
 			return false;
 		}
 	return true;
-}
-function changeTuanBatDau()
-{
-	tuanBatDau = parseInt(document.getElementById('TuanLeBatDau').value);
 }
 function changePhongLyThuyet()
 {
@@ -1057,111 +1011,73 @@ function kiemTraTrungGioHoc()
 	}
 	return check;
 }
-function selectThuTrongTuan() // chon thu trong dong dau tien thi thu o cac dong sau se chay theo
+function selectThuTrongTuan(x) // chon thu trong dong dau tien thi thu o cac dong sau se chay theo
 {
-	var thuTuTuan = tuanBatDau;
-	var demSoNgay = 1;
-	var soNgayTuanDau = 0;
-	for(var i=1;i<=soBuoiTongCong;i++)
+	var objChiTiet = new Object();
+	objChiTiet = objMonHocTKB.chiTietTKBList[x - 1];
+	if(document.getElementById('Thu' + x).value != objChiTiet.thuTrongTuan)
 	{
-		if(parseInt(document.getElementById('hiddenTuan' + i).value) != thuTuTuan)
+		document.getElementById("txtDong" + x).value = "1";
+		document.getElementById("tr" + x).style.background = "lime";
+	}
+	else
+	{
+		if(document.getElementById('BuoiSang' + x).checked == true)
 		{
-			thuTuTuan = parseInt(document.getElementById('hiddenTuan' + i).value);
-			demSoNgay = 1;
-		}
-		if(thuTuTuan > tuanBatDau)
-		{
-			if(soNgayTuanDau - demSoNgay >= 0)
+			if('Sáng' == objChiTiet.buoi && document.getElementById('Phong' + x).value == objChiTiet.phong && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
 			{
-				document.getElementById('Thu' + i).value = document.getElementById('Thu' + demSoNgay).value;
-				demSoNgay++;
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
 			}
 		}
 		else
-			soNgayTuanDau++;
-		showNgayHoc(thuTuTuan, i);
-	}
-}
-function selectTietBatDau(x) // chon nhom trong dong dau tien thi nhom o cac dong sau se chay theo
-{
-	if(parseInt(document.getElementById('cboTietBatDau' + x).value) + parseInt(document.getElementById('txtSoTiet1Buoi').value) - 1 > 5)
-	{
-		alert("Tiết bắt đầu không phù hợp!!!");
-		document.getElementById('cboTietBatDau' + x).value = tietBatDau;
-	} 
-	else {
-		
-			var thuTuTuan = tuanBatDau;
-			var demSoNgay = 1;
-			var soNgayTuanDau = 0;
-			for(var i=1;i<=soBuoiTongCong;i++)
+		{
+			if('Chiều' == objChiTiet.buoi && document.getElementById('Phong' + x).value == objChiTiet.phong && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
 			{
-				if(parseInt(document.getElementById('hiddenTuan' + i).value) != thuTuTuan)
-				{
-					thuTuTuan = parseInt(document.getElementById('hiddenTuan' + i).value);
-					demSoNgay = 1;
-				}
-				if(thuTuTuan > tuanBatDau)
-				{
-					if(soNgayTuanDau - demSoNgay >= 0)
-					{
-						document.getElementById('cboTietBatDau' + i).value = document.getElementById('cboTietBatDau' + demSoNgay).value;
-						demSoNgay++;
-					}
-				}
-				else
-					soNgayTuanDau++;
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
 			}
-		
+		}
 	}
-}
-function getSoTiet(x)
-{
-	tietBatDau = document.getElementById('cboTietBatDau' + x).value;
 }
 
-function selectNhom() // chon nhom trong dong dau tien thi nhom o cac dong sau se chay theo
+function selectBuoi(x) // chon nhom trong dong dau tien thi nhom o cac dong sau se chay theo
 {
-	var thuTuTuan = tuanBatDau;
-	var demSoNgay = 1;
-	var soNgayTuanDau = 0;
-	for(var i=1;i<=soBuoiTongCong;i++)
+	var objChiTiet = new Object();
+	objChiTiet = objMonHocTKB.chiTietTKBList[x - 1];
+	if(document.getElementById('BuoiSang' + x).checked == true)
 	{
-		if(parseInt(document.getElementById('hiddenTuan' + i).value) != thuTuTuan)
+		if(document.getElementById('BuoiSang' + x).value.split("-")[0] != objChiTiet.buoi)
 		{
-			thuTuTuan = parseInt(document.getElementById('hiddenTuan' + i).value);
-			demSoNgay = 1;
-		}
-		if(thuTuTuan > tuanBatDau)
-		{
-			if(soNgayTuanDau - demSoNgay >= 0)
-			{
-				document.getElementById('Nhom' + i).value = document.getElementById('Nhom' + demSoNgay).value;
-				demSoNgay++;
-			}
+			document.getElementById("txtDong" + x).value = "1";
+			document.getElementById("tr" + x).style.background = "lime";
 		}
 		else
-			soNgayTuanDau++;
+		{
+			if(document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
+			{
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
+			}
+		}
 	}
-}
-function selectBuoi() // chon nhom trong dong dau tien thi nhom o cac dong sau se chay theo
-{
-	var thuTuTuan = tuanBatDau - 1;
-	var demSoNgay = 1;
-	for(var i=1;i<=soBuoiTongCong;i++)
+	else if(document.getElementById('BuoiChieu' + x).checked == true)
 	{
-		if(parseInt(document.getElementById('hiddenTuan' + i).value) != thuTuTuan)
+		if(document.getElementById('BuoiChieu' + x).value.split("-")[0] != objChiTiet.buoi)
 		{
-			thuTuTuan = parseInt(document.getElementById('hiddenTuan' + i).value);
-			demSoNgay = 1;
+			document.getElementById("txtDong" + x).value = "1";
+			document.getElementById("tr" + x).style.background = "lime";
 		}
-		if(thuTuTuan > tuanBatDau - 1)
+		else
 		{
-			document.getElementById('BuoiSang' + i).checked = document.getElementById('BuoiSang' + demSoNgay).checked;
-			document.getElementById('BuoiChieu' + i).checked = document.getElementById('BuoiChieu' + demSoNgay).checked;
-			demSoNgay++;
+			if(document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong && document.getElementById('hiddenTuan' + x).value == objChiTiet.tuan)
+			{
+				document.getElementById("txtDong" + x).value = "0";
+				document.getElementById("tr" + x).style.background = "";
+			}
 		}
 	}
+	
 }
 function kiemTraNgayLe()
 {
@@ -1171,6 +1087,29 @@ function kiemTraNgayLe()
 			return false;
 	}
 	return true;
+}
+function kiemTraThayDoi()
+{
+	var thayDoi = false;
+	if(objMonHocTKB.maGiaoVien != document.getElementById('giaoVien').value)
+	{
+		thayDoi = true;
+		document.getElementById('txtThayDoiGV').value = "1";
+	}
+	else
+		document.getElementById('txtThayDoiGV').value = "0";
+	if(thayDoi == false)
+	{
+		for(var i=1;i<=soBuoiTongCong;i++)
+		{
+			if(document.getElementById('txtDong' + i).value == '1')
+			{
+				thayDoi = true;
+				break;
+			}
+		}
+	}
+	return thayDoi;
 }
 function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chinh
 {
@@ -1189,11 +1128,6 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 		alert("Hãy chọn giáo viên");
 		check = false;
 	} 
-	else if(tonTaiBang == false)
-	{
-		alert("Hãy tạo bảng trước");
-		check = false;
-	}
 	else if(kiemTraTrungGioHoc() == false)
 	{
 		alert("Giờ học không hợp lệ");
@@ -1202,6 +1136,11 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 	else if(kiemTraNgayLe() == false)
 	{
 		alert("Giờ học trùng với ngày lễ");
+		check = false;	
+	}
+	else if(kiemTraThayDoi() == false)
+	{
+		alert("Không có thay đổi nào");
 		check = false;	
 	}
 	else 
@@ -1359,8 +1298,11 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 		return false;
 	}
 	else {
-		if(confirm("Bạn có chắc muốn thêm môn học này không ???"))
+		if(confirm("Bạn có chắc muốn thay đổi không ???"))
+		{
 			taoChuoiThuTrongTuan();
+			//thayDoi();
+		}
 	}
 }
 function thongBaoChiTietLoi(x)
@@ -1480,6 +1422,28 @@ function taoChuoiThuTrongTuan() // tao 1 chuoi de display ben cua so chinh va ga
 	
 	document.forms["AddThoiKhoaBieu"].submit();
 }
+function thayDoi()
+{
+	var xmlhttp;
+	var result = "";
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+	  	xmlhttp = new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+	  	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+	  	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+	    {
+	    	result = xmlhttp.responseText;
+	    }
+	}
+	xmlhttp.open("POST", <%="'" + request.getContextPath() + "'"%> + "/thoiKhoaBieuController?thayDoi=yes",true);
+	xmlhttp.send();
+}
 function closeWindow()
 {
 	window.close();
@@ -1532,7 +1496,7 @@ function traVe(tempObject)
 </script>
 </head>
 <body onload="loadPage();">
-	<form action = "<%=request.getContextPath()%>/thoiKhoaBieuController?themChiTiet=yes" method="post" name = "AddThoiKhoaBieu">
+	<form action = "<%=request.getContextPath()%>/thoiKhoaBieuController?thayDoi=yes" method="post" name = "AddThoiKhoaBieu">
 		<table id = "TKB">
 			<th colspan="4">Thêm Môn Học</th>
 			<tr>
@@ -1544,7 +1508,7 @@ function traVe(tempObject)
 				<td>Tên môn học :</td>
 				<td>
 					<input type = "hidden" name = "txtMonHoc" id = "txtMonHoc"/>
-					<input type = "text" id = "txtTenMonHoc" name = "txtTenMonHoc"/>
+					<input type = "text" id = "txtTenMonHoc" name = "txtTenMonHoc" readonly="readonly"/>
 				</td>
 			</tr>
 			<tr id="trGiangDay">
@@ -1560,13 +1524,9 @@ function traVe(tempObject)
 			<tr>
 				<td>Số nội dung học trong tuần</td>
 				<td>
-					<input type = "hidden" id = "txtSoNoiDung" value = "1" name = "txtSoNoiDung"/> 
-					<select id="SoNoiDung" onchange="selectSoNoiDung();">
-						<c:forEach var = "SoNoiDung" begin = "1" end="7">
-							<option value="${SoNoiDung}">${SoNoiDung}</option>
-						</c:forEach>
-					</select></td>
-					<td>Số tiết học 1 buổi</td>
+					<input type = "text" id = "txtSoNoiDung" value = "1" name = "txtSoNoiDung"/> 
+				</td>
+				<td>Số tiết học 1 buổi</td>
 				<td><input type = "text" id = "txtSoTiet1Buoi" value = "1" name = "txtSoTiet1Buoi" readonly="readonly"/></td> 
 			</tr>
 		 	<tr>
@@ -1585,18 +1545,16 @@ function traVe(tempObject)
 			</tr> 
 			<tr>
 				<td>Số ca lý thuyết :</td>
-				<td><input type="text" id = "SoCaLyThuyet" value="1" name="SoCaLyThuyet"/></td>
+				<td><input type="text" id = "SoCaLyThuyet" value="1" name="SoCaLyThuyet" readonly="readonly"/></td>
 			</tr>
 			<tr>
 				<td>Số ca thực hành :</td>
-				<td><input type="text" id = "SoCa" value="1" name="SoCa"/></td>
+				<td><input type="text" id = "SoCa" value="1" name="SoCa" readonly="readonly"/></td>
 			</tr>
 			<tr>
 				<td>Tuần bắt đầu :</td>
 				<td>
-					<select id = "TuanLeBatDau" name="cboTuanLeBatDau" onchange="changeTuanBatDau();">
-					<option value="0">Select</option>
-					</select>
+					<input type = "text" id = "TuanLeBatDau" name="cboTuanLeBatDau" readonly="readonly"/>
 				</td>
 			</tr>
 		</table>
@@ -1606,20 +1564,17 @@ function traVe(tempObject)
 		<table border="1" id = "TableBuoiHoc"></table>
 		<table>
 			<tr><td>Ghi chú
-					<textarea rows="5" cols="50" name = "areaGhiChu" id = "GhiChu"></textarea>
-			</td></tr>
-		<c:set var = "TinhTrang" value = "${param.capNhat}"/>
-		
-			<c:if test="${TinhTrang eq 'CapNhat'}">
-				<tr align="center"><td>	
-					<input type="button" value = "Câp nhật" onclick="taoMonHoc();"/>
+					<textarea rows="5" cols="50" name = "areaGhiChu" id = "GhiChu" readonly="readonly"></textarea>
+			</td>
+			</tr>
+				<tr align="center"ju><td>	
+					<input type="button" value = "Thay đổi" onclick="taoMonHoc();"/>
 					<input type="button" value = "Đóng cửa sổ" onclick="closeWindow();"/>
-				</td></tr>	
-			</c:if>
-			
+				</td>
+			</tr>	
 		</table>
 		<input type="hidden" name = "txtMaMonHocTKB" id = "txtMaMonHocTKB"/>
-		<input type="hidden" name = "txtSoBuoi" id = "txtSoBuoi" />
+		<input type="hidden" name = "txtSoBuoi" id = "txtSoBuoi"/>
 		<input type="hidden" name = "action" value = "Update"/>
 		<input type="hidden" name = "txtMaTKB" id = "txtMaTKB" value = ""/>
 		<input type="hidden" name = "Tuan_bat_dau_LT" id = "Tuan_bat_dau_LT" value = ""/>
@@ -1635,7 +1590,8 @@ function traVe(tempObject)
 		<input type="hidden" name = "SoTietThucHanh" id = "SoTietThucHanh" value=""/>
 		<input type="hidden" name = "ChuoiMaChiTietTKB" id = "ChuoiMaChiTietTKB" value=""/>
 		<input type="hidden" name = "MangChiTietLength" id = "MangChiTietLength" value=""/>
-		
+		<input type = "hidden" id = "txtThayDoiGV" name = "txtThayDoiGV" value = "0"/>
+		<input type = "hidden" id = "txtMaGVThayDoi" name = "txtMaGVThayDoi" value = "-1"/>
 	</form>
 </body>
 </html>

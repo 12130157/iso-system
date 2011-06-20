@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
+import vn.edu.hungvuongaptech.model.ChiTietTKBThayDoiModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.SuDungModel;
 import vn.edu.hungvuongaptech.model.TuanLeModel;
@@ -570,6 +571,4 @@ public class ChiTietTKBDAO {
 		
 		return arrayArrayList;
 	}
-	
-	
 }

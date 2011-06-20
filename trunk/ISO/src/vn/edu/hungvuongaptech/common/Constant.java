@@ -87,8 +87,10 @@ public class Constant {
 	public static String CHUCNANG_KEHOACHGIANGDAY = "5";
 	public static String CHUCNANG_GIAOAN="6";
 	public static String CHUCNANG_KEHOACHTHANG = "7";
-		
+	public static String CHUCNANG_TOTRINH = "8";
+	
 	public static String CHUCNANG_ADMIN_MENU="18";
+	
 	//public static String CHUCNANG_DIEMDANH_MENU="2";
 	
 	public static String APP_ADMIN = "0";
@@ -216,5 +218,13 @@ public class Constant {
 	public static final String TINHTRANGTHIETBIBAOHANH = "3";
 	public static final String TINHTRANGTHIETBIHONG = "4";
 
+
+	//***********************************************************************************************
+	public static final String MADIEMMIENG = "0";
+	public static final String MADIEM15	= "1";
+	public static final String MADIEM1TIET = "2";
+	public static final String MADIEMTHI = "3";
+
 	public static final String MAILTO_THANHVIENNHACNHO="phamhongtam27989@gmail.com";
+
 }

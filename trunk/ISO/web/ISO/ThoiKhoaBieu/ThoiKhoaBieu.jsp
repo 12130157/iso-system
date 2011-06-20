@@ -56,10 +56,10 @@ var tinhTrangThoiKhoaBieu = "";
 		//thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(thoiKhoaBieuModel.getMaThoiKhoaBieu());
 		out.print("duongDan = 'ISO/ThoiKhoaBieu/';");
 	}	
-	if(thoiKhoaBieuModel.getTinhTrang().equalsIgnoreCase(Constant.TINHTRANG_APPROVE) 
+	/*if(thoiKhoaBieuModel.getTinhTrang().equalsIgnoreCase(Constant.TINHTRANG_APPROVE) 
 			&& (thoiKhoaBieuModel.getMaNguoiTao().equals(request.getSession().getAttribute("maThanhVien"))
 				|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN)))
-		out.print("tinhTrangThoiKhoaBieu = '1';");
+		out.print("tinhTrangThoiKhoaBieu = '1';");*/
 	ArrayList<TuanLeModel> tuanLeModelList = TuanLeDAO.getAllTuanLe();
 	ArrayList<NamHocModel> namHocModelList = NamHocDAO.getAllNamHoc();
 	
@@ -169,6 +169,24 @@ function pageLoad()
 			out.print("objTKB.chiTietTKBList = arrChiTiet;");
 			out.print("addTKB[" + i + "] = objTKB;");
 			out.print("createRow(objTKB, 0);");
+			//thay doi tkb
+			if(thoiKhoaBieuModel.getTinhTrang().equals(Constant.TINHTRANG_APPROVE) 
+					&& (thoiKhoaBieuModel.getMaNguoiTao().equals(request.getSession().getAttribute("maThanhVien")) 
+							|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN))) {
+				if(monHocTKB.getMaMonHocTKBThayDoi() != null) {
+					out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang') != null)");
+					out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang').style.background = 'lime';");
+					out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu') != null)");
+					out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu').style.background = 'lime';");
+				}
+				if(monHocTKB.getThayDoiChiTietTKB() != null) {
+					out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang') != null)");
+					out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang').style.background = 'lime';");
+					out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu') != null)");
+					out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu').style.background = 'lime';");
+				}
+			}
+			//
 		}
 	}
 	out.print("maTKB = '" + thoiKhoaBieuModel.getMaThoiKhoaBieu() + "'; }");
@@ -336,6 +354,57 @@ function openUpdate(x)
 		createRow(value,1);
 	}
 }
+function openThayDoi()
+{
+	var value = new Object;
+	obj.soHocSinh = soHocSinh;
+	obj.tuanLe = tuanLe;
+	var maMonHocTKB = document.getElementById('cboXoaMonHoc').value;
+	var index = 0;
+	for(var i=0;i<addTKB.length;i++)
+	{
+		if(addTKB[i].maMonHocTKB == maMonHocTKB)
+		{
+			index = i;
+			obj.monHocTKB = addTKB[i];
+			break;
+		}
+	}
+	var tableSang = document.getElementById('tableSang');
+	var tableChieu = document.getElementById('tableChieu');
+	var maLop = document.getElementById('Lop').value;
+	value = window.showModalDialog(duongDan + "ThayDoiThoiKhoaBieu.jsp?maTKB="+maTKB+"&maNamHoc="+maNamHoc+"&maMonHocTKB="+maMonHocTKB + "&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 800px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
+	if(value != null)
+	{
+		//addTKB[index] = value;
+		//createRow(value,1);
+		if(value == 3)
+		{
+			if(document.getElementById('fontGiaoVien' + maMonHocTKB + 'Sang') != null)
+				document.getElementById('fontGiaoVien' + maMonHocTKB + 'Sang').style.background = "lime";
+			if(document.getElementById('fontGiaoVien' + maMonHocTKB + 'Chieu') != null)
+				document.getElementById('fontGiaoVien' + maMonHocTKB + 'Chieu').style.background = "lime";
+			if(document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Sang') != null)
+				document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Sang').style.background = "lime";
+			if(document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Chieu') != null)
+				document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Chieu').style.background = "lime";
+		}
+		else if(value == 2)
+		{
+			if(document.getElementById('fontGiaoVien' + maMonHocTKB + 'Sang') != null)
+				document.getElementById('fontGiaoVien' + maMonHocTKB + 'Sang').style.background = "lime";
+			if(document.getElementById('fontGiaoVien' + maMonHocTKB + 'Chieu') != null)
+				document.getElementById('fontGiaoVien' + maMonHocTKB + 'Chieu').style.background = "lime";
+		}
+		else if(value == 1)
+		{
+			if(document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Sang') != null)
+				document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Sang').style.background = "lime";
+			if(document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Chieu') != null)
+				document.getElementById('MaMonHocTKB-' + maMonHocTKB + '-MaMonHocTKB-Chieu').style.background = "lime";
+		}
+	}
+}
 function createRow(monHocTkb, action)
 {
 	if(action == 0)
@@ -453,7 +522,7 @@ function createRow(monHocTkb, action)
 			trChieu.cells[(thu[i].split("/"))[1]].innerHTML = trChieu.cells[(thu[i].split("/"))[1]].innerHTML + "<br/>" + (thu[i].split("/"))[2];
 		}
 	}
-	var strDau =  "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b>";
+	/*var strDau =  "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b>";
 	var strCuoi = "</b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
 	var aDau = "", aCuoi = "";
 	var obj = new Object();
@@ -466,17 +535,18 @@ function createRow(monHocTkb, action)
 		obj.trSang = trSang;
 		obj.trChieu = trChieu;
 		aCuoi = "</a>";
-	}
+	}*/
 	if(checkBuoiSang == false)
 	{
-		if(tinhTrangThoiKhoaBieu == "1")
+		/*if(tinhTrangThoiKhoaBieu == "1")
 		{
 			aDau = "<a href = 'javascript: ' id = 'LinkMaMonHocTKB-" + monHocTkb.maMonHocTKB + "-MaMonHocTKB-Sang'>";
 			trSang.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
 			document.getElementById('LinkMaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Sang').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(monHocTkb.maMonHocTKB, monHocTkb.maGiaoVien, obj);
 		}
 		else
-			trSang.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+			trSang.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;*/
+		trSang.cells[0].innerHTML = "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b><font id = 'fontGiaoVien" + monHocTkb.maMonHocTKB + "Sang'>" + monHocTkb.tenGiaoVien + "</font></b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
 	}
 	else
 	{
@@ -488,14 +558,15 @@ function createRow(monHocTkb, action)
 	}
 	if(checkBuoiChieu == false)
 	{
-		if(tinhTrangThoiKhoaBieu == "1")
+		/*if(tinhTrangThoiKhoaBieu == "1")
 		{
 			aDau = "<a href = 'javascript:' id = 'LinkMaMonHocTKB-" + monHocTkb.maMonHocTKB + "-MaMonHocTKB-Chieu'>";
 			trChieu.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
 			document.getElementById('LinkMaMonHocTKB-' + monHocTkb.maMonHocTKB + '-MaMonHocTKB-Chieu').onclick = (function(a,b,c) {return function(){ doiGiaoVien(a,b,c); }})(monHocTkb.maMonHocTKB, monHocTkb.maGiaoVien, obj);
 		}
 		else
-			trChieu.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;
+			trChieu.cells[0].innerHTML = strDau + aDau + monHocTkb.tenGiaoVien + aCuoi + strCuoi;*/
+		trChieu.cells[0].innerHTML = "<font color = 'blue'><b>" + monHocTkb.tenMonHoc + "</b></font><br/><b><font id = 'fontGiaoVien" + monHocTkb.maMonHocTKB + "Chieu'>" + monHocTkb.tenGiaoVien + "</font></b><br/>" + chuoiLT + chuoiTH + monHocTkb.ghiChu;
 	}
 	else
 	{
@@ -712,13 +783,25 @@ function confirmDuyet(x)
 			</select>
 <c:if test = "${not empty ThoiKhoaBieu.maThoiKhoaBieu}">					
 	<c:choose>		
-		<c:when test="${not empty ThoiKhoaBieu.maThoiKhoaBieu and ThoiKhoaBieu.tinhTrang ne APPROVE and ThoiKhoaBieu.tinhTrang ne PENDING and (ThoiKhoaBieu.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN)}">	
-			<a href = "javascript: deleteRow()">
-				<img src="<%=request.getContextPath()%>/images/buttom/xoamonhoc.png" alt="Xóa môn học" border="0"/>
-			</a>
-			<a href = "javascript: openUpdate('CapNhat')">
-				<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập nhật môn học" border="0"/>
-			</a>
+		<c:when test="${not empty ThoiKhoaBieu.maThoiKhoaBieu and (ThoiKhoaBieu.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN)}">
+			<c:if test = "${ThoiKhoaBieu.tinhTrang ne APPROVE and ThoiKhoaBieu.tinhTrang ne PENDING}">
+				<a href = "javascript: deleteRow()">
+					<img src="<%=request.getContextPath()%>/images/buttom/xoamonhoc.png" alt="Xóa môn học" border="0"/>
+				</a>	
+				<a href = "javascript: openUpdate('CapNhat')">
+					<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập nhật môn học" border="0"/>
+				</a>
+			</c:if>
+			<c:if test = "${ThoiKhoaBieu.tinhTrang eq APPROVE}">	
+				<a href = "javascript: openThayDoi()">
+					<img src="<%=request.getContextPath()%>/images/buttom/thaydoi.png" alt="Thay đổi TKB" border="0"/>
+				</a>
+			</c:if>
+			<c:if test = "${ThoiKhoaBieu.tinhTrang eq PENDING}">	
+				<a href = "javascript: openUpdate('CapNhat')">
+					<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" alt="Cập nhật môn học" border="0"/>
+				</a>
+			</c:if>
 		</c:when>	
 		<c:otherwise>
 			<a href = "javascript: openUpdate('Xem')">

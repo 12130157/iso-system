@@ -233,5 +233,24 @@ public class ChangeStringTaglib {
 		return str;
 	}
 	
-	
+	public static String chuyenChuInHoa(String value) {		
+		String result = "";
+		char[] arr = value.toCharArray();
+		for(int i=0;i<arr.length;i++) {
+			int a = (int) 'Ạ';
+			a = (int) 'ạ';
+				a = (int) 'À';
+				a = (int) 'à';
+				a = (int) 'Á';
+				a = (int) 'á';
+				a = (int) 'A';
+				a = (int) 'a';
+				a = (int) 'Ả';
+				a = (int) 'ả';
+				a = (int) 'Ã';
+				a = (int) 'ã';
+			result += (char)((int) arr[i] + 60);
+		}
+		return result;
+	}
 }

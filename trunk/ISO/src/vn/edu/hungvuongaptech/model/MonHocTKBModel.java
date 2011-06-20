@@ -36,8 +36,24 @@ public class MonHocTKBModel  implements Serializable{
 	private String chuoiPhongLT;
 	private String chuoiPhongTH;
 	private String hocKi;
+	private String thayDoiMonHocTKB;
+	private String thayDoiChiTietTKB;
+	private String maMonHocTKBThayDoi;
+	private String maChiTietTKBThayDoi;
 	
 	
+	public String getThayDoiMonHocTKB() {
+		return thayDoiMonHocTKB;
+	}
+	public void setThayDoiMonHocTKB(String thayDoiMonHocTKB) {
+		this.thayDoiMonHocTKB = thayDoiMonHocTKB;
+	}
+	public String getThayDoiChiTietTKB() {
+		return thayDoiChiTietTKB;
+	}
+	public void setThayDoiChiTietTKB(String thayDoiChiTietTKB) {
+		this.thayDoiChiTietTKB = thayDoiChiTietTKB;
+	}
 	public String getSoTietHoc1Buoi() {
 		return soTietHoc1Buoi;
 	}
@@ -241,4 +257,17 @@ public class MonHocTKBModel  implements Serializable{
 	public void setUser5(String user5) {
 		this.user5 = user5;
 	}
+	public String getMaMonHocTKBThayDoi() {
+		return maMonHocTKBThayDoi;
+	}
+	public void setMaMonHocTKBThayDoi(String maMonHocTKBThayDoi) {
+		this.maMonHocTKBThayDoi = maMonHocTKBThayDoi;
+	}
+	public String getMaChiTietTKBThayDoi() {
+		return maChiTietTKBThayDoi;
+	}
+	public void setMaChiTietTKBThayDoi(String maChiTietTKBThayDoi) {
+		this.maChiTietTKBThayDoi = maChiTietTKBThayDoi;
+	}
+	
 }
