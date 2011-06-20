@@ -915,9 +915,32 @@ function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 {
 	if(validateTuan(tuanMacDinh) == true)
 	{
+		var objNgayHoc = new Object();
+		var ngayHoc = "";
+		for(var j=0;j<ngayHocList.length;j++)
+		{
+			objNgayHoc = ngayHocList[j];
+			if(objNgayHoc.tuan == document.getElementById('txtTuanHoc' + tuanMacDinh).value)
+				break;
+		}
 		for(var i=buoiBatDau; i< buoiBatDau + soBuoi; i++)
 		{
 			document.getElementById('hiddenTuan' + i).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
+			if(document.getElementById('Thu' + i).value == '1')
+				ngayHoc = objNgayHoc.thuHai;
+			else if(document.getElementById('Thu' + i).value == '2')
+				ngayHoc = objNgayHoc.thuBa;
+			else if(document.getElementById('Thu' + i).value == '3')
+				ngayHoc = objNgayHoc.thuTu;
+			else if(document.getElementById('Thu' + i).value == '4')
+				ngayHoc = objNgayHoc.thuNam;
+			else if(document.getElementById('Thu' + i).value == '5')
+				ngayHoc = objNgayHoc.thuSau;
+			else if(document.getElementById('Thu' + i).value == '6')
+				ngayHoc = objNgayHoc.thuBay;
+			else 
+				ngayHoc = objNgayHoc.chuNhat;
+			document.getElementById('txtNgayHoc' + i).value = ngayHoc;
 		}
 		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "";
 	}
@@ -1353,6 +1376,21 @@ function kiemTraTrungGioHoc()
 					{
 						//
 						if(document.getElementById('Nhom' + i).value == document.getElementById('Nhom' + j).value)
+						{
+							var tiet = parseInt(document.getElementById('cboTietBatDau' + i).value);
+							for(var k=tiet;k<tiet + parseInt(document.getElementById('txtSoTiet1Buoi').value);k++)
+							{
+								if(document.getElementById('cboTietBatDau' + j).value <= k && k < parseInt(document.getElementById('cboTietBatDau' + j).value) + parseInt(document.getElementById('txtSoTiet1Buoi').value))
+								{
+									tdTinhTrang1 = "<font color = 'red'>#</font>";
+									document.getElementById('tdTinhTrang' + j).innerHTML = tdTinhTrang1;
+									check = false;
+									tinhTrang = false;
+									break;
+								}
+							}
+						}
+						else
 						{
 							var tiet = parseInt(document.getElementById('cboTietBatDau' + i).value);
 							for(var k=tiet;k<tiet + parseInt(document.getElementById('txtSoTiet1Buoi').value);k++)

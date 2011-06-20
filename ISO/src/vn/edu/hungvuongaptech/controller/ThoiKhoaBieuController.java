@@ -14,12 +14,16 @@ import org.apache.log4j.Logger;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.dao.ChiTietTKBDAO;
+import vn.edu.hungvuongaptech.dao.ChiTietTKBThayDoiDAO;
 import vn.edu.hungvuongaptech.dao.MailDAO;
 import vn.edu.hungvuongaptech.dao.MonHocTKBDAO;
+import vn.edu.hungvuongaptech.dao.MonHocTKBThayDoiDAO;
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
 import vn.edu.hungvuongaptech.dao.ThoiKhoaBieuDAO;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
+import vn.edu.hungvuongaptech.model.ChiTietTKBThayDoiModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
+import vn.edu.hungvuongaptech.model.MonHocTKBThayDoiModel;
 
 import vn.edu.hungvuongaptech.model.SysParamsModel;
 import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
@@ -69,6 +73,8 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			duyetMotThoiKhoaBieu(request, response, request.getParameter("maThoiKhoaBieu")); 
 		} else if(request.getParameter("doiGiaoVien") != null) {
 			doiGiaoVien(request, response); 
+		} else if(request.getParameter("thayDoi") != null) {
+			thayDoiThoiKhoaBieu(request, response); 
 		}
 	}
 	private void doiGiaoVien(HttpServletRequest request,
@@ -91,7 +97,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 		
 		if(request.getParameter("Duyet").equals("Approve")) {
 			ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_APPROVE, null);
-			ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(maThoiKhoaBieu);
+			ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
 			// Gui email inform APPROVE cho Truong khoa
 			MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 								MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
@@ -105,7 +111,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			LogUtil.logInfo(loggerInfo, tenThanhVien + " approve thời khóa biểu"); // ghi vào file log
 		} else {
 			ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("LyDoReject").trim()));
-			ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(maThoiKhoaBieu);
+			ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
 			// Gui email inform APPROVE cho Truong khoa
 			MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 									MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
@@ -241,6 +247,61 @@ public class ThoiKhoaBieuController extends HttpServlet {
 		}
 		monHocTKBModel.setChiTietTKBModelList(chiTietTKBModelList);
 	}
+	private void thayDoiThoiKhoaBieu(HttpServletRequest req 
+			,HttpServletResponse res) throws ServletException, IOException{	
+		String result1 = "0", result2 = "0", pageNext = "/HungVuongISO/ISO/ThoiKhoaBieu/ThayDoiThoiKhoaBieu.jsp";
+		MonHocTKBThayDoiModel monHocTKBThayDoi = new MonHocTKBThayDoiModel();
+		if(req.getParameter("txtThayDoiGV").equals("1")) {
+			if(req.getParameter("txtMaMonHocTKB") != null)
+				monHocTKBThayDoi.setMaMonHocTKB(req.getParameter("txtMaMonHocTKB"));
+			monHocTKBThayDoi.setMaGiaoVien(StringUtil.toUTF8(req.getParameter("cboGiaoVien")));
+			monHocTKBThayDoi.setMaNguoiTao(req.getSession().getAttribute("maThanhVien").toString());
+			if(!req.getParameter("txtMaGVThayDoi").equals("-1")) {
+				monHocTKBThayDoi.setId(req.getParameter("txtMaGVThayDoi"));
+				if(MonHocTKBThayDoiDAO.updateMonHocTKBThayDoi(monHocTKBThayDoi))
+					result1 = "1";
+			} else {
+				if(MonHocTKBThayDoiDAO.insertMonHocTKBThayDoi(monHocTKBThayDoi))
+					result1 = "1";
+			}
+		}	
+		
+		String[] value = new String[2];
+		
+		String[] 
+			value1 = req.getParameter("ChuoiMaChiTietTKB").split("<->");
+		for(Integer i=1;i<=value1.length;i++) {
+			if(req.getParameter("txtDong" + i).equals("1")) {
+				ChiTietTKBThayDoiModel chiTietTKBThayDoi = new ChiTietTKBThayDoiModel();
+				value = (req.getParameter("Buoi" + i.toString())).split("-");
+				chiTietTKBThayDoi.setMaChiTietTKB(value1[i-1]);
+				chiTietTKBThayDoi.setBuoi(StringUtil.toUTF8(value[0]));
+				chiTietTKBThayDoi.setThuTrongTuan(req.getParameter("Thu" + i.toString()));
+				chiTietTKBThayDoi.setTuan(req.getParameter("hiddenTuan" + i.toString()));				
+				chiTietTKBThayDoi.setMaPhong(req.getParameter("Phong" + i.toString()));
+				chiTietTKBThayDoi.setMaMonHocTKB(req.getParameter("txtMaMonHocTKB"));
+				chiTietTKBThayDoi.setMaNguoiTao(req.getSession().getAttribute("maThanhVien").toString());
+				
+				if(!req.getParameter("txtMaThayDoi" + i).equals("-1")) {
+					chiTietTKBThayDoi.setId(req.getParameter("txtMaThayDoi" + i));
+					if(ChiTietTKBThayDoiDAO.updateChiTietTKBThayDoi(chiTietTKBThayDoi))
+						result2 = "1";
+				} else {
+					if(ChiTietTKBThayDoiDAO.insertChiTietTKBThayDoi(chiTietTKBThayDoi))
+						result2 = "1";
+				}
+			}
+		}
+		if(result1.equals("1") && result2.equals("1"))
+			pageNext += "?ThayDoiMonHoc=ok&ThayDoiChiTiet=ok";
+		else if(result1.equals("1"))
+			pageNext += "?ThayDoiMonHoc=ok";
+		else if(result2.equals("1"))
+			pageNext += "?ThayDoiChiTiet=ok";
+		else
+			pageNext += "ThayDoiThoiKhoaBieu.jsp?Error=ok";
+		res.sendRedirect(pageNext);
+	}
 	private void themThoiKhoaBieu(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -342,7 +403,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 					String maThoiKhoaBieu = value[1];
 					ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_APPROVE, null);
 					
-					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(maThoiKhoaBieu);
+					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
 					// Gui email inform APPROVE cho TrÆ°á»Ÿng Khoa
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 											MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
@@ -359,7 +420,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 					String maThoiKhoaBieu = value[1];
 					ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("Ly_do_reject" + i.toString()).trim()));
 					
-					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuByID(maThoiKhoaBieu);
+					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
 					// Gui email inform REJECT cho TrÆ°á»Ÿng Khoa
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 							MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,

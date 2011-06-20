@@ -593,6 +593,7 @@ function capNhat()
 				</c:forEach>			
 			</tr>
 			<%int c = 1, iterator = 0;%>
+			<c:set var = "MaTenBaiKiemTra" value = "-1"/>
 			<c:forEach var = "SinhVien" items="${SinhVienList}">
 				<c:set var = "ListDiem" value = "${SinhVien.chiTietDiemList}"/>
 				<c:set var = "i" value = "0"/>
@@ -611,7 +612,9 @@ function capNhat()
 								<c:if test="${not empty ListDiem[i] and BaiKiemTra.maBaiKiemTra eq ListDiem[i].maBaiKiemTra}">
 									value = "${ListDiem[i].diem}"	
 									<c:set var = "i" value = "${i + 1}"/>
+									<c:set var = "MaTenBaiKiemTra" value = "${BaiKiemTra.maTenBaiKiemTra}"/>
 								</c:if>
+							<input type = "hidden" id = "txtMaTenBaiKiemTra<%=c %>" value = "${MaTenBaiKiemTra }"/>	
 							 size="5"/>			
 						</td>
 						<%iterator++; %>
@@ -632,8 +635,21 @@ function capNhat()
 				{
 					if(document.getElementById('txtDiem' + x + '_' + i).value != '')
 					{
-						tong += parseFloat(document.getElementById('txtDiem' + x + '_' + i).value);
-						soBai++;
+						if(document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEMMIENG + "'"%>)
+						{
+							tong += parseFloat(document.getElementById('txtDiem' + x + '_' + i).value);
+							soBai++;
+						}
+						else if(document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM15 + "'"%> || document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM1TIET + "'"%>)
+						{
+							tong += (parseFloat(document.getElementById('txtDiem' + x + '_' + i).value) * 2);
+							soBai = soBai + 2;
+						}
+						else
+						{
+							tong += (parseFloat(document.getElementById('txtDiem' + x + '_' + i).value) * 3);
+							soBai = soBai + 3;
+						}
 					}
 				}
 				var num = new Number(tong/soBai)

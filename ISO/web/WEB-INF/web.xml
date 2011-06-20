@@ -305,4 +305,15 @@
 	    	<url-pattern>/phanCongGiaoVienController</url-pattern>
 	    </servlet-mapping>
     <!-- ****************************End Of PhanCongGiaoVienController******* -->
+    
+     <!-- ****************************ToTrinhController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>ToTrinhController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.ToTrinhController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>ToTrinhController</servlet-name>
+	    	<url-pattern>/toTrinhController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of ToTrinhController******* -->
 </web-app>

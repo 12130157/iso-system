@@ -111,6 +111,14 @@
 	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
 	  	<function-signature>java.lang.String setFormatDate2(java.lang.String,vn.edu.hungvuongaptech.common.DateType)</function-signature> 
 	</function>
-
-	
+	<function>
+	  	<name>splitTenChuong</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.util.ArrayList appendPTag(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>chuyenChuInHoa</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String chuyenChuInHoa(java.lang.String)</function-signature> 
+	</function>
 </taglib>

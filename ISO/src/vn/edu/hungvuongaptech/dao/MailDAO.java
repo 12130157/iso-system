@@ -152,7 +152,9 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Review - THOI KHOA BIEU";
 		} else if(maChucNang.equals(Constant.CHUCNANG_GIAOAN)){
 			return "[ISO] - Thong Bao - Review - GIAO AN";	
-		}
+		} else if(maChucNang.equals(Constant.CHUCNANG_TOTRINH)) {
+			return "[ISO] - Thong Bao - Review - TO TRINH";
+		} 
 		else {
 			return "[ISO] - Thong Bao - Review - KE HOACH GIANG DAY";
 		}
@@ -175,7 +177,9 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Approve - KE HOACH GIANG DAY";
 		} else if (maChucNang.equals(Constant.CHUCNANG_GIAOAN)) {
 			return "[ISO] - Thong Bao - Approve - GIAO AN";
-		}else{
+		} else if(maChucNang.equals(Constant.CHUCNANG_TOTRINH)) {
+			return "[ISO] - Thong Bao - Approve - TO TRINH";
+		} else{
 			return null;
 		}
 	}
@@ -197,6 +201,8 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Reject - KE HOACH GIANG DAY";
 		}else if(maChucNang.equals(Constant.CHUCNANG_GIAOAN)){
 			return "[ISO] - Thong Bao - Reject - GIAO AN";
+		} else if(maChucNang.equals(Constant.CHUCNANG_TOTRINH)) {
+			return "[ISO] - Thong Bao - Reject - TO TRINH";	
 		}
 		else
 			return "";

@@ -255,4 +255,14 @@ public class ChiTietTKBModel implements Serializable {
 	public String getNgayKetThuc() {
 		return this.ngayKetThuc;
 	}
+	
+	private String maChiTietTKBThayDoi;
+
+	public String getMaChiTietTKBThayDoi() {
+		return maChiTietTKBThayDoi;
+	}
+	public void setMaChiTietTKBThayDoi(String maChiTietTKBThayDoi) {
+		this.maChiTietTKBThayDoi = maChiTietTKBThayDoi;
+	}
+	
 }
