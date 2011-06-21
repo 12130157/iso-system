@@ -2156,6 +2156,214 @@ end
 
 GO
 
+--sp_ISO_DuyetThayDoiMonHocTKB.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_DuyetThayDoiMonHocTKB]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_DuyetThayDoiMonHocTKB]
+GO
+CREATE PROCEDURE sp_ISO_DuyetThayDoiMonHocTKB
+	@Tinh_trang varchar,
+	@Ma_to_trinh	int,
+	@Ma_nguoi_tao	int
+AS
+BEGIN
+	DECLARE @Ma_giao_vien	int
+	DECLARE @Ma_mon_hoc_TKB int
+	DECLARE @Total	int
+	IF(@Tinh_trang = '2')
+	BEGIN
+		UPDATE MonHocTKBThayDoi
+			SET
+				Tinh_trang = '2'
+		WHERE Ma_to_trinh = @Ma_to_trinh
+
+		DECLARE @C CURSOR		
+		SET @C = CURSOR FOR SELECT Ma_mon_hoc_TKB FROM MonHocTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
+		OPEN @C
+		FETCH NEXT FROM @C INTO @Ma_mon_hoc_TKB
+
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SELECT @Total = Count(*) FROM MonHocTKBThayDoi WHERE Ma_mon_hoc_TKB = @Ma_mon_hoc_TKB
+				
+			IF(@Total = 1)
+			BEGIN 
+				DECLARE @Ngay_cap_nhat_cuoi datetime
+				DECLARE @ID int
+				SET @Ngay_cap_nhat_cuoi = GETDATE()
+				INSERT INTO MonHocTKBThayDoi
+					SELECT 
+						ID,
+						Ma_giao_vien,
+						-1,
+						NULL,
+						NULL,
+						NULL,
+						@Ngay_cap_nhat_cuoi,
+						NULL,
+						NULL,
+						NULL,
+						NULL,
+						NULL
+					FROM MonHocTKB 
+					WHERE ID = @Ma_mon_hoc_TKB 
+				UPDATE MonHocTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				UPDATE MonHocTKBThayDoi SET ID_thay_the = @ID WHERE Ma_mon_hoc_TKB = @Ma_mon_hoc_TKB AND Ma_to_trinh = @Ma_to_trinh
+			END
+			FETCH NEXT FROM @C INTO @Ma_mon_hoc_TKB
+		END
+		UPDATE MonHocTKB 
+			SET
+				Ma_giao_vien = B.Ma_giao_vien
+			FROM MonHocTKB AS A 
+				INNER JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_mon_hoc_TKB AND B.Tinh_trang = '2'
+			WHERE B.Ma_to_trinh = @Ma_to_trinh	 
+	END
+	ELSE 
+	BEGIN
+		UPDATE MonHocTKBThayDoi SET Tinh_trang = '3' WHERE Ma_to_trinh = @Ma_to_trinh
+	END
+END
+
+-- Tinh trang thay doi
+-- 0 TK thay doi
+-- 1 TK gui HT
+-- 2 Approved
+-- 3 Reject
+
+
+
+GO
+
+--sp_ISO_DuyetThayDoiTKB.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_DuyetThayDoiTKB]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_DuyetThayDoiTKB]
+GO
+CREATE PROCEDURE sp_ISO_DuyetThayDoiTKB
+	@Tinh_trang varchar,
+	@Ma_to_trinh	int,
+	@Ma_nguoi_tao	int
+AS
+BEGIN
+	DECLARE @Ma_phong	int
+	DECLARE	@Tuan	int
+	DECLARE @Thu	int
+	DECLARE @Buoi	nvarchar
+	DECLARE @Ngay_hoc	datetime
+	DECLARE @Ma_chi_tiet_TKB int
+
+	IF(@Tinh_trang = '2')
+	BEGIN
+		UPDATE ChiTietTKBThayDoi
+			SET
+				Tinh_trang = '2'
+		WHERE Ma_to_trinh = @Ma_to_trinh
+
+		DECLARE @C CURSOR		
+		SET @C = CURSOR FOR SELECT @Ma_chi_tiet_TKB FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
+		OPEN @C
+		FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
+
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			DECLARE @ID_Thay_doi	int
+			DECLARE @Total	int
+			--SELECT @Ma_chi_tiet_TKB = MIN(Ma_chi_tiet_TKB) FROM ChiTietTKBThayDoi 
+				--WHERE Ma_to_trinh = @Ma_to_trinh AND Ma_chi_tiet_TKB != @Temp
+			SELECT @Total = Count(*) FROM ChiTietTKBThayDoi WHERE Ma_chi_tiet_TKB = @Ma_chi_tiet_TKB
+			IF(@Total = 1)
+			BEGIN 
+				DECLARE @Ngay_cap_nhat_cuoi datetime
+				DECLARE @ID int
+				SET @Ngay_cap_nhat_cuoi = GETDATE()
+				INSERT INTO ChiTietTKBThayDoi
+					SELECT 
+						Ma_mon_hoc_TKB,
+						ID,
+						Thu_trong_tuan,
+						Buoi,
+						Ma_phong,
+						Tuan,
+						Ngay_hoc,
+						NULL,
+						-1,
+						NULL,
+						NULL,
+						@Ngay_cap_nhat_cuoi,
+						NULL,
+						NULL,
+						NULL,
+						NULL,
+						NULL
+					FROM ChiTietTKB 
+					WHERE ID = @Ma_chi_tiet_TKB
+				UPDATE ChiTietTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				UPDATE ChiTietTKBThayDoi SET ID_thay_the = @ID WHERE Ma_chi_tiet_TKB = @Ma_chi_tiet_TKB AND Ma_to_trinh = @Ma_to_trinh
+			END
+			FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
+		END
+
+		UPDATE ChiTietTKB 
+			SET
+				Ma_phong = A.Ma_phong,
+				Tuan = A.Tuan,
+				Thu_trong_tuan = A.Thu_trong_tuan,
+				Buoi = A.Buoi,
+				Ngay_hoc = A.Ngay_hoc
+			FROM ChiTietTKB AS A 
+				INNER JOIN ChiTietTKBThayDoi AS B ON A.ID = B.Ma_chi_tiet_TKB AND B.Tinh_trang = '1'
+			WHERE B.Ma_to_trinh = @Ma_to_trinh	 
+
+		
+	END
+	ELSE 
+	BEGIN
+		UPDATE ChiTietTKBThayDoi SET Tinh_trang = '3' WHERE Ma_to_trinh = @Ma_to_trinh
+	END
+END
+
+-- Tinh trang thay doi
+-- 0 TK thay doi
+-- 1 TK gui HT
+-- 2 Chi tiet truoc thay doi
+select * from chitiettkbthaydoi
+
+
+GO
+
+--sp_ISO_DuyetToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_DuyetToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_DuyetToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_DuyetToTrinh
+	@Ma_to_trinh	int,
+	@Tinh_trang		varchar,
+	@Ma_nguoi_tao	int,
+	@Ma_nguoi_duyet	int,
+	@Ly_do_reject	nvarchar(2000)
+AS
+BEGIN
+	exec sp_ISO_DuyetThayDoiMonHocTKB @Tinh_trang, @Ma_to_trinh, @Ma_nguoi_tao
+	exec sp_ISO_DuyetThayDoiTKB @Tinh_trang, @Ma_to_trinh, @Ma_nguoi_tao
+	IF(@Tinh_trang = '2')
+	BEGIN
+		UPDATE ToTrinh SET
+			Ma_nguoi_duyet = @Ma_nguoi_duyet,
+			Tinh_trang = @Tinh_trang,	
+			Ngay_duyet = GETDATE()
+		WHERE ID = @Ma_to_trinh
+	END
+	ELSE
+	BEGIN
+		UPDATE ToTrinh SET
+			Ma_nguoi_duyet = @Ma_nguoi_duyet,
+			Ly_do_reject = @Ly_do_reject,
+			Tinh_trang = @Tinh_trang,
+			Ngay_duyet = GETDATE()
+		WHERE ID = @Ma_to_trinh
+	END
+END
+GO
+
 --sp_iso_FindGiaoAn.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_iso_FindGiaoAn]') and OBJECTPROPERTY(id,N'IsProcedure') = 1)
 	drop procedure [dbo].[sp_iso_FindGiaoAn]
@@ -3422,6 +3630,24 @@ BEGIN
 END
 GO
 
+--sp_ISO_GetCountThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetCountThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetCountThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_GetCountThayDoi
+	@Count	int output
+AS
+BEGIN
+	SET @Count = 0
+	DECLARE @Count1 int
+	SELECT @Count = COUNT(*) FROM MonHocTKBThayDoi WHERE Tinh_trang = 0
+	SELECT @Count1 = COUNT(*) FROM ChiTietTKBThayDoi WHERE Tinh_trang = 0
+	SET @Count = @Count + @Count1
+	SELECT @Count AS CountThayDoi
+END
+
+GO
+
 --sp_ISO_GetCountThoiKhoaBieu.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetCountThoiKhoaBieu]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_GetCountThoiKhoaBieu]
@@ -3471,6 +3697,62 @@ BEGIN
 	SELECT @sql = ' 
 		SELECT COUNT(*) AS Count
 		FROM ThoiKhoaBieu AS A
+		INNER JOIN ThanhVien AS B ON A.Ma_nguoi_tao = B.ID ' 
+		+ @Where + @Dieu_kien_tinh_trang + @And + @Dieu_kien_bo_phan
+	--PRINT @sql
+	exec  sp_executesql @sql	
+END
+GO
+
+--sp_ISO_GetCountToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetCountToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetCountToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_GetCountToTrinh
+	@Tinh_trang		varchar(2),
+	@Ma_bo_phan		varchar(5),
+	@Ma_truong_khoa	varchar(2)
+AS
+BEGIN
+	DECLARE @sql NVarchar(200)
+	DECLARE @Dieu_kien_tinh_trang nvarchar(100)
+	DECLARE @Dieu_kien_bo_phan nvarchar(100)
+	DECLARE @And nvarchar(5)
+	DECLARE @Where nvarchar(5)
+	DECLARE @Vai_tro_truong_bo_phan varchar(5)
+	SET @Vai_tro_truong_bo_phan = ''
+	SET @Dieu_kien_tinh_trang = ''
+	SET @Dieu_kien_bo_phan = ''
+	SET @And = ''
+	SET @Where = ''
+	
+	if(@Tinh_trang <> '' and @Ma_bo_phan <> '')
+	BEGIN
+		SET @And = ' and '
+	END
+	
+	if(@Tinh_trang <> '')
+	BEGIN
+		SET @Where = 'Where '
+		SET @Dieu_kien_tinh_trang = ' A.Tinh_trang = ' + @Tinh_trang
+	END
+	if(@Ma_bo_phan <> '')
+	BEGIN
+		SELECT @Vai_tro_truong_bo_phan = B.Ma_vai_tro FROM Khoa_trungtam AS A INNER JOIN ThanhVien AS B ON A.Ma_truong_khoa = B.ID WHERE B.Ma_bo_phan = @Ma_bo_phan
+		SET @Where = 'Where '
+		if(@Vai_tro_truong_bo_phan = @Ma_truong_khoa)
+		BEGIN
+			SET @Dieu_kien_bo_phan = ' B.Ma_bo_phan = ' + @Ma_bo_phan
+		END
+		else
+		BEGIN
+			SET @Dieu_kien_bo_phan = ' A.Tinh_trang <> 0 '
+		END
+	END
+
+	SELECT @sql = ' 
+		SELECT COUNT(*) AS Count
+		FROM ToTrinh AS A
 		INNER JOIN ThanhVien AS B ON A.Ma_nguoi_tao = B.ID ' 
 		+ @Where + @Dieu_kien_tinh_trang + @And + @Dieu_kien_bo_phan
 	--PRINT @sql
@@ -4603,6 +4885,151 @@ end
 
 GO
 
+--sp_ISO_GetToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetTotrinh]
+GO
+CREATE PROCEDURE sp_ISO_GetToTrinh
+	@NumRows		VARCHAR(2),
+	@TotalRows      varchar(10),
+	@CurrentPage	VARCHAR(2),
+	@Tinh_trang		varchar(2),
+	@Ma_bo_phan		varchar(5),
+	@Ma_truong_khoa	varchar(2)		
+AS
+BEGIN
+	DECLARE @sql NVarchar(1000)
+	DECLARE @Dieu_kien_tinh_trang_1 nvarchar(100)
+	DECLARE @Dieu_kien_tinh_trang_2 nvarchar(100)
+	DECLARE @Dieu_kien_bo_phan nvarchar(100)
+	DECLARE @And nvarchar(5)
+	DECLARE @Where nvarchar(5)
+	DECLARE @Vai_tro_truong_bo_phan varchar(5)
+	SET @Vai_tro_truong_bo_phan = ''
+	SET @Dieu_kien_tinh_trang_1 = ' ''t'' = ''t'' '
+	SET @Dieu_kien_tinh_trang_2 = ' ''t'' = ''t'' '
+	SET @Dieu_kien_bo_phan = ' ''t'' = ''t'' '
+	SET @And = ' And '
+	SET @Where = 'Where'
+	
+	if(@Tinh_trang <> '')
+	BEGIN
+		SET @Dieu_kien_tinh_trang_1 = ' TT.Tinh_trang = ' + @Tinh_trang
+	END
+	if(@Ma_bo_phan <> '')
+	BEGIN
+		SELECT @Vai_tro_truong_bo_phan = B.Ma_vai_tro FROM Khoa_trungtam AS A INNER JOIN ThanhVien AS B ON A.Ma_truong_khoa = B.ID WHERE B.Ma_bo_phan = @Ma_bo_phan
+		if(@Vai_tro_truong_bo_phan = @Ma_truong_khoa)
+		BEGIN
+			SET @Dieu_kien_bo_phan = ' B.Ma_bo_phan = ' + @Ma_bo_phan
+		END
+		else
+		BEGIN
+			SET @Dieu_kien_tinh_trang_2 = ' TT.Tinh_trang <> 0 '
+		END
+	END
+	--SELECT @sql = ''
+	SELECT @sql = '
+			SELECT TOP ' + @NumRows + ' * , cast(datepart(mm,TB1.Ngay_Cap_Nhat_Cuoi) as varchar) + ''-'' + cast(datepart(dd,TB1.Ngay_Cap_Nhat_Cuoi) as varchar) + ''-'' + cast(datepart(yy,TB1.Ngay_Cap_Nhat_Cuoi) as varchar) As NgayCapNhatCuoi
+			FROM (
+			SELECT TOP ' + Cast(Cast(@TotalRows As Int) - (Cast(@CurrentPage As Int) - 1) * Cast(@NumRows As Int) As Varchar) + '
+				TT.ID As MaToTrinh, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoiTao, TT.Ten As Ten, TT.Ma_nguoi_tao AS MaNguoiTao,
+				TT.Tinh_trang As TinhTrang, TT.Ly_do_reject As LyDoReject, TT.Ngay_cap_nhat_cuoi AS Ngay_cap_nhat_cuoi
+				FROM ToTrinh AS TT 
+				INNER JOIN ThanhVien As B On TT.Ma_nguoi_tao = B.ID 
+				INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap '
+				+ @WHERE + @Dieu_kien_tinh_trang_1 + @And + @Dieu_kien_tinh_trang_2 + @And + @Dieu_kien_bo_phan +
+				' ORDER BY TT.Ngay_cap_nhat_cuoi ASC
+		) AS TB1
+		ORDER BY TB1.Ngay_cap_nhat_cuoi DESC '
+	
+	
+	--ORDER BY TB2.id ASC
+	exec  sp_executesql @sql
+	--PRINT @sql
+END
+--exec sp_ISO_GetToTrinh 3,1,1,'',5,5
+GO
+
+--sp_ISO_GetToTrinhByID.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetToTrinhByID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetToTrinhByID]
+GO
+CREATE PROCEDURE sp_ISO_GetToTrinhByID
+	@ID		int
+AS
+BEGIN
+	DECLARE @Tinh_trang varchar
+	SELECT @Tinh_trang = Tinh_trang FROM ToTrinh WHERE ID = @ID
+	IF(@Tinh_trang = '2')
+	BEGIN
+		SELECT A.ID AS MaToTrinh, A.Ten, A.Ma_nguoi_tao AS MaNguoiTao, A.Ma_nguoi_duyet AS MaNguoiDuyet,
+		Convert(varchar(10), A.Ngay_cap_nhat_cuoi, 103) AS NgayCapNhatCuoi, Convert(varchar(10), A.Ngay_duyet, 103) AS NgayDuyet,
+		A.Tinh_trang AS TinhTrang, ISNULL(J.Ho, '') + ' ' + ISNULL(J.Ten_lot, '') + ' ' + ISNULL(J.Ten, '') AS TenNguoiTao,
+		ISNULL(L.Ho, '') + ' ' + ISNULL(L.Ten_lot, '') + ' ' + ISNULL(L.Ten, '') AS TenNguoiDuyet,
+		B.ID AS MaMonHocTKBThayDoi, B.Ma_giao_vien AS MaGiaoVienThayDoi, ISNULL(N.Ho, '') + ' ' + ISNULL(N.Ten_lot, '') + ' ' + ISNULL(N.Ten, '') AS TenGiaoVienThayDoi,
+		C.Ma_giao_vien AS MaGiaoVien, ISNULL(P.Ho, '') + ' ' + ISNULL(P.Ten_lot, '') + ' ' + ISNULL(P.Ten, '') AS TenGiaoVien,
+		D.Ten_mon_hoc AS TenMonHoc, E.ID AS MaChiTietTKBThayDoi, E.Buoi AS BuoiThayDoi, E.Tuan AS TuanThayDoi, E.Thu_trong_tuan AS ThuTrongTuanThayDoi,
+		E.Ma_phong AS MaPhongThayDoi, Convert(varchar(10), E.Ngay_hoc, 103) AS NgayHocThayDoi, S.Ki_hieu_phong AS KiHieuPhongThayDoi,
+		F.Buoi AS Buoi, F.Tuan AS Tuan, F.Thu_trong_tuan AS ThuTrongTuan,
+		F.Ma_phong AS MaPhong, Convert(varchar(10), F.Ngay_hoc, 103) AS NgayHoc, T.Ki_hieu_phong AS KiHieuPhong, H.Ten_mon_hoc AS TenMonHocChiTiet
+		FROM ToTrinh AS A
+		LEFT JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_to_trinh
+		LEFT JOIN MonHocTKBThayDoi AS C ON B.ID_thay_the = C.ID
+		LEFT JOIN MonHocTKB AS X ON C.Ma_mon_hoc_TKB = X.ID
+		LEFT JOIN MonHoc AS D ON X.Ma_mon_hoc = D.ID
+		LEFT JOIN ChiTietTKBThayDoi AS E ON A.ID = E.Ma_to_trinh
+		LEFT JOIN PhongBan AS S ON E.Ma_phong = S.ID
+		LEFT JOIN ChiTietTKBThayDoi AS F ON E.ID_thay_the = F.ID
+		LEFT JOIN PhongBan AS T ON F.Ma_phong = T.ID
+		LEFT JOIN MonHocTKB AS G ON F.Ma_mon_hoc_TKB = G.ID
+		LEFT JOIN MonHoc AS H ON G.Ma_mon_hoc = H.ID
+		LEFT JOIN ThanhVien AS I ON A.Ma_nguoi_tao = I.ID
+		LEFT JOIN ChiTietThanhVien AS J ON I.Ten_DN = J.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS K ON A.Ma_nguoi_duyet = K.ID
+		LEFT JOIN ChiTietThanhVien AS L ON K.Ten_DN = L.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS M ON B.Ma_giao_vien = M.ID
+		LEFT JOIN ChiTietThanhVien AS N ON M.Ten_DN = N.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS O ON C.Ma_giao_vien = O.ID
+		LEFT JOIN ChiTietThanhVien AS P ON O.Ten_DN = P.Ten_dang_nhap
+		WHERE A.ID = @ID
+	END
+	ELSE
+	BEGIN
+		SELECT A.ID AS MaToTrinh, A.Ten, A.Ma_nguoi_tao AS MaNguoiTao, A.Ma_nguoi_duyet AS MaNguoiDuyet,
+		Convert(varchar(10), A.Ngay_cap_nhat_cuoi, 103) AS NgayCapNhatCuoi, Convert(varchar(10), A.Ngay_duyet, 103) AS NgayDuyet,
+		A.Tinh_trang AS TinhTrang, ISNULL(J.Ho, '') + ' ' + ISNULL(J.Ten_lot, '') + ' ' + ISNULL(J.Ten, '') AS TenNguoiTao,
+		ISNULL(L.Ho, '') + ' ' + ISNULL(L.Ten_lot, '') + ' ' + ISNULL(L.Ten, '') AS TenNguoiDuyet,
+		B.ID AS MaMonHocTKBThayDoi, B.Ma_giao_vien AS MaGiaoVienThayDoi, ISNULL(N.Ho, '') + ' ' + ISNULL(N.Ten_lot, '') + ' ' + ISNULL(N.Ten, '') AS TenGiaoVienThayDoi,
+		C.Ma_giao_vien AS MaGiaoVien, ISNULL(P.Ho, '') + ' ' + ISNULL(P.Ten_lot, '') + ' ' + ISNULL(P.Ten, '') AS TenGiaoVien,
+		D.Ten_mon_hoc AS TenMonHoc, E.ID AS MaChiTietTKBThayDoi, E.Buoi AS BuoiThayDoi, E.Tuan AS TuanThayDoi, E.Thu_trong_tuan AS ThuTrongTuanThayDoi,
+		E.Ma_phong AS MaPhongThayDoi, Convert(varchar(10), E.Ngay_hoc, 103) AS NgayHocThayDoi, S.Ki_hieu_phong AS KiHieuPhongThayDoi,
+		F.Buoi AS Buoi, F.Tuan AS Tuan, F.Thu_trong_tuan AS ThuTrongTuan,
+		F.Ma_phong AS MaPhong, Convert(varchar(10), F.Ngay_hoc, 103) AS NgayHoc, T.Ki_hieu_phong AS KiHieuPhong, H.Ten_mon_hoc AS TenMonHocChiTiet
+		FROM ToTrinh AS A
+		LEFT JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_to_trinh
+		LEFT JOIN MonHocTKB AS C ON B.Ma_mon_hoc_TKB = C.ID
+		LEFT JOIN MonHoc AS D ON C.Ma_mon_hoc = D.ID
+		LEFT JOIN ChiTietTKBThayDoi AS E ON A.ID = E.Ma_to_trinh
+		LEFT JOIN PhongBan AS S ON E.Ma_phong = S.ID
+		LEFT JOIN ChiTietTKB AS F ON E.Ma_chi_tiet_TKB = F.ID
+		LEFT JOIN PhongBan AS T ON F.Ma_phong = T.ID
+		LEFT JOIN MonHocTKB AS G ON F.Ma_mon_hoc_TKB = G.ID
+		LEFT JOIN MonHoc AS H ON G.Ma_mon_hoc = H.ID
+		LEFT JOIN ThanhVien AS I ON A.Ma_nguoi_tao = I.ID
+		LEFT JOIN ChiTietThanhVien AS J ON I.Ten_DN = J.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS K ON A.Ma_nguoi_duyet = K.ID
+		LEFT JOIN ChiTietThanhVien AS L ON K.Ten_DN = L.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS M ON B.Ma_giao_vien = M.ID
+		LEFT JOIN ChiTietThanhVien AS N ON M.Ten_DN = N.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS O ON C.Ma_giao_vien = O.ID
+		LEFT JOIN ChiTietThanhVien AS P ON O.Ten_DN = P.Ten_dang_nhap
+		WHERE A.ID = @ID
+	END
+END
+--exec sp_ISO_GetToTrinhByID 4
+GO
+
 --sp_ISO_GetTuanByNgay.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetTuanByNgay]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_GetTuanByNgay]
@@ -4690,6 +5117,99 @@ BEGIN
 					@Ngay_ket_thuc_tuan_moi = Convert(varchar(20),Den_ngay,105)
 		FROM TuanLe
 		WHERE ID = @Ma_tuan_le	
+END
+
+GO
+
+--sp_ISO_GuiLaiToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GuiLaiToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GuiLaiToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_GuiLaiToTrinh
+	@ID		int,
+	@Tinh_trang_gui		int,
+	@Ngay_gui_output	varchar(10) output,
+	@Gio_gui_output		varchar(10) output
+AS
+BEGIN
+	UPDATE ToTrinh SET Tinh_trang = @Tinh_trang_gui, Ly_do_reject = NULL, Ngay_gui = GETDATE() WHERE ID = @ID
+	UPDATE MonHocTKBThayDoi SET Tinh_trang = @Tinh_trang_gui WHERE Ma_to_trinh = @ID
+	UPDATE ChiTietTKBThayDoi SET Tinh_trang = @Tinh_trang_gui WHERE Ma_to_trinh = @ID
+
+	SELECT @Ngay_gui_output = Convert(varchar(10), Ngay_gui, 103), @Gio_gui_output = Convert(varchar(10), Ngay_gui, 108) 
+		FROM ToTrinh WHERE ID = @ID 
+END
+GO
+
+--sp_ISO_GuiToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GuiToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GuiToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_GuiToTrinh
+	@ID					int,
+	@Ten				nvarchar(200) output,
+	@Ma_nguoi_tao		int,
+	@Ma_nguoi_duyet		int,
+	@Ngay_cap_nhat_cuoi	datetime,
+	@Ngay_duyet			datetime,
+	@Ngay_gui			datetime,
+	@Ly_do_reject		nvarchar(2000),
+	@Tinh_trang			varchar,
+	@User1				varchar(40),
+	@User2				varchar(40),
+	@User3				varchar(40),
+	@User4				varchar(40),
+	@User5				varchar(40),
+	@Ngay_gui_output	varchar(10) output,
+	@Gio_gui_output		varchar(10) output
+AS
+BEGIN
+	SET @Ngay_cap_nhat_cuoi = GETDATE()
+	SET @Ngay_gui = GETDATE()
+	DECLARE @Ten_nguoi_tao nvarchar(100)
+
+	SELECT @Ten_nguoi_tao = ISNULL(Ho, '') + ' ' + ISNULL(Ten_lot, '') + ' ' + ISNULL(Ten, '')
+	FROM ChiTietThanhVien AS A INNER JOIN ThanhVien AS B ON A.Ten_dang_nhap = B.Ten_DN 
+	WHERE B.ID = @Ma_nguoi_tao
+	SELECT @ID = MAX(ID) FROM ToTrinh WHERE Tinh_trang <> '2' AND Tinh_trang <> '1' AND Ma_nguoi_tao = @Ma_nguoi_tao
+	SET @Ten = N'Tờ trình - Thay đổi TKB -' + @Ten_nguoi_tao + ' ' + Convert(varchar(10), @Ngay_cap_nhat_cuoi, 103) 
+	IF EXISTS(SELECT * FROM ToTrinh WHERE Tinh_trang <> '2' AND Tinh_trang <> '1' AND Ma_nguoi_tao = @Ma_nguoi_tao)
+	BEGIN
+		UPDATE ToTrinh
+		SET
+			Ten			=	@Ten,
+			Ngay_gui	=	@Ngay_gui,
+			Tinh_trang	=	@Tinh_trang,
+			Ngay_cap_nhat_cuoi	=	@Ngay_cap_nhat_cuoi,
+			Ly_do_reject =	NULL
+		WHERE ID = @ID
+	END
+	ELSE
+	BEGIN
+		INSERT INTO ToTrinh VALUES
+		(
+			@Ten,
+			@Ma_nguoi_tao,
+			@Ma_nguoi_duyet,
+			NULL,
+			@Ngay_duyet,
+			@Ngay_gui,
+			@Ly_do_reject,
+			@Tinh_trang,
+			@Ngay_cap_nhat_cuoi,
+			@User1,
+			@User2,
+			@User3,
+			@User4,
+			@User5
+		)
+		SELECT @ID = ID FROM ToTrinh WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+	END	
+	UPDATE ChiTietTKBThayDoi SET Ma_to_trinh = @ID, Tinh_trang = '1' WHERE Ma_nguoi_tao = @Ma_nguoi_tao AND Ma_to_trinh = -2
+	UPDATE MonHocTKBThayDoi	SET Ma_to_trinh = @ID, Tinh_trang = '1' WHERE Ma_nguoi_tao = @Ma_nguoi_tao AND Ma_to_trinh = -2
+
+	SELECT @Ten = Ten, @Ngay_gui_output = Convert(varchar(10), Ngay_gui, 103), @Gio_gui_output = Convert(varchar(10), Ngay_gui, 108) 
+		FROM ToTrinh WHERE ID = @ID
 END
 
 GO
@@ -4965,6 +5485,74 @@ BEGIN
 	)
 	
 	SELECT 	@ID=ID FROM ChiTietTKB WHERE Ngay_cap_nhat_cuoi=@Ngay_cap_nhat_cuoi
+END
+GO
+
+--sp_ISO_InsertChiTietTKBThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_InsertChiTietTKBThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_InsertChiTietTKBThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_InsertChiTietTKBThayDoi
+	@ID						int output,
+	@Ma_mon_hoc_TKB			int,
+	@Ma_chi_tiet_TKB		int,
+	@Thu_trong_tuan			int,
+	@Buoi					nvarchar(10),
+	@Ma_phong				int,
+	@Tuan					int,
+	@Ngay_hoc				datetime,
+	@Ma_nguoi_tao			int,
+	@Ma_to_trinh			int,
+	@Tinh_trang				int,
+	@ID_thay_the			int,
+	@Ngay_cap_nhat_cuoi		datetime,
+	@User1					varchar, 
+	@User2					varchar,
+	@User3					varchar,
+	@User4					varchar,
+	@User5					varchar
+AS
+BEGIN	
+	DECLARE @Nam_bat_dau nvarchar(10)
+	SELECT @Nam_bat_dau = B.Nam_bat_dau FROM ChiTietTKB AS A
+		INNER JOIN ThoiKhoaBieu AS B ON A.Ma_TKB = B.ID WHERE A.ID = @Ma_chi_tiet_TKB
+	DECLARE @Ma_nam_hoc int
+	SELECT @Ma_nam_hoc = ID FROM NamHoc WHERE Nam_bat_dau = @Nam_bat_dau
+	SELECT @Ngay_hoc = DATEADD(Day, @Thu_trong_tuan-1, Tu_ngay) FROM TuanLe WHERE Ma_nam_hoc = @Ma_nam_hoc AND So_thu_tu = @Tuan
+	SET @Ngay_cap_nhat_cuoi=GETDATE()
+
+	DECLARE @Ngay_thay_the	datetime
+	DECLARE @Count	int
+	SELECT @Count = Count(*) FROM ChiTietTKBThayDoi WHERE Ma_chi_tiet_TKB = @Ma_chi_tiet_TKB
+	IF(@Count > 0)
+	BEGIN
+		SELECT @Ngay_thay_the = MAX(Ngay_cap_nhat_cuoi) FROM ChiTietTKBThayDoi 
+		SELECT @ID_thay_the = ID FROM ChiTietTKBThayDoi WHERE Ngay_cap_nhat_cuoi = @Ngay_thay_the
+	END
+	SET @Ma_to_trinh = -2
+	INSERT INTO ChiTietTKBThayDoi
+	VALUES (
+		@Ma_mon_hoc_TKB,
+		@Ma_chi_tiet_TKB,
+		@Thu_trong_tuan,
+		@Buoi,
+		@Ma_phong,
+		@Tuan,
+		@Ngay_hoc,
+		@Ma_nguoi_tao,
+		@Ma_to_trinh,
+		@Tinh_trang,
+		@ID_thay_the,
+		@Ngay_cap_nhat_cuoi,
+		@User1,
+		@User2,
+		@User3,
+		@User4,
+		@User5
+		
+	)
+	
+	SELECT 	@ID=ID FROM ChiTietTKBThayDoi WHERE Ngay_cap_nhat_cuoi=@Ngay_cap_nhat_cuoi
 END
 GO
 
@@ -6000,6 +6588,55 @@ BEGIN
 END			
 GO
 
+--sp_ISO_InsertMonHocTKBThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_InsertMonHocTKBThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_InsertMonHocTKBThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_InsertMonHocTKBThayDoi
+	@ID						int,
+	@Ma_mon_hoc_TKB			int,
+	@Ma_giao_vien			int,
+	@Ma_to_trinh			int,
+	@Ma_nguoi_tao			int,
+	@Tinh_trang				varchar,
+	@ID_thay_the			int,
+	@Ngay_cap_nhat_cuoi		datetime,
+	@User1					varchar(40),
+	@User2					varchar(40),
+	@User3					varchar(40),
+	@User4					varchar(40),
+	@User5					varchar(40)
+AS
+BEGIN	
+	SET @Ngay_cap_nhat_cuoi=GETDATE()
+	DECLARE @Ngay_thay_the	datetime
+	DECLARE @Count	int
+	SELECT @Count = Count(*) FROM MonHocTKBThayDoi WHERE Ma_mon_hoc_TKB = @Ma_mon_hoc_TKB
+	IF(@Count > 0)
+	BEGIN
+		SELECT @Ngay_thay_the = MAX(Ngay_cap_nhat_cuoi) FROM MonHocTKBThayDoi 
+		SELECT @ID_thay_the = ID FROM MonHocTKBThayDoi WHERE Ngay_cap_nhat_cuoi = @Ngay_thay_the
+	END
+	SET @Ma_to_trinh = -2
+	INSERT INTO MonHocTKBThayDoi
+	VALUES
+	( 
+		@Ma_mon_hoc_TKB,
+		@Ma_giao_vien,
+		@Ma_to_trinh,
+		@Ma_nguoi_tao,
+		@Tinh_trang,
+		@ID_thay_the,
+		@Ngay_cap_nhat_cuoi,		
+		@User1,
+		@User2,
+		@User3,
+		@User4,
+		@User5
+	)
+END
+GO
+
 --sp_ISO_InsertNguoiThucHien.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_InsertNguoiThucHien]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_InsertNguoiThucHien]
@@ -6383,6 +7020,49 @@ END
 
 GO
 
+--sp_ISO_InsertToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_InsertToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_InsertToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_InsertToTrinh
+	@ID					int,
+	@Ten				nvarchar(200),
+	@Ma_nguoi_tao		int,
+	@Ma_nguoi_duyet		int,
+	@Ngay_cap_nhat_cuoi	datetime,
+	@Ngay_tao			datetime,
+	@Ngay_duyet			datetime,
+	@Ngay_gui			datetime,
+	@Ly_do_reject		nvarchar(2000),
+	@Tinh_trang			varchar,
+	@User1				varchar(40),
+	@User2				varchar(40),
+	@User3				varchar(40),
+	@User4				varchar(40),
+	@User5				varchar(40)
+AS
+BEGIN
+	SET @Ngay_cap_nhat_cuoi = GETDATE()
+	INSERT INTO ToTrinh VALUES
+	(
+		@Ten,
+		@Ma_nguoi_tao,
+		@Ma_nguoi_duyet,
+		@Ngay_tao,
+		@Ngay_duyet,
+		@Ngay_gui,
+		@Ly_do_reject,
+		@Tinh_trang,
+		@Ngay_cap_nhat_cuoi,
+		@User1,
+		@User2,
+		@User3,
+		@User4,
+		@User5
+	)
+END
+GO
+
 --sp_ISO_KhongBoSungKHDT.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_KhongBoSungKHDT]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_KhongBoSungKHDT]
@@ -6484,6 +7164,25 @@ BEGIN
 	SET @CVCB=N'- Chuẩn bị bài giảng, slide lý thuyết, bài hướng dẫn thực hành.
 - Chuẩn bị câu hỏi trắc nghiệm lý thuyết
 - Chuẩn bị máy chiếu, bảng viết'
+END
+
+
+GO
+
+--sp_ISO_sp_ISO_GetCountThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetCountThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetCountThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_GetCountThayDoi
+	@Count	int output
+AS
+BEGIN
+	SET @Count = 0
+	DECLARE @Count1 int
+	SELECT @Count = COUNT(*) FROM MonHocTKBThayDoi WHERE Ma_to_trinh = -2
+	SELECT @Count1 = COUNT(*) FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = -2
+	SET @Count = @Count + @Count1
+	SELECT @Count AS CountThayDoi
 END
 
 
@@ -6731,6 +7430,41 @@ BEGIN
 		Muc_tieu			=	@Muc_tieu
 	WHERE
 		ID						=	@ID
+END
+GO
+
+--sp_ISO_UpdateChiTietTKBThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_UpdateChiTietTKBThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_UpdateChiTietTKBThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_UpdateChiTietTKBThayDoi
+	@ID						int,
+	@Ma_chi_tiet_TKB		int,
+	@Thu_trong_tuan			int,
+	@Buoi					nvarchar(10),
+	@Ma_phong				int,
+	@Tuan					int,
+	@Ngay_hoc				datetime,
+	@Ngay_cap_nhat_cuoi		datetime
+AS
+BEGIN	
+	DECLARE @Nam_bat_dau nvarchar(10)
+	SELECT @Nam_bat_dau = B.Nam_bat_dau FROM ChiTietTKB AS A
+		INNER JOIN ThoiKhoaBieu AS B ON A.Ma_TKB = B.ID WHERE A.ID = @Ma_chi_tiet_TKB
+	DECLARE @Ma_nam_hoc int
+	SELECT @Ma_nam_hoc = ID FROM NamHoc WHERE Nam_bat_dau = @Nam_bat_dau
+	SELECT @Ngay_hoc = DATEADD(Day, @Thu_trong_tuan-1, Tu_ngay) FROM TuanLe WHERE Ma_nam_hoc = @Ma_nam_hoc AND So_thu_tu = @Tuan
+	SET @Ngay_cap_nhat_cuoi=GETDATE()
+	
+	UPDATE ChiTietTKBThayDoi
+	SET 
+		Thu_trong_tuan	=	@Thu_trong_tuan,
+		Buoi			=	@Buoi,
+		Ma_phong		=	@Ma_phong,
+		Tuan			=	@Tuan,
+		Ngay_hoc		=	@Ngay_hoc,
+		Ngay_cap_nhat_cuoi	=	@Ngay_cap_nhat_cuoi		
+	WHERE ID = @ID
 END
 GO
 
@@ -7717,6 +8451,26 @@ BEGIN
 END			
 GO
 
+--sp_ISO_UpdateMonHocTKBThayDoi.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_UpdateMonHocTKBThayDoi]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_UpdateMonHocTKBThayDoi]
+GO
+CREATE PROCEDURE sp_ISO_UpdateMonHocTKBThayDoi
+	@ID						int,
+	@Ma_giao_vien			int,
+	@Ngay_cap_nhat_cuoi		datetime
+AS
+BEGIN	
+	SET @Ngay_cap_nhat_cuoi=GETDATE()
+	
+	UPDATE MonHocTKBThayDoi
+	SET 
+		Ma_giao_vien	=	@Ma_giao_vien,
+		Ngay_cap_nhat_cuoi	=	@Ngay_cap_nhat_cuoi		
+	WHERE ID = @ID
+END
+GO
+
 --sp_iso_updateNgayDayKHGD.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].sp_iso_UpdateNgaydayKHGD') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].sp_iso_UpdateNgaydayKHGD
@@ -8089,6 +8843,49 @@ BEGIN
 		User5 = @User5
 	WHERE ID = @ID
 END	
+GO
+
+--sp_ISO_UpdateToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_UpdateToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_UpdateToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_UpdateToTrinh
+	@ID					int,
+	@Ten				nvarchar(200),
+	--@Ma_nguoi_tao		int,
+	--@Ma_nguoi_duyet		int,
+	@Ngay_cap_nhat_cuoi	datetime,
+	--@Ngay_tao			datetime,
+	--@Ngay_duyet			datetime,
+	@Ngay_gui			datetime,
+	--@Ly_do_reject		nvarchar(2000),
+	@Tinh_trang			varchar
+	--@User1				varchar(40),
+	--@User2				varchar(40),
+	--@User3				varchar(40),
+	--@User4				varchar(40),
+	--@User5				varchar(40)
+AS
+BEGIN
+	SET @Ngay_cap_nhat_cuoi = GETDATE()
+	UPDATE ToTrinh
+	SET
+		Ten		=	@Ten,
+		--@Ma_nguoi_tao,
+		--@Ma_nguoi_duyet,
+		--@Ngay_tao,
+		--@Ngay_duyet,
+		Ngay_gui	=	@Ngay_gui,
+		--@Ly_do_reject,
+		Tinh_trang	=	@Tinh_trang,
+		Ngay_cap_nhat_cuoi	=	@Ngay_cap_nhat_cuoi
+		--User1,
+		--User2,
+		--User3,
+		--User4,
+		--User5
+	WHERE ID = @ID
+END
 GO
 
 --sp_XemDiem_DeleteChiTietDiem.sql
