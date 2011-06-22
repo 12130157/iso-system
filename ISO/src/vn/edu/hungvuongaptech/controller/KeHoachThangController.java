@@ -18,10 +18,12 @@ import vn.edu.hungvuongaptech.dao.KeHoachThangDAO;
 import vn.edu.hungvuongaptech.dao.MailDAO;
 import vn.edu.hungvuongaptech.dao.SendMailListCongTacDAO;
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
+import vn.edu.hungvuongaptech.dao.ThoiKhoaBieuDAO;
 import vn.edu.hungvuongaptech.dao.TinhTrangCongTacDAO;
 import vn.edu.hungvuongaptech.model.CongTacThangModel;
 import vn.edu.hungvuongaptech.model.KeHoachThangModel;
 import vn.edu.hungvuongaptech.model.SysParamsModel;
+import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
 import vn.edu.hungvuongaptech.model.TinhTrangCongTacModel;
 import vn.edu.hungvuongaptech.util.LogUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
@@ -48,8 +50,8 @@ public class KeHoachThangController extends HttpServlet{
 			themKeHoachThang(request, response);
 		} else if(request.getParameter("duyet") != null){
 			duyetKeHoachThang(request, response);
-		} else if(request.getParameter("duyet1chuongtrinh") != null) {
-			duyetMotKeHoachThang(request, response, request.getParameter("maChuongTrinh"));
+		} else if(request.getParameter("duyet1kehoach") != null) {
+			duyetMotKeHoachThang(request, response, request.getParameter("maKeHoachThang"));
 		}
 	}
 	private void themKeHoachThang(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -120,7 +122,7 @@ public class KeHoachThangController extends HttpServlet{
 			keHoachThang.setMaNguoiTao((String) requset.getSession().getAttribute("maThanhVien"));
 		keHoachThang.setThang(requset.getParameter("cboThang"));
 		keHoachThang.setNam(requset.getParameter("cboNam"));
-		keHoachThang.setNoiNhan(requset.getParameter("txtNoiNhan").trim());
+		keHoachThang.setNoiNhan(StringUtil.toUTF8(requset.getParameter("txtNoiNhan").trim()));
 		keHoachThang.setNgayGui("");
 		boolean check = false;
 		ArrayList<CongTacThangModel> congTacThangList = new ArrayList<CongTacThangModel>();
@@ -183,8 +185,8 @@ public class KeHoachThangController extends HttpServlet{
 		
 		if(request.getParameter("Duyet").equals("Approve")) {
 			KeHoachThangDAO.duyetKeHoachThang(userLoginID, maKeHoachThang, Constant.TINHTRANG_APPROVE, null);
-			KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangByID(maKeHoachThang);
-			// Gui email inform APPROVE cho Phong Dao Tao
+			KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangSimpleByID(maKeHoachThang);
+			
 			MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC),//////////////////
 									MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////
 										MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_KEHOACHTHANG),
@@ -197,7 +199,7 @@ public class KeHoachThangController extends HttpServlet{
 			LogUtil.logInfo(loggerInfo, tenThanhVien + " approve kế hoạch tháng"); // ghi vào file log
 		} else {
 			KeHoachThangDAO.duyetKeHoachThang(userLoginID, maKeHoachThang, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("LyDoReject").trim()));
-			KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangByID(maKeHoachThang);
+			KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangSimpleByID(maKeHoachThang);
 			MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC),//////////////////
 					MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////
 						MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_KEHOACHTHANG),
@@ -222,6 +224,48 @@ public class KeHoachThangController extends HttpServlet{
 	}
 	private void duyetKeHoachThang(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException{
-		
+		String userLoginID = request.getSession().getAttribute("maThanhVien").toString();
+		for (Integer i = 0; i< Constant.RECORDS_PER_PAGE; i++) {
+			if(request.getParameter("tinhtrang" + i.toString()) != null) {
+				String choiseValue = request.getParameter("tinhtrang" + i.toString());
+				String[] value = choiseValue.split("-");
+				if (value[0].equals("Approve")) {
+					String maKeHoachThang = value[1];
+					KeHoachThangDAO.duyetKeHoachThang(userLoginID, maKeHoachThang, Constant.TINHTRANG_APPROVE, null);
+					
+					KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangSimpleByID(maKeHoachThang);
+					
+					MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC),//////////////////
+											MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////
+												MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_KEHOACHTHANG),
+													MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_KEHOACHTHANG, 
+															keHoachThangModel.getTenKeHoach(), 
+																keHoachThangModel.getTenNguoiTao(), 
+																	keHoachThangModel.getNgayGui() + " " + keHoachThangModel.getGioGui(), 
+																		keHoachThangModel.getTenNguoiDuyet(), 
+																			keHoachThangModel.getNgayDuyet() + " " + keHoachThangModel.getGioDuyet()));
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " approve kế hoạch tháng"); // ghi vào file log
+					
+				}
+				else if(value[0].equals("Reject")) {
+					String maKeHoachThang = value[1];
+					KeHoachThangDAO.duyetKeHoachThang(userLoginID, maKeHoachThang, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("Ly_do_reject" + i.toString()).trim()));
+					KeHoachThangModel keHoachThangModel = KeHoachThangDAO.getKeHoachThangSimpleByID(maKeHoachThang);
+					MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC),//////////////////
+							MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////
+								MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_KEHOACHTHANG),
+									MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_KEHOACHTHANG, 
+											keHoachThangModel.getTenKeHoach(), 
+												keHoachThangModel.getTenNguoiTao(), 
+													keHoachThangModel.getNgayGui() + " " + keHoachThangModel.getGioGui(), 
+														keHoachThangModel.getTenNguoiDuyet(), 
+															keHoachThangModel.getNgayDuyet() + " " + keHoachThangModel.getGioDuyet()));
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " reject kế hoạch tháng"); // ghi vào file log
+					
+				}
+			}
+		}
+		response.sendRedirect(Constant.PATH_RES
+				.getString("iso.XemKeHoachThangPath"));
 	}
 }

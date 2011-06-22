@@ -21,7 +21,7 @@
 <title>Ban Tuong Trinh</title>
 <script type="text/javascript">
 <%
-	ToTrinhModel toTrinh = ToTrinhDAO.getToTrinhByID(request.getParameter("maID"));
+	ToTrinhModel toTrinh = ToTrinhDAO.getToTrinhAndMonHocTKBThayDoiByIDToTrinh(request.getParameter("maID"));
 %>
 function confirmDuyet(x)
 {
@@ -46,7 +46,7 @@ function confirmDuyet(x)
 	}
 	if(confirm("Bạn có chắc muốn " + act + " tờ trình này không?"))
 	{
-		document.getElementById('actionType').value = "GuiLaiToTrinh";
+		document.getElementById('actionType').value = "DuyetMotToTrinh";
 		document.forms["ToTrinh"].submit();	
 	}
 }

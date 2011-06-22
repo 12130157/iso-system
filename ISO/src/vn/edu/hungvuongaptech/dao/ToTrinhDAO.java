@@ -25,7 +25,7 @@ public class ToTrinhDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_ISO_GuiToTrinh(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_ISO_GuiToTrinh(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("ID", toTrinh.getId());
 			csmt.registerOutParameter("Ten", java.sql.Types.NVARCHAR);
 			csmt.setString("Ma_nguoi_tao", toTrinh.getMaNguoiTao());
@@ -123,16 +123,16 @@ public class ToTrinhDAO {
 		}
 		return count;
 	}
-	public static ToTrinhModel getToTrinhByID(String id) {
+	public static ToTrinhModel getToTrinhAndMonHocTKBThayDoiByIDToTrinh(String id) {
 		// TODO Auto-generated method stub
 		ToTrinhModel toTrinh = new ToTrinhModel();
-		ArrayList<ChiTietTKBThayDoiModel> chiTietTKBThayDoiList = new ArrayList<ChiTietTKBThayDoiModel>();
+		ArrayList<ChiTietTKBThayDoiModel> chiTietTKBThayDoiList = ChiTietTKBThayDoiDAO.getChiTietTKBThayDoiByMaToTrinh(id);
 		ArrayList<MonHocTKBThayDoiModel>  monHocTKBThayDoiList = new ArrayList<MonHocTKBThayDoiModel>();
 		String maToTrinh = "na";
 		try {
 			CallableStatement csmt = DataUtil
 			.getConnection()
-			.prepareCall("{call sp_ISO_GetToTrinhByID(?)}");
+			.prepareCall("{call sp_ISO_GetToTrinhAndMonHocTKBThayDoiByIDToTrinh(?)}");
 			csmt.setString("ID", id);
 			ResultSet rs = DataUtil.executeStore(csmt);
 			while(rs.next()) {
@@ -149,26 +149,6 @@ public class ToTrinhDAO {
 					maToTrinh = toTrinh.getId();
 					toTrinh.setChiTietTKBThayDoiList(chiTietTKBThayDoiList);
 					toTrinh.setMonHocTKBThayDoiList(monHocTKBThayDoiList);
-				}
-				if(rs.getString("MaChiTietTKBThayDoi") != null) {
-					ChiTietTKBThayDoiModel chiTietTKBThayDoi = new ChiTietTKBThayDoiModel();
-					chiTietTKBThayDoi.setBuoiThayDoi(rs.getString("BuoiThayDoi"));
-					chiTietTKBThayDoi.setTuanThayDoi(rs.getString("TuanThayDoi"));
-					chiTietTKBThayDoi.setMaPhongThayDoi(rs.getString("MaPhongThayDoi"));
-					chiTietTKBThayDoi.setKiHieuPhongThayDoi(rs.getString("KiHieuPhongThayDoi"));
-					chiTietTKBThayDoi.setNgayHocThayDoi(rs.getString("NgayHocThayDoi"));
-					chiTietTKBThayDoi.setThuTrongTuanThayDoi(rs.getString("ThuTrongTuanThayDoi"));
-					
-					chiTietTKBThayDoi.setBuoi(rs.getString("Buoi"));
-					chiTietTKBThayDoi.setTuan(rs.getString("Tuan"));
-					chiTietTKBThayDoi.setMaPhong(rs.getString("MaPhong"));
-					chiTietTKBThayDoi.setKiHieuPhong(rs.getString("KiHieuPhong"));
-					chiTietTKBThayDoi.setNgayHoc(rs.getString("NgayHoc"));
-					chiTietTKBThayDoi.setThuTrongTuan(rs.getString("ThuTrongTuan"));
-					
-					chiTietTKBThayDoi.setTenMonHoc(rs.getString("TenMonHocChiTiet"));
-					
-					chiTietTKBThayDoiList.add(chiTietTKBThayDoi);
 				}
 				
 				if(rs.getString("MaMonHocTKBThayDoi") != null) {

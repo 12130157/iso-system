@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietTKBThayDoiModel;
+import vn.edu.hungvuongaptech.model.MonHocTKBThayDoiModel;
+import vn.edu.hungvuongaptech.model.ToTrinhModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class ChiTietTKBThayDoiDAO {
@@ -154,6 +156,41 @@ public class ChiTietTKBThayDoiDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return chiTietTKBThayDoiList;
+	}
+	public static ArrayList<ChiTietTKBThayDoiModel> getChiTietTKBThayDoiByMaToTrinh(String id) {
+		// TODO Auto-generated method stub
+		ArrayList<ChiTietTKBThayDoiModel> chiTietTKBThayDoiList = new ArrayList<ChiTietTKBThayDoiModel>();
+		try {
+			CallableStatement csmt = DataUtil
+			.getConnection()
+			.prepareCall("{call sp_ISO_GetChiTietTKBThayDoiByMaToTrinh(?)}");
+			csmt.setString("ID", id);
+			ResultSet rs = DataUtil.executeStore(csmt);
+			while(rs.next()) {
+				
+					ChiTietTKBThayDoiModel chiTietTKBThayDoi = new ChiTietTKBThayDoiModel();
+					chiTietTKBThayDoi.setBuoiThayDoi(rs.getString("BuoiThayDoi"));
+					chiTietTKBThayDoi.setTuanThayDoi(rs.getString("TuanThayDoi"));
+					chiTietTKBThayDoi.setMaPhongThayDoi(rs.getString("MaPhongThayDoi"));
+					chiTietTKBThayDoi.setKiHieuPhongThayDoi(rs.getString("KiHieuPhongThayDoi"));
+					chiTietTKBThayDoi.setNgayHocThayDoi(rs.getString("NgayHocThayDoi"));
+					chiTietTKBThayDoi.setThuTrongTuanThayDoi(rs.getString("ThuTrongTuanThayDoi"));
+					
+					chiTietTKBThayDoi.setBuoi(rs.getString("Buoi"));
+					chiTietTKBThayDoi.setTuan(rs.getString("Tuan"));
+					chiTietTKBThayDoi.setMaPhong(rs.getString("MaPhong"));
+					chiTietTKBThayDoi.setKiHieuPhong(rs.getString("KiHieuPhong"));
+					chiTietTKBThayDoi.setNgayHoc(rs.getString("NgayHoc"));
+					chiTietTKBThayDoi.setThuTrongTuan(rs.getString("ThuTrongTuan"));
+					
+					chiTietTKBThayDoi.setTenMonHoc(rs.getString("TenMonHocChiTiet"));
+					
+					chiTietTKBThayDoiList.add(chiTietTKBThayDoi);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 		return chiTietTKBThayDoiList;
 	}
 }

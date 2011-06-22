@@ -35,7 +35,7 @@
  </style>
 <![endif]-->
 
-<title>Kế hoạch công tác tuần</title>
+<title>Kế hoạch công tác tháng</title>
 <script language="JavaScript" type="text/javascript">
 var duongDan = "";
 var objTuan;
@@ -420,7 +420,7 @@ var soTuan = 4;
 				<c:if test="${(MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_ADMIN) and KeHoachThang.tinhTrang eq PENDING}">
 					<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" /> </a>
 				</c:if>
-				<c:if test="${KeHoachThang.tinhTrang eq NEW 
+				<c:if test="${(KeHoachThang.tinhTrang eq NEW or KeHoachThang.tinhTrang eq REJECT)
 										and ((MaBoPhan eq BO_PHAN_PHC and maThanhVien eq KeHoachThang.maNguoiTao) or MaBoPhan eq BO_PHAN_ADMIN)}">
 					<a href = "javascript: confirmSending()">
 						<img src="<%=request.getContextPath()%>/images/buttom/guihieutruong.png" alt="Gửi Hiệu Trưởng" border = "0" />
