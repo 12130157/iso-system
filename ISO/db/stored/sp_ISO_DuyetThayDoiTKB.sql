@@ -16,13 +16,9 @@ BEGIN
 
 	IF(@Tinh_trang = '2')
 	BEGIN
-		UPDATE ChiTietTKBThayDoi
-			SET
-				Tinh_trang = '2'
-		WHERE Ma_to_trinh = @Ma_to_trinh
 
 		DECLARE @C CURSOR		
-		SET @C = CURSOR FOR SELECT @Ma_chi_tiet_TKB FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
+		SET @C = CURSOR FOR SELECT Ma_chi_tiet_TKB FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
 		OPEN @C
 		FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
 
@@ -47,7 +43,7 @@ BEGIN
 						Ma_phong,
 						Tuan,
 						Ngay_hoc,
-						NULL,
+						@Ma_nguoi_tao,
 						-1,
 						NULL,
 						NULL,
@@ -59,7 +55,8 @@ BEGIN
 						NULL
 					FROM ChiTietTKB 
 					WHERE ID = @Ma_chi_tiet_TKB
-				UPDATE ChiTietTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				SELECT @ID = ID FROM ChiTietTKBThayDoi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				--UPDATE ChiTietTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 				UPDATE ChiTietTKBThayDoi SET ID_thay_the = @ID WHERE Ma_chi_tiet_TKB = @Ma_chi_tiet_TKB AND Ma_to_trinh = @Ma_to_trinh
 			END
 			FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
@@ -67,15 +64,19 @@ BEGIN
 
 		UPDATE ChiTietTKB 
 			SET
-				Ma_phong = A.Ma_phong,
-				Tuan = A.Tuan,
-				Thu_trong_tuan = A.Thu_trong_tuan,
-				Buoi = A.Buoi,
-				Ngay_hoc = A.Ngay_hoc
+				Ma_phong = B.Ma_phong,
+				Tuan = B.Tuan,
+				Thu_trong_tuan = B.Thu_trong_tuan,
+				Buoi = B.Buoi,
+				Ngay_hoc = B.Ngay_hoc 
 			FROM ChiTietTKB AS A 
 				INNER JOIN ChiTietTKBThayDoi AS B ON A.ID = B.Ma_chi_tiet_TKB AND B.Tinh_trang = '1'
-			WHERE B.Ma_to_trinh = @Ma_to_trinh	 
+			WHERE B.Ma_to_trinh = @Ma_to_trinh  
 
+		UPDATE ChiTietTKBThayDoi
+			SET
+				Tinh_trang = '2'
+		WHERE Ma_to_trinh = @Ma_to_trinh
 		
 	END
 	ELSE 
@@ -88,5 +89,5 @@ END
 -- 0 TK thay doi
 -- 1 TK gui HT
 -- 2 Chi tiet truoc thay doi
-select * from chitiettkbthaydoi
+--select * from chitiettkbthaydoi
 
