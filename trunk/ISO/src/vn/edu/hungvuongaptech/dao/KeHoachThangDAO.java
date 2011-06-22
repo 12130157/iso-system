@@ -40,7 +40,7 @@ public class KeHoachThangDAO {
 			csmt.setString("Nam", keHoachThang.getNam());
 			csmt.setNString("Noi_nhan", keHoachThang.getNoiNhan());
 			csmt.setString("Tinh_trang", keHoachThang.getTinhTrang());
-			csmt.setNString("Ten_ke_hoach_thang", keHoachThang.getTenKeHoach());
+			csmt.registerOutParameter("Ten_ke_hoach_thang", java.sql.Types.NVARCHAR);
 			csmt.setNString("Ly_do_reject", keHoachThang.getLyDoReject());
 			csmt.setString("Ngay_gui", null);
 			csmt.setString("User1", keHoachThang.getUser1());
@@ -51,6 +51,7 @@ public class KeHoachThangDAO {
 			result = DataUtil.executeNonStore(csmt);
 			if(result) {
 				keHoachThang.setMaKeHoachThang(csmt.getString("ID"));
+				keHoachThang.setTenKeHoach(csmt.getNString("Ten_ke_hoach_thang"));
 			}
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -68,8 +69,8 @@ public class KeHoachThangDAO {
 			csmt.setString("ID", keHoachThang.getMaKeHoachThang());
 			csmt.setString("Thang", keHoachThang.getThang());
 			csmt.setString("Ma_nguoi_tao", keHoachThang.getMaNguoiTao());
-			csmt.setString("Ngay_cap_nhat_cuoi", keHoachThang.getNgayCapNhatCuoi());
-			csmt.setString("Ngay_tao", keHoachThang.getNgayTao());
+			csmt.setString("Ngay_cap_nhat_cuoi", null);
+			csmt.setString("Ngay_tao", null);
 			csmt.setString("Ngay_duyet", null);
 			csmt.setString("Ma_nguoi_duyet", keHoachThang.getMaNguoiDuyet());
 			csmt.setString("Nam", keHoachThang.getThang());
@@ -279,7 +280,7 @@ public class KeHoachThangDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			if(rs.next()) {
 				keHoachThang.setMaKeHoachThang(rs.getString("MaKeHoachThang"));
-				keHoachThang.setTenKeHoach(rs.getString("TenkeHoachThang"));
+				keHoachThang.setTenKeHoach(rs.getString("TenKeHoachThang"));
 				keHoachThang.setTenNguoiTao(rs.getString("TenNguoiTao"));
 				keHoachThang.setTenNguoiDuyet(rs.getString("TenNguoiDuyet"));
 				keHoachThang.setNgayGui(rs.getString("NgayGui"));

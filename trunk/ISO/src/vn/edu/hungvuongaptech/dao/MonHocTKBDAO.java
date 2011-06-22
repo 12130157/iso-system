@@ -252,6 +252,11 @@ public class MonHocTKBDAO {
 					
 					monHocTKBModelList.add(monHocTKBModel);
 					maMonHocTKB = rs.getString("MaMonHocTKB");
+					chuoiPhongLT = "";
+					chuoiPhongTH = "";
+					chuoiThu = "";
+					chuoi = "";
+					str = "";
 				}
 				ChiTietTKBModel chiTiet = new ChiTietTKBModel();
 				chiTiet.setMaChiTietTKB(rs.getString("MaChiTiet"));
