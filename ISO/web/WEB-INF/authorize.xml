@@ -3,229 +3,269 @@
 	<session_role>maVaiTro</session_role>
 	<page>
 		<page_name>/ISO/KeHoachGiangDay/showKeHoachGiangDay.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>6</role>
-		<role>5</role>		
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->			
 	</page>	
 		<page>
 		<page_name>/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>		
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/KeHoachGiangDay/TimKeHoachGiangDay.jsp</page_name>
-		<role>0</role>
-		<role>1</role>
-		<role>3</role>		
-		<role>2</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/GiaoAn/GiaoAnLT.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>		
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/GiaoAn/TimGiaoAn.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>		
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 		<page>
 		<page_name>/ISO/GiaoAn/GiaoAnTH.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 		<page>
 		<page_name>/ISO/GiaoAn/GiaoAnTHop.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>		
 	<page>
 		<page_name>/ISO/ChuongTrinhDaoTao/ChuongTrinhDaoTao.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>	
-		<role>4</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>
-		<role>11</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->		
 	</page>		
 	<page>
 		<page_name>/ISO/ChuongTrinhDaoTao/showChuongTrinhDaoTao.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>	
-		<role>4</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/DeCuongMonHoc/DeCuong.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/DeCuongMonHoc/showDeCuong.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>
-		<role>11</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
 	</page>	
 	<page>
 		<page_name>/ISO/KeHoachDaoTao/keHoachDaoTao.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>
-		<role>3</role>	
-		<role>4</role>	
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<page>
 		<page_name>/ISO/KeHoachDaoTao/showKeHoachDaoTao.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<page>
 		<page_name>/ISO/ThoiKhoaBieu/ThoiKhoaBieu.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>
-		<role>11</role>	
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->
+		<role>9</role>	<!-- Sinh Viên -->
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<page>
 		<page_name>/ISO/ThoiKhoaBieu/showThoiKhoaBieu.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->
+		<role>9</role>	<!-- Sinh Viên -->
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<page>
 		<page_name>/ISO/ThoiKhoaBieu/LichSuDungPhong.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->
+		<role>9</role>	<!-- Sinh Viên -->
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<page>
 		<page_name>/ISO/ThoiKhoaBieu/PhanCongGiaoVien.jsp</page_name>
-		<role>0</role>
-		<role>1</role>	
-		<role>2</role>	
-		<role>3</role>	
-		<role>4</role>
-		<role>5</role>	
-		<role>6</role>	
-		<role>7</role>	
-		<role>8</role>	
-		<role>10</role>	
-		<role>11</role>
+		<role>0</role> 	<!-- Admin -->
+		<role>1</role>	<!-- Hiệu Trưởng -->
+		<role>2</role>	<!-- Hiệu Phó -->
+		<role>3</role>	<!-- Trưởng Phòng -->
+		<role>4</role>	<!-- Phó Phòng -->
+		<role>5</role>	<!-- Trưởng Khoa -->
+		<role>6</role>	<!-- Phó Khoa -->		
+		<role>7</role>	<!-- Trưởng Bộ Môn -->
+		<role>8</role>	<!-- Giáo Viên -->		
+		<role>10</role>	<!-- Giám Đốc Trung Tâm -->
+		<role>11</role>	<!-- Nhân Viên -->
+		<role>12</role>	<!-- Giáo Vụ -->
+		<role>13</role>	<!-- Quản Lý Thiết Bị -->
 	</page>	
 	<alert>You couldn't view this page</alert>
-	<error>/error.jsp?stt=0</error>
+	<error>/HungVuongISO/error.jsp?stt=0</error>
 </authorize>
 
