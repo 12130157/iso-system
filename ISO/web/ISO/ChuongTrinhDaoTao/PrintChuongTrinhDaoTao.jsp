@@ -52,197 +52,198 @@
 	<tr><td>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr align="center" style="background-color: transparent; background-position: center;">
-			<td><p style="font-size: 12">ỦY BAN NHÂN DÂN QUẬN 5<br/>TRƯỜNG TCN KTCN HÙNG VƯƠNG</p></td>
-			<td><p style="font-size: 12">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br/>
+			<td><p style="font-size: 12">ỦY BAN NHÂN DÂN QUẬN 5<br/><font style="font-weight: bold;">TRƯỜNG TCN KTCN HÙNG VƯƠNG</font></p></td>
+			<td><p style="font-size: 12; font-weight: bold;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br/>
 											 Độc lập - Tự do - Hạnh phúc<br/>--o0o--</p></td>					 
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center;">
-			<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 15px">CHƯƠNG TRÌNH ĐÀO TẠO
+			<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 14px">CHƯƠNG TRÌNH ĐÀO TẠO
 													<br/> HỆ ${sf:upperString(CTDT.tenTrinhDo)}</p><br /></th>
 		</tr>
 		<tr align="right">
-			<td colspan="2">${CTDT.tenChuongTrinhDaoTao }</td>
+			<td colspan="2"><font style="font-size: 12px; font-weight: bold">${CTDT.tenChuongTrinhDaoTao }</font></td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2">
 				<br/><p style="font-weight: bold;">Tên Nghề : ${sf:upperString(CTDT.tenNghe)}</p>
 			</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2">
 				<p style="font-weight: bold;">Mã Nghề : ${sf:upperString(CTDT.kiHieu)}</p>
 			</td>	
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2">	
 				<p style="font-weight: bold">Trình độ đào tạo : ${CTDT.tenTrinhDo}</p>
 			</td>	
 		</tr>
 	</table>	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">Đối tượng tuyển sinh:</p>${sf:appendPTag(CTDT.doiTuong1)}
 				</td>
 			</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p><font style="font-weight: bold">Số lượng môn học, mô đun đào tạo :</font> ${CTDT.soLuongMonHoc}</p>
 				</td>
 			</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p><font style="font-weight: bold;">Bằng cấp sau khi tốt nghiệp :</font> ${CTDT.bangCap}</p>
 				</td>
 			</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">I./ MỤC TIÊU ĐÀO TẠO :</p></div>
 			</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">	1.Kiến thức nghề:</p>${sf:appendPTag(CTDT.mucTieu1)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">	2.Kỹ năng nghề:</p>${sf:appendPTag(CTDT.mucTieu2)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">	3.Chính trị, đạo đức:</p>${sf:appendPTag(CTDT.mucTieu3)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">	4.Kỹ năng khác:</p>${sf:appendPTag(CTDT.mucTieu4)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">	5.Cơ hội việc làm:</p>${sf:appendPTag(CTDT.mucTieu5)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">II./PHƯƠNG PHÁP GIẢNG DẠY: :</p></div>
 			</td>
 		</tr>	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">II.1.Phương pháp giảng dạy:</p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<u style="font-weight: bold">	1/Lý thuyết:</u>${sf:appendPTag(CTDT.phuongPhap1)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<u style="font-weight: bold">	2/Thực hành:</u>${sf:appendPTag(CTDT.phuongPhap2)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-style: italic; font-weight: bold">II.2.Phương pháp học tập:</p>${sf:appendPTag(CTDT.phuongPhap3)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold">III./THỜI GIAN HỌC TẬP :</p></div>
 			</td>
 		</tr>	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-weight: bold;">III.1 Thời gian của khóa học và thời gian thực học tối thiểu:</p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian đào tạo : ${CTDT.thoiGian1} năm</p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian học tập : ${CTDT.thoiGian2} tuần</p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian thực học tối thiểu : ${CTDT.thoiGian3} tuần (${CTDT.thoiGian4} giờ) </p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn, kiểm tra hết môn và thi : ${CTDT.thoiGian5} tuần ${CTDT.thoiGian6} giờ, trong đó ôn và thi tốt nghiệp : ${CTDT.thoiGian7} tuần ${CTDT.thoiGian8} giờ </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi học kỳ : ${CTDT.thoiGian5} tuần ${CTDT.thoiGian6} giờ </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi tốt nghiệp : ${CTDT.thoiGian7} tuần ${CTDT.thoiGian8} giờ </p>
 		</tr>
 	</table>	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p style="font-weight: bold;">III.2.Phân bố thời gian thực học tối thiểu:</p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian học các môn học chung bắt buộc : ${CTDT.phanBo1} giờ </p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian học các môn học, modun đào tạo nghề : ${CTDT.phanBo2} giờ </p>
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian học lý thuyết : ${CTDT.phanBo3} giờ, thời gian học thực hành : ${CTDT.phanBo4} giờ </p>
 				</td>
@@ -273,7 +274,7 @@
 	
 	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">IV./DANH MỤC CÁC MÔN HỌC :</p></div>
 			</td>
@@ -282,13 +283,13 @@
 	<%int count = 1; %>
 	<br /><div style="">
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;" border = "1">
-	<tr style="background-color: transparent; font-size: 15px;">
+	<tr style="background-color: transparent; font-size: 13px;">
 		<td rowspan = "2">STT</td>
 		<td rowspan = "2">Tên môn học, module</td>
 		<td colspan = "2">Thời gian  đào tạo</td>
 		<td colspan = "4">Thời gian của môn học, module (giờ)</td>
 	</tr> 
-	<tr style="background-color: transparent; font-size: 15px;">
+	<tr style="background-color: transparent; font-size: 13px;">
 		<td>Năm học</td>
 		<td>Học kì</td>
 		<td>Tổng số</td>
@@ -296,7 +297,7 @@
 		<td>Thực hành</td>
 		<td>Kiểm tra</td>
 	</tr>
-	<tr style="background-color: transparent; background-position: center; background-color: aqua; font-weight: bold; font-size: 15px">
+	<tr style="background-color: transparent; background-position: center; background-color: aqua; font-weight: bold; font-size: 13px">
 		<td><p></td>
 		<td>CÁC MÔN HỌC CHUNG</td>
 		<td><p></td>
@@ -309,8 +310,8 @@
 	<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">
 			
-			<tr align="left" style="background-color: transparent; background-position: center; font-size: 15px;">
-				<td><%=count %></td>
+			<tr align="left" style="background-color: transparent; background-position: center; font-size: 13px;">
+				<td>MH<%=count %></td>
 				<td>${iterator.tenMonHoc}</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
@@ -321,7 +322,7 @@
 			</tr>
 			<%count++; %>
 		</c:forEach>
-		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 15px">
+		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 13px">
 			<td><p></td>
 			<td>CÁC MÔN HỌC CƠ SỞ</td>
 			<td><p></td>
@@ -331,11 +332,10 @@
 			<td>${TongSoThucHanh_PhanII}</td>
 			<td><p></td>
 		</tr>
-		<%count = 1; %>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">			
-			<tr align="left" style="background-color: transparent; background-position: center; font-size: 15px;">
-				<td><%=count %></td>
+			<tr align="left" style="background-color: transparent; background-position: center; font-size: 13px;">
+				<td>MH<%=count %></td>
 				<td>${iterator.tenMonHoc}</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
@@ -346,7 +346,7 @@
 			</tr>
 			<%count++; %>
 		</c:forEach>	
-		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 15px">
+		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 13px">
 				<td><p></td>
 			<td>CÁC MÔN HỌC CHUYÊN NGÀNH</td>
 			<td><p></td>
@@ -356,12 +356,26 @@
 			<td>${TongSoThucHanh_PhanIII}</td>
 			<td><p></td>
 		</tr>
-		<%count = 1; %>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">		
-			<tr align="left" style="background-color: transparent; background-position: center; font-size: 15px;">
-				<td><%=count %></td>
-				<td>${iterator.tenMonHoc}</td>
+			<tr align="left" style="background-color: transparent; background-position: center; font-size: 13px;">
+				<td>MH<%=count %></td>
+				<td>
+					${iterator.tenMonHoc}
+					<c:if test = "${CTDT.maNghe eq 16}">
+						<c:choose>
+							<c:when test="${iterator.maMonHoc eq 44}">
+								(Tài liệu thiết kế)
+							</c:when>
+							<c:when test="${iterator.maMonHoc eq 45}">
+								(Web php & MySQL)
+							</c:when>
+							<c:when test="${iterator.maMonHoc eq 46}">
+								(Java SQL Server)
+							</c:when>
+						</c:choose>	
+					</c:if>
+				</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
@@ -371,7 +385,7 @@
 			</tr>
 			<%count++; %>
 		</c:forEach>
-		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 15px"> 
+		<tr style="background-color: transparent; background-color: aqua; font-weight: bold; font-size: 13px"> 
 		<td><p></td>
 		<td>TỔNG CỘNG</td>
 		<td><p></td>
@@ -384,47 +398,47 @@
 	</table>
 	</div>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">V./CÔNG TÁC THI, KIỂM TRA :</p></div>
 			</td>
 		</tr>	
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<u style="font-weight: bold">1/Thi học kì:</u>${sf:appendPTag(CTDT.thiHocKi)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 				<td colspan = "2">
 					<u style="font-weight: bold">2/Thi tốt nghiệp:</u>${sf:appendPTag(CTDT.thiTotNghiep)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">VI.THỰC TẬP SẢN XUẤT :</p>${sf:appendPTag(CTDT.thucTap)}</div>
 			</td>
 		</tr>	
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 15px;">
+		<tr style="background-color: transparent; font-size: 13px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">VII.NHỮNG Ý KIẾN ĐỀ XUẤT :</p> ${sf:appendPTag(CTDT.yKienDeXuat)}</div>
 			</td>
 		</tr>	
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
 			<c:set var="sig" value="-"></c:set>
 			<td>ngày ${sf:getElement(CTDT.ngayCapNhatCuoi,0,sig)} tháng ${sf:getElement(CTDT.ngayCapNhatCuoi,1,sig)} năm ${sf:getElement(CTDT.ngayCapNhatCuoi,2,sig)}</td>
 			<td>Quận 5, ngày ${sf:getElement(CTDT.ngayDuyet,0,sig)} tháng ${sf:getElement(CTDT.ngayDuyet,1,sig)} năm ${sf:getElement(CTDT.ngayDuyet,2,sig)}</td>
 		</tr>
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
 			<td><p style="font-weight: bold;">TRƯỞNG KHOA </p></td>
 			<td><p style="font-weight: bold;">HIỆU TRƯỞNG</p></td>
 		</tr>
@@ -440,7 +454,7 @@
 			<td><p></p></td>
 			<td><p></p></td>
 		</tr>		
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
 			<td><p>${CTDT.tenNguoiTao}</p></td>
 			<td><p>${CTDT.tenNguoiDuyet}</p></td>
 		</tr>
