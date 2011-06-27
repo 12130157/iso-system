@@ -2171,10 +2171,6 @@ BEGIN
 	DECLARE @Total	int
 	IF(@Tinh_trang = '2')
 	BEGIN
-		UPDATE MonHocTKBThayDoi
-			SET
-				Tinh_trang = '2'
-		WHERE Ma_to_trinh = @Ma_to_trinh
 
 		DECLARE @C CURSOR		
 		SET @C = CURSOR FOR SELECT Ma_mon_hoc_TKB FROM MonHocTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
@@ -2195,7 +2191,7 @@ BEGIN
 						ID,
 						Ma_giao_vien,
 						-1,
-						NULL,
+						@Ma_nguoi_tao,
 						NULL,
 						NULL,
 						@Ngay_cap_nhat_cuoi,
@@ -2206,7 +2202,8 @@ BEGIN
 						NULL
 					FROM MonHocTKB 
 					WHERE ID = @Ma_mon_hoc_TKB 
-				UPDATE MonHocTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				SELECT @ID = ID FROM MonHocTKBThayDoi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				--UPDATE MonHocTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 				UPDATE MonHocTKBThayDoi SET ID_thay_the = @ID WHERE Ma_mon_hoc_TKB = @Ma_mon_hoc_TKB AND Ma_to_trinh = @Ma_to_trinh
 			END
 			FETCH NEXT FROM @C INTO @Ma_mon_hoc_TKB
@@ -2215,8 +2212,13 @@ BEGIN
 			SET
 				Ma_giao_vien = B.Ma_giao_vien
 			FROM MonHocTKB AS A 
-				INNER JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_mon_hoc_TKB AND B.Tinh_trang = '2'
+				INNER JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_mon_hoc_TKB AND B.Tinh_trang = '1'
 			WHERE B.Ma_to_trinh = @Ma_to_trinh	 
+
+		UPDATE MonHocTKBThayDoi
+			SET
+				Tinh_trang = '2'
+		WHERE Ma_to_trinh = @Ma_to_trinh
 	END
 	ELSE 
 	BEGIN
@@ -2229,6 +2231,7 @@ END
 -- 1 TK gui HT
 -- 2 Approved
 -- 3 Reject
+-- select * from monhoctkbthaydoi
 
 
 
@@ -2253,13 +2256,9 @@ BEGIN
 
 	IF(@Tinh_trang = '2')
 	BEGIN
-		UPDATE ChiTietTKBThayDoi
-			SET
-				Tinh_trang = '2'
-		WHERE Ma_to_trinh = @Ma_to_trinh
 
 		DECLARE @C CURSOR		
-		SET @C = CURSOR FOR SELECT @Ma_chi_tiet_TKB FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
+		SET @C = CURSOR FOR SELECT Ma_chi_tiet_TKB FROM ChiTietTKBThayDoi WHERE Ma_to_trinh = @Ma_to_trinh
 		OPEN @C
 		FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
 
@@ -2284,7 +2283,7 @@ BEGIN
 						Ma_phong,
 						Tuan,
 						Ngay_hoc,
-						NULL,
+						@Ma_nguoi_tao,
 						-1,
 						NULL,
 						NULL,
@@ -2296,7 +2295,8 @@ BEGIN
 						NULL
 					FROM ChiTietTKB 
 					WHERE ID = @Ma_chi_tiet_TKB
-				UPDATE ChiTietTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				SELECT @ID = ID FROM ChiTietTKBThayDoi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+				--UPDATE ChiTietTKBThayDoi SET Ma_nguoi_tao = @Ma_nguoi_tao WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 				UPDATE ChiTietTKBThayDoi SET ID_thay_the = @ID WHERE Ma_chi_tiet_TKB = @Ma_chi_tiet_TKB AND Ma_to_trinh = @Ma_to_trinh
 			END
 			FETCH NEXT FROM @C INTO @Ma_chi_tiet_TKB
@@ -2304,15 +2304,19 @@ BEGIN
 
 		UPDATE ChiTietTKB 
 			SET
-				Ma_phong = A.Ma_phong,
-				Tuan = A.Tuan,
-				Thu_trong_tuan = A.Thu_trong_tuan,
-				Buoi = A.Buoi,
-				Ngay_hoc = A.Ngay_hoc
+				Ma_phong = B.Ma_phong,
+				Tuan = B.Tuan,
+				Thu_trong_tuan = B.Thu_trong_tuan,
+				Buoi = B.Buoi,
+				Ngay_hoc = B.Ngay_hoc 
 			FROM ChiTietTKB AS A 
 				INNER JOIN ChiTietTKBThayDoi AS B ON A.ID = B.Ma_chi_tiet_TKB AND B.Tinh_trang = '1'
-			WHERE B.Ma_to_trinh = @Ma_to_trinh	 
+			WHERE B.Ma_to_trinh = @Ma_to_trinh  
 
+		UPDATE ChiTietTKBThayDoi
+			SET
+				Tinh_trang = '2'
+		WHERE Ma_to_trinh = @Ma_to_trinh
 		
 	END
 	ELSE 
@@ -2325,7 +2329,7 @@ END
 -- 0 TK thay doi
 -- 1 TK gui HT
 -- 2 Chi tiet truoc thay doi
-select * from chitiettkbthaydoi
+--select * from chitiettkbthaydoi
 
 
 GO
@@ -2904,6 +2908,47 @@ BEGIN
 END
 
 --exec sp_ISO_GetChiTietJoinAllTableByMaKHDTAndNgay 0,'2010','1'
+GO
+
+--sp_ISO_GetChiTietTKBThayDoiByMaToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetChiTietTKBThayDoiByMaToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetChiTietTKBThayDoiByMaToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_GetChiTietTKBThayDoiByMaToTrinh
+	@ID		int
+AS
+BEGIN
+	DECLARE @Tinh_trang varchar
+	SELECT @Tinh_trang = Tinh_trang FROM ToTrinh WHERE ID = @ID
+	IF(@Tinh_trang = '2')
+	BEGIN
+		SELECT E.ID AS MaChiTietTKBThayDoi, E.Buoi AS BuoiThayDoi, E.Tuan AS TuanThayDoi, E.Thu_trong_tuan AS ThuTrongTuanThayDoi,
+		E.Ma_phong AS MaPhongThayDoi, Convert(varchar(10), E.Ngay_hoc, 103) AS NgayHocThayDoi, S.Ki_hieu_phong AS KiHieuPhongThayDoi,
+		F.Buoi AS Buoi, F.Tuan AS Tuan, F.Thu_trong_tuan AS ThuTrongTuan,
+		F.Ma_phong AS MaPhong, Convert(varchar(10), F.Ngay_hoc, 103) AS NgayHoc, T.Ki_hieu_phong AS KiHieuPhong, H.Ten_mon_hoc AS TenMonHocChiTiet
+		FROM ChiTietTKBThayDoi AS E 
+		LEFT JOIN PhongBan AS S ON E.Ma_phong = S.ID
+		LEFT JOIN ChiTietTKBThayDoi AS F ON E.ID_thay_the = F.ID
+		LEFT JOIN PhongBan AS T ON F.Ma_phong = T.ID
+		LEFT JOIN MonHocTKB AS G ON F.Ma_mon_hoc_TKB = G.ID
+		LEFT JOIN MonHoc AS H ON G.Ma_mon_hoc = H.ID
+		WHERE E.Ma_to_trinh = @ID
+	END
+	ELSE
+	BEGIN
+		SELECT E.ID AS MaChiTietTKBThayDoi, E.Buoi AS BuoiThayDoi, E.Tuan AS TuanThayDoi, E.Thu_trong_tuan AS ThuTrongTuanThayDoi,
+		E.Ma_phong AS MaPhongThayDoi, Convert(varchar(10), E.Ngay_hoc, 103) AS NgayHocThayDoi, S.Ki_hieu_phong AS KiHieuPhongThayDoi,
+		F.Buoi AS Buoi, F.Tuan AS Tuan, F.Thu_trong_tuan AS ThuTrongTuan,
+		F.Ma_phong AS MaPhong, Convert(varchar(10), F.Ngay_hoc, 103) AS NgayHoc, T.Ki_hieu_phong AS KiHieuPhong, H.Ten_mon_hoc AS TenMonHocChiTiet
+		FROM ChiTietTKBThayDoi AS E
+		LEFT JOIN PhongBan AS S ON E.Ma_phong = S.ID
+		LEFT JOIN ChiTietTKB AS F ON E.Ma_chi_tiet_TKB = F.ID
+		LEFT JOIN PhongBan AS T ON F.Ma_phong = T.ID
+		LEFT JOIN MonHocTKB AS G ON F.Ma_mon_hoc_TKB = G.ID
+		LEFT JOIN MonHoc AS H ON G.Ma_mon_hoc = H.ID
+		WHERE E.Ma_to_trinh = @ID
+	END
+END
 GO
 
 --sp_ISO_GetChuongTrinhDaoTao.sql
@@ -4951,6 +4996,66 @@ END
 --exec sp_ISO_GetToTrinh 3,1,1,'',5,5
 GO
 
+--sp_ISO_GetToTrinhAndMonHocTKBThayDoiByIDToTrinh.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetToTrinhAndMonHocTKBThayDoiByIDToTrinh]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_ISO_GetToTrinhAndMonHocTKBThayDoiByIDToTrinh]
+GO
+CREATE PROCEDURE sp_ISO_GetToTrinhAndMonHocTKBThayDoiByIDToTrinh
+	@ID		int
+AS
+BEGIN
+	DECLARE @Tinh_trang varchar
+	SELECT @Tinh_trang = Tinh_trang FROM ToTrinh WHERE ID = @ID
+	IF(@Tinh_trang = '2')
+	BEGIN
+		SELECT A.ID AS MaToTrinh, A.Ten, A.Ma_nguoi_tao AS MaNguoiTao, A.Ma_nguoi_duyet AS MaNguoiDuyet,
+		Convert(varchar(10), A.Ngay_cap_nhat_cuoi, 103) AS NgayCapNhatCuoi, Convert(varchar(10), A.Ngay_duyet, 103) AS NgayDuyet,
+		A.Tinh_trang AS TinhTrang, ISNULL(J.Ho, '') + ' ' + ISNULL(J.Ten_lot, '') + ' ' + ISNULL(J.Ten, '') AS TenNguoiTao,
+		ISNULL(L.Ho, '') + ' ' + ISNULL(L.Ten_lot, '') + ' ' + ISNULL(L.Ten, '') AS TenNguoiDuyet,
+		B.ID AS MaMonHocTKBThayDoi, B.Ma_giao_vien AS MaGiaoVienThayDoi, ISNULL(N.Ho, '') + ' ' + ISNULL(N.Ten_lot, '') + ' ' + ISNULL(N.Ten, '') AS TenGiaoVienThayDoi,
+		C.Ma_giao_vien AS MaGiaoVien, ISNULL(P.Ho, '') + ' ' + ISNULL(P.Ten_lot, '') + ' ' + ISNULL(P.Ten, '') AS TenGiaoVien,
+		D.Ten_mon_hoc AS TenMonHoc
+		FROM ToTrinh AS A
+		LEFT JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_to_trinh
+		LEFT JOIN MonHocTKBThayDoi AS C ON B.ID_thay_the = C.ID
+		LEFT JOIN MonHocTKB AS X ON C.Ma_mon_hoc_TKB = X.ID
+		LEFT JOIN MonHoc AS D ON X.Ma_mon_hoc = D.ID
+		LEFT JOIN ThanhVien AS I ON A.Ma_nguoi_tao = I.ID
+		LEFT JOIN ChiTietThanhVien AS J ON I.Ten_DN = J.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS K ON A.Ma_nguoi_duyet = K.ID
+		LEFT JOIN ChiTietThanhVien AS L ON K.Ten_DN = L.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS M ON B.Ma_giao_vien = M.ID
+		LEFT JOIN ChiTietThanhVien AS N ON M.Ten_DN = N.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS O ON C.Ma_giao_vien = O.ID
+		LEFT JOIN ChiTietThanhVien AS P ON O.Ten_DN = P.Ten_dang_nhap
+		WHERE A.ID = @ID
+	END
+	ELSE
+	BEGIN
+		SELECT A.ID AS MaToTrinh, A.Ten, A.Ma_nguoi_tao AS MaNguoiTao, A.Ma_nguoi_duyet AS MaNguoiDuyet,
+		Convert(varchar(10), A.Ngay_cap_nhat_cuoi, 103) AS NgayCapNhatCuoi, Convert(varchar(10), A.Ngay_duyet, 103) AS NgayDuyet,
+		A.Tinh_trang AS TinhTrang, ISNULL(J.Ho, '') + ' ' + ISNULL(J.Ten_lot, '') + ' ' + ISNULL(J.Ten, '') AS TenNguoiTao,
+		ISNULL(L.Ho, '') + ' ' + ISNULL(L.Ten_lot, '') + ' ' + ISNULL(L.Ten, '') AS TenNguoiDuyet,
+		B.ID AS MaMonHocTKBThayDoi, B.Ma_giao_vien AS MaGiaoVienThayDoi, ISNULL(N.Ho, '') + ' ' + ISNULL(N.Ten_lot, '') + ' ' + ISNULL(N.Ten, '') AS TenGiaoVienThayDoi,
+		C.Ma_giao_vien AS MaGiaoVien, ISNULL(P.Ho, '') + ' ' + ISNULL(P.Ten_lot, '') + ' ' + ISNULL(P.Ten, '') AS TenGiaoVien,
+		D.Ten_mon_hoc AS TenMonHoc
+		FROM ToTrinh AS A
+		LEFT JOIN MonHocTKBThayDoi AS B ON A.ID = B.Ma_to_trinh
+		LEFT JOIN MonHocTKB AS C ON B.Ma_mon_hoc_TKB = C.ID
+		LEFT JOIN MonHoc AS D ON C.Ma_mon_hoc = D.ID
+		LEFT JOIN ThanhVien AS I ON A.Ma_nguoi_tao = I.ID
+		LEFT JOIN ChiTietThanhVien AS J ON I.Ten_DN = J.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS K ON A.Ma_nguoi_duyet = K.ID
+		LEFT JOIN ChiTietThanhVien AS L ON K.Ten_DN = L.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS M ON B.Ma_giao_vien = M.ID
+		LEFT JOIN ChiTietThanhVien AS N ON M.Ten_DN = N.Ten_dang_nhap
+		LEFT JOIN ThanhVien AS O ON C.Ma_giao_vien = O.ID
+		LEFT JOIN ChiTietThanhVien AS P ON O.Ten_DN = P.Ten_dang_nhap
+		WHERE A.ID = @ID
+	END
+END
+GO
+
 --sp_ISO_GetToTrinhByID.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetToTrinhByID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_GetToTrinhByID]
@@ -5027,7 +5132,7 @@ BEGIN
 		WHERE A.ID = @ID
 	END
 END
---exec sp_ISO_GetToTrinhByID 4
+--exec sp_ISO_GetToTrinhByID 5
 GO
 
 --sp_ISO_GetTuanByNgay.sql
@@ -6383,7 +6488,7 @@ CREATE PROCEDURE sp_ISO_InsertKeHoachThang
 	@Ngay_duyet datetime,
 	@Ma_nguoi_duyet int,
 	@Nam varchar(4),
-	@Ten_ke_hoach_thang nvarchar(200),
+	@Ten_ke_hoach_thang nvarchar(200) output,
 	@Ngay_gui datetime,
 	@Tinh_trang int,
 	@Ly_do_reject varchar(2000),
@@ -6417,7 +6522,7 @@ BEGIN
 		@User4,
 		@User5
 	)
-	SELECT @ID = ID FROM KeHoachThang WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+	SELECT @ID = ID, @Ten_ke_hoach_thang = Ten_ke_hoach_thang FROM KeHoachThang WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END
 
 GO
