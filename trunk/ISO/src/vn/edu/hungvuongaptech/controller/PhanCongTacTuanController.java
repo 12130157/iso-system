@@ -489,7 +489,7 @@ public class PhanCongTacTuanController extends HttpServlet {
 					MailDAO.getContentSendMailListCongTacTuan(
 							SysParamsDAO.getNgayGioHeThong().getNgayHeThong(),  
 									chiTietKHDTModel.getId()));	
-		MailUtil.sendEmail("gundam2601@yahoo.com","",
+		MailUtil.sendEmail("cuongits@gmail.com","",
 				"[ISO] - Thong Bao - " + soLan + " - PHAN CONG TAC TUAN",
 					MailDAO.getContentSendMailListCongTacTuan(
 							SysParamsDAO.getNgayGioHeThong().getNgayHeThong(),  
