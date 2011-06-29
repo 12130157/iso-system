@@ -21,27 +21,27 @@ BEGIN
 	SET @Dieu_kien_ten_thiet_bi = ' ''t'' = ''t'' '
 	if(@Tinh_trang <> '')
 	BEGIN
-		SET @Dieu_kien_tinh_trang = ' Ma_tinh_trang = ' + @Tinh_trang
+		SET @Dieu_kien_tinh_trang = ' A.Ma_tinh_trang = ' + @Tinh_trang
 	END
 
 	if(@Loai_thiet_bi <> '')
 	BEGIN
-		SET @Dieu_kien_loai_thiet_bi = ' Ma_loai = ' + @Loai_thiet_bi
+		SET @Dieu_kien_loai_thiet_bi = ' A.Ma_loai = ' + @Loai_thiet_bi
 	END
 	
 	if(@Phong_ban <> '')
 	BEGIN
-		SET @Dieu_kien_phong_ban = ' Ma_phong = ' + @Phong_ban
+		SET @Dieu_kien_phong_ban = ' B.Ma_phong = ' + @Phong_ban
 	END
 	
 	if(@Ten_thiet_bi <> '')
 	BEGIN
-		SET @Dieu_kien_ten_thiet_bi = ' Ten LIKE ''%' + @Ten_thiet_bi + '%'''
+		SET @Dieu_kien_ten_thiet_bi = ' A.Ten LIKE ''%' + @Ten_thiet_bi + '%'''
 	END
 	SELECT @sql = ' 
 		SELECT COUNT(*) AS Count
-		FROM ThietBi 
-		WHERE Kiem_tra_ton_tai = 1 AND ' + @Dieu_kien_tinh_trang + ' AND ' + @Dieu_kien_phong_ban 
+		FROM ThietBi AS A INNER JOIN TrinhTuThayDoiThietBi AS B ON A.ID = B.Ma_thiet_bi AND B.Kiem_tra_ton_tai = ''1''
+		WHERE ' + @Dieu_kien_tinh_trang + ' AND ' + @Dieu_kien_phong_ban 
 			+ ' AND ' + @Dieu_kien_loai_thiet_bi + ' AND ' + @Dieu_kien_ten_thiet_bi
 	exec sp_executesql @sql
 	--PRINT @sql	

@@ -9,7 +9,7 @@ CREATE PROC sp_QLTB_InsertPhieuBaoTriThietBi
     @Nguoi_de_xuat			int,
 	@Ngay_bao_tri			datetime,
     @Ghi_chu				nvarchar(80),
-	@Ma_phong				int
+	@Ma_phong				int,
 	@Ngay_cap_nhat_cuoi		datetime,
 	@User1					varchar(40),
 	@User2					varchar(40),

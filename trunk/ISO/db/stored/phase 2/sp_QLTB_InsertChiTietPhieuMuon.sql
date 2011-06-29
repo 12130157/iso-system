@@ -16,11 +16,21 @@ CREATE PROC sp_QLTB_InsertChiTietPhieuMuon
 	@User2					varchar(40),
 	@User3					varchar(40),
 	@User4					varchar(40),
-	@User5					varchar(40)
+	@User5					varchar(40),
+
+	@Choice					varchar
 AS
 BEGIN
 	SET @Ngay_cap_nhat_cuoi	= getdate()
-	SET @Thoi_gian_muon	= getdate()
+	IF(@Choice = '1')
+	BEGIN
+		SET @Tinh_trang = '1'
+	END
+	ELSE
+	BEGIN
+		SET @Tinh_trang = '2'
+		UPDATE ThietBi SET Ma_tinh_trang = 1 WHERE ID = @Ma_thiet_bi 
+	END
 	INSERT INTO	ChiTietPhieuMuon
 	VALUES (
 		@Ma_phieu_muon,
@@ -37,6 +47,5 @@ BEGIN
 		@User4,
 		@User5		
 	)
-	UPDATE ThietBi SET Ma_tinh_trang = 1 WHERE ID = @Ma_thiet_bi
 	SELECT @ID = ID FROM ChiTietPhieuMuon WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END

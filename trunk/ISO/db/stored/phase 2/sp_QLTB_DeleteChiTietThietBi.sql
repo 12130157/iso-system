@@ -3,9 +3,12 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_QLTB_De
 drop procedure [dbo].[sp_QLTB_DeleteChiTietThietBi]
 GO
 CREATE PROC sp_QLTB_DeleteChiTietThietBi
-	@ID	int
+	@ID	int -- Ma linh kien
 AS
 BEGIN
+	DELETE FROM TrinhTuThayDoiLinhKien 
+	WHERE Ma_linh_kien = @ID
+
 	DELETE 
 	FROM ChiTietThietBi
 	WHERE ID = @ID		

@@ -3,55 +3,38 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_QLTB_In
 	drop procedure [dbo].[sp_QLTB_InsertThietBi]
 GO
 create procedure sp_QLTB_InsertThietBi
-		@ID int output,
-		@Ten nvarchar(200),
-		@Ma_loai int,
-		@Ki_hieu nvarchar(100),
-		@Ma_tinh_trang int,
-		@Ghi_chu nvarchar(200),
-		@Ma_bo_phan int,
-		@Ma_nguoi_tao int,
-		@Ma_phong int,
-		@Ma_nha_cung_cap int,
-		@Ngay_san_xuat datetime,
-		@Ngay_mua datetime,
-		@Han_bao_hanh datetime,
-		@Ngay_bat_dau_su_dung datetime,
-		--@Ma_don_vi int
-		@Tan_suat_toi_da int,
-		--@Tan_suat_su_dung int,
-		--@Ma_don_vi_tan_suat int,
-		@Gia_mua float,
-		@So_lan_su_dung int,
-		@So_lan_bao_tri int,
-		@Dac_tinh_ky_thuat nvarchar(2000),
-		@Nguyen_tac_su_dung nvarchar(2000),
-		--@So_may	int,
-		@Ngay_cap_nhat_cuoi	datetime,
-		@User1 varchar(40),
-		@User2 varchar(40),
-		@User3 varchar(40),
-		@User4 varchar(40),
-		@User5 varchar(40),
-		@So_luong int
+		@ID						int output,
+		@Ten					nvarchar(100),
+		@Ma_loai				int,
+		@Ki_hieu				nvarchar(100),
+		@Ma_tinh_trang			int,
+		@Ghi_chu				nvarchar(1000),
+		@Ma_nguoi_tao			int,
+		@Ma_nha_cung_cap		int,
+		@Ngay_san_xuat			datetime,
+		@Ngay_mua				datetime,
+		@Han_bao_hanh			datetime,
+		@Ngay_bat_dau_su_dung	datetime,
+		@Tan_suat_toi_da		int,
+		@Gia_mua				float,
+		@Dac_tinh_ky_thuat		nvarchar(2000),
+		@Nguyen_tac_su_dung		nvarchar(2000),
+		@So_lan_su_dung			int,
+		@So_lan_bao_tri			int,
+		@Ma_tan_suat			int,
+		@Tan_suat_su_dung		float,
+		@Ngay_cap_nhat_cuoi		datetime,
+		@User1					varchar(40),
+		@User2					varchar(40),
+		@User3					varchar(40),
+		@User4					varchar(40),
+		@User5					varchar(40),
+
+		@Ma_bo_phan				int,
+		@Ma_phong				int
 as
 begin	
-	DECLARE @Count int
-	DECLARE @Temp nvarchar(100)
-	DECLARE @Ngay_cap_nhat_cuoi_temp datetime
-	SET @Temp = @Ki_hieu
-	SET @Count = 1		
-	WHILE(@Count <= @So_luong)
-	BEGIN
-		IF(@So_luong > 1)
-		BEGIN
-			SET @Ki_hieu = @Temp + Cast(@Count AS varchar)
-		END
-		SET @Ngay_cap_nhat_cuoi = getdate()
-		IF(@Count = 1)
-		BEGIN
-			SET @Ngay_cap_nhat_cuoi_temp = @Ngay_cap_nhat_cuoi
-		END
+	SET @Ngay_cap_nhat_cuoi = getdate()
 		
 		INSERT INTO THIETBI
 		VALUES
@@ -59,36 +42,41 @@ begin
 			@Ten,
 			@Ma_loai,
 			@Ki_hieu,
-			0,--@Ma_tinh_trang,
+			@Ma_tinh_trang,			--@Ma_tinh_trang,
 			@Ghi_chu,
-			@Ma_bo_phan,
 			@Ma_nguoi_tao,
-			@Ma_phong,
 			@Ma_nha_cung_cap,
 			@Ngay_san_xuat,
 			@Ngay_mua,
 			@Han_bao_hanh,
 			@Ngay_bat_dau_su_dung,
-			--@Ma_don_vi_tinh,
 			@Tan_suat_toi_da,
-			--@Tan_suat_su_dung,
-			--@Ma_don_vi_tan_suat,
 			@Gia_mua,
 			@Dac_tinh_ky_thuat,
 			@Nguyen_tac_su_dung,
 			@So_lan_su_dung,
 			@So_lan_bao_tri,
-			NULL,
-			'0',
+			@Ma_tan_suat,
+			@Tan_suat_su_dung,
 			@Ngay_cap_nhat_cuoi,
-			--@So_may,
 			@User1,
 			@User2,
 			@User3,
 			@User4,
 			@User5
 		)
-		SET @Count = @Count + 1
-	END
-	SELECT @ID = ID FROM ThietBi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi_temp
+	SELECT @ID = ID FROM ThietBi WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
+	INSERT INTO TrinhTuThayDoiThietBi VALUES
+	(
+		@ID,
+		@Ma_phong,
+		@Ma_bo_phan,
+		'1',
+		@Ngay_cap_nhat_cuoi,
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		NULL
+	)
 end
