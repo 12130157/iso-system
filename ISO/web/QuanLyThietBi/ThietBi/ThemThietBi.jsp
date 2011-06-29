@@ -70,6 +70,9 @@
 <script language="type/text">
 	<%
 		ThietBiModel thietBiModel = new ThietBiModel();
+		thietBiModel.setSoLanBaoTri("0");
+		thietBiModel.setSoLanSuDung("0");
+		thietBiModel.setTanSuatSuDung("0.0");
 		if(request.getParameter("maThietBi") != null)
 			thietBiModel = ThietBiDAO.getThietBiByID(request.getParameter("maThietBi"));
 		else if(request.getAttribute("thietBi") != null)
@@ -81,6 +84,7 @@
 <c:set var='nhaCCList' value='<%=NhaCungCapDAO.getAllNhaCungCapByTen(1,NhaCungCapDAO.getTotalNhaCungCapByTen(""),"")%>'></c:set>
 <c:set var='loaiThietBiList' value='<%=LoaiThietBiDAO.getAllLoaiThietBi()%>' ></c:set>
 <c:set var = "ThietBi" value="<%=thietBiModel %>" scope = "session"/>
+<c:set var = "TanSuatList" value = "<%=TanSuatDAO.getAllTanSuat() %>"/>
 </head>
 <body>
 <div align="center">
@@ -214,7 +218,14 @@
 							</td>
 							<td style="text-align:right">Tần suất tối đa</td>
 							<td>
-								<input type="text" size="25" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ThietBi.tanSuatToiDa }"/>
+								<input type="text" size="13" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ThietBi.tanSuatToiDa }"/>
+								<select name="cboTanSuat" id = "cboTanSuat">
+									<c:forEach var = "TanSuat" items="${TanSuatList}">
+										<option value="${TanSuat.maTanSuat}"
+											<c:if test = "${TanSuat.maTanSuat eq ThietBi.maTanSuat}">selected</c:if>
+										>${TanSuat.tenTanSuat}</option>
+									</c:forEach>
+								</select>
 								<font id='alertTanSuatToiDa' color='red'></font>
 							</td>
 							

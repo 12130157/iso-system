@@ -16,15 +16,14 @@ public class ChiTietPhieuMuonDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_QLTB_InsertChiTietPhieuMuon(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_QLTB_InsertChiTietPhieuMuon(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
 			csmt.setString("Ma_phieu_muon", chiTietPhieuMuon.getMaPhieuMuon());
 			csmt.setString("Ma_thiet_bi", chiTietPhieuMuon.getMaThietBi());
-			//csmt.setString("So_luong", chiTietPhieuMuon.getSoLuong());
 			csmt.setString("Tinh_trang", "1");
 			csmt.setString("Ghi_chu", chiTietPhieuMuon.getGhiChu());
-			csmt.setString("Thoi_gian_tra", null);
-			csmt.setString("Thoi_gian_muon", null);
+			csmt.setString("Thoi_gian_muon", chiTietPhieuMuon.getThoiGianMuon());
+			csmt.setString("Thoi_gian_tra", chiTietPhieuMuon.getThoiGianTra());
 			csmt.setString("Phan_loai", "1");
 			csmt.setString("Ngay_cap_nhat_cuoi", chiTietPhieuMuon.getNgayCapNhatCuoi());
 			csmt.setString("User1", chiTietPhieuMuon.getUser1());
@@ -32,6 +31,8 @@ public class ChiTietPhieuMuonDAO {
 			csmt.setString("User3", chiTietPhieuMuon.getUser3());
 			csmt.setString("User4", chiTietPhieuMuon.getUser4());
 			csmt.setString("User5", chiTietPhieuMuon.getUser5());
+			
+			csmt.setString("Choice", "2");
 			result = DataUtil.executeNonStore(csmt);
 		}
 		catch (Exception e) {
@@ -44,10 +45,12 @@ public class ChiTietPhieuMuonDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_QLTB_UpdateChiTietPhieuMuonThietBi(?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_QLTB_UpdateChiTietPhieuMuonByID(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("ID", chiTietPhieuMuon.getMaCTPM());
 			csmt.setString("Ma_phieu_muon", chiTietPhieuMuon.getMaPhieuMuon());
 			csmt.setString("Ma_thiet_bi", chiTietPhieuMuon.getMaThietBi());
-			//csmt.setString("So_luong", chiTietPhieuMuon.getSoLuong());
+			csmt.setString("Thoi_gian_tra", chiTietPhieuMuon.getThoiGianMuon());
+			csmt.setString("Thoi_gian_muon", chiTietPhieuMuon.getThoiGianTra());
 			csmt.setString("Tinh_trang", chiTietPhieuMuon.getTinhTrang());
 			csmt.setString("Ghi_chu", chiTietPhieuMuon.getGhiChu());
 			csmt.setString("Ngay_cap_nhat_cuoi", chiTietPhieuMuon.getNgayCapNhatCuoi());
@@ -56,9 +59,10 @@ public class ChiTietPhieuMuonDAO {
 			csmt.setString("User3", chiTietPhieuMuon.getUser3());
 			csmt.setString("User4", chiTietPhieuMuon.getUser4());
 			csmt.setString("User5", chiTietPhieuMuon.getUser5());
-			Boolean ketQua = DataUtil.executeNonStore(csmt);
+			result = DataUtil.executeNonStore(csmt);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
 		return result;
@@ -140,8 +144,12 @@ public class ChiTietPhieuMuonDAO {
 					chiTietPhieuMuon.setTenThietBi(rs.getNString("TenThietBi"));
 				else
 					chiTietPhieuMuon.setTenThietBi(rs.getNString("TenLinhKien"));
-				chiTietPhieuMuon.setThoiGianMuon(rs.getString("ThoiGianMuon"));
-				chiTietPhieuMuon.setThoiGianTra(rs.getString("ThoiGianTra"));
+				chiTietPhieuMuon.setNgayMuon(rs.getString("NgayMuon"));
+				chiTietPhieuMuon.setGioMuon(rs.getString("GioMuon"));
+				chiTietPhieuMuon.setPhutMuon(rs.getString("PhutMuon"));
+				chiTietPhieuMuon.setNgayTra(rs.getString("NgayTra"));
+				chiTietPhieuMuon.setGioTra(rs.getString("GioTra"));
+				chiTietPhieuMuon.setPhutTra(rs.getString("PhutTra"));
 				chiTietPhieuMuon.setGhiChu(rs.getString("GhiChuChiTiet"));
 				chiTietPhieuMuon.setTinhTrang(rs.getString("TinhTrang"));
 				chiTietPhieuMuonList.add(chiTietPhieuMuon);
@@ -151,19 +159,23 @@ public class ChiTietPhieuMuonDAO {
 		}						
 		return phieuMuonThietBi;
 	}
-	public static Boolean updateChiTietPhieuMuonByID(String maChiTietPhieuMuon, String ghiChu) {
-		Boolean result = false;		
+	public static String kiemTraThietBiMuon(String thoiGianMuon, String thoiGianTra) {
+		System.out.println(thoiGianMuon);
+		String listMaThietBi =  "";
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_QLTB_updateChiTietPhieuMuonByID(?,?)}");		
-			csmt.setString("ID", maChiTietPhieuMuon);
-			csmt.setNString("Ghi_chu", ghiChu);
-			result = DataUtil.executeNonStore(csmt);			
+				.prepareCall("{call sp_QLTB_kiemTraThietBiMuon(?,?)}");		
+			csmt.setString("Thoi_gian_muon", thoiGianMuon);
+			csmt.setString("Thoi_gian_tra", thoiGianTra);
+			ResultSet rs = DataUtil.executeStore(csmt);
+			while(rs.next()) {
+				listMaThietBi += "-" + (rs.getString("ID"));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 						
-		return result;
+		return listMaThietBi;
 	}
 }

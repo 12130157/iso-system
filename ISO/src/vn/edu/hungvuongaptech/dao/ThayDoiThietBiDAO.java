@@ -17,7 +17,7 @@ import vn.edu.hungvuongaptech.model.TinhTrangThietBiModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class ThayDoiThietBiDAO {	
-	public static ArrayList<PhieuMuonThietBiModel> searchAllKhoa() {
+	/*public static ArrayList<PhieuMuonThietBiModel> searchAllKhoa() {
 		ArrayList<PhieuMuonThietBiModel> listKetQua = new ArrayList<PhieuMuonThietBiModel>();
 		try {
 			PreparedStatement preparedStatement = DataUtil.getConnection()
@@ -35,7 +35,7 @@ public class ThayDoiThietBiDAO {
 			e.printStackTrace();
 		}
 		return listKetQua;
-	}
+	}*/
 	
 	public static ArrayList<ThanhVienModel> timAllThanhVienByMaKhoa() {
 		ArrayList<ThanhVienModel> listKetQua = new ArrayList<ThanhVienModel>();

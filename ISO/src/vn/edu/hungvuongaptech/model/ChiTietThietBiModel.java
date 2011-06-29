@@ -29,6 +29,7 @@ public class ChiTietThietBiModel implements Serializable{
 	private String tanSuatSuDung;
 	private String giaMua;
 	private String nguyenTacSuDung;
+	private String maTanSuat;
 	public String getMaChiTietThietBi() {
 		return maChiTietThietBi;
 	}
@@ -277,6 +278,12 @@ public class ChiTietThietBiModel implements Serializable{
 	}
 	public void setTenNhaCungCap(String tenNhaCungCap) {
 		this.tenNhaCungCap = tenNhaCungCap;
+	}
+	public String getMaTanSuat() {
+		return maTanSuat;
+	}
+	public void setMaTanSuat(String maTanSuat) {
+		this.maTanSuat = maTanSuat;
 	}
 	
 }

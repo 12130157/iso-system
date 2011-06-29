@@ -29,7 +29,7 @@ public class PhieuMuonThietBiDAO {
 				.prepareCall("{call sp_QLTB_InsertPhieuMuonThietBi(?,?,?,?,?,?,?,?,?,?)}");
 			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
 			csmt.setString("Nguoi_muon", phieuMuon.getMaNguoiMuon());
-			csmt.setString("Ma_lop", phieuMuon.getMaLop());
+			csmt.setString("Ngay_muon", phieuMuon.getNgayMuon());
 			csmt.setString("Ghi_chu", phieuMuon.getGhiChu());
 			csmt.setString("Ngay_cap_nhat_cuoi", phieuMuon.getNgayCapNhatCuoi());
 			csmt.setString("User1", phieuMuon.getUser1());
@@ -52,17 +52,17 @@ public class PhieuMuonThietBiDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_QLTB_UpdatePhieuMuonThietBi(?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_QLTB_UpdatePhieuMuonThietBiByID(?,?)}");
 			csmt.setString("ID", phieuMuon.getMaPhieuMuon());
 			//csmt.setString("Nguoi_muon", phieuMuon.getMaNguoiMuon());
 			//csmt.setString("Ma_lop", phieuMuon.getMaLop());
 			csmt.setString("Ghi_chu", phieuMuon.getGhiChu());
-			csmt.setString("Ngay_cap_nhat_cuoi", phieuMuon.getNgayCapNhatCuoi());
-			csmt.setString("User1", phieuMuon.getUser1());
-			csmt.setString("User2", phieuMuon.getUser2());
-			csmt.setString("User3", phieuMuon.getUser3());
-			csmt.setString("User4", phieuMuon.getUser4());
-			csmt.setString("User5", phieuMuon.getUser5());
+			//csmt.setString("Ngay_cap_nhat_cuoi", phieuMuon.getNgayCapNhatCuoi());
+			//csmt.setString("User1", phieuMuon.getUser1());
+			//csmt.setString("User2", phieuMuon.getUser2());
+			//csmt.setString("User3", phieuMuon.getUser3());
+			//csmt.setString("User4", phieuMuon.getUser4());
+			//csmt.setString("User5", phieuMuon.getUser5());
 			result = DataUtil.executeNonStore(csmt);
 			if(result) {
 				ArrayList<ChiTietPhieuMuonModel> chiTietPhieuMuonList = phieuMuon.getChiTietPhieuMuonList();
@@ -125,7 +125,6 @@ public class PhieuMuonThietBiDAO {
 				phieuMuonThietBi.setTenNguoiMuon(rs.getNString("TenNguoiMuon"));
 				phieuMuonThietBi.setNgayMuon(rs.getString("NgayMuon"));
 				phieuMuonThietBi.setKhoa(rs.getNString("TenKhoa"));
-				phieuMuonThietBi.setKiHieuLop(rs.getString("KiHieuLop"));
 				phieuMuonList.add(phieuMuonThietBi);
 			}
 		} catch (Exception e) {
@@ -133,12 +132,12 @@ public class PhieuMuonThietBiDAO {
 		}						
 		return phieuMuonList;
 	}
-	public static Boolean checkNguoiMuonAndNgayMuonANDMaLopOfPhieuMuonThietBi(String maNguoiMuon, String maLop) {
+	public static Boolean findPhieuMuonThietBiByNguoiMuonAndNgayMuon(String maNguoiMuon, String maLop) {
 		Boolean result = true;
 		try {
 			CallableStatement csmt = DataUtil
 			.getConnection()
-			.prepareCall("{call sp_QLTB_FindPhieuMuonThietBiByNguoiMuonAndNgayMuonANDMaLop(?,?,?,?)}");
+			.prepareCall("{call sp_QLTB_FindPhieuMuonThietBiByNguoiMuonAndNgayMuon(?,?,?,?)}");
 			csmt.setString("Nguoi_muon", maNguoiMuon);
 			csmt.setString("Ma_lop", maLop);
 			csmt.registerOutParameter("Result", java.sql.Types.VARCHAR);
@@ -169,7 +168,7 @@ public class PhieuMuonThietBiDAO {
 			if(rs.next()) {
 				phieuMuon.setMaPhieuMuon(rs.getString("MaPhieuMuon"));
 				phieuMuon.setTenNguoiMuon(rs.getString("TenNguoiMuon"));
-				phieuMuon.setKiHieuLop(rs.getString("KiHieuLop"));
+				//phieuMuon.setKiHieuLop(rs.getString("KiHieuLop"));
 				phieuMuon.setNgayMuon(rs.getString("NgayMuon"));
 			}
 		} catch (SQLException e) {

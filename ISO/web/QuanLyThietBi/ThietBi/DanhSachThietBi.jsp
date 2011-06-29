@@ -85,7 +85,7 @@
 		</c:choose>
 	
 		<% 
-			String loaiThietBi = "", phongBan = "", tinhTrang = "", currentPage = "1"; 
+			String loaiThietBi = "", phongBan = "", tinhTrang = "", currentPage = "1", tenThietBi = ""; 
 			if(request.getParameter("loaiThietBi") != null)
 				loaiThietBi = request.getParameter("loaiThietBi");
 			
@@ -98,8 +98,11 @@
 			if(request.getParameter("page") != null)
 				currentPage = request.getParameter("page");
 			
+			if(request.getAttribute("tenThietBi") != null)
+			tenThietBi = (String) request.getAttribute("tenThietBi");
+			
 			int c = 1, totalRow = 0;
-			totalRow = ThietBiDAO.getCountThietBi(loaiThietBi, phongBan, tinhTrang, "");
+			totalRow = ThietBiDAO.getCountThietBi(loaiThietBi, phongBan, tinhTrang, tenThietBi);
 			ArrayList<ThietBiModel> thietBiList = ThietBiDAO.getAllThietBiByDieuKien(loaiThietBi, phongBan, tinhTrang, totalRow, currentPage, "", "2");
 		%>
 		<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
@@ -134,7 +137,9 @@
 							</option> 
 						</c:forEach>
 					</select> 
-				</td>			
+				</td>
+			</tr>
+			<tr>				
 				<td>Tình trạng 
 						<select id="cboTinhTrang" name="cboTinhTrang">
 							<option 
@@ -149,12 +154,16 @@
 								</c:forEach>
 						</select>
 				</td>
+				<td>Tên thiết bị 
+						<input type = "text" id = "txtTenThietBi" name = "txtTenThietBi" value = "<%=tenThietBi %>"/>
+				</td>
 				<td><a href = "javascript: search();"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a></td>
 			</tr>
 		</table>		
 		
 		<table border="1">
 			<tr>
+				<th style='background-color: #186fb2;color:white'>&nbsp;&nbsp;&nbsp;</th>
 				<th bgcolor = "#186fb2">
 								<div class = "div_textWhite">
 									<input type="checkbox" name="chkAll" id="chkAll" onclick="checkAll();"></input>
@@ -227,9 +236,10 @@
 						{
 							out.print("if(document.getElementById('chk" + i + "').checked == true) {");
 							out.print("check = true;");
-							out.print("if(document.getElementById('txtTinhTrangDuocXoa').value == '2') {");
+							out.print("if(document.getElementById('txtTinhTrangDuocXoa" + i + "').value == '2')");
 							out.print("check1 = false;");
-							out.print("listThietBiCanXoa += '-' + document.getElementById('chk" + i + "').value; }}");
+							out.print("else {");
+							out.print("listThietBiCanXoa += '-' + document.getElementById('chk" + i + "').value;}}");
 						}
 					%>
 					if(check == false)
@@ -267,11 +277,8 @@
 						if(value != null)
 						{
 							document.getElementById('txtListThietBi').value = value;
-							if(confirm("Bạn có chắc chắn muốn báo hư những thiết bị này không???"))
-							{
-								document.getElementById('actionType').value = 'BaoHuThietBi';
-								document.forms["formThietBi"].submit();
-							}
+							document.getElementById('actionType').value = 'BaoHuThietBi';
+							document.forms["formThietBi"].submit();
 						}
 					}
 					else
