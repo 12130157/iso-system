@@ -86,42 +86,37 @@ public class ChiTietThietBiDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_QLTB_InsertChiTietThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-			csmt.registerOutParameter("ID",java.sql.Types.INTEGER);
-			csmt.setString("Ma_thiet_bi", chiTietThietBi.getMaThietBi());
-			csmt.setNString("Ten",chiTietThietBi.getTenChiTietThietBi());
+				.prepareCall("{call sp_QLTB_InsertChiTietThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
+			csmt.setNString("Ten_linh_kien",chiTietThietBi.getTenChiTietThietBi());
 			csmt.setString("Ma_loai_linh_kien",chiTietThietBi.getMaLoaiChiTietThietBi());
+			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setString("Ma_tinh_trang",chiTietThietBi.getMaTinhTrang());
 			csmt.setNString("Ghi_chu",chiTietThietBi.getGhiChu());
-			csmt.setString("Ma_bo_phan",chiTietThietBi.getMaBoPhan());
 			csmt.setString("Ma_nguoi_tao",chiTietThietBi.getMaNguoiTao());
-			
-			csmt.setString("Ma_phong",chiTietThietBi.getMaPhongBan());
 			csmt.setString("Ma_nha_cung_cap",chiTietThietBi.getMaNhaCungCap());
 			csmt.setString("Ngay_san_xuat",chiTietThietBi.getNgaySanXuat());
 			csmt.setString("Ngay_mua",chiTietThietBi.getNgayMua());			
 			csmt.setString("Han_bao_hanh",chiTietThietBi.getHanBaoHanh());
-			csmt.setString("Ma_tinh_trang","0");
 			csmt.setString("Ngay_bat_dau_su_dung",chiTietThietBi.getNgayBatDauSuDung());
-			
-			//csmt.setString("MaDonViTinh",chiTietThietBi.getMaDonViTinh());
 			csmt.setString("Tan_suat_toi_da",chiTietThietBi.getTanSuatToiDa());
-			//csmt.setString("Ma_don_vi_tan_suat",chiTietThietBi.getMaDonViTanSuat());
-			//csmt.setNString("PhuKien",chiTietThietBi.getPhuKien());
 			csmt.setString("Gia_mua",chiTietThietBi.getGiaMua());
-			
-			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
 			csmt.setNString("Dac_tinh_ky_thuat",chiTietThietBi.getDacTinhKyThuat());
-			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
 			csmt.setString("So_lan_su_dung", "0");
 			csmt.setString("So_lan_bao_tri", "0");
-			//csmt.setString("Ma_chi_tiet_thiet_bi_truoc", chiTietThietBi.getMaChiThietThietBiTruoc());
+			csmt.setString("Ma_tan_suat", chiTietThietBi.getMaTanSuat());
+			csmt.setString("Tan_suat_su_dung", chiTietThietBi.getTanSuatSuDung());
 			csmt.setString("Ngay_cap_nhat_cuoi", null);
-			csmt.setNString("User1",chiTietThietBi.getUser1());
+			csmt.setString("User1",chiTietThietBi.getUser1());
 			csmt.setString("User2",chiTietThietBi.getUser2());
-			
-			csmt.setNString("User3",chiTietThietBi.getUser3());
-			csmt.setNString("User4",chiTietThietBi.getUser4());
+			csmt.setString("User3",chiTietThietBi.getUser3());
+			csmt.setString("User4",chiTietThietBi.getUser4());
 			csmt.setString("User5",chiTietThietBi.getUser5());
+			
+			csmt.setString("Ma_thiet_bi", chiTietThietBi.getMaThietBi());
+			csmt.setString("Ma_bo_phan",chiTietThietBi.getMaBoPhan());
+			csmt.setString("Ma_phong",chiTietThietBi.getMaPhongBan());
 			result = DataUtil.executeNonStore(csmt);
 			if(result) {
 				String maChiTietThietBi = csmt.getString("ID");
@@ -140,39 +135,30 @@ public class ChiTietThietBiDAO {
 				.getConnection()
 				.prepareCall("{call sp_QLTB_UpdateChiTietThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("ID", chiTietThietBi.getMaChiTietThietBi());
-			csmt.setString("Ma_thiet_bi", chiTietThietBi.getMaThietBi());
-			csmt.setNString("Ten",chiTietThietBi.getTenChiTietThietBi());
+			csmt.setNString("Ten_linh_kien",chiTietThietBi.getTenChiTietThietBi());
 			csmt.setString("Ma_loai_linh_kien",chiTietThietBi.getMaLoaiChiTietThietBi());
+			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setString("Ma_tinh_trang",chiTietThietBi.getMaTinhTrang());
 			csmt.setNString("Ghi_chu",chiTietThietBi.getGhiChu());
-			csmt.setString("Ma_bo_phan",chiTietThietBi.getMaBoPhan());
 			csmt.setString("Ma_nguoi_tao",chiTietThietBi.getMaNguoiTao());
-			
-			csmt.setString("Ma_phong",chiTietThietBi.getMaPhongBan());
 			csmt.setString("Ma_nha_cung_cap",chiTietThietBi.getMaNhaCungCap());
 			csmt.setString("Ngay_san_xuat",chiTietThietBi.getNgaySanXuat());
 			csmt.setString("Ngay_mua",chiTietThietBi.getNgayMua());			
 			csmt.setString("Han_bao_hanh",chiTietThietBi.getHanBaoHanh());
-			//csmt.setString("Ma_tinh_trang",chiTietThietBi.getMaTinhTrang());
 			csmt.setString("Ngay_bat_dau_su_dung",chiTietThietBi.getNgayBatDauSuDung());
-			
-			//csmt.setString("MaDonViTinh",chiTietThietBi.getMaDonViTinh());
 			csmt.setString("Tan_suat_toi_da",chiTietThietBi.getTanSuatToiDa());
-			//csmt.setString("Ma_don_vi_tan_suat",chiTietThietBi.getMaDonViTanSuat());
-			//csmt.setNString("PhuKien",chiTietThietBi.getPhuKien());
 			csmt.setString("Gia_mua",chiTietThietBi.getGiaMua());
-			
-			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
 			csmt.setNString("Dac_tinh_ky_thuat",chiTietThietBi.getDacTinhKyThuat());
-			csmt.setString("Ki_hieu",chiTietThietBi.getKiHieu());
+			csmt.setNString("Nguyen_tac_su_dung",chiTietThietBi.getNguyenTacSuDung());
 			csmt.setString("So_lan_su_dung", "0");
 			csmt.setString("So_lan_bao_tri", "0");
-			csmt.setString("Ma_chi_tiet_thiet_bi_truoc", chiTietThietBi.getMaChiThietThietBiTruoc());
+			csmt.setString("Ma_tan_suat", chiTietThietBi.getMaTanSuat());
+			csmt.setString("Tan_suat_su_dung", chiTietThietBi.getTanSuatSuDung());
 			csmt.setString("Ngay_cap_nhat_cuoi", null);
-			csmt.setNString("User1",chiTietThietBi.getUser1());
+			csmt.setString("User1",chiTietThietBi.getUser1());
 			csmt.setString("User2",chiTietThietBi.getUser2());
-			
-			csmt.setNString("User3",chiTietThietBi.getUser3());
-			csmt.setNString("User4",chiTietThietBi.getUser4());
+			csmt.setString("User3",chiTietThietBi.getUser3());
+			csmt.setString("User4",chiTietThietBi.getUser4());
 			csmt.setString("User5",chiTietThietBi.getUser5());
 			result = DataUtil.executeNonStore(csmt);
 		}

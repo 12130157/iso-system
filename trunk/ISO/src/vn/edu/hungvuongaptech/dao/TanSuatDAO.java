@@ -59,38 +59,4 @@ public class TanSuatDAO {
 		}
 		return count;
 	}	
-	
-	public static ArrayList<ThietBiModel> getPT_TanSuatThietBi(Integer totalRows) {
-		ArrayList<ThietBiModel> ListKetQua = new ArrayList<ThietBiModel>();
-		//int totalRows = countThietBi();
-		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_QLTB_ShowTanSuatThietBi(?,?)}");//chua viet
-			csmt.setString("numRows", Constant.NUM_ROWS_THIETBI);
-			csmt.setString("totalPages", totalRows.toString());
-			//csmt.setString("CurrentPage", currenPage);
-			ResultSet rs = DataUtil.executeStore(csmt);
-			while(rs.next())
-			{
-				ThietBiModel tanSuatThietBiModel = new ThietBiModel();
-				
-				tanSuatThietBiModel.setMaThietBi(rs.getString("MaThietBi"));
-				tanSuatThietBiModel.setTenThietBi(rs.getString("TenThietBi"));
-				tanSuatThietBiModel.setTenLoaiThietBi(rs.getString("TenLoaiThietBi"));	
-				tanSuatThietBiModel.setTenTinhTrang(rs.getString("TenTinhTrang"));
-				tanSuatThietBiModel.setTenNhaCungCap(rs.getString("TenNhaCungCap"));
-				tanSuatThietBiModel.setTenDonViTinh(rs.getString("TenDonViTinh"));				
-				tanSuatThietBiModel.setTanSuatToiDa(rs.getString("TanSuatToiDa"));
-				tanSuatThietBiModel.setTenDonViTanSuat(rs.getString("TenDonViTanSuat"));
-				tanSuatThietBiModel.setSoLanBaoTri(rs.getString("SoLanBaoTri"));
-				tanSuatThietBiModel.setSoMay(rs.getString("SoMay"));
-				
-				ListKetQua.add(tanSuatThietBiModel);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ListKetQua;
-	}
 }

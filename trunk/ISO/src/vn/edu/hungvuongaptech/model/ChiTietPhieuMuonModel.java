@@ -10,7 +10,13 @@ public class ChiTietPhieuMuonModel implements Serializable{
 	private String tenThietBi;
 	private String tinhTrang;
 	private String thoiGianMuon;
+	private String ngayMuon;
+	private String gioMuon;
+	private String phutMuon;
 	private String thoiGianTra;
+	private String ngayTra;
+	private String gioTra;
+	private String phutTra;
 	private String phanLoai;
 	private String ghiChu;
 	private String ngayCapNhatCuoi;
@@ -100,18 +106,55 @@ public class ChiTietPhieuMuonModel implements Serializable{
 	public void setThoiGianMuon(String thoiGianMuon) {
 		this.thoiGianMuon = thoiGianMuon;
 	}
-	
 	public String getThoiGianTra() {
 		return thoiGianTra;
 	}
 	public void setThoiGianTra(String thoiGianTra) {
 		this.thoiGianTra = thoiGianTra;
 	}
+	
+	public String getGioMuon() {
+		return gioMuon;
+	}
+	public void setGioMuon(String gioMuon) {
+		this.gioMuon = gioMuon;
+	}
+	public String getPhutMuon() {
+		return phutMuon;
+	}
+	public void setPhutMuon(String phutMuon) {
+		this.phutMuon = phutMuon;
+	}
+	public String getGioTra() {
+		return gioTra;
+	}
+	public void setGioTra(String gioTra) {
+		this.gioTra = gioTra;
+	}
+	public String getPhutTra() {
+		return phutTra;
+	}
+	public void setPhutTra(String phutTra) {
+		this.phutTra = phutTra;
+	}
+	
 	public String getPhanLoai() {
 		return phanLoai;
 	}
 	public void setPhanLoai(String phanLoai) {
 		this.phanLoai = phanLoai;
+	}
+	public String getNgayMuon() {
+		return ngayMuon;
+	}
+	public void setNgayMuon(String ngayMuon) {
+		this.ngayMuon = ngayMuon;
+	}
+	public String getNgayTra() {
+		return ngayTra;
+	}
+	public void setNgayTra(String ngayTra) {
+		this.ngayTra = ngayTra;
 	}
 	
 }

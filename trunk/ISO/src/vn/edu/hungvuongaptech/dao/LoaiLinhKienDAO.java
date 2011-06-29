@@ -18,7 +18,7 @@ public class LoaiLinhKienDAO {
 			.getConnection()
 			.prepareStatement(
 					Constant.SQL_RES
-							.getString("QLTB.sql.getAllLoaiThietBi"));
+							.getString("QLTB.sql.getAllLoaiLinhKien"));
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()){
 				loaiLinhKien = new LoaiLinhKienModel();

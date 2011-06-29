@@ -12,7 +12,7 @@ import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class ThongKeDAO {
 	
-	public static ArrayList<ThietBiModel> showAllTanSuatThietBi() {
+	/*public static ArrayList<ThietBiModel> showAllTanSuatThietBi() {
 		ArrayList<ThietBiModel> listKetQua = new ArrayList<ThietBiModel>();
 		try {
 				PreparedStatement preparedStatement = DataUtil.getConnection()
@@ -208,5 +208,5 @@ public class ThongKeDAO {
 			e.printStackTrace();
 		}
 		return listKetQua;
-	}
+	}*/
 }

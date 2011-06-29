@@ -76,7 +76,7 @@ public class ThietBiController extends HttpServlet {
 		}
 		else if(actionType.equalsIgnoreCase("searchNhaCungCap"))
 		{
-			timNhaCungCap(request,response);
+			//timNhaCungCap(request,response);
 		}
 		else if(actionType.equalsIgnoreCase("ThemLinhKien") || actionType.equalsIgnoreCase("UpdateLinhKien")) {
 			themLinhKien(request,response);
@@ -180,6 +180,7 @@ public class ThietBiController extends HttpServlet {
 	chiTietThietBiModel.setDacTinhKyThuat(StringUtil.toUTF8(request.getParameter("txtDacTinhKT")).trim());
 	chiTietThietBiModel.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu")).trim());
 	chiTietThietBiModel.setKiHieu(StringUtil.toUTF8(request.getParameter("txtKiHieu")).trim());
+	chiTietThietBiModel.setMaTanSuat(request.getParameter("cboTanSuat"));
 }	
 	private void baoHuThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		boolean check = true;
@@ -202,7 +203,7 @@ public class ThietBiController extends HttpServlet {
 	}
 	private void xoaThietBi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		boolean check = true;
-		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBiPath");
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi");
 		String[] listThietBiCanXoa = request.getParameter("txtListThietBi").split("-");
 		for(int i=1;i<listThietBiCanXoa.length;i++) {
 			if(!ThietBiDAO.xoaThietBi(listThietBiCanXoa[i]))
@@ -234,6 +235,7 @@ public class ThietBiController extends HttpServlet {
 		thietBiModel.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu")).trim());
 		thietBiModel.setMaNguoiTao(request.getSession().getAttribute("maThanhVien").toString());
 		thietBiModel.setKiHieu(StringUtil.toUTF8(request.getParameter("txtKiHieu")).trim());
+		thietBiModel.setMaTanSuat(request.getParameter("cboTanSuat"));
 		if(request.getParameter("cboSoLuong") != null)
 			thietBiModel.setSoLuong(request.getParameter("cboSoLuong"));
 		/*ChiTietThietBiModel chiTietThietBiModel;
@@ -261,11 +263,13 @@ public class ThietBiController extends HttpServlet {
 		String maPhongBan = request.getParameter("cboPhong").toString();
 		String maLoaiThietBi = request.getParameter("cboLoaiThietBi");
 		String maTinhTrang = request.getParameter("cboTinhTrang");
-		
-		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBi") + "?phongBan=" + maPhongBan
+		String tenThietBi = StringUtil.toUTF8(request.getParameter("txtTenThietBi")).trim();
+		request.setAttribute("tenThietBi", tenThietBi);
+		String pageNext = Constant.PATH_RES.getString("qltb.DanhSachThietBiShortPath") + "?phongBan=" + maPhongBan
 			+ "&loaiThietBi=" + maLoaiThietBi + "&tinhTrang=" + maTinhTrang;
 			
-		response.sendRedirect(pageNext);
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		rd.forward(request, response);
 	}
 	private void searchLinhKien (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -279,7 +283,7 @@ public class ThietBiController extends HttpServlet {
 		response.sendRedirect(pageNext);
 	}
 	//thong ke
-	protected void timNhaCungCap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void timNhaCungCap(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String maNhaCungCap = request.getParameter("cboNhaCungCap");
 			
 			ArrayList<ThietBiModel> listThietBi = ThongKeDAO.getAllThongKeByMaNhaCungCap(maNhaCungCap);
@@ -294,5 +298,5 @@ public class ThietBiController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
 			rd.forward(request, response);
-	}
+	}*/
 }

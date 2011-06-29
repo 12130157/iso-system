@@ -76,6 +76,8 @@ public class PhieuMuonThietBiController extends HttpServlet {
 			search(request, response);
 		} else if(request.getParameter("actionType").equals("CapNhatPhieuMuon")) {
 			capNhatPhieuMuon(request, response);
+		} else if(request.getParameter("actionType").equals("KiemTraThietBiMuon")) {
+			kiemTraThietBiMuon(request, response);
 		} 
 	}
 	private void timPhieuMuon(HttpServletRequest request,
@@ -112,7 +114,7 @@ public class PhieuMuonThietBiController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		phieuMuon.setMaNguoiMuon(request.getParameter("cboNguoiMuon"));
-		phieuMuon.setMaLop(request.getParameter("cboLop"));
+		phieuMuon.setNgayMuon(request.getParameter("txtNgayMuon"));
 		phieuMuon.setGhiChu(request.getParameter("txtGhiChu"));
 		/*if(PhieuMuonThietBiDAO.checkNguoiMuonAndNgayMuonANDMaLopOfPhieuMuonThietBi(phieuMuon.getMaNguoiMuon(), phieuMuon.getMaLop())) {
 			pageNext += "?TrungPhieuMuon=ok";
@@ -137,6 +139,8 @@ public class PhieuMuonThietBiController extends HttpServlet {
 			ChiTietPhieuMuonModel chiTietPhieuMuon = new ChiTietPhieuMuonModel();
 			chiTietPhieuMuon.setMaThietBi(listThietBiCanMuon[i]);
 			chiTietPhieuMuon.setMaPhieuMuon(request.getParameter("txtMaPhieuMuon"));
+			chiTietPhieuMuon.setThoiGianMuon(request.getParameter("txtThoiGianMuon"));
+			chiTietPhieuMuon.setThoiGianTra(request.getParameter("txtThoiGianTra"));
 			if(!PhieuMuonThietBiDAO.muonThietBi(chiTietPhieuMuon))
 				check = false;
 		}
@@ -208,10 +212,15 @@ public class PhieuMuonThietBiController extends HttpServlet {
 		boolean check = true;
 		pageNext += "?" + getYeuToSearch(request, response);
 		String[] listThietBi = request.getParameter("txtListXuLy").split("-");
+		String ngayMuon = request.getParameter("txtNgayMuon");
 		if(ThietBiDAO.updatePhieuMuonByID(request.getParameter("txtMaPhieuMuon"), StringUtil.toUTF8(request.getParameter("txtGhiChu").trim()))) {
 			for(int i=1;i<listThietBi.length;i++) {
-				if(!ChiTietPhieuMuonDAO.updateChiTietPhieuMuonByID(listThietBi[i], 
-						StringUtil.toUTF8(request.getParameter("txtGhiChu-") + listThietBi[i]).trim()))
+				ChiTietPhieuMuonModel chiTietPhieuMuon = new ChiTietPhieuMuonModel();
+				chiTietPhieuMuon.setMaCTPM(listThietBi[i]);
+				chiTietPhieuMuon.setThoiGianMuon(ngayMuon + ' ' + request.getParameter("cboGioMuon" + listThietBi[i]) + ":" + request.getParameter("cboPhutMuon" + listThietBi[i]));
+				chiTietPhieuMuon.setThoiGianTra(ngayMuon + ' ' + request.getParameter("cboGioTra" + listThietBi[i]) + ":" + request.getParameter("cboPhutTra" + listThietBi[i]));
+				chiTietPhieuMuon.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu-" + listThietBi[i])).trim());
+				if(!ChiTietPhieuMuonDAO.updateChiTietPhieuMuonThietBi(chiTietPhieuMuon))
 					check = false;
 			}
 		} else
@@ -222,5 +231,10 @@ public class PhieuMuonThietBiController extends HttpServlet {
 			pageNext += "?UpdatePhieuMuon=fail";
 		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
 		rd.forward(request, response);
+	}
+	private String kiemTraThietBiMuon(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		return ChiTietPhieuMuonDAO.kiemTraThietBiMuon(request.getParameter("thoiGianMuon"), 
+				request.getParameter("thoiGianTra"));
 	}
 }

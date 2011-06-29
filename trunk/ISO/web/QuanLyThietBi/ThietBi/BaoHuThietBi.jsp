@@ -48,8 +48,8 @@
 			%>
 			<tr style="background-color: transparent;">
 				<c:set var = "LinhKienList" value = "${ThietBi.chiTietThietBiList}"/>
-				<td colspan="<%=count1 %>"><%=count %></td>
-				<td colspan="<%=count1 %>">
+				<td rowspan="<%=count1 %>"><%=count %></td>
+				<td rowspan="<%=count1 %>">
 					${ThietBi.tenThietBi }/${ThietBi.kiHieu }
 					<input type = "hidden" id = "txtMaThietBi<%=count%>" value = "${ThietBi.maThietBi }"/>
 				</td>
@@ -60,7 +60,7 @@
 					</c:if>
 				</td>
 				<td width="20"><input type = "checkbox" id = "chk<%=count %>_1" name = ""/></td>
-				<td width="20" colspan="<%=count1 %>"><input type = "checkbox" id = "chk<%=count %>" name = ""/></td>
+				<td width="20" rowspan="<%=count1 %>"><input type = "checkbox" id = "chk<%=count %>" name = "" onclick="checkAll(<%=count%>, <%=count1 %>);"/></td>
 			</tr>
 			<c:forEach var = "count" begin = "2" end="<%=count1 %>">
 				<td>
@@ -76,7 +76,7 @@
 			<input type = "button" value = "Đóng" onclick = "closeWindow();"/>
 		</p>
 <script type="text/javascript">
-function checkAll(x, countLinhkien)
+function checkAll(x, countLinhKien)
 {
 	if(document.getElementById('chk' + x).checked == true)
 	{
@@ -101,7 +101,10 @@ function traVe()
 			}
 		}
 	%>
-	window.returnValue = str;
+	if(confirm("Bạn có chắc chắn muốn báo hư những thiết bị này không???"))
+	{
+		window.returnValue = str;
+	}
 }
 function closeWindow()
 {

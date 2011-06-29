@@ -416,14 +416,14 @@ function chonCheDoXem()
 						<c:choose>
 							<c:when test = "${ChiTietPhieuMuon.tinhTrang eq '1'}">
 								<td>
-								<select name = "cboGioMuon">
+								<select name = "cboGioMuon${ChiTietPhieuMuon.maCTPM }">
 									<c:forEach var = "GioMuon" begin = "7" end = "20">
 										<option value = "${GioMuon }" 
 											<c:if test = "${GioMuon eq ChiTietPhieuMuon.gioMuon }">selected</c:if>>${GioMuon }</option>
 									</c:forEach>
 								</select>
 								Giờ
-								<select name = "cboPhutMuon">
+								<select name = "cboPhutMuon${ChiTietPhieuMuon.maCTPM }">
 									<c:forEach var = "PhutMuon" begin = "0" end = "55" step = "5">
 										<option value = "${PhutMuon }" 
 											<c:if test = "${PhutMuon eq ChiTietPhieuMuon.phutMuon }">selected</c:if>>${PhutMuon }</option>
@@ -432,14 +432,14 @@ function chonCheDoXem()
 								Phút
 							</td>
 							<td>
-								<select name = "cboGioTra">
+								<select name = "cboGioTra${ChiTietPhieuMuon.maCTPM }">
 									<c:forEach var = "GioTra" begin = "7" end = "20">
 										<option value = "${GioTra }" 
 											<c:if test = "${GioTra eq ChiTietPhieuMuon.gioTra }">selected</c:if>>${GioTra }</option>
 									</c:forEach>
 								</select>
 								Giờ
-								<select name = "cboPhutTra">
+								<select name = "cboPhutTra${ChiTietPhieuMuon.maCTPM }">
 									<c:forEach var = "PhutTra" begin = "0" end = "55" step = "5">
 										<option value = "${PhutTra }" 
 											<c:if test = "${PhutTra eq ChiTietPhieuMuon.phutTra }">selected</c:if>>${PhutTra }</option>
@@ -468,7 +468,7 @@ function chonCheDoXem()
 								</c:choose>	
 							</td>
 							<td><textarea name = "txtGhiChu-${ChiTietPhieuMuon.maCTPM }" id = "txtGhiChu-${ChiTietPhieuMuon.maCTPM }"
-								<c:if test = "${ChiTietPhieuMuon.tinhTrang eq 2}">disabled</c:if>>${ChiTietThietBi.ghiChu }</textarea></td>
+								<c:if test = "${ChiTietPhieuMuon.tinhTrang eq 2}">disabled</c:if>>${ChiTietPhieuMuon.ghiChu }</textarea></td>
 						</tr>
 						<%c++; %>
 					</c:forEach>	

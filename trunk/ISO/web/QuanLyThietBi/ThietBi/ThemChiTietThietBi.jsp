@@ -17,7 +17,8 @@
 <%@page import="vn.edu.hungvuongaptech.model.ThietBiModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.KhoaDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ChiTietThietBiModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.ChiTietThietBiDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.dao.ChiTietThietBiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.LoaiLinhKienDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -72,6 +73,9 @@
 	<%
 		ThietBiModel thietBi = new ThietBiModel();
 		ChiTietThietBiModel chiTietThietBi = new ChiTietThietBiModel();
+		chiTietThietBi.setSoLanBaoTri("0");
+		chiTietThietBi.setSoLanSuDung("0");
+		chiTietThietBi.setTanSuatSuDung("0.0");
 		if(request.getParameter("maThietBi") != null) {
 			thietBi = ThietBiDAO.getThietBiSimpleByID(request.getParameter("maThietBi"));
 			chiTietThietBi.setMaThietBi(thietBi.getMaThietBi());
@@ -82,6 +86,10 @@
 			chiTietThietBi.setNgaySanXuat(thietBi.getNgaySanXuat());
 			chiTietThietBi.setHanBaoHanh(thietBi.getHanBaoHanh());
 			chiTietThietBi.setMaNhaCungCap(thietBi.getMaNhaCungCap());
+			chiTietThietBi.setMaPhongBan(thietBi.getMaPhongBan());
+			chiTietThietBi.setMaBoPhan(thietBi.getMaBoPhan());
+			chiTietThietBi.setTanSuatToiDa(thietBi.getTanSuatToiDa());
+			chiTietThietBi.setMaTanSuat(thietBi.getMaTanSuat());
 		}
 		if(request.getParameter("maLinhKien") != null)
 			chiTietThietBi = ChiTietThietBiDAO.getLinhKienByID(request.getParameter("maLinhKien"));
@@ -92,8 +100,9 @@
 <c:set var='phongList' value='<%=PhongBanDAO.getAllPhongBan()%>' ></c:set>
 <c:set var='khoaList' value='<%=KhoaDAO.showAllKhoa()%>'></c:set>
 <c:set var='nhaCCList' value='<%=NhaCungCapDAO.getAllNhaCungCapByTen(1,NhaCungCapDAO.getTotalNhaCungCapByTen(""),"")%>'></c:set>
-<c:set var='loaiThietBiList' value='<%=LoaiThietBiDAO.getAllLoaiThietBi()%>' ></c:set>
+<c:set var='loaiLinhKienList' value='<%=LoaiLinhKienDAO.getAllLoaiLinhKien()%>' ></c:set>
 <c:set var = "ChiTietThietBi" value="<%=chiTietThietBi %>" scope = "session"/>
+<c:set var = "TanSuatList" value = "<%=TanSuatDAO.getAllTanSuat() %>"/>
 </head>
 <body>
 <div align="center">
@@ -161,10 +170,10 @@
 							<td style="background-color: transparent;">
 								<select id="cboLoaiThietBiLinhKien" name="cboLoaiThietBiLinhKien" style="width: 178px">
 									<option>--Chọn--</option>
-									<c:forEach var="objLoaiLinhKien" items="${loaiThietBiList}">
-											<option value="${objLoaiLinhKien.maLoaiThietBi}"
-												<c:if test = "${ChiTietThietBi.maLoaiChiTietThietBi eq objLoaiLinhKien.maLoaiThietBi}">selected</c:if>>
-													${objLoaiLinhKien.tenLoaiThietBi}</option>
+									<c:forEach var="objLoaiLinhKien" items="${loaiLinhKienList}">
+											<option value="${objLoaiLinhKien.maLoaiLinhKien}"
+												<c:if test = "${ChiTietThietBi.maLoaiChiTietThietBi eq objLoaiLinhKien.maLoaiLinhKien}">selected</c:if>>
+													${objLoaiLinhKien.tenLoaiLinhKien}</option>
 									</c:forEach>
 								</select>
 								<font id='alertLoaiTB' color='red'></font>
@@ -239,7 +248,13 @@
 							</td>
 							<td style="text-align:right">Tần suất tối đa</td>
 							<td>
-								<input type="text" size="25" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ChiTietThietBi.tanSuatToiDa }"/>
+								<input type="text" size="13" id="txtTanSuatToiDa" name="txtTanSuatToiDa" value = "${ChiTietThietBi.tanSuatToiDa }"/>
+								<select name="cboTanSuat" id = "cboTanSuat">
+									<c:forEach var = "TanSuat" items="${TanSuatList}">
+										<option value="${TanSuat.maTanSuat}"
+										<c:if test = "${TanSuat.maTanSuat eq ThietBi.maTanSuat}">selected</c:if>>${TanSuat.tenTanSuat}</option>
+									</c:forEach>
+								</select>
 								<font id='alertTanSuatToiDa' color='red'></font>
 							</td>
 							
@@ -258,7 +273,7 @@
 						<tr>
 							<td style="text-align:right">Tần suất sử dụng</td>
 							<td>
-								<input type="text" size="25" id="txtTanSuatSuDung" name="txtTanSuatSuDung" value = "${ChiTietThietBi.tanSuatSuDung }" readonly="readonly"/>
+								<input type="text" size="25" id="txtTanSuatSuDung" name="txtTanSuatSuDung" value = "${ChiTietThietBi.tanSuatSuDung }%" readonly="readonly"/>
 							</td>
 							<td></td>
 							<td></td>
