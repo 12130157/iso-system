@@ -9,7 +9,7 @@ CREATE PROCEDURE sp_QLTB_GetChiTietPhieuMuonByDieuKien
 	@CurrentPage		varchar(3)
 AS
 BEGIN
-	DECLARE @sql NVarchar(1000)
+	DECLARE @sql NVarchar(2000)
 	DECLARE @Dieu_kien_tinh_trang nvarchar(100)
 	SET @Dieu_kien_tinh_trang = ' ''t'' = ''t'' '
 
@@ -23,8 +23,12 @@ BEGIN
 				SELECT TOP ' +  + Cast(Cast(@Total_Row As Int) - (Cast(@CurrentPage As Int) - 1) * Cast(@Num_Row As Int) As Varchar) + '
 					D.ID AS MaPhieuMuon, D.Nguoi_muon AS MaNguoiMuon, D.Ghi_chu AS GhiChu, A.ID AS MaChiTietPhieuMuon,
 						A.Ma_thiet_bi AS MaThietBi, B.Ten AS TenThietBi, C.Ten_linh_kien AS TenLinhKien, 
-							A.Tinh_trang AS TinhTrang, A.Thoi_gian_muon AS ThoiGianMuon, A.Ngay_cap_nhat_cuoi,
-								A.Thoi_gian_tra AS ThoiGianTra, A.Phan_loai AS PhanLoai, A.Ghi_chu AS GhiChuChiTiet
+							A.Tinh_trang AS TinhTrang, A.Ngay_cap_nhat_cuoi, A.Phan_loai AS PhanLoai, 
+								A.Ghi_chu AS GhiChuChiTiet,
+						Convert(varchar(10), A.Thoi_gian_muon, 110) AS NgayMuon
+							, Datepart(hh, A.Thoi_gian_muon) AS GioMuon, Datepart(mi, A.Thoi_gian_muon) AS PhutMuon,
+								Convert(varchar(10), A.Thoi_gian_tra, 110) AS NgayTra
+									, Datepart(hh, A.Thoi_gian_tra) AS GioTra, Datepart(mi, A.Thoi_gian_tra) AS PhutTra
 				FROM ChiTietPhieuMuon AS A
 				LEFT JOIN ThietBi AS B ON A.Ma_thiet_bi = B.ID AND A.Phan_loai = 1
 				LEFT JOIN ChiTietThietBi AS C ON A.Ma_thiet_bi = C.ID AND A.Phan_loai = 2
