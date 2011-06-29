@@ -48,4 +48,4 @@ BEGIN
 END
 --select * from thanhvien
 --select * from chitietthietbi
---exec sp_QLTB_GetChiTietPhieuMuonByDieuKien 4, '', 3, 1, 1
+--exec sp_QLTB_GetChiTietPhieuMuonByDieuKien 6, '', 3, 1, 1
