@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+	  <tlib-version>1.0</tlib-version> 
+	  <short-name>StringFunction</short-name> 
+	  <uri>/WEB-INF/tlds/StringFunction</uri>
+	<function>
+	  	<name>appendPTag</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String appendPTag(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>getElement</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String getElement(java.lang.String, java.lang.Integer, java.lang.String)</function-signature> 
+	</function>
+	
+	<function>
+	  	<name>upperString</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String upperString(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>appendPTagWithColor</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String appendPTagWithColor(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>splitString1</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String[] splitString1(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>splitString2</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String splitString2(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>splitString3</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String splitString3(java.lang.String)</function-signature> 
+	</function>
+	
+	<function>
+	  	<name>getListNoiDungByKhoa</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ModelTaglib</function-class> 
+	  	<function-signature>java.util.ArrayList getListNoiDungByKhoa(vn.edu.hungvuongaptech.model.ChiTietKHDTModel)</function-signature> 
+	</function>
+	
+	<function>
+	  	<name>getSizeOfList</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ModelTaglib</function-class> 
+	  	<function-signature>java.lang.Integer getSizeOfList(java.util.ArrayList)</function-signature> 
+	</function>
+	<function>
+	  	<name>compareDate</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String compareDate(java.lang.String, java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>getSizeOfListChiTietKHDT</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ModelTaglib</function-class> 
+	  	<function-signature>java.lang.Integer getSizeOfListChiTietKHDT(java.util.ArrayList)</function-signature> 
+	</function>
+	<function>
+	  	<name>convertToInt</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.Integer convertToInt(java.lang.Double)</function-signature> 
+	</function>
+	<function>
+	  	<name>changeString</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String changeString(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>appendBrTag</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String appendBrTag(java.lang.String)</function-signature> 
+	</function>
+	<function>
+	  	<name>replaceString</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
+	  	<function-signature>java.lang.String replaceString(java.lang.String)</function-signature> 
+	</function>
+</taglib>
