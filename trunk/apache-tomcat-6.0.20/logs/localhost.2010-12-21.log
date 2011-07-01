@@ -1,0 +1,35 @@
+Dec 21, 2010 11:32:54 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 21, 2010 11:32:54 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 21, 2010 11:33:15 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 21, 2010 11:33:15 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 21, 2010 11:33:29 PM org.apache.catalina.core.StandardWrapperValve invoke
+SEVERE: Servlet.service() for servlet jsp threw exception
+java.lang.NullPointerException
+	at vn.edu.hungvuongaptech.dao.IntroDAO.getCongTac(IntroDAO.java:66)
+	at org.apache.jsp.ISO.Intro_jsp._jspService(Intro_jsp.java:452)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:342)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:267)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:619)
+Dec 21, 2010 11:36:12 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 21, 2010 11:36:12 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
