@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database drop script                            */
-/* Created on:            2011-01-06 11:26                                */
+/* Created on:            2011-07-10 10:20                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -160,9 +160,6 @@ GO
 ALTER TABLE [CongViecChuanBi] DROP CONSTRAINT [LoaiCongViecChuanBi_CongViecChuanBi]
 GO
 
-ALTER TABLE [HopThuDen] DROP CONSTRAINT [LoaiTinNhan_HopThuDen]
-GO
-
 ALTER TABLE [HopThuDen] DROP CONSTRAINT [CuPhap_HopThuDen]
 GO
 
@@ -170,6 +167,9 @@ ALTER TABLE [HopThuDen] DROP CONSTRAINT [LoaiHopThu_HopThuDen]
 GO
 
 ALTER TABLE [HopThuDen] DROP CONSTRAINT [HopThuDi_HopThuDen]
+GO
+
+ALTER TABLE [HopThuDi] DROP CONSTRAINT [LoaiHopThu_HopThuDi]
 GO
 
 ALTER TABLE [TaiKhoanSMS] DROP CONSTRAINT [LoaiTaiKhoanSMS_TaiKhoanSMS]
@@ -197,6 +197,27 @@ ALTER TABLE [BoPhanThucHienCongTacThang] DROP CONSTRAINT [CongTacThang_BoPhanThu
 GO
 
 ALTER TABLE [TinhTrangCongTac] DROP CONSTRAINT [CongTacThang_TinhTrangCongTac]
+GO
+
+ALTER TABLE [ChiTietPhieuKPPN] DROP CONSTRAINT [PhieuKPPN_ChiTietPhieuKPPN]
+GO
+
+ALTER TABLE [NguoiThucHienKPPN] DROP CONSTRAINT [PhieuKPPN_NguoiThucHienKPPN]
+GO
+
+ALTER TABLE [MonHocNganHan] DROP CONSTRAINT [LopNganHan_MonHocNganHan]
+GO
+
+ALTER TABLE [MonHocNganHan] DROP CONSTRAINT [HinhThucLop_MonHocNganHan]
+GO
+
+ALTER TABLE [LichKhaiGiang] DROP CONSTRAINT [MonHocNganHan_LichKhaiGiang]
+GO
+
+ALTER TABLE [HocVienNganHan] DROP CONSTRAINT [LichKhaiGiang_HocVienNganHan]
+GO
+
+ALTER TABLE [DanhBaHVNganHan] DROP CONSTRAINT [LoaiTaiKhoanSMS_DanhBaHVNganHan]
 GO
 
 /* ---------------------------------------------------------------------- */
@@ -1292,20 +1313,6 @@ DROP TABLE [HopThuDen]
 GO
 
 /* ---------------------------------------------------------------------- */
-/* Drop table "LoaiTinNhan"                                               */
-/* ---------------------------------------------------------------------- */
-
-/* Drop constraints */
-
-ALTER TABLE [LoaiTinNhan] DROP CONSTRAINT [PK_LoaiTinNhan]
-GO
-
-/* Drop table */
-
-DROP TABLE [LoaiTinNhan]
-GO
-
-/* ---------------------------------------------------------------------- */
 /* Drop table "CuPhap"                                                    */
 /* ---------------------------------------------------------------------- */
 
@@ -1471,4 +1478,186 @@ GO
 /* Drop table */
 
 DROP TABLE [TinhTrangCongTac]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "PhieuKPPN"                                                 */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [PhieuKPPN] DROP CONSTRAINT [PK_PhieuKPPN]
+GO
+
+/* Drop table */
+
+DROP TABLE [PhieuKPPN]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "ChiTietPhieuKPPN"                                          */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [ChiTietPhieuKPPN] DROP CONSTRAINT [PK_ChiTietPhieuKPPN]
+GO
+
+/* Drop table */
+
+DROP TABLE [ChiTietPhieuKPPN]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "NguoiThucHienKPPN"                                         */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [NguoiThucHienKPPN] DROP CONSTRAINT [PK_NguoiThucHienKPPN]
+GO
+
+/* Drop table */
+
+DROP TABLE [NguoiThucHienKPPN]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "LopNganHan"                                                */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [LopNganHan] DROP CONSTRAINT [PK_LopNganHan]
+GO
+
+/* Drop table */
+
+DROP TABLE [LopNganHan]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "HinhThucLop"                                               */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [HinhThucLop] DROP CONSTRAINT [PK_HinhThucLop]
+GO
+
+/* Drop table */
+
+DROP TABLE [HinhThucLop]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "MonHocNganHan"                                             */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [MonHocNganHan] DROP CONSTRAINT [PK_MonHocNganHan]
+GO
+
+/* Drop table */
+
+DROP TABLE [MonHocNganHan]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "LichKhaiGiang"                                             */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [LichKhaiGiang] DROP CONSTRAINT [PK_LichKhaiGiang]
+GO
+
+/* Drop table */
+
+DROP TABLE [LichKhaiGiang]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "HocVienNganHan"                                            */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [HocVienNganHan] DROP CONSTRAINT [PK_HocVienNganHan]
+GO
+
+/* Drop table */
+
+DROP TABLE [HocVienNganHan]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "DanhBaHVNganHan"                                           */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [DanhBaHVNganHan] DROP CONSTRAINT [PK_DanhBaHVNganHan]
+GO
+
+/* Drop table */
+
+DROP TABLE [DanhBaHVNganHan]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "ToTrinh"                                                   */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [ToTrinh] DROP CONSTRAINT [PK_ToTrinh]
+GO
+
+/* Drop table */
+
+DROP TABLE [ToTrinh]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "MonHocTKBThayDoi"                                          */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [MonHocTKBThayDoi] DROP CONSTRAINT [PK_MonHocTKBThayDoi]
+GO
+
+/* Drop table */
+
+DROP TABLE [MonHocTKBThayDoi]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "ChiTietTKBThayDoi"                                         */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [ChiTietTKBThayDoi] DROP CONSTRAINT [PK_ChiTietTKBThayDoi]
+GO
+
+/* Drop table */
+
+DROP TABLE [ChiTietTKBThayDoi]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "HienTrangThietBi"                                          */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [HienTrangThietBi] DROP CONSTRAINT [PK_HienTrangThietBi]
+GO
+
+/* Drop table */
+
+DROP TABLE [HienTrangThietBi]
 GO
