@@ -159,6 +159,7 @@ CREATE TABLE [dbo].[ThietBi](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table ChiTietThietBi
 CREATE TABLE [dbo].[ChiTietThietBi](
 	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
@@ -189,6 +190,7 @@ CREATE TABLE [dbo].[ChiTietThietBi](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table PhieuMuonThietBi
 CREATE TABLE [dbo].[PhieuMuonThietBi](
 	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
@@ -203,6 +205,7 @@ CREATE TABLE [dbo].[PhieuMuonThietBi](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table ChiTietPhieuMuon
 CREATE TABLE [dbo].[ChiTietPhieuMuon](
 	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
@@ -221,6 +224,7 @@ CREATE TABLE [dbo].[ChiTietPhieuMuon](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table TrinhTuThayDoiThietBi
 CREATE TABLE [dbo].[TrinhTuThayDoiThietBi](
 	[ID] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -236,6 +240,7 @@ CREATE TABLE [dbo].[TrinhTuThayDoiThietBi](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table TrinhTuThayDoiLinhKien
 CREATE TABLE [dbo].[TrinhTuThayDoiLinhKien](
 	[ID] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -252,6 +257,7 @@ CREATE TABLE [dbo].[TrinhTuThayDoiLinhKien](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
+GO
 -- Tao table NhaCungCap
 CREATE TABLE [dbo].[NhaCungCap](
 	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
@@ -269,6 +275,35 @@ CREATE TABLE [dbo].[NhaCungCap](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
 )
 
+GO
+-- Tao table DonViTinh
+CREATE TABLE [dbo].[DonViTinh](
+	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
+	[Ten] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ghi_chu] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ngay_cap_nhat_cuoi] [datetime] NULL,
+	[User1] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User2] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User3] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User4] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
+)
+
+GO
+-- Tao table LoaiBaoTri
+CREATE TABLE [dbo].[LoaiBaoTri](
+	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
+	[Ten] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ghi_chu] [nvarchar](100) COLLATE Vietnamese_CI_AS NULL,
+	[Ngay_cap_nhat_cuoi] [datetime] NULL,
+	[User1] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User2] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User3] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User4] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
+)
+
+GO
 -- Tao table LoaiLinhKien
 CREATE TABLE [dbo].[LoaiLinhKien](
 	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
@@ -282,4 +317,48 @@ CREATE TABLE [dbo].[LoaiLinhKien](
 	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
 )
 
--- Tao table ThoiGianTietHoc
+GO
+-- Tao table LoaiThietBi
+CREATE TABLE [dbo].[LoaiThietBi](
+	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
+	[Ten_loai] [nvarchar](200) COLLATE Vietnamese_CI_AS NULL,
+	[Ghi_chu] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ngay_cap_nhat_cuoi] [datetime] NULL,
+	[User1] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User2] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User3] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User4] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
+)
+
+GO
+-- Tao table PhieuBaoTriThietBi
+CREATE TABLE [dbo].[PhieuBaoTriThietBi](
+	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
+	[Ma_thiet_bi] [int] NULL,
+	[Nguoi_de_xuat] [int] NULL,
+	[Ngay_bao_tri] [datetime] NULL,
+	[Tinh_trang] [int] NULL,
+	[Ghi_chu] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ngay_cap_nhat_cuoi] [datetime] NULL,
+	[Ma_loai_bao_tri] [int] NULL,
+	[User1] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User2] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User3] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User4] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
+)
+
+GO
+-- Tao table TanSuat
+CREATE TABLE [dbo].[TanSuat](
+	[ID] [int] IDENTITY(0,1) NOT NULL PRIMARY KEY,
+	[Ten] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ghi_chu] [nvarchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[Ngay_cap_nhat_cuoi] [datetime] NULL,
+	[User1] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User2] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User3] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User4] [varchar](40) COLLATE Vietnamese_CI_AS NULL,
+	[User5] [varchar](40) COLLATE Vietnamese_CI_AS NULL
+)
