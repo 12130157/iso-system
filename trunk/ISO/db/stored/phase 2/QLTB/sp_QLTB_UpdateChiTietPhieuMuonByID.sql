@@ -1,7 +1,7 @@
 
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_QLTB_UpdateChiTietPhieuMuonByID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-drop procedure [dbo].[sp_QLTB_UpdateChiTietPhieuMuonThietBiByID]
+drop procedure [dbo].[sp_QLTB_UpdateChiTietPhieuMuonByID]
 GO
 CREATE PROC sp_QLTB_UpdateChiTietPhieuMuonByID
 	@ID						INT,
