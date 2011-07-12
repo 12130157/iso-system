@@ -54,147 +54,147 @@
 	
 	<tr><td>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; background-position: center; font-size: 12px;">
+		<tr style="background-color: transparent; background-position: center; font-size: 15px;">
 			<td>TRƯỜNG TCNKTCN HÙNG VƯƠNG<br/>
 			<font style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khoa ${DeCuongMonHoc.tenKhoa}</font></td>
 		</tr>
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 18px;">
 			<th colspan = "2"><br /> <p style="font-weight: bold">ĐỀ CƯƠNG CHI TIẾT CHƯƠNG TRÌNH MÔN HỌC</p><br /></th>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p>-Tên môn học:<font style="font-weight: bold;">${DeCuongMonHoc.tenMonHoc}</font></p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p>-Thời gian môn học:${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.kiemTra}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lý thuyết:${DeCuongMonHoc.lyThuyet}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thực hành:${DeCuongMonHoc.thucHanh}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kiểm tra:${DeCuongMonHoc.kiemTra}</p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p>-Vị trí môn học:${DeCuongMonHoc.viTriMonHoc}</p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p>Tính chất môn học:${DeCuongMonHoc.tinhChatMonHoc}</p> 
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 13px;">
+		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<p style="font-weight: bold">I./ MỤC TIÊU ĐÀO TẠO MÔN HỌC :</p></div>
 			</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">1/Kiến thức chuyên môn:</p> <p> ${sf:appendPTag(DeCuongMonHoc.mucTieu1)} </p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">2/Kỹ năng nghề:</p> <p> ${sf:appendPTag(DeCuongMonHoc.mucTieu2)} </p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">3/Thái độ lao động:</p> <p> ${sf:appendPTag(DeCuongMonHoc.mucTieu3)} </p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">4/Các kỹ năng cần thiết khác: </p> <p> ${sf:appendPTag(DeCuongMonHoc.mucTieu4)} </p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 13px;">
+		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<p style="font-weight: bold">II./ TỔNG QUÁT VỀ CHƯƠNG TRÌNH :</p></div>
 			</td>
 		</tr>
-		<tr style="background-color: transparent; font-size: 13px;">
+		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<p style="font-weight: bold">1/Điều kiện thực hiện môn học</p></div>
 			</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Máy móc, trang thiết bị, công cụ :</u> ${sf:appendPTag(DeCuongMonHoc.dieuKien1)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Nguyên vật liệu thực hành :</u>${sf:appendPTag(DeCuongMonHoc.dieuKien2)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Phương tiện giảng dạy :</u>${sf:appendPTag(DeCuongMonHoc.dieuKien3)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Phiếu hướng dẫn thực hiện (môn thực hành) :</u>${sf:appendPTag(DeCuongMonHoc.dieuKien4)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p style="font-weight: bold">2/Phương pháp và nội dung đánh giá :</p>
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Lý thuyết :</u>${sf:appendPTag(DeCuongMonHoc.phuongPhap1)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Thực hành :</u>${sf:appendPTag(DeCuongMonHoc.phuongPhap2)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 13px;">
+			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<u>Nội dung :</u>${sf:appendPTag(DeCuongMonHoc.phuongPhap3)}
 				</td>
 			</tr>						
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
-		<tr style="background-color: transparent; font-size: 13px;">
+		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<p style="font-weight: bold">III./ PHÂN PHỐI CHƯƠNG TRÌNH MÔN HỌC:</p></div>
 			</td>
@@ -211,12 +211,12 @@
 					<c:set var = "TiLe" value="${sf:convertToInt(ThoiGianMonHoc/DeCuongMonHoc.lyThuyet)}"/>
 				</c:if>
 	<table border = "1" width = "650" align="center" style="background-color: transparent; background-position: center;" > 
-				<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px">
+				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px">
 					<td rowspan = "2">TT</td>
 					<td rowspan = "2">Nội dung<br />(chương trình, bài học)</td>
 					<td colspan = "7">Số tiết</td>
 				</tr>
-				<tr style="background-color: transparent; font-size: 13px" align="center">
+				<tr style="background-color: transparent; font-size: 16px" align="center">
 					<td>Lý thuyết</td>
 					<td>thực hành</td>
 					<td>Tích hợp</td>
@@ -245,7 +245,7 @@
 					</c:when>
 				</c:choose>	
 					<c:if test="${DeCuongMonHoc.kieuBienSoan eq '0' or DeCuongMonHoc.kieuBienSoan eq '2' or (DeCuongMonHoc.kieuBienSoan eq '1' and TiLe eq NoiDungDCMH.soThuTu)}">
-						<tr style="background-color: transparent; font-size: 12px" align="center">
+						<tr style="background-color: transparent; font-size: 15px" align="center">
 							<td><%=count %></td>
 							<td style="text-align: left">${sf:appendBrTag(tenChuong)}</td>	
 						<c:choose>		
@@ -292,7 +292,7 @@
 					<c:set var="TichHop" value="0"></c:set>
 				</c:if>	
 			</c:forEach>
-				<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
+				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 					<td>&nbsp;</td>
 					<td widtd="160">TỔNG CỘNG</td>
 					<td>
@@ -331,16 +331,16 @@
 				</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
 			<c:set var="sig" value="-"></c:set>
 			<td></td>
 			<td></td>
 			<td>Quận 5, ngày ${sf:getElement(DeCuongMonHoc.ngayTao,0,sig)} tháng ${sf:getElement(DeCuongMonHoc.ngayTao,1,sig)} năm ${sf:getElement(DeCuongMonHoc.ngayTao,2,sig)}</td>
 		</tr>
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
-			<td><p style="font-weight: bold; font-size: 13px">Hiệu Trưởng </p></td>
-			<td><p style="font-weight: bold; font-size: 13px">Trưởng Khoa </p></td>
-			<td><p style="font-weight: bold; font-size: 13px">Giáo viên biên soạn</p></td>
+		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
+			<td><p style="font-weight: bold; font-size: 16px">Hiệu Trưởng </p></td>
+			<td><p style="font-weight: bold; font-size: 16px">Trưởng Khoa </p></td>
+			<td><p style="font-weight: bold; font-size: 16px">Giáo viên biên soạn</p></td>
 		</tr>
 		<tr>
 			<td><p></p></td>
@@ -354,12 +354,12 @@
 			<td><p></p></td>
 			<td><p></p></td>
 		</tr>		
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 13px;">
+		<!--<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
 			<td></td>
 			<td><p style="font-weight: bold">${DeCuongMonHoc.tenNguoiDuyet}</p></td>
 			<td><p style="font-weight: bold">${DeCuongMonHoc.tenNguoiTao}</p></td>
 		</tr>
-	</table>
+	--></table>
 	</td></tr>	
 </table>
 </div>
