@@ -157,9 +157,15 @@ function submitFormSave(){
 		</c:otherwise>
 	</c:choose>		
 	<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
-	<c:if test = "${vaiTro eq Truong_Bo_Mon || vaiTro eq Truong_Khoa || vaiTro eq Pho_Khoa}">
-		<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
+	
+	<!-- xu ly ma nguoi tao khi admin dang nhap thi ma nguoi tao = "" con lai thi khac ""-->
+	<c:if test = "${MaBoPhan ne BO_PHAN_ADMIN}"><%maNguoiTao = (String) session.getAttribute("maThanhVien"); %></c:if>
+	<!--<c:if test = "${vaiTro eq Truong_Bo_Mon || vaiTro eq Truong_Khoa || vaiTro eq Pho_Khoa}">
+		
 	</c:if>
+	-->
+	
+	
 	<c:if test = "${MaBoPhan ne BO_PHAN_ADMIN}">
 		<%maBoPhan = (String) session.getAttribute("maBoPhan"); %>
 	</c:if>
@@ -282,10 +288,11 @@ function submitFormSave(){
 			</tr> 	
 			<tr style="background-color: transparent;">
 				<td colspan="6">
-				<c:if test="${vaiTro eq Truong_Bo_Mon or vaiTro eq Truong_Khoa or MaBoPhan eq BO_PHAN_ADMIN or vaiTro eq Pho_Khoa}">
 					<a href="<%=request.getContextPath()%>/ISO/DeCuongMonHoc/DeCuong.jsp?Them=yes"><img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="tạo mới" border = "0" /></a>
+				<!--<c:if test="${vaiTro eq Truong_Bo_Mon or vaiTro eq Truong_Khoa or MaBoPhan eq BO_PHAN_ADMIN or vaiTro eq Pho_Khoa}">
+					
 				</c:if>		
-				<c:if test="${MaBoPhan eq BO_PHAN_ADMIN or vaiTro eq Truong_Khoa or vaiTro eq Pho_Khoa}">
+				--><c:if test="${MaBoPhan eq BO_PHAN_ADMIN or vaiTro eq Truong_Khoa or vaiTro eq Pho_Khoa}">
 					<a href = "javascript: confirmDuyet()"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="lưu" border = "0"/></a>
 				</c:if>		
 				</td>
