@@ -3429,14 +3429,14 @@ BEGIN
 	--
 	if(@Ma_nguoi_tao <> '')
 	BEGIN
-		IF(@Ma_vai_tro <> @Ma_truong_khoa or @Ma_vai_tro <> @Ma_pho_khoa)--
-		BEGIN--
-			SET @Dieu_kien_bo_phan = ' A.Ma_nguoi_tao = ' + @Ma_nguoi_tao
-		END--
-		ELSE
-		BEGIN
+		--IF(@Ma_vai_tro <> @Ma_truong_khoa or @Ma_vai_tro <> @Ma_pho_khoa)--
+		--BEGIN--
+			--SET @Dieu_kien_bo_phan = ' A.Ma_nguoi_tao = ' + @Ma_nguoi_tao
+		--END--
+		--ELSE
+		--BEGIN
 			SET @Dieu_kien_bo_phan = ' B.Ma_bo_phan = ' + @Ma_bo_phan + ' And ((A.Tinh_trang = 0 and A.Ma_nguoi_tao = ' + @Ma_nguoi_tao + ') Or A.Tinh_trang <> 0) '
-		END
+		--END
 	END
 	ELSE
 	BEGIN
@@ -3822,7 +3822,7 @@ CREATE PROCEDURE sp_ISO_GetDeCuongMonHoc
 	@Ten_mon_hoc	nvarchar(50)
 AS
 BEGIN
-	DECLARE @sql NVarchar(1000)
+	DECLARE @sql NVarchar(2000)
 	DECLARE @Dieu_kien_tinh_trang nvarchar(100)
 	--DECLARE @Dieu_kien_ma_nguoi_tao nvarchar(100)
 	DECLARE @Dieu_kien_bo_phan nvarchar(300)
@@ -3846,14 +3846,14 @@ BEGIN
 	--
 	if(@Ma_nguoi_tao <> '')
 	BEGIN
-		IF(@Ma_vai_tro <> @Ma_truong_khoa or @Ma_vai_tro <> @Ma_pho_khoa)--
-		BEGIN--
-			SET @Dieu_kien_bo_phan = ' DCMH.Ma_nguoi_tao = ' + @Ma_nguoi_tao
-		END--
-		ELSE
-		BEGIN
+		--IF(@Ma_vai_tro <> @Ma_truong_khoa or @Ma_vai_tro <> @Ma_pho_khoa)--
+		--BEGIN--
+			--SET @Dieu_kien_bo_phan = ' DCMH.Ma_nguoi_tao = ' + @Ma_nguoi_tao
+		--END--
+		--ELSE
+		--BEGIN
 			SET @Dieu_kien_bo_phan = ' B.Ma_bo_phan = ' + @Ma_bo_phan + ' And ((DCMH.Tinh_trang = 0 and DCMH.Ma_nguoi_tao = ' + @Ma_nguoi_tao + ') Or DCMH.Tinh_trang <> 0) '
-		END
+		--END
 	END
 	ELSE
 	BEGIN
