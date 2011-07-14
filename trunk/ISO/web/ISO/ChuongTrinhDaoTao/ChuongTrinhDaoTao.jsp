@@ -1290,8 +1290,8 @@ function validateInputNumber()
 				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 			</a>										
 		</c:if>
-		<c:if test="${ChuongTrinhDaoTao.tinhTrang eq APPROVE and (ChuongTrinhDaoTao.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or ChuongTrinhDaoTao.maNguoiDuyet eq maThanhVien)}">	
-			<a href = "<%=Constant.PATH_RES.getString("iso.InChuongTrinhDaoTaoPath") %>">								 
+		<c:if test="${ChuongTrinhDaoTao.tinhTrang ne null and (ChuongTrinhDaoTao.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or ChuongTrinhDaoTao.maNguoiDuyet eq maThanhVien)}">	
+			<a href = "<%=Constant.PATH_RES.getString("iso.InChuongTrinhDaoTaoPath") + "?maID="%>${ChuongTrinhDaoTao.maChuongTrinhDaoTao}">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
 		</c:if>

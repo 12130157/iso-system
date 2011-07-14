@@ -342,7 +342,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 					obj.setTinhTrang("");
 					obj.setMaDeCuong("");
 					obj.setMaNguoiTaoDeCuong("");
-					chiTietMonHocCTDTModelList1.add(obj);
+					chiTietMonHocCTDTModelList2.add(obj);
 				}
 			} else { 
 				/*if(status == 1) {
@@ -428,7 +428,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 					obj.setTinhTrang("");
 					obj.setMaDeCuong("");
 					obj.setMaNguoiTaoDeCuong("");
-					chiTietMonHocCTDTModelList1.add(obj);
+					chiTietMonHocCTDTModelList3.add(obj);
 				}
 			} else { 
 				/*if(status == 1) {

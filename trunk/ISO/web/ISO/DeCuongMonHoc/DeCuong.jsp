@@ -980,7 +980,7 @@ var kieuDayLyThuyet = new Array();
 			</a>									
 		</c:if>
 		<!--DeCuongMonHoc.status eq APPROVE and ( khi tình trang approve mới in--> 
-		<c:if test="${MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien or DeCuongMonHoc.maNguoiDuyet eq maThanhVien}">										
+		<c:if test="${DeCuongMonHoc.status ne null and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien or DeCuongMonHoc.maNguoiDuyet eq maThanhVien)}">										
 			<a href = "<%=Constant.PATH_RES.getString("iso.InDeCuongMonHocPath") %>">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
