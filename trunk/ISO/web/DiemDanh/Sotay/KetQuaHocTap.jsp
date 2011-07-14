@@ -28,6 +28,7 @@
 	<!-- E HEAD CONTENT -->
 	<br/><br/>
 <body>
+	<form action="<%=request.getContextPath()%>/reportController?kqht=yes" method="post" name="Report">
 		<table style="background-color: transparent;">
 		<tr style="background-color: transparent;"><td><div class = "div_thanhvientieude">Kết quả học tập</div></td></tr>
 		</table><br/><br/>
@@ -80,10 +81,14 @@
 							Lần 2
 						</td>
 					</tr>
-					
+					<tr>
+						<td colspan="10" align="center">
+							<input type="submit" value="print">
+						</td>
+					</tr>
 						
 			</table>
-			
+		</form>	
 			
 </body>
 </html>
