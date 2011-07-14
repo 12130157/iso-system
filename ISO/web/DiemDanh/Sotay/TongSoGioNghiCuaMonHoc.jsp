@@ -33,7 +33,7 @@
 		
 	<!-- E HEAD CONTENT -->
 	<br/><br/>
-	
+	<form action="<%=request.getContextPath()%>/reportController?them=yes" method="post" name="Report">
 	<table style="background-color: transparent;">
 		<tr style="background-color: transparent;"><td><div class = "div_thanhvientieude">Số giờ nghỉ trong tháng</div></td></tr>
 		</table><br/><br/>
@@ -78,5 +78,6 @@
 					</tr>
 					
 			</table>
+			</form>
 </body>
 </html>
