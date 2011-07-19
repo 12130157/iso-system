@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nhungfileexcel", "nhungfileexcel\nhungfileexcel.csproj", "{AA9462B6-F43A-453A-AACD-83EE55F686DB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "setup_bailam", "setup_bailam\setup_bailam.vdproj", "{8AB66B84-A1CC-4B1C-AC83-00549EE5528D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA9462B6-F43A-453A-AACD-83EE55F686DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA9462B6-F43A-453A-AACD-83EE55F686DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA9462B6-F43A-453A-AACD-83EE55F686DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA9462B6-F43A-453A-AACD-83EE55F686DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB66B84-A1CC-4B1C-AC83-00549EE5528D}.Debug|Any CPU.ActiveCfg = Debug
+		{8AB66B84-A1CC-4B1C-AC83-00549EE5528D}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

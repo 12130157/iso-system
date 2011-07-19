@@ -1,0 +1,44 @@
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmindiem.resources
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.Properties.Resources.resources
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.csproj.GenerateResource.Cache
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.pdb
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.exe
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.pdb
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrptbailam.resources
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrpttonghop.resources
+C:\Documents and Settings\phan quang minh\My Documents\Visual Studio 2008\Projects\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe.config
+D:\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe.config
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.exe
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.pdb
+D:\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe
+D:\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.pdb
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\ResolveAssemblyReference.cache
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmindiem.resources
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrptbailam.resources
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrpttonghop.resources
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.Properties.Resources.resources
+D:\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.csproj.GenerateResource.Cache
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe.config
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.pdb
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\ResolveAssemblyReference.cache
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmindiem.resources
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrptbailam.resources
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrpttonghop.resources
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.Properties.Resources.resources
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.csproj.GenerateResource.Cache
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.exe
+D:\THAY MINH - CTRINH IN\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.pdb
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe.config
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.exe
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\bin\Debug\nhungfileexcel.pdb
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\ResolveAssemblyReference.cache
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmindiem.resources
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrptbailam.resources
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.frmrpttonghop.resources
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.Properties.Resources.resources
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.csproj.GenerateResource.Cache
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.exe
+D:\Backup Data\Hung Vuong Aptech\course\chuong trinh in thay minh\bailam\nhungfileexcel\nhungfileexcel\obj\Debug\nhungfileexcel.pdb
