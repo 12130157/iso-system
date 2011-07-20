@@ -227,4 +227,21 @@ public class Constant {
 
 	public static final String MAILTO_THANHVIENNHACNHO="phamhongtam27989@gmail.com";
 
+	//*****************************He thong quan ly nhan su *****************************************
+	public static String NGUOI_DU_TUYEN = "14";	
+	public static String TINHTRANG_TK_APPROVE_DNTNS="1";
+	public static String TINHTRANG_PDT_APPROVE_DNTNS="2";
+	public static String TINHTRANG_PHC_APPROVE_DNTNS="3";
+	public static String TINHTRANG_BGH_APPROVE_DNTNS="4";
+	public static String TINHTRANG_ALL_APPROVE_DNTNS="5";
+	public static String TINHTRANG_HSDT_APPROVE = "1";
+	public static String TINHTRANG_HSDT_REJECT = "2";
+	public static String CHUCNANG_DENGHINHANSU = "8";
+	public static String CHUCNANG_DENGHIKHOANTHUVIEC = "9";
+	public static String CHUCNANG_NHANXETKETQUATHUVIEC = "10";
+	public static String CHUCNANG_KYHOPDONGLANDAU = "11";
+	public static String CHUCNANG_HOSODUTUYEN = "12";
+	public static String CHUCNANG_KEHOACHTNS = "13";
+	public static String APP_QUANLYNHANSU = "6";
+	//***********************************************************************************************
 }

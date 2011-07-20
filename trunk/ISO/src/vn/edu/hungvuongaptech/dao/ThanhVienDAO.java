@@ -64,7 +64,7 @@ public class ThanhVienDAO {
 		}
 		return null;
 	}
-	
+		
 	public static ArrayList<ThanhVienModel> timThanhVienByMaVaiTro(String maVaiTro) {
 		
 		ArrayList<ThanhVienModel> listKetQua = new ArrayList<ThanhVienModel>();
@@ -922,5 +922,21 @@ public class ThanhVienDAO {
 		return thanhVienModel;
 	}
 	
+	/*
+	 * HE THONG QUAN LY NHAN SU
+	 * AUTHOR: THANHTC
+	 * CREATE DATE : 20/7/2011
+	 */
+	public static void UpdateVaiTroTV(String maVaiTro,String tenDangNhap){
+		 try {
+			String sql = "UPDATE THANHVIEN SET MA_VAI_TRO=? WHERE TEN_DN=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maVaiTro);
+			ps.setString(2, tenDangNhap);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	 }
 }
 
