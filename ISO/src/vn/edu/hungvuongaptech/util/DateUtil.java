@@ -116,5 +116,19 @@ public class DateUtil {
 	}
 	
 
+	/*
+	 * HE THONG QUAN LY NHAN SU
+	 * AUTHOR: THANHTC
+	 * CREATE DATE : 20/7/2011
+	 */
+	
+	public static String changeDMYtoMDY(String dmy){
+		String result = "";
+		if(dmy != null && !dmy.equals("")){
+			String[] arrayValue = dmy.split("-");
+			result = arrayValue[1] + "-" + arrayValue[0] + "-" + arrayValue[2];
+		}
+		return result;
+	}
 	
 }

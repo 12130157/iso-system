@@ -316,4 +316,104 @@
 	    	<url-pattern>/toTrinhController</url-pattern>
 	    </servlet-mapping>
     <!-- ****************************End Of ToTrinhController******* -->
+    
+    
+     <!-- ****************************DeNghiNhanSuController************************** -->
+    	<servlet>
+	    	<servlet-name>DeNghiNhanSuController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.DeNghiNhanSuController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>DeNghiNhanSuController</servlet-name>
+	    	<url-pattern>/deNghiNhanSuController</url-pattern>
+	    </servlet-mapping>
+    
+     <!-- ****************************End Of DeNghiNhanSuController******* -->
+    <!-- **************************** TimKiemNhanSuController ************************** -->
+    	<servlet>
+	    	<servlet-name>TimKiemNhanSuController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.TimKiemNhanSuController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>TimKiemNhanSuController</servlet-name>
+	    	<url-pattern>/timKiemNhanSuController</url-pattern>
+	    </servlet-mapping>
+	    
+	<!-- ****************************End Of TimKiemNhanSuController******* -->
+    <!-- **************************** HoSoDuTuyenController ************************** -->
+    	<servlet>
+	    	<servlet-name>HoSoDuTuyenController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.HoSoDuTuyenController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>HoSoDuTuyenController</servlet-name>
+	    	<url-pattern>/hoSoDuTuyenController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of HoSoDuTuyenController******************* -->
+    <!-- ****************************KeHoachTuyenNhanSuController************************** -->
+    	<servlet>
+	    	<servlet-name>KeHoachTuyenNhanSuController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.KeHoachTuyenNhanSuController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>KeHoachTuyenNhanSuController</servlet-name>
+	    	<url-pattern>/keHoachTuyenNhanSuController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of KeHoachTuyenNhanSuController******************* --> 
+    <!-- ****************************ChiTietKHTNSController************************** -->
+    	<servlet>
+	    	<servlet-name>ChiTietKHTNSController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.ChiTietKHTNSController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>ChiTietKHTNSController</servlet-name>
+	    	<url-pattern>/chiTietKHTNSController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of ChiTietKHTNSController******************* -->
+    <!-- ****************************DeNghiKTVController************************** -->
+    	<servlet>
+	    	<servlet-name>DeNghiKTVController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.DeNghiKTVController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>DeNghiKTVController</servlet-name>
+	    	<url-pattern>/deNghiKTVController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of DeNghiKTVController******************* -->
+    <!-- ****************************NhanXetKetQuaThuViecController************************** -->
+    	<servlet>
+	    	<servlet-name>NhanXetKetQuaThuViecController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.NhanXetKetQuaThuViecController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>NhanXetKetQuaThuViecController</servlet-name>
+	    	<url-pattern>/nhanXetKetQuaThuViecController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of NhanXetKetQuaThuViecController******************* -->
+    <!-- ****************************HopDongLanDauController************************** -->
+    	<servlet>
+	    	<servlet-name>HopDongLanDauController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.HopDongLanDauController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>HopDongLanDauController</servlet-name>
+	    	<url-pattern>/hopDongLanDauController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of HopDongLanDauController******************* -->
+    <!-- ****************************DownloadController************************** -->
+    	<servlet>
+	    	<servlet-name>DownloadController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.DownloadController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>DownloadController</servlet-name>
+	    	<url-pattern>/downloadController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of DownloadController******************* -->
 </web-app>

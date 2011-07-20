@@ -176,4 +176,29 @@ public class KhoaDAO {
 		return khoaList;
 	}
 
+	
+	/*
+	 * HE THONG QUAN LY NHAN SU
+	 * AUTHOR: THANHTC
+	 * CREATE DATE : 20/7/2011
+	 */
+	public static KhoaModel getKhoaByMaBoPhan(String maBoPhan){
+		KhoaModel model = null;
+		try {
+			String sql = "SELECT * FROM KHOA_TRUNGTAM WHERE ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maBoPhan);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				model = new KhoaModel();
+				model.setMaKhoa(rs.getString("ID"));
+				model.setTenKhoa(rs.getString("Ten"));
+				model.setMaTruongKhoa(rs.getString("Ma_truong_khoa"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return model;
+	}
 }
