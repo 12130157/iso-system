@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database drop script                            */
-/* Created on:            2011-07-10 10:20                                */
+/* Created on:            2011-07-20 09:40                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -1660,4 +1660,130 @@ GO
 /* Drop table */
 
 DROP TABLE [HienTrangThietBi]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "DeNghiNhanSu"                                              */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [DeNghiNhanSu] DROP CONSTRAINT [PK_DeNghiNhanSu]
+GO
+
+/* Drop table */
+
+DROP TABLE [DeNghiNhanSu]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "ChiTietKHTNS"                                              */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [ChiTietKHTNS] DROP CONSTRAINT [PK_ChiTietKHTNS]
+GO
+
+/* Drop table */
+
+DROP TABLE [ChiTietKHTNS]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "KeHoachTNS"                                                */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [KeHoachTNS] DROP CONSTRAINT [PK_KeHoachTNS]
+GO
+
+/* Drop table */
+
+DROP TABLE [KeHoachTNS]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "ThoiGianTuyenDung"                                         */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [ThoiGianTuyenDung] DROP CONSTRAINT [PK_ThoiGianTuyenDung]
+GO
+
+/* Drop table */
+
+DROP TABLE [ThoiGianTuyenDung]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "HopDongLanDau"                                             */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [HopDongLanDau] DROP CONSTRAINT [PK_HopDongLanDau]
+GO
+
+/* Drop table */
+
+DROP TABLE [HopDongLanDau]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "HoSuDuTuyen"                                               */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [HoSuDuTuyen] DROP CONSTRAINT [PK_HoSuDuTuyen]
+GO
+
+/* Drop table */
+
+DROP TABLE [HoSuDuTuyen]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "DeNghiKTV"                                                 */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [DeNghiKTV] DROP CONSTRAINT [PK_DeNghiKTV]
+GO
+
+/* Drop table */
+
+DROP TABLE [DeNghiKTV]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "NhanXetKetQuaThuViec"                                      */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [NhanXetKetQuaThuViec] DROP CONSTRAINT [PK_NhanXetKetQuaThuViec]
+GO
+
+/* Drop table */
+
+DROP TABLE [NhanXetKetQuaThuViec]
+GO
+
+/* ---------------------------------------------------------------------- */
+/* Drop table "TieuChuan"                                                 */
+/* ---------------------------------------------------------------------- */
+
+/* Drop constraints */
+
+ALTER TABLE [TieuChuan] DROP CONSTRAINT [PK_TieuChuan]
+GO
+
+/* Drop table */
+
+DROP TABLE [TieuChuan]
 GO
