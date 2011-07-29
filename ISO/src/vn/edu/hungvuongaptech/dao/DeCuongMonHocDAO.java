@@ -1,5 +1,6 @@
 package vn.edu.hungvuongaptech.dao;
 
+import java.io.File;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -649,5 +650,17 @@ public class DeCuongMonHocDAO {
 		}
 		return deCuongMonHocModel;
 	}
-	
+	public static String[] getListFile() {
+		String[] listFile = new String[0];
+		try {
+			File file = new File("C:/DeCuongMonHoc/");
+			if(file.exists()) {
+				listFile = file.list();	
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return listFile;
+	}
 }

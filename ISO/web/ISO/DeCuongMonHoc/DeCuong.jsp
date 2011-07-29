@@ -578,6 +578,14 @@ var kieuDayLyThuyet = new Array();
 		if(value!=false && value != null)
 			document.getElementById('txtMucTieu_' + index).value = value;	
 	}
+	function browse()
+	{
+		var value = window.showModalDialog(duongDan + "FileDCMH.jsp","","dialogHeight: 450px; dialogWidth: 550px; dialogTop: 120px; dialogLeft: 400px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
+		if(value!=false && value != null)
+		{
+			document.getElementById('txtFile').value = value;
+		}	
+	}
 	function isEmpty() {
 		return true;
 	}
@@ -806,7 +814,9 @@ var kieuDayLyThuyet = new Array();
 				<c:if test="${empty DeCuongMonHoc.maDeCuongMonHoc}">
 					<tr style="background-color: transparent;">
 						<td>
-							Chọn đề cương : <input type="file" name="txtFile" id = "txtFile" value = ""/> <input type="button" value = "Sao chép từ file" onclick="xuLyFile(1);"/>
+							Chọn đề cương : <input type="text" name="txtFile" id = "txtFile" value = ""/> 
+							<input type="button" value = "Browse" onclick="browse();"/>
+							<input type="button" value = "Sao chép từ file" onclick="xuLyFile(1);"/>
 						</td>
 					</tr>
 				</c:if>
