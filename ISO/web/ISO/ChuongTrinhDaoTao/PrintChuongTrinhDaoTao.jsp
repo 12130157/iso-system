@@ -442,7 +442,7 @@
 			<td><p style="font-weight: bold;">TRƯỞNG KHOA </p></td>
 			<td><p style="font-weight: bold;">HIỆU TRƯỞNG</p></td>
 		</tr>
-		<tr>
+		<!--<tr>
 			<td><p></p></td>
 			<td><p></p></td>
 		</tr>
@@ -458,7 +458,7 @@
 			<td><p>${CTDT.tenNguoiTao}</p></td>
 			<td><p>${CTDT.tenNguoiDuyet}</p></td>
 		</tr>
-	</table>
+	--></table>
 </table>
 </div>
 </div>
