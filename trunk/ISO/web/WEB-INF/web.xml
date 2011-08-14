@@ -416,4 +416,14 @@
 	    </servlet-mapping>
     
     <!-- ****************************End Of DownloadController******************* -->
+    <!-- ****************************PhanCongController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>PhanCongController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.PhanCongController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>PhanCongController</servlet-name>
+	    	<url-pattern>/phanCongController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of PhanCongController******* -->
 </web-app>
