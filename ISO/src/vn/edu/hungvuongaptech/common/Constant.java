@@ -87,7 +87,8 @@ public class Constant {
 	public static String CHUCNANG_KEHOACHGIANGDAY = "5";
 	public static String CHUCNANG_GIAOAN="6";
 	public static String CHUCNANG_KEHOACHTHANG = "7";
-	public static String CHUCNANG_TOTRINH = "8";
+	public static String CHUCNANG_TOTRINH = "14";
+	public static String CHUCNANG_BANGPHANCONG = "15";
 	
 	public static String CHUCNANG_ADMIN_MENU="18";
 	
