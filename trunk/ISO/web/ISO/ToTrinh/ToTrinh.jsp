@@ -63,7 +63,7 @@ function guiToTrinh()
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header.jsp" />
 	<!-- E HEAD CONTENT -->
-	<table width = "800" style="background-color: transparent;">
+	<table style="background-color: transparent;">
 		<tr style="background-color: transparent;">
 			<td>
 				TRƯỜNG TCN KTCN HÙNG VƯƠNG <br />KHOA 
@@ -76,20 +76,22 @@ function guiToTrinh()
 	</table>
 	<table>	
 		<tr style="background-color: transparent;">
-			<td colspan = "3">
+			<td>
 				<Strong>TỜ TRÌNH </Strong>
+			</td>	
 		</tr>
-		<tr  style="background-color: transparent;">
-			<td><u>Kính gửi :</u></td>		
-			<td colspan="2">Ban giám hiệu – Trường TCN KTCN Hùng Vương</td>			
+		<tr style="background-color: transparent;">
+			<td align="left"><u>Kính gửi :</u>		
+				Ban giám hiệu – Trường TCN KTCN Hùng Vương
+			</td>			
 		</tr>
-		<tr  style="background-color: transparent;">
-			<td></td>		
-			<td colspan="2">Phòng Tổ Chức Hành Chánh.</td>			
+		<tr style="background-color: transparent;">
+			<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phòng Tổ Chức Hành Chánh.
+			</td>			
 		</tr>
-		<tr  style="background-color: transparent;">
-			<td></td>		
-			<td colspan="2">Phòng Đào Tạo.</td>			
+		<tr style="background-color: transparent;">
+			<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phòng Đào Tạo.
+			</td>			
 		</tr>
 	</table>
 	<c:set var = "maThanhVien" value='<%= (String) session.getAttribute("maThanhVien") %>'></c:set>
@@ -109,12 +111,12 @@ function guiToTrinh()
 		<table>
 			<c:forEach var = "MonHocTKBThayDoi" items = "${ToTrinh.monHocTKBThayDoiList}">
 				<tr style="background-color: transparent;">
-					<td>Môn học ${MonHocTKBThayDoi.tenMonHoc } do giáo viên ${MonHocTKBThayDoi.tenGiaoVien } phân công lại cho giáo viên ${MonHocTKBThayDoi.tenGiaoVienThayDoi }</td>
+					<td align="left">- Môn học ${MonHocTKBThayDoi.tenMonHoc } do giáo viên ${MonHocTKBThayDoi.tenGiaoVien } phân công lại cho giáo viên ${MonHocTKBThayDoi.tenGiaoVienThayDoi }</td>
 				</tr>
 			</c:forEach>
 			<c:forEach var = "ChiTietTKBThayDoi" items = "${ToTrinh.chiTietTKBThayDoiList}">
 				<tr style="background-color: transparent;">
-					<td>Thay đổi buổi học ngày ${ChiTietTKBThayDoi.ngayHoc } buổi ${ChiTietTKBThayDoi.buoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhong} của môn ${ChiTietTKBThayDoi.tenMonHoc } thành ngày ${ChiTietTKBThayDoi.ngayHocThayDoi } buổi ${ChiTietTKBThayDoi.buoiThayDoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhongThayDoi}</td>
+					<td align="left">- Thay đổi buổi học ngày ${ChiTietTKBThayDoi.ngayHoc } buổi ${ChiTietTKBThayDoi.buoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhong} của môn ${ChiTietTKBThayDoi.tenMonHoc } thành ngày ${ChiTietTKBThayDoi.ngayHocThayDoi } buổi ${ChiTietTKBThayDoi.buoiThayDoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhongThayDoi}</td>
 				</tr>
 			</c:forEach>
 		</table>

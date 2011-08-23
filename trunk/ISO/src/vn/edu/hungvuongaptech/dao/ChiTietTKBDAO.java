@@ -397,6 +397,7 @@ public class ChiTietTKBDAO {
 				chiTietTKBModel.setKhoa(rs.getString("TenKhoa"));
 				chiTietTKBModel.setKiHieuLop(rs.getString("KiHieuLop"));
 				chiTietTKBModel.setNgayHoc(DateUtil.setDate(rs.getString("NgayHoc")));
+				chiTietTKBModel.setSoThuTuTuan(rs.getString("SoThuTu"));
 				list.add(chiTietTKBModel);
 			}
 		} catch (Exception e) {

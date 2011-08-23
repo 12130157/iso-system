@@ -264,7 +264,7 @@
 					<a href="<%=Constant.PATH_RES.getString("iso.LichSuDungPhongPath") %>">
 						<img src="<%=request.getContextPath()%>/images/buttom/lichsudungphong.png" alt="Lịch sử dụng phòng" border="0"/>
 					</a>
-					<a href="<%=Constant.PATH_RES.getString("iso.PhanCongGiaoVienPath") %>">
+					<a href="<%=Constant.PATH_RES.getString("iso.XemBangPhanCongPath") %>">
 						<img src="<%=request.getContextPath()%>/images/buttom/phanconggiaovien.png" alt="Phân công giáo viên" border="0"/>
 					</a>	
 				</td>

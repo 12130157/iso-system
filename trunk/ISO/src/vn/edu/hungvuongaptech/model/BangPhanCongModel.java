@@ -13,6 +13,8 @@ public class BangPhanCongModel implements Serializable{
 	private String maKhoa;
 	private String tenKhoa;
 	private String hocKi;
+	private String maHeDaoTao;
+	private String tenHeDaoTao;
 	private String maNamHoc;
 	private String tinhTrang;
 	private String gioTao;
@@ -34,8 +36,22 @@ public class BangPhanCongModel implements Serializable{
 	private String user4;
 	private String user5;
 	private ArrayList<ChiTietBangPhanCongModel> chiTietBangPhanCongList;
-	private String soDong; 
+	private String soDong; // xai cho rowspan
+	private String hocKiNamHoc; //hoc ki theo chitietCTDT
+	private String maQuyetDinh;
 	
+	public String getMaQuyetDinh() {
+		return maQuyetDinh;
+	}
+	public void setMaQuyetDinh(String maQuyetDinh) {
+		this.maQuyetDinh = maQuyetDinh;
+	}
+	public String getHocKiNamHoc() {
+		return hocKiNamHoc;
+	}
+	public void setHocKiNamHoc(String hocKiNamHoc) {
+		this.hocKiNamHoc = hocKiNamHoc;
+	}
 	public String getSoDong() {
 		return soDong;
 	}
@@ -199,6 +215,18 @@ public class BangPhanCongModel implements Serializable{
 	}
 	public void setLyDoReject(String lyDoReject) {
 		this.lyDoReject = lyDoReject;
+	}
+	public String getMaHeDaoTao() {
+		return maHeDaoTao;
+	}
+	public void setMaHeDaoTao(String maHeDaoTao) {
+		this.maHeDaoTao = maHeDaoTao;
+	}
+	public String getTenHeDaoTao() {
+		return tenHeDaoTao;
+	}
+	public void setTenHeDaoTao(String tenHeDaoTao) {
+		this.tenHeDaoTao = tenHeDaoTao;
 	}
 	
 }

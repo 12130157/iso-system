@@ -20,7 +20,10 @@
 <%@page import="vn.edu.hungvuongaptech.dao.SuDungDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.MonHocModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.MonHocTKBModel"%>
-<%@page import="vn.edu.hungvuongaptech.model.ChiTietTKBModel"%><html>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietTKBModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.BangPhanCongDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietBangPhanCongModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.BangPhanCongModel"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -44,6 +47,7 @@ var duongDan = '';
 var arrSuDungKhongThuocTKB = new Array();
 var arrSuDungThuocTKB = new Array();
 var tinhTrangThoiKhoaBieu = "";
+var maBangPhanCong = "";
 <%
 	int size1 = 0, size2 = 0;
 	ThoiKhoaBieuModel thoiKhoaBieuModel = new ThoiKhoaBieuModel();
@@ -61,8 +65,16 @@ var tinhTrangThoiKhoaBieu = "";
 				|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN)))
 		out.print("tinhTrangThoiKhoaBieu = '1';");*/
 	ArrayList<TuanLeModel> tuanLeModelList = TuanLeDAO.getAllTuanLe();
-	ArrayList<NamHocModel> namHocModelList = NamHocDAO.getAllNamHoc();
-	
+	ArrayList<NamHocModel> namHocList = NamHocDAO.getAllNamHoc();
+	ArrayList<BangPhanCongModel> bangPhanCongList = new ArrayList<BangPhanCongModel>();
+	if(request.getParameter("hocKi") != null && request.getParameter("namBatDau") != null)
+	{
+		bangPhanCongList = BangPhanCongDAO.getBangPhanCongApprovedByHocKiAndMaNamHoc(request.getParameter("hocKi"), request.getParameter("namBatDau"));
+	}
+	else if(thoiKhoaBieuModel.getHocKi() != null && thoiKhoaBieuModel.getNam1() != null )
+	{
+		bangPhanCongList = BangPhanCongDAO.getBangPhanCongApprovedByHocKiAndMaNamHoc(thoiKhoaBieuModel.getHocKi(), thoiKhoaBieuModel.getNam1());
+	}
 %>
 var maChuongTrinh = '';
 var hocKi = '';
@@ -76,120 +88,189 @@ var soHocSinh = "";
 var addTKB = new Array(); // mang chua toan bo chi tiet ve cac mon hoc
 var ngay = new Array();
 var maNamHoc, maTKB;
+var hocKiNamHoc = '';
+var bangPhanCongList = new Array();
+function selectBangPhanCong(maBPC)
+{
+	document.getElementById('Lop').innerHTML = null;
+	var opt = new Option('---  Chọn lớp  ---', '');
+	document.getElementById('Lop').add(opt, undefined);
+	maBangPhanCong = maBPC;
+	for(var i=0;i<bangPhanCongList.length;i++)
+	{
+		var bangPhanCong = bangPhanCongList[i];
+		if(maBPC == bangPhanCong.maBangPhanCong)
+		{
+			for(var j=0;j<bangPhanCong.lopHocList.length;j++)
+			{
+				var lopHoc = bangPhanCong.lopHocList[j];
+				var opt = new Option(lopHoc.kiHieuLop, lopHoc.maLop);
+				document.getElementById('Lop').add(opt, undefined);
+			}
+			hocKiNamHoc = bangPhanCong.hocKiNamHoc;
+			break;
+		}
+	}
+}
+function taoBangPhanCong()
+{
+	<%
+	for(int i=0;i<bangPhanCongList.size();i++) {
+		out.print("var bangPhanCong = new Object();");
+		out.print("bangPhanCong.maBangPhanCong = '" + bangPhanCongList.get(i).getId() + "';");
+		out.print("bangPhanCong.tenBangPhanCong = '" + bangPhanCongList.get(i).getTen() + "';");
+		out.print("bangPhanCong.hocKiNamHoc = '" + bangPhanCongList.get(i).getHocKiNamHoc() + "';");
+		ArrayList<ChiTietBangPhanCongModel> chiTietBangPhanCongList = bangPhanCongList.get(i).getChiTietBangPhanCongList();
+		out.print("var arrLopHoc = new Array();");
+		for(int j=0;j<chiTietBangPhanCongList.size();j++) {
+			out.print("var lopHoc = new Object();");
+			out.print("lopHoc.maLop = '" + chiTietBangPhanCongList.get(j).getMaLop() + "';");
+			out.print("lopHoc.kiHieuLop = '" + chiTietBangPhanCongList.get(j).getKiHieuLop() + "';");
+			out.print("lopHoc.tenChuyenNganh = '" + chiTietBangPhanCongList.get(j).getTenChuyenNganh() + "';");
+			out.print("lopHoc.maChuongTrinh = '" + chiTietBangPhanCongList.get(j).getMaChuongTrinh()+ "';");
+			out.print("lopHoc.soHocSinh = '" + chiTietBangPhanCongList.get(j).getSoHocSinh() + "';");
+			out.print("arrLopHoc[" + j + "] = lopHoc;");
+		}
+		out.print("bangPhanCong.lopHocList = arrLopHoc;");
+		out.print("bangPhanCongList[" + i + "] = bangPhanCong;");
+	}
+%>
+}
+function showBangPhanCong()
+{
+	if(document.getElementById('Nam1').value != '') 
+	{
+		location.href = <%="'" +request.getContextPath() + "'"%> + "/ISO/ThoiKhoaBieu/ThoiKhoaBieu.jsp"+"?hocKi=" + document.getElementById('HocKi').value + "&namBatDau=" + document.getElementById('Nam1').value;
+	}
+}
 function pageLoad()
 {
 	<%
-	String str = "";
-	out.print("if('" + request.getParameter("Them") + "' == 'null' || " + request.getParameter("maID") + " != null){");
-	out.print("if('" + thoiKhoaBieuModel.getMaLop() + "' != '') {");
-	out.print("document.getElementById('Lop').value = '" + thoiKhoaBieuModel.getMaLop() + "';");
-	out.print("selectLop(); ");
-	out.print("if('" + thoiKhoaBieuModel.getHocKi() + "' != '') ");
-	out.print("document.getElementById('HocKi').value = '" + thoiKhoaBieuModel.getHocKi() + "';");
-	out.print("if('" + thoiKhoaBieuModel.getNam1() + "' != '') {");
-	out.print("document.getElementById('Nam1').value = '" + thoiKhoaBieuModel.getNam1() + "';");
-	out.print("selectNam1();}");
-	out.print("if('" + thoiKhoaBieuModel.getTuanBatDau() +"' != '') {");
-	out.print("document.getElementById('TuanBatDau').value = '" + thoiKhoaBieuModel.getTuanBatDau() + "';");
-	out.print("document.getElementById('TuNgay').value = '" + thoiKhoaBieuModel.getNgayBatDau() + "';");
-	out.print("tuanLe[0] = document.getElementById('TuanBatDau').value;}");
-	out.print("if('" + thoiKhoaBieuModel.getTuanKetThuc() +"' != '') {");
-	out.print("document.getElementById('TuanKetThuc').value = '" + thoiKhoaBieuModel.getTuanKetThuc() + "';");
-	out.print("document.getElementById('DenNgay').value = '" + thoiKhoaBieuModel.getNgayKetThuc() + "';");
-	out.print("tuanLe[1] = document.getElementById('TuanKetThuc').value;} }");
-	if(thoiKhoaBieuModel.getMonHocTKBModelList() != null) {
-		for(int i=0;i<thoiKhoaBieuModel.getMonHocTKBModelList().size();i++) {
-			MonHocTKBModel monHocTKB = thoiKhoaBieuModel.getMonHocTKBModelList().get(i);
-			out.print("var monHoc = new Object();");// tao obj chua ten mon hoc va ma mon hoc
-			out.print("var objTKB = new Object();");
-			out.print("monHoc.maMonHoc = '" + monHocTKB.getMaMonHoc() + "';");
-			out.print("monHoc.tenMonHoc = '" + monHocTKB.getTenMonHoc() + "';");
-			out.print("monHocList[monHocList.length] = monHoc;");
-			out.print("objTKB.tenMonHoc = '" + monHocTKB.getTenMonHoc() + "';");
-			out.print("objTKB.tenGiaoVien = '" + monHocTKB.getTenGiaoVien() + "';");
-			if(monHocTKB.getNgayBatDauLT() != null)
-				out.print("objTKB.ngayBatDauLT = '" + monHocTKB.getNgayBatDauLT().replace("-","/") + "';");
-			else
-				out.print("objTKB.ngayBatDauLT = '" + monHocTKB.getNgayBatDauLT() + "';");
-			if(monHocTKB.getNgayBatDauTH() != null )
-				out.print("objTKB.ngayBatDauTH = '" + monHocTKB.getNgayBatDauTH().replace("-","/") + "';");
-			else
-				out.print("objTKB.ngayBatDauTH = '" + monHocTKB.getNgayBatDauTH() + "';");	
-			if(monHocTKB.getNgayKetThucLT() != null)
-				out.print("objTKB.ngayKetThucLT = '" + monHocTKB.getNgayKetThucLT().replace("-","/") + "';");
-			else
-				out.print("objTKB.ngayKetThucLT = '" + monHocTKB.getNgayKetThucLT() + "';");
-			if(monHocTKB.getNgayKetThucTH() != null)
-				out.print("objTKB.ngayKetThucTH = '" + monHocTKB.getNgayKetThucTH().replace("-","/") + "';");
-			else
-				out.print("objTKB.ngayKetThucTH = '" + monHocTKB.getNgayKetThucTH() + "';");
-			out.print("objTKB.ghiChu = '" + monHocTKB.getGhiChu() + "';");
-			
-			out.print("objTKB.maMonHoc = '" + monHocTKB.getMaMonHoc() + "';");
-			out.print("objTKB.maGiaoVien = '" + monHocTKB.getMaGiaoVien() + "';");
-			out.print("objTKB.maMonHocTKB = '" + monHocTKB.getMaMonHocTKB() + "';");
-			out.print("objTKB.chuoiThuTrongTuan = '" + monHocTKB.getChuoiThuTrongTuan() + "';");
-			out.print("objTKB.phongLT = '" + monHocTKB.getChuoiPhongLT() + "';");
-			out.print("objTKB.phongTH = '" + monHocTKB.getChuoiPhongTH() + "';");
-			out.print("objTKB.soNoiDung = '" + monHocTKB.getSoNoiDung() + "';");
-			out.print("objTKB.soCaThucHanh = '" + monHocTKB.getSoCaThucHanh() + "';");
-			out.print("objTKB.soCaLyThuyet = '" + monHocTKB.getUser4() + "';");
-			out.print("objTKB.kieuBienSoan = '" + monHocTKB.getKieuBienSoan() + "';");
-			out.print("objTKB.soTietLT = '" + monHocTKB.getLyThuyetCTMH() + "';");
-			out.print("objTKB.soTietTH = '" + monHocTKB.getThucHanhCTMH() + "';");
-			out.print("objTKB.tuanBatDauLT = '" + monHocTKB.getTuanBatDauLT() + "';");
-			out.print("objTKB.tuanBatDauTH = '" + monHocTKB.getTuanBatDauTH() + "';");
-			out.print("objTKB.maPhongLT = '" + monHocTKB.getUser1() + "';");
-			out.print("objTKB.maPhongTH = '" + monHocTKB.getUser2() + "';");
-			out.print("objTKB.soTiet1Buoi= '" + monHocTKB.getSoTietHoc1Buoi() + "';");
-			out.print("var arrChiTiet = new Array();");
-			
-			
-			for(int j=0;j<monHocTKB.getChiTietTKBModelList().size();j++) {
-				ChiTietTKBModel chiTietTKB = monHocTKB.getChiTietTKBModelList().get(j);
-				out.print("var chiTiet = new Object();");
-				out.print("chiTiet.maChiTietTKB = '" + chiTietTKB.getMaChiTietTKB() + "';");
-				out.print("chiTiet.buoi = '" + chiTietTKB.getBuoi() + "';");
-				out.print("chiTiet.sTTNoiDung = '" + chiTietTKB.getsTTNoiDung() + "';");
-				out.print("chiTiet.coHieu = '" + chiTietTKB.getCoHieu() + "';");
-				out.print("chiTiet.hinhThucDay = '" + chiTietTKB.getHinhThucDay() + "';");
-				out.print("chiTiet.thuTrongTuan = '" + chiTietTKB.getThuTrongTuan() + "';");
-				out.print("chiTiet.phong = '" + chiTietTKB.getMaPhong() + "';");
-				out.print("chiTiet.tuan = '" + chiTietTKB.getTuan() + "';");
-				out.print("chiTiet.soThuTu = '" + chiTietTKB.getSoThuTu() + "';");
-				out.print("chiTiet.nhom = '" + chiTietTKB.getNhom() + "';");
-				
-				out.print("chiTiet.tenChuong = '" + chiTietTKB.getTenChuong() + "';");
-				out.print("chiTiet.mucTieu = '" + chiTietTKB.getMucTieu() + "';");
-				out.print("chiTiet.tietBatDau = '" + chiTietTKB.getTietBatDau() + "';");
-				//out.print("chiTiet.maSuDung = '" + thoiKhoaBieuModel.getMonHocTKBModelList().get(i).getSuDungModelList().get(j).getMaSuDung() + "';");
-				out.print("arrChiTiet[" + j + "] = chiTiet;");
-				
-			}	
-			out.print("objTKB.chiTietTKBList = arrChiTiet;");
-			out.print("addTKB[" + i + "] = objTKB;");
-			out.print("createRow(objTKB, 0);");
-			//thay doi tkb
-			if(thoiKhoaBieuModel.getTinhTrang().equals(Constant.TINHTRANG_APPROVE) 
-					&& (thoiKhoaBieuModel.getMaNguoiTao().equals(request.getSession().getAttribute("maThanhVien")) 
-							|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN))) {
-				if(monHocTKB.getMaMonHocTKBThayDoi() != null) {
-					out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang') != null)");
-					out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang').style.background = 'lime';");
-					out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu') != null)");
-					out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu').style.background = 'lime';");
-				}
-				if(monHocTKB.getThayDoiChiTietTKB() != null) {
-					out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang') != null)");
-					out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang').style.background = 'lime';");
-					out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu') != null)");
-					out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu').style.background = 'lime';");
-				}
-			}
-			//
-		}
+	if(bangPhanCongList.size() > 0) {
+		out.print("taoBangPhanCong();");
 	}
-	out.print("maTKB = '" + thoiKhoaBieuModel.getMaThoiKhoaBieu() + "'; }");
+	String str = "";
+	if(request.getParameter("hocKi") != null && request.getParameter("namBatDau") != null) {
+		out.print("document.getElementById('HocKi').value = '" + request.getParameter("hocKi") + "';");
+		out.print("document.getElementById('Nam1').value = '" + request.getParameter("namBatDau") + "';");
+		out.print("selectNam1();");
+	} else if(request.getParameter("Them") == null || request.getParameter("maID") != null) {
+		out.print("if('" + thoiKhoaBieuModel.getHocKi() + "' != '') ");
+		out.print("document.getElementById('HocKi').value = '" + thoiKhoaBieuModel.getHocKi() + "';");
+		out.print("if('" + thoiKhoaBieuModel.getNam1() + "' != '') {");
+		out.print("document.getElementById('Nam1').value = '" + thoiKhoaBieuModel.getNam1() + "';");
+		out.print("selectNam1();");
+		out.print("if('" + thoiKhoaBieuModel.getUser2() + "' != '') {");
+		out.print("selectBangPhanCong('" + thoiKhoaBieuModel.getUser2() + "');}");
+		out.print("if('" + thoiKhoaBieuModel.getMaLop() + "' != '') {");
+		out.print("document.getElementById('Lop').value = '" + thoiKhoaBieuModel.getMaLop() + "';");
+		out.print("selectLop();}");
+		out.print("if('" + thoiKhoaBieuModel.getTuanBatDau() +"' != '') {");
+		out.print("document.getElementById('TuanBatDau').value = '" + thoiKhoaBieuModel.getTuanBatDau() + "';");
+		out.print("document.getElementById('TuNgay').value = '" + thoiKhoaBieuModel.getNgayBatDau() + "';");
+		out.print("tuanLe[0] = document.getElementById('TuanBatDau').value;}");
+		out.print("if('" + thoiKhoaBieuModel.getTuanKetThuc() +"' != '') {");
+		out.print("document.getElementById('TuanKetThuc').value = '" + thoiKhoaBieuModel.getTuanKetThuc() + "';");
+		out.print("document.getElementById('DenNgay').value = '" + thoiKhoaBieuModel.getNgayKetThuc() + "';");
+		out.print("tuanLe[1] = document.getElementById('TuanKetThuc').value;} }");
+		if(thoiKhoaBieuModel.getMonHocTKBModelList() != null) {
+			if(thoiKhoaBieuModel.getMonHocTKBModelList().size() > 0) {
+				out.print("document.getElementById('TuanBatDau').disabled = true;");
+				out.print("document.getElementById('TuanKetThuc').disabled = true;");
+			}
+			for(int i=0;i<thoiKhoaBieuModel.getMonHocTKBModelList().size();i++) {
+				MonHocTKBModel monHocTKB = thoiKhoaBieuModel.getMonHocTKBModelList().get(i);
+				out.print("var monHoc = new Object();");// tao obj chua ten mon hoc va ma mon hoc
+				out.print("var objTKB = new Object();");
+				out.print("monHoc.maMonHoc = '" + monHocTKB.getMaMonHoc() + "';");
+				out.print("monHoc.tenMonHoc = '" + monHocTKB.getTenMonHoc() + "';");
+				out.print("monHocList[monHocList.length] = monHoc;");
+				out.print("objTKB.tenMonHoc = '" + monHocTKB.getTenMonHoc() + "';");
+				out.print("objTKB.tenGiaoVien = '" + monHocTKB.getTenGiaoVien() + "';");
+				if(monHocTKB.getNgayBatDauLT() != null)
+					out.print("objTKB.ngayBatDauLT = '" + monHocTKB.getNgayBatDauLT().replace("-","/") + "';");
+				else
+					out.print("objTKB.ngayBatDauLT = '" + monHocTKB.getNgayBatDauLT() + "';");
+				if(monHocTKB.getNgayBatDauTH() != null )
+					out.print("objTKB.ngayBatDauTH = '" + monHocTKB.getNgayBatDauTH().replace("-","/") + "';");
+				else
+					out.print("objTKB.ngayBatDauTH = '" + monHocTKB.getNgayBatDauTH() + "';");	
+				if(monHocTKB.getNgayKetThucLT() != null)
+					out.print("objTKB.ngayKetThucLT = '" + monHocTKB.getNgayKetThucLT().replace("-","/") + "';");
+				else
+					out.print("objTKB.ngayKetThucLT = '" + monHocTKB.getNgayKetThucLT() + "';");
+				if(monHocTKB.getNgayKetThucTH() != null)
+					out.print("objTKB.ngayKetThucTH = '" + monHocTKB.getNgayKetThucTH().replace("-","/") + "';");
+				else
+					out.print("objTKB.ngayKetThucTH = '" + monHocTKB.getNgayKetThucTH() + "';");
+				out.print("objTKB.ghiChu = '" + monHocTKB.getGhiChu() + "';");
+				
+				out.print("objTKB.maMonHoc = '" + monHocTKB.getMaMonHoc() + "';");
+				out.print("objTKB.maGiaoVien = '" + monHocTKB.getMaGiaoVien() + "';");
+				out.print("objTKB.maMonHocTKB = '" + monHocTKB.getMaMonHocTKB() + "';");
+				out.print("objTKB.chuoiThuTrongTuan = '" + monHocTKB.getChuoiThuTrongTuan() + "';");
+				out.print("objTKB.phongLT = '" + monHocTKB.getChuoiPhongLT() + "';");
+				out.print("objTKB.phongTH = '" + monHocTKB.getChuoiPhongTH() + "';");
+				out.print("objTKB.soNoiDung = '" + monHocTKB.getSoNoiDung() + "';");
+				out.print("objTKB.soCaThucHanh = '" + monHocTKB.getSoCaThucHanh() + "';");
+				out.print("objTKB.soCaLyThuyet = '" + monHocTKB.getUser4() + "';");
+				out.print("objTKB.kieuBienSoan = '" + monHocTKB.getKieuBienSoan() + "';");
+				out.print("objTKB.soTietLT = '" + monHocTKB.getLyThuyetCTMH() + "';");
+				out.print("objTKB.soTietTH = '" + monHocTKB.getThucHanhCTMH() + "';");
+				out.print("objTKB.tuanBatDauLT = '" + monHocTKB.getTuanBatDauLT() + "';");
+				out.print("objTKB.tuanBatDauTH = '" + monHocTKB.getTuanBatDauTH() + "';");
+				out.print("objTKB.maPhongLT = '" + monHocTKB.getUser1() + "';");
+				out.print("objTKB.maPhongTH = '" + monHocTKB.getUser2() + "';");
+				out.print("objTKB.soTiet1Buoi= '" + monHocTKB.getSoTietHoc1Buoi() + "';");
+				out.print("var arrChiTiet = new Array();");
+				
+				
+				for(int j=0;j<monHocTKB.getChiTietTKBModelList().size();j++) {
+					ChiTietTKBModel chiTietTKB = monHocTKB.getChiTietTKBModelList().get(j);
+					out.print("var chiTiet = new Object();");
+					out.print("chiTiet.maChiTietTKB = '" + chiTietTKB.getMaChiTietTKB() + "';");
+					out.print("chiTiet.buoi = '" + chiTietTKB.getBuoi() + "';");
+					out.print("chiTiet.sTTNoiDung = '" + chiTietTKB.getsTTNoiDung() + "';");
+					out.print("chiTiet.coHieu = '" + chiTietTKB.getCoHieu() + "';");
+					out.print("chiTiet.hinhThucDay = '" + chiTietTKB.getHinhThucDay() + "';");
+					out.print("chiTiet.thuTrongTuan = '" + chiTietTKB.getThuTrongTuan() + "';");
+					out.print("chiTiet.phong = '" + chiTietTKB.getMaPhong() + "';");
+					out.print("chiTiet.tuan = '" + chiTietTKB.getTuan() + "';");
+					out.print("chiTiet.soThuTu = '" + chiTietTKB.getSoThuTu() + "';");
+					out.print("chiTiet.nhom = '" + chiTietTKB.getNhom() + "';");
+					
+					out.print("chiTiet.tenChuong = '" + chiTietTKB.getTenChuong() + "';");
+					out.print("chiTiet.mucTieu = '" + chiTietTKB.getMucTieu() + "';");
+					out.print("chiTiet.tietBatDau = '" + chiTietTKB.getTietBatDau() + "';");
+					//out.print("chiTiet.maSuDung = '" + thoiKhoaBieuModel.getMonHocTKBModelList().get(i).getSuDungModelList().get(j).getMaSuDung() + "';");
+					out.print("arrChiTiet[" + j + "] = chiTiet;");
+					
+				}	
+				out.print("objTKB.chiTietTKBList = arrChiTiet;");
+				out.print("addTKB[" + i + "] = objTKB;");
+				out.print("createRow(objTKB, 0);");
+				//thay doi tkb
+				if(thoiKhoaBieuModel.getTinhTrang().equals(Constant.TINHTRANG_APPROVE) 
+						&& (thoiKhoaBieuModel.getMaNguoiTao().equals(request.getSession().getAttribute("maThanhVien")) 
+								|| request.getSession().getAttribute("maBoPhan").equals(Constant.BO_PHAN_ADMIN))) {
+					if(monHocTKB.getMaMonHocTKBThayDoi() != null) {
+						out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang') != null)");
+						out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Sang').style.background = 'lime';");
+						out.print("if(document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu') != null)");
+						out.print("document.getElementById('fontGiaoVien" + monHocTKB.getMaMonHocTKB() + "Chieu').style.background = 'lime';");
+					}
+					if(monHocTKB.getThayDoiChiTietTKB() != null) {
+						out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang') != null)");
+						out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Sang').style.background = 'lime';");
+						out.print("if(document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu') != null)");
+						out.print("document.getElementById('MaMonHocTKB-" + monHocTKB.getMaMonHocTKB() + "-MaMonHocTKB-Chieu').style.background = 'lime';");
+					}
+				}
+				//
+			}
+		}
+		out.print("maTKB = '" + thoiKhoaBieuModel.getMaThoiKhoaBieu() + "';");
+	}
 	//out.print("tuanLe[0] = document.getElementById('TuanBatDau').value;");
 	//out.print("tuanLe[1] = document.getElementById('TuanKetThuc').value;");
 	//out.print("changeButton();}");
@@ -207,22 +288,41 @@ function selectLop()
 {
 	if(document.getElementById('Lop').value != '')
 	{
+		for(var i=0;i<bangPhanCongList.length;i++)
+		{
+			var bangPhanCong = bangPhanCongList[i];
+			if(maBangPhanCong == bangPhanCong.maBangPhanCong)
+			{
+				for(var j=0;j<bangPhanCong.lopHocList.length;j++)
+				{
+					var lopHoc = bangPhanCong.lopHocList[j];
+					if(lopHoc.maLop == document.getElementById('Lop').value)
+					{
+						document.getElementById('ChuyenNganh').value = lopHoc.tenChuyenNganh;
+						maChuongTrinh = lopHoc.maChuongTrinh;
+						soHocSinh = lopHoc.soHocSinh;
+						break;
+					}
+				}
+				break;
+			}
+		}
 		<%
-			ArrayList<LopHocModel> lopHocModelList = LopHocDAO.getAllLopByMaChuongTrinhApproved();
+			/*ArrayList<LopHocModel> lopHocModelList = LopHocDAO.getAllLopByMaChuongTrinhApproved();
 			for(int i=0;i<lopHocModelList.size();i++) {
 				out.print("if(document.getElementById('Lop').value == " + lopHocModelList.get(i).getMaLopHoc() + ") {");
 				out.print("document.getElementById('ChuyenNganh').value = '" + lopHocModelList.get(i).getTenChuyenNganh() + "';");
 				out.print("namBatDau = " + lopHocModelList.get(i).getNamBatDau() + ";");
-				out.print("soHocSinh = '" + lopHocModelList.get(i).getSoHocSinh() + "';");
+				out.print("soHocSinh = '" + lopHocModelList.get(i).getSoHocSinh() + "';}");
 				out.print("maChuongTrinh = " + lopHocModelList.get(i).getMaChuongtrinh() + "; }");
 			}
 			ArrayList<HeDaoTaoModel> heDaoTaoModelList = HeDaoTaoDAO.getSoNamHeDaoTao();
 			for(int i=0;i<heDaoTaoModelList.size();i++) {
 				out.print("if(maChuongTrinh == " + heDaoTaoModelList.get(i).getMaChuongtrinh() + ")");
 				out.print("soNam = " + heDaoTaoModelList.get(i).getSoNam() + ";");
-			}
+			}*/
 		%>
-		document.getElementById('Nam1').innerHTML = null;
+		/*document.getElementById('Nam1').innerHTML = null;
 		var nam = namBatDau;
 		for(var i=1;i<=soNam;i++)
 		{
@@ -230,12 +330,12 @@ function selectLop()
 			document.getElementById('Nam1').add(Opt, undefined);
 			nam += 1;
 		}
-		selectNam1();
+		selectNam1();*/
 	}
 	else
 	{
 		document.getElementById('ChuyenNganh').value = "";
-		document.getElementById('TuanBatDau').value = "";
+		//document.getElementById('TuanBatDau').value = "";
 		document.getElementById('TuNgay').value = "";
 		document.getElementById('TuanKetThuc').value = "";
 		document.getElementById('DenNgay').value = "";
@@ -249,21 +349,19 @@ function selectNam1()
 {
 	document.getElementById('Nam2').value = parseInt(document.getElementById('Nam1').value) + 1;
 	<%
-	if(namHocModelList != null) {
-		for(int i=0;i<namHocModelList.size();i++) {
-			out.print("if(document.getElementById('Nam1').value == '" + namHocModelList.get(i).getNamBatDau() + "')");
-			out.print("maNamHoc = " + namHocModelList.get(i).getMaNamHoc() + ";");
+		for(int i=0;i<namHocList.size();i++) {
+			out.print("if(document.getElementById('Nam1').value == '" + namHocList.get(i).getNamBatDau() + "')");
+			out.print("maNamHoc = '" + namHocList.get(i).getMaNamHoc() + "';");
 		}
-	}
 	%>
-	kiemTraHocKi();
+	//kiemTraHocKi();
 }
 function selectTuanBatDau() 
 {
 	tuanLe[0] = document.getElementById('TuanBatDau').value;
 	<%
 	for(int i=0;i<tuanLeModelList.size();i++) {
-		out.print("if(document.getElementById('Nam1').value == " + tuanLeModelList.get(i).getNamBatDau() + ") {");
+		out.print("if(document.getElementById('Nam1').value.split('-')[0] == " + tuanLeModelList.get(i).getNamBatDau() + ") {");
 		out.print("if(document.getElementById('TuanBatDau').value == " + tuanLeModelList.get(i).getSoThuTu() + ") {");
 		out.print("document.getElementById('TuNgay').value = '" + tuanLeModelList.get(i).getTuNgay() + "'; } }");
 	}
@@ -274,7 +372,7 @@ function selectTuanKetThuc()
 	tuanLe[1] = document.getElementById('TuanKetThuc').value;
 	<%
 	for(int i=0;i<tuanLeModelList.size();i++) {
-		out.print("if(document.getElementById('Nam1').value == " + tuanLeModelList.get(i).getNamBatDau() + ") {");
+		out.print("if(document.getElementById('Nam1').value.split('-')[0] == " + tuanLeModelList.get(i).getNamBatDau() + ") {");
 		out.print("if(document.getElementById('TuanKetThuc').value == " + tuanLeModelList.get(i).getSoThuTu() + ") {");
 		out.print("document.getElementById('DenNgay').value = '" + tuanLeModelList.get(i).getDenNgay() + "'; } }");
 	}
@@ -311,7 +409,7 @@ function openAdd()
 		obj.tuanLe = tuanLe;
 		obj.monHocList = monHocList;
 		var maLop = document.getElementById('Lop').value;
-		value = window.showModalDialog(duongDan + "AddThoiKhoaBieu.jsp?maChuongTrinh="+maChuongTrinh+"&hocKi="+hocKi+"&maNamHoc="+maNamHoc+"&maTKB="+maTKB+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop,obj,"dialogHeight: 650px; dialogWidth: 800px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
+		value = window.showModalDialog(duongDan + "AddThoiKhoaBieu.jsp?maChuongTrinh="+maChuongTrinh+"&hocKi="+hocKiNamHoc+"&maNamHoc="+maNamHoc+"&maTKB="+maTKB+"&tuTuan="+tuanLe[0]+"&denTuan="+tuanLe[1]+"&maLop="+maLop+"&maBangPhanCong="+maBangPhanCong,obj,"dialogHeight: 650px; dialogWidth: 800px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
 		if(value != null)
 		{
 				addTKB[addTKB.length] = value;
@@ -324,7 +422,11 @@ function openAdd()
 				monHocList[monHocList.length] = monHoc;
 				createRow(addTKB[addTKB.length-1], 0);
 				//changeButton();
-			
+		}
+		if(document.getElementById('cboXoaMonHoc').options.length > 1) 
+		{
+			document.getElementById('TuanBatDau').disabled = true;
+			document.getElementById('TuanKetThuc').disabled = true;
 		}
 	}
 }
@@ -727,7 +829,7 @@ function confirmDuyet(x)
 		<c:set var = "REJECT" value = "<%= Constant.TINHTRANG_REJECT %>"></c:set>
 		<c:set var = "APPROVE" value = "<%= Constant.TINHTRANG_APPROVE %>"></c:set>
 	<form action="<%=request.getContextPath()%>/thoiKhoaBieuController?them=yes" method="post" name = "TKB">	
-	
+	<input type = "hidden" id = "txtHocKiNamHoc" name = "txtHocKiNamHoc"/>
 	<table width = "800" style="background-color: transparent;">
 	<tr style="background-color: transparent;">
 		<td>Trường Trung cấp nghề KTCN Hùng Vương<br />Khoa Công Nghệ Thông Tin </td>
@@ -736,23 +838,36 @@ function confirmDuyet(x)
 	<tr style="background-color: transparent;">
 		<td colspan = "2">
 			<strong>THỜI KHÓA BIỂU HỌC KỲ 
-			<select id="HocKi" name="cboHocKi">
+			<select id="HocKi" name="cboHocKi" onchange="showBangPhanCong();" <c:if test = "${not empty ThoiKhoaBieu.maThoiKhoaBieu }">disabled</c:if>>
 				<option value = "1" <c:if test = "${ThoiKhoaBieu.hocKi eq 1}">selected</c:if>>I</option>
 				<option value = "2" <c:if test = "${ThoiKhoaBieu.hocKi eq 2}">selected</c:if>>II</option>
 			</select> 
-			- NĂM HỌC <select name="cboNam1" id="Nam1" onchange="selectNam1()">
-				<option value="">Select</option></select> - 
+			- NĂM HỌC 
+					<select name="cboNam1" id="Nam1" onchange="selectNam1();showBangPhanCong();" <c:if test = "${not empty ThoiKhoaBieu.maThoiKhoaBieu }">disabled</c:if>>
+						<option value = "">  ---  Chọn năm học  ---  </option>
+						<c:forEach var = "NamHoc" items="<%=namHocList %>">
+							<option value = "${NamHoc.namBatDau}" <c:if test = "${ThoiKhoaBieu.nam1 eq NamHoc.namBatDau}">selected</c:if>>${NamHoc.namBatDau}</option>
+						</c:forEach>
+					</select> - 
 			<input type = "text" size = "3" name="txtNam2" id="Nam2" style="background-color: transparent;" readonly="readonly"/></strong>
 		</td>
 	</tr>
-	<c:set var="LopList" value="<%=LopHocDAO.getAllLopByMaChuongTrinhApproved() %>"></c:set>
+	<c:if test = "${not empty param.namBatDau and not empty param.hocKi}">
+		<tr style="background-color: transparent;">
+			<td colspan="2">
+				<select name="cboBangPhanCong" id="BangPhanCong" onchange="selectBangPhanCong(this.value);">
+						<option value = "">  ---  Chọn bảng phân công  ---  </option>
+						<c:forEach var = "BangPhanCong" items="<%=bangPhanCongList %>">
+							<option value = "${BangPhanCong.id}" <c:if test = "${ThoiKhoaBieu.user2 eq BangPhanCong.id}">selected</c:if>>${BangPhanCong.ten}</option>
+						</c:forEach>
+					</select>
+			</td>
+		</tr>
+	</c:if>
 	<tr style="background-color: transparent;">
 		<td colspan = "2"><br /><div class = "div_tr">
-			Lớp: <select name="cboLop" id="Lop" onclick="selectLop();">
+			Lớp: <select name="cboLop" id="Lop" onchange="selectLop();" <c:if test = "${not empty ThoiKhoaBieu.maThoiKhoaBieu }">disabled</c:if>>
 					<option value="">--Select--</option>
-					<c:forEach var = "Lop" items="${LopList}">
-						<option value="${Lop.maLopHoc}" <c:if test = "${ThoiKhoaBieu.maLop eq Lop.maLopHoc}">selected</c:if>>${Lop.kiHieu}</option>
-					</c:forEach>
 				</select>
 				<c:if test="${not empty param.err and ThoiKhoaBieu.maLop eq ''}"><b class="error">(*)</b></c:if>
 			Chuyên ngành <input type="text" name="txtChuyenNganh" id="ChuyenNganh" readonly="readonly"/> <br />

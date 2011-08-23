@@ -24,7 +24,14 @@ public class ChiTietTKBModel implements Serializable {
 	private String tenChuong;
 	private String mucTieu;
 	private String maMonHoc;
+	private String soThuTuTuan;
 	
+	public String getSoThuTuTuan() {
+		return soThuTuTuan;
+	}
+	public void setSoThuTuTuan(String soThuTuTuan) {
+		this.soThuTuTuan = soThuTuTuan;
+	}
 	public String getMaMonHoc() {
 		return maMonHoc;
 	}

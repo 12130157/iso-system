@@ -28,8 +28,8 @@ public class ThoiKhoaBieuModel implements Serializable {
 	private String lyDoReject;
 	private String tinhTrang;
 	private String ngayGui;
-	private String user1;
-	private String user2;
+	private String user1; // ten tat
+	private String user2; // maBangPhanCong
 	private String user3;
 	private String user4;
 	private String user5;
@@ -41,6 +41,7 @@ public class ThoiKhoaBieuModel implements Serializable {
 	private String gioGui;
 	private String tenSinhVien;
 	private String maSinhVien;
+	private String maNamHoc;
 	
 	public String getMaSinhVien() {
 		return maSinhVien;
@@ -244,8 +245,12 @@ public class ThoiKhoaBieuModel implements Serializable {
 		this.tenNguoiDuyet = tenNguoiDuyet;
 	}
 	
-	
-	
+	public String getMaNamHoc() {
+		return maNamHoc;
+	}
+	public void setMaNamHoc(String maNamHoc) {
+		this.maNamHoc = maNamHoc;
+	}
 	public Boolean validateModel() {
 		Boolean result = true;
 		if (maLop == null || maLop.equals("")) {
@@ -264,8 +269,9 @@ public class ThoiKhoaBieuModel implements Serializable {
 			result = false;			
 		} else if (hocKi == null || hocKi.equals("")) {
 			result = false;			
+		} else if (user2 == null || user2.equals("")) {
+			result = false;
 		}
-		
 		return result;
 	}
 	public String getNgayGui() {

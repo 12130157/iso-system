@@ -5,15 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-import com.sun.org.apache.regexp.internal.recompile;
-
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.BangPhanCongModel;
 import vn.edu.hungvuongaptech.model.ChiTietBangPhanCongModel;
-import vn.edu.hungvuongaptech.model.KeHoachDaoTaoModel;
-import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
 
@@ -23,11 +17,12 @@ public class BangPhanCongDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_ISO_InsertBangPhanCong(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_ISO_InsertBangPhanCong(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
 			csmt.setNString("Ten", bangPhanCong.getTen());
 			csmt.setString("Ma_khoa", bangPhanCong.getMaKhoa());
 			csmt.setString("Hoc_ki", bangPhanCong.getHocKi());
+			csmt.setString("Ma_he_dao_tao", bangPhanCong.getMaHeDaoTao());
 			csmt.setString("Ma_nam_hoc", bangPhanCong.getMaNamHoc());
 			csmt.setString("Tinh_trang", bangPhanCong.getTinhTrang());
 			csmt.setString("Ngay_tao", bangPhanCong.getNgayTao());
@@ -37,11 +32,14 @@ public class BangPhanCongDAO {
 			csmt.setString("Ngay_gui", bangPhanCong.getNgayGui());
 			csmt.setString("Ngay_cap_nhat_cuoi", bangPhanCong.getNgayCapNhatCuoi());
 			csmt.setNString("Ly_do_reject", bangPhanCong.getLyDoReject());
+			csmt.setString("Hoc_ki_nam_hoc", bangPhanCong.getHocKiNamHoc());
+			csmt.setString("Ma_quyet_dinh", bangPhanCong.getMaQuyetDinh());
 			csmt.setString("User1", bangPhanCong.getUser1());
 			csmt.setString("User2", bangPhanCong.getUser2());
 			csmt.setString("User3", bangPhanCong.getUser3());
 			csmt.setString("User4", bangPhanCong.getUser4());
 			csmt.setString("User5", bangPhanCong.getUser5());
+			csmt.setString("Tinh_trang_approved", Constant.TINHTRANG_APPROVE);
 			result = DataUtil.executeNonStore(csmt);
 			if(result) {
 				bangPhanCong.setId(csmt.getString("ID"));
@@ -51,26 +49,25 @@ public class BangPhanCongDAO {
 		}
 		return result;
 	}
-	public static Boolean kiemTraBangPhanCongDaTao(String maNamHoc, String hocKi, String maKhoa) {
-		Boolean result = true;
+	public static String kiemTraBangPhanCongDaTao(String maNamHoc, String hocKi, String maKhoa, String maHeDaoTao, String maQuyetDinh) {
+		String kq = "";
 		try {
 			CallableStatement csmt = DataUtil
 			.getConnection()
-			.prepareCall("{call sp_ISO_FindBangPhanCongDaTao(?,?,?,?)}");
+			.prepareCall("{call sp_ISO_FindBangPhanCongDaTao(?,?,?,?,?,?)}");
 			csmt.setString("Ma_nam_hoc", maNamHoc);
 			csmt.setString("Hoc_ki", hocKi);
 			csmt.setString("Ma_khoa", maKhoa);
+			csmt.setString("Ma_he_dao_tao", maHeDaoTao);
+			csmt.setString("Ma_quyet_dinh", maQuyetDinh);
 			csmt.registerOutParameter("result", java.sql.Types.VARCHAR);
 			if (DataUtil.executeNonStore(csmt)) {
-				String kq = csmt.getString("result");
-				if (kq.equals("0")) {
-					result = false;
-				}
+				kq = csmt.getString("result");
 			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return kq;
 	}
 	public static int getCountBangPhanCong(String tinhtrang, String maBoPhan) {
 		int count = 0;
@@ -149,6 +146,9 @@ public class BangPhanCongDAO {
 					bangPhanCong.setTenNguoiDuyet(rs.getNString("TenNguoiDuyet"));
 					bangPhanCong.setTenKhoa(rs.getNString("TenKhoa"));
 					bangPhanCong.setMaKhoa(rs.getString("MaKhoa"));
+					bangPhanCong.setMaHeDaoTao(rs.getString("MaHeDaoTao"));
+					bangPhanCong.setTenHeDaoTao(rs.getNString("TenHeDaoTao"));
+					bangPhanCong.setMaQuyetDinh(rs.getString("MaQuyetDinh"));
 					
 					id = bangPhanCong.getId();
 					bangPhanCong.setChiTietBangPhanCongList(chiTietBangPhanCongList);
@@ -258,7 +258,7 @@ public class BangPhanCongDAO {
 		}	
 		return result;
 	}
-	public static ArrayList<BangPhanCongModel> getBangPhanCongByHocKiAndMaNamHoc(String hocKi, String maNamHoc) {
+	public static ArrayList<BangPhanCongModel> getBangPhanCongApprovedByHocKiAndMaNamHoc(String hocKi, String namBatDau) {
 		// TODO Auto-generated method stub
 		ArrayList<BangPhanCongModel> bangPhanCongList = new ArrayList<BangPhanCongModel>();
 		String maLop = "na", maBangPhanCong = "na";
@@ -268,25 +268,31 @@ public class BangPhanCongDAO {
 			.getConnection()
 			.prepareStatement(
 					Constant.SQL_RES
-							.getString("iso.sql.getBangPhanCongByHocKiAndMaNamHoc"));
-			preparedStatement.setString(1, hocKi);
-			preparedStatement.setString(2, maNamHoc);
+							.getString("iso.sql.getBangPhanCongApprovedByHocKiAndMaNamHoc"));
+			preparedStatement.setString(1, namBatDau);
+			preparedStatement.setString(2, hocKi);
+			preparedStatement.setString(3, Constant.TINHTRANG_APPROVE);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				if(maBangPhanCong.equals(rs.getString("MaBangPhanCong"))) {
+				if(!maBangPhanCong.equals(rs.getString("MaBangPhanCong"))) {
 					BangPhanCongModel bangPhanCong = new BangPhanCongModel();
 					bangPhanCong.setId(rs.getString("MaBangPhanCong"));
 					bangPhanCong.setTen(rs.getNString("TenBangPhanCong"));
-					bangPhanCong.setChiTietBangPhanCongList(chiTietList);
+					
+					bangPhanCong.setHocKiNamHoc(rs.getString("HocKiNamHoc"));
 					maBangPhanCong = rs.getString("MaBangPhanCong");
 					maLop = "na";
 					chiTietList = new ArrayList<ChiTietBangPhanCongModel>();
+					bangPhanCong.setChiTietBangPhanCongList(chiTietList);
 					bangPhanCongList.add(bangPhanCong);
 				}
 				
 				ChiTietBangPhanCongModel chiTiet = new ChiTietBangPhanCongModel();
 				chiTiet.setMaLop(rs.getString("MaLop"));
 				chiTiet.setKiHieuLop(rs.getString("KiHieuLop"));
+				chiTiet.setTenChuyenNganh(rs.getNString("tenChuyenNganh"));
+				chiTiet.setMaChuongTrinh(rs.getString("MaChuongTrinh"));
+				chiTiet.setSoHocSinh(rs.getString("SoHocSinh"));
 				chiTietList.add(chiTiet);
 			}
 		} catch (Exception e) {

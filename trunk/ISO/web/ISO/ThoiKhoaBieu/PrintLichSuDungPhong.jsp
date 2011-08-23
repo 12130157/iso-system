@@ -8,7 +8,7 @@
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
-	pageInsets="10,20,0,20,points"
+	pageInsets="30,0,20,0,points"
 	enableImageSplit="false"
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
@@ -56,7 +56,10 @@
 					<td></td>
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
-					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 20px">THỜI KHÓA BIỂU</p><br /></th>
+					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 20px">
+						LỊCH SỬ DỤNG PHÒNG
+						
+					</p><br /></th>
 				</tr>
 			</table>
 			<%

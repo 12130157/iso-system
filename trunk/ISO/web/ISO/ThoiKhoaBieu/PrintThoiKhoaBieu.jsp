@@ -24,7 +24,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       

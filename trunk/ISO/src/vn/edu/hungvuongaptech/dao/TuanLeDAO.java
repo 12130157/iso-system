@@ -208,4 +208,24 @@ public class TuanLeDAO {
 		}
 		return tuanLeList;
 	}
+	public static TuanLeModel getTuanHienTai() {
+		TuanLeModel tuanLe = new TuanLeModel();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getTuanHienTai"));
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				tuanLe.setSoThuTu(rs.getString("SoThuTu"));
+				tuanLe.setTuNgay(rs.getString("TuNgay"));
+				tuanLe.setDenNgay(rs.getString("DenNgay"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tuanLe;
+	}
 }

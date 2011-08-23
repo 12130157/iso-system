@@ -200,6 +200,7 @@ public class ThoiKhoaBieuDAO {
 				thoiKhoaBieuModel.setTenKhoa(rs.getString("TenKhoa"));
 				thoiKhoaBieuModel.setNgayDuyet(rs.getString("NgayDuyet"));
 				thoiKhoaBieuModel.setGioDuyet(rs.getString("GioDuyet"));
+				thoiKhoaBieuModel.setUser2(rs.getString("User2"));
 				
 				ArrayList<MonHocTKBModel> monHocTKBModelList = MonHocTKBDAO.getMonHocTKBANDChiTietTKBByMaTKB(thoiKhoaBieuModel.getMaThoiKhoaBieu());
 				thoiKhoaBieuModel.setMonHocTKBModelList(monHocTKBModelList);
