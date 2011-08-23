@@ -54,11 +54,12 @@ public class BangPhanCongDAO {
 		try {
 			CallableStatement csmt = DataUtil
 			.getConnection()
-			.prepareCall("{call sp_ISO_FindBangPhanCongDaTao(?,?,?,?,?,?)}");
+			.prepareCall("{call sp_ISO_FindBangPhanCongDaTao(?,?,?,?,?,?,?)}");
 			csmt.setString("Ma_nam_hoc", maNamHoc);
 			csmt.setString("Hoc_ki", hocKi);
 			csmt.setString("Ma_khoa", maKhoa);
 			csmt.setString("Ma_he_dao_tao", maHeDaoTao);
+			csmt.setString("Tinh_trang_approved", Constant.TINHTRANG_APPROVE);
 			csmt.setString("Ma_quyet_dinh", maQuyetDinh);
 			csmt.registerOutParameter("result", java.sql.Types.VARCHAR);
 			if (DataUtil.executeNonStore(csmt)) {
