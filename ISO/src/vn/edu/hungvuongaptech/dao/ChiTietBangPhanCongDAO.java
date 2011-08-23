@@ -1,7 +1,11 @@
 package vn.edu.hungvuongaptech.dao;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.BangPhanCongModel;
 import vn.edu.hungvuongaptech.model.ChiTietBangPhanCongModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
@@ -51,5 +55,30 @@ public class ChiTietBangPhanCongDAO {
 			ex.printStackTrace();
 		}
 		return result;
+	}
+	public static ArrayList<ChiTietBangPhanCongModel> getChiTietBangPhanCongByMaBangPhanCongAndMaLop(String maBangPhanCong, String maLop) {
+		// TODO Auto-generated method stub
+		ArrayList<ChiTietBangPhanCongModel> chiTietBangPhanCongList = new ArrayList<ChiTietBangPhanCongModel>();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getChiTietBangPhanCongByMaBangPhanCongAndMaLop"));
+			preparedStatement.setString(1, maBangPhanCong);
+			preparedStatement.setString(2, maLop);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ChiTietBangPhanCongModel chiTietBangPhanCong = new ChiTietBangPhanCongModel();
+				chiTietBangPhanCong.setMaGiaoVien(rs.getString("MaGiaoVien"));
+				chiTietBangPhanCong.setTenGiaoVien(rs.getString("TenGiaoVien"));
+				chiTietBangPhanCong.setMaMonHoc(rs.getString("MaMonHoc"));
+				
+				chiTietBangPhanCongList.add(chiTietBangPhanCong);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return chiTietBangPhanCongList;
 	}
 }

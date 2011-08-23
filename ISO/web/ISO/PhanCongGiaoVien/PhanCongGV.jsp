@@ -88,10 +88,14 @@
 	{
 		if(document.getElementById('cboKhoa').value == '')
 			alert("Hãy chọn khoa !!!");
+		else if(document.getElementById('cboHeDaoTao').value == '')
+			alert("Hãy chọn hệ đào tạo !!!");
+		else if(document.getElementById('cboQuyetDinh').value == '')
+			alert("Hãy chọn quyết định đào tạo !!!");
 		else if(document.getElementById('cboHocKi').value == '')
 			alert("Hãy chọn học kì !!!");
-		else if(document.getElementById('cboNamHoc').value = '')
-			alert("Hãy chọn năm học");
+		else if(document.getElementById('cboNamHoc').value == '')
+			alert("Hãy chọn năm học !!!");
 		else
 			document.getElementById('FileForm').submit();
 	}
@@ -104,21 +108,26 @@
 			<jsp:include page="../../block/header.jsp" />
 	<!-- E HEAD CONTENT -->
 	<c:set 	var = "BangPhanCongModel" value = '<%=bangPhanCong %>' scope="session"></c:set>
-		<c:if test="${not empty param.Trung}">
+	<c:choose>
+		<c:when test="${not empty param.TonTai}">
+			<b class="error"> Không có Chương trình đào tạo cho Bảng phân công này </b>
+		</c:when>
+		<c:when test="${not empty param.Trung}">
 			<b class="error"> Bảng phân công này đã tồn tại </b>
-		</c:if>
-		<c:if test="${not empty param.TaoMoiThanhCong and param.TaoMoiThanhCong eq 'ok'}">
+		</c:when>
+		<c:when test="${not empty param.TaoMoiThanhCong and param.TaoMoiThanhCong eq 'ok'}">
 			<b class="msg"> Thêm mới "BẢNG PHÂN CÔNG" thành công </b>
-		</c:if>
-		<c:if test="${not empty param.TaoMoiThatBai and param.TaoMoiThatBai eq 'fail'}">
+		</c:when>
+		<c:when test="${not empty param.TaoMoiThatBai and param.TaoMoiThatBai eq 'fail'}">
 			<b class="error"> Thêm mới "BẢNG PHÂN CÔNG" thất bại </b>
-		</c:if>
-		<c:if test="${(not empty param.UpdateThanhCong and param.UpdateThanhCong eq 'ok')}">
+		</c:when>
+		<c:when test="${(not empty param.UpdateThanhCong and param.UpdateThanhCong eq 'ok')}">
 			<b class="msg"> Cập nhật "BẢNG PHÂN CÔNG" thành công </b>
-		</c:if>	
-		<c:if test="${(not empty param.UpdateThatBai and param.UpdateThatBai eq 'fail')}">
+		</c:when>	
+		<c:when test="${(not empty param.UpdateThatBai and param.UpdateThatBai eq 'fail')}">
 			<b class="msg"> Cập nhật "BẢNG PHÂN CÔNG" thất bại </b>
-		</c:if>	
+		</c:when>	
+	</c:choose>	
 	<c:set var = "maThanhVien" value='<%= (String) session.getAttribute("maThanhVien") %>'></c:set>
 	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
 	<c:set var = "BO_PHAN_ADMIN" value = '<%= Constant.BO_PHAN_ADMIN %>'></c:set>
@@ -149,9 +158,23 @@
 				<td><div class = "div_tieude"><strong>BẢNG PHÂN CÔNG GIÁO VIÊN GIẢNG DẠY</strong></div><br /></td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td>Hệ đào tạo : hệ Trung cấp nghề<br/>
+				<td>Hệ đào tạo : 
+					<select name = "cboHeDaoTao" id="cboHeDaoTao" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
+						<option value = "">  ---  Chọn hệ đào tạo  ---  </option>
+						<c:forEach var = "HeDaoTao" items="<%=HeDaoTaoDAO.getHeDaoTao() %>">
+							<option value = "${HeDaoTao.maHeDaoTao}" <c:if test = "${BangPhanCongModel.maHeDaoTao eq HeDaoTao.maHeDaoTao}">selected</c:if>>${HeDaoTao.tenHeDaoTao}</option>
+						</c:forEach>
+					</select>
+					Chọn quyết định đào tạo : 
+					<select name = "cboQuyetDinh" id="cboQuyetDinh" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
+						<option value = "">  ---  Chọn quyết định  ---  </option>
+						<c:forEach var = "QuyetDinh" items="<%=QuyetDinhDAO.getAllQuyetDinh() %>">
+							<option value = "${QuyetDinh.maQuyetDinh}" <c:if test = "${BangPhanCongModel.maQuyetDinh eq QuyetDinh.maQuyetDinh}">selected</c:if>>${QuyetDinh.tenQuyetDinh}</option>
+						</c:forEach>
+					</select>
+				<br/>
 					Học kỳ :
-					<select name = "cboHocKi" id="cboHocKi" <c:if test = "${not empty BangPhanCong.id}">disbaled</c:if>>
+					<select name = "cboHocKi" id="cboHocKi" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
 						<option value = "">  ---  Chọn học kỳ  ---  </option>
 						<option value = "1" <c:if test = "${BangPhanCongModel.hocKi eq 1}">selected</c:if>>1</option>
 						<option value = "2" <c:if test = "${BangPhanCongModel.hocKi eq 2}">selected</c:if>>2</option>
@@ -159,7 +182,7 @@
 					</select>
 					<c:set var = "ListNamHoc" value="<%=NamHocDAO.getAllNamHoc() %>"/>
 					Năm học : 
-					<select name = "cboNamHoc" id="cboNamHoc" <c:if test = "${not empty BangPhanCong.id}">disbaled</c:if>>
+					<select name = "cboNamHoc" id="cboNamHoc" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
 						<option value = "">  ---  Chọn năm học  ---  </option>
 						<c:forEach var = "NamHoc" items="${ListNamHoc}">
 							<option value = "${NamHoc.maNamHoc}" <c:if test = "${BangPhanCongModel.maNamHoc eq NamHoc.maNamHoc}">selected</c:if>>${NamHoc.namBatDau}-${NamHoc.namKetThuc}</option>
@@ -272,7 +295,7 @@
 			</script>
 		</table>
 	<br/>
-	${SoThuTu }
+	
 	<input type = "hidden" name = "txtSoPhanCong" id = "txtSoPhanCong" value = "${SoThuTu}"/>
 	<table width = "800" style="background-color: transparent;">
 		<tr style="background-color: transparent;">

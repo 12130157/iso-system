@@ -295,7 +295,12 @@ public class MonHocTKBDAO {
 					monHocTKBModel.setNgayBatDauTH(DateUtil.setDate(rs.getString("NgayBatDauTH")));
 					monHocTKBModel.setNgayKetThucLT(DateUtil.setDate(rs.getString("NgayKetThucLT")));
 					monHocTKBModel.setNgayKetThucTH(DateUtil.setDate(rs.getString("NgayKetThucTH")));
-					monHocTKBModel.setGhiChu(rs.getNString("GhiChu"));
+					if(rs.getString("GhiChu") != null) {
+						monHocTKBModel.setGhiChu(rs.getString("GhiChu").replaceAll("\r\n", "<+++>"));
+						monHocTKBModel.setGhiChu(monHocTKBModel.getGhiChu().replace("'", "-DAUNHAY-"));
+						monHocTKBModel.setGhiChu(monHocTKBModel.getGhiChu().replace("\"", "-DAUNHAY1-"));
+					} else
+						monHocTKBModel.setGhiChu(rs.getString("GhiChu"));
 					monHocTKBModel.setKieuBienSoan(rs.getString("KieuBienSoan"));
 					monHocTKBModel.setLyThuyetCTMH(rs.getString("LyThuyetCTMH"));
 					monHocTKBModel.setThucHanhCTMH(rs.getString("ThucHanhCTMH"));

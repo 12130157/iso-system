@@ -52,7 +52,7 @@ public class PhanCongController extends HttpServlet{
 			phanLoaiBangPhanCong(request, response);
 		} else if(request.getParameter("xuLy") != null) {
 			taoBangPhanCong(request, response);
-		} else if(request.getParameter("duyet") != null) {
+		} else if(request.getParameter("actionType") != null) {
 			duyetBangPhanCong(request, response);
 		}  else if(request.getParameter("duyet1BangPhanCong") != null) {
 			duyetMotBangPhanCong(request, response, request.getParameter("maBangPhanCong"));
@@ -63,7 +63,7 @@ public class PhanCongController extends HttpServlet{
 			HttpServletResponse response, BangPhanCongModel bangPhanCong) throws ServletException, IOException{
 		boolean result = true;
 		ArrayList<ChiTietBangPhanCongModel> chiTietList = new ArrayList<ChiTietBangPhanCongModel>();
-		for(Integer i=1; i<Integer.parseInt(request.getParameter("txtSoPhanCong"));i++) {
+		for(Integer i=1; i<=Integer.parseInt(request.getParameter("txtSoPhanCong"));i++) {
 			ChiTietBangPhanCongModel chiTiet = bangPhanCong.getChiTietBangPhanCongList().get(i-1);
 			chiTiet.setGhiChu(StringUtil.toUTF8(request.getParameter("txtGhiChu" + i.toString()).trim()));
 			chiTiet.setNhiemVu(StringUtil.toUTF8(request.getParameter("txtNhiemVu" + i.toString()).trim()));
@@ -110,11 +110,16 @@ public class PhanCongController extends HttpServlet{
 				bangPhanCong.setMaNamHoc(request.getParameter("cboNamHoc"));
 			if(request.getParameter("cboHocKi") != null)
 				bangPhanCong.setHocKi(request.getParameter("cboHocKi"));
+			if(request.getParameter("cboQuyetDinh") != null)
+				bangPhanCong.setMaQuyetDinh(request.getParameter("cboQuyetDinh"));
 			if(request.getParameter("cboKhoa") != null)
 				bangPhanCong.setMaKhoa(request.getParameter("cboKhoa"));
+			if(request.getParameter("cboHeDaoTao") != null)
+				bangPhanCong.setMaHeDaoTao(request.getParameter("cboHeDaoTao"));
 			bangPhanCong.setMaNguoiTao(request.getSession().getAttribute("maThanhVien") + "");
-			if(!BangPhanCongDAO.kiemTraBangPhanCongDaTao(bangPhanCong.getMaNamHoc(), 
-					bangPhanCong.getHocKi(), bangPhanCong.getMaKhoa())) {
+			String kq = BangPhanCongDAO.kiemTraBangPhanCongDaTao(bangPhanCong.getMaNamHoc(), 
+					bangPhanCong.getHocKi(), bangPhanCong.getMaKhoa(), bangPhanCong.getMaHeDaoTao(), bangPhanCong.getMaQuyetDinh());
+			if(kq.equals("2")) {
 				if(BangPhanCongDAO.insertBangPhanCong(bangPhanCong)) {
 					response.sendRedirect(Constant.PATH_RES.getString("iso.BangPhanCongPath") + 
 							"?maID=" + bangPhanCong.getId() + "&TaoMoiThanhCong=ok");
@@ -122,9 +127,10 @@ public class PhanCongController extends HttpServlet{
 				}
 				else
 					pageNext += "?TaoMoiThatBai=fail";
-			} else {
+			} else if(kq.equals("1")){
 				pageNext += "?Trung=ok";
-			}
+			} else if(kq.equals("0"))
+				pageNext += "?TonTai=fail";
 		} else {
 			if(mapBangPhanCong(request, response, bangPhanCong)) {
 				pageNext += "?UpdateThanhCong=ok";

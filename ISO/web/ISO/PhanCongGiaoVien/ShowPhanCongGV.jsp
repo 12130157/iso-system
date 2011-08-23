@@ -192,7 +192,7 @@
 		%> 
 		if(msgApprove != '' || msgReject != '')
 		{
-			document.BangPhanCong.actionType.value = "DuyetBangPhanCong";
+			document.BangPhanCong.actionType.value = "duyet";
 			if(msgApprove != '')
 				msgApprove = 'Bạn approve \n ' + msgApprove;
 			if( msgReject != '')

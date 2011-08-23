@@ -21,7 +21,9 @@
 <%@page import="vn.edu.hungvuongaptech.dao.PhongBanDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.SuDungDAO"%>
 <%@page import="vn.edu.hungvuongaptech.dao.ChiTietTKBDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.MonHocDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.dao.MonHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.TuanLeModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.TuanLeDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -112,13 +114,14 @@
 					</select>
 				</th>	
 			</tr>
+			<c:set var = "TuanLe" value = "<%=TuanLeDAO.getTuanHienTai() %>"/>
 			<tr style="background-color: transparent;">
 				<th style="background-color: #99bff9" align="right">
 					Tuần : 
 				</th>
 				<th style="background-color: #99bff9" align="left">
 					<select name = "cboTuan" id="cboTuan" style="width: 200px" onchange="selectTuan();">
-						<option value="">  ---  Tuần hiện tại  ---  </option>
+						<option value="">Tuần hiện tại(Tuần ${TuanLe.soThuTu }-${TuanLe.tuNgay}-${TuanLe.denNgay })</option>
 						<c:forEach var = "iterator" begin="81" end="82" step="1">
 							<option value = "${iterator}" <c:if test = "${not empty param.tuan and iterator eq param.tuan}">selected</c:if>>Học kì ${iterator - 80}</option>
 						</c:forEach>
@@ -150,6 +153,9 @@
 	
 		<table style="background-color: transparent;" border="1">
 			<tr align="center" style="background-color: transparent;">
+				<th style="background-color: #778899; color: white;" width="80">
+					Tuần
+				</th>
 				<th style="background-color: #778899; color: white;" width="80">
 					Thứ
 				</th>
@@ -185,50 +191,53 @@
 				maKhoa = request.getParameter("maKhoa");
 			if(request.getParameter("maMonHoc") != null)
 				maMonHoc = request.getParameter("maMonHoc");
-			int countThu = 0, countBuoi = 0, count = 0, buoi = 0;
+			int countThu = 0, countBuoi = 0, count = 0, buoi = 0, countTuan = 0, thu = 0;
 			%>
 			<c:set 	var = "ListSuDung" value = '<%=ChiTietTKBDAO.getLichSuDungPhongByDieuKien(maPhong,maNam,tuan,maKhoa, maMonHoc) %>' scope="session"></c:set>
 		
 		<c:set var = "NgayHoc" value = ""/>
 		<c:set var = "Buoi" value = ""/>
-		
+		<c:set var = "Tuan" value = ""/>
 			<c:forEach var="obj" items = "${ListSuDung}">
 				<tr style="background-color: transparent;">
-					
+					<c:if test="${Tuan ne obj.soThuTuTuan}">
+						<%countTuan = 0; countThu = 0; count++; buoi = 0; thu = 0;%>
+						<td id = "Tuan<%=count %>">${obj.soThuTuTuan }</td>
+					</c:if>
 					<c:if test="${NgayHoc ne obj.ngayHoc}">
 						
-						<%countThu = 0; count++; buoi = 0;%>
+						<%countThu = 0; thu++; buoi = 0;%>
 						<c:choose>
 							<c:when test = "${obj.thuTrongTuan eq 1}">
-								<td id = "Thu<%=count%>">Hai</td>
+								<td id = "Thu<%=count + "_" + thu%>">Hai</td>
 							</c:when>	
 							<c:when test = "${obj.thuTrongTuan eq 2}">
-								<td id = "Thu<%=count%>">Ba</td>
+								<td id = "Thu<%=count + "_" + thu%>">Ba</td>
 							</c:when>	
 							<c:when test = "${obj.thuTrongTuan eq 3}">
-								<td id = "Thu<%=count%>">Tư</td>
+								<td id = "Thu<%=count + "_" + thu%>">Tư</td>
 							</c:when>	
 							<c:when test = "${obj.thuTrongTuan eq 4}">
-								<td id = "Thu<%=count%>">Năm</td>
+								<td id = "Thu<%=count + "_" + thu%>">Năm</td>
 							</c:when>	
 							<c:when test = "${obj.thuTrongTuan eq 5}">
-								<td id = "Thu<%=count%>">Sáu</td>
+								<td id = "Thu<%=count + "_" + thu%>">Sáu</td>
 							</c:when>	
 							<c:when test = "${obj.thuTrongTuan eq 6}">
-								<td id = "Thu<%=count%>">Bảy</td>
+								<td id = "Thu<%=count + "_" + thu%>">Bảy</td>
 							</c:when>	
 							<c:otherwise>
-								<td id = "Thu<%=count%>">Chủ nhật</td>
+								<td id = "Thu<%=count + "_" + thu%>">Chủ nhật</td>
 							</c:otherwise>
 						</c:choose>
-						<td id = "NgayHoc<%=count %>">${obj.ngayHoc}</td>
+						<td id = "NgayHoc<%=count + "_" + thu %>">${obj.ngayHoc}</td>
 					</c:if>
 					<c:if test = "${obj.buoi ne Buoi or NgayHoc ne obj.ngayHoc}">
 						<%countBuoi = 0; buoi++; %>
-						<td id = "Buoi<%=count + "_" + buoi%>">${obj.buoi}</td>
+						<td id = "Buoi<%=count + "_" + thu + "_" + buoi%>">${obj.buoi}</td>
 						<c:set var = "Buoi" value = "${obj.buoi}"/>
 					</c:if>
-					<%countThu++; countBuoi++; %>
+					<%countTuan++; countThu++; countBuoi++; %>
 					<td>${obj.kiHieuLop}</td>
 					<td>${obj.tenMonHoc}</td>
 					<td>${obj.tenGiaoVien}</td>
@@ -236,15 +245,21 @@
 				</tr>
 				<script language="JavaScript" type="text/javascript">
 					var count = <%=count%>;
+					var countTuan = <%=countTuan%>;
 					var countBuoi = <%=countBuoi%>;
 					var countThu = <%=countThu%>;
 					var buoi = <%=buoi%>;
-					document.getElementById('Thu' + count).rowSpan = countThu;
-					document.getElementById('NgayHoc' + count).rowSpan = countThu;
-					document.getElementById('Buoi' + count + '_' + buoi).rowSpan = countBuoi;
+					var thu = <%=thu%>;             
+					document.getElementById('Tuan' + count).rowSpan = countTuan;
+					document.getElementById('Thu' + count + '_' + thu).rowSpan = countThu;
+					document.getElementById('NgayHoc' + count + '_' + thu).rowSpan = countThu;
+					document.getElementById('Buoi' + count + '_' + thu + '_' + buoi).rowSpan = countBuoi;
 				</script>
 				<c:if test="${NgayHoc ne obj.ngayHoc}">
 					<c:set var = "NgayHoc" value = "${obj.ngayHoc}"/>
+				</c:if>
+				<c:if test="${Tuan ne obj.soThuTuTuan}">
+					<c:set var = "Tuan" value = "${obj.soThuTuTuan}"/>
 				</c:if>
 			</c:forEach>
 		</table>

@@ -14,6 +14,7 @@ public class ChiTietBangPhanCongModel implements Serializable{
 	private String kiHieuLop;
 	private String maGiaoVien;
 	private String tenGiaoVien;
+	private String maMonHoc;
 	private String tenMonHoc;
 	private String nhiemVu;
 	private String ghiChu;
@@ -25,6 +26,28 @@ public class ChiTietBangPhanCongModel implements Serializable{
 	private String user3;
 	private String user4;
 	private String user5;
+	private String tenChuyenNganh;
+	private String maChuongTrinh;
+	private String soHocSinh; // so hoc sinh cua moi lop
+	
+	public String getSoHocSinh() {
+		return soHocSinh;
+	}
+	public void setSoHocSinh(String soHocSinh) {
+		this.soHocSinh = soHocSinh;
+	}
+	public String getMaChuongTrinh() {
+		return maChuongTrinh;
+	}
+	public void setMaChuongTrinh(String maChuongTrinh) {
+		this.maChuongTrinh = maChuongTrinh;
+	}
+	public String getTenChuyenNganh() {
+		return tenChuyenNganh;
+	}
+	public void setTenChuyenNganh(String tenChuyenNganh) {
+		this.tenChuyenNganh = tenChuyenNganh;
+	}
 	public String getId() {
 		return id;
 	}
@@ -133,4 +156,11 @@ public class ChiTietBangPhanCongModel implements Serializable{
 	public void setTenMonHoc(String tenMonHoc) {
 		this.tenMonHoc = tenMonHoc;
 	}
+	public String getMaMonHoc() {
+		return maMonHoc;
+	}
+	public void setMaMonHoc(String maMonHoc) {
+		this.maMonHoc = maMonHoc;
+	}
+	
 }

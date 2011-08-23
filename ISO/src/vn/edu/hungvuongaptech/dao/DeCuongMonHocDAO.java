@@ -463,7 +463,7 @@ public class DeCuongMonHocDAO {
 									.getString("iso.sql.getAllDeCuongMonHocApprovedByMaChuongTrinh"));
 			preparedStatement.setString(1, Constant.TINHTRANG_APPROVE);
 			preparedStatement.setString(2, maChuongTrinh);
-			//preparedStatement.setString(3, hocKi);
+			preparedStatement.setString(3, hocKi);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				DeCuongMonHocModel deCuongMonHocModel = new DeCuongMonHocModel();
