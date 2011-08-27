@@ -80,6 +80,7 @@
 					<c:forEach var = "Thu" begin = "1" end="7">
 						<td><p>
 						<c:forEach var = "MonHocTKB" items="${TKB.monHocTKBModelList}">
+						<br/>
 								<c:set var = "check" value = "0"></c:set>
 								<c:forEach var = "String1" items="${sf:splitString2(MonHocTKB.chuoiThuTrongTuan)}">
 									<c:set var = "String2" value = "${sf:splitString3(String1)}"></c:set>
@@ -87,7 +88,7 @@
 										<c:if test="${String2[1] eq Thu}">
 											<c:set var = "check" value = "${check + 1}"></c:set>
 											<c:if test = "${check eq 1}">
-												${MonHocTKB.tenMonHoc}<br/>
+												<font style = "font-weight: bold;">${MonHocTKB.tenMonHoc}</font><br/>
 												${MonHocTKB.tenGiaoVien}<br/>
 											</c:if>	
 											<c:choose>
@@ -118,6 +119,7 @@
 					<c:forEach var = "Thu" begin = "1" end="7">
 					<td><p>
 						<c:forEach var = "MonHocTKB" items="${TKB.monHocTKBModelList}">
+						<br/>
 								<c:set var = "check" value = "0"/>
 								<c:forEach var = "String1" items="${sf:splitString2(MonHocTKB.chuoiThuTrongTuan)}">
 									<c:set var = "String2" value = "${sf:splitString3(String1)}"></c:set>
@@ -125,7 +127,7 @@
 										<c:if test="${String2[1] eq Thu}">
 											<c:set var = "check" value = "${check + 1}"/>
 											<c:if test = "${check eq 1}">
-												${MonHocTKB.tenMonHoc}<br/>
+												<font style = "font-weight: bold;">${MonHocTKB.tenMonHoc}</font><br/>
 												${MonHocTKB.tenGiaoVien}<br/>
 											</c:if>
 											<c:choose>
