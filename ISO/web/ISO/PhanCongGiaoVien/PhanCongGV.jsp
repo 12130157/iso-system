@@ -138,12 +138,15 @@
 		<c:set var = "PENDING" value = "<%= Constant.TINHTRANG_SEND %>"></c:set>
 		<c:set var = "REJECT" value = "<%= Constant.TINHTRANG_REJECT %>"></c:set>
 		<c:set var = "APPROVE" value = "<%= Constant.TINHTRANG_APPROVE %>"></c:set>
+	<br/>
+	<br/>
+	<br/>	
 	<form name="FileForm" action="<%=request.getContextPath()%>/phanCongController?xuLy=ok" method="post" id = "FileForm">
 		<table style="background-color: transparent;">
 			<tr style="background-color: transparent;">
 				TRƯỜNG TCN KTCN HÙNG VƯƠNG
 				    KHOA/BỘ MÔN/TT
-				    <select name = "cboKhoa" id="cboKhoa" <c:if test = "${not empty BangPhanCong.id}">disbaled</c:if>>
+				    <select name = "cboKhoa" id="cboKhoa" <c:if test = "${not empty BangPhanCongModel.id}">disabled</c:if>>
 						<option value = "">  ---  Chọn khoa  ---  </option>
 						<c:forEach var="khoa" items="<%= KhoaDAO.showAllKhoa() %>">
 							<option value="${khoa.maKhoa}" 
@@ -158,23 +161,23 @@
 				<td><div class = "div_tieude"><strong>BẢNG PHÂN CÔNG GIÁO VIÊN GIẢNG DẠY</strong></div><br /></td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td>Hệ đào tạo : 
-					<select name = "cboHeDaoTao" id="cboHeDaoTao" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
-						<option value = "">  ---  Chọn hệ đào tạo  ---  </option>
-						<c:forEach var = "HeDaoTao" items="<%=HeDaoTaoDAO.getHeDaoTao() %>">
-							<option value = "${HeDaoTao.maHeDaoTao}" <c:if test = "${BangPhanCongModel.maHeDaoTao eq HeDaoTao.maHeDaoTao}">selected</c:if>>${HeDaoTao.tenHeDaoTao}</option>
-						</c:forEach>
-					</select>
-					Chọn quyết định đào tạo : 
-					<select name = "cboQuyetDinh" id="cboQuyetDinh" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
+				<td>Chọn quyết định đào tạo : 
+					<select name = "cboQuyetDinh" id="cboQuyetDinh" <c:if test = "${not empty BangPhanCongModel.id}">disabled</c:if>>
 						<option value = "">  ---  Chọn quyết định  ---  </option>
 						<c:forEach var = "QuyetDinh" items="<%=QuyetDinhDAO.getAllQuyetDinh() %>">
 							<option value = "${QuyetDinh.maQuyetDinh}" <c:if test = "${BangPhanCongModel.maQuyetDinh eq QuyetDinh.maQuyetDinh}">selected</c:if>>${QuyetDinh.tenQuyetDinh}</option>
 						</c:forEach>
 					</select>
 				<br/>
+					Hệ đào tạo : 
+					<select name = "cboHeDaoTao" id="cboHeDaoTao" <c:if test = "${not empty BangPhanCongModel.id}">disabled</c:if>>
+						<option value = "">  ---  Chọn hệ đào tạo  ---  </option>
+						<c:forEach var = "HeDaoTao" items="<%=HeDaoTaoDAO.getHeDaoTao() %>">
+							<option value = "${HeDaoTao.maHeDaoTao}" <c:if test = "${BangPhanCongModel.maHeDaoTao eq HeDaoTao.maHeDaoTao}">selected</c:if>>${HeDaoTao.tenHeDaoTao}</option>
+						</c:forEach>
+					</select>
 					Học kỳ :
-					<select name = "cboHocKi" id="cboHocKi" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
+					<select name = "cboHocKi" id="cboHocKi" <c:if test = "${not empty BangPhanCongModel.id}">disabled</c:if>>
 						<option value = "">  ---  Chọn học kỳ  ---  </option>
 						<option value = "1" <c:if test = "${BangPhanCongModel.hocKi eq 1}">selected</c:if>>1</option>
 						<option value = "2" <c:if test = "${BangPhanCongModel.hocKi eq 2}">selected</c:if>>2</option>
@@ -182,7 +185,7 @@
 					</select>
 					<c:set var = "ListNamHoc" value="<%=NamHocDAO.getAllNamHoc() %>"/>
 					Năm học : 
-					<select name = "cboNamHoc" id="cboNamHoc" <c:if test = "${not empty BangPhanCongModel.id}">disbaled</c:if>>
+					<select name = "cboNamHoc" id="cboNamHoc" <c:if test = "${not empty BangPhanCongModel.id}">disabled</c:if>>
 						<option value = "">  ---  Chọn năm học  ---  </option>
 						<c:forEach var = "NamHoc" items="${ListNamHoc}">
 							<option value = "${NamHoc.maNamHoc}" <c:if test = "${BangPhanCongModel.maNamHoc eq NamHoc.maNamHoc}">selected</c:if>>${NamHoc.namBatDau}-${NamHoc.namKetThuc}</option>
@@ -303,8 +306,8 @@
 			<td>Ngày <input type = "text"  size = 8  style="background-color: transparent;" value = "${BangPhanCongModel.ngayCapNhatCuoi}" readonly="readonly" /></td>
 		</tr>
 		<tr style="background-color: transparent;">
-			<td>Hiệu trưởng<br /><br /><inpu type = "text" value = "${BangPhanCongModel.tenNguoiDuyet}"/><br /><br /></td>
-			<td>Trưởng khoa<br /><br /><inpu type = "text" value = "${BangPhanCongModel.tenNguoiTao}"/><br /><br /></td>
+			<td>Hiệu trưởng<br /><br />${BangPhanCongModel.tenNguoiDuyet}<br /><br /></td>
+			<td>Trưởng khoa<br /><br />${BangPhanCongModel.tenNguoiTao}<br /><br /></td>
 		</tr>
 	</table>
 	<input type="hidden" name="actionType" style="background-color: transparent;" id = "actionType"
@@ -345,7 +348,7 @@
 			<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
 		</c:if>	
 		<c:if test="${BangPhanCongModel.tinhTrang eq APPROVE and (BangPhanCongModel.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or BangPhanCongModel.maNguoiDuyet eq maThanhVien)}">	
-			<a href = "<%=Constant.PATH_RES.getString("iso.InBangPhanCongPath") %>">								 
+			<a href = "<%=Constant.PATH_RES.getString("iso.InBangPhanCongPath") %>?maID=${BangPhanCongModel.id}">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
 		</c:if>	

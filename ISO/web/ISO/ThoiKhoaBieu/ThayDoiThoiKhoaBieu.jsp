@@ -657,7 +657,7 @@ function selectKieuDay(act, up) // tao bang 2
 						selectThu = "selectThuTrongTuan(" + soBuoiTongCong + ");";
 						selectBuoiHoc = "onclick = 'selectBuoi(" + soBuoiTongCong + ")'";
 						tr.id = "tr" + soBuoiTongCong;
-						tr.insertCell(0).innerHTML = "<input type = 'text' value = '" + hienThiTuan + "' onblur = 'doiTuanHoc(" + (soBuoiTongCong + 1) + ", " + soBuoiMoiTuan + ", " + hienThiTuan + ")' id = 'txtTuanHoc" + hienThiTuan + "' size = '3' onclick = 'getTuanHoc(" + hienThiTuan + ")'/>";
+						tr.insertCell(0).innerHTML = "<input type = 'text' value = '" + hienThiTuan + "' onblur = 'doiTuanHoc(" + soBuoiTongCong + ")' id = 'txtTuanHoc" + soBuoiTongCong + "' size = '3' onclick = 'getTuanHoc(" + soBuoiTongCong + ")'/>";
 						tr.insertCell(1).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtDong" + soBuoiTongCong + "' name = 'txtDong" + soBuoiTongCong + "' value = '0'/><input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/><input type = 'hidden' id = 'txtMaThayDoi" + soBuoiTongCong + "' name = 'txtMaThayDoi" + soBuoiTongCong + "' value = '-1'><input type = 'hidden' id = 'txtMaChiTietTKB" + soBuoiTongCong + "' name = 'txtMaChiTietTKB" + soBuoiTongCong + "' value = '-1'>";
 						tr.insertCell(2).innerHTML = "<input type = 'text' id = 'txtNgayHoc" + soBuoiTongCong + "' name = 'txtNgayHoc" + soBuoiTongCong + "' value = '" + ngayHoc + "'" + baoNgayLe + " size = '10'/>";
 						tr.insertCell(3).innerHTML = "<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiSang" + soBuoiTongCong + "' value = 'Sáng-" + soNoiDung + "-" + ch + "' checked='checked' " + selectBuoiHoc + "/>Sáng<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiChieu" + soBuoiTongCong + "' value = 'Chiều-" + soNoiDung + "-" + ch + "' " + selectBuoiHoc + "/>Chiều";
@@ -829,7 +829,7 @@ function getTuanHoc(tuanMacDinh)
 {
 	checkTuanHoc = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
 }
-function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
+function doiTuanHoc(tuanMacDinh)
 {
 	if(validateTuan(tuanMacDinh) == true)
 	{
@@ -841,52 +841,48 @@ function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 			if(objNgayHoc.tuan == document.getElementById('txtTuanHoc' + tuanMacDinh).value)
 				break;
 		}
-		var x = buoiBatDau;
-		for(var i=buoiBatDau; i< buoiBatDau + soBuoi; i++)
-		{
-			document.getElementById('hiddenTuan' + i).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
+			document.getElementById('hiddenTuan' + tuanMacDinh).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
 			var objChiTiet = new Object();
-			objChiTiet = objMonHocTKB.chiTietTKBList[x - 1];
-			if(document.getElementById('hiddenTuan' + x).value != objChiTiet.tuan)
+			objChiTiet = objMonHocTKB.chiTietTKBList[tuanMacDinh - 1];
+			if(document.getElementById('hiddenTuan' + tuanMacDinh).value != objChiTiet.tuan)
 			{
-				document.getElementById("txtDong" + x).value = "1";
-				document.getElementById("tr" + x).style.background = "lime";
+				document.getElementById("txtDong" + tuanMacDinh).value = "1";
+				document.getElementById("tr" + tuanMacDinh).style.background = "lime";
 			}
 			else
 			{
-				if(document.getElementById('BuoiSang' + x).checked == true)
+				if(document.getElementById('BuoiSang' + tuanMacDinh).checked == true)
 				{
-					if('Sáng' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong)
+					if('Sáng' == objChiTiet.buoi && document.getElementById('Thu' + tuanMacDinh).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + tuanMacDinh).value == objChiTiet.phong)
 					{
-						document.getElementById("txtDong" + x).value = "0";
-						document.getElementById("tr" + x).style.background = "";
+						document.getElementById("txtDong" + tuanMacDinh).value = "0";
+						document.getElementById("tr" + tuanMacDinh).style.background = "";
 					}
 				}
 				else
 				{
-					if('Chiều' == objChiTiet.buoi && document.getElementById('Thu' + x).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + x).value == objChiTiet.phong)
+					if('Chiều' == objChiTiet.buoi && document.getElementById('Thu' + tuanMacDinh).value == objChiTiet.thuTrongTuan && document.getElementById('Phong' + tuanMacDinh).value == objChiTiet.phong)
 					{
-						document.getElementById("txtDong" + x).value = "0";
-						document.getElementById("tr" + x).style.background = "";
+						document.getElementById("txtDong" + tuanMacDinh).value = "0";
+						document.getElementById("tr" + tuanMacDinh).style.background = "";
 					}
 				}				
 			}
-			if(document.getElementById('Thu' + i).value == '1')
+			if(document.getElementById('Thu' + tuanMacDinh).value == '1')
 				ngayHoc = objNgayHoc.thuHai;
-			else if(document.getElementById('Thu' + i).value == '2')
+			else if(document.getElementById('Thu' + tuanMacDinh).value == '2')
 				ngayHoc = objNgayHoc.thuBa;
-			else if(document.getElementById('Thu' + i).value == '3')
+			else if(document.getElementById('Thu' + tuanMacDinh).value == '3')
 				ngayHoc = objNgayHoc.thuTu;
-			else if(document.getElementById('Thu' + i).value == '4')
+			else if(document.getElementById('Thu' + tuanMacDinh).value == '4')
 				ngayHoc = objNgayHoc.thuNam;
-			else if(document.getElementById('Thu' + i).value == '5')
+			else if(document.getElementById('Thu' + tuanMacDinh).value == '5')
 				ngayHoc = objNgayHoc.thuSau;
-			else if(document.getElementById('Thu' + i).value == '6')
+			else if(document.getElementById('Thu' + tuanMacDinh).value == '6')
 				ngayHoc = objNgayHoc.thuBay;
 			else 
 				ngayHoc = objNgayHoc.chuNhat;
-			document.getElementById('txtNgayHoc' + i).value = ngayHoc;
-		}
+			document.getElementById('txtNgayHoc' + tuanMacDinh).value = ngayHoc;
 		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "";
 	}
 	else

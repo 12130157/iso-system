@@ -39,7 +39,21 @@ public class BangPhanCongModel implements Serializable{
 	private String soDong; // xai cho rowspan
 	private String hocKiNamHoc; //hoc ki theo chitietCTDT
 	private String maQuyetDinh;
+	private String namBatDau;
+	private String namKetThuc;
 	
+	public String getNamBatDau() {
+		return namBatDau;
+	}
+	public void setNamBatDau(String namBatDau) {
+		this.namBatDau = namBatDau;
+	}
+	public String getNamKetThuc() {
+		return namKetThuc;
+	}
+	public void setNamKetThuc(String namKetThuc) {
+		this.namKetThuc = namKetThuc;
+	}
 	public String getMaQuyetDinh() {
 		return maQuyetDinh;
 	}

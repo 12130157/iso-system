@@ -150,30 +150,30 @@ public class BangPhanCongDAO {
 					bangPhanCong.setMaHeDaoTao(rs.getString("MaHeDaoTao"));
 					bangPhanCong.setTenHeDaoTao(rs.getNString("TenHeDaoTao"));
 					bangPhanCong.setMaQuyetDinh(rs.getString("MaQuyetDinh"));
-					
+					bangPhanCong.setNamBatDau(rs.getString("NamBatDau"));
+					bangPhanCong.setNamKetThuc(rs.getString("NamKetThuc"));
+					bangPhanCong.setSoDong("");
 					id = bangPhanCong.getId();
 					bangPhanCong.setChiTietBangPhanCongList(chiTietBangPhanCongList);
 				}
 				if(status.equals("Print")) {
-					if(!maLop.equals(rs.getString("MaLop"))) {
-						if(bangPhanCong.getChiTietBangPhanCongList().size() != 0) {
-							bangPhanCong.setSoDong("/" + bangPhanCong.getSoDong() + countGiaoVien);
-							bangPhanCong.setSoDong("-" + bangPhanCong.getSoDong() + countLop);
-						}
-						countLop = 1;
-						countGiaoVien = 1;
-						maLop = rs.getString("MaLop");
-						maGiaoVien = "na";
-					} else {
-						countLop++;
-					}
-					if(!maGiaoVien.equals(rs.getString("MaGiaoVien"))) {
+					if(!maGiaoVien.equals(rs.getString("MaGiaoVien")) || !maLop.equals(rs.getString("MaLop"))) {
 						if(bangPhanCong.getChiTietBangPhanCongList().size() != 0 && !maGiaoVien.equals("na"))
-							bangPhanCong.setSoDong("/" + bangPhanCong.getSoDong() + countGiaoVien);
+							bangPhanCong.setSoDong(bangPhanCong.getSoDong() + "/" + countGiaoVien);
 						countGiaoVien = 1;
 						maGiaoVien = rs.getString("MaGiaoVien");
 					} else
 						countGiaoVien++;
+					if(!maLop.equals(rs.getString("MaLop"))) {
+						if(bangPhanCong.getChiTietBangPhanCongList().size() != 0) {
+							bangPhanCong.setSoDong(bangPhanCong.getSoDong() + "-" + countLop);
+						}
+						countLop = 1;
+						countGiaoVien = 1;
+						maLop = rs.getString("MaLop");
+					} else {
+						countLop++;
+					}
 				}
 				ChiTietBangPhanCongModel chiTiet = new ChiTietBangPhanCongModel();
 				chiTiet.setTenGiaoVien(rs.getNString("TenGiaoVien"));
@@ -190,8 +190,8 @@ public class BangPhanCongDAO {
 				chiTietBangPhanCongList.add(chiTiet);
 			}
 			if(status.equals("Print")) {
-				bangPhanCong.setSoDong("-" + bangPhanCong.getSoDong() + countLop);
-				bangPhanCong.setSoDong("/" + bangPhanCong.getSoDong() + countGiaoVien);
+				bangPhanCong.setSoDong(bangPhanCong.getSoDong() + "/" + countGiaoVien);
+				bangPhanCong.setSoDong(bangPhanCong.getSoDong() + "-" + countLop);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

@@ -793,8 +793,7 @@ function confirmDuyet(x)
 </head>
 <body onload="pageLoad();"><a id = "abc"/>
 <div align="center" >
-<c:set var="ThoiKhoaBieu" 
-				value = "<%= thoiKhoaBieuModel %>" scope="session"></c:set>
+<c:set var="ThoiKhoaBieu" value = "<%= thoiKhoaBieuModel %>" scope="session"></c:set>
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header.jsp" />
 	<!-- E HEAD CONTENT -->

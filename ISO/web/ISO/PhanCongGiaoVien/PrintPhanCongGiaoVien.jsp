@@ -8,7 +8,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="vn.edu.hungvuongaptech.model.LopHocModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.BangPhanCongModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.BangPhanCongDAO"%><pd4ml:transform
+<%@page import="vn.edu.hungvuongaptech.dao.BangPhanCongDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%><pd4ml:transform
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
@@ -67,7 +68,7 @@
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
 					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 16px">
-						Học kỳ : ${BangPhanCongModel.hocki }
+						Học kỳ : ${BangPhanCongModel.hocKi }
 						Năm học : ${BangPhanCongModel.namBatDau}-${BangPhanCongModel.namKetThuc}</p><br /></th>
 				</tr>
 			</table>
@@ -121,39 +122,38 @@
 				</c:if>
 				<tr style="background-color: transparent; font-size: 16px">
 					<td>${SoThuTu}</td>		
-					<c:if test = "${PhanCong.maGiaoVien ne MaGiaoVien}">
+					<c:if test = "${PhanCong.maGiaoVien ne MaGiaoVien or PhanCong.maLop ne MaLop}">
 						<td rowspan="${ListGiaoVien[CountGiaoVien]}">
-							<select id = "cboGiaoVien" name = "cboGiaoVien">
-								<c:forEach var = "GiaoVien" items="<%=ThanhVienDAO.getAllGiaoVienOrderByTen() %>">
-									<option value = "${GiaoVien.maThanhVien }"
-										<c:if test = "${GiaoVien.maThanhVien eq PhanCong.maGiaoVien }">selected</c:if>>${GiaoVien.hoThanhVien} ${GiaoVien.tenLot } ${GiaoVien.tenThanhVien }</option>
-								</c:forEach>
-							</select>
+							${PhanCong.tenGiaoVien }
 						</td>
 						<c:set var = "CountGiaoVien" value = "${CountGiaoVien + 1}"/>
-						<c:set var = "MaGiaoVien" value = "na"/>
+						<c:set var = "MaGiaoVien" value = "${PhanCong.maGiaoVien }"/>
 					</c:if>	
 					<c:if test = "${PhanCong.maLop ne MaLop}">				
-						<td rowspan="${ListGiaoVien[0]}">${PhanCong.kiHieuLop}</td>
+						<td rowspan="<%=listLop[countLop].split("/")[0] %>">${PhanCong.kiHieuLop}</td>
 						<c:set var = "MaLop" value = "${PhanCong.maLop}"/>
-						<c:set var = "MaGiaoVien" value = "na"/>
 					</c:if>	
 					<td>${PhanCong.tenMonHoc}</td>
 					<td>${PhanCong.lyThuyet}</td>
 					<td>${PhanCong.thucHanh}</td>
-					<td><textarea id = "txtNhiemVu${SoThuTu}" name = "txtNhiemVu${SoThuTu}">${PhanCong.nhiemVu}</textarea></td>
-					<td><textarea id = "txtGhiChu${SoThuTu}" name = "txtGhiChu${SoThuTu}">${PhanCong.ghiChu}</textarea></td>
+					<td><p>${PhanCong.nhiemVu}</p></td>
+					<td><p>${PhanCong.ghiChu}</p></td>
 				</tr>
 				<c:set var = "SoThuTu" value = "${SoThuTu + 1}"/>
 			</c:forEach>
 		</table>
 		</td>
-	</tr>	
-</table>
-	<table width = "900" align="center" style="background-color: transparent; background-position: top;">
+	</tr>
+	<tr>
+		<td>
+			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
+				<tr style="background-color: transparent;">
+					<td>Ngày ${BangPhanCongModel.ngayDuyet}</td>
+					<td>Ngày ${BangPhanCongModel.ngayCapNhatCuoi}</td>
+				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
 					<td><p style="font-weight: bold">Ban Giám hiệu </td>
-					<td><p style="font-weight: bold">Trưởng khoa CNTT</td>
+					<td><p style="font-weight: bold">Trưởng khoa</td>
 				</tr>
 				<tr>
 					<td><p></p></td>
@@ -168,10 +168,13 @@
 					<td><p></p></td>
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
-					<td><p style="font-weight: bold">${TKB.tenNguoiDuyet}</td>
-					<td><p style="font-weight: bold">${TKB.tenNguoiTao}</td>
+					<td><p style="font-weight: bold">${BangPhanCongModel.tenNguoiDuyet}</td>
+					<td><p style="font-weight: bold">${BangPhanCongModel.tenNguoiTao}</td>
 				</tr>
 			</table>
+		</td>
+	</tr>	
+</table>
 </div>
 </div>
 </html>
