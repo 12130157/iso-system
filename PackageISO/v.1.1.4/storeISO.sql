@@ -2395,7 +2395,7 @@ BEGIN
 			INNER JOIN QuyetDinhMoLop AS C ON B.Ma_quyet_dinh = C.ID 
 				INNER JOIN LopHoc AS D ON D.Ma_quyet_dinh = B.Ma_quyet_dinh AND B.Ma_nghe = D.Ma_chuyen_nganh
 					INNER JOIN ChuyenNganh AS E ON B.Ma_nghe = E.ID
-			WHERE CAST(ROUND(CAST(A.Hoc_ky AS INT) / 2, 0) - 1 AS INT) + CAST(C.Nam_bat_dau AS INT) = @Nam_bat_dau 
+			WHERE CAST(ROUND(CAST(A.Hoc_ky AS FLOAT) / 2, 0) - 1 AS INT) + CAST(C.Nam_bat_dau AS INT) = @Nam_bat_dau 
 				AND E.Ma_khoaTT = @Ma_khoa AND B.Ma_trinh_do = @Ma_he_dao_tao AND CAST(A.Hoc_ky AS INT) % 2 = @Hoc_ki % 2
 					AND C.ID = @Ma_quyet_dinh AND B.Tinh_trang = @Tinh_trang_approved)
 		BEGIN
