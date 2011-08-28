@@ -11,6 +11,7 @@
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
 <pd4ml:header
+		watermarkUrl="http://localhost:8080/HungVuongISO/images/footer.gif"  
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
@@ -23,11 +24,11 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
        watermarkOpacity="50"
-	   watermarkBounds="0,0,0,0"	      
-       fontSize="12">       
- </pd4ml:footer>
+	   watermarkBounds="0,580,500,20"	      
+       fontSize="14">       
+</pd4ml:footer>
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
