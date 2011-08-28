@@ -77,7 +77,8 @@ BEGIN
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Nhom AS Nhom, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
 			I.Ten_mon_hoc AS TenMonHoc, ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
-			Convert(varchar(10), A.Ngay_hoc, 110) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop, G.So_thu_tu AS SoThuTu
+			Convert(varchar(10), A.Ngay_hoc, 110) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop, G.So_thu_tu AS SoThuTu,
+			Convert(varchar(10), G.Tu_ngay, 103) AS NgayBatDauTuan, Convert(varchar(10), G.Den_ngay, 103) AS NgayKetThucTuan
 	FROM ChiTietTKB AS A 
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 
 		INNER JOIN ThoiKhoaBieu AS C ON B.Ma_TKB = C.ID
