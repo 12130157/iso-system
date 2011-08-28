@@ -108,7 +108,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 													thoiKhoaBieuModel.getNgayGui() + " " + thoiKhoaBieuModel.getGioGui(), 
 													thoiKhoaBieuModel.getTenNguoiDuyet(), 
 													thoiKhoaBieuModel.getNgayDuyet() + " " + thoiKhoaBieuModel.getGioDuyet()));
-			LogUtil.logInfo(loggerInfo, tenThanhVien + " approve thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+			LogUtil.logInfo(loggerInfo, tenThanhVien + " approve thời khóa biểu"); // ghi vào file log
 		} else {
 			ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("LyDoReject").trim()));
 			ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
@@ -122,7 +122,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 													thoiKhoaBieuModel.getNgayGui() + " " + thoiKhoaBieuModel.getGioGui(), 
 													thoiKhoaBieuModel.getTenNguoiDuyet(), 
 													thoiKhoaBieuModel.getNgayDuyet() + " " + thoiKhoaBieuModel.getGioDuyet()));
-			LogUtil.logInfo(loggerInfo, tenThanhVien + "reject thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+			LogUtil.logInfo(loggerInfo, tenThanhVien + "reject thời khóa biểu"); // ghi vào file log
 		}
 		response.sendRedirect(Constant.PATH_RES
 				.getString("iso.XemThoiKhoaBieuPath"));
@@ -140,7 +140,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 				pageNext += "AddThoiKhoaBieu.jsp?AddThanhCong=true";					
 				rd = request.getRequestDispatcher(pageNext);
 				ThoiKhoaBieuDAO.capNhatThoiKhoaBieu(monHocTKBModel.getMaTKB());
-				LogUtil.logInfo(loggerInfo, tenThanhVien + " thĂªm mĂ´n há»�c thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+				LogUtil.logInfo(loggerInfo, tenThanhVien + " thêm môn học thời khóa biểu"); // ghi vào file log
 			}
 			else
 			{
@@ -152,7 +152,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 				pageNext += "UpdateThoiKhoaBieu.jsp?UpdateThanhCong=true";					
 				rd = request.getRequestDispatcher(pageNext);
 				ThoiKhoaBieuDAO.capNhatThoiKhoaBieu(monHocTKBModel.getMaTKB());
-				LogUtil.logInfo(loggerInfo, tenThanhVien + " cáº­p nháº­ mĂ´n há»�c thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+				LogUtil.logInfo(loggerInfo, tenThanhVien + " cập nhậ môn học thời khóa biểu"); // ghi vào file log
 			}
 			else
 			{
@@ -331,7 +331,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 				thoiKhoaBieuModel.setGioGui(sysParam.getGioHeThong());
 				if (ThoiKhoaBieuDAO.updateThoiKhoaBieu(thoiKhoaBieuModel)) {
 					// Gui email inform Hieu Truong
-					LogUtil.logInfo(loggerInfo, tenThanhVien + " gá»­i thá»�i khĂ³a biá»ƒu cho ban giĂ¡m hiá»‡u"); // ghi vĂ o file log
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " gửi thời khóa biểu cho ban giám hiệu"); // ghi vào file log
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),
 							MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 												MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_THOIKHOABIEU),
@@ -368,7 +368,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 					
 			} else if(actionType.equals("Delete")) { // Truong hop: Xoa "THOI KHOA BIEU"	
 				if (ThoiKhoaBieuDAO.deleteThoiKhoaBieu(thoiKhoaBieuModel.getMaThoiKhoaBieu())) {
-					LogUtil.logInfo(loggerInfo, tenThanhVien + " xĂ³a thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " xóa thời khóa biểu"); // ghi vào file log
 					response.sendRedirect(Constant.PATH_RES
 							.getString("iso.XemThoiKhoaBieuPath"));
 					return;
@@ -376,7 +376,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			} else if (actionType.equals("CapNhat")) { // Truong hop : Them "THOI KHOA BIEU"
 				if (thoiKhoaBieuModel.validateModel()) { // Validate thanh cong						
 					if (ThoiKhoaBieuDAO.updateThoiKhoaBieu(thoiKhoaBieuModel)) {
-						LogUtil.logInfo(loggerInfo, tenThanhVien + " cĂ¢p nháº­t thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+						LogUtil.logInfo(loggerInfo, tenThanhVien + " câp nhật thời khóa biểu"); // ghi vào file log
 						pageNext += "?msg=CapNhat";						
 						rd = request.getRequestDispatcher(pageNext);						
 					}	
@@ -404,7 +404,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 					ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_APPROVE, null);
 					
 					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
-					// Gui email inform APPROVE cho TrĂ†Â°Ă¡Â»Å¸ng Khoa
+					// Gui email inform APPROVE cho TrÆ°á»Ÿng Khoa
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 											MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
 												MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_THOIKHOABIEU),
@@ -414,14 +414,14 @@ public class ThoiKhoaBieuController extends HttpServlet {
 															thoiKhoaBieuModel.getNgayGui() + " " + thoiKhoaBieuModel.getGioGui(), 
 															thoiKhoaBieuModel.getTenNguoiDuyet(), 
 															thoiKhoaBieuModel.getNgayDuyet() + " " + thoiKhoaBieuModel.getGioDuyet()));
-					LogUtil.logInfo(loggerInfo, tenThanhVien + " approve thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " approve thời khóa biểu"); // ghi vào file log
 				}
 				else if(value[0].equals("Reject")) {
 					String maThoiKhoaBieu = value[1];
 					ThoiKhoaBieuDAO.duyetThoiKhoaBieu(userLoginID, maThoiKhoaBieu, Constant.TINHTRANG_REJECT, StringUtil.toUTF8(request.getParameter("Ly_do_reject" + i.toString()).trim()));
 					
 					ThoiKhoaBieuModel thoiKhoaBieuModel = ThoiKhoaBieuDAO.getThoiKhoaBieuSimpleByID(maThoiKhoaBieu);
-					// Gui email inform REJECT cho TrĂ†Â°Ă¡Â»Å¸ng Khoa
+					// Gui email inform REJECT cho TrÆ°á»Ÿng Khoa
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 							MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
 								MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_THOIKHOABIEU),
@@ -431,7 +431,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 											thoiKhoaBieuModel.getNgayGui() + " " + thoiKhoaBieuModel.getGioGui(), 
 											thoiKhoaBieuModel.getTenNguoiDuyet(), 
 											thoiKhoaBieuModel.getNgayDuyet() + " " + thoiKhoaBieuModel.getGioDuyet()));
-					LogUtil.logInfo(loggerInfo, tenThanhVien + " reject thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+					LogUtil.logInfo(loggerInfo, tenThanhVien + " reject thời khóa biểu"); // ghi vào file log
 				}
 			}
 		}
@@ -449,8 +449,6 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			thoiKhoaBieuModel.setNam1(req.getParameter("cboNam1")); }
 		if (req.getParameter("txtNam2") != null) {
 			thoiKhoaBieuModel.setNam2(req.getParameter("txtNam2").trim()); }
-		if(req.getParameter("cboBangPhanCong") != null)
-			thoiKhoaBieuModel.setUser2(req.getParameter("cboBangPhanCong")); // set ma Bang phan cong
 		if (req.getParameter("cboLop") != null) {
 			thoiKhoaBieuModel.setMaLop(req.getParameter("cboLop")); }
 		if (req.getParameter("txtChuyenNganh") != null) {
@@ -543,7 +541,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 		response.sendRedirect(Constant.PATH_RES
 				.getString("iso.XemThoiKhoaBieuPath")
 				+ "?msg=" + select);
-		LogUtil.logInfo(loggerInfo, tenThanhVien + " phĂ¢n loáº¡i thá»�i khĂ³a biá»ƒu"); // ghi vĂ o file log
+		LogUtil.logInfo(loggerInfo, tenThanhVien + " phân loại thời khóa biểu"); // ghi vào file log
 	}
 
 }
