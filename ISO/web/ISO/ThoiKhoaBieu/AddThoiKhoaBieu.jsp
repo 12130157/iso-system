@@ -27,13 +27,11 @@
 <%@page import="vn.edu.hungvuongaptech.model.TuanLeModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.TuanLeDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.NgayLeModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%>
-<%@page import="vn.edu.hungvuongaptech.model.ChiTietBangPhanCongModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.ChiTietBangPhanCongDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Thêm môn học TKB</title>
-<script language="JavaScript" type="text/javascript"><!--
+<script language="JavaScript" type="text/javascript">
 var objWindow = new Object();
 var tonTai = 0; // kiem tra bang 1 co ton tai khong -0 : chua ton tai -1 : da ton tai
 var obj = window.dialogArguments;
@@ -60,13 +58,12 @@ var ngayLeList = new Array();
 	// parameter hoc ki khong su dung cho ham getAllDeCuongMonHocApprovedByMaChuongTrinh() va getAllNoiDungDCMHByMaChuongTrinhAndHocKi
 	ArrayList<DeCuongMonHocModel> deCuongMonHocModelList = DeCuongMonHocDAO.getAllDeCuongMonHocApprovedByMaChuongTrinh(request.getParameter("maChuongTrinh"), request.getParameter("hocKi"));
 	ArrayList<PhongBanModel> phongBanModelList = PhongBanDAO.getAllPhongBan();
-	//ArrayList<ThanhVienModel> thanhVienModelList = ThanhVienDAO.getAllGiaoVienOrderByTen();
+	ArrayList<ThanhVienModel> thanhVienModelList = ThanhVienDAO.getAllGiaoVienOrderByTen();
 	ArrayList<NoiDungDCMHModel> noiDungDCMHModelList = NoiDungDCMHDAO.getAllNoiDungDCMHByMaChuongTrinhAndHocKi(request.getParameter("maChuongTrinh"), request.getParameter("hocKi"));
 	ArrayList<MonHocModel> monHocList = MonHocDAO.getMonHoc();
 	ArrayList<LopHocModel> lopHocList = LopHocDAO.getAllKiHieuLop();
 	ArrayList<TuanLeModel> tuanLeList = TuanLeDAO.getNgayTrongTuanByTuanBatDauVaTuanKetThucVaMaNamHoc(request.getParameter("tuTuan"), request.getParameter("denTuan"), request.getParameter("maNamHoc"));
 	ArrayList<NgayLeModel> ngayLeList = NgayLeDAO.getAllNgayLe();
-	ArrayList<ChiTietBangPhanCongModel> chiTietBangPhanCongList = ChiTietBangPhanCongDAO.getChiTietBangPhanCongByMaBangPhanCongAndMaLop(request.getParameter("maBangPhanCong"), request.getParameter("maLop"));
 %>
 function taoNgayLe()
 {
@@ -394,14 +391,14 @@ function createMonHoc()
 }
 function createGiaoVien()
 {
-	/*document.getElementById('giaoVien').innerHTML = null;
+	document.getElementById('giaoVien').innerHTML = null;
 	var opt = new Option('Select','');
-	document.getElementById('giaoVien').add(opt,undefined);*/
+	document.getElementById('giaoVien').add(opt,undefined);
 	<%
-		/*for(int i=0;i<thanhVienModelList.size();i++) {
+		for(int i=0;i<thanhVienModelList.size();i++) {
 			out.print("var opt = new Option('" + thanhVienModelList.get(i).getHoThanhVien() + " " + thanhVienModelList.get(i).getTenLot() + " " + thanhVienModelList.get(i).getTenThanhVien() + "','" + thanhVienModelList.get(i).getMaThanhVien() + "');");
 			out.print("document.getElementById('giaoVien').add(opt,undefined);");
-		}*/
+		}
 		                                                     
 	%>
 }
@@ -445,11 +442,6 @@ function selectMonHoc()
 		}
 		out.print("createTableKieuDay();");
 		out.print("document.getElementById('txtSoTiet1Buoi').value = soTiet;");
-	}
-	for(int i=0;i<chiTietBangPhanCongList.size();i++) {
-		out.print("if(document.getElementById('monHoc').value == '" + chiTietBangPhanCongList.get(i).getMaMonHoc() + "') {");
-		out.print("document.getElementById('giaoVien').value = '" + chiTietBangPhanCongList.get(i).getMaGiaoVien() + "';");
-		out.print("document.getElementById('txtTenGiaoVien').value = '" + chiTietBangPhanCongList.get(i).getTenGiaoVien() + "'; }");
 	}
 	%>
 	changeMonHoc();
@@ -499,22 +491,22 @@ function createTableKieuDay()// tao bang 1 de chon thu tu cac buoi hoc ly thuyet
 			out.print("if('" + noiDungDCMHModelList.get(i).getCoHieu() + "' == '0') {");
 			out.print("tr2.insertCell(STT).innerHTML = \"<input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_LT\" + STT + \"' value = 'LT' checked = 'checked'>LT</input><br/><input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_TH\" + STT + \"' value = 'TH'>TH</input>\";");
 			out.print("soLyThuyet++;");
-			out.print("kieu[STT-1] = 'LT<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "'; }");
+			out.print("kieu[STT-1] = 'LT<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "'; }");
 			out.print("else if('" + noiDungDCMHModelList.get(i).getCoHieu() + "' == '1') {");
 			out.print("soThucHanh++;");
-			out.print("kieu[STT-1] = 'TH<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "'; ");
+			out.print("kieu[STT-1] = 'TH<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "'; ");
 			out.print("tr2.insertCell(STT).innerHTML = \"<input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_LT\" + STT + \"' value = 'LT' >LT</input><br/><input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_TH\" + STT + \"' value = 'TH' checked = 'checked'>TH</input>\"; }");
 			out.print("else if('" + noiDungDCMHModelList.get(i).getCoHieu() + "' == '4') {");
 			out.print("if(thucHanh == '0') {");
 			out.print("tr2.insertCell(STT).innerHTML = \"<input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_LT\" + STT + \"' value = 'LT' checked = 'checked' disabled = 'disabled'>LT</input><br/><input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_TH\" + STT + \"' value = 'TH' disabled = 'disabled'>TH</input>\";");
 			out.print("soLyThuyet++;");
-			out.print("kieu[STT-1] = 'LT<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "'; }");
+			out.print("kieu[STT-1] = 'LT<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "'; }");
 			out.print("else {");
 			out.print("tr2.insertCell(STT).innerHTML = \"<input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_LT\" + STT + \"' value = 'LT' disabled = 'disabled'>LT</input><br/><input type = 'radio' name = 'KieuDay_\" + STT + \"' id = 'KieuDay_TH\" + STT + \"' value = 'TH' checked = 'checked' disabled = 'disabled'>TH</input>\";");
 			out.print("soThucHanh++;");
-			out.print("kieu[STT-1] = 'TH<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "'; } }");
-			out.print("hidden = \"<input type = 'hidden' value = '" + noiDungDCMHModelList.get(i).getSoBuoi() + "<" + noiDungDCMHModelList.get(i).getCoHieu() + "' name = 'STT_noi_dung\" + STT + \"' id = 'STT_noi_dung\" + STT + \"'/>\";");
-			out.print("coHieu = \"<input type = 'hidden' value = '\" + kieu[STT-1] + \"<" + noiDungDCMHModelList.get(i).getSoBuoi() + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
+			out.print("kieu[STT-1] = 'TH<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "'; } }");
+			out.print("hidden = \"<input type = 'hidden' value = '" + noiDungDCMHModelList.get(i).getSoBuoi() + "<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "' name = 'STT_noi_dung\" + STT + \"' id = 'STT_noi_dung\" + STT + \"'/>\";");
+			out.print("coHieu = \"<input type = 'hidden' value = '\" + kieu[STT-1] + \"<-->" + noiDungDCMHModelList.get(i).getSoBuoi() + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
 			out.print("document.getElementById('TableHidden').rows[0].cells[1].innerHTML = document.getElementById('TableHidden').rows[0].cells[1].innerHTML + coHieu;");
 			out.print("document.getElementById('TableHidden').rows[0].cells[0].innerHTML = document.getElementById('TableHidden').rows[0].cells[0].innerHTML + hidden; } ");
 		
@@ -544,7 +536,7 @@ function createTableKieuDay()// tao bang 1 de chon thu tu cac buoi hoc ly thuyet
 			out.print("day = 'LT';}");
 			out.print("else{");
 			out.print("day = 'TH';}}");
-			out.print("coHieu = \"<input type = 'hidden' value = '\" + day + \"<" + noiDungDCMHModelList.get(i).getSoBuoi() + "<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
+			out.print("coHieu = \"<input type = 'hidden' value = '\" + day + \"<-->" + noiDungDCMHModelList.get(i).getSoBuoi() + "<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
 			out.print("hidden = \"<input type = 'hidden' value = '" + noiDungDCMHModelList.get(i).getSoBuoi() + "' name = 'STT_noi_dung\" + STT + \"' id = 'STT_noi_dung\" + STT + \"'/>\";");
 			out.print("document.getElementById('TableHidden').rows[0].cells[1].innerHTML = document.getElementById('TableHidden').rows[0].cells[1].innerHTML + coHieu;");
 			out.print("document.getElementById('TableHidden').rows[0].cells[0].innerHTML = document.getElementById('TableHidden').rows[0].cells[0].innerHTML + hidden; } ");
@@ -565,7 +557,7 @@ function createTableKieuDay()// tao bang 1 de chon thu tu cac buoi hoc ly thuyet
 			out.print("if(document.getElementById('monHoc').value == '" + noiDungDCMHModelList.get(i).getMaMonHoc() + "') {");
 			out.print("STT++;");
 			out.print("day = 'THP';");
-			out.print("coHieu = \"<input type = 'hidden' value = '\" + day + \"<" + noiDungDCMHModelList.get(i).getSoBuoi() + "<" + noiDungDCMHModelList.get(i).getCoHieu() + "<" + tenChuong + "<" + mucTieu + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
+			out.print("coHieu = \"<input type = 'hidden' value = '\" + day + \"<-->" + noiDungDCMHModelList.get(i).getSoBuoi() + "<-->" + noiDungDCMHModelList.get(i).getCoHieu() + "<-->" + tenChuong + "<-->" + mucTieu + "' name = 'Day\" + STT + \"' id = 'Day\" + STT + \"'/>\";");
 			out.print("hidden = \"<input type = 'hidden' value = '" + noiDungDCMHModelList.get(i).getSoBuoi() + "' name = 'STT_noi_dung\" + STT + \"' id = 'STT_noi_dung\" + STT + \"'/>\";");
 			out.print("document.getElementById('TableHidden').rows[0].cells[1].innerHTML = document.getElementById('TableHidden').rows[0].cells[1].innerHTML + coHieu;");
 			out.print("document.getElementById('TableHidden').rows[0].cells[0].innerHTML = document.getElementById('TableHidden').rows[0].cells[0].innerHTML + hidden; } ");
@@ -653,11 +645,11 @@ function kiemTraKieuDay() // kiem tra lai trinh tu hoc o bang 1 va sap xep lai c
 		{
 			for(var j=demLT;j<kieu.length;j++)
 			{	
-				if((kieu[j].split("<"))[0] == 'LT')
+				if((kieu[j].split("<-->"))[0] == 'LT')
 				{
 					document.getElementById('STT_noi_dung' + i).value = j+1;
 					demLT = j + 1;
-					document.getElementById('Day' + i).value = 'LT<' + i + '<' + (kieu[j].split("<"))[1] + '<' + (kieu[j].split("<"))[2] + "<" + (kieu[j].split("<"))[3];
+					document.getElementById('Day' + i).value = 'LT<-->' + i + '<-->' + (kieu[j].split("<-->"))[1] + '<-->' + (kieu[j].split("<-->"))[2] + "<-->" + (kieu[j].split("<-->"))[3];
 					break;
 				}
 			}
@@ -667,11 +659,11 @@ function kiemTraKieuDay() // kiem tra lai trinh tu hoc o bang 1 va sap xep lai c
 		{
 			for(var j=demTH;j<kieu.length;j++)
 			{
-				if((kieu[j].split("<"))[0] == 'TH')
+				if((kieu[j].split("<-->"))[0] == 'TH')
 				{
 					document.getElementById('STT_noi_dung' + i).value = j+1;
 					demTH = j + 1;
-					document.getElementById('Day' + i).value = 'TH<' + i + '<' + (kieu[j].split("<"))[1] + '<' + (kieu[j].split("<"))[2] + "<" + (kieu[j].split("<"))[3];
+					document.getElementById('Day' + i).value = 'TH<-->' + i + '<-->' + (kieu[j].split("<-->"))[1] + '<-->' + (kieu[j].split("<-->"))[2] + "<-->" + (kieu[j].split("<-->"))[3];
 					break;
 				}
 			}
@@ -752,7 +744,7 @@ function selectKieuDay(act) // tao bang 2
 		}
 		for(var i=1;i<=STT;i++)
 		{
-			if((document.getElementById('Day' + i).value.split("<")[0]) == 'LT')
+			if((document.getElementById('Day' + i).value.split("<-->")[0]) == 'LT')
 			{
 				for(var n=1;n<=parseInt(document.getElementById('SoCaLyThuyet').value);n++)
 					soBuoiMoiTuan++;
@@ -772,7 +764,7 @@ function selectKieuDay(act) // tao bang 2
 			{
 				so = 0;	
 			}
-			if((parseInt((document.getElementById('Day' + i).value.split("<"))[1])%parseInt(document.getElementById('txtSoNoiDung').value) == 0 && so == 0) || i == STT)
+			if((parseInt((document.getElementById('Day' + i).value.split("<-->"))[1])%parseInt(document.getElementById('txtSoNoiDung').value) == 0 && so == 0) || i == STT)
 			{
 				selectThu = "";
 				selectNhomHoc = "";
@@ -788,14 +780,14 @@ function selectKieuDay(act) // tao bang 2
 				{
 					dem = 1;
 					soNoiDung = document.getElementById('STT_noi_dung' + j).value;
-					//tr = table.insertRow(soBuoiTongCong + 1);
+					tr = table.insertRow(soBuoiTongCong + 1);
 					var hienThiTuan = soTuan + tuanBatDau - 1; // thu tu tuan le
-					/*if(j == x)
+					if(j == x)
 					{
 						tr.insertCell(0).innerHTML = "<input type = 'text' value = '" + hienThiTuan + "' onblur = 'doiTuanHoc(" + (soBuoiTongCong + 1) + ", " + soBuoiMoiTuan + ", " + hienThiTuan + ")' id = 'txtTuanHoc" + hienThiTuan + "' size = '3' onclick = 'getTuanHoc(" + hienThiTuan + ")'/>";
 						table.rows[soBuoiTongCong + 1].cells[0].rowSpan = soBuoiMoiTuan;
 						dem = 0;
-					}*/
+					}
 					for(var c=0;c<ngayHocList.length;c++)
 					{
 						if(hienThiTuan == ngayHocList[c].tuan)
@@ -814,12 +806,12 @@ function selectKieuDay(act) // tao bang 2
 						}
 					}
 					
-					if((document.getElementById('Day' + j).value.split("<")[0]) == 'LT')
+					if((document.getElementById('Day' + j).value.split("<-->")[0]) == 'LT')
 					{
 						kieuDay = "LT";
-						ch = document.getElementById('Day' + j).value.split("<")[2];
-						tenChuong = document.getElementById('Day' + j).value.split("<")[3];
-						mucTieu = document.getElementById('Day' + j).value.split("<")[4];
+						ch = document.getElementById('Day' + j).value.split("<-->")[2];
+						tenChuong = document.getElementById('Day' + j).value.split("<-->")[3];
+						mucTieu = document.getElementById('Day' + j).value.split("<-->")[4];
 						y = parseInt(document.getElementById('SoCaLyThuyet').value);
 						disable = "disabled = 'disabled'";
 						phongBan = document.getElementById('phongLyThuyet').innerHTML;
@@ -828,10 +820,10 @@ function selectKieuDay(act) // tao bang 2
 					}
 					else
 					{
-						kieuDay = document.getElementById('Day' + j).value.split("<")[0];
-						ch = document.getElementById('Day' + j).value.split("<")[2];
-						tenChuong = document.getElementById('Day' + j).value.split("<")[3];
-						mucTieu = document.getElementById('Day' + j).value.split("<")[4];
+						kieuDay = document.getElementById('Day' + j).value.split("<-->")[0];
+						ch = document.getElementById('Day' + j).value.split("<-->")[2];
+						tenChuong = document.getElementById('Day' + j).value.split("<-->")[3];
+						mucTieu = document.getElementById('Day' + j).value.split("<-->")[4];
 						y = parseInt(document.getElementById('SoCa').value);
 						disable = "";
 						phongBan = document.getElementById('phongThucHanh').innerHTML;
@@ -841,24 +833,22 @@ function selectKieuDay(act) // tao bang 2
 					for(var z = 1;z<=y;z++)
 					{
 						soBuoiTongCong++;
-						/*if(z != 1)
+						if(z != 1)
 						{
 							tr = table.insertRow(soBuoiTongCong);
 							dem = 1;
-						}*/
-						tr = table.insertRow(soBuoiTongCong);
-						tr.insertCell(0).innerHTML = "<input type = 'text' value = '" + hienThiTuan + "' onblur = 'doiTuanHoc(" + soBuoiTongCong + ")' id = 'txtTuanHoc" + soBuoiTongCong + "' size = '3' onclick = 'getTuanHoc(" + soBuoiTongCong + ")'/>";
-						tr.insertCell(1).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/>";
-						tr.insertCell(2).innerHTML = "<input type = 'text' id = 'txtNgayHoc" + soBuoiTongCong + "' name = 'txtNgayHoc" + soBuoiTongCong + "' value = '" + ngayHoc + "'" + baoNgayLe + " size = '10'/>";
-						tr.insertCell(3).innerHTML = "<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiSang" + soBuoiTongCong + "' value = 'Sáng-" + soNoiDung + "-" + ch + "' checked='checked' " + selectBuoiHoc + "/>Sáng<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiChieu" + soBuoiTongCong + "' value = 'Chiều-" + soNoiDung + "-" + ch + "' " + selectBuoiHoc + "/>Chiều";
-						tr.insertCell(4).innerHTML = "<select name = 'cboTietBatDau" +soBuoiTongCong + "' id = 'cboTietBatDau" + soBuoiTongCong + "' onchange = 'selectTietBatDau(" + soBuoiTongCong + ")' onclick = 'getSoTiet(" + soBuoiTongCong + ")'>" + optionTietHoc + "</select>";
-						tr.insertCell(5).innerHTML = "<input type = 'text' name = 'HinhThucDay" + soBuoiTongCong + "' value = '" + kieuDay + "' id = 'HinhThucDay" + soBuoiTongCong + "' readonly = 'readonly' size = '3'/>";
-						tr.insertCell(6).innerHTML = "<select name = 'Nhom" + soBuoiTongCong + "' id = 'Nhom" + soBuoiTongCong + "' " + selectNhomHoc + ">" + option + "</select>";
-						tr.insertCell(7).innerHTML = "<select name = 'Thu" + soBuoiTongCong + "' id = 'Thu" + soBuoiTongCong + "' onchange = '" + selectThu + " showNgayHoc(" + hienThiTuan + "," + soBuoiTongCong + ")'><option value = '1'>Thứ hai</option><option value = '2'>Thứ ba</option><option value = '3'>Thứ tư</option><option value = '4'>Thứ năm</option><option value = '5'>Thứ sáu</option><option value = '6'>Thứ bảy</option><option value = '7'>Chủ nhật</option></select>";
-						tr.insertCell(8).innerHTML = "<select id = 'Phong" + soBuoiTongCong + "' name = 'Phong" + soBuoiTongCong + "'>" + phongBan + "</select>";
-						tr.insertCell(9).innerHTML = "&nbsp;";
-						tr.cells[9].id = "tdTinhTrang" + soBuoiTongCong;
-						tr.cells[9].onclick = (function(a) {return function(){ thongBaoChiTietLoi(a); }})(soBuoiTongCong);
+						}
+						tr.insertCell(1-dem).innerHTML = soBuoiTongCong + "<input type = 'hidden' id = 'txtError" + soBuoiTongCong + "' value = ''/>";
+						tr.insertCell(2-dem).innerHTML = "<input type = 'text' id = 'txtNgayHoc" + soBuoiTongCong + "' name = 'txtNgayHoc" + soBuoiTongCong + "' value = '" + ngayHoc + "'" + baoNgayLe + " size = '10'/>";
+						tr.insertCell(3-dem).innerHTML = "<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiSang" + soBuoiTongCong + "' value = 'Sáng-" + soNoiDung + "-" + ch + "' checked='checked' " + selectBuoiHoc + "/>Sáng<input type = 'radio' name = 'Buoi" + soBuoiTongCong + "' id = 'BuoiChieu" + soBuoiTongCong + "' value = 'Chiều-" + soNoiDung + "-" + ch + "' " + selectBuoiHoc + "/>Chiều";
+						tr.insertCell(4-dem).innerHTML = "<select name = 'cboTietBatDau" +soBuoiTongCong + "' id = 'cboTietBatDau" + soBuoiTongCong + "' onchange = 'selectTietBatDau(" + soBuoiTongCong + ")' onclick = 'getSoTiet(" + soBuoiTongCong + ")'>" + optionTietHoc + "</select>";
+						tr.insertCell(5-dem).innerHTML = "<input type = 'text' name = 'HinhThucDay" + soBuoiTongCong + "' value = '" + kieuDay + "' id = 'HinhThucDay" + soBuoiTongCong + "' readonly = 'readonly' size = '3'/>";
+						tr.insertCell(6-dem).innerHTML = "<select name = 'Nhom" + soBuoiTongCong + "' id = 'Nhom" + soBuoiTongCong + "' " + selectNhomHoc + ">" + option + "</select>";
+						tr.insertCell(7-dem).innerHTML = "<select name = 'Thu" + soBuoiTongCong + "' id = 'Thu" + soBuoiTongCong + "' onchange = '" + selectThu + " showNgayHoc(" + hienThiTuan + "," + soBuoiTongCong + ")'><option value = '1'>Thứ hai</option><option value = '2'>Thứ ba</option><option value = '3'>Thứ tư</option><option value = '4'>Thứ năm</option><option value = '5'>Thứ sáu</option><option value = '6'>Thứ bảy</option><option value = '7'>Chủ nhật</option></select>";
+						tr.insertCell(8-dem).innerHTML = "<select id = 'Phong" + soBuoiTongCong + "' name = 'Phong" + soBuoiTongCong + "'>" + phongBan + "</select>";
+						tr.insertCell(9-dem).innerHTML = "&nbsp;";
+						tr.cells[9-dem].id = "tdTinhTrang" + soBuoiTongCong;
+						tr.cells[9-dem].onclick = (function(a) {return function(){ thongBaoChiTietLoi(a); }})(soBuoiTongCong);
 						//tr.cells[3-dem].id = "tdTietBatDau" + soBuoiTongCong;
 						//tr.cells[7-dem].id = "tdPhong" + soBuoiTongCong;
 						//hiddenBuoi = "<input type = 'hidden' name = 'hiddenBuoi" + soBuoiTongCong + "' value = '" + soBuoiTongCong + "'/>";
@@ -921,7 +911,7 @@ function getTuanHoc(tuanMacDinh)
 {
 	checkTuanHoc = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
 }
-function doiTuanHoc(tuanMacDinh)
+function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 {
 	if(validateTuan(tuanMacDinh) == true)
 	{
@@ -933,22 +923,25 @@ function doiTuanHoc(tuanMacDinh)
 			if(objNgayHoc.tuan == document.getElementById('txtTuanHoc' + tuanMacDinh).value)
 				break;
 		}
-			document.getElementById('hiddenTuan' + tuanMacDinh).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
-			if(document.getElementById('Thu' + tuanMacDinh).value == '1')
+		for(var i=buoiBatDau; i< buoiBatDau + soBuoi; i++)
+		{
+			document.getElementById('hiddenTuan' + i).value = document.getElementById('txtTuanHoc' + tuanMacDinh).value;
+			if(document.getElementById('Thu' + i).value == '1')
 				ngayHoc = objNgayHoc.thuHai;
-			else if(document.getElementById('Thu' + tuanMacDinh).value == '2')
+			else if(document.getElementById('Thu' + i).value == '2')
 				ngayHoc = objNgayHoc.thuBa;
-			else if(document.getElementById('Thu' + tuanMacDinh).value == '3')
+			else if(document.getElementById('Thu' + i).value == '3')
 				ngayHoc = objNgayHoc.thuTu;
-			else if(document.getElementById('Thu' + tuanMacDinh).value == '4')
+			else if(document.getElementById('Thu' + i).value == '4')
 				ngayHoc = objNgayHoc.thuNam;
-			else if(document.getElementById('Thu' + tuanMacDinh).value == '5')
+			else if(document.getElementById('Thu' + i).value == '5')
 				ngayHoc = objNgayHoc.thuSau;
-			else if(document.getElementById('Thu' + tuanMacDinh).value == '6')
+			else if(document.getElementById('Thu' + i).value == '6')
 				ngayHoc = objNgayHoc.thuBay;
 			else 
 				ngayHoc = objNgayHoc.chuNhat;
-			document.getElementById('txtNgayHoc' + tuanMacDinh).value = ngayHoc;
+			document.getElementById('txtNgayHoc' + i).value = ngayHoc;
+		}
 		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "";
 	}
 	else
@@ -1587,9 +1580,10 @@ function traVe(tempObject)
 			<tr>
 				<td>Giáo viên :</td>
 				<td>
-					<input type = "text" name="txtTenGiaoVien" id = "txtTenGiaoVien"/> 
-					<input type = "hidden" id="giaoVien" name="cboGiaoVien"/>
-				</td>
+				<input type = "hidden" name="txtTenGiaoVien" id = "txtTenGiaoVien"/> 
+				<select id="giaoVien" name="cboGiaoVien" onchange="selectGiaoVien();">
+					<option value="">select</option>
+				</select></td>
 			</tr>
 			<tr>
 				<td>Số nội dung học trong tuần</td>
