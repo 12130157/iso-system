@@ -25,7 +25,21 @@ public class ChiTietTKBModel implements Serializable {
 	private String mucTieu;
 	private String maMonHoc;
 	private String soThuTuTuan;
+	private String ngayBatDauTuan;
+	private String ngayKetThucTuan;
 	
+	public String getNgayBatDauTuan() {
+		return ngayBatDauTuan;
+	}
+	public void setNgayBatDauTuan(String ngayBatDauTuan) {
+		this.ngayBatDauTuan = ngayBatDauTuan;
+	}
+	public String getNgayKetThucTuan() {
+		return ngayKetThucTuan;
+	}
+	public void setNgayKetThucTuan(String ngayKetThucTuan) {
+		this.ngayKetThucTuan = ngayKetThucTuan;
+	}
 	public String getSoThuTuTuan() {
 		return soThuTuTuan;
 	}

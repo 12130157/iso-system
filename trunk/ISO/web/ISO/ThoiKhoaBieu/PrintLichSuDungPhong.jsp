@@ -26,7 +26,7 @@
        initialPageNumber="1"       
        pagesToSkip="0"
        areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask1.gif"   
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       
@@ -51,20 +51,39 @@
 	<tr>
 		<td>
 			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
-				<tr align="center" style="background-color: transparent; background-position: center;">
+				<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
 					<td><p style="font-weight: bold">TRƯỜNG TCN KTCN HÙNG VƯƠNG<br/>PHÒNG ĐÀO TẠO</p></td>
 					<td></td>
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
-					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 20px">
+					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 18px">
 						LỊCH SỬ DỤNG PHÒNG
 						
 					</p><br /></th>
 				</tr>
+				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
+					<th colspan = "2"><font style="font-weight: bold;">
+						<c:choose>
+							<c:when test="${param.tuan eq '' or param.tuan le 54}">
+								Tuần ${List[0].soThuTuTuan} - Từ ngày : ${List[0].ngayBatDauTuan } Đến ngày : ${List[0].ngayKetThucTuan }
+							</c:when>
+							<c:when test = "${param.tuan le 72}">
+								Tháng ${param.tuan - 60}
+							</c:when>
+							<c:otherwise>
+								Học kì ${param.tuan - 80}
+							</c:otherwise>
+						</c:choose>		
+						<c:if test = "${param.khoa ne ''}">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khoa : ${List[0].khoa }
+						</c:if>				
+						</font>
+					</th>
+				</tr>
 			</table>
 			<%
-				int count = 0, count1 = 0, count2 = 0; 
-				String chuoi1 = "<td>", chuoi2 = "</td>", chuoi3 = "", chuoi4 = "</tr>", chuoi5 = "";
+				int count = 0, count1 = 0, count2 = 0, count3 = 0; 
+				String chuoi1 = "<td>", chuoi2 = "</td>", chuoi3 = "", chuoi4 = "</tr>", chuoi5 = "", chuoi6 = "";
 			%>
 			<c:set var = "RowFooter" value = ""/>
 			<c:set var = "Footer" value = ""/>
@@ -73,9 +92,12 @@
 			<c:set var = "Chuoi3" value="<%=chuoi3 %>"/>
 			<c:set var = "Chuoi4" value="<%=chuoi4 %>"/>
 			<c:set var = "Check" value="1"/>
-		<table width = "900" border = "1" align="center" style="background-color: transparent; background-position: top;">
+		<table width = "900" border = "1" align="center" style="background-color: transparent; background-position: top; font-size: 16px;">
 				
 			<tr align="center" style="background-color: transparent;">
+				<th style="background-color: #778899; color: white;" width="80">
+					Tuần
+				</th>
 				<th style="background-color: #778899; color: white;" width="80">
 					Thứ
 				</th>
@@ -100,7 +122,7 @@
 				
 			</tr>
 			<c:forEach var = "SuDungPhong" items="${List}">
-				<%count++; count1++; count2++; %>
+				<%count++; count1++; count2++; count3++;%>
 				<c:set var = "count" value = "<%=count %>"></c:set>			
 				<c:set var = "RowFooter" value = "${RowFooter}${Chuoi3}${Chuoi1}${SuDungPhong.kiHieuLop}${Chuoi2}"/>
 				<c:set var = "RowFooter" value = "${RowFooter}${Chuoi1}${SuDungPhong.tenMonHoc}${Chuoi2}"/>
@@ -109,46 +131,64 @@
 				<%chuoi3 = "<tr>"; %>
 				<c:set var = "Chuoi3" value="<%=chuoi3 %>"/>
 				<c:choose>	
-					<c:when test="${(not empty List[count].thuTrongTuan and SuDungPhong.thuTrongTuan ne List[count].thuTrongTuan) || (not empty List[count].buoi and SuDungPhong.buoi ne List[count].buoi) || empty List[count]}">
+					<c:when test="${(not empty List[count].soThuTuTuan and SuDungPhong.soThuTuTuan ne List[count].soThuTuTuan) ||
+						(not empty List[count].thuTrongTuan and SuDungPhong.thuTrongTuan ne List[count].thuTrongTuan) 
+							|| (not empty List[count].buoi and SuDungPhong.buoi ne List[count].buoi) || empty List[count]}">
 						<%chuoi5 = "<tr><td rowSpan = \"" + count2 + "\">"; %>
-						<c:if test="${Check eq 1}">
+						<c:if test="${Check le 2}">
 							<%chuoi5 = "<td rowSpan = \"" + count2 + "\">"; %>
-							<c:set var = "Check" value="2"/>
+							<c:if test = "${Check ne 1}">
+								<c:set var = "Check" value="3"/>
+							</c:if>
 						</c:if>
 						<c:set var = "Chuoi5" value="<%=chuoi5 %>"/>
-						<c:set var = "Footer" value = "${Footer}${Chuoi5}${SuDungPhong.buoi}${Chuoi2}${RowFooter}"/>
+						<c:set var = "Footer1" value = "${Footer1}${Chuoi5}${SuDungPhong.buoi}${Chuoi2}${RowFooter}"/>
 						<c:set var = "RowFooter" value = ""/>
-						<c:if test = "${(not empty List[count].thuTrongTuan and SuDungPhong.thuTrongTuan ne List[count].thuTrongTuan) || empty List[count]}">
-							<tr>
-								<td rowspan="<%=count1 %>">
+						<c:if test = "${(not empty List[count].soThuTuTuan and SuDungPhong.soThuTuTuan ne List[count].soThuTuTuan) ||
+							(not empty List[count].thuTrongTuan and SuDungPhong.thuTrongTuan ne List[count].thuTrongTuan) 
+								|| empty List[count]}">
+							<%chuoi6 = "<tr><td rowSpan = \"" + count1 + "\">"; %>	
+							<c:if test="${Check eq 1}">
+								<%chuoi6 = "<td rowSpan = \"" + count1 + "\">"; %>
+							</c:if>
+							<c:set var = "Check" value="2"/>
 									<c:choose>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 1}">
-											HAI
+											<%chuoi6 = chuoi6 + "HAI"; %>
 										</c:when>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 2}">
-											BA
+											<%chuoi6 = chuoi6 + "BA"; %>
 										</c:when>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 3}">
-											TƯ
+											<%chuoi6 = chuoi6 + "TƯ"; %>
 										</c:when>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 4}">
-											NĂM
+											<%chuoi6 = chuoi6 + "NĂM"; %>
 										</c:when>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 5}">
-											SÁU
+											<%chuoi6 = chuoi6 + "SÁU"; %>
 										</c:when>
 										<c:when test="${SuDungPhong.thuTrongTuan eq 6}">
-											BẢY
+											<%chuoi6 = chuoi6 + "BẢY"; %>
 										</c:when>
 									</c:choose>
-								</td>	
-								<td rowSpan = "<%=count1 %>">
-									${SuDungPhong.ngayHoc}
-								</td>
-								${Footer}
-								<c:set var = "Footer" value = ""/>
-								<% count1 = 0;%>
-								<c:set var = "Check" value="1"/>
+									<%chuoi6 += "</td><td rowSpan = \"" + count1 + "\">"; %>
+									<c:set var = "Chuoi6" value="<%=chuoi6 %>"/>
+									<c:set var = "Footer" value = "${Footer}${Chuoi6}${SuDungPhong.ngayHoc}${Chuoi2}${Footer1}"/>	
+									<c:set var = "Footer1" value = ""/>
+									<c:if test = "${(not empty List[count].soThuTuTuan and SuDungPhong.soThuTuTuan ne List[count].soThuTuTuan) 
+										|| empty List[count]}">
+										<tr>
+											<td rowspan="<%=count3 %>">${SuDungPhong.soThuTuTuan}<br/>
+												(${SuDungPhong.ngayBatDauTuan}-${SuDungPhong.ngayKetThucTuan })</td>
+											${Footer}
+											
+										<c:set var = "Footer" value = ""/>
+										<% count3 = 0;%>
+										<c:set var = "Check" value="1"/>
+									</c:if>
+								<%count1 = 0; %>
+								
 						</c:if>
 						<%count2 = 0; chuoi3 = "";%>
 						<c:set var = "Chuoi3" value="<%=chuoi3 %>"/>

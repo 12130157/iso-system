@@ -202,7 +202,7 @@
 				<tr style="background-color: transparent;">
 					<c:if test="${Tuan ne obj.soThuTuTuan}">
 						<%countTuan = 0; countThu = 0; count++; buoi = 0; thu = 0;%>
-						<td id = "Tuan<%=count %>">${obj.soThuTuTuan }</td>
+						<td id = "Tuan<%=count %>">${obj.soThuTuTuan }<br/>(${obj.ngayBatDauTuan}-${obj.ngayKetThucTuan })</td>
 					</c:if>
 					<c:if test="${NgayHoc ne obj.ngayHoc}">
 						
@@ -266,7 +266,7 @@
 		<table>	
 			<tr>
 				<td colspan="7">	
-					<a href = "<%=Constant.PATH_RES.getString("iso.InLichSuDungPhongPath") %>">								 
+					<a href = "<%=Constant.PATH_RES.getString("iso.InLichSuDungPhongPath") %>?tuan=<%=tuan %>&khoa=<%=maKhoa %>">								 
 						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 					</a>
 				</td>
