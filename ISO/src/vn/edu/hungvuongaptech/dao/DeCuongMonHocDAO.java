@@ -6,16 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import org.zefer.cache.d;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.DeCuongMonHocModel;
 import vn.edu.hungvuongaptech.model.NoiDungDCMHModel;
+
+
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
-import vn.edu.hungvuongaptech.util.StringUtil;
+
 
 public class DeCuongMonHocDAO {
 	public static ArrayList<DeCuongMonHocModel> getAllDeCuongMonHocAndTenNguoiTao() {
@@ -463,7 +462,7 @@ public class DeCuongMonHocDAO {
 									.getString("iso.sql.getAllDeCuongMonHocApprovedByMaChuongTrinh"));
 			preparedStatement.setString(1, Constant.TINHTRANG_APPROVE);
 			preparedStatement.setString(2, maChuongTrinh);
-			preparedStatement.setString(3, hocKi);
+			//preparedStatement.setString(3, hocKi);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				DeCuongMonHocModel deCuongMonHocModel = new DeCuongMonHocModel();
