@@ -159,7 +159,9 @@ function submitFormSave(){
 	<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
 	
 	<!-- xu ly ma nguoi tao khi admin dang nhap thi ma nguoi tao = "" con lai thi khac ""-->
-	<c:if test = "${MaBoPhan ne BO_PHAN_ADMIN}"><%maNguoiTao = (String) session.getAttribute("maThanhVien"); %></c:if>
+	<c:if test = "${vaiTro eq Truong_Khoa or vaiTro eq Pho_Khoa}">
+		<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
+	</c:if>
 	<!--<c:if test = "${vaiTro eq Truong_Bo_Mon || vaiTro eq Truong_Khoa || vaiTro eq Pho_Khoa}">
 		
 	</c:if>
