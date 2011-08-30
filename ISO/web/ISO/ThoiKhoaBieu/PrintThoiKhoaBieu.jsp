@@ -187,6 +187,7 @@ function pageLoad()
 					<td><p style="font-weight: bold">${TKB.tenNguoiTao}</td>
 				</tr>
 			</table>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		</td>
 	</tr>	
 </table>
