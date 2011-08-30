@@ -6,12 +6,12 @@
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
-	pageInsets="30,0,20,0,points"
+	pageInsets="0,0,0,0,points"
 	enableImageSplit="false"
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
 <pd4ml:header
-		watermarkUrl="http://localhost:8080/HungVuongISO/images/footer.gif"  
+		  
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
@@ -23,9 +23,9 @@
        color="#000000"             
        initialPageNumber="1"       
        pagesToSkip="0"
-       areaHeight="20"
-       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
+       areaHeight="20" 
        watermarkOpacity="50"
+       watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif" 
 	   watermarkBounds="0,580,500,20"	      
        fontSize="14">       
 </pd4ml:footer>
@@ -40,8 +40,14 @@
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/print.css" rel="stylesheet"/>
 <title>Print Thoi Khoa Bieu</title> 
-
+<script type="text/javascript">
+function pageLoad()
+{
+				alert("abc");
+}
+			</script>
 </head>
+<body onload="pageLoad()">
 <div align="center">
 <div class = "div_body">
 <c:set var="TKB" value="${sessionScope.ThoiKhoaBieu}"></c:set>
@@ -81,7 +87,6 @@
 					<c:forEach var = "Thu" begin = "1" end="7">
 						<td><p>
 						<c:forEach var = "MonHocTKB" items="${TKB.monHocTKBModelList}">
-						<br/>
 								<c:set var = "check" value = "0"></c:set>
 								<c:forEach var = "String1" items="${sf:splitString2(MonHocTKB.chuoiThuTrongTuan)}">
 									<c:set var = "String2" value = "${sf:splitString3(String1)}"></c:set>
@@ -120,7 +125,6 @@
 					<c:forEach var = "Thu" begin = "1" end="7">
 					<td><p>
 						<c:forEach var = "MonHocTKB" items="${TKB.monHocTKBModelList}">
-						<br/>
 								<c:set var = "check" value = "0"/>
 								<c:forEach var = "String1" items="${sf:splitString2(MonHocTKB.chuoiThuTrongTuan)}">
 									<c:set var = "String2" value = "${sf:splitString3(String1)}"></c:set>
@@ -155,6 +159,7 @@
 					</c:forEach>
 				</tr>
 			</table>
+			
 			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
 				<tr style="background-color: transparent; font-size: 16px;">
 					<td>Phòng học lý thuyết </td>
@@ -187,5 +192,6 @@
 </table>
 </div>
 </div>
+</body>
 </html>
 </pd4ml:transform>
