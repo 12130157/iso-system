@@ -16,8 +16,8 @@
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     BM02-QT7.5.1/3 & 8.4                     Ngày hiệu lực: 15/9/2009"
-       pageNumberTemplate="Trang $[page]/$[total]"
+       titleTemplate="     BM02-QT7.5.1/3 & 8.4                          Ngày hiệu lực: 15/9/2009"                 
+       pageNumberTemplate="Trang $[page]/$[total]     "
        titleAlignment="left"
        pageNumberAlignment="right"       
        color="#000000"             
@@ -27,7 +27,7 @@
        watermarkOpacity="50"
        watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif" 
 	   watermarkBounds="0,580,500,20"	      
-       fontSize="14">       
+       fontSize="12">       
 </pd4ml:footer>
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -40,12 +40,6 @@
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/print.css" rel="stylesheet"/>
 <title>Print Thoi Khoa Bieu</title> 
-<script type="text/javascript">
-function pageLoad()
-{
-				alert("abc");
-}
-			</script>
 </head>
 <body onload="pageLoad()">
 <div align="center">
@@ -113,6 +107,7 @@ function pageLoad()
 								</c:forEach>
 								<c:if test = "${check ge 1}">
 									${MonHocTKB.ghiChu}
+									<c:if test = "${not empty MonHocTKB.ghiChu}"><br/></c:if>
 									<br/>
 								</c:if>
 						</c:forEach>
@@ -143,7 +138,7 @@ function pageLoad()
 												</c:when>
 												<c:otherwise>
 													${sf:changeString(MonHocTKB.ngayBatDauTH)}-${sf:changeString(MonHocTKB.ngayKetThucTH)}<br/>
-													Phòng ${MonHocTKB.chuoiPhongLT}<br/>
+													Phòng ${MonHocTKB.chuoiPhongTH}<br/>
 												</c:otherwise>
 											</c:choose>
 										</c:if>
@@ -151,6 +146,7 @@ function pageLoad()
 								</c:forEach>
 								<c:if test = "${check ge 1}">
 									${MonHocTKB.ghiChu}
+									<c:if test = "${not empty MonHocTKB.ghiChu}"><br/></c:if>
 									<br/>
 								</c:if>
 						</c:forEach>
