@@ -16,7 +16,7 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     BM05-QT7.3/1               Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     BM04-QT6.2/1               Ngày hiệu lực: 15/9/2009"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -168,12 +168,12 @@
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td>
 				<c:if test="${not empty DeNghiKTV.ngay_HC_duyet_mdy}">
-					ngày ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,2,sig)}
+					Ngày ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_HC_duyet_mdy,2,sig)}
 				</c:if>
 			</td>
 			<td>
 				<c:if test="${not empty DeNghiKTV.ngay_DT_duyet_mdy}">
-					ngày ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,2,sig)}
+					Ngày ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_DT_duyet_mdy,2,sig)}
 				</c:if>
 			</td>
 			<td>Quận 5, ngày ${sf:getElement(DeNghiKTV.ngay_TK_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_TK_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_TK_duyet_mdy,2,sig)}</td>
@@ -200,7 +200,7 @@
 			<td></td>
 			<td>
 				<c:if test="${not empty DeNghiKTV.ngay_HT_duyet_mdy}">
-					ngày ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,2,sig)}
+					Ngày ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiKTV.ngay_HT_duyet_mdy,2,sig)}
 				</c:if>
 			</td>
 			<td></td>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
@@ -47,7 +50,7 @@
 	</c:if>
 	
 	
-	<script language="javascript" type="text/javascript">
+	<script language="javascript">
 		function submitForm(ac){
 			if(ac=='L'){
 				var max = parseInt(document.getElementById("max").value);
@@ -57,13 +60,11 @@
 				}
 				var soluong;
 				for ( var i = 1; i < max; i++) {
-					
 					soluong = parseInt(document.getElementById("txtSoLuong"+i).value);
 					for ( var j = 1; j <= soluong; j++) {
-						var thoigian = document.forms["KeHoachTNS"].elements["txtThoiGian"+i+j];
 						var n = 0;
-						for(var k = 0; k < 12; k++) {
-							if(thoigian[k].checked) {
+						for(var k = 1; k <= 12; k++) {
+							if(document.getElementById("txtThoiGian"+i+j+k).checked==true) {
 								n++;
 							}
 						}
@@ -86,10 +87,9 @@
 					
 					soluong = parseInt(document.getElementById("txtSoLuong"+i).value);
 					for ( var j = 1; j <= soluong; j++) {
-						var thoigian = document.forms["KeHoachTNS"].elements["txtThoiGian"+i+j];
 						var n = 0;
-						for(var k = 0; k < 12; k++) {
-							if(thoigian[k].checked) {
+						for(var k = 1; k <= 12; k++) {
+							if(document.getElementById("txtThoiGian"+i+j+k).checked==true) {
 								n++;
 							}
 						}
@@ -109,35 +109,8 @@
 				
 			}else if(ac=='C'){
 				document.getElementById('action').value = "create";
-				document.forms['KeHoachTNS'].submit();	
-			}else if(ac=='A'){
-				if(confirm("Bạn có chắc chắn muốn Đồng ý ( duyệt ) Kế Hoạch Tuyển Nhân Sự này ?")){
-					document.getElementById('action').value = "approve";
-					document.forms['KeHoachTNS'].submit();	
-				} else{
-					return;
-				}
-			}else if(ac=='R'){
-				var value = false;
-				var chieucao = 200;
-				var chieurong = 340;
-				var top = screen.availHeight/2-chieucao/2;
-				var left = screen.availWidth/2-chieurong/2;
-				value = window.showModalDialog("LyDoRejectBox.jsp","Arg1","dialogHeight: "+chieucao+"px; dialogWidth: "+chieurong+"px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
-				if(value != false && value != null){
-					if(confirm("Bạn có chắc chắn muốn Từ chối Kế Hoạch Tuyển Nhân Sự này ?")){
-						document.getElementById('txtLyDoReject').value = value;
-						document.getElementById('action').value = "reject";
-						document.forms['KeHoachTNS'].submit();
-					} else{
-						return;
-					}
-				}
-				else {
-					return;
-				}	
+				document.forms['KeHoachTNS'].submit();
 			}
-			
 		}
 		
 		function ThemDeNghi(){
@@ -217,26 +190,27 @@
 					<c:forEach begin="1" end="${model.soLuong}" var="n">
 						<c:set var="slc" value="1"></c:set>
 						<c:forEach var="tg" items="${model.list_thoi_gian}">
-								<c:if test="${slc eq n}">
-									<c:set var="thoigian" value="${tg.thoi_gian}"></c:set>
-								</c:if>
+							<c:if test="${slc eq n}">
+								<c:set var="thoigian" value="${tg.thoi_gian}"></c:set>
+							</c:if>
 							<c:set var="slc" value="${slc+1 }"></c:set>
 						</c:forEach>
+						<c:set var="listThoiGian" value='${fn:split(thoigian," ")}'></c:set>
 						<tr style="background-color: transparent;">
 							<c:if test="${n eq '1'}">
 								<td colspan="3" rowspan="${model.soLuong }"></td>
 							</c:if>
 							<c:forEach begin="1" end="12" var="i">
 								<td>
-									<input type="radio" ${lockbtn }
-									<c:if test="${i eq thoigian}">
-										checked
-									</c:if>
-									id="txtThoiGian${stt}${n}" style="background-color: transparent;" name="txtThoiGian${stt}${n}" value="${i }" />
+									<input type="checkbox" ${lockbtn }
+										<c:forEach var="tg" items="${listThoiGian}">
+											<c:if test="${tg eq i}">
+												checked
+											</c:if>
+										</c:forEach>
+									id="txtThoiGian${stt}${n}${i}" name="txtThoiGian${stt}${n}${i}" style="background-color: transparent;" value="${i }" />
 								</td>
 							</c:forEach>
-							
-							
 						</tr>
 					</c:forEach>
 				</tr>
@@ -245,38 +219,37 @@
 				<c:set var = "stt" value="${stt+1}"></c:set>
 			</c:forEach>
 		</table>
-		<c:if test="${KeHoachTNS.tinh_trang eq '0' or KeHoachTNS.tinh_trang eq '3' and maThanhVien eq KeHoachTNS.nguoi_lap_ke_hoach}">
-			<a style="text-decoration: none;" href = "javascript: ThemDeNghi()"><input type="button" value="Thêm Đề Nghị" /></a>
-			
+		
+		<c:if test="${KeHoachTNS.tinh_trang eq '0' and maThanhVien eq KeHoachTNS.nguoi_lap_ke_hoach}">
+			<a style="text-decoration: none;" href = "javascript: ThemDeNghi()">
+				<img src="<%=request.getContextPath()%>/images/buttom/themdenghi.png" alt="Thêm Đề Nghị" border = "0" />
+			</a>
 		</c:if>
 			
 		<c:if test="${not empty param.id}">
-			<table style="background-color: transparent;margin-bottom: 100px;">
+			<table style="background-color: transparent;margin-bottom: 50px;">
 				<tr style="background-color: transparent;">
-					<td>
-							<p><input value="${KeHoachTNS.ngay_duyet_dmy }" type="text" size = 10 readonly="readonly" style="background-color: transparent;"/></p>
-							<br /><strong>HIỆU TRƯỞNG</strong><br />
-							<br />${KeHoachTNS.ten_nguoi_duyet}
+					<td> 
+						<br /><strong>HIỆU TRƯỞNG</strong><br />
+						<br /><br />
+						<c:if test="${KeHoachTNS.tinh_trang eq '1'}">
+							<b>Trần Văn Hải</b>
+						</c:if>
 					</td>
 					<td>
 							<p>Quận5, <input value="${KeHoachTNS.ngay_lap_ke_hoach_dmy }" type="text" size = 10 readonly="readonly" style="background-color: transparent;"/></p> 
 							<br /><strong>NGƯỜI LẬP PHIẾU</strong><br />
 							<br />
 							<c:if test="${KeHoachTNS.tinh_trang ne '0'}">
-								${KeHoachTNS.ten_nguoi_lap_ke_hoach}
+								<b>${KeHoachTNS.ten_nguoi_lap_ke_hoach}</b>
 							</c:if>
-							
 					</td>
 				</tr>				
 			</table>
 			<c:choose>
-				<c:when test="${KeHoachTNS.tinh_trang eq '0' and maThanhVien eq KeHoachTNS.nguoi_lap_ke_hoach or KeHoachTNS.tinh_trang eq '3' and maThanhVien eq KeHoachTNS.nguoi_lap_ke_hoach}">
+				<c:when test="${KeHoachTNS.tinh_trang eq '0' and maThanhVien eq KeHoachTNS.nguoi_lap_ke_hoach}">
 						<a href = "javascript: submitForm('L')"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="Lưu" /> </a>
 						<a href = "javascript: submitForm('G')"><img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi HT" /> </a>
-				</c:when>
-				<c:when test="${KeHoachTNS.tinh_trang eq '1' and MaBoPhan eq BO_PHAN_BGH}">
-					<a href = "javascript: submitForm('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Lưu" /> </a>
-					<a href = "javascript: submitForm('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Lưu" /> </a>
 				</c:when>
 				<c:otherwise>
 					<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_PDT or MaBoPhan eq BO_PHAN_PHC or MaBoPhan eq BO_PHAN_ADMIN}">
@@ -297,7 +270,6 @@
 		<input type="hidden" id="action" name="action"/>
 		<input type="hidden" id="max" name="max" value="${stt }" />
 		<input type="hidden" id="txtMaKeHoach" name="txtMaKeHoach" value="${KeHoachTNS.id}"/>
-		<input type="hidden" id="txtLyDoReject" name="txtLyDoReject"/>
 	</form>
 	
 	<!-- S FOOT CONTENT -->

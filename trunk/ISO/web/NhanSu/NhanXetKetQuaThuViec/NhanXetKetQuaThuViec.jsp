@@ -108,7 +108,7 @@
 	<c:choose>
 		<c:when test="${not empty param.id}">
 		
-			<c:set var="NXKQTV" value='<%=NhanXetKetQuaThuViecDAO.getNhanXetById(request.getParameter("id").toString().trim()) %>'></c:set>
+			<c:set var="NXKQTV" scope="session" value='<%=NhanXetKetQuaThuViecDAO.getNhanXetById(request.getParameter("id").toString().trim()) %>'></c:set>
 			<c:if test="${NXKQTV.tinh_trang ne '0' and NXKQTV.tinh_trang ne '3' or NXKQTV.ma_thanh_vien ne maThanhVien}">
 				<c:set var="locktext" value="readonly"></c:set>
 			</c:if>
@@ -206,7 +206,7 @@
 					</c:when>
 					<c:otherwise>
 						<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_PDT or MaBoPhan eq BO_PHAN_PHC or MaBoPhan eq BO_PHAN_ADMIN or maThanhVien eq TruongKhoa}">
-							<a href = "<%=request.getContextPath() %>/NhanSu/Intro.jsp">								 
+							<a href = "<%=request.getContextPath() %>/NhanSu/NhanXetKetQuaThuViec/PrintNhanXetKetQuaThuViec.jsp">								 
 								<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 							</a>
 						</c:if>
@@ -219,9 +219,9 @@
 		</c:when>
 		<c:when test="${not empty param.error}">
 			<c:choose>
-				<c:when test="${param.error eq 'DNKTV'}">
+				<c:when test="${param.error eq 'HDLD'}">
 					<div style="height: 350px;font-size: 25px;font-weight: bold;text-align: center;padding-top: 50px;" >
-						Bạn chưa phải là Nhân Viên Thử Việc<br/>
+						Bạn chưa phải là Nhân Viên Hợp Đồng Lần Đầu<br/>
 						Hãy quay lại sau !!!
 					</div>
 				</c:when>

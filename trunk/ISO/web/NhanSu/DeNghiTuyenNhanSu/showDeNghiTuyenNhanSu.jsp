@@ -35,7 +35,6 @@
 	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
 	<c:set var = "BO_PHAN_PDT" value = '<%= Constant.BO_PHAN_PDT %>'></c:set>
 	<c:set var = "BO_PHAN_BGH" value = '<%= Constant.BO_PHAN_BGH %>'></c:set>
-	<c:set var = "BO_PHAN_CTHSSV" value = '<%= Constant.BO_PHAN_CTHSSV %>'></c:set>
 	<c:set var = "TRUONG_KHOA" value= '<%=Constant.TRUONG_KHOA %>'></c:set>
 	<c:set var = "ADMIN" value= '<%=Constant.ADMIN %>'></c:set>
 	
@@ -107,6 +106,7 @@
 				<td style="background-color: transparent;">
 					<a href="<%=request.getContextPath()%>/NhanSu/DeNghiTuyenNhanSu/DeNghiTuyenNhanSu.jsp?id=${model.id}">
 						 ${model.ten_chuc_danh } - ${model.nam} 
+					<br/><c:if test="${model.bo_sung ne '0'}">( Bổ Sung Lần ${model.bo_sung } )</c:if>
 					</a>
 					<br/><c:if test="${model.tinh_trang eq '0'}"><p style="color: red;font-style: italic;font-weight: bold;">***Chưa Gửi***</p></c:if>
 				</td>
@@ -130,8 +130,7 @@
 				<td style="background-color: transparent;"><textarea style="background-color: transparent;" rows="3" cols="15" readonly="readonly">${model.ly_do_reject }</textarea> </td>
 			</tr>	
 		</c:forEach>
-			<tr style="background-color: transparent;">
-				<td colspan="7">
+		</table>
 					<c:choose>
 						<c:when test="${MaBoPhan eq BO_PHAN_ADMIN || MaBoPhan eq BO_PHAN_BGH || MaBoPhan eq BO_PHAN_PDT || MaBoPhan eq BO_PHAN_PHC}">
 						</c:when>
@@ -143,9 +142,7 @@
 							</c:if>								
 						</c:otherwise>
 					</c:choose>																
-				</td>
-			</tr>
-		</table>
+		
 		<input type="hidden" id="action" name="action" />
 		</form>
 		<!-- S FOOT CONTENT -->

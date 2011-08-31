@@ -16,7 +16,7 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     BM05-QT7.3/1               Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     BM02-QT6.2/1               Ngày hiệu lực: 15/9/2009"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -129,13 +129,6 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
 			<tr style="background-color: transparent; font-size: 14px;">
 				<td colspan = "2">
-					<p>*Tiền công khoán việc : ${DeNghiNhanSu.luong }</p>
-				</td>
-			</tr>						
-	</table>
-	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
-			<tr style="background-color: transparent; font-size: 14px;">
-				<td colspan = "2">
 					<p>*Thời gian bắt đầu làm : ${DeNghiNhanSu.thoi_gian_bat_dau_lam_mdy }</p>
 				</td>
 			</tr>						
@@ -148,16 +141,20 @@
 					Ngày ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,2,sig)}
 				</c:if>
 			</td>
-			<td>
-				<c:if test="${not empty DeNghiNhanSu.ngay_DT_duyet_mdy}">
-					Ngày ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,2,sig)}
-				</c:if>
-			</td>
+			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+				<td>
+					<c:if test="${not empty DeNghiNhanSu.ngay_DT_duyet_mdy}">
+						Ngày ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,2,sig)}
+					</c:if>
+				</td>
+			</c:if>
 			<td>Quận 5, ngày ${sf:getElement(DeNghiNhanSu.ngay_TK_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_TK_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_TK_duyet_mdy,2,sig)}</td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG PHÒNG TCHCQT </p></td>
-			<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG PHÒNG ĐÀO TẠO </p></td>
+			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+				<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG PHÒNG ĐÀO TẠO </p></td>
+			</c:if>
 			<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG P/K/BM</p></td>
 		</tr>
 		<tr>
@@ -166,7 +163,9 @@
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_phong_HC } </p></td>
-			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_phong_DT } </p></td>
+			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+				<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_phong_DT } </p></td>
+			</c:if>
 			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_truong_khoa }</p></td>
 		</tr>
 		<tr>
@@ -183,18 +182,14 @@
 			<td></td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
-			<td></td>
-			<td><p style="font-weight: bold; font-size: 14px">HIỆU TRƯỞNG </p></td>
-			<td></td>
+			<td colspan="3"><p style="font-weight: bold; font-size: 14px">HIỆU TRƯỞNG </p></td>
 		</tr>
 		<tr>
 			<td><p></p></td>
 			<td><p></p></td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
-			<td></td>
-			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_hieu_truong } </p></td>
-			<td></td>
+			<td colspan="3"><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_hieu_truong } </p></td>
 		</tr>
 		<tr>
 			<td><p></p></td>

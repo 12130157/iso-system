@@ -28,53 +28,27 @@
 	<%
 		SysParamsModel TGHT = SysParamsDAO.getNgayGioHeThong();
 	 %>
-	<script language="JavaScript" type="text/javascript">
-		function ThemTieuChuan(){
-			var i = parseInt(document.getElementById('row').value);
-			var table = document.getElementById('TableTC');
-			table.insertRow(i).style.backgroundColor = "transparent";
-			table.rows[i].insertCell(0).innerHTML = i+".";
-			table.rows[i].insertCell(1).innerHTML = "<input type='text' name='txtTieuChuan"+i+"' id='txtTieuChuan"+i+"' style='width: 400px;height: 18px;background-color:transparent;' /><a style='text-decoration:none;' href='javascript: deleteRow("+i+")' ><img src='<%=request.getContextPath()%>/images/buttom/xoa2.png' style='vertical-align: bottom;' alt='Thêm' border = '0'/></a>";
-			table.rows[i].cells[0].style.textAlign = "right";
-			table.rows[i].cells[0].style.paddingRight = "5px";
-			table.rows[i].cells[1].style.textAlign = "left";
-			document.getElementById('row').value = i+1;
-		}
-		
-		function deleteRow(n){
-			var i = parseInt(document.getElementById('row').value);
-			var table = document.getElementById('TableTC');
-			if(n==(i-1)){
-				table.deleteRow(n);
-				i--;
-			}else{
-				alert("Chỉ có thể xóa từ Tiêu Chuẩn "+(i-1)+" lên !!!");
-			}
-			document.getElementById('row').value = i;
-		}
-		
-		function deleteTieuChuan(id){
-			document.getElementById("txtMaTieuChuan").value=id;
-			document.getElementById('action').value = "deleteTC";
-			document.forms['DeNghi'].submit();
-		}
-		
+	<script language="javascript">
 		function submitForm(ac){
-			var Luong = document.getElementById("txtLuong").value;
+			if(ac=='B'){
+				if(confirm("Bạn có chắc chắn muốn Bổ Sung Đề Nghị Nhân Sự này ?")){
+					document.getElementById('action').value = "boSung";
+					document.forms['DeNghi'].submit();	
+				} else{
+					return;
+				}
+			}
+			
 			var SoLuong = document.getElementById("txtSoLuong").value;
 			var TGBDL = document.getElementById("txtCalendar").value;
-			var max = parseInt(document.getElementById("row").value);
 			var CongViec = document.getElementById("txtCongViec").value;
 			var rong = /\s/g;
 			var CongViec_test = CongViec.replace(rong,"");
-		
 			
-			if(CongViec_test =="" && Luong=="" && TGBDL=="" && SoLuong==""){
-				alert("Hãy điền đầy đủ thông tin !!!")
+			if(CongViec_test =="" && TGBDL=="" && SoLuong==""){
+				alert("Hãy điền đầy đủ thông tin !!!");
 			} else if(CongViec_test == ""){
 				alert("Hãy nhập dự kiến phân công nhiệm vụ !!! ");
-			} else if(Luong == ""){
-				alert("Hãy nhập lương !!! ");
 			} else if(TGBDL == ""){
 				alert("Hãy nhập thời gian bắt đầu làm !!! ");
 			} else if(SoLuong == ""){
@@ -84,16 +58,16 @@
 			} else if(SoLuong<=0){
 				alert("Số Lượng phải là 1 số không âm và lớn hơn 0!!! ");
 			}else{
-				
 				if(ac=='L'){
 					document.getElementById('action').value = "new";
 					document.forms['DeNghi'].submit();
 				} else if(ac=='G'){
+					var max = parseInt(document.getElementById("row").value);
 					if(max==1){
 						alert("Hãy click vào Thêm Dòng Tiêu Chuẩn , để nhập tiêu chuẩn !!!");
 						return;
 					}
-					
+
 					for ( var i = 1; i < max; i++) {
 						var TieuChuan = document.getElementById("txtTieuChuan"+i).value;
 						var test = /\s/g;
@@ -111,9 +85,9 @@
 						return;
 					}
 				} else if(ac=='C'){
-						document.getElementById('action').value = "create";
-						document.forms['DeNghi'].submit();	
-				}else if(ac=='A'){
+					document.getElementById('action').value = "create";
+					document.forms['DeNghi'].submit();	
+				} else if(ac=='A'){
 					if(confirm("Bạn có chắc chắn muốn Đồng ý ( Duyệt ) Đề Nghị Nhân Sự này  ?")){
 						document.getElementById('action').value = "approve";
 						document.forms['DeNghi'].submit();	
@@ -146,50 +120,36 @@
 			}
 		}
 		
-		function formatLuong(){
-			var value = document.getElementById("txtLuong").value;
-			var test = /\s/g;
-			var Luong = value.replace(test,"");
-			var cut = Luong.split(".");
-			for(var i=0;i<cut.length;i++){
-				if(i==0){
-					Luong = "";
-				}
-				Luong = Luong+cut[i];
-			}
-			if(isNaN(Luong)){
-				alert("Lương phải nhập số");
-				document.getElementById("txtLuong").value = "";
-				return;
-			}else if(parseInt(Luong)<=0){
-				alert("Lương phải lớn hơn 0 và là 1 số nguyên không âm");
-				document.getElementById("txtLuong").value = "";
-				return;
-			}
-			var leng = Luong.length;
-			var text = "";
-			var des = leng%3;
-			for(var n = 0; n < leng; n++){
-				if(des==0){
-					if(n==leng-1){
-						text = text+Luong.charAt(n);
-					} else if((n+1)%3==0){
-						text = text+Luong.charAt(n)+".";
-					} else{
-						text = text+Luong.charAt(n);
-					}
-				} else{
-					if(n==leng-1){
-						text = text+Luong.charAt(n);
-					} else if((n-(des-1))%3==0 && n>2 || n<2 && n==des-1){
-						text = text+Luong.charAt(n)+".";
-					} else{
-						text = text+Luong.charAt(n);
-					}
-				}
-			}
-			document.getElementById("txtLuong").value = text;
+		function ThemTieuChuan(){
+			var i = parseInt(document.getElementById('row').value);
+			var table = document.getElementById('TableTC');
+			table.insertRow(i).style.backgroundColor = "transparent";
+			table.rows[i].insertCell(0).innerHTML = i+".";
+			table.rows[i].insertCell(1).innerHTML = "<input type='text' name='txtTieuChuan"+i+"' id='txtTieuChuan"+i+"' style='width: 400px;height: 18px;background-color:transparent;' /><a style='text-decoration:none;' href='javascript: deleteRow("+i+")' ><img src='<%=request.getContextPath()%>/images/buttom/xoa2.png' style='vertical-align: bottom;' alt='Thêm' border = '0'/></a>";
+			table.rows[i].cells[0].style.textAlign = "right";
+			table.rows[i].cells[0].style.paddingRight = "5px";
+			table.rows[i].cells[1].style.textAlign = "left";
+			document.getElementById('row').value = i+1;
 		}
+		
+		function deleteRow(n){
+			var i = parseInt(document.getElementById('row').value);
+			var table = document.getElementById('TableTC');
+			if(n==(i-1)){
+				table.deleteRow(n);
+				i--;
+			}else{
+				alert("Chỉ có thể xóa từ Tiêu Chuẩn "+(i-1)+" lên !!!");
+			}
+			document.getElementById('row').value = i;
+		}
+		
+		function deleteTieuChuan(id){
+			document.getElementById("txtMaTieuChuan").value=id;
+			document.getElementById('action').value = "deleteTC";
+			document.forms['DeNghi'].submit();
+		}
+		
 		
 		function checkDate(){
 			var TGBDL = document.getElementById("txtCalendar").value;
@@ -207,6 +167,15 @@
 			}else if((value_TGBDL-value_TGHT)<5){
 				alert("Khoảng cách giữa ngày hiện tại và ngày bắt đầu làm ít nhất phải lớn hơn 5 !!!");
 				document.getElementById("txtCalendar").value = "";
+			}
+		}
+		
+		function checkChucDanh(){
+			var chucDanh = document.getElementById("txtChucDanh").value;
+			if(chucDanh=="8"){
+				document.getElementById("pdt").style.display = "inline";
+			}else{
+				document.getElementById("pdt").style.display = "none";
 			}
 		}
 	</script>
@@ -236,7 +205,7 @@
 	</c:if>
 	<c:set var = "row" value="1"></c:set>
 </head>
-<body onload="formatLuong()">
+<body onload="checkChucDanh()">
 <div align="center">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_NhanSu.jsp" />
@@ -285,7 +254,7 @@
 				<td style="text-align: left">
 					- Hiệu Trưởng Trường Trung Cấp Nghề KTCN Hùng Vương<br/>
 					- Trưởng Phòng Tổ Chức Hành Chánh Quản Trị<br/>
-					- Trưởng Phòng Đào Tạo (nếu là giáo viên)
+					- Trưởng Phòng Đào Tạo
 				</td>
 			</tr>
 		</table>
@@ -321,7 +290,7 @@
 			<tr style="background-color: transparent; padding-bottom: 30px;">
 				<td colspan="2" style="text-align: left; background-color: transparent;">
 					* Chức Danh : 
-					<select id="txtChucDanh" name="txtChucDanh" ${lockbtn } style=" background-color: transparent;">
+					<select id="txtChucDanh" name="txtChucDanh" onchange="checkChucDanh()" ${lockbtn } style=" background-color: transparent;">
 						<c:forEach var="model" items="${dsVaiTro}">
 							<option value="${model.maVaiTro }" 
 								<c:if test="${model.maVaiTro eq DeNghiNhanSu.chuc_danh}">
@@ -329,6 +298,7 @@
 								</c:if>
 							>${model.tenVaiTro }</option>
 						</c:forEach>
+						<option>Khác</option>
 					</select>
 					 <br/>
 					 
@@ -371,10 +341,7 @@
 						</c:if>
 					</c:if>
 					<br/>
-					 
-					* Tiền Công Khoán Việc :
-					<input type="text" ${locktext } onchange="formatLuong()" name="txtLuong" id="txtLuong" style="background-color: transparent; text-align:center ;width: 100px;height: 14px;" value="${DeNghiNhanSu.luong }"></input>
-					<br/>
+					
 					* Thời Gian Bắt Đầu Làm Việc :
 					<input type = "text" id="txtCalendar" ${lockbtn } onchange="checkDate()" size = 8 name="txtCalendar" value="${DeNghiNhanSu.thoi_gian_bat_dau_lam_mdy }" style="background-color: transparent;"/>
 					<br/>
@@ -396,7 +363,7 @@
 							<br /><b>${DeNghiNhanSu.ten_phong_HC }</b>
 							
 						</td>
-						<td style="padding-bottom: 50px;">
+						<td style="padding-bottom: 50px;display: none;" id="pdt">
 							ngày <input type="text" size = 10 value="${DeNghiNhanSu.ngay_DT_duyet_mdy }" readonly="readonly" style="background-color: transparent;"/> 
 							<br /><strong>TRƯỞNG PHÒNG ĐÀO TẠO</strong><br />
 							<br /><b>${DeNghiNhanSu.ten_phong_DT }</b>
@@ -419,9 +386,15 @@
 					<c:when test="${DeNghiNhanSu.tinh_trang eq '0' and maThanhVien eq DeNghiNhanSu.nguoi_de_nghi or DeNghiNhanSu.tinh_trang eq '6' and maThanhVien eq DeNghiNhanSu.nguoi_de_nghi}">
 						<a href = "javascript: submitForm('L')"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="Lưu" /> </a>
 						<a href = "javascript: submitForm('G')"><img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi HT" /> </a>
-						
 					</c:when>
-					<c:when test="${DeNghiNhanSu.tinh_trang eq '1' and DeNghiNhanSu.ma_truong_khoa eq maThanhVien or DeNghiNhanSu.tinh_trang eq '2' and MaBoPhan eq BO_PHAN_PDT or DeNghiNhanSu.tinh_trang eq '3' and MaBoPhan eq BO_PHAN_PHC or DeNghiNhanSu.tinh_trang eq '4' and MaBoPhan eq BO_PHAN_BGH}">
+					<c:when test="${DeNghiNhanSu.chuc_danh ne '8' and MaBoPhan eq BO_PHAN_PDT }">
+						<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_PDT or MaBoPhan eq BO_PHAN_PHC or MaBoPhan eq BO_PHAN_ADMIN or maThanhVien eq DeNghiNhanSu.nguoi_de_nghi or maThanhVien eq DeNghiNhanSu.ma_truong_khoa}">
+							<a href = "<%=request.getContextPath() %>/NhanSu/DeNghiTuyenNhanSu/PrintDeNghiNhanSu.jsp">								 
+								<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+							</a>
+						</c:if>
+					</c:when>
+					<c:when test="${(DeNghiNhanSu.tinh_trang eq '2' or DeNghiNhanSu.tinh_trang eq '3') and (MaBoPhan eq BO_PHAN_PDT and empty DeNghiNhanSu.phong_DT or MaBoPhan eq BO_PHAN_PHC and empty DeNghiNhanSu.phong_HC) or DeNghiNhanSu.tinh_trang eq '4' and MaBoPhan eq BO_PHAN_BGH}">
 						<a href = "javascript: submitForm('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Lưu" /> </a>
 						<a href = "javascript: submitForm('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Lưu" /> </a>
 					</c:when>
@@ -429,6 +402,11 @@
 						<c:if test="${MaBoPhan eq BO_PHAN_BGH or MaBoPhan eq BO_PHAN_PDT or MaBoPhan eq BO_PHAN_PHC or MaBoPhan eq BO_PHAN_ADMIN or maThanhVien eq DeNghiNhanSu.nguoi_de_nghi or maThanhVien eq DeNghiNhanSu.ma_truong_khoa}">
 							<a href = "<%=request.getContextPath() %>/NhanSu/DeNghiTuyenNhanSu/PrintDeNghiNhanSu.jsp">								 
 								<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+							</a>
+						</c:if>
+						<c:if test="${DeNghiNhanSu.tinh_trang eq '5' and maThanhVien eq DeNghiNhanSu.nguoi_de_nghi}">
+							<a href = "javascript: submitForm('B')">
+								<input type="button" value="Bổ Sung" />
 							</a>
 						</c:if>
 					</c:otherwise>

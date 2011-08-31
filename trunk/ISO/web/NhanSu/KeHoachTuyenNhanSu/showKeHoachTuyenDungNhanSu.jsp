@@ -69,9 +69,7 @@
 								<c:if test="${MaBoPhan eq BO_PHAN_PHC}">
 									<option value = "0" <c:if test = "${param.msg eq '0'}">selected</c:if>>New</option>
 								</c:if>	
-								<option value = "1" <c:if test = "${param.msg eq '1'}">selected</c:if>>Pending</option>
-								<option value = "2" <c:if test = "${param.msg eq '2'}">selected</c:if>>Approve</option>
-								<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Reject</option>
+								<option value = "1" <c:if test = "${param.msg eq '1'}">selected</c:if>>Approve</option>
 							</select>
 							<a href = "javascript: submitFormSearch()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
 						</div>
@@ -84,37 +82,30 @@
 					<th bgcolor = '#186fb2'><div class = "div_txtintable1">Người lập</div></th>
 					<th bgcolor = '#186fb2'><div class = "div_txtintable1">Ngày lập</div></th>
 					<th bgcolor = '#186fb2'><div class = "div_txtintable1">Approve</div>
-	<!-- Trường hợp 'All', 'Approve', 'Reject' thì diasble checkbox Approve -->
 					<input type = "checkbox" name = "checkApprove" disabled /></th>
-					<th bgcolor = '#186fb2'><div class = "div_txtintable1">Reject</div>
-	<!-- Trường hợp 'All', 'Approve', 'Reject' thì diasble checkbox Approve -->
-					<input type = "checkbox" name = "checkReject" disabled /></th>
-					<th bgcolor = '#186fb2'><div class = "div_txtintable1">Lý do Reject</div></th>
 				</tr>					
 				
 				<c:forEach var="model" items="${listKeHoach}">
 					<tr style="background-color: transparent;">
-						<td>
+						<td height="30px">
 							<a href="<%=request.getContextPath() %>/NhanSu/KeHoachTuyenNhanSu/KeHoachTuyenNhanSu.jsp?id=${model.id}">
 								KẾ HOẠCH TUYỂN NHÂN SỰ ${model.nam}
+								<c:if test="${model.bo_sung ne '0'}"> 
+									<br/>(Bổ Sung Lần ${model.bo_sung })
+								</c:if>
+							</a>
 								<c:if test="${model.tinh_trang eq '0'}">
 									<br/><font color="red" style="font-style: italic;">***Chưa Gửi***</font>
 								</c:if>
-							</a>
+							
 						</td>
 						<td>${model.ten_nguoi_lap_ke_hoach }</td>
 						<td>${model.ngay_lap_ke_hoach_dmy }</td>
 						<th><input type="radio" 
-							<c:if test="${model.tinh_trang eq '2'}">
+							<c:if test="${model.tinh_trang eq '1'}">
 								checked
 							</c:if>
 						disabled="disabled" /></th>
-						<th><input type="radio"
-							<c:if test="${not empty model.ly_do_reject}">
-								checked
-							</c:if>
-						 disabled="disabled" /></th>
-						<td><textarea rows="3" cols="15" readonly="readonly">${model.ly_do_reject }</textarea></td>
 					</tr>
 				</c:forEach>				
 

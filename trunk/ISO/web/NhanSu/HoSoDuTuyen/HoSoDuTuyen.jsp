@@ -44,11 +44,11 @@
 	
 	<c:set var="listViTriDuTuyen" value='<%=ChiTietKHTNSDAO.getAllCTKHTNS() %>'></c:set>
 	<c:if test="${not empty param.id}">
-		<c:set var="boPhan" value='<%=KhoaDAO.getKhoaByMaBoPhan(session.getAttribute("maBoPhan").toString()) %>' ></c:set>
-		<c:set var="HoSoDuTuyen" value='<%=HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id").toString().trim()) %>'></c:set>
+		<c:set var="HoSoDuTuyen" value='<%=HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id").toString().trim()) %>' scope="session"></c:set>
+	</c:if>
+	<c:if test="${not empty param.id and MaBoPhan ne BO_PHAN_PHC}">
 		<c:set var="locktext" value="readonly"></c:set>
 		<c:set var="lockbtn" value="disabled"></c:set>
-		<c:set var="truongKhoa" value='<%=HoSoDuTuyenDAO.getTK(request.getParameter("id").toString().trim()) %>'/>
 	</c:if>
 	
 <script language="javascript">
@@ -57,11 +57,7 @@
 	var mes2 = "<font color='blue' style='font-weight: bold;'>Bạn có thể sử dụng Biệt Danh này !!!</font>";
 		function confirmSending(){	
 			var re = /^([\w.-])+\@(([\w.]){3,6})+[A-Za-z]{2,4}$/;
-			var rong = /\s/g;
-			
-			var TenDangNhap = document.getElementById("TenDangNhap").value;
-			var test = document.getElementById("test").value;
-			var val_1 = TenDangNhap.replace(rong,"");	
+			var rong = /\s/g;	
 
 			var Ho = document.getElementById("Ho").value;
 			var val_2 = Ho.replace(rong,"");
@@ -101,10 +97,7 @@
 			var DTDD = document.getElementById("DTDD").value;
 			var val_13 = DTDD.replace(rong,"");
 
-			if(val_1 == ""){
-			 	alert("Bạn phải nhập Biệt Danh !!!" );
-			 	
-			} else if(val_2 == ""){
+			if(val_2 == ""){
 				alert("Bạn phải nhập đầy đủ họ tên !!!" );
 				
 			} else if(!isNaN(val_2)){
@@ -158,12 +151,6 @@
 			} else if(isNaN(DTDD)){
 				alert("Điện thoại di động phải nhập số !!!" );
 				
-			} else if(test == "1"){
-				alert("Biệt Danh đã tồn tại !!!" );
-			
-			} else if(test == "0"){
-				alert("Biệt Danh không đúng qui tắc !!!" );
-				
 			} else{
 				if(confirm("Bạn có chắc chắn muốn Đăng Ký Dự Tuyển ?")){
 					document.getElementById("action").value = "new";
@@ -173,55 +160,33 @@
 			
 		}
 
-		function checkTenDangNhap(){
-			var ru = /^([\w])+\_([\w]){2,5}$/;
-			var rong = /\s/g;
-			
-			var listTenDangNhap = new Array()
-			var listEmail = new Array();
-			var TenDangNhap = document.getElementById("TenDangNhap").value;
-			var Email = document.getElementById("Email").value;
-			var error = document.getElementById("error");
-			var testU = TenDangNhap.replace(rong,"");
-			
-			if(ru.test(testU)==false){
-				error.innerHTML = mes1;
-				document.getElementById("test").value = "0";
-				return;
-			}
-			
-			<%
-				ArrayList<ThanhVienModel> listTV = ThanhVienDAO.timAllThanhVien();
-				for(ThanhVienModel model : listTV){
-					out.print("listTenDangNhap.push('"+model.getTenDangNhap()+"');");
-					out.print("listEmail.push('"+model.getEmail()+"');");
-				}
-				ArrayList<HoSoDuTuyenModel> listHSDT = HoSoDuTuyenDAO.getAllHoSo();
-				for(HoSoDuTuyenModel model : listHSDT){
-					out.print("listTenDangNhap.push('"+model.getTen_dang_nhap()+"');");
-					out.print("listEmail.push('"+model.getEmail()+"');");
-				}
-			%>
-			
-			for ( var check in listTenDangNhap) {
-				if(testU == listTenDangNhap[check]){
-					error.innerHTML = mes;
-					document.getElementById("test").value = "1";
-					return;
-				}
-			}
-
-			error.innerHTML = mes2;
-			document.getElementById("test").value = "2";
-		}
-
 		function deNghiKhoanThuViec(){
 			document.getElementById("action").value = "new1";
 			document.forms['HoSoDuTuyen'].submit();
 		}
 		
-		function hopDongLanDau(){
+		function hopDongLaoDong(){
 			document.getElementById("action").value = "new2";
+			document.forms['HoSoDuTuyen'].submit();
+		}
+		
+		function thuCamOn(){
+			document.getElementById("action").value = "thuCamOn";
+			document.forms['HoSoDuTuyen'].submit();
+		}
+		
+		function submitTuChoiCongViec(){
+			document.getElementById("action").value = 'reject';
+			document.forms['HoSoDuTuyen'].submit();
+		}
+		
+		function submitCapNhat(){
+			document.getElementById("action").value = 'update';
+			document.forms['HoSoDuTuyen'].submit();
+		}
+		
+		function submitKhoiPhuc(){
+			document.getElementById("action").value = 'restore';
 			document.forms['HoSoDuTuyen'].submit();
 		}
 	</script>
@@ -242,26 +207,14 @@
 				<td><h2 style="margin: 20px;">ĐĂNG KÝ DỰ TUYỂN VIÊN CHỨC, GIÁO VIÊN</h2></td>
 			</c:when>
 			<c:when test="${not empty param.id}">
-				<td><h2 style="margin: 20px;">CHI TIẾT THÔNG TIN ${fn:toUpperCase(HoSoDuTuyen.user1) }</h2></td>
+				<td><h2 style="margin: 20px;">CHI TIẾT THÔNG TIN ${fn:toUpperCase(HoSoDuTuyen.ho_ten) }</h2></td>
 			</c:when>
 		</c:choose>
-			
+
 		</tr>
 	</table>
 	<form name="HoSoDuTuyen" action="<%=request.getContextPath() %>/hoSoDuTuyenController" method="post" >
 	<table class="hosodutuyen" style="margin-bottom: 20px;">
-			<tr style="background-color: transparent;">
-				<td style="background-color: transparent;text-align: right;padding: 5px;">Biệt danh </td>
-				<td style="text-align: left;">
-					<input style="background-color: transparent;" ${locktext } type="text" onchange="checkTenDangNhap()" id="TenDangNhap" name="TenDangNhap" value="${HoSoDuTuyen.ten_dang_nhap }" />
-					<c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if>
-				</td>				
-				<td colspan="2" style="height:50px;width:250px;text-align: left;padding-left: 10px;" id="error">
-					<c:if test="${empty param.id}">
-					<font color="blue">exam : Tên của bạn là Võ Đức Thiện <br/> biệt danh sẽ là thien_vd ...</font></c:if>
-					
-				</td>				
-			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Họ </td>
 				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="Ho" name="Ho" value="${HoSoDuTuyen.ho }" /><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
@@ -282,7 +235,7 @@
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Ngày sinh </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" readonly="readonly" id="NgaySinh" name="NgaySinh" value="${HoSoDuTuyen.ngay_sinh_mdy }" /><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${lockbtn } type="text" readonly="readonly" id="NgaySinh" name="NgaySinh" value="${HoSoDuTuyen.ngay_sinh_mdy }" /><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Quận/ huyện </td>
 				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="QuanHuyen" name="QuanHuyen" value="${HoSoDuTuyen.quan_huyen }" /><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>				
 			</tr>
@@ -293,10 +246,18 @@
 				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="TinhTP" name="TinhTP" value="${HoSoDuTuyen.tinh_thanhpho }" /><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 			</tr>
 			<tr style="background-color: transparent;">
-				<td style="background-color: transparent;text-align: right;padding: 5px;">Email </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="Email" name="Email" value="${HoSoDuTuyen.email }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="background-color: transparent;text-align: right;padding: 5px;">Ngày Cấp </td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="txtNgayCap" name="txtNgayCap" value="${HoSoDuTuyen.ngay_cap }"/></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Điện thoại nhà </td>
 				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTNha" name="DTNha" value="${HoSoDuTuyen.dien_thoai_nha }" /></td>
+			</tr>
+			<tr style="background-color: transparent;">
+				<td style="background-color: transparent;text-align: right;padding: 5px;">Nơi Cấp </td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" name="txtNoiCap" id="txtNoiCap" value="${HoSoDuTuyen.noi_cap }"/></td>
+							
+				<td style="background-color: transparent;text-align: right;padding: 5px;">Điện thoại di động </td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTDD" name="DTDD" value="${HoSoDuTuyen.dien_thoai_dd }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Giới tính </td>
@@ -306,15 +267,14 @@
 						<option value="1" <c:if test="${HoSoDuTuyen.gioi_tinh eq 'Nam' }">selected</c:if>>Nam</option>
 						
 					</select>
-				</td>				
-				<td style="background-color: transparent;text-align: right;padding: 5px;">Điện thoại di động </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTDD" name="DTDD" value="${HoSoDuTuyen.dien_thoai_dd }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
-				
+				</td>
+				<td style="background-color: transparent;text-align: right;padding: 5px;">Email </td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="Email" name="Email" value="${HoSoDuTuyen.email }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 			</tr>
 			<tr style="background-color: transparent;">				
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Vị trí dự tuyển </td>
 				<td style="background-color: transparent;text-align: left;">
-					<select id="ViTriDuTuyen" name="ViTriDuTuyen" ${lockbtn } >
+					<select id="ViTriDuTuyen" name="ViTriDuTuyen" <c:if test="${param.Them ne 'yes'}">disabled</c:if>>
 					<c:choose>
 						<c:when test="${not empty param.id}">
 							<c:set var="listVT" value="<%=ChiTietKHTNSDAO.getAllCTKHTNS() %>"/>
@@ -325,8 +285,8 @@
 					</c:choose>
 					
 						<c:forEach items="${listVT}" var="model">		
-							<option value="${model.id}" <c:if test="${HoSoDuTuyen.vi_tri_du_tuyen eq model.id }">selected</c:if>>
-								${model.user1 }-${model.user2 }
+							<option value="${model.id}" <c:if test="${HoSoDuTuyen.vi_tri_du_tuyen eq model.id }">selected</c:if> >
+								${model.user1 }<c:if test="${model.user3 ne '0'}">( ${model.user3 } )</c:if>-${model.user2 } 
 							</option>
 						</c:forEach>
 					</select>
@@ -358,33 +318,66 @@
 		<c:choose>
 			<c:when test="${param.Them eq 'yes'}">
 				<a href = "javascript: confirmSending()">
-					<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="Thêm" border = "0" style="margin: 20px;"/>
+					<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="Thêm" border = "0" style="margin: 20px 0;"/>
+				</a>
+				<a href = "<%=request.getContextPath() %>/index.jsp">
+					<img src="<%=request.getContextPath()%>/images/buttom/huybo2.png" alt="Hủy Bỏ" border = "0" style="margin: 20px 0;"/>
 				</a>
 			</c:when>
-			<c:when test="${HoSoDuTuyen.tinh_trang eq '1' and maThanhVien eq truongKhoa}">
+			<c:when test="${HoSoDuTuyen.tinh_trang eq '4' and MaBoPhan eq BO_PHAN_PHC}">
+				<a href = "javascript: hopDongLaoDong()">
+					<img src="<%=request.getContextPath()%>/images/buttom/hopdonglandau.png" alt="Thêm" border = "0" style="margin: 20px 0 ;"/>
+				</a>
+				<a href = "javascript: thuCamOn()">
+					<img src="<%=request.getContextPath()%>/images/buttom/thucamon.png" alt="Thêm" border = "0" style="margin: 20px 0 ;"/>
+				</a>
+			</c:when>
+			<c:when test="${HoSoDuTuyen.tinh_trang eq '2' and MaBoPhan eq BO_PHAN_PHC}">
+				<a href = "<%=request.getContextPath() %>/NhanSu/HoSoDuTuyen/PrintThuCamOn.jsp">
+					<img src="<%=request.getContextPath()%>/images/buttom/thucamon.png" alt="Thêm" border = "0" style="margin: 20px 0 ;"/>
+				</a>
+			</c:when>
+			<c:when test="${HoSoDuTuyen.tinh_trang eq '10' and MaBoPhan eq BO_PHAN_PHC}">
+				<a href = "javascript: submitKhoiPhuc()">
+					<img src="<%=request.getContextPath()%>/images/buttom/khoiphuc.png" alt="Thêm" border = "0" style="margin: 20px 0 ;"/>
+				</a>
+			</c:when>
+			<c:when test="${HoSoDuTuyen.tinh_trang eq '7' and MaBoPhan eq BO_PHAN_PHC}">
+				<a href = "javascript: hopDongLaoDong()">
+					<img src="<%=request.getContextPath()%>/images/buttom/hopdonglaodong.png" alt="Thêm" border = "0" style="margin: 20px 0 ;"/>
+				</a>
+			</c:when>
+			<c:when test="${HoSoDuTuyen.tinh_trang eq '1' and maThanhVien eq HoSoDuTuyen.ma_truong_khoa}">
 				<a href = "javascript: deNghiKhoanThuViec()">
 					<img src="<%=request.getContextPath()%>/images/buttom/denghikhoanthuviec.png" alt="Thêm" border = "0" style="margin: 20px;"/>
 				</a>
 			</c:when>
-			<c:when test="${HoSoDuTuyen.tinh_trang eq '5' and maThanhVien eq truongKhoa}">
-				<a href = "javascript: hopDongLanDau()">
-					<img src="<%=request.getContextPath()%>/images/buttom/hopdonglandau.png" alt="Thêm" border = "0" style="margin: 20px;"/>
-				</a>
-			</c:when>
 			<c:otherwise>
-			
 			</c:otherwise>
 		</c:choose>
+		<c:if test="${not empty param.id and MaBoPhan eq BO_PHAN_PHC and HoSoDuTuyen.tinh_trang eq '0'}">
+			<a href = "javascript: submitCapNhat()">
+				<img src="<%=request.getContextPath()%>/images/buttom/capnhat2.png" alt="Cập Nhật" border = "0" style="margin: 20px 0;"/>
+			</a>
+		</c:if>
+		<c:if test="${not empty param.id and MaBoPhan eq BO_PHAN_PHC and HoSoDuTuyen.tinh_trang gt '0' and HoSoDuTuyen.tinh_trang ne '2' and HoSoDuTuyen.tinh_trang ne '10'}">
+			<a href = "javascript: submitTuChoiCongViec()">
+				<img src="<%=request.getContextPath()%>/images/buttom/tuchoicv.png" alt="Cập Nhật" border = "0" style="margin: 20px 0;"/>
+			</a>
+		</c:if>
 		<input type="hidden" id="test" />
 		<input type="hidden" id="id" name="id" value="${HoSoDuTuyen.id}" />
 		<input type="hidden" id="action" name="action" />
-	</form>
 
+	</form>
+	
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
 	<!-- E FOOT CONTENT -->
 </div>
 </div>
+
+
 <script type="text/javascript">
 //<![CDATA[
   Zapatec.Calendar.setup({
@@ -393,10 +386,21 @@
 	range             : [1962.01, 1991.12],
 	electric          : false,
 	inputField        : "NgaySinh",
-	button            : "Calendar",
+	button            : "NgaySinh",
+	ifFormat          : "%d-%m-%Y"
+  }); 
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [1962.01, 1991.12],
+	electric          : false,
+	inputField        : "txtNgayCap",
+	button            : "txtNgayCap",
 	ifFormat          : "%d-%m-%Y"
   });
+  
 //]]>
  </script>
 </body>
+
 </html>
