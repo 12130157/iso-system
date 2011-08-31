@@ -9347,7 +9347,7 @@ END
 GO
 
 --sp_NhanSu_CapNhatThongTin.sql
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME='sp_NhanSu_CapNhatThongTin')
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_CapNhatThongTin')
 BEGIN
 	DROP PROC sp_NhanSu_CapNhatThongTin
 END
@@ -9583,7 +9583,7 @@ SELECT * FROM DeNghiNhanSu
 GO
 
 --sp_NhanSu_InsertBangCap.sql
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME='sp_NhanSu_InsertBangCap')
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_InsertBangCap')
 BEGIN
 	DROP PROC sp_NhanSu_InsertBangCap
 END
@@ -9613,7 +9613,7 @@ GO
 --Ngày Lập  :	06/08/2011
 --Mục Đích  :	Nhập Dữ Liệu Khen Thưởng/ Kỷ Luật cho Nhân Sự
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME='sp_NhanSu_InsertChiTietCongViecThanhVien')
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_InsertChiTietCongViecThanhVien')
 BEGIN
 	DROP PROC sp_NhanSu_InsertChiTietCongViecThanhVien
 END
@@ -9872,7 +9872,7 @@ CREATE PROC sp_NhanSu_InsertHoSoDuTuyen
 	@Chuyen_mon			NVARCHAR(1000),
 	@Tin_hoc			NVARCHAR(1000),
 	@Ngoai_ngu			NVARCHAR(1000),
-	@Tom_tat_ban_than	NVARCHAR(MAX),
+	@Tom_tat_ban_than	NTEXT,
 	@Vi_tri_du_tuyen	INT,					
 	@KQ					INT OUTPUT  
 AS  
@@ -10855,7 +10855,7 @@ GO
 --Ngày Lập  :	06/08/2011
 --Mục Đích  :	Cập Nhật Dữ Liệu Khen Thưởng/ Kỷ Luật cho Nhân Sự
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME='sp_NhanSu_UpdateChiTietCongViecThanhVien')
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_UpdateChiTietCongViecThanhVien')
 BEGIN
 	DROP PROC sp_NhanSu_UpdateChiTietCongViecThanhVien
 END
@@ -10911,7 +10911,7 @@ CREATE PROC sp_NhanSu_UpdateChiTietHoSoDuTuyen
 	@Chuyen_mon			NVARCHAR(1000),
 	@Tin_hoc			NVARCHAR(1000),
 	@Ngoai_ngu			NVARCHAR(1000),
-	@Tom_tat_ban_than	NVARCHAR(MAX),				
+	@Tom_tat_ban_than	NTEXT,				
 	@KQ					INT OUTPUT    
 AS  
 BEGIN  
@@ -11153,7 +11153,7 @@ CREATE PROC sp_NhanSu_UpdateDeNghiNhanSu
 	@ID					INT,
 	@Chuc_danh			INT,
 	@So_luong			INT,
-	@Cong_viec			NVARCHAR(2000),
+	@Cong_viec			NTEXT,
 	@Thoi_gian_bat_dau_lam DATETIME,
 	@Tinh_trang			INT,
 	@KQ					INT OUTPUT
