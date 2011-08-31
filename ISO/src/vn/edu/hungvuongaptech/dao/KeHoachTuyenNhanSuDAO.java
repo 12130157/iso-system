@@ -9,12 +9,13 @@ import vn.edu.hungvuongaptech.model.KeHoachTNSModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class KeHoachTuyenNhanSuDAO {
-	public static int InsertKeHoachTNS(String nam,String nguoiLap){
+	public static int InsertKeHoachTNS(String nam,String nguoiLap,String boSung){
 		int kq = 0;
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_InsertKeHoachTNS(?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_InsertKeHoachTNS(?,?,?,?)}");
 			csmt.setString("Nam", nam);
 			csmt.setString("Nguoi_lap_ke_hoach", nguoiLap);
+			csmt.setString("Bo_sung", boSung);
 			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
 			csmt.executeUpdate();
 			kq = csmt.getInt("KQ");
@@ -39,41 +40,12 @@ public class KeHoachTuyenNhanSuDAO {
 		return kq;
 	}
 	
-	public static String ApproveKeHoachTNS(String maKeHoach,String nguoiDuyet){
-		String kq = "";
-		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_UpdateKeHoachTNS_Approve(?,?,?)}");
-			csmt.setString("ID", maKeHoach);
-			csmt.setString("Nguoi_duyet", nguoiDuyet);
-			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
-			csmt.executeUpdate();
-			kq = csmt.getString("KQ");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return kq;
-	}
-	
-	public static String RejectKeHoachTNS(String maKeHoach,String lyDoReject){
-		String kq = "";
-		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_UpdateKeHoachTNS_Reject(?,?,?)}");
-			csmt.setString("ID", maKeHoach);
-			csmt.setString("Ly_do_reject", lyDoReject);
-			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
-			csmt.executeUpdate();
-			kq = csmt.getString("KQ");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return kq;
-	}
 	
 	public static KeHoachTNSModel getKHByID(String id){
 		KeHoachTNSModel model = null;
 		try {
-			String sql = "SELECT A.*,CONVERT(VARCHAR(10),A.Ngay_lap_ke_hoach,105) as Ngay_lap_ke_hoach_dmy,(B.Ho+' '+B.Ten_lot+' '+B.Ten) as Ten_nguoi_lap_ke_hoach,(C.Ho+' '+C.Ten_lot+' '+C.Ten) as Ten_nguoi_duyet,CONVERT(VARCHAR(10),A.Ngay_duyet,105) AS Ngay_duyet_dmy "
-						+" FROM KeHoachTNS A LEFT JOIN THANHVIEN D ON A.Nguoi_lap_ke_hoach=D.ID LEFT JOIN CHITIETTHANHVIEN B ON D.Ten_DN=B.Ten_dang_nhap LEFT JOIN THANHVIEN E ON A.Nguoi_duyet=E.ID LEFT JOIN CHITIETTHANHVIEN C ON E.Ten_DN=C.Ten_dang_nhap "
+			String sql = "SELECT A.*,CONVERT(VARCHAR(10),A.Ngay_lap_ke_hoach,105) as Ngay_lap_ke_hoach_dmy,(B.Ho+' '+B.Ten_lot+' '+B.Ten) as Ten_nguoi_lap_ke_hoach "
+						+" FROM KeHoachTNS A LEFT JOIN THANHVIEN D ON A.Nguoi_lap_ke_hoach=D.ID LEFT JOIN CHITIETTHANHVIEN B ON D.Ten_DN=B.Ten_dang_nhap "
 						+" WHERE A.ID=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
@@ -86,14 +58,9 @@ public class KeHoachTuyenNhanSuDAO {
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setNguoi_lap_ke_hoach(rs.getString("Nguoi_lap_ke_hoach"));
 				model.setNgay_lap_ke_hoach(rs.getString("Ngay_lap_ke_hoach"));
-				model.setNguoi_duyet(rs.getString("Nguoi_duyet"));
-				model.setNgay_duyet(rs.getString("Ngay_duyet"));
-				model.setLy_do_reject(rs.getString("Ly_do_reject"));
 				model.setNgay_cap_nhat_cuoi(rs.getString("Ngay_cap_nhat_cuoi"));
 				model.setNgay_lap_ke_hoach_dmy(rs.getString("Ngay_lap_ke_hoach_dmy"));
 				model.setTen_nguoi_lap_ke_hoach(rs.getString("Ten_nguoi_lap_ke_hoach"));
-				model.setTen_nguoi_duyet(rs.getString("Ten_nguoi_duyet"));
-				model.setNgay_duyet_dmy(rs.getString("Ngay_duyet_dmy"));	
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,14 +85,10 @@ public class KeHoachTuyenNhanSuDAO {
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setNguoi_lap_ke_hoach(rs.getString("Nguoi_lap_ke_hoach"));
 				model.setNgay_lap_ke_hoach(rs.getString("Ngay_lap_ke_hoach"));
-				model.setNguoi_duyet(rs.getString("Nguoi_duyet"));
-				model.setNgay_duyet(rs.getString("Ngay_duyet"));
-				model.setLy_do_reject(rs.getString("Ly_do_reject"));
+				model.setBo_sung(rs.getString("Bo_sung"));
 				model.setNgay_cap_nhat_cuoi(rs.getString("Ngay_cap_nhat_cuoi"));
 				model.setNgay_lap_ke_hoach_dmy(rs.getString("Ngay_lap_ke_hoach_dmy"));
-				model.setTen_nguoi_lap_ke_hoach(rs.getString("Ten_nguoi_lap_ke_hoach"));
-				model.setTen_nguoi_duyet(rs.getString("Ten_nguoi_duyet"));
-				model.setNgay_duyet_dmy(rs.getString("Ngay_duyet_dmy"));	
+				model.setTen_nguoi_lap_ke_hoach(rs.getString("Ten_nguoi_lap_ke_hoach"));	
 				list.add(model);
 			}
 		} catch (Exception e) {
@@ -137,11 +100,9 @@ public class KeHoachTuyenNhanSuDAO {
 	public static ArrayList<KeHoachTNSModel> SearchKeHoach(String tinhTrang){
 		ArrayList<KeHoachTNSModel> list = new ArrayList<KeHoachTNSModel>();
 		try {
-			String sql = "SELECT A.ID,A.Ten_ke_hoach,A.Nam,A.Tinh_trang,CONVERT(VARCHAR(10),A.Ngay_lap_ke_hoach,105) as Ngay_lap_ke_hoach,A.Ly_do_reject,(B.Ho+' '+B.Ten_lot+' '+B.Ten) as Nguoi_lap_ke_hoach,(C.Ho+' '+C.Ten_lot+' '+C.Ten) as Nguoi_duyet,CONVERT(VARCHAR(10),A.Ngay_duyet,105) AS Ngay_duyet "
+			String sql = "SELECT A.ID,A.Ten_ke_hoach,A.Nam,A.Tinh_trang,CONVERT(VARCHAR(10),A.Ngay_lap_ke_hoach,105) as Ngay_lap_ke_hoach,(B.Ho+' '+B.Ten_lot+' '+B.Ten) as Nguoi_lap_ke_hoach,A.Bo_sung "
 						+" FROM KeHoachTNS A LEFT JOIN THANHVIEN D ON A.Nguoi_lap_ke_hoach=D.ID "
 						+" LEFT JOIN CHITIETTHANHVIEN B ON D.Ten_DN=B.Ten_dang_nhap "
-						+" LEFT JOIN THANHVIEN E ON A.Nguoi_duyet=E.ID "
-						+" LEFT JOIN CHITIETTHANHVIEN C ON E.Ten_DN=C.Ten_dang_nhap"
 						+" WHERE Tinh_trang=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, tinhTrang);
@@ -154,9 +115,7 @@ public class KeHoachTuyenNhanSuDAO {
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setNguoi_lap_ke_hoach(rs.getString("Nguoi_lap_ke_hoach"));
 				model.setNgay_lap_ke_hoach(rs.getString("Ngay_lap_ke_hoach"));
-				model.setNguoi_duyet(rs.getString("Nguoi_duyet"));
-				model.setNgay_duyet(rs.getString("Ngay_duyet"));
-				model.setLy_do_reject(rs.getString("Ly_do_reject"));
+				model.setBo_sung(rs.getString("Bo_sung"));
 				list.add(model);
 			}
 		} catch (Exception e) {
@@ -165,4 +124,20 @@ public class KeHoachTuyenNhanSuDAO {
 		return list;
 	}
 	
+	public static String countKeHoachTNS(String nam){
+		String kq = "";
+		try {
+			String sql = "SELECT COUNT(*) AS KQ FROM KEHOACHTNS WHERE NAM=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, nam);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("KQ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return kq;
+	}
 }

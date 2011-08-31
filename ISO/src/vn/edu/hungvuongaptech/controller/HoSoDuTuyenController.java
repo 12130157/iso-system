@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.dao.BangCapDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietKHTNSDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietThanhVienDAO;
 import vn.edu.hungvuongaptech.dao.DeNghiKhoanThuViecDAO;
 import vn.edu.hungvuongaptech.dao.DeNghiNhanSuDAO;
 import vn.edu.hungvuongaptech.dao.HoSoDuTuyenDAO;
-import vn.edu.hungvuongaptech.dao.HopDongLanDauDAO;
+import vn.edu.hungvuongaptech.dao.HopDongLaoDongDAO;
 import vn.edu.hungvuongaptech.dao.KhoaDAO;
 import vn.edu.hungvuongaptech.dao.MailDAO;
 import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
@@ -58,17 +59,38 @@ public class HoSoDuTuyenController extends HttpServlet{
 			newDeNghiKhoanThuViec(request,response);
 		} else if(action.equals("new2")){
 			newHopDongLanDau(request,response);
+		} else if(action.equals("newThongTin")){
+			doPostNewThongTin(request, response);
+		} else if(action.equals("updateThongTin")){
+			doPostUpdateThongTin(request, response);
+		} else if(action.equals("update")){
+			doPostUpdate(request, response);
+		} else if(action.equals("thuCamOn")){
+			doPostThanks(request, response);
+		} else if(action.equals("restore")){
+			doPostRestore(request, response);
 		}
 	}
 	
 	private void newHoSoDuTuyen(HttpServletRequest request,HttpServletResponse response){
-		int kq = HoSoDuTuyenDAO.insertHoSoDuTuyen(request.getParameter("TenDangNhap").trim(),
+		String tenDangNhap = HoSoDuTuyenDAO.getTenDangNhapByHoTen(StringUtil.toUTF8(request.getParameter("Ho").trim()),StringUtil.toUTF8(request.getParameter("TenLot").trim()),StringUtil.toUTF8(request.getParameter("Ten").trim()));
+		ArrayList<String> list = ThanhVienDAO.getAllTenDangNhap();
+		list.addAll(HoSoDuTuyenDAO.getAllTenDangNhapInHoSoDuTuyen());
+		
+		while(HoSoDuTuyenDAO.checkTenDangNhap(tenDangNhap, list)==true){
+			tenDangNhap += Math.round(Math.random());
+		}
+		
+		int kq = HoSoDuTuyenDAO.insertHoSoDuTuyen(
+				tenDangNhap,
 				StringUtil.toUTF8(request.getParameter("Ho").trim()),
 				StringUtil.toUTF8(request.getParameter("TenLot").trim()),
 				StringUtil.toUTF8(request.getParameter("Ten").trim()),
 				request.getParameter("GioiTinh"),
 				DateUtil.changeDMYtoMDY(request.getParameter("NgaySinh")),
 				request.getParameter("CMND").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("txtNgayCap")),
+				StringUtil.toUTF8(request.getParameter("txtNoiCap")),
 				StringUtil.toUTF8(request.getParameter("SoNha").trim()),
 				StringUtil.toUTF8(request.getParameter("TenDuong").trim()),
 				StringUtil.toUTF8(request.getParameter("PhuongXa").trim()),
@@ -91,8 +113,41 @@ public class HoSoDuTuyenController extends HttpServlet{
 		}
 	}
 	
+	private void doPostUpdate(HttpServletRequest request,HttpServletResponse response){
+		
+		String kq = HoSoDuTuyenDAO.updateHoSoDuTuyen(
+				request.getParameter("id"),
+				StringUtil.toUTF8(request.getParameter("Ho").trim()),
+				StringUtil.toUTF8(request.getParameter("TenLot").trim()),
+				StringUtil.toUTF8(request.getParameter("Ten").trim()),
+				request.getParameter("GioiTinh"),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgaySinh")),
+				request.getParameter("CMND").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("txtNgayCap").trim()),
+				StringUtil.toUTF8(request.getParameter("txtNoiCap").trim()),
+				StringUtil.toUTF8(request.getParameter("SoNha").trim()),
+				StringUtil.toUTF8(request.getParameter("TenDuong").trim()),
+				StringUtil.toUTF8(request.getParameter("PhuongXa").trim()),
+				StringUtil.toUTF8(request.getParameter("QuanHuyen").trim()),
+				StringUtil.toUTF8(request.getParameter("TinhTP").trim()),
+				request.getParameter("DTNha").trim(),
+				request.getParameter("Email").trim(),
+				request.getParameter("DTDD").trim(),
+				StringUtil.toUTF8(request.getParameter("TrinhDoVanHoa").trim()),
+				StringUtil.toUTF8(request.getParameter("ChuyenMon").trim()),
+				StringUtil.toUTF8(request.getParameter("NgoaiNgu").trim()),
+				StringUtil.toUTF8(request.getParameter("TinHoc").trim()),
+				StringUtil.toUTF8(request.getParameter("TomTatBanThan").trim()));
+		try {
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/HoSoDuTuyen.jsp?id="+kq);
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void approveHoSoDuTuyen(HttpServletRequest request,HttpServletResponse response){
-		int kq = HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"),StringUtil.toUTF8(request.getParameter("txtGhiChu"+request.getParameter("id"))), Constant.TINHTRANG_HSDT_APPROVE);
+		HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"),StringUtil.toUTF8(request.getParameter("txtGhiChu"+request.getParameter("id"))), Constant.TINHTRANG_HSDT_APPROVE);
 		String tenNguoiDuyet = ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString());
 		HoSoDuTuyenModel HSDT = HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id"));
 		
@@ -144,7 +199,16 @@ public class HoSoDuTuyenController extends HttpServlet{
 	}
 	
 	private void rejectHoSoDuTuyen(HttpServletRequest request,HttpServletResponse response){
-		int kq = HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), request.getParameter("txtGhiChu"), Constant.TINHTRANG_HSDT_REJECT);
+		HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "10");
+		HoSoDuTuyenModel model = HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id"));
+		ChiTietKHTNSDAO.GiamSoLuongDaTuyenChiTietKHTNS(model.getVi_tri_du_tuyen());
+		ArrayList<String> listTDN = ThanhVienDAO.getAllTenDangNhap();
+		for (String tdn : listTDN) {
+			if(model.getTen_dang_nhap().equals(tdn)){
+				ThanhVienModel chiTietThanhVien = ThanhVienDAO.timThanhVienGP(model.getTen_dang_nhap());
+				ThanhVienDAO.updateTinhTrang("0", chiTietThanhVien.getTenDangNhap());
+			}
+		}
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/showHoSoDuTuyen.jsp");
 			rd.forward(request, response);
@@ -185,11 +249,176 @@ public class HoSoDuTuyenController extends HttpServlet{
 	
 	private void newHopDongLanDau(HttpServletRequest request,HttpServletResponse response){
 		HoSoDuTuyenModel model = HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id"));
-		int kq = HopDongLanDauDAO.insertHopDongLanDau(request.getParameter("id"), Constant.TINHTRANG_HT_NEW, request.getSession().getAttribute(Constant.USERID_ATT).toString());
-		HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "6");
+		int kq = HopDongLaoDongDAO.insertHopDongLaoDong(request.getParameter("id"), HopDongLaoDongDAO.countHopDongLaoDongByNguoiDuTuyen(request.getParameter("id")), request.getSession().getAttribute("maThanhVien").toString());
+		if(!HopDongLaoDongDAO.countHopDongLaoDongByNguoiDuTuyen(request.getParameter("id")).equals("0")){
+			HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "5");
+		}else {
+			HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "8");
+		}
+		
 		try {
-				RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HopDongLaoDongLanDau/HopDongLaoDongLanDau.jsp?id="+kq+"&&nguoidutuyen="+model.getId()+"&&vitridutuyen="+model.getVi_tri_du_tuyen());
+				RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HopDongLaoDong/HopDongLaoDong.jsp?id="+kq+"&&nguoidutuyen="+model.getId()+"&&vitridutuyen="+model.getVi_tri_du_tuyen());
 				rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void doPostNewThongTin(HttpServletRequest request, HttpServletResponse response){
+		String error = "";
+		String tenDangNhap = HoSoDuTuyenDAO.getTenDangNhapByHoTen(StringUtil.toUTF8(request.getParameter("Ho").trim()),StringUtil.toUTF8(request.getParameter("TenLot").trim()),StringUtil.toUTF8(request.getParameter("Ten").trim()));
+		ArrayList<String> list = ThanhVienDAO.getAllTenDangNhap();
+		list.addAll(HoSoDuTuyenDAO.getAllTenDangNhapInHoSoDuTuyen());
+		
+		while(HoSoDuTuyenDAO.checkTenDangNhap(tenDangNhap, list)==true){
+			tenDangNhap += Math.round(Math.random());
+		}
+		String kq = HoSoDuTuyenDAO.insertThongTinThanhVien(tenDangNhap,
+				StringUtil.toUTF8(request.getParameter("Ho").trim()),
+				StringUtil.toUTF8(request.getParameter("TenLot").trim()),
+				StringUtil.toUTF8(request.getParameter("Ten").trim()),
+				request.getParameter("GioiTinh"),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgaySinh")),
+				request.getParameter("CMND").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("txtNgayCap").trim()),
+				StringUtil.toUTF8(request.getParameter("txtNoiCap").trim()),
+				StringUtil.toUTF8(request.getParameter("SoNha").trim()),
+				StringUtil.toUTF8(request.getParameter("TenDuong").trim()),
+				StringUtil.toUTF8(request.getParameter("PhuongXa").trim()),
+				StringUtil.toUTF8(request.getParameter("QuanHuyen").trim()),
+				StringUtil.toUTF8(request.getParameter("TinhTP").trim()),
+				request.getParameter("DTNha").trim(),
+				request.getParameter("Email").trim(),
+				request.getParameter("DTDD").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgayThuViec")),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgayVaoLam")), 
+				request.getParameter("VaiTro"),
+				request.getParameter("BoPhan"));
+		if(!kq.equals("-1")){
+			int max = Integer.parseInt(request.getParameter("row").trim());
+			String n;
+			for (int i = 1; i < max; i++) {
+				if(Integer.parseInt(request.getParameter("BangCapChinh"))==i){
+					n = "1";
+				}else{
+					n = "0";
+				}
+				BangCapDAO.insertBangCap(kq, 
+						StringUtil.toUTF8(request.getParameter("LoaiBang"+i)), 
+						StringUtil.toUTF8(request.getParameter("TruongCap"+i)),
+						request.getParameter("Nam"+i),
+						StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)), 
+						n);
+			}
+			error = "Thêm Thông Tin Thành Công !!!";
+		}else{
+			error = "Thêm Thông Tin Thất Bại !!!";
+		}
+		
+		try {
+			request.setAttribute("error", error);
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/NhapThongTin.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void doPostUpdateThongTin(HttpServletRequest request, HttpServletResponse response){
+		String error = "";
+		String kq = HoSoDuTuyenDAO.updateThongTinThanhVien(request.getParameter("maThanhVien").toString(),
+				StringUtil.toUTF8(request.getParameter("Ho").trim()),
+				StringUtil.toUTF8(request.getParameter("TenLot").trim()),
+				StringUtil.toUTF8(request.getParameter("Ten").trim()),
+				request.getParameter("GioiTinh"),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgaySinh")),
+				request.getParameter("CMND").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("txtNgayCap").trim()),
+				StringUtil.toUTF8(request.getParameter("txtNoiCap").trim()),
+				StringUtil.toUTF8(request.getParameter("SoNha").trim()),
+				StringUtil.toUTF8(request.getParameter("TenDuong").trim()),
+				StringUtil.toUTF8(request.getParameter("PhuongXa").trim()),
+				StringUtil.toUTF8(request.getParameter("QuanHuyen").trim()),
+				StringUtil.toUTF8(request.getParameter("TinhTP").trim()),
+				request.getParameter("DTNha").trim(),
+				request.getParameter("Email").trim(),
+				request.getParameter("DTDD").trim(),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgayThuViec")),
+				DateUtil.changeDMYtoMDY(request.getParameter("NgayVaoLam")));
+
+		if(!kq.equals("-1")){
+			int max = Integer.parseInt(request.getParameter("row").trim());
+			int count = BangCapDAO.countBangCapByMaThanhVien(kq);
+			String n;
+			for (int i = 1; i < max; i++) {
+				if(Integer.parseInt(request.getParameter("BangCapChinh"))==i){
+					n = "1";
+				}else{
+					n = "0";
+				}
+				if(i<=count){
+					BangCapDAO.updateBangCapChinh(request.getParameter("maBangCap"+i), n);
+				}else{
+					BangCapDAO.insertBangCap(kq, 
+							StringUtil.toUTF8(request.getParameter("LoaiBang"+i)), 
+							StringUtil.toUTF8(request.getParameter("TruongCap"+i)),
+							request.getParameter("Nam"+i),
+							StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)), 
+							n);
+				}
+				
+			}
+			error = "Cập Nhật Thông Tin Thành Công !!!";
+		}else{
+			error = "Cập Nhật Thông Tin Thất Bại !!!";
+		}
+		
+		try {
+			request.setAttribute("error", error);
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/NhapThongTin.jsp?maThanhVien="+request.getParameter("maThanhVien"));
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void doPostThanks(HttpServletRequest request, HttpServletResponse response){
+		HoSoDuTuyenModel model = HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id"));
+		HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "2");
+		ChiTietKHTNSDAO.GiamSoLuongDaTuyenChiTietKHTNS(model.getVi_tri_du_tuyen());
+		ThanhVienModel chiTietThanhVien = ThanhVienDAO.timThanhVienGP(model.getTen_dang_nhap());
+		ThanhVienDAO.updateTinhTrang("0", chiTietThanhVien.getTenDangNhap());
+		String error = "1";
+		try {
+			request.setAttribute("error", error);
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/HoSoDuTuyen.jsp?id="+request.getParameter("id"));
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void doPostRestore(HttpServletRequest request, HttpServletResponse response){
+		HoSoDuTuyenModel model = HoSoDuTuyenDAO.getHoSoByID(request.getParameter("id"));
+		ArrayList<String> listTenDangNhap = ThanhVienDAO.getAllTenDangNhap();
+		int n = 0;
+		String error = "";
+		for (String tenDangNhap : listTenDangNhap) {
+			if(tenDangNhap.equals(model.getTen_dang_nhap())){
+				HoSoDuTuyenDAO.updateHSDT(request.getParameter("id"), "", "0");
+				n++;
+			}
+		}
+		if(n==0){
+			error = "Chức Năng đang được xây dựng !!!";
+		}else{
+			error = "Khôi Phục thành công !!!";
+		}
+		
+		try {
+			request.setAttribute("error", error);
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/showHoSoDuTuyen.jsp");
+			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

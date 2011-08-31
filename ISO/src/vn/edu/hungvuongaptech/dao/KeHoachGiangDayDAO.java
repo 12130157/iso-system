@@ -669,4 +669,52 @@ public class KeHoachGiangDayDAO {
 		return result;
 	}
 	
+	public static ArrayList<KeHoachGiangDayModel> getThoiGianGiangDayByMaThanhVien(String maThanhVien){
+		ArrayList<KeHoachGiangDayModel> list = new ArrayList<KeHoachGiangDayModel>();
+		try {
+			String sql = "SELECT A.*,C.Ten_mon_hoc,(CAST(D.Nam_bat_dau AS VARCHAR)+' - '+CAST(D.Nam_ket_thuc AS VARCHAR)) as Nam_hoc, B.Ki_hieu as Ten_lop_hoc "
+						+" FROM KEHOACHGIANGDAY A INNER JOIN LOPHOC B ON A.Ma_lop=B.ID "
+						+" INNER JOIN MONHOC C ON A.Ma_mon_hoc=C.ID "
+						+" INNER JOIN NAMHOC D ON A.Ma_nam_hoc=D.ID "
+						+" WHERE A.Tinh_trang='2' AND A.Tinh_trang_HT='1' AND A.Ma_giao_vien=? AND Ma_nam_hoc in (SELECT ID FROM NAMHOC WHERE Nam_ket_thuc <= YEAR(GETDATE()))";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maThanhVien);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				KeHoachGiangDayModel model = new KeHoachGiangDayModel();
+				model.setMaKHGD(rs.getString("ID"));
+				model.setMaMonHoc(rs.getString("Ma_mon_hoc"));
+				model.setMaGiaoVien(rs.getString("Ma_giao_vien"));
+				model.setMaLop(rs.getString("Ma_lop"));
+				model.setHocKi(rs.getString("Hoc_ki"));
+				model.setMaNamHoc(rs.getString("Ma_nam_hoc"));
+				model.setSoCaThucHanh(rs.getString("So_ca_thuc_hanh"));
+				model.setMaNguoiTao(rs.getString("Ma_nguoi_tao"));
+				model.setNgayTao(rs.getString("Ngay_tao"));
+				model.setMaNguoiDuyet(rs.getString("Ma_nguoi_duyet"));
+				model.setNgayDuyet(rs.getString("Ngay_duyet"));
+				model.setTinhTrang(rs.getString("Tinh_trang"));
+				model.setTenKHGD(rs.getNString("Ten"));
+				model.setLyDoReject(rs.getNString("Ly_do_reject"));
+				model.setSoGioLT(rs.getString("So_gio_LT"));
+				model.setSoGioTH(rs.getString("So_gio_TH"));
+				model.setMaTruongKhoa(rs.getString("Truong_khoa"));
+				model.setNgayTKDuyet(rs.getString("Ngay_TK_duyet"));
+				model.setSoTietMoiBuoi(rs.getString("So_tiet_moi_buoi"));
+				model.setNgayCapNhatCuoi(rs.getString("Ngay_cap_nhat_cuoi"));
+				model.setTinhTrangHT(rs.getString("Tinh_trang_HT"));
+				model.setTenMonHoc(rs.getNString("Ten_mon_hoc"));
+				model.setNamHoc(rs.getString("Nam_hoc"));
+				model.setKiHieuLop(rs.getString("Ten_lop_hoc"));
+				list.add(model);
+			}
+			for (KeHoachGiangDayModel model : list) {
+				model.setChiTietKHGDModelList(ChiTietKHGDDAO.getChiTietKHGDByMaKHGD(model.getMaKHGD()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }

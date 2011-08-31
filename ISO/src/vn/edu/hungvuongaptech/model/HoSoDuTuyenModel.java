@@ -1,5 +1,7 @@
 package vn.edu.hungvuongaptech.model;
 
+import java.util.ArrayList;
+
 public class HoSoDuTuyenModel {
 	private String id;
 	private String ten_dang_nhap;
@@ -10,6 +12,8 @@ public class HoSoDuTuyenModel {
 	private String ngay_sinh;
 	private String ghi_chu;
 	private String cmnd;
+	private String ngay_cap;
+	private String noi_cap;
 	private String so_nha;
 	private String duong;
 	private String phuong_xa;
@@ -43,8 +47,55 @@ public class HoSoDuTuyenModel {
 	private String thoi_gian_thu_viec;
 	private String so_luong;
 	private String so_luong_da_tuyen;
+	private String ngayThuViec;
+	private String ngayVaoLam;
+	private String tenTruongKhoa;
+	private ArrayList<BangCapModel> listBangCap;
+	private DeNghiKTVModel deNghiKTV;
 	
-
+	
+	public String getTenTruongKhoa() {
+		return tenTruongKhoa;
+	}
+	public void setTenTruongKhoa(String tenTruongKhoa) {
+		this.tenTruongKhoa = tenTruongKhoa;
+	}
+	public DeNghiKTVModel getDeNghiKTV() {
+		return deNghiKTV;
+	}
+	public void setDeNghiKTV(DeNghiKTVModel deNghiKTV) {
+		this.deNghiKTV = deNghiKTV;
+	}
+	public String getNgay_cap() {
+		return ngay_cap;
+	}
+	public void setNgay_cap(String ngayCap) {
+		ngay_cap = ngayCap;
+	}
+	public String getNoi_cap() {
+		return noi_cap;
+	}
+	public void setNoi_cap(String noiCap) {
+		noi_cap = noiCap;
+	}
+	public ArrayList<BangCapModel> getListBangCap() {
+		return listBangCap;
+	}
+	public void setListBangCap(ArrayList<BangCapModel> listBangCap) {
+		this.listBangCap = listBangCap;
+	}
+	public String getNgayThuViec() {
+		return ngayThuViec;
+	}
+	public void setNgayThuViec(String ngayThuViec) {
+		this.ngayThuViec = ngayThuViec;
+	}
+	public String getNgayVaoLam() {
+		return ngayVaoLam;
+	}
+	public void setNgayVaoLam(String ngayVaoLam) {
+		this.ngayVaoLam = ngayVaoLam;
+	}
 	public String getSo_luong() {
 		return so_luong;
 	}

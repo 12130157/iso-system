@@ -120,9 +120,9 @@ public class ChiTietKHTNSDAO {
 		ChiTietKHTNSModel model = null;
 		try {
 			String sql = "SELECT A.*, "
-						+" CONVERT(VARCHAR(10),A.Ngay_cap_nhat_cuoi,101) as Ngay_cap_nhat_cuoi_mdy, "
+						+" CONVERT(VARCHAR(10),A.Ngay_cap_nhat_cuoi,105) as Ngay_cap_nhat_cuoi_mdy, "
 						+" C.Ten as BoPhan, "
-						+" D.Ten_vai_tro as VaiTro "
+						+" D.Ten_vai_tro as VaiTro,D.ID as maVaiTro "
 						+" FROM ChiTietKHTNS A LEFT JOIN DeNghiNhanSu B on A.Ma_de_nghi=B.ID "
 						+" LEFT JOIN KHOA_TRUNGTAM C ON B.Ma_bo_phan=C.ID "
 						+" LEFT JOIN VAITRO D ON B.Chuc_danh=D.ID "
@@ -139,6 +139,7 @@ public class ChiTietKHTNSDAO {
 				model.setNgay_cap_nhat_cuoi(rs.getString("Ngay_cap_nhat_cuoi_mdy"));
 				model.setBoPhan(rs.getString("BoPhan"));
 				model.setVaiTro(rs.getString("VaiTro"));
+				model.setMaVaiTro(rs.getString("maVaiTro"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,14 +170,13 @@ public class ChiTietKHTNSDAO {
 	public static ArrayList<ChiTietKHTNSModel> getAllCTKHTNSCoDK(){
 		ArrayList<ChiTietKHTNSModel> list = new ArrayList<ChiTietKHTNSModel>();
 		try {
-			String sql = "SELECT A.ID,D.Ten_vai_tro as Ten_vai_tro,C.Ten as Ten_bo_phan "
+			String sql = "SELECT A.ID,B.Bo_sung,D.Ten_vai_tro as Ten_vai_tro,C.Ten as Ten_bo_phan "
 						+" FROM ChiTietKHTNS A LEFT JOIN DeNghiNhanSu B on A.Ma_de_nghi=B.ID "
 						+" LEFT JOIN KHOA_TRUNGTAM C ON B.Ma_bo_phan=C.ID "
 						+" LEFT JOIN VAITRO D ON B.Chuc_danh=D.ID "
 						+" LEFT JOIN ThoiGianTuyenDung E on A.ID=E.Ma_CTKHTDNS "
-						+" WHERE A.Ma_ke_hoach in (SELECT ID FROM KEHOACHTNS WHERE Tinh_trang='2' AND Nam=YEAR(GETDATE())) AND B.So_luong > A.So_luong_da_tuyen "
-						+" GROUP BY A.ID,D.Ten_vai_tro,C.Ten "
-						+" HAVING MONTH(getdate())<MAX(E.Thoi_gian) ";
+						+" WHERE A.Ma_ke_hoach in (SELECT ID FROM KEHOACHTNS WHERE Tinh_trang='1' AND Nam=YEAR(GETDATE())) AND B.So_luong > A.So_luong_da_tuyen "
+						+" GROUP BY A.ID,B.Bo_sung,D.Ten_vai_tro,C.Ten ";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
@@ -184,6 +184,7 @@ public class ChiTietKHTNSDAO {
 				model.setId(rs.getString("ID"));
 				model.setUser1(rs.getString("Ten_vai_tro"));
 				model.setUser2(rs.getString("Ten_bo_phan"));
+				model.setUser3(rs.getString("Bo_sung"));
 				list.add(model);
 			}
 		} catch (Exception e) {
@@ -195,7 +196,7 @@ public class ChiTietKHTNSDAO {
 	public static ArrayList<ChiTietKHTNSModel> getAllCTKHTNS(){
 		ArrayList<ChiTietKHTNSModel> list = new ArrayList<ChiTietKHTNSModel>();
 		try {
-			String sql = "SELECT A.ID,D.Ten_vai_tro as Ten_vai_tro,C.Ten as Ten_bo_phan "
+			String sql = "SELECT A.ID,B.Bo_sung,D.Ten_vai_tro as Ten_vai_tro,C.Ten as Ten_bo_phan "
 						+" FROM ChiTietKHTNS A LEFT JOIN DeNghiNhanSu B on A.Ma_de_nghi=B.ID "
 						+" LEFT JOIN KHOA_TRUNGTAM C ON B.Ma_bo_phan=C.ID "
 						+" LEFT JOIN VAITRO D ON B.Chuc_danh=D.ID ";
@@ -206,11 +207,32 @@ public class ChiTietKHTNSDAO {
 				model.setId(rs.getString("ID"));
 				model.setUser1(rs.getString("Ten_vai_tro"));
 				model.setUser2(rs.getString("Ten_bo_phan"));
+				model.setUser3(rs.getString("Bo_sung"));
 				list.add(model);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public static String getMaChucDanhByMaCTKHTNS(String id){
+		String kq = "";
+		try {
+			String sql = "SELECT D.ID "
+						+" FROM ChiTietKHTNS A INNER JOIN DeNghiNhanSu B on A.Ma_de_nghi=B.ID "
+						+" INNER JOIN KHOA_TRUNGTAM C ON B.Ma_bo_phan=C.ID "
+						+" INNER JOIN VAITRO D ON B.Chuc_danh=D.ID" 
+						+" WHERE A.ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("ID");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kq;
 	}
 }

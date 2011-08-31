@@ -20,8 +20,14 @@ public class ChiTietKHTNSModel {
 	private String soLuongDaTuyen;
 	private String thangKetThuc;
 	private String thangHienTai;
-	
+	private String maVaiTro;
 
+	public String getMaVaiTro() {
+		return maVaiTro;
+	}
+	public void setMaVaiTro(String maVaiTro) {
+		this.maVaiTro = maVaiTro;
+	}
 	public String getThangHienTai() {
 		return thangHienTai;
 	}

@@ -8,7 +8,6 @@ public class DeNghiNhanSuModel {
 	private String chuc_danh;
 	private String so_luong;
 	private String cong_viec;
-	private String luong;
 	private String thoi_gian_bat_dau_lam;
 	private String tinh_trang;
 	private String ngay_lap;
@@ -21,6 +20,7 @@ public class DeNghiNhanSuModel {
 	private String hieu_truong;
 	private String ngay_HT_duyet;
 	private String ly_do_reject;
+	private String bo_sung;
 	private String ngay_cap_nhat_cuoi;
 	private String user1;
 	private String user2;
@@ -43,6 +43,12 @@ public class DeNghiNhanSuModel {
 	private String ten_chuc_danh;
 	
 	
+	public String getBo_sung() {
+		return bo_sung;
+	}
+	public void setBo_sung(String boSung) {
+		bo_sung = boSung;
+	}
 	public String getTen_chuc_danh() {
 		return ten_chuc_danh;
 	}
@@ -168,12 +174,6 @@ public class DeNghiNhanSuModel {
 	}
 	public void setCong_viec(String congViec) {
 		cong_viec = congViec;
-	}
-	public String getLuong() {
-		return luong;
-	}
-	public void setLuong(String luong) {
-		this.luong = luong;
 	}
 	public String getThoi_gian_bat_dau_lam() {
 		return thoi_gian_bat_dau_lam;

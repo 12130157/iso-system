@@ -19,9 +19,9 @@ public class DeNghiNhanSuDAO {
 			csmt.setString("Chuc_danh", model.getChuc_danh());
 			csmt.setString("So_luong", model.getSo_luong());
 			csmt.setString("Cong_viec", model.getCong_viec());
-			csmt.setString("Luong", model.getLuong());
 			csmt.setString("Thoi_gian_bat_dau_lam", model.getThoi_gian_bat_dau_lam());
 			csmt.setString("Tinh_trang", model.getTinh_trang());
+			csmt.setString("Bo_sung", model.getBo_sung());
 			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
 			csmt.executeUpdate();
 			kq = csmt.getInt("KQ");
@@ -34,12 +34,11 @@ public class DeNghiNhanSuDAO {
 	public static int UpdateDNNS(DeNghiNhanSuModel model){
 		int kq = 0;
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_UpdateDeNghiNhanSu(?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_UpdateDeNghiNhanSu(?,?,?,?,?,?,?)}");
 			csmt.setString("ID", model.getId());
 			csmt.setString("Chuc_danh", model.getChuc_danh());
 			csmt.setString("So_luong", model.getSo_luong());
 			csmt.setString("Cong_viec", model.getCong_viec());
-			csmt.setString("Luong", model.getLuong());
 			csmt.setString("Thoi_gian_bat_dau_lam", model.getThoi_gian_bat_dau_lam());
 			csmt.setString("Tinh_trang", model.getTinh_trang());
 			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
@@ -91,7 +90,7 @@ public class DeNghiNhanSuDAO {
 						+" CONVERT(VARCHAR(50),A.Ngay_HC_duyet,105) as Ngay_HC_duyet_mdy,(G.Ho+' '+G.Ten_lot+' '+G.Ten) as Ten_phong_DT, "
 						+" CONVERT(VARCHAR(50),A.Ngay_DT_duyet,105) as Ngay_DT_duyet_mdy,(J.Ho+' '+J.Ten_lot+' '+J.Ten) as Ten_hieu_truong, "
 						+" CONVERT(VARCHAR(50),A.Ngay_HT_duyet,105) as Ngay_HT_duyet_mdy,(L.Ho+' '+L.Ten_lot+' '+L.Ten) as Ten_nguoi_de_nghi, "
-						+" M.Ten as Ten_bo_phan,M.MA_TRUONG_KHOA AS Ma_truong_khoa,N.Ten_vai_tro as Ten_Chuc_danh "
+						+" M.Ten as Ten_bo_phan,M.MA_TRUONG_KHOA AS Ma_truong_khoa,N.ID as Ma_Chuc_Danh,N.Ten_vai_tro as Ten_Chuc_danh "
 						+" FROM DENGHINHANSU A "
 						+" LEFT JOIN THANHVIEN B ON A.Truong_khoa=B.ID LEFT JOIN CHITIETTHANHVIEN C ON B.Ten_DN=C.Ten_dang_nhap "
 						+" LEFT JOIN THANHVIEN D ON A.Phong_HC=D.ID LEFT JOIN CHITIETTHANHVIEN E ON D.Ten_DN=E.Ten_dang_nhap "
@@ -113,7 +112,6 @@ public class DeNghiNhanSuDAO {
 				model.setChuc_danh(rs.getString("Chuc_danh"));
 				model.setSo_luong(rs.getString("So_luong"));
 				model.setCong_viec(rs.getString("Cong_viec"));
-				model.setLuong(rs.getString("Luong"));
 				model.setThoi_gian_bat_dau_lam(rs.getString("Thoi_gian_bat_dau_lam"));
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setNgay_lap(rs.getString("Ngay_lap"));
@@ -131,6 +129,7 @@ public class DeNghiNhanSuDAO {
 				model.setNgay_HT_duyet_mdy(rs.getString("Ngay_HT_duyet_mdy"));
 				model.setLy_do_reject(rs.getString("Ly_do_reject"));
 				model.setNgay_cap_nhat_cuoi(rs.getString("Ngay_cap_nhat_cuoi"));
+				model.setBo_sung(rs.getString("Bo_sung"));
 				model.setThoi_gian_bat_dau_lam_mdy(rs.getString("Thoi_gian_bat_dau_lam_mdy"));
 				model.setNgay_lap_mdy(rs.getString("Ngay_lap_mdy"));
 				model.setTen_nguoi_de_nghi(rs.getString("Ten_nguoi_de_nghi"));
@@ -166,7 +165,6 @@ public class DeNghiNhanSuDAO {
 				model.setChuc_danh(rs.getString("Chuc_danh"));
 				model.setSo_luong(rs.getString("So_luong"));
 				model.setCong_viec(rs.getString("Cong_viec"));
-				model.setLuong(rs.getString("Luong"));
 				model.setThoi_gian_bat_dau_lam(rs.getString("Thoi_gian_bat_dau_lam"));
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setNgay_lap(rs.getString("Ngay_lap"));
@@ -179,6 +177,7 @@ public class DeNghiNhanSuDAO {
 				model.setHieu_truong(rs.getString("Hieu_truong"));
 				model.setNgay_HT_duyet(rs.getString("Ngay_HT_duyet"));
 				model.setLy_do_reject(rs.getString("Ly_do_reject"));
+				model.setBo_sung(rs.getString("Bo_sung"));
 				model.setNgay_cap_nhat_cuoi(rs.getString("Ngay_cap_nhat_cuoi"));
 				model.setNgay_lap_mdy(rs.getString("Ngay_lap_mdy"));
 				model.setTen_nguoi_de_nghi(rs.getString("Ten_nguoi_de_nghi"));
@@ -196,12 +195,11 @@ public class DeNghiNhanSuDAO {
 	public static ArrayList<DeNghiNhanSuModel> getDanhSachDeNghi(String maKeHoach){
 		ArrayList<DeNghiNhanSuModel> list = new ArrayList<DeNghiNhanSuModel>();
 		try {
-			String sql = "SELECT A.ID,A.Nam,A.So_luong,B.Ma_truong_khoa as user1,B.Ten as Ma_bo_phan,(E.Ho+' '+E.Ten_lot+' '+E.Ten) as Nguoi_de_nghi,C.Ten_vai_tro AS Chuc_danh,A.Tinh_trang,A.Ly_do_Reject,CONVERT(VARCHAR(50),A.Ngay_lap,105) as Ngay_lap "
+			String sql = "SELECT A.ID,A.Nam,A.Bo_sung,A.So_luong,B.Ma_truong_khoa as user1,B.Ten as Ma_bo_phan,(E.Ho+' '+E.Ten_lot+' '+E.Ten) as Nguoi_de_nghi,C.Ten_vai_tro AS Chuc_danh,A.Tinh_trang,A.Ly_do_Reject,CONVERT(VARCHAR(50),A.Ngay_lap,105) as Ngay_lap "
 						+" FROM (((DENGHINHANSU A LEFT JOIN KHOA_TRUNGTAM B ON A.Ma_bo_phan=B.ID) LEFT JOIN VAITRO C ON A.Chuc_danh=C.ID ) LEFT JOIN ThanhVien D ON A.Nguoi_de_nghi=D.ID) LEFT JOIN ChiTietThanhVien E ON D.Ten_DN=E.Ten_dang_nhap "
-						+" WHERE A.Tinh_trang='5' AND A.ID NOT IN (SELECT Ma_de_nghi FROM chiTietKHTNS WHERE Ma_ke_hoach=?) AND A.NAM=(SELECT NAM FROM KEHOACHTNS WHERE ID=?)";
+						+" WHERE A.Tinh_trang='5' AND A.ID NOT IN (SELECT Ma_de_nghi FROM chiTietKHTNS) AND A.NAM=(SELECT NAM FROM KEHOACHTNS WHERE ID=?)";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, maKeHoach);
-			ps.setString(2, maKeHoach);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				DeNghiNhanSuModel model = new DeNghiNhanSuModel();
@@ -214,12 +212,31 @@ public class DeNghiNhanSuDAO {
 				model.setNgay_lap(rs.getString("Ngay_lap"));
 				model.setLy_do_reject(rs.getString("Ly_do_reject"));
 				model.setSo_luong(rs.getString("So_luong"));
+				model.setBo_sung(rs.getString("Bo_sung"));
 				list.add(model);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public static String countDeNghiTNS(String nam,String chucDanh,String maBoPhan){
+		String kq = "";
+		try {
+			String sql = "SELECT COUNT(*) AS KQ FROM DENGHINHANSU WHERE NAM=? AND MA_BO_PHAN=? AND CHUC_DANH=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, nam);
+			ps.setString(2, maBoPhan);
+			ps.setString(3, chucDanh);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("KQ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kq;
 	}
 }
 

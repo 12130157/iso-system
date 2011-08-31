@@ -94,7 +94,7 @@ public class NhanXetKetQuaThuViecDAO {
 		return model;
 	}
 	
-	public static int insertNhanXetKetQuaThuViec(String nguoiDuTuyen,String chucDanh,String boPhan,String thoiGianThuViec){
+	public static int insertNhanXetKetQuaThuViec(String nguoiDuTuyen,String thoiGianThuViec){
 		int kq = 0;
 		try {
 			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_InsertNhanXetKetQuaThuViec(?,?,?)}");

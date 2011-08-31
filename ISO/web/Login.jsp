@@ -49,7 +49,10 @@ return false;
 							<img src ="<%=request.getContextPath()%>/images/buttom/huybo.png" border = "0"/>
 						</a>
 					<br /><br />
-					<a href="<%=request.getContextPath()%>/GetPass.jsp" ><strong>Quên mật khẩu</strong></a>
+					<a href="<%=request.getContextPath()%>/GetPass.jsp" ><strong>Quên mật khẩu</strong></a><br/>
+					<a style="text-decoration: none;" href="<%=request.getContextPath() %>/NhanSu/HoSoDuTuyen/HoSoDuTuyen.jsp?Them=yes">
+						Đăng Ký Dự Tuyển
+					</a>
 					</div>
 					</div>
 			</form>

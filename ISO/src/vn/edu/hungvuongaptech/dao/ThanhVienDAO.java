@@ -927,7 +927,105 @@ public class ThanhVienDAO {
 	 * AUTHOR: THANHTC
 	 * CREATE DATE : 20/7/2011
 	 */
-	public static void UpdateVaiTroTV(String maVaiTro,String tenDangNhap){
+	 public static ArrayList<ChiTietThanhVienModel> getAllSNhanSu(String SHo,String STen_lot,String STen, String SNgaySinh,String SNgayVaoLam,String SEmail,String SBangCap,String SSoNha,String STenDuong,String SPhuongXa, String SQuanHuyen,String STinhTP,String SBoPhan,String SVaiTro){
+		 ArrayList<ChiTietThanhVienModel> listNS = new ArrayList<ChiTietThanhVienModel>();
+		 try {
+			 CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_TimKiemNhanSu(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			 csmt.setString("HO", SHo );
+			 csmt.setString("TEN_LOT", STen_lot );
+			 csmt.setString("TEN", STen);
+			 csmt.setString("SO_NHA", SSoNha);
+			 csmt.setString("DUONG", STenDuong );
+			 csmt.setString("PHUONG_XA", SPhuongXa);
+			 csmt.setString("QUAN_HUYEN", SQuanHuyen );
+			 csmt.setString("TINH_TP", STinhTP);
+			 csmt.setString("NGAYSINH", SNgaySinh);
+			 csmt.setString("NGAYVAOLAM", SNgayVaoLam);
+			 csmt.setString("EMAIL", SEmail);
+			 csmt.setString("BOPHAN", SBoPhan);
+			 csmt.setString("VAITRO", SVaiTro);
+			 csmt.setString("BANGCAP", SBangCap);
+			 ResultSet rs = csmt.executeQuery();
+			 while(rs.next()){
+				 ChiTietThanhVienModel model = new ChiTietThanhVienModel();
+				 model.setMaThanhVien(rs.getString("ID"));
+				 model.setsHoTen(rs.getString("HOTEN"));
+				 model.setsDiaChi(rs.getString("DIACHI"));
+				 model.setsNgaySinh(rs.getString("NGAYSINH"));
+				 model.setsNgayVaoLam(rs.getString("NGAYVAOLAM"));
+				 model.setsEmail(rs.getString("EMAIL"));
+				 model.setsBoPhan(rs.getString("BOPHAN"));
+				 model.setsVaiTro(rs.getString("VAITRO"));
+				 model.setsBangCap(rs.getString("BANGCAP"));
+				 listNS.add(model);
+		 }
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 return listNS;
+	 }
+	 
+	 public static ArrayList<ChiTietThanhVienModel> getAllNhanSu(int x,int y){
+		 ArrayList<ChiTietThanhVienModel> listNS = new ArrayList<ChiTietThanhVienModel>();
+		 try {
+			 CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_getAllNhanSu(?,?)}");
+			 csmt.setInt("NUMROWS", x);
+			 csmt.setInt("NUMPAGES", y);
+			 ResultSet rs = csmt.executeQuery();
+			 while(rs.next()){
+				 ChiTietThanhVienModel model = new ChiTietThanhVienModel();
+				 model.setMaThanhVien(rs.getString("ID"));
+				 model.setsHoTen(rs.getString("HOTEN"));
+				 model.setsDiaChi(rs.getString("DIACHI"));
+				 model.setsNgaySinh(rs.getString("NGAYSINH"));
+				 model.setsNgayVaoLam(rs.getString("NGAYVAOLAM"));
+				 model.setsEmail(rs.getString("EMAIL"));
+				 model.setsBoPhan(rs.getString("BOPHAN"));
+				 model.setsVaiTro(rs.getString("VAITRO"));
+				 model.setsBangCap(rs.getString("BANGCAP"));
+				 listNS.add(model);
+		 }
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 return listNS;
+	 }
+	 
+	 public static float getTotalNhanSu(){
+		 float kq = 0;
+			try {
+				PreparedStatement preparedStatement = DataUtil
+						.getConnection()
+						.prepareStatement(
+								Constant.SQL_RES
+										.getString("admin.sql.countThanhVien"));
+				ResultSet rs = preparedStatement.executeQuery();
+				if (rs.next()) {
+					kq = Integer.parseInt(rs.getString("TotalRows"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		 return kq;
+	 }	
+	
+	 
+	 public static ArrayList<String> getAllTenDangNhap(){
+		 ArrayList<String> list= new ArrayList<String>();
+		 try {
+			String sql = "SELECT * FROM THANHVIEN";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				list.add(rs.getString("TEN_DN"));
+			}
+		 } catch (Exception e) {
+			e.printStackTrace();
+		 }
+		 return list;
+	 }
+	 
+	 public static void UpdateVaiTroTV(String maVaiTro,String tenDangNhap){
 		 try {
 			String sql = "UPDATE THANHVIEN SET MA_VAI_TRO=? WHERE TEN_DN=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
@@ -938,5 +1036,108 @@ public class ThanhVienDAO {
 			e.printStackTrace();
 		}
 	 }
+	 
+	 public static ChiTietThanhVienModel getThongTinByMaThanhVien(String maThanhVien){
+		 ChiTietThanhVienModel chiTietThanhVienModel = null;
+		 try {
+			String sql = "SELECT A.ID,A.Ten_DN,A.Mat_khau,A.Ma_vai_tro,F.Ten_vai_tro,A.Ma_bo_phan,G.Ten as Ten_bo_phan,(B.Ho+' '+B.Ten_lot+' '+B.Ten) as Ho_ten,CONVERT(VARCHAR(10),B.Ngay_sinh,105) as Ngay_sinh,J.So_nha,J.Duong,J.Phuong_xa,J.Quan_huyen,J.Tinh_ThanhPho,J.Dien_thoai_nha,B.Email,B.Dien_thoai_dd,K.So_tai_khoan,K.Ngan_hang,K.Ngay_lap_the,B.Chung_minh_nhan_dan,B.Ma_lop_hoc,B.Tinh_trang,CONVERT(VARCHAR(10),D.Bat_dau,105) as Ngay_thu_viec ,CONVERT(VARCHAR(10),E.Bat_dau,105) as Ngay_bat_dau_lam "
+						+" FROM THANHVIEN A INNER JOIN CHITIETTHANHVIEN B ON A.Ten_DN=B.Ten_dang_nhap "
+						+" LEFT JOIN HOSODUTUYEN C ON A.Ten_DN=C.Ten_dang_nhap "
+						+" LEFT JOIN DENGHIKTV D ON C.ID=D.Nguoi_du_tuyen "
+						+" LEFT JOIN HOPDONGLAODONG E ON C.ID=E.Nguoi_du_tuyen "
+						+" INNER JOIN VAITRO F ON A.Ma_vai_tro=F.ID "
+						+" INNER JOIN KHOA_TRUNGTAM G ON A.Ma_bo_phan=G.ID "
+						+" LEFT JOIN DIACHI J ON B.Ma_dia_chi=J.ID "
+						+" LEFT JOIN TAIKHOAN K ON B.Ma_tai_khoan=K.ID"
+						+" WHERE A.ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maThanhVien);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				chiTietThanhVienModel = new ChiTietThanhVienModel();
+				chiTietThanhVienModel.setMaThanhVien(rs.getString("ID"));
+				chiTietThanhVienModel.setTenDangNhap(rs.getString("Ten_DN"));
+				chiTietThanhVienModel.setMatKhau(rs.getString("Mat_khau"));
+				chiTietThanhVienModel.setSoTaiKhoan(rs.getString("So_tai_khoan"));
+				chiTietThanhVienModel.setNganHang(rs.getString("Ngan_hang"));
+				chiTietThanhVienModel.setNgayLapThe(rs.getString("Ngay_lap_the"));
+				chiTietThanhVienModel.setHoTen(rs.getString("Ho_ten"));
+				chiTietThanhVienModel.setMaVaiTro(rs.getString("Ma_vai_tro"));
+				chiTietThanhVienModel.setTenVaiTro(rs.getString("Ten_vai_tro"));
+				chiTietThanhVienModel.setMaKhoa(rs.getString("Ma_bo_phan"));
+				chiTietThanhVienModel.setTenKhoa(rs.getString("Ten_bo_phan"));
+				chiTietThanhVienModel.setNgaySinh(rs.getString("Ngay_sinh"));
+				chiTietThanhVienModel.setTinhTrang(rs.getString("Tinh_trang"));
+				chiTietThanhVienModel.setEmail(rs.getString("Email"));
+				chiTietThanhVienModel.setDienThoaiDiDong(rs.getString("Dien_thoai_dd"));
+				chiTietThanhVienModel.setDienThoaiNha(rs.getString("Dien_thoai_nha"));
+				chiTietThanhVienModel.setSoNha(rs.getString("So_nha"));
+				chiTietThanhVienModel.setDuong(rs.getString("Duong"));
+				chiTietThanhVienModel.setPhuongXa(rs.getString("Phuong_xa"));
+				chiTietThanhVienModel.setQuanHuyen(rs.getString("Quan_huyen"));
+				chiTietThanhVienModel.setThanhPho(rs.getString("Tinh_thanhpho"));
+				chiTietThanhVienModel.setChungMinhNhanDan(rs.getString("Chung_minh_nhan_dan"));
+				chiTietThanhVienModel.setNgayThuViec(rs.getString("Ngay_thu_viec"));
+				chiTietThanhVienModel.setNgayVaoLam(rs.getString("Ngay_bat_dau_lam"));
+			}
+			chiTietThanhVienModel.setListThamNien(ChiTietCongViecThanhVienDAO.getThamNienByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListKhenThuongKyLuat(ChiTietCongViecThanhVienDAO.getKhenThuongKyLuatByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListLopHocChuNhiem(ChiTietLopHocDAO.getLopDaChuNhiemByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListLopHocGiangDay(KeHoachGiangDayDAO.getThoiGianGiangDayByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListChucVu(ChiTietCongViecThanhVienDAO.getChucVuByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListBangCap(BangCapDAO.getAllBangCapByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 return chiTietThanhVienModel;
+	 }
+	 
+	 public static String getMaChucVuByMaThanhVien(String maThanhVien){
+		 String kq = "";
+		 try {
+			String sql = "SELECT * FROM THANHVIEN WHERE ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maThanhVien);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("Ma_vai_tro");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 return kq;
+	 }
+	 
+	 public static String getMaThanhVienByHoSoDuTuyen(String id){
+		 String kq = "";
+		 try {
+			String sql = "SELECT A.ID FROM THANHVIEN A INNER JOIN HOSODUTUYEN B ON A.TEN_DN=B.TEN_DANG_NHAP WHERE B.ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("ID");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 return kq;
+	 }
+	 
+	 public static ChiTietThanhVienModel updateTinhTrangNhanSu(String tinhTrang, String tenDangNhap) {
+			try {
+				PreparedStatement preparedStatement = DataUtil
+						.getConnection()
+						.prepareStatement(
+								Constant.SQL_RES
+										.getString("admin.sql.updateTinhTrangByTenDangNhap"));
+				preparedStatement.setString(1, tinhTrang);
+				preparedStatement.setString(2, tenDangNhap);
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 }
 

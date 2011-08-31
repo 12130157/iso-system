@@ -76,6 +76,8 @@ public class ThanhVienController extends HttpServlet {
 			doPostUpdateTV(request, response);
 		}else if(actionType.equalsIgnoreCase("chuyenCa")){
 			doPostUpdate2(request,response);
+		}else if(actionType.equalsIgnoreCase("searchNS")){
+			doPostSearch(request,response);
 		}
 		
 	}
@@ -488,6 +490,60 @@ public class ThanhVienController extends HttpServlet {
 		request.setAttribute(Constant.THANH_VIEN_MODEL_LIST, thanhVienList1);
 		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
 		rd.forward(request, response);
+	}
+	
+	private void doPostSearch (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String SHo =  StringUtil.toUTF8(request.getParameter("SHo").trim());
+        String SSoNha = StringUtil.toUTF8(request.getParameter("SSoNha").trim());
+        String STenLot = StringUtil.toUTF8(request.getParameter("STenLot").trim());
+        String STenDuong = StringUtil.toUTF8(request.getParameter("STenDuong").trim());
+        String STen = StringUtil.toUTF8(request.getParameter("STen").trim());
+        String SPhuongXa = StringUtil.toUTF8(request.getParameter("SPhuongXa").trim());
+        String SNgaySinh = request.getParameter("SNgaySinh").trim();
+        String SQuanHuyen = StringUtil.toUTF8(request.getParameter("SQuanHuyen").trim());
+        String SNgayVaoLam = request.getParameter("SNgayVaoLam").trim();
+        String STinhTP = StringUtil.toUTF8(request.getParameter("STinhTP").trim());
+        String SEmail = request.getParameter("SEmail").trim();
+        String SBoPhan = request.getParameter("SBoPhan").trim();
+        String SBangCap = StringUtil.toUTF8(request.getParameter("SBangCap").trim());
+        String SVaiTro = request.getParameter("SVaiTro").trim();
+        
+        try {
+/*        	if(SHo.equals("") && SSoNha.equals("") && STenLot.equals("") && STenDuong.equals("") && STen.equals("") && SPhuongXa.equals("") && SNgaySinh.equals("") && SNgayVaoLam.equals("") && STinhTP.equals("") && SEmail.equals("") && SBoPhan.equals("All") && SBangCap.equals("") && SVaiTro.equals("All")){
+        		RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/TimKiemNhanSu/TimKiemNhanSu.jsp");
+    			rd.forward(request, response);
+        	}else{*/
+        		if(SNgaySinh == null){
+               	 	SNgaySinh = "";
+                }
+                if(SNgayVaoLam == null){
+               	 	SNgayVaoLam = "";
+                }
+ 
+        		ArrayList<ChiTietThanhVienModel> listNS = ThanhVienDAO.getAllSNhanSu(SHo, STenLot, STen, 
+        				SNgaySinh, SNgayVaoLam, SEmail, SBangCap, SSoNha, STenDuong, SPhuongXa, SQuanHuyen, STinhTP, SBoPhan, SVaiTro);
+        		
+                request.setAttribute("listNS", listNS);
+                request.setAttribute("SHo", SHo);
+                request.setAttribute("SSoNha", SSoNha);
+                request.setAttribute("STenLot", STenLot);
+                request.setAttribute("STenDuong", STenDuong);
+                request.setAttribute("STen", STen);
+                request.setAttribute("SPhuongXa", SPhuongXa);
+                request.setAttribute("SNgaySinh", SNgaySinh);
+                request.setAttribute("SQuanHuyen", SQuanHuyen);
+                request.setAttribute("SNgayVaoLam", SNgayVaoLam);
+                request.setAttribute("STinhTP", STinhTP);
+                request.setAttribute("SEmail", SEmail);
+                request.setAttribute("SBoPhan", SBoPhan);
+                request.setAttribute("SBangCap", SBangCap);
+                request.setAttribute("SVaiTro", SVaiTro);
+                
+                RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/TimKiemNhanSu/TimKiemNhanSu.jsp?pages=1");
+    			rd.forward(request, response);
+        } catch (Exception e) {
+			e.printStackTrace();
+        }
 	}
 
 }
