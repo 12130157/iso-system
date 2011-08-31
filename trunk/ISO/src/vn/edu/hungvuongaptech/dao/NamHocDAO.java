@@ -75,4 +75,42 @@ public class NamHocDAO {
 		}	
 		return namHocModelList;
 	}
+	
+	public static NamHocModel getNamHocByNamBatDau(String namBatDau){
+		NamHocModel model = null;
+		try {
+			String sql = "SELECT * FROM NAMHOC WHERE Nam_bat_dau=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, namBatDau);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new NamHocModel();
+				model.setMaNamHoc(rs.getString("ID"));
+				model.setNamBatDau(rs.getString("Nam_bat_dau"));
+				model.setNamKetThuc(rs.getString("Nam_ket_thuc"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+	public static ArrayList<NamHocModel> getAllNamHocByNow(){
+		ArrayList<NamHocModel> listNamHoc = new ArrayList<NamHocModel>();
+		try {
+			String sql = "SELECT * FROM NAMHOC WHERE Nam_bat_dau<=YEAR(GETDATE()) ORDER BY Nam_bat_dau";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				NamHocModel model = new NamHocModel();
+				model.setMaNamHoc(rs.getString("ID"));
+				model.setNamBatDau(rs.getString("Nam_bat_dau"));
+				model.setNamKetThuc(rs.getString("Nam_ket_thuc"));
+				listNamHoc.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listNamHoc;
+	}
 }

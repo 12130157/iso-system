@@ -4,6 +4,7 @@
 package vn.edu.hungvuongaptech.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @author ThienVD
@@ -59,6 +60,190 @@ public class ChiTietThanhVienModel implements Serializable {
 	private String user4;
 	private String user5;
 	private String maMonHoc;
+	private String sHoTen;
+	private String sDiaChi;
+	private String sNgaySinh;
+	private String sNgayVaoLam;
+	private String sEmail;
+	private String sBoPhan;
+	private String sVaiTro;
+	private String sBangCap;
+	private String hoTen;
+	
+	private String ngayThuViec;
+	private String ngayVaoLam;
+	
+	private ArrayList<ChiTietCongViecThanhVienModel> listThamNien;
+	private ArrayList<ChiTietCongViecThanhVienModel> listKhenThuongKyLuat;
+	private ArrayList<ChiTietLopHocModel> listLopHocChuNhiem;
+	private ArrayList<BangCapModel> listBangCap;
+	private ArrayList<KeHoachGiangDayModel> listLopHocGiangDay;
+	private ArrayList<String> listChucVu;
+	
+	private String ngayCap;
+	private String noiCap;
+	
+	
+
+	public String getsHoTen() {
+		return sHoTen;
+	}
+
+	public void setsHoTen(String sHoTen) {
+		this.sHoTen = sHoTen;
+	}
+
+	public String getsDiaChi() {
+		return sDiaChi;
+	}
+
+	public void setsDiaChi(String sDiaChi) {
+		this.sDiaChi = sDiaChi;
+	}
+
+	public String getsNgaySinh() {
+		return sNgaySinh;
+	}
+
+	public void setsNgaySinh(String sNgaySinh) {
+		this.sNgaySinh = sNgaySinh;
+	}
+
+	public String getsNgayVaoLam() {
+		return sNgayVaoLam;
+	}
+
+	public void setsNgayVaoLam(String sNgayVaoLam) {
+		this.sNgayVaoLam = sNgayVaoLam;
+	}
+
+	public String getsEmail() {
+		return sEmail;
+	}
+
+	public void setsEmail(String sEmail) {
+		this.sEmail = sEmail;
+	}
+
+	public String getsBoPhan() {
+		return sBoPhan;
+	}
+
+	public void setsBoPhan(String sBoPhan) {
+		this.sBoPhan = sBoPhan;
+	}
+
+	public String getsVaiTro() {
+		return sVaiTro;
+	}
+
+	public void setsVaiTro(String sVaiTro) {
+		this.sVaiTro = sVaiTro;
+	}
+
+	public String getsBangCap() {
+		return sBangCap;
+	}
+
+	public void setsBangCap(String sBangCap) {
+		this.sBangCap = sBangCap;
+	}
+
+	public String getHoTen() {
+		return hoTen;
+	}
+
+	public void setHoTen(String hoTen) {
+		this.hoTen = hoTen;
+	}
+
+	public String getNgayThuViec() {
+		return ngayThuViec;
+	}
+
+	public void setNgayThuViec(String ngayThuViec) {
+		this.ngayThuViec = ngayThuViec;
+	}
+
+	public String getNgayVaoLam() {
+		return ngayVaoLam;
+	}
+
+	public void setNgayVaoLam(String ngayVaoLam) {
+		this.ngayVaoLam = ngayVaoLam;
+	}
+
+	public ArrayList<ChiTietCongViecThanhVienModel> getListThamNien() {
+		return listThamNien;
+	}
+
+	public void setListThamNien(
+			ArrayList<ChiTietCongViecThanhVienModel> listThamNien) {
+		this.listThamNien = listThamNien;
+	}
+
+	public ArrayList<ChiTietCongViecThanhVienModel> getListKhenThuongKyLuat() {
+		return listKhenThuongKyLuat;
+	}
+
+	public void setListKhenThuongKyLuat(
+			ArrayList<ChiTietCongViecThanhVienModel> listKhenThuongKyLuat) {
+		this.listKhenThuongKyLuat = listKhenThuongKyLuat;
+	}
+
+	public ArrayList<ChiTietLopHocModel> getListLopHocChuNhiem() {
+		return listLopHocChuNhiem;
+	}
+
+	public void setListLopHocChuNhiem(
+			ArrayList<ChiTietLopHocModel> listLopHocChuNhiem) {
+		this.listLopHocChuNhiem = listLopHocChuNhiem;
+	}
+
+	public ArrayList<BangCapModel> getListBangCap() {
+		return listBangCap;
+	}
+
+	public void setListBangCap(ArrayList<BangCapModel> listBangCap) {
+		this.listBangCap = listBangCap;
+	}
+
+	public ArrayList<KeHoachGiangDayModel> getListLopHocGiangDay() {
+		return listLopHocGiangDay;
+	}
+
+	public void setListLopHocGiangDay(
+			ArrayList<KeHoachGiangDayModel> listLopHocGiangDay) {
+		this.listLopHocGiangDay = listLopHocGiangDay;
+	}
+
+	public ArrayList<String> getListChucVu() {
+		return listChucVu;
+	}
+
+	public void setListChucVu(ArrayList<String> listChucVu) {
+		this.listChucVu = listChucVu;
+	}
+
+	public String getNgayCap() {
+		return ngayCap;
+	}
+
+	public void setNgayCap(String ngayCap) {
+		this.ngayCap = ngayCap;
+	}
+
+	public String getNoiCap() {
+		return noiCap;
+	}
+
+	public void setNoiCap(String noiCap) {
+		this.noiCap = noiCap;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public String getKiHieuLop() {
 		return kiHieuLop;

@@ -31,10 +31,6 @@ public class KeHoachTuyenNhanSuController extends HttpServlet{
 			SaveKeHoachTNS(request, response);
 		} else if(action.equals("send")){
 			SendKeHoachTNS(request, response);
-		} else if(action.equals("approve")){
-			ApproveKeHoachTNS(request, response);
-		} else if(action.equals("reject")) {
-			RejectKeHoachTNS(request, response);
 		} else if(action.equals("refresh")) {
 			RefreshKeHoachTNS(request, response);
 		} else if(action.equals("search")) {
@@ -43,17 +39,10 @@ public class KeHoachTuyenNhanSuController extends HttpServlet{
 	}
 	
 	private void CreateKeHoachTNS(HttpServletRequest request,HttpServletResponse response){
-		int MaKeHoach = KeHoachTuyenNhanSuDAO.InsertKeHoachTNS(request.getParameter("txtNam"), request.getSession().getAttribute("maThanhVien").toString());
-		
+		int MaKeHoach = KeHoachTuyenNhanSuDAO.InsertKeHoachTNS(request.getParameter("txtNam"),request.getSession().getAttribute("maThanhVien").toString(),KeHoachTuyenNhanSuDAO.countKeHoachTNS(request.getParameter("txtNam")));
 		try {
-			if(MaKeHoach==0){
-				request.setAttribute("error", "Đã có kế hoạch tuyển nhân sự năm "+request.getParameter("txtNam")+" !!!");
-				RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/KeHoachTuyenNhanSu/KeHoachTuyenNhanSu.jsp?Them=yes");
-				rd.forward(request, response);
-			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/KeHoachTuyenNhanSu/KeHoachTuyenNhanSu.jsp?id="+MaKeHoach);
 				rd.forward(request, response);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,9 +57,13 @@ public class KeHoachTuyenNhanSuController extends HttpServlet{
 			ThoiGianTuyenDungDAO.DeleteThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i));
 			int soLuong = Integer.parseInt(request.getParameter("txtSoLuong"+i).toString());
 			for (int j = 1; j <= soLuong; j++) {
-				if(request.getParameter("txtThoiGian"+i+j)!=null){
-					ThoiGianTuyenDungDAO.InsertThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i), request.getParameter("txtThoiGian"+i+j));
+				String thoiGian = "";
+				for(int k =1; k <= 12;k++){
+					if(request.getParameter("txtThoiGian"+i+j+k)!=null){
+						thoiGian += request.getParameter("txtThoiGian"+i+j+k)+" ";
+					}
 				}
+				ThoiGianTuyenDungDAO.InsertThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i), thoiGian);
 			}
 		}
 		
@@ -101,14 +94,18 @@ public class KeHoachTuyenNhanSuController extends HttpServlet{
 			ThoiGianTuyenDungDAO.DeleteThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i));
 			int soLuong = Integer.parseInt(request.getParameter("txtSoLuong"+i).toString());
 			for (int j = 1; j <= soLuong; j++) {
-				if(request.getParameter("txtThoiGian"+i+j)!=null){
-					ThoiGianTuyenDungDAO.InsertThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i), request.getParameter("txtThoiGian"+i+j));
+				String thoiGian = "";
+				for(int k =1; k <= 12;k++){
+					if(request.getParameter("txtThoiGian"+i+j+k)!=null){
+						thoiGian += request.getParameter("txtThoiGian"+i+j+k)+" ";
+					}
 				}
+				ThoiGianTuyenDungDAO.InsertThoiGianTuyenDung(request.getParameter("txtMaDeNghi"+i), thoiGian);
 			}
 		}
-		String MaKeHoach = KeHoachTuyenNhanSuDAO.UpdateKeHoachTNS(request.getParameter("txtMaKeHoach"), Constant.TINHTRANG_HT_NEW);
+		String MaKeHoach = KeHoachTuyenNhanSuDAO.UpdateKeHoachTNS(request.getParameter("txtMaKeHoach"), "0");
 		int kq = Integer.parseInt(MaKeHoach);
-		if (kq != 0) {
+		if (kq != -1) {
 			mes = "Cập Nhật Thành Công !!!";
 		}else{
 			mes = "Cập Nhật Thất Bại !!!";
@@ -116,59 +113,6 @@ public class KeHoachTuyenNhanSuController extends HttpServlet{
 		try {
 			request.setAttribute("mes", mes);
 			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/KeHoachTuyenNhanSu/KeHoachTuyenNhanSu.jsp?id="+MaKeHoach);
-			rd.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void ApproveKeHoachTNS(HttpServletRequest request,HttpServletResponse response){
-		String MaKeHoach = KeHoachTuyenNhanSuDAO.ApproveKeHoachTNS(request.getParameter("txtMaKeHoach"), request.getSession().getAttribute("maThanhVien").toString());
-		if(MaKeHoach!="0"){
-			KeHoachTNSModel KHTNS = KeHoachTuyenNhanSuDAO.getKHByID(MaKeHoach);
-			ArrayList<String> mailto = new ArrayList<String>();
-			ArrayList<String> mail = MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH);
-			mailto.add(MailDAO.getMailByMaThanhVien(KHTNS.getNguoi_lap_ke_hoach()));
-			MailUtil.sendEmailToBoPhan(mailto,
-					mail,
-						MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_KEHOACHTNS),
-							MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_KEHOACHTNS,
-									"Kế Hoạch Tuyển Nhân Sự - "+KHTNS.getNam(),
-									KHTNS.getTen_nguoi_lap_ke_hoach(),
-									KHTNS.getNgay_lap_ke_hoach(),
-									KHTNS.getTen_nguoi_duyet(),
-									KHTNS.getNgay_duyet()));
-		}
-			try {
-				RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/KeHoachTuyenNhanSu/showKeHoachTuyenDungNhanSu.jsp");
-				rd.forward(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-	
-	private void RejectKeHoachTNS(HttpServletRequest request,HttpServletResponse response){
-		String MaKeHoach = KeHoachTuyenNhanSuDAO.RejectKeHoachTNS(request.getParameter("txtMaKeHoach"),StringUtil.toUTF8(request.getParameter("txtLyDoReject").toString().trim()));
-		if(MaKeHoach!="0"){
-			KeHoachTNSModel KHTNS = KeHoachTuyenNhanSuDAO.getKHByID(MaKeHoach);
-			ArrayList<String> mailto = new ArrayList<String>();
-			ArrayList<String> mail = MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH);
-			mailto.add(MailDAO.getMailByMaThanhVien(KHTNS.getNguoi_lap_ke_hoach()));
-			MailUtil.sendEmailToBoPhan(mailto,
-					mail,
-						MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_KEHOACHTNS),
-							MailDAO.getContentRejectByChucNangCoLyDoReject(Constant.CHUCNANG_KEHOACHTNS,
-									"Kế Hoạch Tuyển Nhân Sự - "+KHTNS.getNam(),
-									KHTNS.getTen_nguoi_lap_ke_hoach(),
-									KHTNS.getNgay_lap_ke_hoach(),
-									ThanhVienDAO.getTenThanhVien(request.getSession().getAttribute("maThanhVien").toString()),
-									KHTNS.getNgay_cap_nhat_cuoi(),
-									StringUtil.toUTF8(request.getParameter("txtLyDoReject"))));
-									
-									
-		}
-		try {
-			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/KeHoachTuyenNhanSu/showKeHoachTuyenDungNhanSu.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -396,12 +396,12 @@
     <!-- ****************************End Of NhanXetKetQuaThuViecController******************* -->
     <!-- ****************************HopDongLanDauController************************** -->
     	<servlet>
-	    	<servlet-name>HopDongLanDauController</servlet-name>
-	    	<servlet-class>vn.edu.hungvuongaptech.controller.HopDongLanDauController</servlet-class>
+	    	<servlet-name>HopDongLaoDongController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.HopDongLaoDongController</servlet-class>
 	    </servlet>        
 	    <servlet-mapping>
-	    	<servlet-name>HopDongLanDauController</servlet-name>
-	    	<url-pattern>/hopDongLanDauController</url-pattern>
+	    	<servlet-name>HopDongLaoDongController</servlet-name>
+	    	<url-pattern>/hopDongLaoDongController</url-pattern>
 	    </servlet-mapping>
     
     <!-- ****************************End Of HopDongLanDauController******************* -->
@@ -416,6 +416,28 @@
 	    </servlet-mapping>
     
     <!-- ****************************End Of DownloadController******************* -->
+ 	<!-- ****************************ChiTietCongViecThanhVienController************************** -->
+    	<servlet>
+	    	<servlet-name>ChiTietCongViecThanhVienController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.ChiTietCongViecThanhVienController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>ChiTietCongViecThanhVienController</servlet-name>
+	    	<url-pattern>/chiTietCongViecThanhVienController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of ChiTietCongViecThanhVienController******************* -->
+    <!-- ****************************DonXinThoiViecController************************** -->
+    	<servlet>
+	    	<servlet-name>DonXinThoiViecController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.DonXinThoiViecController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>DonXinThoiViecController</servlet-name>
+	    	<url-pattern>/donXinThoiViecController</url-pattern>
+	    </servlet-mapping>
+    
+    <!-- ****************************End Of DonXinThoiViecController******************* -->
     <!-- ****************************PhanCongController************** -->
 	   <servlet>    	    	
 	    	<servlet-name>PhanCongController</servlet-name>

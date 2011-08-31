@@ -91,7 +91,8 @@ public class DeNghiKhoanThuViecDAO {
 						+" (D.HO+' '+D.TEN_LOT+' '+D.TEN) AS TEN_TRUONG_KHOA, "
 						+" (F.HO+' '+F.TEN_LOT+' '+F.TEN) AS TEN_PHONG_HC, "
 						+" (K.HO+' '+K.TEN_LOT+' '+K.TEN) AS TEN_PHONG_DT, "
-						+" (M.HO+' '+M.TEN_LOT+' '+M.TEN) AS TEN_HIEU_TRUONG,N.TEN AS TEN_KHOA "
+						+" (M.HO+' '+M.TEN_LOT+' '+M.TEN) AS TEN_HIEU_TRUONG,N.TEN AS TEN_KHOA, "
+						+" B.Vi_tri_du_tuyen "
 						+" FROM DeNghiKTV A INNER JOIN HOSODUTUYEN B ON A.NGUOI_DU_TUYEN=B.ID "
 						+" LEFT JOIN THANHVIEN C ON A.TRUONG_KHOA=C.ID LEFT JOIN CHITIETTHANHVIEN D ON C.TEN_DN=D.TEN_DANG_NHAP "
 						+" LEFT JOIN THANHVIEN E ON A.PHONG_HC=E.ID LEFT JOIN CHITIETTHANHVIEN F ON E.TEN_DN=F.TEN_DANG_NHAP "
@@ -135,6 +136,7 @@ public class DeNghiKhoanThuViecDAO {
 				model.setNgay_DT_duyet_mdy(rs.getString("NGAY_DT_DUYET_MDY"));
 				model.setNgay_HT_duyet_mdy(rs.getString("NGAY_HT_DUYET_MDY"));
 				model.setTen_khoa(rs.getString("TEN_KHOA"));
+				model.setViTriDuTuyen(rs.getString("Vi_tri_du_tuyen"));
 			}
 		} catch (Exception e  ) {
 			e.printStackTrace();
@@ -240,4 +242,73 @@ public class DeNghiKhoanThuViecDAO {
 		}
 		return model;
 	}
+	
+	public static DeNghiKTVModel getDeNghiKTVByNguoiDuTuyen(String nguoiDuTuyen){
+		DeNghiKTVModel model = null;
+		try {
+			String sql = "SELECT A.*, "
+						+" CONVERT(VARCHAR(10),A.BAT_DAU,105) AS BAT_DAU_MDY, "
+						+" CONVERT(VARCHAR(10),A.KET_THUC,105) AS KET_THUC_MDY, "
+						+" CONVERT(VARCHAR(10),A.NGAY_LAP,105) AS NGAY_LAP_MDY, "
+						+" CONVERT(VARCHAR(10),A.NGAY_TK_DUYET,105) AS NGAY_TK_DUYET_MDY, "
+						+" CONVERT(VARCHAR(10),A.NGAY_HC_DUYET,105) AS NGAY_HC_DUYET_MDY, "
+						+" CONVERT(VARCHAR(10),A.NGAY_DT_DUYET,105) AS NGAY_DT_DUYET_MDY, "
+						+" CONVERT(VARCHAR(10),A.NGAY_HT_DUYET,105) AS NGAY_HT_DUYET_MDY, "
+						+" (B.HO+' '+B.TEN_LOT+' '+B.TEN) AS TEN_NGUOI_DU_TUYEN, "
+						+" (D.HO+' '+D.TEN_LOT+' '+D.TEN) AS TEN_TRUONG_KHOA, "
+						+" (F.HO+' '+F.TEN_LOT+' '+F.TEN) AS TEN_PHONG_HC, "
+						+" (K.HO+' '+K.TEN_LOT+' '+K.TEN) AS TEN_PHONG_DT, "
+						+" (M.HO+' '+M.TEN_LOT+' '+M.TEN) AS TEN_HIEU_TRUONG,N.TEN AS TEN_KHOA, "
+						+" B.Vi_tri_du_tuyen, CONVERT(VARCHAR(10),GETDATE(),105) AS NGAY_HE_THONG"
+						+" FROM DeNghiKTV A INNER JOIN HOSODUTUYEN B ON A.NGUOI_DU_TUYEN=B.ID "
+						+" LEFT JOIN THANHVIEN C ON A.TRUONG_KHOA=C.ID LEFT JOIN CHITIETTHANHVIEN D ON C.TEN_DN=D.TEN_DANG_NHAP "
+						+" LEFT JOIN THANHVIEN E ON A.PHONG_HC=E.ID LEFT JOIN CHITIETTHANHVIEN F ON E.TEN_DN=F.TEN_DANG_NHAP "
+						+" LEFT JOIN THANHVIEN J ON A.PHONG_DT=J.ID LEFT JOIN CHITIETTHANHVIEN K ON J.TEN_DN=K.TEN_DANG_NHAP "
+						+" LEFT JOIN THANHVIEN L ON A.HIEU_TRUONG=L.ID LEFT JOIN CHITIETTHANHVIEN M ON L.TEN_DN=M.TEN_DANG_NHAP "
+						+" LEFT JOIN KHOA_TRUNGTAM N ON A.TRUONG_KHOA=N.ID "
+						+" WHERE A.Nguoi_du_tuyen=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, nguoiDuTuyen);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new DeNghiKTVModel();
+				model.setId(rs.getString("ID"));
+				model.setNguoi_du_tuyen(rs.getString("NGUOI_DU_TUYEN"));
+				model.setThoi_gian(rs.getString("THOI_GIAN"));
+				model.setBat_dau(rs.getString("BAT_DAU"));
+				model.setKet_thuc(rs.getString("KET_THUC"));
+				model.setLuong_khoan(rs.getString("LUONG_KHOAN"));
+				model.setTinh_trang(rs.getString("TINH_TRANG"));
+				model.setNgay_lap(rs.getString("NGAY_LAP"));
+				model.setTruong_khoa(rs.getString("TRUONG_KHOA"));
+				model.setNgay_TK_duyet(rs.getString("NGAY_TK_DUYET"));
+				model.setPhong_HC(rs.getString("PHONG_HC"));
+				model.setNgay_HC_duyet(rs.getString("NGAY_HC_DUYET"));
+				model.setPhong_DT(rs.getString("PHONG_DT"));
+				model.setNgay_DT_duyet(rs.getString("NGAY_DT_DUYET"));
+				model.setHieu_truong(rs.getString("HIEU_TRUONG"));
+				model.setNgay_HT_duyet(rs.getString("NGAY_HT_DUYET"));
+				model.setLy_do_reject(rs.getString("LY_DO_REJECT"));
+				model.setNgay_cap_nhat_cuoi(rs.getString("NGAY_HE_THONG"));
+				model.setTen_nguoi_du_tuyen(rs.getString("TEN_NGUOI_DU_TUYEN"));
+				model.setTen_truong_khoa(rs.getString("TEN_TRUONG_KHOA"));
+				model.setTen_phong_HC(rs.getString("TEN_PHONG_HC"));
+				model.setTen_phong_DT(rs.getString("TEN_PHONG_DT"));
+				model.setTen_hieu_truong(rs.getString("TEN_HIEU_TRUONG"));
+				model.setBat_dau_mdy(rs.getString("BAT_DAU_MDY"));
+				model.setKet_thuc_mdy(rs.getString("KET_THUC_MDY"));
+				model.setNgay_lap_mdy(rs.getString("NGAY_LAP_MDY"));
+				model.setNgay_TK_duyet_mdy(rs.getString("NGAY_TK_DUYET_MDY"));
+				model.setNgay_HC_duyet_mdy(rs.getString("NGAY_HC_DUYET_MDY"));
+				model.setNgay_DT_duyet_mdy(rs.getString("NGAY_DT_DUYET_MDY"));
+				model.setNgay_HT_duyet_mdy(rs.getString("NGAY_HT_DUYET_MDY"));
+				model.setTen_khoa(rs.getString("TEN_KHOA"));
+				model.setViTriDuTuyen(rs.getString("Vi_tri_du_tuyen"));
+			}
+		} catch (Exception e  ) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
 }

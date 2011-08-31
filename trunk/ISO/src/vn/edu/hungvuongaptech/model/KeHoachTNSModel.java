@@ -7,9 +7,7 @@ public class KeHoachTNSModel {
 	private String tinh_trang;
 	private String nguoi_lap_ke_hoach;
 	private String ngay_lap_ke_hoach;
-	private String nguoi_duyet;
-	private String ngay_duyet;
-	private String ly_do_reject;
+	private String bo_sung;
 	private String ngay_cap_nhat_cuoi;
 	private String user1;
 	private String user2;
@@ -22,7 +20,12 @@ public class KeHoachTNSModel {
 	private String ngay_duyet_dmy;
 	
 	
-	
+	public String getBo_sung() {
+		return bo_sung;
+	}
+	public void setBo_sung(String boSung) {
+		bo_sung = boSung;
+	}
 	public String getTen_nguoi_lap_ke_hoach() {
 		return ten_nguoi_lap_ke_hoach;
 	}
@@ -46,24 +49,6 @@ public class KeHoachTNSModel {
 	}
 	public void setNgay_duyet_dmy(String ngayDuyetDmy) {
 		ngay_duyet_dmy = ngayDuyetDmy;
-	}
-	public String getNguoi_duyet() {
-		return nguoi_duyet;
-	}
-	public void setNguoi_duyet(String nguoiDuyet) {
-		nguoi_duyet = nguoiDuyet;
-	}
-	public String getNgay_duyet() {
-		return ngay_duyet;
-	}
-	public void setNgay_duyet(String ngayDuyet) {
-		ngay_duyet = ngayDuyet;
-	}
-	public String getLy_do_reject() {
-		return ly_do_reject;
-	}
-	public void setLy_do_reject(String lyDoReject) {
-		ly_do_reject = lyDoReject;
 	}
 	public String getNguoi_lap_ke_hoach() {
 		return nguoi_lap_ke_hoach;

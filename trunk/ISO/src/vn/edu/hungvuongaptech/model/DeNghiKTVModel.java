@@ -40,8 +40,15 @@ public class DeNghiKTVModel {
 	private String ngay_HT_duyet_mdy;
 	private String ten_khoa;
 	private String ngay_he_thong_mdy;
+	private String viTriDuTuyen;
 	
-	
+
+	public String getViTriDuTuyen() {
+		return viTriDuTuyen;
+	}
+	public void setViTriDuTuyen(String viTriDuTuyen) {
+		this.viTriDuTuyen = viTriDuTuyen;
+	}
 	public String getNgay_he_thong_mdy() {
 		return ngay_he_thong_mdy;
 	}

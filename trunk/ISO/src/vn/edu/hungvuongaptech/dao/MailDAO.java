@@ -213,6 +213,8 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Approve - KE HOACH TUYEN NHAN SU";
 		} else if (maChucNang.equals(Constant.CHUCNANG_BANGPHANCONG)) {
 			return "[ISO] - Thong Bao - Approve - PHAN CONG GIAO VIEN";
+		} else if(maChucNang.equals(Constant.CHUCNANG_DONXINTHOIVIEC)){
+			return "[ISO] - Thong Bao - Approve - DON XIN THOI VIEC";	
 		} else {
 			return null;
 		}
@@ -247,6 +249,8 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Reject - KE HOACH TUYEN NHAN SU";
 		} else if (maChucNang.equals(Constant.CHUCNANG_BANGPHANCONG)) {
 			return "[ISO] - Thong Bao - Reject - PHAN CONG GIAO VIEN";
+		} else if(maChucNang.equals(Constant.CHUCNANG_KEHOACHTNS)){
+			return "[ISO] - Thong Bao - Reject - DON XIN THOI VIEC";	
 		} else
 			return "";
 
@@ -569,9 +573,11 @@ public class MailDAO {
 	 */
 
 	public static String getContentApproveByChucNang_NhanSu(String maChucNang,
-			String ten, String tenNguoiLap, String ngayGui, String pdt,
-			String pdtDuyet, String phc, String phcDuyet, String ht,
-			String htDuyet) {
+			String ten, String tenNguoiLap, String ngayGui,
+			String tk,String tkDuyet,
+			String pdt, String pdtDuyet,
+			String phc, String phcDuyet,
+			String ht,String htDuyet) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
 
 		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
@@ -580,47 +586,52 @@ public class MailDAO {
 				+ "</b></td></tr>";
 		result += "<tr><td>Đã gửi ngày: </td><td><b>" + ngayGui
 				+ "</b></td></tr>";
-		if (pdt != null) {
+		if(tk!=null){
+			result += "<tr><td>Trưởng Khoa approved: </td><td><b>" + pdt
+					+ "</b></td></tr>";
+			result += "<tr><td>Ngày approved: </td><td><b>" + pdtDuyet
+					+ "</b></td></tr>";
+		}
+		
+		if(pdt!=null){
 			result += "<tr><td>Phòng Đào Tạo approved: </td><td><b>" + pdt
 					+ "</b></td></tr>";
 			result += "<tr><td>Ngày approved: </td><td><b>" + pdtDuyet
 					+ "</b></td></tr>";
 		}
-		if (phc != null) {
+		if(phc!=null){
 			result += "<tr><td>Phòng Hành Chánh approved: </td><td><b>" + phc
 					+ "</b></td></tr>";
 			result += "<tr><td>Ngày approved: </td><td><b>" + phcDuyet
 					+ "</b></td></tr>";
 		}
-		if (ht != null) {
+		if(ht!=null){
 			result += "<tr><td>Hiệu Trưởng approved: </td><td><b>" + ht
 					+ "</b></td></tr>";
 			result += "<tr><td>Ngày approved: </td><td><b>" + htDuyet
 					+ "</b></td></tr>";
 		}
 		result += "</table>";
-
+		
 		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
 		return result;
 	}
-
+	
 	public static String getContentApproveHoSoDuTuyen(String hoTen,
-			String tenDangNhap, String matKhau, String tenNguoiDuyet,
-			String ngayDuyet) {
+			String tenDangNhap, String matKhau,
+			String tenNguoiDuyet, String ngayDuyet) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
-		result += "Chào "
-				+ hoTen
-				+ ", Bạn đã được xét tuyển tại trường TCNKTCN Hùng Vương !!! <br/>";
+		result += "Chào "+hoTen+", Bạn đã được tuyển dụng tại trường TCNKTCN Hùng Vương !!! <br/>";
 		result += "<table border=1><tr><td> Họ tên : </td><td><b>" + hoTen
 				+ "</b></td></tr>";
 		result += "<tr><td>Tên đăng nhập của bạn : </td><td><b>" + tenDangNhap
 				+ "</b></td></tr>";
 		result += "<tr><td>Mật khẩu của bạn : </td><td><b>" + matKhau
 				+ "</b></td></tr>";
-		result += "<tr><td>Được xét tuyển bởi: </td><td><b>" + tenNguoiDuyet
+		result += "<tr><td>Được tuyển dụng bởi: </td><td><b>" + tenNguoiDuyet
 				+ "</b></td></tr>";
 		result += "<tr><td>Vào lúc : </td><td></b>" + ngayDuyet
 				+ "</b></td></tr></table>";
@@ -631,9 +642,9 @@ public class MailDAO {
 
 		return result;
 	}
-
-	public static String getContentApproveNhanXetKetQuaThuViec(
-			String maChucNang, String ten, String tenNguoiLap, String ngayGui,
+	
+	public static String getContentApproveNhanXetKetQuaThuViec(String maChucNang,
+			String ten, String tenNguoiLap, String ngayGui,
 			String tenNguoiDuyet, String ngayDuyet, String ghiChu) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
 
@@ -647,8 +658,8 @@ public class MailDAO {
 				+ "</b></td></tr>";
 		result += "<tr><td>Ngày approved: </td><td></b>" + ngayDuyet
 				+ "</b></td></tr>";
-		result += "<tr><td>Nhận Xét và yêu cầu <br/>Trưởng Bộ Phận </td><td><b>"
-				+ ghiChu + "</b></td></tr></table>";
+		result += "<tr><td>Nhận Xét và yêu cầu <br/>Trưởng Bộ Phận </td><td><b>" + ghiChu
+				+ "</b></td></tr></table>";
 
 		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
 
@@ -656,12 +667,10 @@ public class MailDAO {
 
 		return result;
 	}
-
-	public static String getContentApproveHopDongLaoDongLanDau(
-			String maChucNang, String ten, String tenNguoiLap, String ngayGui,
-			String tenNguoiDuyet, String ngayDuyet, String tenVaiTro,
-			String tenBoPhan, String ngayBatDau, String ngayKetThuc,
-			String Luong) {
+	
+	public static String getContentApproveHopDongLaoDong(String maChucNang,
+			String ten, String tenNguoiLap, String ngayGui,
+			String tenNguoiDuyet, String ngayDuyet, String tenVaiTro, String tenBoPhan, String ngayBatDau, String ngayKetThuc) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
 
 		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
@@ -670,30 +679,27 @@ public class MailDAO {
 				+ "</b></td></tr>";
 		result += "<tr><td>Đã gửi ngày: </td><td></b>" + ngayGui
 				+ "</b></td></tr>";
+		
+		
 		result += "<tr><td>Được approved bởi: </td><td><b>" + tenNguoiDuyet
 				+ "</b></td></tr>";
 		result += "<tr><td>Ngày approved: </td><td></b>" + ngayDuyet
 				+ "</b></td></tr></table>";
-
+		
 		result += "<br/> Chúc mừng, từ nay bạn đã là Nhân Viên Chính Thức <br/>";
-		result += "<br/> Vai trò " + tenVaiTro + " thuộc Khoa " + tenBoPhan
-				+ "<br/>";
-		result += "<br/> Bạn sẽ bắt đầu công việc vào ngày " + ngayBatDau
-				+ " đến hết ngày " + ngayKetThuc + "<br/>";
-		result += "<br/> Tiền Lương : " + Luong + "/ tháng <br/>";
-
+		result += "<br/> Vai trò "+tenVaiTro+" thuộc Khoa "+tenBoPhan+"<br/>";
+		result += "<br/> Bạn sẽ bắt đầu công việc vào ngày "+ngayBatDau+" đến hết ngày "+ngayKetThuc+"<br/>";
+		
 		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
 		return result;
 	}
-
+	
 	public static String getContentApproveDeNghiKhoanThuViec(String maChucNang,
 			String ten, String tenNguoiLap, String ngayGui,
-			String tenNguoiDuyet, String ngayDuyet, String tenVaiTro,
-			String tenBoPhan, String ngayBatDau, String ngayKetThuc,
-			String Luong) {
+			String tenNguoiDuyet, String ngayDuyet, String tenVaiTro, String tenBoPhan, String ngayBatDau, String ngayKetThuc, String Luong) {
 		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
 
 		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
@@ -706,60 +712,13 @@ public class MailDAO {
 				+ "</b></td></tr>";
 		result += "<tr><td>Ngày approved: </td><td></b>" + ngayDuyet
 				+ "</b></td></tr></table>";
-
+		
 		result += "<br/> Chúc mừng, từ nay bạn đã là Nhân Viên Thử Việc <br/>";
-		result += "<br/> Vai trò " + tenVaiTro + " thuộc Khoa " + tenBoPhan
-				+ "<br/>";
-		result += "<br/> Bạn sẽ bắt đầu công việc vào ngày " + ngayBatDau
-				+ " đến hết ngày " + ngayKetThuc + "<br/>";
-		result += "<br/> Tiền Lương : " + Luong + "/ tháng <br/>";
-
+		result += "<br/> Vai trò "+tenVaiTro+" thuộc Khoa "+tenBoPhan+"<br/>";
+		result += "<br/> Bạn sẽ bắt đầu công việc vào ngày "+ngayBatDau+" đến hết ngày "+ngayKetThuc+"<br/>";
+		result += "<br/> Tiền Lương : "+Luong+"/ tháng <br/>";
+		
 		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
-
-		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
-
-		return result;
-	}
-
-	public static String getContentRejectByChucNangCoLyDoReject(
-			String maChucNang, String ten, String tenNguoiLap, String ngayGui,
-			String tenNguoiDuyet, String ngayDuyet, String lyDoReject) {
-		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
-
-		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
-				+ "</b></td></tr>";
-		result += "<tr><td>Được tạo bởi: </td><td><b>" + tenNguoiLap
-				+ "</b></td></tr>";
-		result += "<tr><td>Đã gửi ngày: </td><td></b>" + ngayGui
-				+ "</b></td></tr>";
-		result += "<tr><td>Được rejected bởi: </td><td><b>" + tenNguoiDuyet
-				+ "</b></td></tr>";
-		result += "<tr><td>Ngày rejected: </td><td></b>" + ngayDuyet
-				+ "</b></td></tr>";
-		result += "<tr><td>Lý do rejected: </td><td></b>" + lyDoReject
-				+ "</b></td></tr></table>";
-
-		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
-
-		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
-
-		return result;
-	}
-
-	public static String getContentDeNghiKhoanThuViec(String hoTenNDT,
-			String tenNguoiDuyet, String ngayDuyet, String tenBoPhan) {
-		String result = " <p> Hệ thống ISO xin thông báo Trưởng Khoa "
-				+ tenBoPhan + ". </p><br/>";
-
-		result += "<table border=1><tr><td> Người Dự Tuyển: </td><td><b>"
-				+ hoTenNDT + "</b></td></tr>";
-		result += "<tr><td>Được xét tuyển bởi: </td><td><b>" + tenNguoiDuyet
-				+ "</b></td></tr>";
-		result += "<tr><td>Đã xét tuyển ngày: </td><td></b>" + ngayDuyet
-				+ "</b></td></tr></table>";
-
-		result += "<br/> Hãy vào hệ thống ISO để kiểm tra và Lập Đề Nghị Khoán Thử Việc cho "
-				+ hoTenNDT + ".<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 
@@ -786,5 +745,50 @@ public class MailDAO {
 
 		return result;
 	}
+	
+	public static String getContentRejectByChucNangCoLyDoReject(String maChucNang,
+		String ten, String tenNguoiLap, String ngayGui,
+		String tenNguoiDuyet, String ngayDuyet, String lyDoReject) {
+		String result = " <p> Hệ thống ISO xin thông báo. </p><br/>";
+			
+		result += "<table border=1><tr><td> Chương trình: </td><td><b>" + ten
+					+ "</b></td></tr>";
+		result += "<tr><td>Được tạo bởi: </td><td><b>" + tenNguoiLap
+					+ "</b></td></tr>";
+		result += "<tr><td>Đã gửi ngày: </td><td></b>" + ngayGui
+					+ "</b></td></tr>";
+		result += "<tr><td>Được rejected bởi: </td><td><b>" + tenNguoiDuyet
+					+ "</b></td></tr>";
+		result += "<tr><td>Ngày rejected: </td><td></b>" + ngayDuyet
+					+ "</b></td></tr>";
+		result += "<tr><td>Lý do rejected: </td><td></b>" + lyDoReject
+					+ "</b></td></tr></table>";
+			
+		result += "<br/> Hãy vào hệ thống ISO để kiểm tra lại chương trình này.<br/>";
+			
+		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
+			
+		return result;
+	}
+
+	public static String getContentDeNghiKhoanThuViec(String hoTenNDT,
+		String tenNguoiDuyet, String ngayDuyet, String tenBoPhan) {
+		String result = " <p> Hệ thống ISO xin thông báo Trưởng Khoa "+tenBoPhan+". </p><br/>";
+			
+		result += "<table border=1><tr><td> Người Dự Tuyển: </td><td><b>" + hoTenNDT
+					+ "</b></td></tr>";
+		result += "<tr><td>Được tuyển dụng bởi: </td><td><b>" + tenNguoiDuyet
+					+ "</b></td></tr>";
+		result += "<tr><td>Đã tuyển ngày: </td><td></b>" + ngayDuyet
+					+ "</b></td></tr></table>";
+			
+		result += "<br/> Hãy vào hệ thống ISO để kiểm tra và Lập Đề Nghị Khoán Thử Việc cho "+hoTenNDT+".<br/>";
+			
+		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
+			
+		return result;
+	}
+
+
 	/******************** -- HỆ THỐNG QUẢN LÝ NHÂN SỰ **************************/
 }
