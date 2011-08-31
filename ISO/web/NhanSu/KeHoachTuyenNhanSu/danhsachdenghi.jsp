@@ -50,13 +50,17 @@
 				<th style="width: 150px;">Chức Danh</th>
 				<th style="width: 100px;">Số Lượng</th>
 				<th style="width: 200px;">Bộ Phận</th>
-				<th style="width: 200px;">Người Lập Đề Nghị</th>
+				<th style="width: 200px;">Người Lập</th>
 				<th style="width: 120px;">Ngày Lập</th>
 			</tr>
 			<c:forEach var="model" items="${listDeNghi}"> 
 				<tr>
 					<td><input type="checkbox" id="txtMaDeNghi${n }" name="txtMaDeNghi${n }" value="${model.id }" /></td>
-					<td style="text-align: left;padding-left: 5px;">${model.chuc_danh }</td>
+					<td style="text-align: left;padding-left: 5px;">${model.chuc_danh }
+						<c:if test="${model.bo_sung ne '0'}">
+							( ${model.bo_sung } )
+						</c:if>
+					</td>
 					<td style="text-align: center;">${model.so_luong }</td>
 					<td style="text-align: left;padding-left: 5px;">${model.ma_bo_phan }</td>
 					<td style="text-align: left;padding-left: 5px;">${model.nguoi_de_nghi }</td>

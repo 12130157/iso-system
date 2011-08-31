@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
@@ -52,6 +54,8 @@
 		}
 	}
 	
+
+	
 	function submitFormSearch(){
 		document.getElementById("action").value = 'search';
 		submit();
@@ -101,11 +105,15 @@
 								</c:if>	
 								<option value = "1" <c:if test = "${param.msg eq '1'}">selected</c:if>>Đạt</option>
 								<option value = "2" <c:if test = "${param.msg eq '2'}">selected</c:if>>Loại</option>
-								<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Đề Nghị Khoán Thử Việc</option>
+								<option value = "3" <c:if test = "${param.msg eq '3'}">selected</c:if>>Đang Đề Nghị Khoán Thử Việc</option>
 								<option value = "4" <c:if test = "${param.msg eq '4'}">selected</c:if>>Đang Thử Việc</option>
-								<option value = "5" <c:if test = "${param.msg eq '5'}">selected</c:if>>Đề Nghị Ký Hợp Đồng</option>
-								<option value = "6" <c:if test = "${param.msg eq '6'}">selected</c:if>>Đang Ký Hợp Đồng Lần Đầu</option>
-								<option value = "7" <c:if test = "${param.msg eq '7'}">selected</c:if>>Nhân Viên Chính Thức</option>
+								<option value = "5" <c:if test = "${param.msg eq '5'}">selected</c:if>>Đang Ký Hợp Đồng Lần Đầu</option>
+								<option value = "6" <c:if test = "${param.msg eq '6'}">selected</c:if>>Nhân Viên Dự Bị</option>
+								<option value = "7" <c:if test = "${param.msg eq '7'}">selected</c:if>>Đang Đề Nghị Ký Hợp Đồng</option>
+								<option value = "8" <c:if test = "${param.msg eq '8'}">selected</c:if>>Đang Ký Hợp Đồng</option>
+								<option value = "9" <c:if test = "${param.msg eq '9'}">selected</c:if>>Nhân Viên Chính Thức</option>
+								<option value = "10" <c:if test = "${param.msg eq '10'}">selected</c:if>>Từ Chối Công Việc</option>
+								<option value = "11" <c:if test = "${param.msg eq '11'}">selected</c:if>>Đã Thôi Việc</option>
 							</select>
 							<a href = "javascript: submitFormSearch()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
 						</div>
@@ -122,9 +130,11 @@
 					<th bgcolor = '#186fb2' style="width:100px;"><div class = "div_txtintable1">Vị Trí Dự Tuyển</div></th>
 					<th bgcolor = '#186fb2' style="width:100px;"><div class = "div_txtintable1">Bộ Phận</div></th>
 					<th bgcolor = '#186fb2' style="width:100px;"><div class = "div_txtintable1">Tình Trạng</div></th>
+					
 				</tr>
 				<c:set var="n" value="1"></c:set>
 				<c:forEach var="model" items="${listHSDT}">
+					<c:set var="DNKTV" value="${model.deNghiKTV}"></c:set>
 					<tr>
 						<td rowspan="2">
 							${n }
@@ -154,10 +164,10 @@
 									<font color="red" style="font-style: italic;font-weight: bold;">***New***</font>
 								</c:when>
 								<c:when test="${model.tinh_trang eq '1'}">
-									Pass
+									Đạt
 								</c:when>
 								<c:when test="${model.tinh_trang eq '2'}">
-									Fail
+									Loại
 								</c:when>
 								<c:when test="${model.tinh_trang eq '3'}">
 									Đang Đề Nghị Khoán Thử Việc
@@ -166,13 +176,25 @@
 									Đang Thử Việc
 								</c:when>
 								<c:when test="${model.tinh_trang eq '5'}">
-									Đề Nghị Ký Hợp Đồng
-								</c:when>
-								<c:when test="${model.tinh_trang eq '6'}">
 									Đang Ký Hợp Đồng Lần Đầu
 								</c:when>
+								<c:when test="${model.tinh_trang eq '6'}">
+									Nhân Viên Dự Bị
+								</c:when>
 								<c:when test="${model.tinh_trang eq '7'}">
+									Đang Đề Nghị Ký Hợp Đồng
+								</c:when>
+								<c:when test="${model.tinh_trang eq '8'}">
+									Đang Ký Hợp Đồng
+								</c:when>
+								<c:when test="${model.tinh_trang eq '9'}">
 									Nhân Viên Chính Thức
+								</c:when>
+								<c:when test="${model.tinh_trang eq '10'}">
+									Từ Chối Công Việc
+								</c:when>
+								<c:when test="${model.tinh_trang eq '11'}">
+									Đã Thôi Việc
 								</c:when>
 							</c:choose>
 						</td>
@@ -185,7 +207,14 @@
 					
 					<c:set var="n" value="${n+1}"></c:set>
 				</c:forEach>
+				
+				
 		</table>
+		<c:if test="${MaBoPhan eq BO_PHAN_PHC}">
+			<a style="text-decoration: none;" href="<%=request.getContextPath() %>/NhanSu/HoSoDuTuyen/NhapThongTin.jsp?Them=yes">
+				<img src="<%=request.getContextPath()%>/images/buttom/nhapthongtin.png" alt="Thêm" border = "0" style="margin: 20px 0;"/>
+			</a>
+		</c:if>
 		<input type="hidden" id="id" name="id" />
 		<input type="hidden" id="action" name="action"/>
 	</form>		

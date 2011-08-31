@@ -229,9 +229,18 @@
 			}
 			document.getElementById("txtLuong").value = text;
 		}
+			
+		function checkChucDanh(){
+			<%
+				String chucDanh = ChiTietKHTNSDAO.getMaChucDanhByMaCTKHTNS(request.getParameter("vitridutuyen").toString().trim());
+				if(!chucDanh.equals("8")){
+					out.print("document.getElementById('pdt').style.display = 'none';");
+				}
+			%>
+		}
 	</script>
 </head>
-<body onload="formatLuong()">
+<body onload="formatLuong(),checkChucDanh()">
 <div align="center">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_NhanSu.jsp" />
@@ -265,7 +274,7 @@
 			<td style="text-align: left">
 				- Hiệu Trưởng Trường Trung Cấp Nghề KTCN Hùng Vương<br/>
 				- Trưởng Phòng Tổ Chức Hành Chánh Quản Trị<br/>
-				- Trưởng Phòng Đào Tạo (nếu là giáo viên)
+				- Trưởng Phòng Đào Tạo
 			</td>
 		</tr>
 	</table>	
@@ -365,7 +374,7 @@
 				<br /><strong>TRƯỞNG PHÒNG TCHCQT</strong><br />
 				<br />${DeNghiKTV.ten_phong_HC }
 			</td>
-			<td style="padding-bottom: 50px;">
+			<td style="padding-bottom: 50px;" id="pdt">
 				ngày <input type="text" size = 10 readonly="readonly" value="${DeNghiKTV.ngay_DT_duyet_mdy }" style="background-color: transparent;"/> 
 				<br /><strong>TRƯỞNG PHÒNG ĐÀO TẠO</strong><br />
 				<br />${DeNghiKTV.ten_phong_DT }
@@ -392,7 +401,12 @@
 						<a href = "javascript: submitForm('L')"><img src="<%=request.getContextPath()%>/images/buttom/luu.png" alt="Lưu" /> </a>
 						<a href = "javascript: submitForm('G')"><img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi HT" /> </a>
 					</c:when>
-					<c:when test="${MaBoPhan eq BO_PHAN_PDT and DeNghiKTV.tinh_trang eq '2' or MaBoPhan eq BO_PHAN_PHC and DeNghiKTV.tinh_trang eq '3' or MaBoPhan eq BO_PHAN_BGH and DeNghiKTV.tinh_trang eq '4'}">
+					<c:when test="${ViTriDuTuyen.maVaiTro ne '8' and MaBoPhan eq BO_PHAN_PDT}">
+						<a href = "<%=request.getContextPath() %>/NhanSu/HopDongLaoDongLanDau/PrintHopDongLaoDongLanDau.jsp">								 
+							<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+						</a>
+					</c:when>
+					<c:when test="${(DeNghiKTV.tinh_trang eq '2' or DeNghiKTV.tinh_trang eq '3') and (MaBoPhan eq BO_PHAN_PDT and empty DeNghiKTV.phong_DT or MaBoPhan eq BO_PHAN_PHC and empty DeNghiKTV.phong_HC) or DeNghiKTV.tinh_trang eq '4' and MaBoPhan eq BO_PHAN_BGH}">
 						<a href = "javascript: submitForm('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Lưu" /> </a>
 						<a href = "javascript: submitForm('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Lưu" /> </a>
 					</c:when>

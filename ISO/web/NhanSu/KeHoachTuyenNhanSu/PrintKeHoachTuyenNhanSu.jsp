@@ -1,5 +1,7 @@
 <%@ taglib uri="http://pd4ml.com/tlds/pd4ml/2.6" prefix="pd4ml" %>
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -16,7 +18,7 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     BM05-QT7.3/1               Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     KH01-QT6.2/1               Ngày hiệu lực: 15/9/2009"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -84,6 +86,15 @@
 			<c:set var = "stt" value="1"></c:set>
 
 			<c:forEach var="model" items="${listDeNghi}">
+				<c:set var="listThoiGian" value=""></c:set>
+				<c:set var="rong" value=" "></c:set>
+				<c:forEach var="tg" items="${model.list_thoi_gian}">
+					<c:set var="listTG" value='${fn:split(tg.thoi_gian," ")}'></c:set>
+					<c:forEach var="tg2" items="${listTG}">
+						<c:set var="listThoiGian" value="${listThoiGian}${tg2}${rong}"></c:set>
+					</c:forEach>
+				</c:forEach>
+				<c:set var="list" value='${fn:split(listThoiGian," ")}'></c:set>
 				<tr style="background-color: transparent;">
 					<td style="text-align: center;">${stt}</td>
 					<td style="text-align: left;padding-left: 5px;">${model.user2 }</td>
@@ -91,12 +102,12 @@
 					<c:forEach begin="1" end="12" var="i">
 						<c:set var="n" value="1"></c:set>
 						<td style="text-align: center;">
-							<c:forEach var="tg" items="${model.list_thoi_gian}">
-								<c:if test="${i eq tg.thoi_gian}">
-									<c:if test="${n==1}">
+							<c:forEach var="thoiGian" items="${list}" >
+								<c:if test="${i eq thoiGian}">
+									<c:if test="${n eq 1}">
 									x
 									</c:if>
-									<c:set var="n" value="n+1"></c:set>
+									<c:set var="n" value="${n+1}"></c:set>
 								</c:if>
 							</c:forEach>
 							<br/>&nbsp;
@@ -111,27 +122,15 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td>
-				<c:if test="${not empty KeHoachTNS.ngay_duyet_dmy}">
-					ngày ${sf:getElement(KeHoachTNS.ngay_duyet_dmy,0,sig)} tháng ${sf:getElement(KeHoachTNS.ngay_duyet_dmy,1,sig)} năm ${sf:getElement(KeHoachTNS.ngay_duyet_dmy,2,sig)}
-				</c:if>
+				<br/>
+				<p style="font-weight: bold; font-size: 14px">HIỆU TRƯỞNG</p><br/><br/><br/>
+				<p style="font-weight: bold; font-size: 14px">Trần Văn Hải</p>
 			</td>
-			<td>Quận 5, ngày ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,0,sig)} tháng ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,1,sig)} năm ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,2,sig)}</td>
-		</tr>
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
-			<td><p style="font-weight: bold; font-size: 14px">HIỆU TRƯỞNG </p></td>
-			<td><p style="font-weight: bold; font-size: 14px">NGƯỜI LẬP PHIẾU </p></td>
-		</tr>
-		<tr>
-			<td><p></p></td>
-			<td><p></p></td>
-		</tr>
-		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
-			<td><p style="font-weight: bold; font-size: 14px">${KeHoachTNS.ten_nguoi_duyet } </p></td>
-			<td><p style="font-weight: bold; font-size: 14px">${KeHoachTNS.ten_nguoi_lap_ke_hoach }</p></td>
-		</tr>
-		<tr>
-			<td><p></p></td>
-			<td><p></p></td>
+			<td>
+				Quận 5, ngày ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,0,sig)} tháng ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,1,sig)} năm ${sf:getElement(KeHoachTNS.ngay_lap_ke_hoach_dmy,2,sig)}<br/>
+				<p style="font-weight: bold; font-size: 14px">NGƯỜI LẬP PHIẾU </p><br/><br/><br/>
+				<p style="font-weight: bold; font-size: 14px">${KeHoachTNS.ten_nguoi_lap_ke_hoach }</p>
+			</td>
 		</tr>
 	</table>
 </td>
