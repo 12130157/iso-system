@@ -113,4 +113,24 @@ public class NamHocDAO {
 		}
 		return listNamHoc;
 	}
+	public static NamHocModel getNamHocByMaNamHoc(String maNamHoc) {
+		// TODO Auto-generated method stub
+		NamHocModel namHocModel = new NamHocModel();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.getNamHocByMaNamHoc"));
+			preparedStatement.setString(1, maNamHoc);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				namHocModel.setNamBatDau(rs.getString("NamBatDau"));
+				namHocModel.setNamKetThuc(rs.getString("namKetThuc"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return namHocModel;
+	}
 }

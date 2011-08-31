@@ -266,7 +266,7 @@
 		<table>	
 			<tr>
 				<td colspan="7">	
-					<a href = "<%=Constant.PATH_RES.getString("iso.InLichSuDungPhongPath") %>?tuan=<%=tuan %>&khoa=<%=maKhoa %>">								 
+					<a href = "<%=Constant.PATH_RES.getString("iso.InLichSuDungPhongPath") %>?tuan=<%=tuan %>&khoa=<%=maKhoa %>&maNamHoc=<%=maNam %>">								 
 						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 					</a>
 				</td>
