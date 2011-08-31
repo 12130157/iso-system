@@ -31,7 +31,7 @@ CREATE PROC sp_NhanSu_UpdateChiTietHoSoDuTuyen
 	@Chuyen_mon			NVARCHAR(1000),
 	@Tin_hoc			NVARCHAR(1000),
 	@Ngoai_ngu			NVARCHAR(1000),
-	@Tom_tat_ban_than	NVARCHAR(MAX),				
+	@Tom_tat_ban_than	NTEXT,				
 	@KQ					INT OUTPUT    
 AS  
 BEGIN  

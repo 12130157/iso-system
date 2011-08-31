@@ -13,7 +13,7 @@ CREATE PROC sp_NhanSu_UpdateDeNghiNhanSu
 	@ID					INT,
 	@Chuc_danh			INT,
 	@So_luong			INT,
-	@Cong_viec			NVARCHAR(2000),
+	@Cong_viec			NTEXT,
 	@Thoi_gian_bat_dau_lam DATETIME,
 	@Tinh_trang			INT,
 	@KQ					INT OUTPUT

@@ -31,7 +31,7 @@ CREATE PROC sp_NhanSu_InsertHoSoDuTuyen
 	@Chuyen_mon			NVARCHAR(1000),
 	@Tin_hoc			NVARCHAR(1000),
 	@Ngoai_ngu			NVARCHAR(1000),
-	@Tom_tat_ban_than	NVARCHAR(MAX),
+	@Tom_tat_ban_than	NTEXT,
 	@Vi_tri_du_tuyen	INT,					
 	@KQ					INT OUTPUT  
 AS  
