@@ -41,7 +41,7 @@ BEGIN
 
 	IF(@Ma_nguoi_tao <> '')
 	BEGIN
-		SET	@Dieu_kien_ma_bo_phan = ' And B.Ma_bo_phan='+@Ma_Bo_Phan
+		SET	@Dieu_kien_ma_bo_phan = ' And G.ID='+@Ma_Bo_Phan
 	END
 
 	IF(@Tinh_trang<>'')
@@ -69,7 +69,7 @@ BEGIN
 
 	IF(@MaKhoa <> '')	
 	BEGIN 					
-		SET @Dieu_kien_ma_khoa = ' AND B.Ma_bo_phan like ''%' + @MaKhoa +'%'''
+		SET @Dieu_kien_ma_khoa = ' AND G.ID like ''%' + @MaKhoa +'%'''
 	END
 
 
@@ -81,9 +81,10 @@ BEGIN
 		FROM KeHoachGiangDay AS TB2 		
 			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
 			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
-			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
+			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
-
+			INNER JOIN ChuyenNganh As F On F.ID = E.Ma_chuyen_nganh 
+			INNER JOIN Khoa_TrungTam As G On G.Id = F.Ma_khoaTT '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
 		WHERE 1=1 ' +
 		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
