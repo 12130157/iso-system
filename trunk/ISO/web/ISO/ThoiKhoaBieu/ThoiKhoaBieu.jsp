@@ -905,7 +905,7 @@ function confirmDuyet(x)
 			<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
 		</c:if>	
 		<c:if test="${ThoiKhoaBieu.tinhTrang ne null and (ThoiKhoaBieu.maNguoiTao eq maThanhVien or MaBoPhan eq BO_PHAN_ADMIN or ThoiKhoaBieu.maNguoiDuyet eq maThanhVien)}">	
-			<a href = "<%=Constant.PATH_RES.getString("iso.InThoiKhoaBieuPath") %>">								 
+			<a href = "<%=Constant.PATH_RES.getString("iso.InThoiKhoaBieuPath") %>?maLop=${ThoiKhoaBieu.maLop}">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
 		</c:if>	
