@@ -269,9 +269,9 @@ public class ThoiKhoaBieuModel implements Serializable {
 			result = false;			
 		} else if (hocKi == null || hocKi.equals("")) {
 			result = false;			
-		} else if (user2 == null || user2.equals("")) {
+		} /*else if (user2 == null || user2.equals("")) {
 			result = false;
-		}
+		}*/
 		return result;
 	}
 	public String getNgayGui() {

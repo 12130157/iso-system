@@ -2,16 +2,16 @@
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<pd4ml:transform
+
+<%@page import="vn.edu.hungvuongaptech.dao.LopHocDAO"%><pd4ml:transform
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
-	pageInsets="0,0,0,0,points"
+	pageInsets="0,0,20,0,points"
 	enableImageSplit="false"
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
 <pd4ml:header
-		  
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
@@ -45,6 +45,7 @@
 <div align="center">
 <div class = "div_body">
 <c:set var="TKB" value="${sessionScope.ThoiKhoaBieu}"></c:set>
+<c:set var = "NamBatDau" value = '<%=LopHocDAO.getNamBatDauByMaLop(request.getParameter("maLop")) %>'/>
 <table width="1000" height="691" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');">	
 	<tr>
 		<td>
@@ -55,7 +56,7 @@
 													 Độc lập - Tự do - Hạnh phúc</p></td>
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
-					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 18px">THỜI KHÓA BIỂU HỌC KỲ ${TKB.hocKi }  - NĂM HỌC ${TKB.nam1}-${TKB.nam2}</p><br /></th>
+					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 18px">THỜI KHÓA BIỂU HỌC KỲ ${TKB.hocKi + (TKB.nam1 - NamBatDau) * 2}  - NĂM HỌC ${TKB.nam1}-${TKB.nam2}</p><br /></th>
 				</tr>
 				<tr align="right" style="background-color: transparent; background-position: center; font-size: 16px;">
 					<td colspan="2">

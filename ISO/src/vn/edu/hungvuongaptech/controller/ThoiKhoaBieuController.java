@@ -470,7 +470,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 			MonHocTKBModel monHocTKBModel = new MonHocTKBModel();
 			
 			value1 = req.getParameter("MonHoc" + i.toString()).split("<->");
-			monHocTKBModel.setGhiChu(value1[0]);
+			monHocTKBModel.setGhiChu(StringUtil.toUTF8(value1[0]));
 			monHocTKBModel.setSoNoiDung(value1[1]);
 			monHocTKBModel.setSoCaThucHanh(value1[2]);
 			monHocTKBModel.setMaMonHoc(value1[3]);

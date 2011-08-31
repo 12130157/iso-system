@@ -237,5 +237,23 @@ public class LopHocDAO {
 		return lopHocModel;
 	}
 	
-	
+	public static String getNamBatDauByMaLop(String maLop) {
+		String namBatDau = "";
+		try {
+			PreparedStatement preparedStatement = DataUtil
+			.getConnection()
+			.prepareStatement(
+					Constant.SQL_RES
+							.getString("iso.sql.getNamBatDauByMaLop"));
+			preparedStatement.setString(1, maLop);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				namBatDau = rs.getString("NamBatDau");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return namBatDau;
+	}
 }
