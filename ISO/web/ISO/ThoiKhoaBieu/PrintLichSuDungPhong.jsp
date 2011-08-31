@@ -4,7 +4,8 @@
 
 
 <%@page import="vn.edu.hungvuongaptech.dao.SuDungDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.PhongBanDAO"%><pd4ml:transform
+<%@page import="vn.edu.hungvuongaptech.dao.PhongBanDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.NamHocDAO"%><pd4ml:transform
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
@@ -13,7 +14,6 @@
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
 <pd4ml:header
-		watermarkUrl="http://localhost:8080/HungVuongISO/images/footer.gif"   
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
@@ -29,7 +29,7 @@
        watermarkUrl="http://localhost:8080/HungVuongISO/images/mask.gif"   
        watermarkOpacity="50"
 	   watermarkBounds="0,580,500,20"	      
-       fontSize="14">       
+       fontSize="12">       
  </pd4ml:footer>
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -47,6 +47,7 @@
 <div align="center">
 <div class = "div_body">
 <c:set var="List" value="${sessionScope.ListSuDung}"></c:set>
+<c:set var = "NamHoc" value='<%=NamHocDAO.getNamHocByMaNamHoc(request.getParameter("maNamHoc")) %>'/>
 <table width="1000" height="691" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');">	
 	<tr>
 		<td>
@@ -68,10 +69,10 @@
 								Tuần ${List[0].soThuTuTuan} - Từ ngày : ${List[0].ngayBatDauTuan } Đến ngày : ${List[0].ngayKetThucTuan }
 							</c:when>
 							<c:when test = "${param.tuan le 72}">
-								Tháng ${param.tuan - 60}
+								Tháng ${param.tuan - 60} Năm học ${NamHoc.namBatDau } - ${NamHoc.namKetThuc}
 							</c:when>
 							<c:otherwise>
-								Học kì ${param.tuan - 80}
+								Học kì ${param.tuan - 80} Năm học ${NamHoc.namBatDau } - ${NamHoc.namKetThuc}
 							</c:otherwise>
 						</c:choose>		
 						<c:if test = "${param.khoa ne ''}">
@@ -196,6 +197,7 @@
 				</c:choose>
 			</c:forEach>
 			</table>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		</td>
 	</tr>	
 </table>
