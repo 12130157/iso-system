@@ -12,7 +12,7 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@Tinh_trang		varchar(5),
 	@Ma_nguoi_tao   varchar(5),		
 	@Ma_Bo_Phan varchar(5),
-	@TenMonHoc nvarchar(500),
+	@TenMonHoc nvarchar(500), 
 	@MaKhoa varchar(5),
 	@MaHocKi varchar(5),
 	@MaNamHoc varchar(5)
@@ -39,11 +39,6 @@ BEGIN
 
 	PRINT @Ma_nguoi_tao
 
-	IF(@Ma_nguoi_tao <> '')
-	BEGIN
-		SET	@Dieu_kien_ma_bo_phan = ' And G.ID='+@Ma_Bo_Phan
-	END
-
 	IF(@Tinh_trang<>'')
 		BEGIN
 			SET	@Dieu_kien_tinh_trang = ' AND TB2.Tinh_trang ='+@Tinh_trang 
@@ -67,6 +62,12 @@ BEGIN
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
 
+	IF(@VAITRO = 5 AND @Ma_Nguoi_Tao <> '')
+	BEGIN
+		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
+		SET	@Dieu_kien_ma_bo_phan = ' OR G.ID='+@Ma_Bo_Phan
+	END
+
 	IF(@MaKhoa <> '')	
 	BEGIN 					
 		SET @Dieu_kien_ma_khoa = ' AND G.ID like ''%' + @MaKhoa +'%'''
@@ -84,12 +85,12 @@ BEGIN
 			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
 			INNER JOIN ChuyenNganh As F On F.ID = E.Ma_chuyen_nganh 
-			INNER JOIN Khoa_TrungTam As G On G.Id = F.Ma_khoaTT '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
+			INNER JOIN Khoa_TrungTam As G On G.Id = F.Ma_khoaTT '+ @Dieu_kien_ma_khoa +' 
 		WHERE 1=1 ' +
-		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
+		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_ma_bo_phan + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
 		
-	--print @sql
+	print @sql
 	exec  sp_executesql @sql
 END
 
