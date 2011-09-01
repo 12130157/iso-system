@@ -12,6 +12,7 @@
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Arial" monospace="Courier New" />
 <pd4ml:header
+		watermarkUrl="http://localhost:8080/HungVuongISO/images/mask_ngang.gif" 
        	watermarkOpacity="50"
 	   	watermarkBounds="0,547,850,20">
 </pd4ml:header>
