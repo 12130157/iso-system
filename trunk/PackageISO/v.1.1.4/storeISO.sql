@@ -4378,7 +4378,7 @@ CREATE PROCEDURE sp_ISO_GetKeHoachGiangDay
 	@Tinh_trang		varchar(5),
 	@Ma_nguoi_tao   varchar(5),		
 	@Ma_Bo_Phan varchar(5),
-	@TenMonHoc nvarchar(500),
+	@TenMonHoc nvarchar(500), 
 	@MaKhoa varchar(5),
 	@MaHocKi varchar(5),
 	@MaNamHoc varchar(5)
@@ -4405,11 +4405,6 @@ BEGIN
 
 	PRINT @Ma_nguoi_tao
 
-	IF(@Ma_nguoi_tao <> '')
-	BEGIN
-		SET	@Dieu_kien_ma_bo_phan = ' And G.ID='+@Ma_Bo_Phan
-	END
-
 	IF(@Tinh_trang<>'')
 		BEGIN
 			SET	@Dieu_kien_tinh_trang = ' AND TB2.Tinh_trang ='+@Tinh_trang 
@@ -4433,6 +4428,12 @@ BEGIN
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
 
+	IF(@VAITRO = 5 AND @Ma_Nguoi_Tao <> '')
+	BEGIN
+		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
+		SET	@Dieu_kien_ma_bo_phan = ' OR G.ID='+@Ma_Bo_Phan
+	END
+
 	IF(@MaKhoa <> '')	
 	BEGIN 					
 		SET @Dieu_kien_ma_khoa = ' AND G.ID like ''%' + @MaKhoa +'%'''
@@ -4450,12 +4451,12 @@ BEGIN
 			INNER JOIN ThanhVien As B On TB2.Ma_nguoi_tao = B.ID 
 			INNER JOIN ChiTietThanhVien As C on B.Ten_DN = C.Ten_dang_nhap 
 			INNER JOIN ChuyenNganh As F On F.ID = E.Ma_chuyen_nganh 
-			INNER JOIN Khoa_TrungTam As G On G.Id = F.Ma_khoaTT '+@Dieu_kien_ma_bo_phan+ @Dieu_kien_ma_khoa +' 
+			INNER JOIN Khoa_TrungTam As G On G.Id = F.Ma_khoaTT '+ @Dieu_kien_ma_khoa +' 
 		WHERE 1=1 ' +
-		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
+		@Dieu_kien_tinh_trang + @Dieu_kien_ma_nguoi_tao + @Dieu_kien_ma_bo_phan + @Dieu_kien_khong_phai_nguoi_tao + @Dieu_kien_hoc_ki + @Dieu_kien_nam_hoc
 	+		'	ORDER BY TB2.id DESC '
 		
-	--print @sql
+	print @sql
 	exec  sp_executesql @sql
 END
 
@@ -7361,7 +7362,7 @@ CREATE PROCEDURE sp_ISO_InsertThoiKhoaBieu
 	@Nam_bat_dau			nvarchar(20),
 	@Nam_ket_thuc			nvarchar(20),
 	@Ngay_gui				datetime,
-	@User1					varchar(40),
+	@User1					nvarchar(100),
 	@User2					varchar(40),
 	@User3					varchar(40),
 	@User4					varchar(40),
@@ -7370,8 +7371,10 @@ AS
 BEGIN 
 	--DECLARE @Ma_chuyen_nganh int
 	--DECLARE @Ma_quyet_dinh int
+	DECLARE @Hoc_ki_thuc int
 	DECLARE @Ki_hieu_lop varchar(15)
 	SELECT @Ki_hieu_lop = Ki_hieu FROM LopHoc WHERE ID = @Ma_lop
+	select @Hoc_ki_thuc = @Hoc_ki + (CAST(@Nam_bat_dau AS INT) - CAST(b.nam_bat_dau AS INT)) * 2 from lophoc as a inner join quyetdinhmolop as b on a.ma_quyet_dinh = b.id where a.id = @Ma_lop
 	--SELECT @Ma_chuyen_nganh = Ma_chuyen_nganh, @Ma_quyet_dinh = Ma_quyet_dinh FROM LopHoc WHERE ID = @Ma_lop
 	--DECLARE @Ma_trinh_do int
 	--DECLARE @Ten_trinh_do nvarchar(100)
@@ -7381,10 +7384,10 @@ BEGIN
 	--DECLARE @Ten_chuyen_nganh nvarchar(100)
 	--DECLARE @Ten_chuyen_nganh_tat nvarchar(10)
 	--SELECT @Ten_chuyen_nganh = Ten_chuyen_nganh, @Ten_chuyen_nganh_tat = User1 FROM ChuyenNganh WHERE ID = @Ma_chuyen_nganh
-	SET @Ten = N'HỌC KÌ ' + cast(@Hoc_ki As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ki_hieu_lop
+	SET @Ten = N'HỌC KÌ ' + cast(@Hoc_ki_thuc As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ki_hieu_lop
 	SET @Ngay_tao=GETDATE()
 	SET @Ngay_cap_nhat_cuoi=GETDATE()
-	SET @User1 = N'HỌC KÌ ' + cast(@Hoc_ki As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ki_hieu_lop
+	--SET @User1 = N'HỌC KÌ ' + cast(@Hoc_ki_thuc As nvarchar) + ' (' + @Nam_bat_dau + '-' + @Nam_ket_thuc + ') - ' +  @Ki_hieu_lop
 	INSERT INTO ThoiKhoaBieu
 	VALUES (
 		@Ma_lop,
@@ -7404,7 +7407,7 @@ BEGIN
 		@Nam_bat_dau,
 		@Nam_ket_thuc,
 		@Ngay_gui,
-		@User1,
+		@Ten,
 		@User2,
 		@User3,
 		@User4,
@@ -10105,7 +10108,7 @@ SELECT * FROM DeNghiNhanSu
 GO
 
 --sp_NhanSu_NhapThongTin.sql
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME='sp_NhanSu_NhapThongTin')
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_NhapThongTin')
 BEGIN
 	DROP PROC sp_NhanSu_NhapThongTin
 END
