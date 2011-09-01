@@ -38,13 +38,14 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		IF @MaKhoa = ''
-		BEGIN
-			SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
-		END
-		BEGIN
-			 SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaKhoa
-		END 
+		  IF @MaKhoa = ''    
+		  BEGIN    
+			SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaBoPhan    
+		  END    
+		  ELSE
+		  BEGIN    
+			SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaKhoa    
+		  END   
 	END
 
 		
@@ -115,8 +116,10 @@ ON 1=1 '
 ON C.ID=A.Ma_Mon_Hoc
 INNER JOIN LopHoc As D
 ON D.ID=A.Ma_Lop 
+INNER JOIN ChuyenNganh As CN
+ON D.Ma_chuyen_nganh=CN.ID '+ @DieuKienMaBoPhan +'  
 INNER JOIN ThanhVien As E
-On E.ID=A.Ma_Giao_Vien '+ @DieuKienMaBoPhan +'
+On E.ID=A.Ma_Giao_Vien
 INNER JOIN ChiTietThanhVien As F
 ON E.Ten_DN=F.Ten_dang_nhap
 LEFT JOIN ThanhVien As G
