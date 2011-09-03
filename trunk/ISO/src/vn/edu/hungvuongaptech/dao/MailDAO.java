@@ -14,6 +14,7 @@ import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.NoiDungChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.SendMailListCongTacModel;
 import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel;
+import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel2;
 import vn.edu.hungvuongaptech.taglib.ChangeStringTaglib;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
