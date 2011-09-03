@@ -16,7 +16,7 @@ import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
-import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel;
+import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel2;
 import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
 import vn.edu.hungvuongaptech.util.StringUtil;
@@ -565,10 +565,10 @@ public class KeHoachGiangDayController extends HttpServlet{
 			int total=Integer.parseInt(request.getParameter("totalEmail"));
 			if(total!=0){
 				//*****************GOM MAIL********************************
-				ThanhVienNhacNhoModel thanhVienModel;
-				ArrayList<ThanhVienNhacNhoModel> thanhVienList=new ArrayList<ThanhVienNhacNhoModel>();
+				ThanhVienNhacNhoModel2 thanhVienModel;
+				ArrayList<ThanhVienNhacNhoModel2> thanhVienList=new ArrayList<ThanhVienNhacNhoModel2>();
 				for(int i=0;i<total;i++){
-					thanhVienModel=new ThanhVienNhacNhoModel();
+					thanhVienModel=new ThanhVienNhacNhoModel2();
 					String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
 					String tenChuongTrinh=request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i);
 					String ngayDay=request.getParameter("txtNgayDay_"+i);
@@ -577,6 +577,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 					thanhVienModel.setTenThanhVien(StringUtil.toUTF8(tenGiaoVien));
 					thanhVienModel.setTenChuongTrinh(StringUtil.toUTF8(tenChuongTrinh));
 					thanhVienModel.setNgayDay(ngayDay);
+					thanhVienModel.setEmail(MailDAO.getMailByMaThanhVien(maNguoiTao));
 					thanhVienList.add(thanhVienModel);
 				}
 				emailNhacNho(thanhVienList,request,response);
@@ -585,7 +586,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 		response.sendRedirect(request.getParameter("pathPage"));
 	}
 	
-	private void emailNhacNho(ArrayList<ThanhVienNhacNhoModel> thanhVienList,HttpServletRequest request,HttpServletResponse response){
+	private void emailNhacNho(ArrayList<ThanhVienNhacNhoModel2> thanhVienList,HttpServletRequest request,HttpServletResponse response){
 /*		String mailTo=Constant.MAILTO_THANHVIENNHACNHO;
 		String mailCC=MailDAO.getMailByMaThanhVien(request.getSession().getAttribute("maThanhVien").toString());
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY);
@@ -594,15 +595,16 @@ public class KeHoachGiangDayController extends HttpServlet{
 		//*************************GOM MAIL****************************
 		
 		ArrayList<String> mailToList = new ArrayList<String>();
-		mailToList.add(Constant.MAILTO_THANHVIENNHACNHO);
+		for (ThanhVienNhacNhoModel2 mailThanhVien : thanhVienList) {
+			mailToList.add(mailThanhVien.getEmail());
+		}
 		ArrayList<String> mailCCList = new ArrayList<String>();
 		mailCCList.add(MailDAO.getMailByMaThanhVien(request.getSession().getAttribute("maThanhVien").toString()));
-		mailCCList.add("ducthienkhtn@gmail.com");
+		mailCCList.add(Constant.SETTING_RES.getString("MAIL_CC_KHGD_GA"));
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY);
-		String content=MailDAO.getContentEmailNhacNho2ByChucNang(thanhVienList);
+		String content=MailDAO.getContentEmailNhacNho2ByChucNang("K? HO?CH GI?NG D?Y - ",thanhVienList);
 		MailUtil.sendEmailToBoPhan(mailToList, mailCCList, subject, content);
 		//*************************ThanhTC fix****************************
-		
 	}
 	
 
