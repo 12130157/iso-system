@@ -139,12 +139,12 @@ BEGIN
  + @DieuKienMaNguoiTao      
  + @DieuKienMaLop      
  + @DieuKienMaMonHoc      
- + @DieuKienTinhTrang      
+ + @DieuKienTinhTrang
  + @DieuKienHocKi      
  + @DieuKienMaNamHoc      
  + @DieuKienTimNgay      
  +@DieuKienMaBoPhan      
- +' ORDER BY A.NgayHocBD DESC   '      
+ +' ORDER BY A.NgayHocBD ASC   '      
         PRINT @SQL
 EXEC sp_executesql @sql      
 END      
