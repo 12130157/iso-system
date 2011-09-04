@@ -92,7 +92,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 		ChiTietThanhVienModel chiTietThanhVienModel = ThanhVienDAO.XemChiTietThanhVienByMaThanhVien(userLoginID);
 		Boolean status=false;
 		
-		if(chiTietThanhVienModel.getMaVaiTro().equals(Constant.TRUONG_KHOA)|| (chiTietThanhVienModel.getMaVaiTro().equals(Constant.ADMIN) && (request.getParameter("role").equals("tk")) )){
+		if(chiTietThanhVienModel.getMaVaiTro().equals(Constant.TRUONG_KHOA) || chiTietThanhVienModel.getMaVaiTro().equals(Constant.PHO_KHOA) || (chiTietThanhVienModel.getMaVaiTro().equals(Constant.ADMIN) && (request.getParameter("role").equals("tk")) )){
 			if (request.getParameter("Duyet").equals("Approve")) {
 			
 					KeHoachGiangDayDAO.tkDuyetKHGD(userLoginID, maKHGD, Constant.TINHTRANG_APPROVE, null);

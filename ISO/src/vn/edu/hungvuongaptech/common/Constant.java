@@ -33,6 +33,7 @@ public class Constant {
 
 	public static String MA_VAI_TRO_GV = "8";
 	public static String MA_VAI_TRO_TK = "5";
+	public static String MA_VAI_TRO_PK = "6";
 	public static String MA_VAI_TRO_TBM = "7";
 	public static String MA_VAI_TRO_HS = "9";
 	
