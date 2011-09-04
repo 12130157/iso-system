@@ -135,6 +135,7 @@
 <c:set var="boPhan" value='<%=session.getAttribute("maBoPhan").toString() %>'></c:set>
 <c:set var="vaiTro" value='<%=session.getAttribute("maVaiTro").toString() %>'></c:set>
 <c:set var="vaiTroTK" value='<%=Constant.MA_VAI_TRO_TK%>'></c:set>
+<c:set var="vaiTroPK" value='<%=Constant.MA_VAI_TRO_PK%>'></c:set>
 <c:set var="vaiTroHT" value='<%=Constant.HIEU_TRUONG %>'></c:set>
 <c:set var="Admin" value='<%=Constant.ADMIN %>'></c:set>
 <c:set var="boPhanBGH" value='<%=Constant.BO_PHAN_BGH %>'></c:set>
@@ -315,7 +316,6 @@
 		<tr style="background-color: transparent;">
 			<td>Khoa</td>
 			<td style='text-align:left'>
-			
 
 				<select id="selKhoa" name="selKhoa" onchange="change_selKhoa()" <c:if test="${ boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD  }">disabled="disabled"</c:if> ><option>--All--</option>
 					<c:forEach items="${khoaList}" var="objKhoa">
@@ -344,9 +344,9 @@
 		<tr style="background-color: transparent;">
 			<td>Giáo viên</td>
 			<td style='text-align:left'>
-				<select name="selGiaoVien" id="selGiaoVien" onchange="change_selGiaoVien()" <c:if test="${ vaiTro ne vaiTroTK and boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD }">disabled="disabled"</c:if>><option>--All--</option>
+				<select name="selGiaoVien" id="selGiaoVien" onchange="change_selGiaoVien()" <c:if test="${ vaiTro ne vaiTroTK and vaiTro ne vaiTroPK and boPhan ne boPhanBGH and vaiTro ne Admin and boPhan ne boPhanPDT and boPhan ne boPhanPKD }">disabled="disabled"</c:if>><option>--All--</option>
 					<c:forEach items="${giaoVienList}" var="objGiaoVien">
-						<option value="${objGiaoVien.maThanhVien}" <c:if test="${(objGiaoVien.maThanhVien eq param.gv ) or (sessionScope.maThanhVien eq objGiaoVien.maThanhVien and vaiTro ne Admin and vaiTro ne vaiTroTK and boPhan ne boPhanBGH and boPhan ne boPhanPDT and boPhan ne boPhanPKD) }">selected</c:if>>${objGiaoVien.hoThanhVien} ${objGiaoVien.tenLot} ${objGiaoVien.tenThanhVien}</option>
+						<option value="${objGiaoVien.maThanhVien}" <c:if test="${(objGiaoVien.maThanhVien eq param.gv ) or (sessionScope.maThanhVien eq objGiaoVien.maThanhVien and vaiTro ne Admin and vaiTro ne vaiTroTK and vaiTro ne vaiTroPK and boPhan ne boPhanBGH and boPhan ne boPhanPDT and boPhan ne boPhanPKD) }">selected</c:if>>${objGiaoVien.hoThanhVien} ${objGiaoVien.tenLot} ${objGiaoVien.tenThanhVien}</option>
 					</c:forEach>
 
 				</select>
@@ -488,10 +488,10 @@
 					<td>
 					
 					<c:if test="${objKQTim.tinhTrang eq TT_SEND}">
-						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK or vaiTro eq vaiTroPK}">
 							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>Đã gửi</a>
 						</c:if>
-						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK and vaiTro ne vaiTroPK}">
 							Đã gửi
 						</c:if>
 					</c:if>
@@ -505,10 +505,10 @@
 					</c:if>
 					
 					<c:if test="${objKQTim.tinhTrang eq TT_APPROVE and objKQTim.tinhTrangHT eq TT_REJECT}">
-						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK}">
+						<c:if test="${vaiTro eq	 Admin or vaiTro eq vaiTroTK or vaiTro eq VaiTroPK}">
 							<a style='color:blue;cursor:pointer;' onclick='click_TinhTrang(${objKQTim.maKHGD},"Approve")'>HT Reject</a>
 						</c:if>
-						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK}">
+						<c:if test="${vaiTro ne	 Admin and vaiTro ne vaiTroTK and vaiTro ne VaiTroPK}">
 							HT Reject
 						</c:if>
 					</c:if>
@@ -555,7 +555,7 @@
 	<br/>
 	<br/>
 	<br/>
-	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or boPhan eq boPhanPKD}">
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or vaiTro eq vaiTroPK or boPhan eq boPhanPKD}">
 		<div style='text-align:center'>
 				<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 		</div>
