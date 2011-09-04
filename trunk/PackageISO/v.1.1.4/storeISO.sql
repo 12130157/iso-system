@@ -2461,10 +2461,11 @@ BEGIN
  BEGIN    
   IF @MaKhoa = ''    
   BEGIN    
-   SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan    
+   SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaBoPhan    
   END    
+  ELSE
   BEGIN    
-    SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaKhoa    
+    SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaKhoa    
   END     
  END    
     
@@ -2539,9 +2540,11 @@ ON 1=1 '
 +' INNER JOIN MonHoc As C    
 ON C.ID=A.Ma_Mon_Hoc    
 INNER JOIN LopHoc As D    
-ON D.ID=A.Ma_Lop     
+ON D.ID=A.Ma_Lop
+INNER JOIN ChuyenNganh As CN
+ON D.Ma_chuyen_nganh=CN.ID '+ @DieuKienMaBoPhan +'  
 INNER JOIN ThanhVien As E    
-On E.ID=A.Ma_Giao_Vien '+ @DieuKienMaBoPhan +'    
+On E.ID=A.Ma_Giao_Vien   
 INNER JOIN ChiTietThanhVien As F    
 ON E.Ten_DN=F.Ten_dang_nhap    
 LEFT JOIN ThanhVien As G    
@@ -2554,14 +2557,14 @@ LEFT JOIN DSThuocPhieuKPPN AS KPPN1
 ON  KPPN1.Ma_Chuong_Trinh=B.ID AND KPPN1.Tinh_trang=0 AND KPPN1.Ma_loai='+@MaLoaiCT+' '+    
     
 @DieuKienTimNgay +'      
-ORDER BY A.Ma_nguoi_tao DESC,A.Ma_mon_hoc DESC, A.Ma_lop DESC     
+ORDER BY U.Ngay_BD ASC    
     
 SELECT * FROM (SELECT     
 (SELECT COUNT(*) FROM #TEMP AS A WHERE A.MaGiaoAn<= B.MaGiaoAn) AS [Index],*      
 FROM #TEMP  AS B) AS C    
 WHERE C.[Index] BETWEEN '+@IndexPage+' AND '+CAST((CAST(@LengthPage AS INT)+CAST(@IndexPage AS INT)-1)AS VARCHAR) +' ORDER BY [Index] ASC '    
-    
-exec sp_executesql @sql    
+PRINT @SQL
+exec sp_executesql @sql
 END    
     
     
@@ -2642,11 +2645,11 @@ BEGIN
  BEGIN      
  IF @MaKhoa = ''    
  BEGIN    
-  SET @DieuKienMaBoPhan=' AND T1.Ma_bo_phan='+@MaBoPhan    
+  SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaBoPhan    
  END    
  ELSE    
  BEGIN    
-  SET @DieuKienMaBoPhan=' AND T1.Ma_bo_phan='+@MaKhoa    
+  SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaKhoa    
  END      
  END     
      
@@ -2701,7 +2704,11 @@ BEGIN
  END       
  IF @MaNamHoc <>''      
  BEGIN      
-  SET @DieuKienMaNamHoc=' AND B.MaNamHoc  = '+ @MaNamHoc      
+	DECLARE @Bat_dau int
+	DECLARE @Ket_thuc int
+	SELECT @Bat_dau=Nam_bat_dau, @Ket_thuc=Nam_ket_thuc FROM NamHoc WHERE ID=@MaNamHoc
+	SET @DieuKienMaNamHoc=' AND A.Nam_bat_dau ='+cast(@Bat_dau as varchar)+ ' AND A.Nam_ket_thuc ='+cast(@Ket_thuc as varchar)
+
  END      
        
  DECLARE @sql nvarchar(2000)      
@@ -2711,7 +2718,7 @@ BEGIN
       
  SET @sql='      
        
- SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Ma_lop,MonHocTKB.User5 As NgayHocBD,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2        
+ SELECT MonHocTKB.Ma_mon_hoc,ThoiKhoaBieu.Nam_bat_dau,ThoiKhoaBieu.Nam_ket_thuc,ThoiKhoaBieu.Ma_lop,MonHocTKB.User5 As NgayHocBD,MonHocTKB.Ma_giao_vien INTO #temp1 FROM MonHocTKB,ThoiKhoaBieu WHERE MonHocTKB.Ma_tkb=ThoiKhoaBieu.ID AND ThoiKhoaBieu.Tinh_trang=2        
        
  SELECT  A.Tinh_Trang_HT,A.ID As MaKHGD,A.Ma_Nguoi_Tao As MaNguoiTao,A.Ma_mon_hoc As MaMonHoc,A.Ngay_tao As NgayThucHien      
   ,A.Ma_lop As MaLop,A.Tinh_Trang As TinhTrang,A.User2 As NgayBatDau      
@@ -2725,7 +2732,8 @@ BEGIN
  FROM #temp1 As A      
  LEFT JOIN #temp2 As B ON A.Ma_mon_hoc=B.MaMonHoc AND A.Ma_lop=B.MaLop      
  INNER JOIN MonHoc AS M ON M.ID=A.Ma_mon_hoc      
- INNER JOIN LopHoc As L ON L.ID=A.Ma_lop      
+ INNER JOIN LopHoc As L ON L.ID=A.Ma_lop
+ INNER JOIN ChuyenNganh As CN ON L.Ma_chuyen_nganh=CN.ID   
  LEFT JOIN Thanhvien As T1 ON T1.ID=A.Ma_Giao_vien       
  LEFT JOIN ChiTietThanhVien As C1 ON T1.Ten_DN=C1.Ten_dang_nhap      
  LEFT JOIN Thanhvien As T2 ON T2.ID=B.MaNguoiDuyet      
@@ -2737,13 +2745,13 @@ BEGIN
  + @DieuKienMaNguoiTao      
  + @DieuKienMaLop      
  + @DieuKienMaMonHoc      
- + @DieuKienTinhTrang      
+ + @DieuKienTinhTrang
  + @DieuKienHocKi      
  + @DieuKienMaNamHoc      
  + @DieuKienTimNgay      
  +@DieuKienMaBoPhan      
- +' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC   '      
-        
+ +' ORDER BY A.NgayHocBD ASC   '      
+        PRINT @SQL
 EXEC sp_executesql @sql      
 END      
       
@@ -4624,13 +4632,14 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		IF @MaKhoa = ''
-		BEGIN
-			SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaBoPhan
-		END
-		BEGIN
-			 SET @DieuKienMaBoPhan=' AND E.Ma_bo_phan='+@MaKhoa
-		END 
+		  IF @MaKhoa = ''    
+		  BEGIN    
+			SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaBoPhan    
+		  END    
+		  ELSE
+		  BEGIN    
+			SET @DieuKienMaBoPhan=' AND CN.Ma_khoaTT='+@MaKhoa    
+		  END   
 	END
 
 		
@@ -4701,8 +4710,10 @@ ON 1=1 '
 ON C.ID=A.Ma_Mon_Hoc
 INNER JOIN LopHoc As D
 ON D.ID=A.Ma_Lop 
+INNER JOIN ChuyenNganh As CN
+ON D.Ma_chuyen_nganh=CN.ID '+ @DieuKienMaBoPhan +'  
 INNER JOIN ThanhVien As E
-On E.ID=A.Ma_Giao_Vien '+ @DieuKienMaBoPhan +'
+On E.ID=A.Ma_Giao_Vien
 INNER JOIN ChiTietThanhVien As F
 ON E.Ten_DN=F.Ten_dang_nhap
 LEFT JOIN ThanhVien As G
