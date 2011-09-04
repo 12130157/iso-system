@@ -1073,7 +1073,7 @@
 					
 			<c:if test="${not empty param.maKHGD}">
 				<c:if test="${empty param.cp}">
-					<c:if test="${(objKHGD.tinhTrangHT eq HT_APPROVE) or (vaiTro eq TruongKhoa and objKHGD.tinhTrangHT eq SEND)}">
+					<c:if test="${(objKHGD.tinhTrangHT eq HT_APPROVE) or (vaiTro eq TruongKhoa and objKHGD.tinhTrangHT eq SEND) or (objKHGD.tinhTrangHT eq NEW)}">
 						<a href = "<%=Constant.PATH_RES.getString("iso.InKeHoachGiangDayPath") %>?maKHGD=${objKHGD.maKHGD}">								 
 							<img src="<%=request.getContextPath()%>/images/buttom/in.png?maKHGD=${param.maKHGD}" alt="Xuất File" border = "0" />
 						</a>
