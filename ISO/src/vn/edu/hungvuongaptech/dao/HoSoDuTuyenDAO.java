@@ -53,7 +53,7 @@ public class HoSoDuTuyenDAO {
 		ArrayList<HoSoDuTuyenModel> list = new ArrayList<HoSoDuTuyenModel>();
 		String gioitinh="";
 		try {
-			String sql = "SELECT A.*,REPLACE(A.Tom_tat_ban_than,char(13) + char(10),'<br/>') as Tom_tat_ban_than2,(A.Ho+' '+A.Ten_lot+' '+A.Ten) as Ho_ten,(A.So_nha+' '+A.Duong+', P.'+A.Phuong_xa+', Q.'+A.Quan_huyen+', '+A.Tinh_thanhpho) as Dia_chi,D.Ten_vai_tro as Ten_vai_tro,E.Ten as Ten_bo_phan,E.Ma_truong_khoa as Ma_truong_khoa,CONVERT(VARCHAR(10),A.Ngay_cap,105) as ngay_cap_mdy,CONVERT(VARCHAR(10),A.Ngay_sinh,105) as ngay_sinh_mdy,B.So_luong_da_tuyen,C.So_luong  "
+			String sql = "SELECT A.*,(A.Ho+' '+A.Ten_lot+' '+A.Ten) as Ho_ten,(A.So_nha+' '+A.Duong+', P.'+A.Phuong_xa+', Q.'+A.Quan_huyen+', '+A.Tinh_thanhpho) as Dia_chi,D.Ten_vai_tro as Ten_vai_tro,E.Ten as Ten_bo_phan,E.Ma_truong_khoa as Ma_truong_khoa,CONVERT(VARCHAR(10),A.Ngay_cap,105) as ngay_cap_mdy,CONVERT(VARCHAR(10),A.Ngay_sinh,105) as ngay_sinh_mdy,B.So_luong_da_tuyen,C.So_luong  "
 						+" FROM HOSODUTUYEN A LEFT JOIN CHITIETKHTNS B ON A.Vi_tri_du_tuyen=B.ID "
 						+" LEFT JOIN DENGHINHANSU C ON B.Ma_de_nghi=C.ID "
 						+" LEFT JOIN VAITRO D ON C.Chuc_danh=D.ID "
@@ -95,7 +95,7 @@ public class HoSoDuTuyenDAO {
 				model.setTin_hoc(rs.getString("Tin_hoc"));
 				model.setNgoai_ngu(rs.getString("Ngoai_ngu"));
 				model.setTom_tat_ban_than_area(rs.getString("Tom_tat_ban_than"));
-				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than2"));
+				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than").replace("\r\n", "<br/>"));
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setVi_tri_du_tuyen(rs.getString("Vi_tri_du_tuyen"));
 				model.setMa_truong_khoa(rs.getString("Ma_truong_khoa"));
@@ -125,7 +125,7 @@ public class HoSoDuTuyenDAO {
 			tinhTrang = " WHERE A.TINH_TRANG=? ";
 		}
 		try {
-			String sql = "SELECT A.*,REPLACE(A.Tom_tat_ban_than,char(13) + char(10),'<br/>') as Tom_tat_ban_than2,(A.Ho+' '+A.Ten_lot+' '+A.Ten) as Ho_ten,(A.So_nha+' '+A.Duong+', P.'+A.Phuong_xa+', Q.'+A.Quan_huyen+', '+A.Tinh_thanhpho) as Dia_chi,D.ID as Ma_vai_tro,D.Ten_vai_tro as Ten_vai_tro,E.Ten as Ten_bo_phan,E.Ma_truong_khoa as Ma_truong_khoa,CONVERT(VARCHAR(10),A.Ngay_cap,105) as ngay_cap_mdy,CONVERT(VARCHAR(10),A.Ngay_sinh,105) as ngay_sinh_mdy,B.So_luong_da_tuyen,C.So_luong "
+			String sql = "SELECT A.*,(A.Ho+' '+A.Ten_lot+' '+A.Ten) as Ho_ten,(A.So_nha+' '+A.Duong+', P.'+A.Phuong_xa+', Q.'+A.Quan_huyen+', '+A.Tinh_thanhpho) as Dia_chi,D.ID as Ma_vai_tro,D.Ten_vai_tro as Ten_vai_tro,E.Ten as Ten_bo_phan,E.Ma_truong_khoa as Ma_truong_khoa,CONVERT(VARCHAR(10),A.Ngay_cap,105) as ngay_cap_mdy,CONVERT(VARCHAR(10),A.Ngay_sinh,105) as ngay_sinh_mdy,B.So_luong_da_tuyen,C.So_luong "
 						+" FROM HOSODUTUYEN A LEFT JOIN CHITIETKHTNS B ON A.Vi_tri_du_tuyen=B.ID "
 						+" LEFT JOIN DENGHINHANSU C ON B.Ma_de_nghi=C.ID "
 						+" LEFT JOIN VAITRO D ON C.Chuc_danh=D.ID "
@@ -168,7 +168,7 @@ public class HoSoDuTuyenDAO {
 				model.setChuyen_mon(rs.getString("Chuyen_mon"));
 				model.setTin_hoc(rs.getString("Tin_hoc"));
 				model.setNgoai_ngu(rs.getString("Ngoai_ngu"));
-				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than2"));
+				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than").replace("\r\n", "<br/>"));
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setVi_tri_du_tuyen(rs.getString("Vi_tri_du_tuyen"));
 				model.setMa_truong_khoa(rs.getString("Ma_truong_khoa"));
@@ -192,7 +192,7 @@ public class HoSoDuTuyenDAO {
 		HoSoDuTuyenModel model = null;
 		String gioitinh="";
 		try {
-			String sql = "SELECT A.*,REPLACE(A.Tom_tat_ban_than,char(13) + char(10),'<br/>') as Tom_tat_ban_than2, "
+			String sql = "SELECT A.*, "
 						+" (A.Ho+' '+A.Ten_lot+' '+A.Ten) as Ho_ten, "
 						+" (A.So_nha+' '+A.Duong+', P.'+A.Phuong_xa+', Q.'+A.Quan_huyen+', '+A.Tinh_thanhpho) as Dia_chi, "
 						+" D.ID as Ma_vai_tro,D.Ten_vai_tro as Ten_vai_tro,E.ID as Ma_bo_phan,E.Ten as Ten_bo_phan, "
@@ -240,7 +240,7 @@ public class HoSoDuTuyenDAO {
 				model.setTin_hoc(rs.getString("Tin_hoc"));
 				model.setNgoai_ngu(rs.getString("Ngoai_ngu"));
 				model.setTom_tat_ban_than_area(rs.getString("Tom_tat_ban_than"));
-				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than2"));
+				model.setTom_tat_ban_than(rs.getString("Tom_tat_ban_than").replace("\r\n", "<br/>"));
 				model.setTinh_trang(rs.getString("Tinh_trang"));
 				model.setVi_tri_du_tuyen(rs.getString("Vi_tri_du_tuyen"));
 				model.setNgay_cap_nhat_cuoi(rs.getString("NGAY_HE_THONG"));
