@@ -144,7 +144,7 @@ BEGIN
  + @DieuKienMaNamHoc      
  + @DieuKienTimNgay      
  +@DieuKienMaBoPhan      
- +' ORDER BY A.Ma_Giao_Vien DESC,A.Ma_mon_hoc DESC,A.Ma_lop DESC   '      
+ +' ORDER BY A.NgayHocBD DESC   '      
         PRINT @SQL
 EXEC sp_executesql @sql      
 END      

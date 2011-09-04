@@ -797,7 +797,7 @@ public class GiaoAnController extends HttpServlet {
 		mailCCList.add(MailDAO.getMailByMaThanhVien(request.getSession().getAttribute("maThanhVien").toString()));
 		mailCCList.add(Constant.SETTING_RES.getString("MAIL_CC_KHGD_GA"));
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_GIAOAN);
-		String content=MailDAO.getContentEmailNhacNho2ByChucNang("GIÁO ÁN - ",thanhVienList);
+		String content=MailDAO.getContentEmailNhacNho2ByChucNang("GIÁO ÁN",thanhVienList);
 		MailUtil.sendEmailToBoPhan(mailToList, mailCCList, subject, content);
 		//*************************ThanhTC fix****************************
 	}

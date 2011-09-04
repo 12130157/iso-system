@@ -576,7 +576,7 @@ public class MailDAO {
 		result = result
 				+ "<table border='1'><tr><th>Giáo viên</th><th>Chương trình</th><th>Ngày dạy</th></tr>";
 		for (int i = 0; i < thanhVienList.size(); i++) {
-			String tenChuongTrinh = tenChucNang + thanhVienList.get(i).getTenChuongTrinh();
+			String tenChuongTrinh = tenChucNang + " - " +thanhVienList.get(i).getTenChuongTrinh();
 			result = result + "<tr><td>"
 					+ thanhVienList.get(i).getTenThanhVien() + "</td><td>"
 					+ tenChuongTrinh + "</td><td>"

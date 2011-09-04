@@ -602,7 +602,7 @@ public class KeHoachGiangDayController extends HttpServlet{
 		mailCCList.add(MailDAO.getMailByMaThanhVien(request.getSession().getAttribute("maThanhVien").toString()));
 		mailCCList.add(Constant.SETTING_RES.getString("MAIL_CC_KHGD_GA"));
 		String subject=MailDAO.getSubjectNhacNhoByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY);
-		String content=MailDAO.getContentEmailNhacNho2ByChucNang("K? HO?CH GI?NG D?Y - ",thanhVienList);
+		String content=MailDAO.getContentEmailNhacNho2ByChucNang("KẾ HOẠCH GIẢNG DẠY",thanhVienList);
 		MailUtil.sendEmailToBoPhan(mailToList, mailCCList, subject, content);
 		//*************************ThanhTC fix****************************
 	}
