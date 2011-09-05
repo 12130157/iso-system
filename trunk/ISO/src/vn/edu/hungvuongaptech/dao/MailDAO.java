@@ -250,7 +250,7 @@ public class MailDAO {
 			return "[ISO] - Thong Bao - Reject - KE HOACH TUYEN NHAN SU";
 		} else if (maChucNang.equals(Constant.CHUCNANG_BANGPHANCONG)) {
 			return "[ISO] - Thong Bao - Reject - PHAN CONG GIAO VIEN";
-		} else if(maChucNang.equals(Constant.CHUCNANG_KEHOACHTNS)){
+		} else if(maChucNang.equals(Constant.CHUCNANG_DONXINTHOIVIEC)){
 			return "[ISO] - Thong Bao - Reject - DON XIN THOI VIEC";	
 		} else
 			return "";
@@ -618,9 +618,9 @@ public class MailDAO {
 		result += "<tr><td>Đã gửi ngày: </td><td><b>" + ngayGui
 				+ "</b></td></tr>";
 		if(tk!=null){
-			result += "<tr><td>Trưởng Khoa approved: </td><td><b>" + pdt
+			result += "<tr><td>Trưởng Khoa approved: </td><td><b>" + tk
 					+ "</b></td></tr>";
-			result += "<tr><td>Ngày approved: </td><td><b>" + pdtDuyet
+			result += "<tr><td>Ngày approved: </td><td><b>" + tkDuyet
 					+ "</b></td></tr>";
 		}
 		
