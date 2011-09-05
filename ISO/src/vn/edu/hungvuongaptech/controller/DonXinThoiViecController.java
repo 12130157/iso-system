@@ -135,8 +135,12 @@ public class DonXinThoiViecController extends HttpServlet{
 			}
 			else{
 				if(model.getTinhTrang().equals("2")){
-					mailto.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC));
-					mailto.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+					if(model.getMaVaiTro().equals("8")){
+						mailto.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC));
+						mailto.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+					}else{
+						mailto.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+					}
 				}
 				
 				if(model.getTinhTrang().equals("4")){
