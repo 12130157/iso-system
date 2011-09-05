@@ -30,7 +30,8 @@
 <%@page import="vn.edu.hungvuongaptech.model.ChiTietThanhVienModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.BaiKiemTraDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.DangKyMonHocModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.ThoiKhoaBieuDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.ThoiKhoaBieuDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.BaiKiemTraModel"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -70,7 +71,7 @@ function pageLoad()
 	String maVaiTro = (String)session.getAttribute("maVaiTro");
 	String maMonHocTKB = "" ,maMonHoc = "", maGiaoVien = "";
 	ArrayList<KhoaModel> khoaList;
-if(!maVaiTro.equals(Constant.MA_VAI_TRO_HS)) { 
+	if(!maVaiTro.equals(Constant.MA_VAI_TRO_HS)) { 
 	khoaList = XemDiemDAO.getDieuKienXemDiemOfGiaoVien();
 	
 	if(request.getParameter("monHocTKB") != null) {
@@ -85,6 +86,7 @@ if(!maVaiTro.equals(Constant.MA_VAI_TRO_HS)) {
 			maGiaoVien = khoaList.get(0).getLopHocList().get(0).getNamHocList().get(0).getHocKyList().get(0).getMonHocTKBList().get(0).getMaGiaoVien();
 		}
 	}
+	
 	if(khoaList.size() > 0)
 		out.print("document.getElementById('cboKhoa').innerHTML = '';");
 	for(int i=0;i<khoaList.size();i++) {
@@ -166,7 +168,7 @@ if(!maVaiTro.equals(Constant.MA_VAI_TRO_HS)) {
 		hocKyChon = list.get(0).getHocKi();
 	}
 }
-
+	ArrayList<BaiKiemTraModel> baiKiemTraList =  BaiKiemTraDAO.getAllBaiKiemTraByMaMonHocOrderByTenBaiKiemTra(maMonHoc);
 %>
 	
 }
@@ -570,7 +572,7 @@ function capNhat()
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">STT</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Mã Sinh Viên</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Tên sinh viên</div></th>
-				<c:set var = "BaiKiemTraList" value = "<%=BaiKiemTraDAO.getAllBaiKiemTraByMaMonHocOrderByTenBaiKiemTra(maMonHoc) %>" scope="session"/>
+				<c:set var = "BaiKiemTraList" value = "<%=baiKiemTraList %>" scope="session"/>
 				<c:forEach var = "BaiKiemTra" items = "${BaiKiemTraList}">
 					<%count++; count1++; %>
 					<c:set var = "count" value = "<%=count %>"/>
