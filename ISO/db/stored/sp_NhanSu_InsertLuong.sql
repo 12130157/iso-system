@@ -23,7 +23,7 @@ BEGIN
 	SET @KQ = -1
 	IF EXISTS (SELECT * FROM THANHVIEN WHERE ID=@Ma_thanh_vien)
 	BEGIN
-		INSERT INTO LUONG(Ma_thanh_vien,Loai_vien_chuc,Ma_ngach,Bac_luong,He_so_luong,Ngay_xet_luong,Ngay_cap_nhat_cuoi,Ghi_chu) 
+		INSERT INTO LUONG(Ma_thanh_vien,Loai_vien_chuc,Ma_ngach,Bac_luong,He_so_luong,Ngay_xep_luong,Ngay_cap_nhat_cuoi,Ghi_chu) 
 		VALUES (@Ma_thanh_vien,@Loai_vien_chuc,@Ma_ngach,@Bac_luong,@He_so_luong,getdate(),getdate(),@Ghi_chu)
 		SELECT @KQ=MAX(ID) FROM LUONG
 	END  
