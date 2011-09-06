@@ -136,6 +136,8 @@ public class XemDiemDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				// Bang dang ky mon hoc
+				//dangKyMonHoc.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
+
 				if(!maDangKyMonHoc.equals(rs.getString("MaDangKyMonHoc")))
 				{
 					DangKyMonHocModel dangKyMonHoc = new DangKyMonHocModel();
@@ -148,9 +150,10 @@ public class XemDiemDAO {
 					//dangKyMonHoc.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
 					dangKyMonHoc.setMaHocVien(rs.getString("MaHocVien"));
 					dangKyMonHoc.setTenDangNhap(rs.getString("TenDangNhap"));
+					dangKyMonHoc.setTenHocVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
+					
 					chiTietDiemList = new ArrayList<ChiTietDiemModel>();
 					dangKyMonHoc.setChiTietDiemList(chiTietDiemList);
-					dangKyMonHoc.setTenHocVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
 					
 					maDangKyMonHoc = rs.getString("MaDangKyMonHoc");
 					dangKyMonHocList.add(dangKyMonHoc);
@@ -163,7 +166,6 @@ public class XemDiemDAO {
 						chiTietDiem.setMaBaiKiemTra(rs.getString("MaBaiKiemTra"));
 						chiTietDiem.setMaChiTietDiem(rs.getString("MaChiTietDiem"));
 						chiTietDiem.setDiem(rs.getString("Diem"));
-						
 						maChiTietDiem = rs.getString("MaChiTietDiem");
 						chiTietDiemList.add(chiTietDiem);
 					}

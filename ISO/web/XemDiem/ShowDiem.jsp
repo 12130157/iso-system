@@ -611,15 +611,18 @@ function capNhat()
 						<td style="background-color: transparent;">
 							
 							<input type="text"  name= "txtDiem<%=c%>_<%=iterator %>" id = "txtDiem<%=c%>_<%=iterator %>" onblur = "kiemTraSo(<%=c + "," + iterator %>)" onfocus="getSoDiem(<%=c + "," + iterator %>)"
-								<c:if test="${not empty ListDiem[i] and BaiKiemTra.maBaiKiemTra eq ListDiem[i].maBaiKiemTra}">
+								<c:if test="${not empty ListDiem[i]}">
 									value = "${ListDiem[i].diem}"	
 									<c:set var = "i" value = "${i + 1}"/>
 									<c:set var = "MaTenBaiKiemTra" value = "${BaiKiemTra.maTenBaiKiemTra}"/>
 								</c:if>
+							size="5"/>	
 							<input type = "hidden" id = "txtMaTenBaiKiemTra<%=c %>" value = "${MaTenBaiKiemTra }"/>	
-							 size="5"/>			
+							 		
 						</td>
+						
 						<%iterator++; %>
+						
 					</c:forEach>
 					<td style="background-color: transparent;">
 						<input type="text" readonly="readonly" id = "txtTrungBinhMon<%=c %>" name = "txtTrungBinhMon<%=c %>" value = "${SinhVien.diemTrungBinh}" size="5"/>
@@ -637,12 +640,12 @@ function capNhat()
 				{
 					if(document.getElementById('txtDiem' + x + '_' + i).value != '')
 					{
-						if(document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEMMIENG + "'"%>)
+						if(document.getElementById('txtMaTenBaiKiemTra'+x).value == <%="'" + Constant.MADIEMMIENG + "'"%>)
 						{
 							tong += parseFloat(document.getElementById('txtDiem' + x + '_' + i).value);
 							soBai++;
 						}
-						else if(document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM15 + "'"%> || document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM1TIET + "'"%>)
+						else if(document.getElementById('txtMaTenBaiKiemTra'+x).value == <%="'" + Constant.MADIEM15 + "'"%> || document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM1TIET + "'"%>)
 						{
 							tong += (parseFloat(document.getElementById('txtDiem' + x + '_' + i).value) * 2);
 							soBai = soBai + 2;
@@ -654,12 +657,14 @@ function capNhat()
 						}
 					}
 				}
-				var num = new Number(tong/soBai)
+				var num = new Number(tong/soBai);
 				if(soBai > 0)
 					document.getElementById('txtTrungBinhMon' + x).value = num.toFixed(2);
 				else
 					document.getElementById('txtTrungBinhMon' + x).value = '';
 			}
+			
+			
 			function kiemTraSo(x, y)
 			{
 				var so = document.getElementById('txtDiem' + x + '_' + y).value;
