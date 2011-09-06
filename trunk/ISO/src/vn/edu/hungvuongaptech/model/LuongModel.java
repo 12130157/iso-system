@@ -7,7 +7,7 @@ public class LuongModel {
 	private String maNgach;
 	private String bacLuong;
 	private String heSoLuong;
-	private String ngayXetLuong;
+	private String ngayXepLuong;
 	private String ngayCapNhatCuoi;
 	private String ghiChu;
 	private String user1;
@@ -15,6 +15,15 @@ public class LuongModel {
 	private String user3;
 	private String user4;
 	private String user5;
+	
+	
+	
+	public String getNgayXepLuong() {
+		return ngayXepLuong;
+	}
+	public void setNgayXepLuong(String ngayXepLuong) {
+		this.ngayXepLuong = ngayXepLuong;
+	}
 	public String getId() {
 		return id;
 	}
@@ -50,12 +59,6 @@ public class LuongModel {
 	}
 	public void setHeSoLuong(String heSoLuong) {
 		this.heSoLuong = heSoLuong;
-	}
-	public String getNgayXetLuong() {
-		return ngayXetLuong;
-	}
-	public void setNgayXetLuong(String ngayXetLuong) {
-		this.ngayXetLuong = ngayXetLuong;
 	}
 	public String getNgayCapNhatCuoi() {
 		return ngayCapNhatCuoi;

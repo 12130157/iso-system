@@ -307,7 +307,8 @@ public class HoSoDuTuyenController extends HttpServlet{
 						StringUtil.toUTF8(request.getParameter("LoaiBang"+i)), 
 						StringUtil.toUTF8(request.getParameter("TruongCap"+i)),
 						request.getParameter("Nam"+i),
-						StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)), 
+						StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)),
+						StringUtil.toUTF8(request.getParameter("ChuyenNganh"+i)),
 						n);
 			}
 			error = "Thêm Thông Tin Thành Công !!!";
@@ -363,7 +364,8 @@ public class HoSoDuTuyenController extends HttpServlet{
 							StringUtil.toUTF8(request.getParameter("LoaiBang"+i)), 
 							StringUtil.toUTF8(request.getParameter("TruongCap"+i)),
 							request.getParameter("Nam"+i),
-							StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)), 
+							StringUtil.toUTF8(request.getParameter("LoaiTotNghiep"+i)),
+							StringUtil.toUTF8(request.getParameter("ChuyenNganh"+i)),
 							n);
 				}
 				

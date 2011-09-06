@@ -79,11 +79,20 @@ public class ChiTietThanhVienModel implements Serializable {
 	private ArrayList<BangCapModel> listBangCap;
 	private ArrayList<KeHoachGiangDayModel> listLopHocGiangDay;
 	private ArrayList<String> listChucVu;
+	private ArrayList<LuongModel> listLuong;
 	
 	private String ngayCap;
 	private String noiCap;
 	
 	
+
+	public ArrayList<LuongModel> getListLuong() {
+		return listLuong;
+	}
+
+	public void setListLuong(ArrayList<LuongModel> listLuong) {
+		this.listLuong = listLuong;
+	}
 
 	public String getsHoTen() {
 		return sHoTen;

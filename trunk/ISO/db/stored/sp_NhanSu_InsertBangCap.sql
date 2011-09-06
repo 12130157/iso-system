@@ -9,6 +9,7 @@ CREATE PROC sp_NhanSu_InsertBangCap
 @Truong_cap NVARCHAR(200),
 @Nam_tot_nghiep INT,
 @Loai_tot_nghiep NVARCHAR(40),
+@Chuyen_nganh	NVARCHAR(100),
 @Bang_cap_chinh INT,
 @KQ	INT OUTPUT
 AS
@@ -16,7 +17,7 @@ BEGIN
 	SET @KQ = -1
 	IF EXISTS (SELECT * FROM THANHVIEN WHERE ID=@Ma_thanh_vien)
 	BEGIN
-		INSERT INTO BANGCAP(Ma_thanh_vien,Loai_bang,Truong_cap,Nam_tot_nghiep,Loai_tot_nghiep,Ngach_luong,Bang_cap_chinh) VALUES (@Ma_thanh_vien,@Loai_bang,@Truong_cap,@Nam_tot_nghiep,@Loai_tot_nghiep,'2.34',@Bang_cap_chinh)
+		INSERT INTO BANGCAP(Ma_thanh_vien,Loai_bang,Truong_cap,Nam_tot_nghiep,Loai_tot_nghiep,Chuyen_nganh,Ngach_luong,Bang_cap_chinh) VALUES (@Ma_thanh_vien,@Loai_bang,@Truong_cap,@Nam_tot_nghiep,@Loai_tot_nghiep,@Chuyen_nganh,'2.34',@Bang_cap_chinh)
 		SELECT @KQ = MAX(ID) FROM BANGCAP
 	END
 END
