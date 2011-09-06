@@ -7,6 +7,7 @@ public class BangCapModel {
 	private String truongCap;
 	private String namTotNghiep;
 	private String loaiTotNghiep;
+	private String chuyenNganh;
 	private String ngachLuong;
 	private String bangCapChinh;
 	private String ngayCapNhatCuoi;
@@ -18,6 +19,12 @@ public class BangCapModel {
 	private String namHoc;
 
 	
+	public String getChuyenNganh() {
+		return chuyenNganh;
+	}
+	public void setChuyenNganh(String chuyenNganh) {
+		this.chuyenNganh = chuyenNganh;
+	}
 	public String getNgachLuong() {
 		return ngachLuong;
 	}

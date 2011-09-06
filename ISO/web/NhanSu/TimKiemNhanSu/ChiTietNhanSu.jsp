@@ -134,6 +134,77 @@
 					</c:choose>
 				</td>
 			</tr>
+			
+			<tr style="background-color: #696565;font-size: 16px;font-weight: bold;font-style: italic;">
+				<td colspan="2" style="text-align: left;padding-left: 20px;font-weight: bold;">Lương</td>
+			</tr>
+			<tr style="background-color: transparent;">
+				<td colspan="2">
+					<table border="1">
+						<tr style="background-color: transparent;">
+							<td style="width: 150px;text-align: center;font-weight: bold;">Loại Viên Chức</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Mã Ngạch</td>
+							<td style="width: 50px;text-align: center;font-weight: bold;">Bậc Lương</td>
+							<td style="width: 50px;text-align: center;font-weight: bold;">Hệ Số Lương</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Ngày Xếp Lương</td>
+						</tr>
+						<c:set var="n" value="1"></c:set>
+						<c:forEach var="model" items="${ChiTietThanhVien.listLuong}">
+						<c:choose>
+							<c:when test="${n eq 1}">
+								<tr style="background-color: red;">
+							</c:when>
+							<c:otherwise>
+								<tr style="background-color: transparent;">
+							</c:otherwise>
+						</c:choose>
+							<td style="text-align: center;">
+								<c:choose>
+									<c:when test="${empty model.loaiVienChuc}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.loaiVienChuc}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="text-align: left;padding-left: 5px;">
+								<c:choose>
+									<c:when test="${empty model.maNgach}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.maNgach}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="text-align: left;padding-left: 5px;">
+								<c:choose>
+									<c:when test="${empty model.bacLuong}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.bacLuong}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="text-align: center;">
+								<c:choose>
+									<c:when test="${empty model.heSoLuong}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.heSoLuong}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="text-align: center;">
+								<c:choose>
+									<c:when test="${empty model.ngayXepLuong}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.ngayXepLuong}
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+						<c:set var="n" value="${n+1}"></c:set>
+						</c:forEach>
+					</table>
+				</td>
+			</tr>
+			
 			<tr style="background-color: #696565;font-size: 16px;font-weight: bold;font-style: italic;">
 				<td colspan="2" style="text-align: left;padding-left: 20px;font-weight: bold;">Bằng Cấp</td>
 			</tr>
@@ -142,7 +213,8 @@
 					<table border="1">
 						<tr style="background-color: transparent;">
 							<td style="width: 150px;text-align: center;font-weight: bold;">Loại Bằng</td>
-							<td style="width: 400px;text-align: center;font-weight: bold;">Trường Cấp</td>
+							<td style="width: 300px;text-align: center;font-weight: bold;">Trường Cấp</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Chuyên Ngành</td>
 							<td style="width: 150px;text-align: center;font-weight: bold;">Loại Tốt Nghiệp</td>
 						</tr>
 						<c:forEach var="model" items="${ChiTietThanhVien.listBangCap}">
@@ -167,6 +239,14 @@
 									<c:when test="${empty model.truongCap}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
 									<c:otherwise>
 										${model.truongCap}
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="text-align: left;padding-left: 5px;">
+								<c:choose>
+									<c:when test="${empty model.chuyenNganh}"><p style="font-style: italic;color: red;">Chưa có</p></c:when>
+									<c:otherwise>
+										${model.chuyenNganh}
 									</c:otherwise>
 								</c:choose>
 							</td>
