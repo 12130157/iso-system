@@ -11348,18 +11348,42 @@ BEGIN
 			UPDATE DonXinThoiViec SET Tinh_trang='2',Truong_khoa=@Ma_nguoi_duyet,Ngay_TK_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
 			SET @KQ = @ID
 		END
+		DECLARE @VAITRO INT
+		SELECT @VAITRO=E.ID
+		FROM DONXINTHOIVIEC A INNER JOIN HOSODUTUYEN B ON A.NGUOI_DU_TUYEN=B.ID
+			INNER JOIN THANHVIEN C ON B.TEN_DANG_NHAP=C.TEN_DN
+			INNER JOIN KHOA_TRUNGTAM D ON C.MA_BO_PHAN=D.ID
+			INNER JOIN VAITRO E ON C.MA_VAI_TRO=E.ID
+		WHERE A.ID=@ID
+
 		IF(@Tinh_trang = 2)
 		BEGIN
 			SELECT @BOPHAN=Ma_bo_phan FROM THANHVIEN WHERE ID=@Ma_nguoi_duyet
-			IF (@BOPHAN = 1)
+			IF(@VAITRO <> 8)
 			BEGIN
-				UPDATE DonXinThoiViec SET Tinh_trang='3',Phong_DT=@Ma_nguoi_duyet,Ngay_DT_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
-				SET @KQ = @ID
+				IF (@BOPHAN = 1)
+				BEGIN
+					UPDATE DonXinThoiViec SET Tinh_trang='4',Phong_DT=@Ma_nguoi_duyet,Ngay_DT_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+					SET @KQ = @ID
+				END
+				IF (@BOPHAN = 2)
+				BEGIN
+					UPDATE DonXinThoiViec SET Tinh_trang='4',Phong_HC=@Ma_nguoi_duyet,Ngay_HC_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+					SET @KQ = @ID
+				END
 			END
-			IF (@BOPHAN = 2)
+			ELSE
 			BEGIN
-				UPDATE DonXinThoiViec SET Tinh_trang='3',Phong_HC=@Ma_nguoi_duyet,Ngay_HC_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
-				SET @KQ = @ID
+				IF (@BOPHAN = 1)
+				BEGIN
+					UPDATE DonXinThoiViec SET Tinh_trang='3',Phong_DT=@Ma_nguoi_duyet,Ngay_DT_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+					SET @KQ = @ID
+				END
+				IF (@BOPHAN = 2)
+				BEGIN
+					UPDATE DonXinThoiViec SET Tinh_trang='3',Phong_HC=@Ma_nguoi_duyet,Ngay_HC_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+					SET @KQ = @ID
+				END
 			END
 		END
 		IF(@Tinh_trang = 3)
