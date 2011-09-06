@@ -51,73 +51,39 @@
 			var Ho = document.getElementById("Ho").value;
 			var val_2 = Ho.replace(rong,"");
 
-			var SoNha = document.getElementById("SoNha").value;
-			var val_3 = SoNha.replace(rong,"");
-
-			var TenLot = document.getElementById("TenLot").value;
-			var val_4 = TenLot.replace(rong,"");
-
-			var TenDuong = document.getElementById("TenDuong").value;
-			var val_5 = TenDuong.replace(rong,"");
-
 			var Ten = document.getElementById("Ten").value;
 			var val_6 = Ten.replace(rong,"");
 
-			var PhuongXa = document.getElementById("PhuongXa").value;
-			var val_7 = PhuongXa.replace(rong,"");
-
 			var NgaySinh = document.getElementById("NgaySinh").value;
-
-			var QuanHuyen = document.getElementById("QuanHuyen").value;
-			var val_8 = QuanHuyen.replace(rong,"");
-
-			var TinhTP = document.getElementById("TinhTP").value;
-			var val_9 = TinhTP.replace(rong,"");
 
 			var Email = document.getElementById("Email").value;
 			var val_10 = Email.replace(rong,"");
 			
-			var DTNha = document.getElementById("DTNha").value;
-			var val_11 = DTNha.replace(rong,"");
-
 			var CMND = document.getElementById("CMND").value;
 			var val_12 = CMND.replace(rong,"");
 
-			var DTDD = document.getElementById("DTDD").value;
-			var val_13 = DTDD.replace(rong,"");
-
+			var NgayCap = document.getElementById("txtNgayCap").value;
+			
+			var NoiCap = document.getElementById("txtNoiCap").value;
+			var val_14 = NoiCap.replace(rong,"");
+			
 			if(val_2 == ""){
 				alert("Bạn phải nhập đầy đủ họ tên !!!" );
 				
 			} else if(!isNaN(val_2)){
 				alert("Họ tên không thể là số !!!" );
-				
-			} else if(val_3 == ""){
-				alert("Bạn phải nhập số nhà !!!" );
-				
-			} else if(val_4 != "" && !isNaN(val_4)){
-				alert("Tên lót không thể là số !!!" );
-				
-			} else if(val_5 == ""){
-				alert("Bạn phải nhập tên đường !!!" );
-				
+			
 			} else if(val_6 == ""){
 				alert("Bạn phải nhập đầy đủ họ tên !!!" );
 				
 			} else if(!isNaN(val_6)){
 				alert("Họ tên không thể là số !!!" );
 				
-			} else if(val_7 == ""){
-				alert("Bạn phải nhập Phường(Xã) !!!" );
-				
-			} else if(val_8 == ""){
-				alert("Bạn phải nhập Quận(Huyện) !!!" );
-				
-			} else if(val_9 == ""){
-				alert("Bạn phải nhập Tỉnh(Thành Phố) !!!" );
-				
 			} else if(NgaySinh == ""){
 				alert("Bạn phải chọn ngày sinh !!!" );
+
+			} else if(NgayCap == ""){
+				alert("Bạn phải nhập ngày Cấp CMND !!!" );
 
 			} else if(Email == ""){
 				alert("Bạn phải nhập Email !!!" );
@@ -128,17 +94,11 @@
 			} else if(val_12 == ""){
 				alert("Bạn phải nhập số Chứng Minh Nhân Dân !!!" );
 				
-			} else if(val_13 == ""){
-				alert("Bạn phải nhập số Điện Thoại Di Động !!!" );
-			
 			} else if(isNaN(CMND)){
 				alert("Chứng minh nhân dân phải nhập số !!!" );
 
-			} else if(val_11 != "" && isNaN(DTNha)){
-				alert("Điện thoại nhà phải nhập số !!!" );
-				
-			} else if(isNaN(DTDD)){
-				alert("Điện thoại di động phải nhập số !!!" );
+			} else if(val_14 == ""){
+				alert("Bạn phải nhập nơi cấp CMND !!!" );
 				
 			} else{
 				if(ac=="C"){
@@ -173,11 +133,10 @@
 <body>
 <div class = "div_pagebody">
 <div align="center">
-	<c:if test="${param.Them ne 'yes'}">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_NhanSu.jsp" />
 	<!-- E HEAD CONTENT -->
-	</c:if>
+
 	<table style="background-color: transparent;">
 		<tr  style="background-color: transparent;">
 			<c:choose>
@@ -199,44 +158,44 @@
 				<td style="width: 120px;background-color: transparent;text-align: right;padding: 5px;">Họ </td>
 				<td style="width: 230px;text-align: left;"><input style="background-color: transparent;" type="text" id="Ho" name="Ho" value="${ThongTinChiTiet.ho }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="width: 120px;background-color: transparent;text-align: right;padding: 5px;">Số nhà </td>
-				<td style="width: 230px;text-align: left;"><input style="background-color: transparent;"  type="text" id="SoNha" name="SoNha" value="${ThongTinChiTiet.so_nha }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="width: 230px;text-align: left;"><input style="background-color: transparent;"  type="text" id="SoNha" name="SoNha" value="${ThongTinChiTiet.so_nha }" /></td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Tên lót </td>
 				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="TenLot" name="TenLot" value="${ThongTinChiTiet.ten_lot }" /></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Tên đường </td>
-				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="TenDuong" name="TenDuong" value="${ThongTinChiTiet.duong }"/><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="TenDuong" name="TenDuong" value="${ThongTinChiTiet.duong }"/></td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Tên </td>
 				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="Ten" name="Ten" value="${ThongTinChiTiet.ten }"/><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Phường/ xã </td>
-				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="PhuongXa" name="PhuongXa" value="${ThongTinChiTiet.phuong_xa }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="PhuongXa" name="PhuongXa" value="${ThongTinChiTiet.phuong_xa }" /></td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Ngày sinh </td>
 				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" readonly="readonly" id="NgaySinh" name="NgaySinh" value="${ThongTinChiTiet.ngay_sinh }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Quận/ huyện </td>
-				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="QuanHuyen" name="QuanHuyen" value="${ThongTinChiTiet.quan_huyen }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>				
+				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="QuanHuyen" name="QuanHuyen" value="${ThongTinChiTiet.quan_huyen }" /></td>				
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">CMND </td> 
 				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="CMND" name="CMND" value="${ThongTinChiTiet.cmnd }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Tỉnh/ thành phố </td>
-				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="TinhTP" name="TinhTP" value="${ThongTinChiTiet.tinh_thanhpho }" /><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;"  type="text" id="TinhTP" name="TinhTP" value="${ThongTinChiTiet.tinh_thanhpho }" /></td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Ngày Cấp </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="txtNgayCap" name="txtNgayCap" value="${ThongTinChiTiet.ngay_cap }"/></td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="txtNgayCap" name="txtNgayCap" value="${ThongTinChiTiet.ngay_cap }"/><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Điện thoại nhà </td>
 				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTNha" name="DTNha" value="${ThongTinChiTiet.dien_thoai_nha }" /></td>
 			</tr>
 			<tr style="background-color: transparent;">
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Nơi Cấp </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="txtNoiCap" name="txtNoiCap" value="${ThongTinChiTiet.noi_cap }"/></td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="txtNoiCap" name="txtNoiCap" value="${ThongTinChiTiet.noi_cap }"/><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 							
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Điện thoại di động </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTDD" name="DTDD" value="${ThongTinChiTiet.dien_thoai_dd }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="DTDD" name="DTDD" value="${ThongTinChiTiet.dien_thoai_dd }"/></td>
 				
 			</tr>
 			<tr style="background-color: transparent;">
@@ -249,7 +208,7 @@
 					</select>
 				</td>
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Email </td>
-				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="Email" name="Email" value="${ThongTinChiTiet.email }"/><c:if test="${empty param.id}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
+				<td style="text-align: left;"><input style="background-color: transparent;" ${locktext } type="text" id="Email" name="Email" value="${ThongTinChiTiet.email }"/><c:if test="${empty param.maThanhVien}"><font color="red" style="font-style: italic;"> (*) </font></c:if></td>
 			</tr>
 			<tr style="background-color: transparent;">				
 				<td style="background-color: transparent;text-align: right;padding: 5px;">Vai Trò</td>
