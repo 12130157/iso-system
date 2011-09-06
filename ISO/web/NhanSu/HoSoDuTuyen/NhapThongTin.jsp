@@ -124,15 +124,15 @@
 			table.rows[i].insertCell(1).innerHTML = "<select style='background-color: transparent;' name='LoaiBang"+i+"' id='LoaiBang"+i+"'><option value='Trung Cấp'>Trung Cấp</option><option value='Cao Đẳng'>Cao Đẳng</option><option value='Đại Học - Chính Qui'>Đại Học - Chính Qui</option><option value='Đại Học - Tại Chức'>Đại Học - Tại Chức</option><option value='Cử Nhân'>Cử Nhân</option><option value='Tiến Sĩ'>Tiến Sĩ</option><option value='Thạc Sĩ'>Thạc Sĩ</option><option value='Giáo Sư'>Giáo Sư</option></select>";
 			table.rows[i].insertCell(2).innerHTML = "<input type='text' style='width: 150px;background-color: transparent' name='TruongCap"+i+"' id='TruongCap"+i+"'/>";
 			table.rows[i].insertCell(3).innerHTML = "<input type='text' style='width: 80px;background-color: transparent' name='ChuyenNganh"+i+"' id='ChuyenNganh"+i+"'/>";
-			table.rows[i].insertCell(4).innerHTML = "<input type='text' onchange='checkNamTotNghiep(this)' style='width: 50px;background-color: transparent;' name='Nam"+i+"' id='Nam"+i+"' />";
+			table.rows[i].insertCell(4).innerHTML = "<input type='text' onchange='checkNamTotNghiep(this)' style='text-align:center;width: 50px;background-color: transparent;' name='Nam"+i+"' id='Nam"+i+"' />";
 			table.rows[i].insertCell(5).innerHTML = "<select style='background-color: transparent;' name='LoaiTotNghiep"+i+"' id='LoaiTotNghiep"+i+"'><option value='Xuất Sắc'>Xuất Sắc</option><option value='Giỏi'>Giỏi</option><option value='Khá'>Khá</option><option value='Trung Bình-Khá'>Trung Bình-Khá</option><option value='Trung Bình'>Trung Bình</option></select>";
 			document.getElementById('row').value = i+1;
 		}
 		
 		function checkNamTotNghiep(id){
 			var nam = parseInt(id.value);
-			var Date = new Date();
-			var namMax = Date.getFullYear();
+			var date = new Date();
+			var namMax = date.getFullYear();
 			if(nam < 1960 || nam > namMax){
 				alert("Năm tốt nghiệp phải từ 1960 - "+namMax);
 				id.value = "";
@@ -279,7 +279,7 @@
 								<td style="width: 150px;text-align: center;font-weight: bold;">${BangCap.loaiBang }</td>
 								<td style="width: 150px;text-align: center;font-weight: bold;">${BangCap.truongCap }</td>
 								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCap.chuyenNganh }</td>
-								<td style="width: 50px;text-align: center;font-weight: bold;">${BangCap.namHoc }</td>
+								<td style="width: 50px;text-align: center;font-weight: bold;">${BangCap.namTotNghiep }</td>
 								<td style="width: 110px;text-align: center;font-weight: bold;">${BangCap.loaiTotNghiep }</td>
 								
 							</tr>
