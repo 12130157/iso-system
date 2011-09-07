@@ -152,9 +152,11 @@ public class ThoiKhoaBieuDAO {
 			if(rs.next()) {
 				thoiKhoaBieu.setMaThoiKhoaBieu(rs.getString("MaThoiKhoaBieu"));
 				thoiKhoaBieu.setTenThoiKhoaBieu(rs.getNString("TenThoiKhoaBieu"));
+				thoiKhoaBieu.setMaNguoiTao(rs.getString("MaNguoiTao"));
 				thoiKhoaBieu.setTenNguoiTao(rs.getNString("TenNguoiTao"));
 				thoiKhoaBieu.setNgayGui(rs.getString("NgayGui"));
 				thoiKhoaBieu.setGioGui(rs.getString("GioGui"));
+				thoiKhoaBieu.setMaNguoiDuyet(rs.getString("MaNguoiDuyet"));
 				thoiKhoaBieu.setTenNguoiDuyet(rs.getNString("TenNguoiDuyet"));
 				thoiKhoaBieu.setNgayDuyet(rs.getString("NgayDuyet"));
 				thoiKhoaBieu.setGioDuyet(rs.getString("GioDuyet"));
