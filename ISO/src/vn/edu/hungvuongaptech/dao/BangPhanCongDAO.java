@@ -229,9 +229,11 @@ public class BangPhanCongDAO {
 			if(rs.next()) {
 				bangPhanCong.setId(rs.getString("MaBangPhanCong"));
 				bangPhanCong.setTen(rs.getNString("TenBangPhanCong"));
+				bangPhanCong.setMaNguoiTao(rs.getString("MaNguoiTao"));
 				bangPhanCong.setTenNguoiTao(rs.getNString("TenNguoiTao"));
 				bangPhanCong.setNgayGui(rs.getString("NgayGui"));
 				bangPhanCong.setGioGui(rs.getString("GioGui"));
+				bangPhanCong.setMaNguoiDuyet(rs.getString("MaNguoiDuyet"));
 				bangPhanCong.setTenNguoiDuyet(rs.getNString("TenNguoiDuyet"));
 				bangPhanCong.setNgayDuyet(rs.getString("NgayDuyet"));
 				bangPhanCong.setGioDuyet(rs.getString("GioDuyet"));

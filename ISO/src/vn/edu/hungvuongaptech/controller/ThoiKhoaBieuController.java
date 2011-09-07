@@ -424,8 +424,8 @@ public class ThoiKhoaBieuController extends HttpServlet {
 					// Gui email inform REJECT cho TrÆ°á»Ÿng Khoa
 					MailUtil.sendEmailToBoPhan(	MailDAO.getMailOfTruongKhoaAndPhoKhoaByMaNguoiLap(thoiKhoaBieuModel.getMaNguoiTao()),///////////////
 							MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH),//////////////,
-								MailDAO.getSubjectApproveByChucNang(Constant.CHUCNANG_THOIKHOABIEU),
-									MailDAO.getContentApproveByChucNang(Constant.CHUCNANG_THOIKHOABIEU, 
+								MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_THOIKHOABIEU),
+									MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_THOIKHOABIEU, 
 											"THỜI KHÓA BIỂU " + thoiKhoaBieuModel.getTenThoiKhoaBieu(), 
 											thoiKhoaBieuModel.getTenNguoiTao(), 
 											thoiKhoaBieuModel.getNgayGui() + " " + thoiKhoaBieuModel.getGioGui(), 
