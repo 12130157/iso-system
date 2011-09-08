@@ -129,12 +129,15 @@ public class KeHoachGiangDayController extends HttpServlet{
 				MailUtil.sendEmailToBoPhan(mailTo,
 										mailCC,
 											MailDAO.getSubjectRejectByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY),
-												MailDAO.getContentRejectByChucNang(Constant.CHUCNANG_KEHOACHGIANGDAY, 
+												MailDAO.getContentRejectByChucNangCoLyDoReject(Constant.CHUCNANG_KEHOACHGIANGDAY, 
 														keHoachGiangDayModel.getTenKHGD(), 
 															keHoachGiangDayModel.getTenNguoiTao(), 
 															DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong()), 
 																	keHoachGiangDayModel.getTenTruongKhoa(),
-																		keHoachGiangDayModel.getNgayDuyet()  + " : " + keHoachGiangDayModel.getGioDuyet()));
+																		keHoachGiangDayModel.getNgayTKDuyet()  + " : " + keHoachGiangDayModel.getGioTKDuyet(),
+																			keHoachGiangDayModel.getLyDoReject()
+																		)
+																		);
 			
 				
 			}
