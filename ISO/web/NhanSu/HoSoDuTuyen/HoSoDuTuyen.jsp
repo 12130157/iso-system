@@ -150,9 +150,6 @@
 			} else if(isNaN(CMND)){
 				alert("Chứng minh nhân dân phải nhập số !!!" );
 
-			} else if(val_11 != "" && isNaN(DTNha)){
-				alert("Điện thoại nhà phải nhập số !!!" );
-				
 			} else if(val_14 == ""){
 				alert("Bạn phải nhập nơi cấp CMND !!!" );
 				
@@ -400,7 +397,7 @@
   Zapatec.Calendar.setup({
 	firstDay          : 1,
 	weekNumbers       : false,
-	range             : [1962.01, 1991.12],
+	range             : [1962.01, 2010.12],
 	electric          : false,
 	inputField        : "txtNgayCap",
 	button            : "txtNgayCap",
