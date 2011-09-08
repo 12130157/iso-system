@@ -29,8 +29,12 @@ public class HopDongLaoDongDAO {
 	
 	public static String countHopDongLaoDongByNguoiDuTuyen(String maNguoiDuTuyen){
 		String kq = "";
+		if(maNguoiDuTuyen==""){
+			kq = "0";
+			return kq;
+		}
 		try {
-			String sql ="SELECT COUNT(*) AS KQ FROM HOPDONGLAODONG WHERE NGUOI_DU_TUYEN=?";
+			String sql ="SELECT COUNT(*) AS KQ FROM HOPDONGLAODONG WHERE NGUOI_DU_TUYEN=? AND TINH_TRANG<>'-1'";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, maNguoiDuTuyen);
 			ResultSet rs = ps.executeQuery();
@@ -40,6 +44,7 @@ public class HopDongLaoDongDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return kq;
 	}
 	

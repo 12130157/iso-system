@@ -7,7 +7,10 @@
 
 
 <%@page import="vn.edu.hungvuongaptech.dao.DeNghiKhoanThuViecDAO"%>
-<%@page import="vn.edu.hungvuongaptech.dao.NhanXetKetQuaThuViecDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.dao.NhanXetKetQuaThuViecDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.HopDongLaoDongDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.HoSoDuTuyenDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp"/>
@@ -30,10 +33,9 @@
 <script type="text/javascript" language="javascript">
 	
 	function checkMaVaiTro(){
-		var nguoiDuTuyen = <%=Constant.NGUOI_DU_TUYEN %>;
-		var vaiTro = <%=session.getAttribute("maVaiTro") %>;
-		if(nguoiDuTuyen == vaiTro){
-			submit();	
+		var count = <%=HopDongLaoDongDAO.countHopDongLaoDongByNguoiDuTuyen(HoSoDuTuyenDAO.getMaHSDTByMaThanhVien(session.getAttribute("maThanhVien").toString())) %>;
+		if(count == 1){
+			submit();
 		}
 	}
 	
