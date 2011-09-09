@@ -60,10 +60,10 @@
 					
 			<table border="1" style="background-color : transparent;">
 				<tr style="background-color : transparent; ">
-					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">GV :</div></td>
-					<td><div class = "div_txtleft">${gvDiemDanh.tenGiaoVien}</div></td>
-					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">Khoa : </div></td>
-					<td><div class = "div_txtleft">${gvDiemDanh.tenKhoa}</div></td>
+					<td style="background-color: #778899; color: white;width: 150px;" align="right"><div class = "div_txtleft">GV :</div></td>
+					<td style="width: 200px;"><div class = "div_txtleft">${gvDiemDanh.tenGiaoVien}</div></td>
+					<td style="background-color: #778899; color: white;width: 150px;" align="right"><div class = "div_txtleft">Khoa : </div></td>
+					<td style="width: 200px;"><div class = "div_txtleft">${gvDiemDanh.tenKhoa}</div></td>
 				</tr>
 				<tr style="background-color : transparent;">
 					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">Môn học : </div></td>
@@ -78,8 +78,8 @@
 					<td><div class = "div_txtleft">${gvDiemDanh.ngayHienTai}</div></td>
 				</tr>
 				<tr style="background-color : transparent;">
-					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">TG Khóa Học : </div></td>
-					<td><div class = "div_txtleft">${gvDiemDanh.ngayBatDau}-->${gvDiemDanh.ngayKetThuc}</div></td>
+					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">Phòng : </div></td>
+					<td><div class = "div_txtleft">${gvDiemDanh.tenPhong }</div></td>
 					<td style="background-color: #778899; color: white;" align="right"><div class = "div_txtleft">Hình Thức Dạy : </div></td>
 					<td><div class = "div_txtleft">${gvDiemDanh.hinhThucDay}</div></td>
 				</tr>		

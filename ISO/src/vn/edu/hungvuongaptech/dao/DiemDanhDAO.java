@@ -119,7 +119,7 @@ public class DiemDanhDAO  {
 		DiemDanhModel ddModel = new DiemDanhModel();
 		Format formatter;
 		DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-		formatter = new SimpleDateFormat("yyyy-mm-dd");
+		formatter = new SimpleDateFormat("dd-mm-yyyy");
 		SimpleDateFormat sdf = new SimpleDateFormat("H");
 		String dateSql = "";
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -181,6 +181,7 @@ public class DiemDanhDAO  {
 							ddModel.setDayOfWeek(rs.getString("DayOfWeek"));
 							ddModel.setBuoi(rs.getString("buoi"));
 							ddModel.setHinhThucDay(rs.getString("hinh_Thuc_day"));
+							ddModel.setTenPhong(rs.getString("Ten_phong"));
 				}
 			
 			}
@@ -221,6 +222,7 @@ public class DiemDanhDAO  {
 							ddModel.setDayOfWeek(rs.getString("DayOfWeek"));
 							ddModel.setBuoi(rs.getString("buoi"));
 							ddModel.setHinhThucDay(rs.getString("hinh_Thuc_day"));
+							ddModel.setTenPhong(rs.getString("Ten_phong"));
 				}
 			
 			}
