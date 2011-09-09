@@ -159,7 +159,23 @@
 						
 						<c:forEach items="${listThanhVien}" var="list">
 							<c:if test= "${param.maTV ne list.id}">
-								<tr>
+								<c:choose>
+									<c:when test="${list.tinhTrang eq '1'}">
+										<tr>
+									</c:when>
+									<c:when test="${list.tinhTrang eq '2'}">
+										<tr style="background-color: #FFA500;">
+									</c:when>
+									<c:when test="${list.tinhTrang eq '3'}">
+										<tr style="background-color: #FFFF00;">
+									</c:when>
+									<c:when test="${list.tinhTrang eq '4'}">
+										<tr style="background-color: #99bff9;">
+									</c:when>
+									<c:otherwise>
+										<tr>
+									</c:otherwise>
+								</c:choose>
 									<td><%=stt%></td>
 									<td><div class = "div_txtleft">${list.tenDangNhap}</div></td>
 									<td><div class = "div_txtleft">${list.hoGiaoVien} ${list.tenLotGiaoVien} ${list.tenGiaoVien}</div></td>
@@ -182,7 +198,7 @@
 							</c:if>
 							<c:if test= "${param.maTV eq list.id}">
 							 
-								<tr style="background-color: #99bff9;" >
+								<tr style="background-color: #FF0000;" >
 									<td><%=stt%></td>
 									<td><div class = "div_txtleft">${list.tenDangNhap}</div></td>
 									<td><div class = "div_txtleft">${list.hoGiaoVien} ${list.tenLotGiaoVien} ${list.tenGiaoVien}</div></td>
