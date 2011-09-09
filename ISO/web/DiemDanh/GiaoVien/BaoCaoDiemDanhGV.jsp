@@ -146,7 +146,7 @@ function pageLoad(){
 	}
 	function selectNamHoc(x)
 	{
-		if(x== 2)
+		if(x== 2) 
 			document.getElementById('cboNamHoc').value = <%="'" +request.getParameter("namHoc") + "'"%>;
 		var maNam = document.getElementById("cboNamHoc").value;
 		document.getElementById('cboGiaoVien').innerHTML = '';

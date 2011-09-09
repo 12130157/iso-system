@@ -25,18 +25,18 @@
 <![endif]-->
 
 <script type="text/javascript" language="JavaScript">
-	function chose(){
+	function pageLoad(){
 		document.ActionDD.txtID.focus();
 	}
 	function submitlogin(){
-			document.forms["ActionDD"].submit();
+		document.forms["ActionDD"].submit();
 	}
 </script>
 
 
 <title>Hệ Thống Quản Lý (Điểm Danh)</title>
 </head>
-<body onload="chose();">
+<body onload="pageLoad()">
 <div align="center">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_diemdanh.jsp" />
