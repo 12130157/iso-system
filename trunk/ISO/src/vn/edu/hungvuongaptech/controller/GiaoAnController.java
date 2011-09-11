@@ -433,7 +433,7 @@ public class GiaoAnController extends HttpServlet {
 				for(int i=0;i<total;i++){
 					thanhVienModel=new ThanhVienNhacNhoModel2();
 					String tenGiaoVien=request.getParameter("txtTenGiaoVien_"+i);
-					String tenChuongTrinh= StringUtil.toUTF8("Giáo án số "+request.getParameter("txtSoGiaoAn_"+i)+" thuộc " + request.getParameter("txtTenMonHoc_"+i) + " - "+ request.getParameter("txtTenLopHoc_"+i));
+					String tenChuongTrinh= "Giáo án số "+StringUtil.toUTF8(request.getParameter("txtSoGiaoAn_"+i))+" thuộc " + StringUtil.toUTF8(request.getParameter("txtTenMonHoc_"+i)) + " - "+ StringUtil.toUTF8(request.getParameter("txtTenLopHoc_"+i));
 					String ngayDay=request.getParameter("txtNgayDay_"+i);
 					String maNguoiTao=request.getParameter("txtMaGiaoVien_"+i);
 					thanhVienModel.setMaThanhVien(maNguoiTao);
