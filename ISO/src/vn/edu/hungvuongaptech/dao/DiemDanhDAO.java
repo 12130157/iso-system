@@ -540,6 +540,30 @@ public class DiemDanhDAO  {
 		}	
 		return khoaList;
 	}
+<<<<<<< .mine
+	
+	public static ArrayList<LopHocModel> getThongTinGiaoVienReport(String khoa) {
+		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.getThongTinReportGiaoVien"));
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				LopHocModel lopHoc = new LopHocModel();
+				lopHoc.setMaLopHoc(rs.getString("MaLop"));
+				lopHoc.setKiHieu(rs.getString("KiHieuLop"));
+				lopHocList.add(lopHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return lopHocList;
+	}
+	
+=======
 	
 //	public static ArrayList<KhoaModel> getThongTinGiaoVienReport(String maGiaoVien) {
 //
@@ -623,6 +647,7 @@ public class DiemDanhDAO  {
 //	}
 	
 	@SuppressWarnings("deprecation")
+>>>>>>> .r704
 	public static ArrayList<DiemDanhModel> getGiaoVienByDieuKien(String Khoa, String Lop, 
 			String NamHoc, String GiaoVien, String MonHoc,String ThoiGian) {
 	ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();		
