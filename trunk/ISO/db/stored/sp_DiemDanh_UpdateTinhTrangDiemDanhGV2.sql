@@ -14,4 +14,13 @@ BEGIN
 							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
 									AND C.Ma_giao_vien = @ID
 									AND E.Tinh_trang = 2)
+
+	UPDATE chitietdiemdanh 
+			SET Gio_ket_thuc=getdate()
+			WHERE ID IN (SELECT E.ID 
+							FROM diemdanh C
+									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
+									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
+							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
+									AND C.Ma_giao_vien = @ID)
 END

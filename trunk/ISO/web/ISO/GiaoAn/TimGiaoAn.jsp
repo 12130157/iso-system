@@ -556,7 +556,7 @@
 							</c:if>
 					</c:if>
 						
-						<c:if test="${ sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW }">
+						<c:if test="${(sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq true  and objKQTim.tinhTrang eq TT_NEW) or ( sf:compareDate(ngayHienTai,objKQTim.ngayDay) eq false and objKQTim.tinhTrang eq TT_NEW and TGResult le TGNhacNhoGoiGA and TGResult ge 0) }">
 							<input type="hidden" value="${objKQTim.maGiaoVien}" name="txtMaGiaoVien_<%=countEmail %>" id="txtMaGiaoVien_<%=countEmail %>"></input>
 							<input type="hidden" value="${objKQTim.soGiaoAn}" name="txtSoGiaoAn_<%=countEmail %>" id="txtSoGiaoAn_<%=countEmail %>"></input>
 							<input type="hidden" value="${objKQTim.tenGiaoVien}" name="txtTenGiaoVien_<%=countEmail %>" id="txtTenGiaoVien_<%=countEmail %>"></input>
@@ -579,7 +579,7 @@
 	<br/>
 	<br/>
 	<br/>		 
-	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or boPhan eq boPhanPKD}">
+	<c:if test ="${vaiTro eq Admin or vaiTro eq vaiTroTK or boPhan eq boPhanPKD or boPhan eq boPhanPDT or boPhan eq boPhanBGH}">
 	<div style='text-align:center'>
 			<img style="cursor:pointer;" src="<%=request.getContextPath()%>/images/buttom/emailnhacnho.png" alt="Email nhắc nhở" border = "0" onclick="click_SendMail()"/>
 	</div>

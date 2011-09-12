@@ -22,6 +22,7 @@ import vn.edu.hungvuongaptech.model.MonHocModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.NamHocModel;
 import vn.edu.hungvuongaptech.model.ThanhVienModel;
+import vn.edu.hungvuongaptech.model.ThoiGianGiangDayModel;
 import vn.edu.hungvuongaptech.model.TuanLeModel;
 import vn.edu.hungvuongaptech.model.VaiTroModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
@@ -416,7 +417,7 @@ public class DiemDanhDAO  {
 		}
 						
 		return result;
-	}	
+	}
 	public static Boolean updateSinhVienOnline(DiemDanhModel model) {
 		Boolean result = false;		
 		try {
@@ -460,7 +461,7 @@ public class DiemDanhDAO  {
 		return null;
 	}
 	
-	public static ArrayList<KhoaModel> getThongTinGiaoVienReport() {
+	public static ArrayList<KhoaModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan) {
 
 		// TODO Auto-generated method stub
 		String maKhoa = "na", maLop = "na", maNamHoc = "na", tenGiaoVien = "na",maMonHoc="na";
@@ -470,12 +471,11 @@ public class DiemDanhDAO  {
 		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
 		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
 		try {
-			PreparedStatement preparedStatement = DataUtil
-					.getConnection()
-					.prepareStatement(
-							Constant.SQL_RES
-									.getString("iso.sql.getThongTinReportGiaoVien"));
-			ResultSet rs = preparedStatement.executeQuery();
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_DiemDanh_GetThongTinReportGiaoVien(?,?,?)}");
+			csmt.setString("MaThanhVien", maThanhVien);
+			csmt.setString("MaVaiTro", maVaiTro);
+			csmt.setString("MaBoPhan", maBoPhan);
+			ResultSet rs = csmt.executeQuery();
 			while(rs.next()) {
 				if(!maKhoa.equals(rs.getString("MaKhoa"))) {
 					KhoaModel khoa = new KhoaModel();
@@ -540,6 +540,89 @@ public class DiemDanhDAO  {
 		}	
 		return khoaList;
 	}
+	
+//	public static ArrayList<KhoaModel> getThongTinGiaoVienReport(String maGiaoVien) {
+//
+//		// TODO Auto-generated method stub
+//		String maKhoa = "na", maLop = "na", maNamHoc = "na", tenGiaoVien = "na",maMonHoc="na";
+//		ArrayList<KhoaModel> khoaList = new ArrayList<KhoaModel>();
+//		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
+//		ArrayList<NamHocModel> namHocList = new ArrayList<NamHocModel>();
+//		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
+//		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
+//		try {
+//			PreparedStatement preparedStatement = DataUtil
+//					.getConnection()
+//					.prepareStatement(
+//							Constant.SQL_RES
+//									.getString("iso.sql.getThongTinReportGiaoVien"));
+//			ResultSet rs = preparedStatement.executeQuery();
+//			while(rs.next()) {
+//				if(!maKhoa.equals(rs.getString("MaKhoa"))) {
+//					KhoaModel khoa = new KhoaModel();
+//					khoa.setMaKhoa(rs.getString("MaKhoa"));
+//					khoa.setTenKhoa(rs.getString("TenKhoa"));
+//					lopHocList = new ArrayList<LopHocModel>();
+//					khoa.setLopHocList(lopHocList);
+//					khoaList.add(khoa);
+//				}
+//				if(!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
+//					LopHocModel lopHoc = new LopHocModel();
+//					lopHoc.setMaLopHoc(rs.getString("MaLop"));
+//					lopHoc.setKiHieu(rs.getString("KiHieuLop"));
+//					namHocList = new ArrayList<NamHocModel>();
+//					lopHoc.setNamHocList(namHocList);
+//					lopHocList.add(lopHoc);
+//				}
+//				if(!maNamHoc.equals(rs.getString("MaNamHoc")) || !maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
+//					NamHocModel namHoc = new NamHocModel();
+//					namHoc.setMaNamHoc(rs.getString("MaNamHoc"));
+//					namHoc.setNamBatDau(rs.getString("NamBatDau"));
+//					namHoc.setNamKetThuc(rs.getString("NamKetThuc"));
+//					thanhVienList = new ArrayList<ThanhVienModel>();
+//					namHoc.setThanhVienList(thanhVienList);
+//					namHocList.add(namHoc);
+//				}
+//				if(!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
+//				{
+//					ThanhVienModel thanhVien = new ThanhVienModel();
+//					thanhVien.setMaThanhVien(rs.getString("MaThanhVien"));
+//					thanhVien.setTenThanhVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
+//					monHocList = new ArrayList<MonHocModel>();
+//					thanhVien.setMonHocList(monHocList);
+//					thanhVienList.add(thanhVien);
+//				}
+//				if(!maMonHoc.equals(rs.getString("MaMonHoc"))||!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
+//				{
+//					MonHocModel monHoc= new MonHocModel();
+//					monHoc.setMaMonHoc(rs.getString("MaMonHoc"));
+//					monHoc.setTenMonHoc(rs.getString("TenMonHoc"));
+//					monHocList.add(monHoc);
+//				}
+//				/*
+//				MonHocTKBModel monHocTKB = new MonHocTKBModel();
+//				monHocTKB.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
+//				monHocTKB.setMaMonHoc(rs.getString("MaMonHoc"));
+//				monHocTKB.setTenMonHoc(rs.getString("TenMonHoc"));
+//				monHocTKB.setMaGiaoVien(rs.getString("MaThanhVien"));
+//				monHocTKB.setTenGiaoVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
+//				monHocTKBList.add(monHocTKB);\
+//				*/
+//				maKhoa = rs.getString("MaKhoa");
+//				maLop = rs.getString("MaLop");
+//				maNamHoc = rs.getString("MaNamHoc");
+//				tenGiaoVien = rs.getString("MaThanhVien");
+//				maMonHoc = rs.getString("MaMonHoc");
+//				
+//			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}	
+//		return khoaList;
+//	}
+	
+	@SuppressWarnings("deprecation")
 	public static ArrayList<DiemDanhModel> getGiaoVienByDieuKien(String Khoa, String Lop, 
 			String NamHoc, String GiaoVien, String MonHoc,String ThoiGian) {
 	ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();		
@@ -564,12 +647,54 @@ public class DiemDanhDAO  {
 			model.setTenKhoa(rs.getString("TenKhoa"));
 			model.setNgayBatDau(rs.getString("NgayHoc"));
 			model.setHinhThucDay(rs.getString("HinhThucDay"));
+			model.setMaThanhVienDiemDanh(rs.getString("MaGiaoVien"));
 			list.add(model);
 		}
+		
+		for (DiemDanhModel diemDanh : list) {
+			ThoiGianGiangDayModel model = getThoiGianGiangDayByMaGiaoVien(diemDanh.getMaThanhVienDiemDanh(), diemDanh.getNgayBatDau());
+			diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
+			diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
+			diemDanh.setGioGiangDay(model.getTime());
+		}
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 					
 	return list;
-}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static ThoiGianGiangDayModel getThoiGianGiangDayByMaGiaoVien(String id, String ngayHoc){
+		ThoiGianGiangDayModel model = null;
+		try {
+			String sql = "select MIN(Gio_bat_dau) as Gio_bat_dau,MAX(Gio_ket_thuc) as Gio_ket_thuc "
+						+" from chitietdiemdanh where id in (SELECT E.ID " 
+						+" FROM diemdanh C "
+						+" INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh "
+						+" INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID "
+						+" WHERE Convert(varchar(10),E.Ngay_hoc,110) = ? " 
+						+" AND C.Ma_giao_vien = ?)";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, ngayHoc);
+			ps.setString(2, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new ThoiGianGiangDayModel();
+				model.setBatDau(rs.getString("Gio_bat_dau"));
+				model.setKetThuc(rs.getString("Gio_ket_thuc"));
+			}
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+			model.setTimeBatDau(format.parse(model.getBatDau()));
+			model.setTimeKetThuc(format.parse(model.getKetThuc()));
+			int total = (model.getTimeKetThuc().getHours()*60+model.getTimeKetThuc().getMinutes())-(model.getTimeBatDau().getHours()*60+model.getTimeBatDau().getMinutes());
+			String time = total/60+"h"+total%60;
+			model.setTime(time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return model;
+	}
 }

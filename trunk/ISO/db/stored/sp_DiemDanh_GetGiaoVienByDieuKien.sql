@@ -59,7 +59,7 @@ BEGIN
 	END
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
-			I.Ten_mon_hoc AS TenMonHoc, ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
+			I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
 			Convert(varchar(10), A.Ngay_hoc, 110) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay
 	FROM ChiTietTKB AS A 
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 

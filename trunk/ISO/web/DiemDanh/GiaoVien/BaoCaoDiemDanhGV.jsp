@@ -37,7 +37,13 @@ var monHocList = new Array();
 function pageLoad(){
 	<% 
 	ArrayList<KhoaModel> khoaList;
-	khoaList = DiemDanhDAO.getThongTinGiaoVienReport();
+	khoaList = DiemDanhDAO.getThongTinGiaoVienReport("","","");
+									//session.getAttribute("maThanhVien").toString(),
+									//	session.getAttribute("maVaiTro").toString(),
+											//session.getAttribute("maBoPhan").toString());
+	// Truong Khoa, PhoKhoa search theo khoa 
+	// PDT, PHC, BGH search tất cả
+	// Giáo Viên search giáo viên
 	if(khoaList.size() > 0)
 		out.print("document.getElementById('cboKhoa').innerHTML = '';");
 		for(int i=0;i<khoaList.size();i++) {
@@ -287,9 +293,13 @@ function pageLoad(){
 				MonHoc = request.getParameter("MonHoc");
 			if(request.getParameter("ThoiGian") != null)
 				ThoiGian = request.getParameter("ThoiGian");
-			int stt = 1 ; 
-			%>	
+			int stt = 1 ;
+			if(Khoa!="" && Lop!="" && NamHoc!="" && GiaoVien!="" && MonHoc!=""){
+		%>
 			<c:set 	var = "ListGiaoVien" value = '<%=DiemDanhDAO.getGiaoVienByDieuKien(Khoa,Lop,NamHoc,GiaoVien, MonHoc,ThoiGian) %>' scope="session"></c:set>
+		<%
+			}
+		 %>
 		<br /><br /><font size="4" style="text-align: left;" color="#0000FF">Kết Quả Tìm Kiếm</font><br /><br />
 		<table border="1" width="800px" style="background-image: url('../../images/background_diemdanh.png');background-repeat: repeat-y">
 			<tr style="background-color: transparent;">
@@ -311,9 +321,9 @@ function pageLoad(){
 			<td>${obj.ngayBatDau}</td>
 			<td>${obj.hinhThucDay}</td>
 			<td>${obj.tenPhong}</td>
-			<td>7h30</td>
-			<td>11h00</td>
-			<td>3h30</td>
+			<td>${obj.gioBatDau }</td>
+			<td>${obj.gioKetThuc }</td>
+			<td>${obj.gioGiangDay }</td>
 			</tr>
 			<% stt++; %>
 			</c:forEach>
