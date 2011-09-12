@@ -602,6 +602,7 @@ function capNhatRKN(str)
 			<c:set var="maNguoiTao" value='${objKHGD.maGiaoVien}'></c:set>
 			<c:set var="vaiTro" value='<%= (String) session.getAttribute("maVaiTro") %>'></c:set>
 			<c:set var="vaiTro_TK" value='<%= Constant.TRUONG_KHOA %>'></c:set>
+			<c:set var="vaiTro_PK" value='<%= Constant.PHO_KHOA %>'></c:set>
 			<c:set var="Admin" value='<%=Constant.ADMIN%>'></c:set>
 						
 						
@@ -884,7 +885,7 @@ function capNhatRKN(str)
 							</c:if>
 							
 						</c:if>	
-						<c:if test="${param.stt ne 'insert' and  (vaiTro eq vaiTro_TK or  vaiTro eq Admin) and tinhTrangGA eq TT_SEND }">
+						<c:if test="${param.stt ne 'insert' and  (vaiTro eq vaiTro_TK or  vaiTro eq Admin  or vaiTro eq vaiTro_PK) and tinhTrangGA eq TT_SEND }">
 							<img src="<%=request.getContextPath()%>/images/buttom/approve.png" style="cursor:pointer;" onclick="duyetForm('approve')" />
 						
 							<img src="<%=request.getContextPath()%>/images/buttom/reject.png" style="cursor:pointer;" onclick="duyetForm('reject')"   />
