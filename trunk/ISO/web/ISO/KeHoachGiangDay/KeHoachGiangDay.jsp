@@ -59,6 +59,7 @@
 <c:set var = "maThanhVien" value='<%= (String) session.getAttribute("maThanhVien") %>'></c:set>
 <c:set var = "HieuTruong" value = "<%= Constant.HIEU_TRUONG %>"></c:set>
 <c:set var = "TruongKhoa" value = "<%= Constant.TRUONG_KHOA %>"></c:set>
+<c:set var = "PhoKhoa" value = "<%= Constant.PHO_KHOA %>"></c:set>
 <c:set var = "GiaoVien" value = "<%=Constant.GIAO_VIEN %>"></c:set>
 <c:set var = "Admin" value = "<%=Constant.ADMIN %>"></c:set>
 <c:set var = "vaiTro" value = '<%= (String) session.getAttribute("maVaiTro") %>'> </c:set>
@@ -1078,10 +1079,10 @@
 							<img src="<%=request.getContextPath()%>/images/buttom/in.png?maKHGD=${param.maKHGD}" alt="Xuất File" border = "0" />
 						</a>
 					</c:if>
-					<c:if test="${ (maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
+					<c:if test="${ (maKhoa eq boPhanBGH and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq PhoKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE ) }">
 						<a href = "javascript: confirmDuyet('A')"><img src="<%=request.getContextPath()%>/images/buttom/approve.png" alt="Approve" border="0"/> </a>
 					</c:if>	
-					<c:if test="${ (maKhoa eq boPhanBGH  and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
+					<c:if test="${ (maKhoa eq boPhanBGH  and objKHGD.tinhTrangHT eq SEND) or (vaiTro eq TruongKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq PhoKhoa and (objKHGD.tinhTrang eq SEND or objKHGD.tinhTrangHT eq REJECT)) or (vaiTro eq Admin and objKHGD.tinhTrang ne NEW and objKHGD.tinhTrang ne REJECT and objKHGD.tinhTrangHT ne APPROVE) }">
 						<a href = "javascript: confirmDuyet('R')"><img src="<%=request.getContextPath()%>/images/buttom/reject.png" alt="Reject" border="0"/> </a>
 					</c:if>
 				</c:if>
