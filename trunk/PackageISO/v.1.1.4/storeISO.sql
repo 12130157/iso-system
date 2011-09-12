@@ -1424,7 +1424,7 @@ BEGIN
 	END
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
-			I.Ten_mon_hoc AS TenMonHoc, ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
+			I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
 			Convert(varchar(10), A.Ngay_hoc, 110) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay
 	FROM ChiTietTKB AS A 
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 
@@ -1440,6 +1440,56 @@ BEGIN
 		+ @Where + @Dieu_Kien_Khoa + @And + @Dieu_Kien_Lop + @And + @Dien_Kien_Nam_Hoc + @And + @Dieu_Kien_Giao_Vien + @And + @Dieu_Kien_Mon_Hoc + @And + @Dieu_Kien_Thoi_Gian +
 		' ORDER BY A.Ngay_hoc, A.Thu_trong_tuan, A.Buoi DESC, A.Ma_phong, F.ID'
 	exec  sp_executesql @sql
+END
+
+--exec sp_DiemDanh_GetGiaoVienByDieuKien 6,0,1,28,15,5
+--sp_help sp_executesql
+--sp_ISO_GetLichSuDungPhong '1','1','60','',''
+--select * from lophoc
+--select * from chitiettkb
+GO
+
+--sp_DiemDanh_GetThongTinReportGiaoVien.sql
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_DiemDanh_GetThongTinReportGiaoVien]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[sp_DiemDanh_GetThongTinReportGiaoVien]
+GO
+CREATE PROCEDURE sp_DiemDanh_GetThongTinReportGiaoVien
+	@MaThanhVien		varchar(10),
+	@MaVaiTro			varchar(10),
+	@MaBoPhan			varchar(10)
+AS
+BEGIN
+	DECLARE @sql NVarchar(2000)
+	DECLARE @DK_Khoa			nvarchar(100)
+	DECLARE @DK_MaGiaoVien		nvarchar(100)
+	SET @DK_Khoa = ''
+	SET @DK_MaGiaoVien = ''
+	IF(@MaVaiTro = '5' OR @MavaiTro = '6')
+	BEGIN
+		SET @DK_Khoa = ' AND E.ID = ' + @MaBoPhan
+	END
+	if(@MaVaiTro = '8')
+	BEGIN
+		SET @DK_MaGiaoVien = ' AND H.ID = ' + @MaThanhVien
+	END
+	
+	SET @sql = '
+		select e.id As MaKhoa, e.Ten as TenKhoa, c.id AS MaLop, c.Ki_hieu AS KiHieuLop,
+		d.Ten_chuyen_nganh, b.id as MaNamHoc, b.Nam_bat_dau as NamBatdau, b.Nam_ket_thuc as NamKetThuc,
+		a.Hoc_ki as HocKy,f.ID as MaMonHocTKB, g.id AS MaMonHoc, g.Ten_mon_hoc AS TenMonHoc, 
+		h.id As MaThanhVien, IsNull(i.Ho,'''') AS Ho, IsNull(i.Ten_Lot,'''') As TenLot, IsNull(i.Ten,'''') As Ten 
+
+		from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau 
+		inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh 
+		inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb 
+		inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id 
+		inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap 
+
+		where a.tinh_trang = 2 '+@DK_Khoa+@DK_MaGiaoVien+'
+
+		order by e.Ten, c.Ki_hieu, b.Nam_bat_dau, a.hoc_ki, g.ten_mon_hoc, i.Ho, i.Ten_lot, i.Ten'
+	print @sql
+	exec sp_executesql @sql
 END
 
 --exec sp_DiemDanh_GetGiaoVienByDieuKien 6,0,1,28,15,5
@@ -1507,7 +1557,7 @@ CREATE PROCEDURE sp_DiemDanh_UpdateTinhTrangDiemDanhGV
 AS
 BEGIN
 	UPDATE chitietdiemdanh 
-			SET Tinh_trang = 1
+			SET Tinh_trang = 1, Gio_bat_dau=getdate()
 			WHERE ID IN (SELECT E.ID 
 							FROM diemdanh C
 									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
@@ -1517,6 +1567,8 @@ BEGIN
 									AND E.Tinh_trang = 0)
 END
 
+
+--select * from chitietdiemdanh
 GO
 
 --sp_DiemDanh_UpdateTinhTrangDiemDanhGV2.sql
@@ -1536,6 +1588,15 @@ BEGIN
 							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
 									AND C.Ma_giao_vien = @ID
 									AND E.Tinh_trang = 2)
+
+	UPDATE chitietdiemdanh 
+			SET Gio_ket_thuc=getdate()
+			WHERE ID IN (SELECT E.ID 
+							FROM diemdanh C
+									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
+									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
+							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
+									AND C.Ma_giao_vien = @ID)
 END
 
 GO
