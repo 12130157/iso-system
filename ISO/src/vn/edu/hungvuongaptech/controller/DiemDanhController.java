@@ -96,7 +96,7 @@ public class DiemDanhController extends HttpServlet {
 				
 		}else if(actionType.equalsIgnoreCase("DDSinhVien")){
 			String iDCard = request.getParameter("txtIDSinhVien").toString();
-			String maGiaoVien = maGiaoVien = request.getParameter("maGiaoVien").toString();
+			String maGiaoVien = request.getParameter("maGiaoVien").toString();
 			if(iDCard.length()>=18)
 			{
 					String maDiemDanh = iDCard.substring(Constant.NUM_STRING_BEGIN, Constant.NUM_STRING_GET);

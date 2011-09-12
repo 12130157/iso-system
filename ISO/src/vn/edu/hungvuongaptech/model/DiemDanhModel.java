@@ -19,7 +19,29 @@ public class DiemDanhModel {
 	private String id;
 	private String tenPhong;
 	private String tenLop;
+	private String gioBatDau;
+	private String gioKetThuc;
+	private String gioGiangDay;
 	
+	
+	public String getGioBatDau() {
+		return gioBatDau;
+	}
+	public void setGioBatDau(String gioBatDau) {
+		this.gioBatDau = gioBatDau;
+	}
+	public String getGioKetThuc() {
+		return gioKetThuc;
+	}
+	public void setGioKetThuc(String gioKetThuc) {
+		this.gioKetThuc = gioKetThuc;
+	}
+	public String getGioGiangDay() {
+		return gioGiangDay;
+	}
+	public void setGioGiangDay(String gioGiangDay) {
+		this.gioGiangDay = gioGiangDay;
+	}
 	public String getTenLop() {
 		return tenLop;
 	}
