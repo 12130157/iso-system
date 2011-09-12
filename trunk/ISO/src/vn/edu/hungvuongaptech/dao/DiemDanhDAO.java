@@ -462,94 +462,73 @@ public class DiemDanhDAO  {
 	}
 	
 	public static ArrayList<KhoaModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan) {
-
-		// TODO Auto-generated method stub
-		String maKhoa = "na", maLop = "na", maNamHoc = "na", tenGiaoVien = "na",maMonHoc="na";
+		String dkMaGiaoVien = "";
+		String dkMaKhoa = "";
+		if(maVaiTro.equals("5") || maVaiTro.equals("6")){
+			dkMaKhoa = " AND E.ID = " + maBoPhan;
+		}
+		if(maVaiTro.equals("8")){
+			dkMaGiaoVien = " AND H.ID = " + maThanhVien;
+		}
 		ArrayList<KhoaModel> khoaList = new ArrayList<KhoaModel>();
-		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
-		ArrayList<NamHocModel> namHocList = new ArrayList<NamHocModel>();
-		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
-		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_DiemDanh_GetThongTinReportGiaoVien(?,?,?)}");
-			csmt.setString("MaThanhVien", maThanhVien);
-			csmt.setString("MaVaiTro", maVaiTro);
-			csmt.setString("MaBoPhan", maBoPhan);
-			ResultSet rs = csmt.executeQuery();
+			String sql = "select distinct e.id As MaKhoa, e.Ten as TenKhoa "
+						+" from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau " 
+						+" inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh " 
+						+" inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb " 
+						+" inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id " 
+						+" inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap where a.tinh_trang = 2 "+dkMaGiaoVien+dkMaKhoa
+						+" order by e.id,e.Ten";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				if(!maKhoa.equals(rs.getString("MaKhoa"))) {
-					KhoaModel khoa = new KhoaModel();
-					khoa.setMaKhoa(rs.getString("MaKhoa"));
-					khoa.setTenKhoa(rs.getString("TenKhoa"));
-					lopHocList = new ArrayList<LopHocModel>();
-					khoa.setLopHocList(lopHocList);
-					khoaList.add(khoa);
-				}
-				if(!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
-					LopHocModel lopHoc = new LopHocModel();
-					lopHoc.setMaLopHoc(rs.getString("MaLop"));
-					lopHoc.setKiHieu(rs.getString("KiHieuLop"));
-					namHocList = new ArrayList<NamHocModel>();
-					lopHoc.setNamHocList(namHocList);
-					lopHocList.add(lopHoc);
-				}
-				if(!maNamHoc.equals(rs.getString("MaNamHoc")) || !maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
-					NamHocModel namHoc = new NamHocModel();
-					namHoc.setMaNamHoc(rs.getString("MaNamHoc"));
-					namHoc.setNamBatDau(rs.getString("NamBatDau"));
-					namHoc.setNamKetThuc(rs.getString("NamKetThuc"));
-					thanhVienList = new ArrayList<ThanhVienModel>();
-					namHoc.setThanhVienList(thanhVienList);
-					namHocList.add(namHoc);
-				}
-				if(!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
-				{
-					ThanhVienModel thanhVien = new ThanhVienModel();
-					thanhVien.setMaThanhVien(rs.getString("MaThanhVien"));
-					thanhVien.setTenThanhVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
-					monHocList = new ArrayList<MonHocModel>();
-					thanhVien.setMonHocList(monHocList);
-					thanhVienList.add(thanhVien);
-				}
-				if(!maMonHoc.equals(rs.getString("MaMonHoc"))||!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
-				{
-					MonHocModel monHoc= new MonHocModel();
-					monHoc.setMaMonHoc(rs.getString("MaMonHoc"));
-					monHoc.setTenMonHoc(rs.getString("TenMonHoc"));
-					monHocList.add(monHoc);
-				}
-				/*
-				MonHocTKBModel monHocTKB = new MonHocTKBModel();
-				monHocTKB.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
-				monHocTKB.setMaMonHoc(rs.getString("MaMonHoc"));
-				monHocTKB.setTenMonHoc(rs.getString("TenMonHoc"));
-				monHocTKB.setMaGiaoVien(rs.getString("MaThanhVien"));
-				monHocTKB.setTenGiaoVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
-				monHocTKBList.add(monHocTKB);\
-				*/
-				maKhoa = rs.getString("MaKhoa");
-				maLop = rs.getString("MaLop");
-				maNamHoc = rs.getString("MaNamHoc");
-				tenGiaoVien = rs.getString("MaThanhVien");
-				maMonHoc = rs.getString("MaMonHoc");
-				
+				KhoaModel khoa = new KhoaModel();
+				khoa.setMaKhoa(rs.getString("MaKhoa"));
+				khoa.setTenKhoa(rs.getString("TenKhoa"));
+				khoaList.add(khoa);
 			}
-			
+			for (KhoaModel khoa : khoaList) {
+				khoa.setLopHocList(getThongTinGiaoVienReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa()));
+				for (LopHocModel lop : khoa.getLopHocList()) {
+					lop.setNamHocList(getThongTinGiaoVienReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc()));
+					for (NamHocModel nam : lop.getNamHocList()) {
+						nam.setThanhVienList(getThongTinGiaoVienReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc()));
+						for (ThanhVienModel thanhVien : nam.getThanhVienList()) {
+							thanhVien.setMonHocList(getThongTinGiaoVienReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), thanhVien.getMaThanhVien()));
+						}
+					}
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 		return khoaList;
 	}
-<<<<<<< .mine
 	
-	public static ArrayList<LopHocModel> getThongTinGiaoVienReport(String khoa) {
+	public static ArrayList<LopHocModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa) {
+		String dkMaGiaoVien = "";
+		String dkMaKhoa = "";
+		
+		if(maVaiTro.equals("5") || maVaiTro.equals("6")){
+			dkMaKhoa = " AND E.ID = " + maBoPhan;
+		}
+		
+		if(maVaiTro.equals("8")){
+			dkMaGiaoVien = " AND H.ID = " + maThanhVien;
+		}
+		
 		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
 		try {
-			PreparedStatement preparedStatement = DataUtil
-					.getConnection()
-					.prepareStatement(
-							Constant.SQL_RES
-									.getString("iso.sql.getThongTinReportGiaoVien"));
+			String sql = "select distinct c.id AS MaLop, c.Ki_hieu AS KiHieuLop, d.Ten_chuyen_nganh "
+						+" from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau "
+						+" inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh "
+						+" inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb "
+						+" inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id " 
+						+" inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap " 
+						+" where a.tinh_trang = 2 and e.id = ? "+dkMaGiaoVien+dkMaKhoa
+						+" order by c.id";
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				LopHocModel lopHoc = new LopHocModel();
@@ -563,91 +542,127 @@ public class DiemDanhDAO  {
 		return lopHocList;
 	}
 	
-=======
 	
-//	public static ArrayList<KhoaModel> getThongTinGiaoVienReport(String maGiaoVien) {
-//
-//		// TODO Auto-generated method stub
-//		String maKhoa = "na", maLop = "na", maNamHoc = "na", tenGiaoVien = "na",maMonHoc="na";
-//		ArrayList<KhoaModel> khoaList = new ArrayList<KhoaModel>();
-//		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
-//		ArrayList<NamHocModel> namHocList = new ArrayList<NamHocModel>();
-//		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
-//		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
-//		try {
-//			PreparedStatement preparedStatement = DataUtil
-//					.getConnection()
-//					.prepareStatement(
-//							Constant.SQL_RES
-//									.getString("iso.sql.getThongTinReportGiaoVien"));
-//			ResultSet rs = preparedStatement.executeQuery();
-//			while(rs.next()) {
-//				if(!maKhoa.equals(rs.getString("MaKhoa"))) {
-//					KhoaModel khoa = new KhoaModel();
-//					khoa.setMaKhoa(rs.getString("MaKhoa"));
-//					khoa.setTenKhoa(rs.getString("TenKhoa"));
-//					lopHocList = new ArrayList<LopHocModel>();
-//					khoa.setLopHocList(lopHocList);
-//					khoaList.add(khoa);
-//				}
-//				if(!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
-//					LopHocModel lopHoc = new LopHocModel();
-//					lopHoc.setMaLopHoc(rs.getString("MaLop"));
-//					lopHoc.setKiHieu(rs.getString("KiHieuLop"));
-//					namHocList = new ArrayList<NamHocModel>();
-//					lopHoc.setNamHocList(namHocList);
-//					lopHocList.add(lopHoc);
-//				}
-//				if(!maNamHoc.equals(rs.getString("MaNamHoc")) || !maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa"))) {
-//					NamHocModel namHoc = new NamHocModel();
-//					namHoc.setMaNamHoc(rs.getString("MaNamHoc"));
-//					namHoc.setNamBatDau(rs.getString("NamBatDau"));
-//					namHoc.setNamKetThuc(rs.getString("NamKetThuc"));
-//					thanhVienList = new ArrayList<ThanhVienModel>();
-//					namHoc.setThanhVienList(thanhVienList);
-//					namHocList.add(namHoc);
-//				}
-//				if(!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
-//				{
-//					ThanhVienModel thanhVien = new ThanhVienModel();
-//					thanhVien.setMaThanhVien(rs.getString("MaThanhVien"));
-//					thanhVien.setTenThanhVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
-//					monHocList = new ArrayList<MonHocModel>();
-//					thanhVien.setMonHocList(monHocList);
-//					thanhVienList.add(thanhVien);
-//				}
-//				if(!maMonHoc.equals(rs.getString("MaMonHoc"))||!maNamHoc.equals(rs.getString("MaNamHoc"))||!tenGiaoVien.equals(rs.getString("MaThanhVien"))||!maLop.equals(rs.getString("MaLop")) || !maKhoa.equals(rs.getString("MaKhoa")))
-//				{
-//					MonHocModel monHoc= new MonHocModel();
-//					monHoc.setMaMonHoc(rs.getString("MaMonHoc"));
-//					monHoc.setTenMonHoc(rs.getString("TenMonHoc"));
-//					monHocList.add(monHoc);
-//				}
-//				/*
-//				MonHocTKBModel monHocTKB = new MonHocTKBModel();
-//				monHocTKB.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
-//				monHocTKB.setMaMonHoc(rs.getString("MaMonHoc"));
-//				monHocTKB.setTenMonHoc(rs.getString("TenMonHoc"));
-//				monHocTKB.setMaGiaoVien(rs.getString("MaThanhVien"));
-//				monHocTKB.setTenGiaoVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
-//				monHocTKBList.add(monHocTKB);\
-//				*/
-//				maKhoa = rs.getString("MaKhoa");
-//				maLop = rs.getString("MaLop");
-//				maNamHoc = rs.getString("MaNamHoc");
-//				tenGiaoVien = rs.getString("MaThanhVien");
-//				maMonHoc = rs.getString("MaMonHoc");
-//				
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}	
-//		return khoaList;
-//	}
+	public static ArrayList<NamHocModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop) {
+		String dkMaGiaoVien = "";
+		String dkMaKhoa = "";
+		
+		if(maVaiTro.equals("5") || maVaiTro.equals("6")){
+			dkMaKhoa = " AND E.ID = " + maBoPhan;
+		}
+		
+		if(maVaiTro.equals("8")){
+			dkMaGiaoVien = " AND H.ID = " + maThanhVien;
+		}
+		
+		ArrayList<NamHocModel> namHocList = new ArrayList<NamHocModel>();
+		try {
+			String sql = "select distinct b.id as MaNamHoc, b.Nam_bat_dau as NamBatdau, b.Nam_ket_thuc as NamKetThuc "
+						+" from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau "
+						+" inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh " 
+						+" inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb " 
+						+" inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id " 
+						+" inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap "
+						+" where a.tinh_trang = 2 and e.id =? and c.id=? "+dkMaGiaoVien+dkMaKhoa
+						+" order by b.id ";
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				NamHocModel namHoc = new NamHocModel();
+				namHoc.setMaNamHoc(rs.getString("MaNamHoc"));
+				namHoc.setNamBatDau(rs.getString("NamBatDau"));
+				namHoc.setNamKetThuc(rs.getString("NamKetThuc"));
+				namHocList.add(namHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return namHocList;
+	}
+	
+	public static ArrayList<ThanhVienModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop, String nam) {
+		String dkMaGiaoVien = "";
+		String dkMaKhoa = "";
+		
+		if(maVaiTro.equals("5") || maVaiTro.equals("6")){
+			dkMaKhoa = " AND E.ID = " + maBoPhan;
+		}
+		
+		if(maVaiTro.equals("8")){
+			dkMaGiaoVien = " AND H.ID = " + maThanhVien;
+		}
+		
+		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
+		try {
+			String sql = "select distinct h.id As MaThanhVien, IsNull(i.Ho,'') AS Ho, IsNull(i.Ten_Lot,'') As TenLot, IsNull(i.Ten,'') As Ten "
+						+" from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau "
+						+" inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh " 
+						+" inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb "
+						+" inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id " 
+						+" inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap "
+						+" where a.tinh_trang=2 and e.id=? and c.id=? and b.id=? "+dkMaGiaoVien+dkMaKhoa
+						+" order by h.id ";
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			preparedStatement.setString(3, nam);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ThanhVienModel thanhVien = new ThanhVienModel();
+				thanhVien.setMaThanhVien(rs.getString("MaThanhVien"));
+				thanhVien.setTenThanhVien(rs.getString("Ho") + " " + rs.getString("TenLot") + " " + rs.getString("Ten"));
+				thanhVienList.add(thanhVien);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return thanhVienList;
+	}
+	
+	public static ArrayList<MonHocModel> getThongTinGiaoVienReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop, String nam,String thanhVien) {
+		String dkMaGiaoVien = "";
+		String dkMaKhoa = "";
+		
+		if(maVaiTro.equals("5") || maVaiTro.equals("6")){
+			dkMaKhoa = " AND E.ID = " + maBoPhan;
+		}
+		
+		if(maVaiTro.equals("8")){
+			dkMaGiaoVien = " AND H.ID = " + maThanhVien;
+		}
+		
+		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
+		try {
+			String sql = "select distinct g.id AS MaMonHoc, g.Ten_mon_hoc AS TenMonHoc "
+						+" from thoikhoabieu a inner join NamHoc b on b.Nam_bat_dau = a.Nam_bat_dau "
+						+" inner join LopHoc c on c.ID = a.Ma_lop inner join ChuyenNganh d on d.ID = c.Ma_chuyen_nganh " 
+						+" inner join Khoa_trungtam e on e.ID = d.Ma_khoaTT inner join monhoctkb as f on a.id = f.Ma_tkb " 
+						+" inner join monhoc as g on f.ma_mon_hoc = g.id inner join thanhvien as h on f.ma_giao_vien = h.id " 
+						+" inner join chitietthanhvien as i on h.Ten_dn = i.ten_dang_nhap "
+						+" where a.tinh_trang=2 and e.id=? and c.id=? and b.id=? and h.id=? "+dkMaGiaoVien+dkMaKhoa
+						+" order by g.id ";
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			preparedStatement.setString(3, nam);
+			preparedStatement.setString(4, thanhVien);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				MonHocModel monHoc= new MonHocModel();
+				monHoc.setMaMonHoc(rs.getString("MaMonHoc"));
+				monHoc.setTenMonHoc(rs.getString("TenMonHoc"));
+				monHocList.add(monHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return monHocList;
+	}
+	
 	
 	@SuppressWarnings("deprecation")
->>>>>>> .r704
 	public static ArrayList<DiemDanhModel> getGiaoVienByDieuKien(String Khoa, String Lop, 
 			String NamHoc, String GiaoVien, String MonHoc,String ThoiGian) {
 	ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();		

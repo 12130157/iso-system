@@ -37,10 +37,10 @@ var monHocList = new Array();
 function pageLoad(){
 	<% 
 	ArrayList<KhoaModel> khoaList;
-	khoaList = DiemDanhDAO.getThongTinGiaoVienReport("","","");
-									//session.getAttribute("maThanhVien").toString(),
-									//	session.getAttribute("maVaiTro").toString(),
-											//session.getAttribute("maBoPhan").toString());
+	khoaList = DiemDanhDAO.getThongTinGiaoVienReport(
+									session.getAttribute("maThanhVien").toString(),
+										session.getAttribute("maVaiTro").toString(),
+											session.getAttribute("maBoPhan").toString());
 	// Truong Khoa, PhoKhoa search theo khoa 
 	// PDT, PHC, BGH search tất cả
 	// Giáo Viên search giáo viên
