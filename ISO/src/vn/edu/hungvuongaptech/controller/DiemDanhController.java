@@ -1,6 +1,7 @@
 package vn.edu.hungvuongaptech.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,8 +48,16 @@ public class DiemDanhController extends HttpServlet {
 		String iDCard = request.getParameter("txtID").toString();// lay toan bo ky tu trong card
 			if(iDCard.length()>=18)
 			{
-				String txtID = iDCard.substring(Constant.NUM_STRING_BEGIN, Constant.NUM_STRING_GET);// lay id trong card do
-				String  loaiDiemDanh = request.getParameter("DDSinhVien").toString();
+				String txtID = "";
+				char test[] = iDCard.toCharArray();
+				String regex = "[0-9]";
+				for (int i = 0; i < test.length; i++) {
+					String tmp = test[i]+"";
+					if(tmp.matches(regex)){
+						txtID = iDCard.substring(i+1, i+17);
+					}
+				}
+				String loaiDiemDanh = request.getParameter("DDSinhVien").toString();
 				ThanhVienModel thanhVienModel = DiemDanhDAO.getMaThanhVienByMaThe(txtID);
 				if(loaiDiemDanh.equalsIgnoreCase("DiemDanh"))
 				{
@@ -99,36 +108,41 @@ public class DiemDanhController extends HttpServlet {
 			String maGiaoVien = request.getParameter("maGiaoVien").toString();
 			if(iDCard.length()>=18)
 			{
-					String maDiemDanh = iDCard.substring(Constant.NUM_STRING_BEGIN, Constant.NUM_STRING_GET);
-					
-					
-					ThanhVienModel thanhVienModel = new ThanhVienModel();
-					thanhVienModel = ThanhVienDAO.getThanhVienByMaDiemDanh(maDiemDanh);
-					// bat loi khi nhap sai 
-					if(thanhVienModel.getMaThanhVien()==null){
-						response.sendRedirect(Constant.PATH_RES
-								.getString("Admin.ListDiemDanhSinhVien")
-								+ "?IDThe=" + maGiaoVien + "&TinhTrang=ThatBai" );
-						
+				String maDiemDanh = "";
+				char test[] = iDCard.toCharArray();
+				String regex = "[0-9]";
+				for (int i = 0; i < test.length; i++) {
+					String tmp = test[i]+"";
+					if(tmp.matches(regex)){
+						maDiemDanh = iDCard.substring(i+1, i+17);
 					}
-					else{
+				}
+				ThanhVienModel thanhVienModel = new ThanhVienModel();
+				thanhVienModel = ThanhVienDAO.getThanhVienByMaDiemDanh(maDiemDanh);
+				// bat loi khi nhap sai 
+				if(thanhVienModel.getMaThanhVien()==null){
+					response.sendRedirect(Constant.PATH_RES
+							.getString("Admin.ListDiemDanhSinhVien")
+							+ "?IDThe=" + maGiaoVien + "&TinhTrang=ThatBai" );
+					
+				}
+				else{
 						//set quet lan 3 
-						if(thanhVienModel.getMaVaiTro().equalsIgnoreCase("9")){	
-							DiemDanhModel diemDanhModel = new DiemDanhModel();
-							diemDanhModel = DiemDanhDAO.getMaTVDDByMaThanhVien(thanhVienModel.getMaThanhVien(),maGiaoVien);
-							//set coi quet lan 2 hay lan 4  
-							if(diemDanhModel.getTinhTrang().equalsIgnoreCase("1")){
-								if(DiemDanhDAO.updateTinhTrangSinhVien(diemDanhModel))
-									{
-										ThanhVienModel mm = DiemDanhDAO.getThanhVienByCard(thanhVienModel.getMaThanhVien());
-										request.setAttribute("thongTinDiemDanh", mm);
-										RequestDispatcher rd = request.getRequestDispatcher(Constant.PATH_RES
-										.getString("Admin.ShortListDiemDanhSinhVien")
-										+ "?IDThe=" + maGiaoVien+ "&tt=lan2"+"&maTV="+thanhVienModel.getMaThanhVien());
-										rd.forward(request, response);
-									}
-							 }
-							else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("2")){
+					if(thanhVienModel.getMaVaiTro().equalsIgnoreCase("9")){	
+						DiemDanhModel diemDanhModel = new DiemDanhModel();
+						diemDanhModel = DiemDanhDAO.getMaTVDDByMaThanhVien(thanhVienModel.getMaThanhVien(),maGiaoVien);
+						//set coi quet lan 2 hay lan 4  
+						if(diemDanhModel.getTinhTrang().equalsIgnoreCase("1")){
+							if(DiemDanhDAO.updateTinhTrangSinhVien(diemDanhModel)){
+									ThanhVienModel mm = DiemDanhDAO.getThanhVienByCard(thanhVienModel.getMaThanhVien());
+									request.setAttribute("thongTinDiemDanh", mm);
+									RequestDispatcher rd = request.getRequestDispatcher(Constant.PATH_RES
+									.getString("Admin.ShortListDiemDanhSinhVien")
+									+ "?IDThe=" + maGiaoVien+ "&tt=lan2"+"&maTV="+thanhVienModel.getMaThanhVien());
+									rd.forward(request, response);
+							}
+						 }
+						else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("2")){
 										ThanhVienModel mm = DiemDanhDAO.getThanhVienByCard(thanhVienModel.getMaThanhVien());
 										request.setAttribute("thongTinDiemDanh", mm);
 										//response.sendRedirect(Constant.PATH_RES
@@ -138,8 +152,8 @@ public class DiemDanhController extends HttpServlet {
 												.getString("Admin.ShortListDiemDanhSinhVien")
 												+ "?IDThe=" + maGiaoVien+ "&tt=daquet2"+"&maTV="+thanhVienModel.getMaThanhVien());
 										rd.forward(request, response);
-							 }
-							 else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("3")){
+						}
+						else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("3")){
 								 //quet lan 4
 								 if(DiemDanhDAO.updateTinhTrangSinhVien2(diemDanhModel)){
 									 ThanhVienModel mm = DiemDanhDAO.getThanhVienByCard(thanhVienModel.getMaThanhVien());
@@ -149,8 +163,8 @@ public class DiemDanhController extends HttpServlet {
 										+ "?IDThe=" + maGiaoVien+ "&tt=lan4"+"&maTV="+thanhVienModel.getMaThanhVien());
 										rd.forward(request, response);
 									}
-							 }
-							 else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("4")){
+						}
+						else if(diemDanhModel.getTinhTrang().equalsIgnoreCase("4")){
 								 //quet lan 4 2 lan 
 								// if(DiemDanhDAO.updateTinhTrangSinhVien2(diemDanhModel)){
 									 ThanhVienModel mm = DiemDanhDAO.getThanhVienByCard(thanhVienModel.getMaThanhVien());
@@ -160,7 +174,7 @@ public class DiemDanhController extends HttpServlet {
 										+ "?IDThe=" + maGiaoVien+ "&tt=lan4"+"&maTV="+thanhVienModel.getMaThanhVien());
 										rd.forward(request, response);
 									//}
-							 }
+						}
 							}
 						else{
 							if(DiemDanhDAO.UpdateTinhTrangDiemDanhGV2(thanhVienModel.getMaThanhVien())){
