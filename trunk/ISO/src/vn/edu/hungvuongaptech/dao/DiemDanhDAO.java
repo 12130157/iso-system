@@ -699,7 +699,10 @@ public class DiemDanhDAO  {
 			if(model.getTimeKetThuc().getHours()!=0){
 				diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
 			}
-			diemDanh.setGioGiangDay(model.getTime());
+			if(model.getTimeBatDau().getHours()!=0 && model.getTimeKetThuc().getHours()!=0){
+				diemDanh.setGioGiangDay(model.getTime());
+			}
+			
 		}
 		
 	} catch (Exception e) {

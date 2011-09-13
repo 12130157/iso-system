@@ -247,6 +247,7 @@ function pageLoad(){
 						<option>2011 - 2012</option>
 					</select>
 				</th>
+				<!--  
 				<th align="left">Thời gian :<br>
 					<select name="cboThoiGian" id="cboThoiGian" >
 						<option value = "" >ALL</option>	
@@ -261,6 +262,7 @@ function pageLoad(){
 						
 					</select>
 				</th>
+				-->
 				<td rowspan="2"><input type="button" value="tim kiếm" name="FormHienThiTTGV" id="FormHienThiTTGV" onclick="submitSearch();"/></td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -274,7 +276,7 @@ function pageLoad(){
 						<option>Work With DataBase</option>
 					</select>
 				</th>
-				
+				<!--  
 				<th align="left">Tình trạng :<br>
 					<select>
 						<option value="5">ALL</option>
@@ -282,6 +284,7 @@ function pageLoad(){
 						<option value="0">Vắng</option>
 					</select>
 				</th>
+				-->
 			</tr>
 			<tr style="background-color: transparent;"></tr>
 		</table>
