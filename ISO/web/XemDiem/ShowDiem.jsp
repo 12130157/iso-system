@@ -420,15 +420,16 @@ function capNhat()
 			<c:forEach var = "MonHoc" items="${MonHocList}">
 				<%c++;%>
 				<script type="text/javascript" language="JavaScript">
+					var heSo = ${MonHoc.user1};
 					<%
-						if(c != 1) {
+						//if(c != 1) {
 							out.print("document.getElementById('td1_" + (c-1) + "').rowSpan = " + c1 + ";");
 							out.print("document.getElementById('td2_" + (c-1) + "').rowSpan = " + c1 + ";");
 							out.print("if(document.getElementById('td3_" + (c-1) + "') != null) {");
 								out.print("document.getElementById('td3_" + (c-1) + "').rowSpan = " + c1 + ";");
-								out.print("soMonHoc++;");
-								out.print("TBHocKy += parseFloat(document.getElementById('td3_" + (c-1) + "').innerHTML);}");
-						}
+								out.print("soMonHoc+=heSo;");
+								out.print("TBHocKy += parseFloat(document.getElementById('td3_" + (c-1) + "').innerHTML)*heSo;}");
+						//}
 						c1 = 0;
 					%>
 				</script>

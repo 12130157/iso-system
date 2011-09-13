@@ -191,7 +191,7 @@ public class MonHocDAO {
 
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_Admin_UpdateMonHoc(?,?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_Admin_UpdateMonHoc(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("ID", monHocModel.getMaMonHoc());
 			csmt.setString("Ten_mon_hoc", StringUtil.toTrim(monHocModel.getTenMonHoc()));
 			csmt.setString("Ly_thuyet", monHocModel.getLyThuyet());
@@ -203,6 +203,7 @@ public class MonHocDAO {
 			csmt.setString("Ngay_tao", monHocModel.getNgayTao());
 			csmt.setString("Ma_nguoi_tao", monHocModel.getMaNguoiTao());
 			csmt.setString("Ngay_cap_nhat_cuoi", monHocModel.getNgayCapNhatCuoi());
+			csmt.setString("He_so", monHocModel.getUser1());
 			if(monHocModel.getMaTruongBoMon() == ""){
 				csmt.setString("Ma_truong_bo_mon", null);
 			}else{
@@ -244,7 +245,7 @@ public class MonHocDAO {
 			
 			CallableStatement csmt = DataUtil
 				.getConnection()
-				.prepareCall("{call sp_Admin_InsertMonHoc(?,?,?,?,?,?,?,?,?,?,?,?)}");
+				.prepareCall("{call sp_Admin_InsertMonHoc(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
 			csmt.setNString("Ten_mon_hoc", StringUtil.toTrim(monHocModel.getTenMonHoc()));
 			csmt.setNString("Ly_thuyet", StringUtil.toTrim(monHocModel.getLyThuyet()));
@@ -257,6 +258,7 @@ public class MonHocDAO {
 			csmt.setNString("Ma_nguoi_tao", monHocModel.getMaNguoiTao());
 			csmt.setNString("Ngay_cap_nhat_cuoi", monHocModel.getNgayCapNhatCuoi());
 			csmt.setNString("Ma_truong_bo_mon", monHocModel.getMaTruongBoMon());
+			csmt.setNString("He_so", monHocModel.getUser1());
 
 			Boolean ketQua = DataUtil.executeNonStore(csmt);								
 			if (ketQua) { // insert mon hoc thanh cong

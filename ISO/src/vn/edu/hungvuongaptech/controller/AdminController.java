@@ -540,7 +540,13 @@ public class AdminController extends HttpServlet {
 		monHocModel.setNgayCapNhatCuoi(null);
 		monHocModel.setMaHocPhan(request.getParameter("cboHocPhan"));
 		monHocModel.setMaTruongBoMon(request.getParameter("cboTruongBoMon"));
+		//--------------------------------Tinh he so
+		Float lyThuyet = Float.parseFloat(monHocModel.getLyThuyet());
+		Float thucHanh = Float.parseFloat(monHocModel.getThucHanh());
+		int heSo = Math.round(lyThuyet/15 + thucHanh/40);
+		monHocModel.setUser1(heSo+"");
 		
+		//--------------------------------Tinh he so
 		ArrayList<BaiKiemTraModel> baiKiemTraList = new ArrayList<BaiKiemTraModel> ();
 
 		
