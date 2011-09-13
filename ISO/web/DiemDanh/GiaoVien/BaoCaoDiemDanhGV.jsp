@@ -100,7 +100,7 @@ function pageLoad(){
 	function selectKhoa(x)
 	{
 		if(x == 2)
-			document.getElementById("cboKhoa").value = <%="'" + request.getParameter("khoa") + "'"%>;
+			document.getElementById("cboKhoa").value = <%="'" + request.getParameter("Khoa") + "'"%>;
 		if(document.getElementById("cboKhoa").value != '') {
 			var maKhoa = document.getElementById("cboKhoa").value;
 			document.getElementById('cboLop').innerHTML = '';
@@ -128,7 +128,7 @@ function pageLoad(){
 	function selectLopHoc(x)
 	{
 		if(x == 2)
-			document.getElementById('cboLop').value = <%="'" + request.getParameter("lop") + "'"%>;
+			document.getElementById('cboLop').value = <%="'" + request.getParameter("Lop") + "'"%>;
 		var maLop = document.getElementById("cboLop").value;
 		document.getElementById('cboNamHoc').innerHTML = '';
 		for(var i=0;i<lopHocList.length;i++)
@@ -153,7 +153,7 @@ function pageLoad(){
 	function selectNamHoc(x)
 	{
 		if(x== 2) 
-			document.getElementById('cboNamHoc').value = <%="'" +request.getParameter("namHoc") + "'"%>;
+			document.getElementById('cboNamHoc').value = <%="'" +request.getParameter("NamHoc") + "'"%>;
 		var maNam = document.getElementById("cboNamHoc").value;
 		document.getElementById('cboGiaoVien').innerHTML = '';
 		for(var i=0;i<namHocList.length;i++)
@@ -178,7 +178,7 @@ function pageLoad(){
 	function selectGiaoVien(x)
 	{
 		if(x == 2)
-			document.getElementById('cboGiaoVien').value = <%="'" + request.getParameter("hocKi") + "'"%>;
+			document.getElementById('cboGiaoVien').value = <%="'" + request.getParameter("GiaoVien") + "'"%>;
 		var maGiaoVien = document.getElementById("cboGiaoVien").value;
 		document.getElementById('cboMonHoc').innerHTML = '';
 		for(var i=0;i<thanhVienList.length;i++)
@@ -198,7 +198,13 @@ function pageLoad(){
 				break;
 			}
 		}
-		//selectMonHoc(x);
+		selectMonHoc(x);
+	}
+	
+	function selectMonHoc(x)
+	{
+		if(x == 2)
+			document.getElementById('cboMonHoc').value = <%="'" + request.getParameter("MonHoc") + "'"%>;
 	}
 
 	function submitSearch()

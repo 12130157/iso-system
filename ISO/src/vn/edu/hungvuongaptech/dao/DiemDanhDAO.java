@@ -693,8 +693,12 @@ public class DiemDanhDAO  {
 		
 		for (DiemDanhModel diemDanh : list) {
 			ThoiGianGiangDayModel model = getThoiGianGiangDayByMaGiaoVien(diemDanh.getMaThanhVienDiemDanh(), diemDanh.getNgayBatDau());
-			diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
-			diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
+			if(model.getTimeBatDau().getHours()!=0 ){
+				diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
+			}
+			if(model.getTimeKetThuc().getHours()!=0){
+				diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
+			}
 			diemDanh.setGioGiangDay(model.getTime());
 		}
 		
@@ -708,6 +712,9 @@ public class DiemDanhDAO  {
 	@SuppressWarnings("deprecation")
 	public static ThoiGianGiangDayModel getThoiGianGiangDayByMaGiaoVien(String id, String ngayHoc){
 		ThoiGianGiangDayModel model = null;
+		if(ngayHoc.equals("")){
+			return null;
+		}
 		try {
 			String sql = "select MIN(Gio_bat_dau) as Gio_bat_dau,MAX(Gio_ket_thuc) as Gio_ket_thuc "
 						+" from chitietdiemdanh where id in (SELECT E.ID " 
@@ -729,7 +736,10 @@ public class DiemDanhDAO  {
 			model.setTimeBatDau(format.parse(model.getBatDau()));
 			model.setTimeKetThuc(format.parse(model.getKetThuc()));
 			int total = (model.getTimeKetThuc().getHours()*60+model.getTimeKetThuc().getMinutes())-(model.getTimeBatDau().getHours()*60+model.getTimeBatDau().getMinutes());
-			String time = total/60+"h"+total%60;
+			String time = "";
+			if(total!=0){
+				time = total/60+"h"+total%60;
+			}
 			model.setTime(time);
 		} catch (Exception e) {
 			e.printStackTrace();
