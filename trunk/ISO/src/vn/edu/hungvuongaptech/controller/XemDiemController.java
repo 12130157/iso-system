@@ -34,6 +34,14 @@ public class XemDiemController extends HttpServlet{
 		{
 			searchOfGiaoVien(request, response);
 		}
+		else if(actionType.equalsIgnoreCase("SinhVienTN"))
+		{
+			searchSinhVienTN(request,response);
+		}
+		else if(actionType.equalsIgnoreCase("GiaoVienTN"))
+		{
+			searchGiaoVienTN(request, response);
+		}
 		else if(actionType.equalsIgnoreCase("CapNhatDiem")) {
 			doPostGiaoVien(request, response);
 		}
@@ -130,5 +138,18 @@ public class XemDiemController extends HttpServlet{
 			dangKyMonHoc.setChiTietDiemList(chiTietDiemList);
 			list.set(i-1, dangKyMonHoc);
 		}
+	}
+	
+	private void searchSinhVienTN(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String maSinhVien = request.getParameter("cboSinhVien");
+		String pageNext = Constant.PATH_RES.getString("xemDiem.showDiemTotNghiepPath") + "?maSinhVien=" + maSinhVien;
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
+		rd.forward(request, response);
+	}
+	
+	private void searchGiaoVienTN(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		
 	}
 }

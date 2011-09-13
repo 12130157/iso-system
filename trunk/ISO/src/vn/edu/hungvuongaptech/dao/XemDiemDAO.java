@@ -206,6 +206,7 @@ public class XemDiemDAO {
 					//dangKyMonHoc.setMaDangKyMonHoc(rs.getString("MaDangKyMonHoc"));
 					//dangKyMonHoc.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
 					dangKyMonHoc.setTenMonHoc(rs.getString("TenMonHoc"));
+					dangKyMonHoc.setUser1(rs.getString("HeSo"));
 					chiTietDiemList = new ArrayList<ChiTietDiemModel>();
 					dangKyMonHoc.setChiTietDiemList(chiTietDiemList);
 					
