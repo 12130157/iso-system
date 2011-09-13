@@ -54,7 +54,8 @@ public class DiemDanhController extends HttpServlet {
 				for (int i = 0; i < test.length; i++) {
 					String tmp = test[i]+"";
 					if(tmp.matches(regex)){
-						txtID = iDCard.substring(i+1, i+17);
+						txtID = iDCard.substring(i, i+16);
+						break;
 					}
 				}
 				String loaiDiemDanh = request.getParameter("DDSinhVien").toString();
