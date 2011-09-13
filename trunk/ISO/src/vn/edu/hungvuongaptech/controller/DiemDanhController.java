@@ -115,7 +115,8 @@ public class DiemDanhController extends HttpServlet {
 				for (int i = 0; i < test.length; i++) {
 					String tmp = test[i]+"";
 					if(tmp.matches(regex)){
-						maDiemDanh = iDCard.substring(i+1, i+17);
+						maDiemDanh = iDCard.substring(i, i+16);
+						break;
 					}
 				}
 				ThanhVienModel thanhVienModel = new ThanhVienModel();
