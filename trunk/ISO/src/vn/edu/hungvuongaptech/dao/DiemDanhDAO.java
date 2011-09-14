@@ -693,15 +693,22 @@ public class DiemDanhDAO  {
 		
 		for (DiemDanhModel diemDanh : list) {
 			ThoiGianGiangDayModel model = getThoiGianGiangDayByMaGiaoVien(diemDanh.getMaThanhVienDiemDanh(), diemDanh.getNgayBatDau());
-			if(model.getTimeBatDau().getHours()!=0 ){
-				diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
+			if(model.getTimeBatDau()!=null){
+				if(model.getTimeBatDau().getHours()!=0){
+					diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
+				}
 			}
-			if(model.getTimeKetThuc().getHours()!=0){
-				diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
+			if( model.getTimeKetThuc()!=null){
+				if(model.getTimeKetThuc().getHours()!=0){
+					diemDanh.setGioKetThuc(model.getTimeKetThuc().getHours()+":"+model.getTimeKetThuc().getMinutes());
+				}
 			}
-			if(model.getTimeBatDau().getHours()!=0 && model.getTimeKetThuc().getHours()!=0){
-				diemDanh.setGioGiangDay(model.getTime());
+			if(model.getTimeBatDau()!=null && model.getTimeKetThuc()!=null){
+				if(model.getTimeBatDau().getHours()!=0 && model.getTimeKetThuc().getHours()!=0){
+					diemDanh.setGioGiangDay(model.getTime());
+				}
 			}
+			
 			
 		}
 		
@@ -735,10 +742,18 @@ public class DiemDanhDAO  {
 				model.setBatDau(rs.getString("Gio_bat_dau"));
 				model.setKetThuc(rs.getString("Gio_ket_thuc"));
 			}
+			int total = 0;
 			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-			model.setTimeBatDau(format.parse(model.getBatDau()));
-			model.setTimeKetThuc(format.parse(model.getKetThuc()));
-			int total = (model.getTimeKetThuc().getHours()*60+model.getTimeKetThuc().getMinutes())-(model.getTimeBatDau().getHours()*60+model.getTimeBatDau().getMinutes());
+			if(model.getBatDau()!=null){
+				model.setTimeBatDau(format.parse(model.getBatDau()));
+			}
+			if(model.getKetThuc()!=null){
+				model.setTimeKetThuc(format.parse(model.getKetThuc()));
+			}
+			if(model.getBatDau()!=null && model.getKetThuc()!=null){
+				total = (model.getTimeKetThuc().getHours()*60+model.getTimeKetThuc().getMinutes())-(model.getTimeBatDau().getHours()*60+model.getTimeBatDau().getMinutes());
+			}
+			
 			String time = "";
 			if(total!=0){
 				time = total/60+"h"+total%60;
