@@ -731,7 +731,7 @@ public class DiemDanhDAO  {
 						+" FROM diemdanh C "
 						+" INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh "
 						+" INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID "
-						+" WHERE Convert(varchar(10),E.Ngay_hoc,110) = ? " 
+						+" WHERE Convert(varchar(10),E.Ngay_hoc,105) = ? " 
 						+" AND C.Ma_giao_vien = ?)";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, ngayHoc);
