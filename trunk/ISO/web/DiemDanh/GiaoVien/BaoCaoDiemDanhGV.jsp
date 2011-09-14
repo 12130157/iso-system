@@ -247,22 +247,20 @@ function pageLoad(){
 						<option>2011 - 2012</option>
 					</select>
 				</th>
-				<!--  
 				<th align="left">Thời gian :<br>
 					<select name="cboThoiGian" id="cboThoiGian" >
 						<option value = "" >ALL</option>	
 						<c:forEach var="iterater" begin="61" end="72" step="1">
-							<option value="${iterater}" <c:if test = "${iterater eq param.tuan}">selected</c:if>>Tháng ${iterater - 60}</option>
+							<option value="${iterater}" <c:if test = "${iterater eq param.ThoiGian}">selected</c:if>>Tháng ${iterater - 60}</option>
 						</c:forEach>
 						<option value = "" <c:if test = "${param.tuan eq 0}">selected</c:if>>--------------</option>
 						<c:forEach var="iterater" begin="1" end="52" step="1">
-							<option value="${iterater}" <c:if test = "${iterater eq param.tuan}">selected</c:if>>Tuần ${iterater}</option>
+							<option value="${iterater}" <c:if test = "${iterater eq param.ThoiGian}">selected</c:if>>Tuần ${iterater}</option>
 						</c:forEach>
 						<option value = "" <c:if test = "${param.tuan eq 0}">selected</c:if>>--------------</option>
 						
 					</select>
 				</th>
-				-->
 				<td rowspan="2"><input type="button" value="tim kiếm" name="FormHienThiTTGV" id="FormHienThiTTGV" onclick="submitSearch();"/></td>
 			</tr>
 			<tr style="background-color: transparent;">
@@ -276,7 +274,6 @@ function pageLoad(){
 						<option>Work With DataBase</option>
 					</select>
 				</th>
-				<!--  
 				<th align="left">Tình trạng :<br>
 					<select>
 						<option value="5">ALL</option>
@@ -284,7 +281,6 @@ function pageLoad(){
 						<option value="0">Vắng</option>
 					</select>
 				</th>
-				-->
 			</tr>
 			<tr style="background-color: transparent;"></tr>
 		</table>
