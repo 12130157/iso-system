@@ -688,11 +688,12 @@ public class DiemDanhDAO  {
 			model.setNgayBatDau(rs.getString("NgayHoc"));
 			model.setHinhThucDay(rs.getString("HinhThucDay"));
 			model.setMaThanhVienDiemDanh(rs.getString("MaGiaoVien"));
+			model.setNhom(rs.getString("NHOM"));
 			list.add(model);
 		}
 		
 		for (DiemDanhModel diemDanh : list) {
-			ThoiGianGiangDayModel model = getThoiGianGiangDayByMaGiaoVien(diemDanh.getMaThanhVienDiemDanh(), diemDanh.getNgayBatDau());
+			ThoiGianGiangDayModel model = getThoiGianGiangDayByMaGiaoVien(diemDanh.getMaThanhVienDiemDanh(), diemDanh.getNgayBatDau(), diemDanh.getBuoi());
 			if(model.getTimeBatDau()!=null){
 				if(model.getTimeBatDau().getHours()!=0){
 					diemDanh.setGioBatDau(model.getTimeBatDau().getHours()+":"+model.getTimeBatDau().getMinutes());
@@ -720,19 +721,23 @@ public class DiemDanhDAO  {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static ThoiGianGiangDayModel getThoiGianGiangDayByMaGiaoVien(String id, String ngayHoc){
+	public static ThoiGianGiangDayModel getThoiGianGiangDayByMaGiaoVien(String id, String ngayHoc, String buoi){
 		ThoiGianGiangDayModel model = null;
+		String dkBuoi = "";
 		if(ngayHoc.equals("")){
 			return null;
 		}
+		if(buoi!=null){
+			dkBuoi = " AND E.Buoi LIKE N'%"+buoi+"%'";
+		}
 		try {
-			String sql = "select MIN(Gio_bat_dau) as Gio_bat_dau,MAX(Gio_ket_thuc) as Gio_ket_thuc "
+			String sql = "select MIN(Gio_bat_dau) as Gio_bat_dau,MIN(Gio_ket_thuc) as Gio_ket_thuc "
 						+" from chitietdiemdanh where id in (SELECT E.ID " 
 						+" FROM diemdanh C "
 						+" INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh "
 						+" INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID "
 						+" WHERE Convert(varchar(10),E.Ngay_hoc,105) = ? " 
-						+" AND C.Ma_giao_vien = ?)";
+						+" AND C.Ma_giao_vien = ? "+dkBuoi+")";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, ngayHoc);
 			ps.setString(2, id);

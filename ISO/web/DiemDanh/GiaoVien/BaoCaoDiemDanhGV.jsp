@@ -312,6 +312,7 @@ function pageLoad(){
 			<th style="background-color: #0000FF"><div class="div_textWhite">Giáo viên</div></th>
 			<th style="background-color: #0000FF"><div class="div_textWhite">Môn học</div></th>
 			<th style="background-color: #0000FF"><div class="div_textWhite">Ngày dạy</div></th>
+			<th style="background-color: #0000FF"><div class="div_textWhite">Buổi</div></th>
 			<th style="background-color: #0000FF"><div class="div_textWhite">Hình Thức dạy</div></th>
 			<th style="background-color: #0000FF"><div class="div_textWhite">Phòng</div></th>
 			<th style="background-color: #0000FF"><div class="div_textWhite">Bắt đầu</div></th>
@@ -324,6 +325,7 @@ function pageLoad(){
 			<td>${obj.tenGiaoVien}</td>
 			<td>${obj.tenMonHoc}</td>
 			<td>${obj.ngayBatDau}</td>
+			<td>${obj.buoi}<c:if test="${obj.nhom ne ''}"> - Nhóm ${obj.nhom}</c:if></td>
 			<td>${obj.hinhThucDay}</td>
 			<td>${obj.tenPhong}</td>
 			<td>${obj.gioBatDau }</td>
