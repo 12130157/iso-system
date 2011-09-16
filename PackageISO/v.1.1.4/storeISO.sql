@@ -184,8 +184,8 @@ CREATE PROC sp_Admin_InsertMonHoc
 	@Ngay_tao			datetime,
 	@Ma_nguoi_tao		int,
 	@Ngay_cap_nhat_cuoi	datetime,
-	@Ma_truong_bo_mon	int
-
+	@Ma_truong_bo_mon	int,
+	@He_so				int
 
 AS
 BEGIN
@@ -202,7 +202,8 @@ BEGIN
 					Ngay_tao,
 					Ma_nguoi_tao,
 					Ngay_cap_nhat_cuoi,
-					Ma_truong_bo_mon
+					Ma_truong_bo_mon,
+					User1
 				)
 	values(				
 		@Ten_mon_hoc,
@@ -215,7 +216,8 @@ BEGIN
 		@Ngay_tao,			
 		@Ma_nguoi_tao,		
 		@Ngay_cap_nhat_cuoi,	
-		@Ma_truong_bo_mon
+		@Ma_truong_bo_mon,
+		@He_so
 	)
 	SELECT @ID = ID FROM MonHoc WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END
@@ -1124,9 +1126,8 @@ CREATE PROC sp_Admin_UpdateMonHoc
 	@Ngay_tao			datetime,
 	@Ma_nguoi_tao		nvarchar(5),
 	@Ngay_cap_nhat_cuoi	datetime,
-	@Ma_truong_bo_mon	nvarchar(5)
-
-
+	@Ma_truong_bo_mon	nvarchar(5),
+	@He_so				int
 AS
 BEGIN
 	set @Ngay_cap_nhat_cuoi = getdate()
@@ -1142,7 +1143,8 @@ BEGIN
 		Ngay_tao			=  @Ngay_tao,			
 		Ma_nguoi_tao		=  @Ma_nguoi_tao,		
 		Ngay_cap_nhat_cuoi	=  @Ngay_cap_nhat_cuoi,	
-		Ma_truong_bo_mon	=  @Ma_truong_bo_mon
+		Ma_truong_bo_mon	=  @Ma_truong_bo_mon,
+		User1				=  @He_so
 	where ID = @ID	
 	
 END
@@ -1425,7 +1427,7 @@ BEGIN
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
 			I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
-			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay
+			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay,A.NHOM
 	FROM ChiTietTKB AS A 
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 
 		INNER JOIN ThoiKhoaBieu AS C ON B.Ma_TKB = C.ID
@@ -1442,7 +1444,7 @@ BEGIN
 	exec  sp_executesql @sql
 END
 
---exec sp_DiemDanh_GetGiaoVienByDieuKien 6,0,1,28,15,5
+--exec sp_DiemDanh_GetGiaoVienByDieuKien 7,6,2,53,71,''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc
@@ -1526,7 +1528,7 @@ BEGIN
 	update chitietdiemdanh set tinh_trang = 2 ,
 	Gio_bat_dau = getdate()
 	where  ma_tvdd = @MaTVDD
-	and Convert(varchar(10),Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110)
+	and Convert(varchar(10),Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105)
 END
 
 GO
@@ -1542,7 +1544,7 @@ BEGIN
 	update chitietdiemdanh set tinh_trang = 4,
 	Gio_ket_thuc = getdate()
 	where  ma_tvdd = @MaTVDD
-	and Convert(varchar(10),Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110)
+	and Convert(varchar(10),Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105)
 	and tinh_trang = 3
 END
 
@@ -1556,15 +1558,33 @@ CREATE PROCEDURE sp_DiemDanh_UpdateTinhTrangDiemDanhGV
 	@ID int
 AS
 BEGIN
-	UPDATE chitietdiemdanh 
+	DECLARE @H INT
+	SET @H = DATEPART(HOUR,GETDATE())
+	IF(@H >=7 AND @H <= 12)
+	BEGIN
+		UPDATE chitietdiemdanh 
 			SET Tinh_trang = 1, Gio_bat_dau=getdate()
 			WHERE ID IN (SELECT E.ID 
 							FROM diemdanh C
 									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
 									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
-							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
 									AND C.Ma_giao_vien = @ID
-									AND E.Tinh_trang = 0)
+									AND E.Tinh_trang = 0 AND E.Buoi LIKE N'%Sáng%')
+	END
+	IF(@H >=13 AND @H <= 18)
+	BEGIN
+		UPDATE chitietdiemdanh 
+			SET Tinh_trang = 1, Gio_bat_dau=getdate()
+			WHERE ID IN (SELECT E.ID 
+							FROM diemdanh C
+									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
+									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
+									AND C.Ma_giao_vien = @ID
+									AND E.Tinh_trang = 0 AND E.Buoi LIKE N'%Chiều%')
+	END
+
 END
 
 
@@ -1580,24 +1600,52 @@ CREATE PROCEDURE sp_DiemDanh_UpdateTinhTrangDiemDanhGV2
 	@ID int
 AS
 BEGIN
-	UPDATE chitietdiemdanh 
+	DECLARE @H INT
+	SET @H = DATEPART(HOUR,GETDATE())
+	IF(@H >=7 AND @H <= 12)
+	BEGIN
+		UPDATE chitietdiemdanh 
 			SET Tinh_trang = 3
 			WHERE ID IN (SELECT E.ID 
 							FROM diemdanh C
 									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
 									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
-							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
 									AND C.Ma_giao_vien = @ID
-									AND E.Tinh_trang = 2)
+									AND E.Tinh_trang = 2 AND E.Buoi LIKE N'%Sáng%')
 
-	UPDATE chitietdiemdanh 
+		UPDATE chitietdiemdanh 
 			SET Gio_ket_thuc=getdate()
 			WHERE ID IN (SELECT E.ID 
 							FROM diemdanh C
 									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
 									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
-							WHERE Convert(varchar(10),E.Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110) 
-									AND C.Ma_giao_vien = @ID)
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
+									AND C.Ma_giao_vien = @ID AND E.Buoi LIKE N'%Sáng%')
+	END
+	IF(@H >=13 AND @H <= 18)
+	BEGIN
+		UPDATE chitietdiemdanh 
+			SET Tinh_trang = 3
+			WHERE ID IN (SELECT E.ID 
+							FROM diemdanh C
+									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
+									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
+									AND C.Ma_giao_vien = @ID
+									AND E.Tinh_trang = 2 AND E.Buoi LIKE N'%Chiều%')
+
+		UPDATE chitietdiemdanh 
+			SET Gio_ket_thuc=getdate()
+			WHERE ID IN (SELECT E.ID 
+							FROM diemdanh C
+									INNER JOIN thanhviendiemdanh D on C.ID = D.Ma_diem_danh
+									INNER JOIN chitietdiemdanh E on E.Ma_TVDD = D.ID
+							WHERE Convert(varchar(10),E.Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105) 
+									AND C.Ma_giao_vien = @ID AND E.Buoi LIKE N'%Chiều%')
+	END
+
+	
 END
 
 GO
