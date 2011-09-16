@@ -20,9 +20,8 @@ CREATE PROC sp_Admin_UpdateMonHoc
 	@Ngay_tao			datetime,
 	@Ma_nguoi_tao		nvarchar(5),
 	@Ngay_cap_nhat_cuoi	datetime,
-	@Ma_truong_bo_mon	nvarchar(5)
-
-
+	@Ma_truong_bo_mon	nvarchar(5),
+	@He_so				int
 AS
 BEGIN
 	set @Ngay_cap_nhat_cuoi = getdate()
@@ -38,7 +37,8 @@ BEGIN
 		Ngay_tao			=  @Ngay_tao,			
 		Ma_nguoi_tao		=  @Ma_nguoi_tao,		
 		Ngay_cap_nhat_cuoi	=  @Ngay_cap_nhat_cuoi,	
-		Ma_truong_bo_mon	=  @Ma_truong_bo_mon
+		Ma_truong_bo_mon	=  @Ma_truong_bo_mon,
+		User1				=  @He_so
 	where ID = @ID	
 	
 END
