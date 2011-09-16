@@ -22,8 +22,16 @@ public class DiemDanhModel {
 	private String gioBatDau;
 	private String gioKetThuc;
 	private String gioGiangDay;
+	private String nhom;
 	
 	
+	
+	public String getNhom() {
+		return nhom;
+	}
+	public void setNhom(String nhom) {
+		this.nhom = nhom;
+	}
 	public String getGioBatDau() {
 		return gioBatDau;
 	}
