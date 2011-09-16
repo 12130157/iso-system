@@ -60,7 +60,7 @@ BEGIN
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
 			I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
-			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay
+			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay,A.NHOM
 	FROM ChiTietTKB AS A 
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 
 		INNER JOIN ThoiKhoaBieu AS C ON B.Ma_TKB = C.ID
@@ -77,7 +77,7 @@ BEGIN
 	exec  sp_executesql @sql
 END
 
---exec sp_DiemDanh_GetGiaoVienByDieuKien 6,0,1,28,15,5
+--exec sp_DiemDanh_GetGiaoVienByDieuKien 7,6,2,53,71,''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc

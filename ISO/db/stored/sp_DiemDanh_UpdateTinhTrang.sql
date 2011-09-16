@@ -8,5 +8,5 @@ BEGIN
 	update chitietdiemdanh set tinh_trang = 2 ,
 	Gio_bat_dau = getdate()
 	where  ma_tvdd = @MaTVDD
-	and Convert(varchar(10),Ngay_hoc,110) = Convert(varchar(10), GetDate(), 110)
+	and Convert(varchar(10),Ngay_hoc,105) = Convert(varchar(10), GetDate(), 105)
 END
