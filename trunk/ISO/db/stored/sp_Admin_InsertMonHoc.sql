@@ -20,8 +20,8 @@ CREATE PROC sp_Admin_InsertMonHoc
 	@Ngay_tao			datetime,
 	@Ma_nguoi_tao		int,
 	@Ngay_cap_nhat_cuoi	datetime,
-	@Ma_truong_bo_mon	int
-
+	@Ma_truong_bo_mon	int,
+	@He_so				int
 
 AS
 BEGIN
@@ -38,7 +38,8 @@ BEGIN
 					Ngay_tao,
 					Ma_nguoi_tao,
 					Ngay_cap_nhat_cuoi,
-					Ma_truong_bo_mon
+					Ma_truong_bo_mon,
+					User1
 				)
 	values(				
 		@Ten_mon_hoc,
@@ -51,7 +52,8 @@ BEGIN
 		@Ngay_tao,			
 		@Ma_nguoi_tao,		
 		@Ngay_cap_nhat_cuoi,	
-		@Ma_truong_bo_mon
+		@Ma_truong_bo_mon,
+		@He_so
 	)
 	SELECT @ID = ID FROM MonHoc WHERE Ngay_cap_nhat_cuoi = @Ngay_cap_nhat_cuoi
 END
