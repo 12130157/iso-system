@@ -126,14 +126,38 @@
 			</table>
 			
 			<table style="background-color: transparent;">
+			
+			</table>
+			
+			<table style="background-color: transparent;">
 				<tr style="background-color: transparent;">
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">STT</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tên môn học</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Bài thi</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Điểm</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Điểm TBTN</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Xếp loại</div></th>
-					<th bgcolor = "#186fb2"><div class = "div_textWhite">Ghi chú</div></th>
+					<th style="background-color: #99bff9" align="left">
+					</th>
+				</tr>
+			</table>
+			
+			<table style="background-color: transparent;">
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Lần thi</div></th>
+					<th bgcolor = "#186fb2" colspan="7"><div class = "div_textWhite">Điểm thi</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Điểm TBTN</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Xếp loại</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Ghi chú</div></th>
+				</tr>
+				
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Chính trị</div></th>
+					<th bgcolor = "#186fb2" colspan="3"><div class = "div_textWhite">Lý thuyết nghề</div></th>
+					<th bgcolor = "#186fb2" colspan="3"><div class = "div_textWhite">Thực hành nghề</div></th>
+				</tr>
+				
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Trắc nghiệm</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tự luận</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tổng lý thuyết</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Modul 1</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Modul 2</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tổng thực hành</div></th>
 				</tr>
 				
 			</table>
