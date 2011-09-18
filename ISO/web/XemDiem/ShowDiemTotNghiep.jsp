@@ -54,7 +54,9 @@
 </script>
 
 </head>
-<body>
+<body onload="pageLoad();">
+<div align="center">
+
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../block/header_XemDiem.jsp" />
 	<!-- E HEAD CONTENT -->
@@ -100,7 +102,7 @@
 						<select name="cboSinhVien" id="cboSinhVien">
 							<c:forEach var="SinhVien" items="${SinhVienList}">
 								<c:set var="i" value="1"></c:set>
-								<option value="${SinhVien.maThanhVien}" <c:if test="${MaSV eq SinhVien.maThanhVien }">selected</c:if>>									>
+								<option value="${SinhVien.maThanhVien}" <c:if test="${MaSV eq SinhVien.maThanhVien }">selected</c:if>								>
 									${SinhVien.hoThanhVien} ${SinhVien.tenLot} ${SinhVien.tenThanhVien}
 								</option>
 								
@@ -118,6 +120,86 @@
 					<th style="background-color: #99bff9" align="left">
 						<input type="text" id="txtLopHoc" readonly="readonly" size="10" value="<%= (String) session.getAttribute("kiHieuLop") %>"></input>
 					</th>
+
+					<th style="background-color: #99bff9">
+						<a href = ""><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
+					</th>
+				</tr>
+			</table>
+			
+			<table style="background-color: transparent;">
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Lần thi</div></th>
+					<th bgcolor = "#186fb2" colspan="7"><div class = "div_textWhite">Điểm thi</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Điểm TBTN</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Xếp loại</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Ghi chú</div></th>
+				</tr>
+				
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Chính trị</div></th>
+					<th bgcolor = "#186fb2" colspan="3"><div class = "div_textWhite">Lý thuyết nghề</div></th>
+					<th bgcolor = "#186fb2" colspan="3"><div class = "div_textWhite">Thực hành nghề</div></th>
+				</tr>
+				
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Trắc nghiệm</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tự luận</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tổng lý thuyết</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Modul 1</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Modul 2</div></th>
+					<th bgcolor = "#186fb2"><div class = "div_textWhite">Tổng thực hành</div></th>
+				</tr>
+			</table>
+		</c:if>
+		
+		<c:if test="${sessionScope.maVaiTro ne VaiTroSV}">
+			<table style="background-color: transparent;">
+			
+				<tr style="background-color: transparent;">
+					<th colspan="9">
+						<div class="div_thanhvientieude">
+							Bảng Điểm Thi
+						</div>
+					</th>
+				</tr>
+				
+				<tr style="background-color: transparent;">
+					<th style="background-color: #99bff9" align="right">
+						Khoa
+					</th>
+					
+					<th style="background-color: #99bff9" align="left">
+						<select>
+						</select>
+					</th>
+					
+					<th style="background-color: #99bff9" align="right">
+						Lớp
+					</th>
+					
+					<th style="background-color: #99bff9" align="left">
+						<input>
+						</input>
+					</th>
+					
+					<th style="background-color: #99bff9" align="right">
+						Niên khóa
+					</th>
+					
+					<th style="background-color: #99bff9" align="left">
+						<select>
+						</select>
+					</th>
+					
+					<th style="background-color: #99bff9" align="right">
+						Lần thi
+					</th>
+					
+					<th style="background-color: #99bff9" align="left">
+						<select>
+						</select>
+					</th>
 					
 					<th style="background-color: #99bff9">
 						<a href = ""><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
@@ -126,19 +208,10 @@
 			</table>
 			
 			<table style="background-color: transparent;">
-			
-			</table>
-			
-			<table style="background-color: transparent;">
 				<tr style="background-color: transparent;">
-					<th style="background-color: #99bff9" align="left">
-					</th>
-				</tr>
-			</table>
-			
-			<table style="background-color: transparent;">
-				<tr style="background-color: transparent;">
-					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Lần thi</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">STT</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Mã SV</div></th>
+					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Tên SV</div></th>
 					<th bgcolor = "#186fb2" colspan="7"><div class = "div_textWhite">Điểm thi</div></th>
 					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Điểm TBTN</div></th>
 					<th bgcolor = "#186fb2" rowspan="3"><div class = "div_textWhite">Xếp loại</div></th>
@@ -167,5 +240,7 @@
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../block/footer.jsp" />
 	<!-- E FOOT CONTENT -->
+	
+</div>
 </body>
 </html>
