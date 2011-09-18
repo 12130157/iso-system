@@ -12,8 +12,16 @@ public class NamHocModel {
 	private String user4;
 	private String user5;
 	ArrayList<HocKyModel> hocKyList;
+	ArrayList<NhomModel> nhomList;
 	ArrayList<ThanhVienModel> thanhVienList;
 	
+
+	public ArrayList<NhomModel> getNhomList() {
+		return nhomList;
+	}
+	public void setNhomList(ArrayList<NhomModel> nhomList) {
+		this.nhomList = nhomList;
+	}
 	public ArrayList<ThanhVienModel> getThanhVienList() {
 		return thanhVienList;
 	}
