@@ -21,6 +21,7 @@ import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.MonHocModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.NamHocModel;
+import vn.edu.hungvuongaptech.model.NhomModel;
 import vn.edu.hungvuongaptech.model.ThanhVienModel;
 import vn.edu.hungvuongaptech.model.ThoiGianGiangDayModel;
 import vn.edu.hungvuongaptech.model.TuanLeModel;
@@ -660,6 +661,255 @@ public class DiemDanhDAO  {
 		}	
 		return monHocList;
 	}
+	
+	public static ArrayList<KhoaModel> getThongTinHocSinhReport(String maThanhVien, String maVaiTro, String maBoPhan) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		ArrayList<KhoaModel> khoaList = new ArrayList<KhoaModel>();
+		try {
+			String sql = "SELECT DISTINCT F.ID AS MAKHOA,F.TEN AS TENKHOA "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' "+dkMaHocSinh;
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				KhoaModel khoa = new KhoaModel();
+				khoa.setMaKhoa(rs.getString("MAKHOA"));
+				khoa.setTenKhoa(rs.getString("TENKHOA"));
+				khoaList.add(khoa);
+			}
+			for (KhoaModel khoa : khoaList) {
+				khoa.setLopHocList(getThongTinHocSinhReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa()));
+				for (LopHocModel lop : khoa.getLopHocList()) {
+					lop.setNamHocList(getThongTinHocSinhReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc()));
+					for (NamHocModel nam : lop.getNamHocList()) {
+						nam.setNhomList(getThongTinHocSinhReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc()));
+						if(nam.getNhomList().size()==0){
+							NhomModel nhom = new NhomModel();
+							nhom.setNhom("");
+							nhom.setMonHocList(getThongTinHocSinhReportMonHoc(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), ""));
+							nhom.setThanhVienList(getThongTinHocSinhReportHocSinh(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), ""));
+							nam.getNhomList().add(nhom);
+						}
+						else{
+							for (NhomModel nhomModel : nam.getNhomList()) {
+								nhomModel.setMonHocList(getThongTinHocSinhReportMonHoc(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), nhomModel.getNhom()));
+								nhomModel.setThanhVienList(getThongTinHocSinhReportHocSinh(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), nhomModel.getNhom()));
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return khoaList;
+	}
+	
+	public static ArrayList<LopHocModel> getThongTinHocSinhReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		
+		ArrayList<LopHocModel> lopHocList = new ArrayList<LopHocModel>();
+		try {
+			String sql = "SELECT DISTINCT K.ID AS MALOP, K.KI_HIEU AS TENLOP " 
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' AND F.ID=? "+dkMaHocSinh;
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				LopHocModel lopHoc = new LopHocModel();
+				lopHoc.setMaLopHoc(rs.getString("MALOP"));
+				lopHoc.setKiHieu(rs.getString("TENLOP"));
+				lopHocList.add(lopHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return lopHocList;
+	}
+	
+	public static ArrayList<NamHocModel> getThongTinHocSinhReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		
+		ArrayList<NamHocModel> namHocList = new ArrayList<NamHocModel>();
+		try {
+			String sql = "SELECT DISTINCT L.NAM_BAT_DAU AS MANAMHOC,(CAST(L.NAM_BAT_DAU AS VARCHAR)+'-'+ CAST(L.NAM_KET_THUC AS VARCHAR)) AS NIENKHOA "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' AND F.ID=? AND K.ID=? "+dkMaHocSinh;
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				NamHocModel namHoc = new NamHocModel();
+				namHoc.setMaNamHoc(rs.getString("MANAMHOC"));
+				namHoc.setNamBatDau(rs.getString("NIENKHOA"));
+				namHocList.add(namHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return namHocList;
+	}
+	
+	public static ArrayList<NhomModel> getThongTinHocSinhReport(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop, String nam) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		
+		ArrayList<NhomModel> nhomList = new ArrayList<NhomModel>();
+		try {
+			String sql = "SELECT DISTINCT B.USER1 AS NHOM "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' AND F.ID=? AND K.ID=? AND L.NAM_BAT_DAU=? "+dkMaHocSinh;
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			preparedStatement.setString(3, nam);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				NhomModel model = new NhomModel();
+				model.setNhom(rs.getString("NHOM"));
+				nhomList.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return nhomList;
+	}
+	
+	public static ArrayList<MonHocModel> getThongTinHocSinhReportMonHoc(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop, String nam, String nhom) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		
+		ArrayList<MonHocModel> monHocList = new ArrayList<MonHocModel>();
+		try {
+			String sql = "SELECT DISTINCT J.ID AS MAMONHOC,J.TEN_MON_HOC AS TENMONHOC,G.ID AS MAGIAOVIEN,(H.HO+' '+H.TEN_LOT+' '+H.TEN) AS TENGIAOVIEN "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' AND F.ID=? AND K.ID=? AND L.NAM_BAT_DAU=? AND B.USER1=? "+dkMaHocSinh;
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			preparedStatement.setString(3, nam);
+			preparedStatement.setString(4, nhom);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				MonHocModel monHoc= new MonHocModel();
+				monHoc.setMaMonHoc(rs.getString("MaMonHoc"));
+				monHoc.setTenMonHoc(rs.getString("TenMonHoc"));
+				monHoc.setUser1(rs.getString("MAGIAOVIEN"));
+				monHoc.setUser2(rs.getString("TENGIAOVIEN"));
+				monHocList.add(monHoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return monHocList;
+	}
+	
+	
+	
+	public static ArrayList<ThanhVienModel> getThongTinHocSinhReportHocSinh(String maThanhVien, String maVaiTro, String maBoPhan, String khoa, String lop, String nam, String nhom) {
+		String dkMaHocSinh = "";
+		if(maVaiTro.equals("9")){
+			dkMaHocSinh = " AND D.ID = " + maThanhVien;
+		}
+		
+		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
+		try {
+			String sql = "SELECT DISTINCT D.ID AS MAHOCSINH,(E.HO+' '+E.TEN_LOT+' '+E.TEN) AS TENHOCSINH "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" INNER JOIN THANHVIEN G ON C.MA_GIAO_VIEN=G.ID "
+						+" INNER JOIN CHITIETTHANHVIEN H ON G.TEN_DN=H.TEN_DANG_NHAP "
+						+" INNER JOIN MONHOC J ON C.MA_MON_HOC=J.ID "
+						+" INNER JOIN LOPHOC K ON C.MA_LOP_HOC=K.ID "
+						+" INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID "
+						+" INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID "
+						+" INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID "
+						+" WHERE L.TINH_TRANG='2' AND F.ID=? AND K.ID=? AND L.NAM_BAT_DAU=? AND B.USER1=? "+dkMaHocSinh;
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);
+			preparedStatement.setString(1, khoa);
+			preparedStatement.setString(2, lop);
+			preparedStatement.setString(3, nam);
+			preparedStatement.setString(4, nhom);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ThanhVienModel thanhVien = new ThanhVienModel();
+				thanhVien.setMaThanhVien(rs.getString("MAHOCSINH"));
+				thanhVien.setTenThanhVien(rs.getString("TENHOCSINH"));
+				thanhVienList.add(thanhVien);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return thanhVienList;
+	}
+	
 	
 	
 	@SuppressWarnings("deprecation")
