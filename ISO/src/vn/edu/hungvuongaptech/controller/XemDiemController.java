@@ -140,6 +140,7 @@ public class XemDiemController extends HttpServlet{
 		}
 	}
 	
+	//--------seach diem tot nghiep cua sinh vien----------//
 	private void searchSinhVienTN(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String maSinhVien = request.getParameter("cboSinhVien");
@@ -147,9 +148,12 @@ public class XemDiemController extends HttpServlet{
 		RequestDispatcher rd = request.getRequestDispatcher(pageNext);	
 		rd.forward(request, response);
 	}
+	//---------end----------//
 	
+	//--------seach diem tot nghiep cua giao vien----------//
 	private void searchGiaoVienTN(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
 	}
+	//--------end---------//
 }

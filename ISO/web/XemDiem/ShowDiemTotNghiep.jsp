@@ -50,11 +50,17 @@
 		document.getElementById('actionType').value = 'SinhVienTN';
 		document.forms['ShowDiemTotNghiep'].submit();
 	}
+	
+	function capNhatDiemTN()
+	{
+		document.getElementById('actionType').value = 'CapNhatDiemTN';
+		document.forms['ShowDiemTotNghiep'].submit();
+	}
 
 </script>
 
 </head>
-<body onload="pageLoad();">
+<body>
 <div align="center">
 
 	<!-- S HEAD CONTENT -->
@@ -170,7 +176,8 @@
 					</th>
 					
 					<th style="background-color: #99bff9" align="left">
-						<select>
+						<select name="cboKhoa" id="cboKhoa">
+							<option>Không có</option>
 						</select>
 					</th>
 					
@@ -179,8 +186,9 @@
 					</th>
 					
 					<th style="background-color: #99bff9" align="left">
-						<input>
-						</input>
+						<select name="cboLop" id="cboLop">
+							<option>Không có</option>
+						</select>
 					</th>
 					
 					<th style="background-color: #99bff9" align="right">
@@ -188,7 +196,8 @@
 					</th>
 					
 					<th style="background-color: #99bff9" align="left">
-						<select>
+						<select name="cboNienKhoa" id="cboNienKhoa">
+							<option>Không có</option>
 						</select>
 					</th>
 					
@@ -197,7 +206,8 @@
 					</th>
 					
 					<th style="background-color: #99bff9" align="left">
-						<select>
+						<select name="cboLan" id="cboLan">
+							<option>Không có</option>
 						</select>
 					</th>
 					
