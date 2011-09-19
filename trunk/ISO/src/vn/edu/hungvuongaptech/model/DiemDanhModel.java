@@ -23,9 +23,15 @@ public class DiemDanhModel {
 	private String gioKetThuc;
 	private String gioGiangDay;
 	private String nhom;
+	private String tenHocSinh;
 	
 	
-	
+	public String getTenHocSinh() {
+		return tenHocSinh;
+	}
+	public void setTenHocSinh(String tenHocSinh) {
+		this.tenHocSinh = tenHocSinh;
+	}
 	public String getNhom() {
 		return nhom;
 	}

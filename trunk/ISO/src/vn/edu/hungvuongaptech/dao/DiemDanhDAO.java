@@ -698,7 +698,7 @@ public class DiemDanhDAO  {
 						nam.setNhomList(getThongTinHocSinhReport(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc()));
 						if(nam.getNhomList().size()==0){
 							NhomModel nhom = new NhomModel();
-							nhom.setNhom("");
+							nhom.setNhom("none");
 							nhom.setMonHocList(getThongTinHocSinhReportMonHoc(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), ""));
 							nhom.setThanhVienList(getThongTinHocSinhReportHocSinh(maThanhVien, maVaiTro, maBoPhan, khoa.getMaKhoa(), lop.getMaLopHoc(), nam.getMaNamHoc(), ""));
 							nam.getNhomList().add(nhom);
@@ -963,6 +963,72 @@ public class DiemDanhDAO  {
 			
 		}
 		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+					
+	return list;
+	}
+	
+	public static ArrayList<DiemDanhModel> getHocSinhByDieuKien(String Khoa, String Lop, 
+			String NamHoc, String HocSinh, String MonHoc,String Nhom) {
+	ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();
+	if(Nhom==null){
+		Nhom = "";
+	}
+	try {
+		CallableStatement csmt = DataUtil
+			.getConnection()
+			.prepareCall("{call sp_DiemDanh_GetHocSinhByDieuKien(?,?,?,?,?,?)}");		
+		csmt.setString("Khoa", Khoa);
+		csmt.setString("Lop", Lop);
+		csmt.setString("NamHoc", NamHoc);
+		csmt.setString("HocSinh", HocSinh);
+		csmt.setString("MonHoc", MonHoc);
+		csmt.setString("Nhom", Nhom);
+		ResultSet rs = csmt.executeQuery();
+		while(rs.next()) {
+			DiemDanhModel model = new DiemDanhModel();
+			model.setTenPhong(rs.getString("TENLOP"));
+			model.setTenGiaoVien(rs.getString("TENGIAOVIEN"));
+			model.setTenMonHoc(rs.getString("TENMONHOC"));
+			model.setBuoi(rs.getString("BUOI"));
+			model.setNgayBatDau(rs.getString("NGAYHOC"));
+			model.setNhom(rs.getString("NHOM"));
+			model.setTenHocSinh(rs.getString("TENHOCSINH"));
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+			java.util.Date batdau=null;
+			java.util.Date ketthuc=null;
+			String timeBatDau=rs.getString("BATDAU");
+			String timeKetThuc=rs.getString("KETTHUC");
+			int total = 0;
+			String time = "";
+			if(timeBatDau!=null){
+				batdau = format.parse(timeBatDau);
+			}
+			if(timeKetThuc!=null){
+				ketthuc = format.parse(timeKetThuc);
+			}
+			if(timeBatDau!=null && timeKetThuc!=null){
+				total = (ketthuc.getHours()*60+ketthuc.getMinutes())-(batdau.getHours()*60+batdau.getMinutes());
+			}
+			
+			if(total!=0){
+				time = total/60+"h"+total%60;
+			}
+			if(batdau!=null){
+				if(batdau.getHours()!=0){
+					model.setGioBatDau(batdau.getHours()+":"+batdau.getMinutes());
+				}
+			}
+			if(ketthuc!=null){
+				if(ketthuc.getHours()!=0){
+					model.setGioKetThuc(ketthuc.getHours()+":"+ketthuc.getMinutes());
+				}
+			}
+			model.setGioGiangDay(time);
+			list.add(model);
+		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

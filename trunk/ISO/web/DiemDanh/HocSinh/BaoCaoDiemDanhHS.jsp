@@ -247,7 +247,7 @@
 
 	function submitSearch()
 	{
-		document.forms["FormHienThiTTGV"].submit();
+		document.forms["FormHienThiTTHS"].submit();
 	}
 </script>
 
@@ -263,7 +263,8 @@
 	<table style="background-color: transparent;">
 		<tr style="background-color: transparent;"><td><div class = "div_thanhvientieude">Báo Cáo Tiến Độ Học Tập Học Sinh</div></td></tr>
 	</table><br/><br/>
-	<form action="<%=request.getContextPath()%>/DiemDanhController" id = "ActionDD" name = "ActionDD" method="post">
+	<form action="<%=request.getContextPath()%>/DiemDanhController" id = "FormHienThiTTHS" name = "FormHienThiTTHS" method="post">
+		<input type = "hidden" name="actionType" id="actionType" value="HienThiTTHS" />
 		<font size="4" style="text-align: left;" color="#0000FF">Thông Tin Tìm Kiếm</font><br /><br />
 		<table style="background-image: url('../../images/background_diemdanh.png')">
 			<tr style="background-color: transparent;"></tr>
@@ -305,34 +306,57 @@
 						<option></option>
 					</select>
 				</th>
-				<th><input type="button" value="Tìm Kiếm" name="" /></th>
+				<th><input type="button" value="Tìm Kiếm" onclick="submitSearch()" /></th>
 			</tr>
 			<tr style="background-color: transparent;"></tr>
 		</table>
+		<%
+			String Khoa = "", Lop = "", NamHoc = "", HocSinh = "", MonHoc = "",Nhom="";
+			if(request.getParameter("Khoa") != null)
+				Khoa = request.getParameter("Khoa");
+			if(request.getParameter("Lop") != null)
+				Lop = request.getParameter("Lop");
+			if(request.getParameter("NamHoc") != null)
+				NamHoc = request.getParameter("NamHoc");
+			if(request.getParameter("HocSinh") != null)
+				HocSinh = request.getParameter("HocSinh");
+			if(request.getParameter("MonHoc") != null)
+				MonHoc = request.getParameter("MonHoc");
+			if(request.getParameter("Nhom") != null)
+				Nhom = request.getParameter("ThoiGian");
+			int stt = 1 ;
+			if(Khoa!="" && Lop!="" && NamHoc!="" && HocSinh!="" && MonHoc!=""){
+		%>
+			<c:set 	var = "ListHocSinh" value = '<%=DiemDanhDAO.getHocSinhByDieuKien(Khoa,Lop,NamHoc,HocSinh, MonHoc,Nhom) %>' scope="session"></c:set>
+		<%
+			}
+		 %>
 		<br /><br /><font size="4" style="text-align: left;" color="#0000FF">Kết Quả Tìm Kiếm</font><br /><br />
 		<table border="1" width="800px" style="background-image: url('../../images/background_diemdanh.png');background-repeat: repeat-y">
 			<tr style="background-color: transparent;">
-			<th style="background-color: #0000FF"><div class="div_textWhite">STT</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Học sinh</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Môn học</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Ngày học</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Hình Thức học</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Phòng</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Bắt đầu</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Kết thúc</div></th>
-			<th style="background-color: #0000FF"><div class="div_textWhite">Thời gian dạy</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">STT</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Môn học</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Giáo Viên</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Học Sinh</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Ngày học</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Bắt đầu</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Kết thúc</div></th>
+				<th style="background-color: #0000FF"><div class="div_textWhite">Thời gian học</div></th>
 			</tr>
-			<tr style="background-color: transparent;">
-			<td>1</td>
-			<td>Võ Đức Thiện</td>
-			<td>JAVA</td>
-			<td>01/10/2010</td>
-			<td>Lý Thuyết</td>
-			<td>F2.4</td>
-			<td>7h30</td>
-			<td>11h00</td>
-			<td>3h30</td>
-			</tr>
+			<c:set var="n" value="1"></c:set>
+			<c:forEach var="DDHocSinh" items="${ListHocSinh}">
+				<tr style="background-color: transparent;">
+					<td>${n }</td>
+					<td>${DDHocSinh.tenMonHoc }</td>
+					<td>${DDHocSinh.tenGiaoVien }</td>
+					<td>${DDHocSinh.tenHocSinh }</td>
+					<td>${DDHocSinh.ngayBatDau }</td>
+					<td>${DDHocSinh.gioBatDau }</td>
+					<td>${DDHocSinh.gioKetThuc }</td>
+					<td>${DDHocSinh.gioGiangDay }</td>
+				</tr>
+				<c:set var="n" value="${n+1}"></c:set>
+			</c:forEach>
 		</table>
 		<br /><br /><input type="button" value="In kết quả" />
 	</form>
