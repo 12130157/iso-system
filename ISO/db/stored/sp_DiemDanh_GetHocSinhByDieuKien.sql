@@ -3,64 +3,52 @@ drop procedure [dbo].sp_DiemDanh_GetHocSinhByDieuKien
 GO
 CREATE PROCEDURE sp_DiemDanh_GetHocSinhByDieuKien
 	@Khoa			varchar(30),
-	@Lop			varchar(10),
-	@NamHoc			varchar(10),
-	@GiaoVien		varchar(20),
+	@Lop			varchar(30),
+	@NamHoc			varchar(30),
+	@HocSinh		varchar(30),
 	@MonHoc			varchar(30),
-	@ThoiGian		varchar(10)
-	--@TinhTrang		varchar(10)
+	@Nhom			varchar(10)
 AS
 BEGIN
 	DECLARE @sql NVarchar(2000)
 	declare @Dieu_Kien_Khoa			nvarchar(100)
 	declare @Dieu_Kien_Lop			nvarchar(100)
 	declare @Dien_Kien_Nam_Hoc		nvarchar(100)
-	declare @Dieu_Kien_Giao_Vien		nvarchar(100)
+	declare @Dieu_Kien_Hoc_Sinh		nvarchar(100)
 	declare @Dieu_Kien_Mon_Hoc		nvarchar(100)
-	declare @Dieu_Kien_Thoi_Gian		nvarchar(200)
-	declare @Dieu_Kien_Tinh_Trang		nvarchar(100)
-	DECLARE @And nvarchar(5)
-	DECLARE @Where nvarchar(7)
-	set @Dieu_Kien_Thoi_Gian = ' ''t'' = ''t'' '
-	set @Dieu_Kien_Tinh_Trang = ' ''t'' = ''t'' '
-	SET @And = ' AND '
-	SET @Where = ' WHERE '
+	declare @Dieu_Kien_Nhom			nvarchar(100)
 	if(@Khoa <> '')
 	BEGIN
-		SET @Dieu_Kien_Khoa = ' F.ID = ' + @Khoa
+		SET @Dieu_Kien_Khoa = ' AND F.ID=' + @Khoa
 	END
 	if(@Lop <> '')
 	BEGIN
-		SET @Dieu_Kien_Lop = 'd.id =' + @Lop
+		SET @Dieu_Kien_Lop = ' AND K.ID=' + @Lop
 	END
 	if(@NamHoc <> '')
 	BEGIN
-		SET @Dien_Kien_Nam_Hoc = ' A.User1 = ' + @NamHoc
+		SET @Dien_Kien_Nam_Hoc = ' AND L.NAM_BAT_DAU='  + @NamHoc
 	END
-	if(@GiaoVien<>'')
+	if(@HocSinh<>'')
 	Begin
-		SET @Dieu_Kien_Giao_Vien = 'j.id =' + @GiaoVien
+		SET @Dieu_Kien_Hoc_Sinh = ' AND D.ID=' + @HocSinh
 	END
 	if(@MonHoc <> '')
 	BEGIN
-		SET @Dieu_Kien_Mon_Hoc = ' B.Ma_mon_hoc = ' + @MonHoc
+		SET @Dieu_Kien_Mon_Hoc = ' AND J.ID=' + @MonHoc
 	END
-	if(@ThoiGian <> '')
+	if(@Nhom = '')
 	BEGIN
-		if(Cast(@ThoiGian AS Int) < 61)
-		BEGIN
-			SET @Dieu_Kien_Thoi_Gian = ' A.Tuan = ' + @ThoiGian
-		END
-		if(Cast(@ThoiGian AS Int) < 81 AND Cast(@ThoiGian AS Int) > 60)
-		BEGIN
-			SET @Dieu_Kien_Thoi_Gian = ' Datepart(mm, A.Ngay_hoc) = ' + Cast(Cast(@ThoiGian AS Int) - 60 AS varchar) 
-			print @Dieu_Kien_Thoi_Gian
-		END
+		SET @Dieu_Kien_Nhom = ' AND B.USER1='''' '
+	END
+	if(@Nhom <> '')
+	BEGIN
+		SET @Dieu_Kien_Nhom = ' AND B.USER1='+@Nhom
 	END
 	SELECT @sql = '
-	SELECT K.KI_HIEU AS TENLOP,(H.HO+' '+H.TEN_LOT+' '+H.TEN) AS TENGIAOVIEN,J.TEN_MON_HOC AS TENMONHOC,
-	A.BUOI AS BUOI,B.USER1 AS NHOM, A.NGAY_HOC AS NGAYHOC,A.GIO_BAT_DAU AS BATDAU,A.GIO_KET_THUC AS KETTHUC,
-	(E.HO+' '+E.TEN_LOT+' '+E.TEN) AS TENHOCSINH
+	SELECT K.KI_HIEU AS TENLOP,(H.HO+'' ''+H.TEN_LOT+'' ''+H.TEN) AS TENGIAOVIEN,J.TEN_MON_HOC AS TENMONHOC,
+	A.BUOI AS BUOI,B.USER1 AS NHOM, CONVERT(VARCHAR(10),A.NGAY_HOC,105) AS NGAYHOC,A.GIO_BAT_DAU AS BATDAU,A.GIO_KET_THUC AS KETTHUC,
+	(E.HO+'' ''+E.TEN_LOT+'' ''+E.TEN) AS TENHOCSINH
 	FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
 	INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
 	INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID
@@ -72,13 +60,20 @@ BEGIN
 	INNER JOIN CHUYENNGANH M ON K.MA_CHUYEN_NGANH=M.ID
 	INNER JOIN KHOA_TRUNGTAM F ON M.MA_KHOATT=F.ID
 	INNER JOIN THOIKHOABIEU L ON C.MA_CT_TKB = L.ID
-	WHERE L.TINH_TRANG=2'
-	+ @Where + @Dieu_Kien_Khoa + @And + @Dieu_Kien_Lop + @And + @Dien_Kien_Nam_Hoc + @And + @Dieu_Kien_Giao_Vien + @And + @Dieu_Kien_Mon_Hoc + @And + @Dieu_Kien_Thoi_Gian +
+	WHERE L.TINH_TRANG=2 '
+	+ @Dieu_Kien_Khoa 
+	+ @Dieu_Kien_Lop 
+	+ @Dien_Kien_Nam_Hoc 
+	+ @Dieu_Kien_Hoc_Sinh 
+	+ @Dieu_Kien_Mon_Hoc
+	+ @Dieu_Kien_Nhom +
 	' ORDER BY A.Ngay_hoc,A.Buoi DESC'
+	PRINT @SQL
 	exec  sp_executesql @sql
+
 END
 
---exec sp_DiemDanh_GetGiaoVienByDieuKien 7,6,2,53,71,''
+--exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,165,31,''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc
