@@ -245,6 +245,21 @@ public class DiemDanhController extends HttpServlet {
 									+"&MonHoc="+MonHoc+"&ThoiGian="+ThoiGian);
 			
 		}
+		// Get Hoc Sinh theo Dieu Kien
+		else if(actionType.equalsIgnoreCase("HienThiTTHS"))
+		{
+			String Khoa = request.getParameter("cboKhoa");
+			String Lop = request.getParameter("cboLop");
+			String NamHoc = request.getParameter("cboNamHoc");
+			String HocSinh = request.getParameter("cboHocSinh");
+			String MonHoc = request.getParameter("cboMonHoc");
+			String Nhom = request.getParameter("cboNhom");
+			response.sendRedirect(Constant.PATH_RES
+									.getString("DiemDanh.BaoCaoDiemDanhHS")+
+									"?Khoa=" +Khoa +"&Lop="+Lop+"&NamHoc="+NamHoc +"&HocSinh="+HocSinh
+									+"&MonHoc="+MonHoc+"&Nhom="+Nhom);
+			
+		}
 	}
 }
 
