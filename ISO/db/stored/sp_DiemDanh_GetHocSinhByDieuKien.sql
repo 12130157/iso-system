@@ -7,6 +7,7 @@ CREATE PROCEDURE sp_DiemDanh_GetHocSinhByDieuKien
 	@NamHoc			varchar(30),
 	@HocSinh		varchar(30),
 	@MonHoc			varchar(30),
+	@NgayHoc		varchar(30),
 	@Nhom			varchar(10)
 AS
 BEGIN
@@ -17,6 +18,20 @@ BEGIN
 	declare @Dieu_Kien_Hoc_Sinh		nvarchar(100)
 	declare @Dieu_Kien_Mon_Hoc		nvarchar(100)
 	declare @Dieu_Kien_Nhom			nvarchar(100)
+	declare @Dieu_Kien_Ngay_Hoc		nvarchar(100)
+	set @Dieu_Kien_Khoa = ''
+	set @Dieu_Kien_Lop = ''
+	set @Dien_Kien_Nam_Hoc = ''
+	set @Dieu_Kien_Hoc_Sinh = ''
+	set @Dieu_Kien_Mon_Hoc = ''
+	set @Dieu_Kien_Nhom = ''
+	set @Dieu_Kien_Ngay_Hoc = ''
+	
+	if(@NgayHoc <> '')
+	begin
+		SET @Dieu_Kien_Ngay_Hoc = ' AND CONVERT(VARCHAR(10),A.NGAY_HOC,105)=''' + @NgayHoc + ''''
+	end
+
 	if(@Khoa <> '')
 	BEGIN
 		SET @Dieu_Kien_Khoa = ' AND F.ID=' + @Khoa
@@ -29,7 +44,7 @@ BEGIN
 	BEGIN
 		SET @Dien_Kien_Nam_Hoc = ' AND L.NAM_BAT_DAU='  + @NamHoc
 	END
-	if(@HocSinh<>'')
+	if(@HocSinh <> '')
 	Begin
 		SET @Dieu_Kien_Hoc_Sinh = ' AND D.ID=' + @HocSinh
 	END
@@ -66,14 +81,15 @@ BEGIN
 	+ @Dien_Kien_Nam_Hoc 
 	+ @Dieu_Kien_Hoc_Sinh 
 	+ @Dieu_Kien_Mon_Hoc
-	+ @Dieu_Kien_Nhom +
+	+ @Dieu_Kien_Nhom 
+	+ @Dieu_Kien_Ngay_Hoc +
 	' ORDER BY A.Ngay_hoc,A.Buoi DESC'
-	PRINT @SQL
+	PRINT @sql
 	exec  sp_executesql @sql
 
 END
 
---exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,165,31,''
+--exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,'',53,'07-09-2011',''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc

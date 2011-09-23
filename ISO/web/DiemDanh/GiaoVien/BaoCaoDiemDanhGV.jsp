@@ -211,7 +211,6 @@ function pageLoad(){
 	{
 		document.forms["FormHienThiTTGV"].submit();
 	}
-	
 </script>
 
 
@@ -322,7 +321,11 @@ function pageLoad(){
 			<c:forEach var="obj" items = "${ListGiaoVien}">
 			<tr style="background-color: transparent;">
 			<td><%=stt %></td>
-			<td>${obj.tenGiaoVien}</td>
+			<td>
+				<a href="<%=request.getContextPath() %>/DiemDanh/HocSinh/BaoCaoDiemDanhHS.jsp?Khoa=${obj.maKhoa }&Lop=${obj.maLop }&NamHoc=${obj.maNamHoc }&HocSinh=&MonHoc=${obj.maMonHoc }&Nhom=&NgayHoc=${obj.ngayBatDau}">
+					${obj.tenGiaoVien}
+				</a>
+			</td>
 			<td>${obj.tenMonHoc}</td>
 			<td>${obj.ngayBatDau}</td>
 			<td>${obj.buoi}<c:if test="${obj.nhom ne ''}"> - Nhóm ${obj.nhom}</c:if></td>
