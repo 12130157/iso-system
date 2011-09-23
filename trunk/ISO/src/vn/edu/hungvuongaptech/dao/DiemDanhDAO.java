@@ -930,15 +930,20 @@ public class DiemDanhDAO  {
 		while(rs.next()) {
 			DiemDanhModel model = new DiemDanhModel();
 			model.setTenPhong(rs.getString("KiHieuLop"));
+			model.setMaGiaoVien(rs.getString("MaGiaoVien"));
 			model.setTenGiaoVien(rs.getString("TenGiaoVien"));
+			model.setMaMonHoc(rs.getString("MaMonHoc"));
 			model.setTenMonHoc(rs.getString("TenMonHoc"));
 			model.setTenPhong(rs.getString("KiHieuPhong"));
 			model.setBuoi(rs.getString("Buoi"));
+			model.setMaKhoa(rs.getString("MaKhoa"));
 			model.setTenKhoa(rs.getString("TenKhoa"));
+			model.setMaNamHoc(rs.getString("MaNamHoc"));
 			model.setNgayBatDau(rs.getString("NgayHoc"));
 			model.setHinhThucDay(rs.getString("HinhThucDay"));
 			model.setMaThanhVienDiemDanh(rs.getString("MaGiaoVien"));
 			model.setNhom(rs.getString("NHOM"));
+			model.setMaLop(rs.getString("MaLop"));
 			list.add(model);
 		}
 		
@@ -971,7 +976,7 @@ public class DiemDanhDAO  {
 	}
 	
 	public static ArrayList<DiemDanhModel> getHocSinhByDieuKien(String Khoa, String Lop, 
-			String NamHoc, String HocSinh, String MonHoc,String Nhom) {
+			String NamHoc, String HocSinh, String MonHoc,String Nhom, String ngayHoc) {
 	ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();
 	if(Nhom==null){
 		Nhom = "";
@@ -979,13 +984,14 @@ public class DiemDanhDAO  {
 	try {
 		CallableStatement csmt = DataUtil
 			.getConnection()
-			.prepareCall("{call sp_DiemDanh_GetHocSinhByDieuKien(?,?,?,?,?,?)}");		
+			.prepareCall("{call sp_DiemDanh_GetHocSinhByDieuKien(?,?,?,?,?,?,?)}");		
 		csmt.setString("Khoa", Khoa);
 		csmt.setString("Lop", Lop);
 		csmt.setString("NamHoc", NamHoc);
 		csmt.setString("HocSinh", HocSinh);
 		csmt.setString("MonHoc", MonHoc);
 		csmt.setString("Nhom", Nhom);
+		csmt.setString("NgayHoc", ngayHoc);
 		ResultSet rs = csmt.executeQuery();
 		while(rs.next()) {
 			DiemDanhModel model = new DiemDanhModel();

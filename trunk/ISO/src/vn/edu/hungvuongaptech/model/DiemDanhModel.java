@@ -4,10 +4,14 @@ import java.util.ArrayList;
 public class DiemDanhModel {
 	private String ngayBatDau;
 	private String ngayKetThuc;
+	private String maMonHoc;
+	
 	private String tenMonHoc;
 	private String ngayHienTai;
 	private String dayOfWeek;
+	private String maKhoa;
 	private String tenKhoa;
+	private String maGiaoVien;
 	private String hoGiaoVien;
 	private String tenLotGiaoVien;
 	private String tenGiaoVien;
@@ -24,8 +28,48 @@ public class DiemDanhModel {
 	private String gioGiangDay;
 	private String nhom;
 	private String tenHocSinh;
+	private String maNamHoc;
+	private String maLop;
+	private String kiHieuLop;
 	
 	
+	
+	public String getMaLop() {
+		return maLop;
+	}
+	public void setMaLop(String maLop) {
+		this.maLop = maLop;
+	}
+	public String getKiHieuLop() {
+		return kiHieuLop;
+	}
+	public void setKiHieuLop(String kiHieuLop) {
+		this.kiHieuLop = kiHieuLop;
+	}
+	public String getMaMonHoc() {
+		return maMonHoc;
+	}
+	public void setMaMonHoc(String maMonHoc) {
+		this.maMonHoc = maMonHoc;
+	}
+	public String getMaKhoa() {
+		return maKhoa;
+	}
+	public void setMaKhoa(String maKhoa) {
+		this.maKhoa = maKhoa;
+	}
+	public String getMaGiaoVien() {
+		return maGiaoVien;
+	}
+	public void setMaGiaoVien(String maGiaoVien) {
+		this.maGiaoVien = maGiaoVien;
+	}
+	public String getMaNamHoc() {
+		return maNamHoc;
+	}
+	public void setMaNamHoc(String maNamHoc) {
+		this.maNamHoc = maNamHoc;
+	}
 	public String getTenHocSinh() {
 		return tenHocSinh;
 	}

@@ -59,9 +59,9 @@ BEGIN
 	END
 	SELECT @sql = '
 	SELECT A.ID, H.Ki_hieu_phong AS KiHieuPhong, A.Buoi, A.Thu_trong_tuan AS ThuTrongTuan, 
-			I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
-			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc, F.Ten As TenKhoa, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay,A.NHOM
-	FROM ChiTietTKB AS A 
+			I.Id as MaMonHoc,I.Ten_mon_hoc AS TenMonHoc, J.ID as MaGiaoVien,ISNULL((K.Ho + '' '' + K.Ten_Lot + '' '' + K.Ten),'''') As TenGiaoVien,
+			Convert(varchar(10), A.Ngay_hoc, 105) As NgayHoc,F.Id As MaKhoa, F.Ten As TenKhoa,C.Nam_bat_dau as MaNamHoc,D.Id as MaLop, D.Ki_hieu As KiHieuLop,a.Hinh_thuc_day as HinhThucDay,A.NHOM
+	FROM ChiTietTKB AS A
 		INNER JOIN MonHocTKB AS B ON B.ID = A.Ma_mon_hoc_TKB 
 		INNER JOIN ThoiKhoaBieu AS C ON B.Ma_TKB = C.ID
 		INNER JOIN LopHoc AS D ON C.Ma_lop = D.ID
@@ -74,6 +74,7 @@ BEGIN
 		INNER JOIN ChiTietThanhVien AS K ON J.Ten_DN = K.Ten_dang_nhap'
 		+ @Where + @Dieu_Kien_Khoa + @And + @Dieu_Kien_Lop + @And + @Dien_Kien_Nam_Hoc + @And + @Dieu_Kien_Giao_Vien + @And + @Dieu_Kien_Mon_Hoc + @And + @Dieu_Kien_Thoi_Gian +
 		' ORDER BY A.Ngay_hoc, A.Thu_trong_tuan, A.Buoi DESC, A.Ma_phong, F.ID'
+	print @sql
 	exec  sp_executesql @sql
 END
 

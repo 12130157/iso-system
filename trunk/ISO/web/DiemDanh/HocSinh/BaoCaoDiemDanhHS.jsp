@@ -311,7 +311,7 @@
 			<tr style="background-color: transparent;"></tr>
 		</table>
 		<%
-			String Khoa = "", Lop = "", NamHoc = "", HocSinh = "", MonHoc = "",Nhom="";
+			String Khoa = "", Lop = "", NamHoc = "", HocSinh = "", MonHoc = "",Nhom="", NgayHoc="";
 			if(request.getParameter("Khoa") != null)
 				Khoa = request.getParameter("Khoa");
 			if(request.getParameter("Lop") != null)
@@ -324,10 +324,12 @@
 				MonHoc = request.getParameter("MonHoc");
 			if(request.getParameter("Nhom") != null)
 				Nhom = request.getParameter("ThoiGian");
+			if(request.getParameter("NgayHoc") != null)
+				NgayHoc = request.getParameter("NgayHoc");
 			int stt = 1 ;
-			if(Khoa!="" && Lop!="" && NamHoc!="" && HocSinh!="" && MonHoc!=""){
+			if(Khoa!="" && Lop!="" && MonHoc!=""){
 		%>
-			<c:set 	var = "ListHocSinh" value = '<%=DiemDanhDAO.getHocSinhByDieuKien(Khoa,Lop,NamHoc,HocSinh, MonHoc,Nhom) %>' scope="session"></c:set>
+			<c:set 	var = "ListHocSinh" value = '<%=DiemDanhDAO.getHocSinhByDieuKien(Khoa,Lop,NamHoc,HocSinh, MonHoc,Nhom,NgayHoc) %>' scope="session"></c:set>
 		<%
 			}
 		 %>
