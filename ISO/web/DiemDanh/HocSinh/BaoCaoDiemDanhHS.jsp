@@ -334,6 +334,7 @@
 			}
 		 %>
 		<br /><br /><font size="4" style="text-align: left;" color="#0000FF">Kết Quả Tìm Kiếm</font><br /><br />
+		
 		<table border="1" width="800px" style="background-image: url('../../images/background_diemdanh.png');background-repeat: repeat-y">
 			<tr style="background-color: transparent;">
 				<th style="background-color: #0000FF"><div class="div_textWhite">STT</div></th>
@@ -346,8 +347,20 @@
 				<th style="background-color: #0000FF"><div class="div_textWhite">Thời gian học</div></th>
 			</tr>
 			<c:set var="n" value="1"></c:set>
+			<c:set var="hoc" value="0"/>
+			<c:set var="nghi" value="0"/>
 			<c:forEach var="DDHocSinh" items="${ListHocSinh}">
-				<tr style="background-color: transparent;">
+				<c:choose>
+					<c:when test="${DDHocSinh.tinhTrang eq '4'}">
+						<c:set var="hoc" value="${hoc+1}"/>
+						<tr style="background-color: transparent;">
+					</c:when>
+					<c:otherwise>
+						<c:set var="nghi" value="${nghi+1}"/>
+						<tr style="background-color: red;">
+					</c:otherwise>
+				</c:choose>
+				
 					<td>${n }</td>
 					<td>${DDHocSinh.tenMonHoc }</td>
 					<td>${DDHocSinh.tenGiaoVien }</td>
@@ -357,9 +370,18 @@
 					<td>${DDHocSinh.gioKetThuc }</td>
 					<td>${DDHocSinh.gioGiangDay }</td>
 				</tr>
+				
 				<c:set var="n" value="${n+1}"></c:set>
 			</c:forEach>
 		</table>
+		<c:if test="${not empty param.NgayHoc}">
+			<table border="1" width="800px" style="background-image: url('../../images/background_diemdanh.png');background-repeat: repeat-y">
+				<tr style="background-color: transparent;">
+					<td>Học : ${hoc }</td>
+					<td>Nghĩ : ${nghi }</td>
+				</tr>
+			</table>
+		</c:if>
 		<br /><br /><input type="button" value="In kết quả" />
 	</form>
 
