@@ -1002,37 +1002,40 @@ public class DiemDanhDAO  {
 			model.setNgayBatDau(rs.getString("NGAYHOC"));
 			model.setNhom(rs.getString("NHOM"));
 			model.setTenHocSinh(rs.getString("TENHOCSINH"));
-			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-			java.util.Date batdau=null;
-			java.util.Date ketthuc=null;
-			String timeBatDau=rs.getString("BATDAU");
-			String timeKetThuc=rs.getString("KETTHUC");
-			int total = 0;
-			String time = "";
-			if(timeBatDau!=null){
-				batdau = format.parse(timeBatDau);
-			}
-			if(timeKetThuc!=null){
-				ketthuc = format.parse(timeKetThuc);
-			}
-			if(timeBatDau!=null && timeKetThuc!=null){
-				total = (ketthuc.getHours()*60+ketthuc.getMinutes())-(batdau.getHours()*60+batdau.getMinutes());
-			}
-			
-			if(total!=0){
-				time = total/60+"h"+total%60;
-			}
-			if(batdau!=null){
-				if(batdau.getHours()!=0){
-					model.setGioBatDau(batdau.getHours()+":"+batdau.getMinutes());
+			model.setTinhTrang(rs.getString("TINH_TRANG"));
+			if(model.getTinhTrang().equals("4")){
+				SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+				java.util.Date batdau=null;
+				java.util.Date ketthuc=null;
+				String timeBatDau=rs.getString("BATDAU");
+				String timeKetThuc=rs.getString("KETTHUC");
+				int total = 0;
+				String time = "";
+				if(timeBatDau!=null){
+					batdau = format.parse(timeBatDau);
 				}
-			}
-			if(ketthuc!=null){
-				if(ketthuc.getHours()!=0){
-					model.setGioKetThuc(ketthuc.getHours()+":"+ketthuc.getMinutes());
+				if(timeKetThuc!=null){
+					ketthuc = format.parse(timeKetThuc);
 				}
+				if(timeBatDau!=null && timeKetThuc!=null){
+					total = (ketthuc.getHours()*60+ketthuc.getMinutes())-(batdau.getHours()*60+batdau.getMinutes());
+				}
+				
+				if(total!=0){
+					time = total/60+"h"+total%60;
+				}
+				if(batdau!=null){
+					if(batdau.getHours()!=0){
+						model.setGioBatDau(batdau.getHours()+":"+batdau.getMinutes());
+					}
+				}
+				if(ketthuc!=null){
+					if(ketthuc.getHours()!=0){
+						model.setGioKetThuc(ketthuc.getHours()+":"+ketthuc.getMinutes());
+					}
+				}
+				model.setGioGiangDay(time);
 			}
-			model.setGioGiangDay(time);
 			list.add(model);
 		}
 	} catch (Exception e) {
