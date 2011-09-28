@@ -2,6 +2,7 @@ package vn.edu.hungvuongaptech.util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.common.DateType;
@@ -131,4 +132,33 @@ public class DateUtil {
 		return result;
 	}
 	
+	
+	public static ArrayList<String> getMonthByTwoDate(String batdau,String ketthuc){
+		ArrayList<String> list = new ArrayList<String>();
+		String ngaybatdau[] = batdau.split("-");
+		String ngayketthuc[] = ketthuc.split("-");
+		int thangbatdau = Integer.parseInt(ngaybatdau[1]);
+		int thangketthuc = Integer.parseInt(ngayketthuc[1]);
+		int nambatdau = Integer.parseInt(ngaybatdau[2]);
+		int namketthuc = Integer.parseInt(ngayketthuc[2]);
+		int n = namketthuc-nambatdau;
+		if(n>0){
+			thangketthuc += 12*n;
+			int count = 1;
+			for (int i = thangbatdau; i <= thangketthuc; i++) {
+				int tmp = i-12*(count-1);
+				list.add(tmp+"-"+nambatdau);
+				if(i==12*count){
+					nambatdau+=1;
+					count++;
+				}
+			}
+		}else{
+			for (int i = thangbatdau; i <= thangketthuc; i++) {
+				String tmp = i+"-"+nambatdau;
+				list.add(tmp);
+			}
+		}
+		return list;
+	}
 }

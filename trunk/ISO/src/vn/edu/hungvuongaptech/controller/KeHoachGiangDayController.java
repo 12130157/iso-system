@@ -3,6 +3,7 @@ package vn.edu.hungvuongaptech.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO;
 import vn.edu.hungvuongaptech.dao.MailDAO;
+import vn.edu.hungvuongaptech.dao.SoTayGiaoVienDAO;
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
 import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
@@ -66,13 +68,17 @@ public class KeHoachGiangDayController extends HttpServlet{
 			}
 			else if(request.getParameter("them") != null){
 				themKHGD(request, response);
-				
-			}else if(request.getParameter("duyet") != null)
-			{
+			}
+			else if(request.getParameter("duyet") != null){
 				duyetKHGD(request, response);
 			}
 			else if(request.getParameter("duyet1kehoach") != null) {
 				duyet1KeHoach(request, response, request.getParameter("maKHGD"));
+			}
+			else if(request.getParameter("SoTayGiaoVien") != null){
+				String maKHGD = request.getParameter("maKHGD");
+				String id = SoTayGiaoVienDAO.InsertSoTayGiaoVien(maKHGD);
+				response.sendRedirect("/HungVuongISO/ISO/KeHoachGiangDay/SoTayGiaoVien.jsp?maKHGD="+maKHGD);
 			}
 		}
 		
