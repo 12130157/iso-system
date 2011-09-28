@@ -35,7 +35,8 @@
 <%@page import="vn.edu.hungvuongaptech.util.DateUtil"%>
 
 
-<%@page import="vn.edu.hungvuongaptech.model.ChiTietKHGDModel"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietKHGDModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SoTayGiaoVienDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="Utf-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -81,8 +82,9 @@
 	<c:set var = "boPhanKDCL" value = '<%=Constant.BO_PHAN_PKID %>'></c:set>
 	<c:set var = "boPhanPDT" value = '<%=Constant.BO_PHAN_PDT %>'></c:set>
 	<c:set var = "boPhanBGH" value = '<%=Constant.BO_PHAN_BGH %>'></c:set>
-
-</script>
+	<c:if test="${not empty param.id}">
+		<c:set var="SoTayGiaoVien" value='<%=SoTayGiaoVienDAO.getSoTayGiaoVienById(request.getParameter("id")) %>'></c:set>
+	</c:if>
 </head>
 
 <body>
@@ -120,6 +122,41 @@
 					</td>
 				</tr>
 			</table>
+			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
+				<table style="background-color: transparent;" id="${listThang }">
+					<tr style="background-color: transparent;">
+						<td colspan="31">Tháng ${listThang }</td>
+					</tr>
+					<tr style="background-color: transparent;">
+						<c:forEach begin="1" end="31" step="1" var="i">
+							<td>${i }</td>
+						</c:forEach>
+					</tr>
+					
+					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
+						<tr style="background-color: transparent;">
+							<td>${listHocSinh.hoThanhVien} ${listHocSinh.tenLot } ${listHocSinh.tenThanhVien }</td>						
+							<c:forEach begin="1" end="31" step="1" var="i">
+								<c:set var="NgayHoc" value="${i}-${listThang }"></c:set>
+								<c:set var="count" value="1"></c:set>
+								<td>
+									<c:forEach var="listDiemDanh" items="${SoTayGiaoVien.listDiemDanh}">
+										<c:if test="${listDiemDanh.maThanhVienDiemDanh eq listHocSinh.maThanhVien and listDiemDanh.ngayHoc eq NgayHoc}">
+											<c:if test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
+												<c:if test="${count eq 1}">
+												K
+												</c:if>
+												<c:set var="count" value="${count+1}"></c:set>
+											</c:if>
+										</c:if>
+									</c:forEach>
+								</td>
+							</c:forEach>
+						</tr>
+					</c:forEach>
+				</table>
+			</c:forEach>
+			
 		</form>
 		
 		
