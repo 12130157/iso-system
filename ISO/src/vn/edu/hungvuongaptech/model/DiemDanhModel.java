@@ -17,6 +17,7 @@ public class DiemDanhModel {
 	private String tenGiaoVien;
 	private String tinhTrang;
 	private String maThanhVienDiemDanh;
+	private String ngayHoc;
 	private String buoi;
 	private String hinhThucDay;
 	private String tenDangNhap;
@@ -34,6 +35,12 @@ public class DiemDanhModel {
 	
 	
 	
+	public String getNgayHoc() {
+		return ngayHoc;
+	}
+	public void setNgayHoc(String ngayHoc) {
+		this.ngayHoc = ngayHoc;
+	}
 	public String getMaLop() {
 		return maLop;
 	}

@@ -1045,6 +1045,34 @@ public class DiemDanhDAO  {
 	return list;
 	}
 	
+	public static ArrayList<DiemDanhModel> getListHocSinhDiemDanhByMaLopAndMaMonHoc(String maLop,String maMonHoc){
+		ArrayList<DiemDanhModel> list = new ArrayList<DiemDanhModel>();
+		try {
+			String sql = "SELECT B.Ma_thanh_vien AS MaHocSinh,CONVERT(VARCHAR(10),A.NGAY_HOC,105) AS NgayHoc,A.TINH_TRANG AS TinhTrang "
+						+" FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID "
+						+" INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID "
+						+" INNER JOIN THANHVIEN D ON B.MA_THANH_VIEN=D.ID "
+						+" INNER JOIN CHITIETTHANHVIEN E ON D.TEN_DN=E.TEN_DANG_NHAP "
+						+" WHERE C.MA_LOP_HOC=? AND C.MA_MON_HOC=?  "
+						+" ORDER BY A.Ngay_hoc,E.Ten ASC ";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maLop);
+			ps.setString(2, maMonHoc);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				DiemDanhModel model = new DiemDanhModel();
+				model.setMaThanhVienDiemDanh(rs.getString("MaHocSinh"));
+				model.setNgayHoc(rs.getString("NgayHoc"));
+				model.setTinhTrang(rs.getString("TinhTrang"));
+				list.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public static ThoiGianGiangDayModel getThoiGianGiangDayByMaGiaoVien(String id, String ngayHoc, String buoi){
 		ThoiGianGiangDayModel model = null;

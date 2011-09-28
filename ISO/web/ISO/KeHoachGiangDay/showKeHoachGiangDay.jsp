@@ -36,7 +36,10 @@
 	function submitFormSave(){
 		document.forms["KeHoachGiangDay"].submit();
 	}
-
+	function SoTayGiaoVien(x){
+		document.getElementById("MaKHGD").value = x;
+		document.forms["SoTayGiaoVien"].submit();
+	}
 	function showPopUp(x)
 	{
 		 var myObject = new Object();
@@ -259,7 +262,7 @@
 	<% totalRows = KeHoachGiangDayDAO.getCountKeHoachGiangDay(tinhTrang, maNguoiTao); %>
 	<c:set 	var = "ListKHGD" value = '<%= KeHoachGiangDayDAO.getKeHoachGiangDay(totalRows, currentPage, tinhTrang, maNguoiTao,request.getSession().getAttribute("maBoPhan").toString(),tenMonHocFind,maKhoa,maHocKi,maNamHoc) %>'></c:set>
 			<% int count = 0; %>	
-			<%maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
+			<% maNguoiTao = (String) session.getAttribute("maThanhVien"); %>
 			<c:forEach var="objKHGD" items = "${ListKHGD}">
 				
 				<c:set var="iterator" value="<%=count%>"></c:set>
@@ -270,7 +273,14 @@
 								<!-- TRUONG HOP ADMIN LA NGUOI TAO -->
 								<c:if test="${admin eq sessionScope.maThanhVien}">
 									<tr style="background-color: transparent;">
-										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
+										<td width="120">
+											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
+											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+												<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+													<input type="button" value="Sổ Tay Giáo Viên"/>
+												</a>
+											</c:if>
+										</td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
 										<td bgcolor = "#009fb2">
@@ -314,7 +324,14 @@
 								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (maKhoa eq boPhanBGH and(objKHGD.tinhTrangHT ne NEW) ) or (vaiTro eq truongKhoa and(objKHGD.tinhTrang ne NEW) ))}">
 									
 									<tr style="background-color: transparent;">
-										<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
+										<td width="120">
+											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
+											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+												<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+													<input type="button" value="Sổ Tay Giáo Viên"/>
+												</a>
+											</c:if>
+										</td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
 										
@@ -417,7 +434,14 @@
 							
 							<c:if test="${objKHGD.maNguoiTao ne sessionScope.maThanhVien and ( maKhoa eq boPhanHC or maKhoa eq boPhanKDCL or maKhoa eq boPhanPDT) and (objKHGD.tinhTrang ne NEW) }">
 								 	<tr>
-								 		<td width="120"><a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a></td>
+								 		<td width="120">
+								 			<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
+								 			<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+								 				<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+													<input type="button" value="Sổ Tay Giáo Viên"/>
+												</a>
+											</c:if>
+								 		</td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.tenNguoiTao}</div></td>
 										<td bgcolor = "#99bff9"><div class = "div_txtintable">${objKHGD.ngayTao}</div></td>
 										<td>
@@ -546,6 +570,10 @@
 			</tr>
  
 	</table>
+	</form>
+	<form name="SoTayGiaoVien" id="SotayGiaoVien" method="post" action="<%=request.getContextPath() %>/<%=request.getContextPath()%>/keHoachGiangDayController">
+		<input type="hidden" id="MaKHGD" name="MaKHGD" value="" />
+		<input type="hidden" id="SoTayGiaoVien" name="SoTayGiaoVien" value="SoTayGiaoVien" />
 	</form>
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
