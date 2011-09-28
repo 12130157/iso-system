@@ -10,6 +10,7 @@ import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
 import vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel;
+import vn.edu.hungvuongaptech.model.ThoiGianGiangDayModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
 
@@ -716,5 +717,25 @@ public class KeHoachGiangDayDAO {
 		}
 		
 		return list;
+	}
+	
+	public static ThoiGianGiangDayModel getBatDauAndKetThucByMaKeHoachGiangDay(String id){
+		ThoiGianGiangDayModel model = null;
+		try {
+			String sql = "SELECT CONVERT(VARCHAR(10),MIN(Ngay_BD),105) as Ngay_bat_dau, CONVERT(VARCHAR(10),MAX(Ngay_BD),105) as Ngay_ket_thuc " 
+						+" FROM CHITIETKHGD "
+						+" WHERE Ma_ke_hoach_giang_day=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new ThoiGianGiangDayModel();
+				model.setBatDau(rs.getString("Ngay_bat_dau"));
+				model.setKetThuc(rs.getString("Ngay_ket_thuc"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 }
