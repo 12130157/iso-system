@@ -60,6 +60,10 @@ BEGIN
 	BEGIN
 		SET @Dieu_Kien_Nhom = ' AND B.USER1='+@Nhom
 	END
+	if(@Nhom = 'All')
+	BEGIN
+		SET @Dieu_Kien_Nhom = ''
+	END
 	SELECT @sql = '
 	SELECT K.KI_HIEU AS TENLOP,(H.HO+'' ''+H.TEN_LOT+'' ''+H.TEN) AS TENGIAOVIEN,J.TEN_MON_HOC AS TENMONHOC,
 	A.BUOI AS BUOI,B.USER1 AS NHOM, CONVERT(VARCHAR(10),A.NGAY_HOC,105) AS NGAYHOC,A.GIO_BAT_DAU AS BATDAU,A.GIO_KET_THUC AS KETTHUC,
@@ -89,7 +93,7 @@ BEGIN
 
 END
 
---exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,'',53,'07-09-2011',''
+--exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,'',53,'',''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc
