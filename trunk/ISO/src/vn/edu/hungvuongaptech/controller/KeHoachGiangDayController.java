@@ -76,9 +76,9 @@ public class KeHoachGiangDayController extends HttpServlet{
 				duyet1KeHoach(request, response, request.getParameter("maKHGD"));
 			}
 			else if(request.getParameter("SoTayGiaoVien") != null){
-				String maKHGD = request.getParameter("maKHGD");
+				String maKHGD = request.getParameter("MaKHGD");
 				String id = SoTayGiaoVienDAO.InsertSoTayGiaoVien(maKHGD);
-				response.sendRedirect("/HungVuongISO/ISO/KeHoachGiangDay/SoTayGiaoVien.jsp?maKHGD="+maKHGD);
+				response.sendRedirect("/HungVuongISO/ISO/KeHoachGiangDay/SoTayGiaoVien.jsp?id="+id);
 			}
 		}
 		

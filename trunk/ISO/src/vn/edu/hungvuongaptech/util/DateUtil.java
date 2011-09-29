@@ -147,7 +147,12 @@ public class DateUtil {
 			int count = 1;
 			for (int i = thangbatdau; i <= thangketthuc; i++) {
 				int tmp = i-12*(count-1);
-				list.add(tmp+"-"+nambatdau);
+				if(tmp<10){
+					list.add("0"+tmp+"-"+nambatdau);
+				}else{
+					list.add(tmp+"-"+nambatdau);
+				}
+				
 				if(i==12*count){
 					nambatdau+=1;
 					count++;
@@ -155,8 +160,12 @@ public class DateUtil {
 			}
 		}else{
 			for (int i = thangbatdau; i <= thangketthuc; i++) {
-				String tmp = i+"-"+nambatdau;
-				list.add(tmp);
+				int tmp = i;
+				if(tmp<10){
+					list.add("0"+tmp+"-"+nambatdau);
+				}else{
+					list.add(tmp+"-"+nambatdau);
+				}
 			}
 		}
 		return list;
