@@ -1515,6 +1515,10 @@ BEGIN
 	BEGIN
 		SET @Dieu_Kien_Nhom = ' AND B.USER1='+@Nhom
 	END
+	if(@Nhom = 'All')
+	BEGIN
+		SET @Dieu_Kien_Nhom = ''
+	END
 	SELECT @sql = '
 	SELECT K.KI_HIEU AS TENLOP,(H.HO+'' ''+H.TEN_LOT+'' ''+H.TEN) AS TENGIAOVIEN,J.TEN_MON_HOC AS TENMONHOC,
 	A.BUOI AS BUOI,B.USER1 AS NHOM, CONVERT(VARCHAR(10),A.NGAY_HOC,105) AS NGAYHOC,A.GIO_BAT_DAU AS BATDAU,A.GIO_KET_THUC AS KETTHUC,
@@ -1544,7 +1548,7 @@ BEGIN
 
 END
 
---exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,'',53,'07-09-2011',''
+--exec sp_DiemDanh_GetHocSinhByDieuKien 6,9,2011,'',53,'',''
 --sp_help sp_executesql
 --sp_ISO_GetLichSuDungPhong '1','1','60','',''
 --select * from lophoc
@@ -7521,6 +7525,50 @@ BEGIN
 END
 GO
 
+--sp_ISO_InsertSoTayGiaoVien.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='SoTayGiaoVien')
+BEGIN
+	DROP TABLE SoTayGiaoVien
+END
+GO
+CREATE TABLE SoTayGiaoVien
+(
+	ID INT PRIMARY KEY IDENTITY(0,1),
+	Ma_KHGD INT,
+	Quan_ly_hoc_sinh_ca_biet NTEXT,
+	Danh_gia_qui_trinh_giang_day NTEXT,
+	Tinh_trang INT,
+	Ngay_cap_nhat_cuoi DATETIME,
+	User1 NVARCHAR(100),
+	User2 NVARCHAR(100),
+	User3 NVARCHAR(100),
+	User4 NVARCHAR(100),
+	User5 NVARCHAR(100)
+)
+GO
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_ISO_InsertSoTayGiaoVien')
+BEGIN
+	DROP PROC sp_ISO_InsertSoTayGiaoVien
+END
+GO
+CREATE PROC sp_ISO_InsertSoTayGiaoVien
+	@Ma_KHGD INT,
+	@KQ INT OUTPUT
+AS
+BEGIN
+	SET @KQ=-1
+	IF NOT EXISTS (SELECT * FROM SoTayGiaoVien WHERE Ma_KHGD=@Ma_KHGD)
+	BEGIN
+		INSERT INTO SoTayGiaoVien(Ma_KHGD,Tinh_trang,Ngay_cap_nhat_cuoi) VALUES (@Ma_KHGD,'0',GETDATE())
+		SELECT @KQ=MAX(ID) FROM SoTayGiaoVien
+	END
+	ELSE
+	BEGIN
+		SELECT @KQ=ID FROM SoTayGiaoVien WHERE Ma_KHGD=@Ma_KHGD
+	END
+END
+GO
+
 --sp_ISO_InsertSuDung.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_InsertSuDung]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_InsertSuDung]
@@ -9390,6 +9438,53 @@ BEGIN
 END
 
 
+GO
+
+--sp_ISO_UpdateSoTayGiaoVien.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='SoTayGiaoVien')
+BEGIN
+	DROP TABLE SoTayGiaoVien
+END
+GO
+CREATE TABLE SoTayGiaoVien
+(
+	ID INT PRIMARY KEY IDENTITY(0,1),
+	Ma_KHGD INT,
+	Quan_ly_hoc_sinh_ca_biet NTEXT,
+	Danh_gia_qui_trinh_giang_day NTEXT,
+	Tinh_trang INT,
+	Ngay_cap_nhat_cuoi DATETIME,
+	User1 NVARCHAR(100),
+	User2 NVARCHAR(100),
+	User3 NVARCHAR(100),
+	User4 NVARCHAR(100),
+	User5 NVARCHAR(100)
+)
+GO
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_ISO_UpdateSoTayGiaoVien')
+BEGIN
+	DROP PROC sp_ISO_UpdateSoTayGiaoVien
+END
+GO
+CREATE PROC sp_ISO_UpdateSoTayGiaoVien
+	@ID INT,
+	@Quan_ly_hoc_sinh_ca_biet NTEXT,
+	@Danh_gia_qui_trinh_giang_day NTEXT,
+	@Tinh_trang INT,
+	@KQ INT OUTPUT
+AS
+BEGIN
+	SET @KQ=-1
+	IF EXISTS (SELECT * FROM SoTayGiaoVien WHERE ID=@ID)
+	BEGIN
+		UPDATE SoTayGiaoVien 
+		SET Quan_ly_hoc_sinh_ca_biet=@Quan_ly_hoc_sinh_ca_biet, 
+			Danh_gia_qui_trinh_giang_day=@Danh_gia_qui_trinh_giang_day, 
+			Tinh_trang=@Tinh_trang, Ngay_cap_nhat_cuoi=GETDATE()
+		WHERE ID=@ID
+		SET @KQ=@ID
+	END
+END
 GO
 
 --sp_ISO_UpdateSuDung.sql
