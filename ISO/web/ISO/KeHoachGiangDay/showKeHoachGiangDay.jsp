@@ -276,7 +276,7 @@
 										<td width="120">
 											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
 											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
-												<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+												<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>
 											</c:if>
@@ -327,7 +327,7 @@
 										<td width="120">
 											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
 											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
-												<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+												<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>
 											</c:if>
@@ -437,7 +437,7 @@
 								 		<td width="120">
 								 			<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
 								 			<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
-								 				<a style="text-decoration: none;" href="javascript : SoTayGiaoVien(${objKHGD.maKHGD })">
+								 				<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>
 											</c:if>
@@ -571,7 +571,7 @@
  
 	</table>
 	</form>
-	<form name="SoTayGiaoVien" id="SotayGiaoVien" method="post" action="<%=request.getContextPath() %>/<%=request.getContextPath()%>/keHoachGiangDayController">
+	<form name="SoTayGiaoVien" id="SotayGiaoVien" method="post" action="<%=request.getContextPath() %>/keHoachGiangDayController">
 		<input type="hidden" id="MaKHGD" name="MaKHGD" value="" />
 		<input type="hidden" id="SoTayGiaoVien" name="SoTayGiaoVien" value="SoTayGiaoVien" />
 	</form>

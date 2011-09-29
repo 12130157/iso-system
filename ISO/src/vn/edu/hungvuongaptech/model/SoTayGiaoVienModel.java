@@ -12,7 +12,115 @@ public class SoTayGiaoVienModel {
 	private ArrayList<ThanhVienModel> listHocSinh;
 	private ArrayList<DiemDanhModel> listDiemDanh;
 	private ArrayList<String> listThang;
+	private String maMonHoc;
+	private String tenMonHoc;
+	private String maLopHoc;
+	private String tenLopHoc;
+	private String khoa;
+	private String maGiaoVien;
+	private String tenGiaoVien;
+	private String maNamHoc;
+	private String namHoc;
+	private String maHeDaoTao;
+	private String tenHeDaoTao;
+	private String maChuyenNganh;
+	private String tenChuyenNganh;
+	private String maQuyetDinh;
+	private String tenQuyetDinh;
 	
+	
+	
+	public String getMaMonHoc() {
+		return maMonHoc;
+	}
+	public void setMaMonHoc(String maMonHoc) {
+		this.maMonHoc = maMonHoc;
+	}
+	public String getTenMonHoc() {
+		return tenMonHoc;
+	}
+	public void setTenMonHoc(String tenMonHoc) {
+		this.tenMonHoc = tenMonHoc;
+	}
+	public String getMaLopHoc() {
+		return maLopHoc;
+	}
+	public void setMaLopHoc(String maLopHoc) {
+		this.maLopHoc = maLopHoc;
+	}
+	public String getTenLopHoc() {
+		return tenLopHoc;
+	}
+	public void setTenLopHoc(String tenLopHoc) {
+		this.tenLopHoc = tenLopHoc;
+	}
+	public String getKhoa() {
+		return khoa;
+	}
+	public void setKhoa(String khoa) {
+		this.khoa = khoa;
+	}
+	public String getMaGiaoVien() {
+		return maGiaoVien;
+	}
+	public void setMaGiaoVien(String maGiaoVien) {
+		this.maGiaoVien = maGiaoVien;
+	}
+	public String getTenGiaoVien() {
+		return tenGiaoVien;
+	}
+	public void setTenGiaoVien(String tenGiaoVien) {
+		this.tenGiaoVien = tenGiaoVien;
+	}
+	public String getMaNamHoc() {
+		return maNamHoc;
+	}
+	public void setMaNamHoc(String maNamHoc) {
+		this.maNamHoc = maNamHoc;
+	}
+	public String getNamHoc() {
+		return namHoc;
+	}
+	public void setNamHoc(String namHoc) {
+		this.namHoc = namHoc;
+	}
+	public String getMaHeDaoTao() {
+		return maHeDaoTao;
+	}
+	public void setMaHeDaoTao(String maHeDaoTao) {
+		this.maHeDaoTao = maHeDaoTao;
+	}
+	
+	public String getTenHeDaoTao() {
+		return tenHeDaoTao;
+	}
+	public void setTenHeDaoTao(String tenHeDaoTao) {
+		this.tenHeDaoTao = tenHeDaoTao;
+	}
+	public String getMaChuyenNganh() {
+		return maChuyenNganh;
+	}
+	public void setMaChuyenNganh(String maChuyenNganh) {
+		this.maChuyenNganh = maChuyenNganh;
+	}
+	public String getTenChuyenNganh() {
+		return tenChuyenNganh;
+	}
+	public void setTenChuyenNganh(String tenChuyenNganh) {
+		this.tenChuyenNganh = tenChuyenNganh;
+	}
+	public String getMaQuyetDinh() {
+		return maQuyetDinh;
+	}
+	public void setMaQuyetDinh(String maQuyetDinh) {
+		this.maQuyetDinh = maQuyetDinh;
+	}
+	public String getTenQuyetDinh() {
+		return tenQuyetDinh;
+	}
+	public void setTenQuyetDinh(String tenQuyetDinh) {
+		this.tenQuyetDinh = tenQuyetDinh;
+	}
 	public String getNgayCapNhatCuoi() {
 		return ngayCapNhatCuoi;
 	}

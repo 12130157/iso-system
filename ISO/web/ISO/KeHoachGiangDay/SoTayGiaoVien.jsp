@@ -82,6 +82,7 @@
 	<c:set var = "boPhanKDCL" value = '<%=Constant.BO_PHAN_PKID %>'></c:set>
 	<c:set var = "boPhanPDT" value = '<%=Constant.BO_PHAN_PDT %>'></c:set>
 	<c:set var = "boPhanBGH" value = '<%=Constant.BO_PHAN_BGH %>'></c:set>
+	<c:set var = "space" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></c:set>
 	<c:if test="${not empty param.id}">
 		<c:set var="SoTayGiaoVien" value='<%=SoTayGiaoVienDAO.getSoTayGiaoVienById(request.getParameter("id")) %>'></c:set>
 	</c:if>
@@ -94,50 +95,98 @@
 		<!-- E HEAD CONTENT -->
 				
 		<form action="" id="SoTayGiaoVien" name="SoTayGiaoVien" method="post">
-			<table style="background-color: transparent;">
+			<table style="background-color: transparent;width: 300px;">
 				<tr style="background-color: transparent;">
 					<td colspan="2">
 						<strong>SỔ TAY GIÁO VIÊN</strong>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2" style="text-align: left">Môn Học/Modul : </td>
+				<tr style="background-color: transparent;">
+					<td colspan="2" style="text-align: left">Môn Học/Modul : ${SoTayGiaoVien.tenMonHoc }</td>
 				</tr>
 				<tr style="background-color: transparent;">
-					<td style="text-align: left">Lớp : </td>
-					<td style="text-align: left">Khóa : </td>
+					<td style="text-align: left">Lớp : ${SoTayGiaoVien.tenLopHoc }</td>
+					<td style="text-align: left;width: 150px;">Khóa : ${SoTayGiaoVien.khoa }</td>
 				</tr>
 				<tr style="background-color: transparent;">
-					<td colspan="2" style="text-align: left">Giáo Viên : </td>
+					<td colspan="2" style="text-align: left">Giáo Viên : ${SoTayGiaoVien.tenGiaoVien }</td>
 				</tr>
 				<tr style="background-color: transparent;">
-					<td colspan="2" style="text-align: left">Niên Khóa : </td>
+					<td colspan="2" style="text-align: left">Năm Học : ${SoTayGiaoVien.namHoc }</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td colspan="2" style="text-align: left">Trình độ đào tạo : ${SoTayGiaoVien.tenHeDaoTao }</td>
 				</tr>
 			</table>
 			<table style="background-color: transparent;">
-				<tr>
-					<td>
-						I/ Thông Tin Lớp Học
-						
+				<tr style="background-color: transparent;">
+					<td style="text-align: center;">
+						<strong>Thông tin về lớp học/khóa</strong>
+					</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td style="text-align: left;">
+						1. Nghề đào tạo : ${SoTayGiaoVien.tenChuyenNganh }<br/>
+						2. Trình độ đào tạo nghề : ${SoTayGiaoVien.tenHeDaoTao }<br/> 
+						3. Trình độ đầu vào và hình thức đánh gía đầu vào : <br/>
+						${space }- Trình độ đầu vào : <br/>
+						${space }- Hình thức đánh giá đầu vào :<br/> 
+						4. Quyết định thành lập lớp học : ${SoTayGiaoVien.tenQuyetDinh }<br/>
+						5. Tổ chức lớp học : <br/>
+						a) Sĩ số lớp học :<br/>
+						b) Bộ máy quản lý lớp :<br/> 
+						${space }- Giáo viên chủ nhiệm :<br/> 
+						${space }- Lớp trưởng : <br/>
+						${space }- Lớp phó học tập/Lớp phó phong trào : <br/> 
+						${space }Lớp phó học tập : <br/>
+						${space }Thủ quỹ : <br/>
+						${space }- Tổ trưởng tổ 1 : <br/>
+						${space }- Tổ trưởng tổ 2 : <br/>
+						${space }- Tổ trưởng tổ 3 : <br/>
+						${space }- Tổ trưởng tổ 4 : <br/>
+						c) Phương thức tổ chức đào tạo : <br/>   
 					</td>
 				</tr>
 			</table>
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
-				<table style="background-color: transparent;" id="${listThang }">
+				<c:set var="stt" value="1"></c:set>
+				<strong>Tháng ${listThang }</strong>
+				<table style="background-color: transparent;width: 800px; " id="${listThang }" border="1" >
 					<tr style="background-color: transparent;">
-						<td colspan="31">Tháng ${listThang }</td>
+						<th rowspan="2" style="width: 20px;">Stt</th>
+						<th rowspan="2" style="width: 100px;">Họ và tên học sinh</th>
+						<th colspan="31" style="width: 620px;">Ngày học</th>
+						<th rowspan="2" style="width: 60px;">Tổng cộng</th>
 					</tr>
-					<tr style="background-color: transparent;">
+					<tr>
 						<c:forEach begin="1" end="31" step="1" var="i">
-							<td>${i }</td>
+							<td style="width: 20px;font-size: 10px;">
+								<c:choose>
+									<c:when test="${i lt 10}">
+										0${i }
+									</c:when>
+									<c:otherwise>
+										${i }
+									</c:otherwise>
+								</c:choose>
+							</td>
 						</c:forEach>
 					</tr>
-					
 					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
-						<tr style="background-color: transparent;">
+						<c:set var="songaynghi" value="0"></c:set>
+						<tr style="background-color: transparent;height: 30px;">
+							<td>${stt }</td>
 							<td>${listHocSinh.hoThanhVien} ${listHocSinh.tenLot } ${listHocSinh.tenThanhVien }</td>						
 							<c:forEach begin="1" end="31" step="1" var="i">
-								<c:set var="NgayHoc" value="${i}-${listThang }"></c:set>
+								<c:choose>
+									<c:when test="${i lt 10}">
+										<c:set var="NgayHoc" value="0${i}-${listThang }"></c:set>
+									</c:when>
+									<c:otherwise>
+										<c:set var="NgayHoc" value="${i}-${listThang }"></c:set>
+									</c:otherwise>	
+								</c:choose>
+								
 								<c:set var="count" value="1"></c:set>
 								<td>
 									<c:forEach var="listDiemDanh" items="${SoTayGiaoVien.listDiemDanh}">
@@ -145,6 +194,7 @@
 											<c:if test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
 												<c:if test="${count eq 1}">
 												K
+												<c:set var="songaynghi" value="${songaynghi+1}"></c:set>
 												</c:if>
 												<c:set var="count" value="${count+1}"></c:set>
 											</c:if>
@@ -152,7 +202,9 @@
 									</c:forEach>
 								</td>
 							</c:forEach>
+							<td>${songaynghi }</td>
 						</tr>
+						<c:set var="stt" value="${stt + 1}"></c:set>
 					</c:forEach>
 				</table>
 			</c:forEach>
