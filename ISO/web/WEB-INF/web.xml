@@ -42,7 +42,18 @@
 	        <load-on-startup>1</load-on-startup>
 	    </servlet>
     <!-- ****************************End of Initialize************************ -->
-    
+	
+    <!-- ****************************SinhVienController************************** -->
+	    <servlet>
+	    	<servlet-name>SinhVienController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.SinhVienController</servlet-class>
+	    </servlet>        
+	    <servlet-mapping>
+	    	<servlet-name>SinhVienController</servlet-name>
+	    	<url-pattern>/SinhVienController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of SinhVienController******************* -->
+	
     <!-- ****************************ThanhVienController************************** -->
 	    <servlet>
 	    	<servlet-name>ThanhVienController</servlet-name>
