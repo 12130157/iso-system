@@ -36,8 +36,17 @@ public class ThanhVienModel implements Serializable {
 	private String maBoPhan;
 	private String tenBoPhan;
 	ArrayList<MonHocModel> monHocList;
+	ArrayList<DiemDanhModel> diemDanhList;
 	
-	
+	public ArrayList<DiemDanhModel> getDiemDanhList() {
+		return diemDanhList;
+	}
+	public void setDiemDanhList(ArrayList<DiemDanhModel> diemDanhList) {
+		this.diemDanhList = diemDanhList;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public ArrayList<MonHocModel> getMonHocList() {
 		return monHocList;
 	}

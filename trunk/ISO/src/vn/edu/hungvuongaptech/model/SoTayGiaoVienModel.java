@@ -10,7 +10,6 @@ public class SoTayGiaoVienModel {
 	private String tinhTrang;
 	private String ngayCapNhatCuoi;
 	private ArrayList<ThanhVienModel> listHocSinh;
-	private ArrayList<DiemDanhModel> listDiemDanh;
 	private ArrayList<String> listThang;
 	private String maMonHoc;
 	private String tenMonHoc;
@@ -163,12 +162,6 @@ public class SoTayGiaoVienModel {
 	}
 	public void setListHocSinh(ArrayList<ThanhVienModel> listHocSinh) {
 		this.listHocSinh = listHocSinh;
-	}
-	public ArrayList<DiemDanhModel> getListDiemDanh() {
-		return listDiemDanh;
-	}
-	public void setListDiemDanh(ArrayList<DiemDanhModel> listDiemDanh) {
-		this.listDiemDanh = listDiemDanh;
 	}
 	public ArrayList<String> getListThang() {
 		return listThang;

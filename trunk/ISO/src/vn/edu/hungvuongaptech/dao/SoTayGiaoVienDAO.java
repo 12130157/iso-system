@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
 import vn.edu.hungvuongaptech.model.SoTayGiaoVienModel;
+import vn.edu.hungvuongaptech.model.ThanhVienModel;
 import vn.edu.hungvuongaptech.model.ThoiGianGiangDayModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -92,8 +93,10 @@ public class SoTayGiaoVienDAO {
 				model.setTenQuyetDinh(rs.getString("TenQuyetDinh"));
 			}
 			KeHoachGiangDayModel KHGD = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(model.getMaKHGD());
-			model.setListDiemDanh(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc()));
 			model.setListHocSinh(ThanhVienDAO.getThanhVienByMaLop(KHGD.getMaLop()));
+			for (ThanhVienModel thanhVien : model.getListHocSinh()) {
+				thanhVien.setDiemDanhList(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(),thanhVien.getMaThanhVien()));
+			}
 			ThoiGianGiangDayModel BE = KeHoachGiangDayDAO.getBatDauAndKetThucByMaKeHoachGiangDay(model.getMaKHGD());
 			model.setListThang(DateUtil.getMonthByTwoDate(BE.getBatDau(),BE.getKetThuc()));
 		} catch (Exception e) {

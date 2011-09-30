@@ -84,7 +84,7 @@
 	<c:set var = "boPhanBGH" value = '<%=Constant.BO_PHAN_BGH %>'></c:set>
 	<c:set var = "space" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></c:set>
 	<c:if test="${not empty param.id}">
-		<c:set var="SoTayGiaoVien" value='<%=SoTayGiaoVienDAO.getSoTayGiaoVienById(request.getParameter("id")) %>'></c:set>
+		<c:set var="SoTayGiaoVien" value='<%=SoTayGiaoVienDAO.getSoTayGiaoVienById(request.getParameter("id")) %>' scope="session"></c:set>
 	</c:if>
 </head>
 
@@ -118,7 +118,7 @@
 					<td colspan="2" style="text-align: left">Trình độ đào tạo : ${SoTayGiaoVien.tenHeDaoTao }</td>
 				</tr>
 			</table>
-			<table style="background-color: transparent;">
+			<table style="background-color: transparent;border-spacing: 30px;">
 				<tr style="background-color: transparent;">
 					<td style="text-align: center;">
 						<strong>Thông tin về lớp học/khóa</strong>
@@ -151,7 +151,7 @@
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
 				<c:set var="stt" value="1"></c:set>
 				<strong>Tháng ${listThang }</strong>
-				<table style="background-color: transparent;width: 800px; " id="${listThang }" border="1" >
+				<table style="background-color: transparent;width: 800px;margin: 20px 0;" id="${listThang }" border="1">
 					<tr style="background-color: transparent;">
 						<th rowspan="2" style="width: 20px;">Stt</th>
 						<th rowspan="2" style="width: 100px;">Họ và tên học sinh</th>
@@ -189,8 +189,8 @@
 								
 								<c:set var="count" value="1"></c:set>
 								<td>
-									<c:forEach var="listDiemDanh" items="${SoTayGiaoVien.listDiemDanh}">
-										<c:if test="${listDiemDanh.maThanhVienDiemDanh eq listHocSinh.maThanhVien and listDiemDanh.ngayHoc eq NgayHoc}">
+									<c:forEach var="listDiemDanh" items="${listHocSinh.diemDanhList}">
+										<c:if test="${listDiemDanh.ngayHoc eq NgayHoc}">
 											<c:if test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
 												<c:if test="${count eq 1}">
 												K
@@ -208,7 +208,9 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
-			
+			<a href = "<%=request.getContextPath() %>/ISO/KeHoachGiangDay/PrintSoTayGiaoVien.jsp">								 
+				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+			</a>
 		</form>
 		
 		
