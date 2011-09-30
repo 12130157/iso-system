@@ -223,4 +223,37 @@ public class KhoaDAO {
 		
 		return model;
 	}
+	
+	/* QuanLySinhVien
+	 * Tác gi?: Q.Chuong
+	 * Ngày: 26/09/2011
+	 * Tên dao: getListKhoaTrungTam
+	 * Tham s? truy?n vào: 1 m?ng id khoa trung tâm
+	 * M?c dích: l?y danh sách khoa trung tâm có tham s? truy?n vào 1 m?ng id khoa trung tâm
+	 * Tr? v?: 1 m?ng danh sách khoa trung tâm
+	 * */
+	public static ArrayList<KhoaModel> getListKhoaTrungTam(ArrayList<Integer> arr)
+	{
+		ArrayList<KhoaModel> arrKhoaTT = new ArrayList<KhoaModel>();
+		try{
+			for(int i = 0; i <arr.size(); i ++)
+			{
+				String query = "select * from khoa_trungtam where id = ?";
+				PreparedStatement ps = DataUtil.getConnection().prepareStatement(query);
+				ps.setInt(1, arr.get(i));
+				ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					KhoaModel model = new KhoaModel();
+					model.setMaKhoa(rs.getString("ID"));
+					model.setTenKhoa(rs.getString("Ten"));
+					model.setMaTruongKhoa(rs.getString("Ma_truong_khoa"));
+					arrKhoaTT.add(model);
+				}
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return arrKhoaTT;
+	}
 }
