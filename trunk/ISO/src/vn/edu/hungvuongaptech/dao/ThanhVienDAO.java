@@ -231,6 +231,7 @@ public class ThanhVienDAO {
 		return listKetQua;
 	}
 	
+	//Tác gi?: La Qu?c Chuong
 	/*chi tiet thanh vien*/
 	public static ChiTietThanhVienModel XemChiTietThanhVienByMaThanhVien(String maThanhVien) {
 		ChiTietThanhVienModel chiTietThanhVienModel = new ChiTietThanhVienModel();
@@ -688,6 +689,47 @@ public class ThanhVienDAO {
 		return result;
 	}
 
+	//Tác gi?: La Qu?c Chuong
+	/*update chi tiet thanh vien in quan ly sinh vien LQChuong*/
+	public static Boolean updateChiTietSinhVien(ChiTietThanhVienModel chiTietThanhVienModel) {
+		Boolean result = false;		
+		try {
+			CallableStatement csmt = DataUtil
+				.getConnection()
+				.prepareCall("{call SP_QLSV_UPDATE_SINHVIEN(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			csmt.setString("MaThanhVien", chiTietThanhVienModel.getMaThanhVien());
+			csmt.setString("HoThanhVien", chiTietThanhVienModel.getHoTen());
+			csmt.setString("SoNha", chiTietThanhVienModel.getSoNha());
+			csmt.setString("TenLot", chiTietThanhVienModel.getTenLot());
+			csmt.setString("Duong", chiTietThanhVienModel.getDuong());
+			csmt.setString("Ten", chiTietThanhVienModel.getTenThanhVien());
+			csmt.setString("Phuong", chiTietThanhVienModel.getPhuongXa());
+			csmt.setString("NgaySinh", chiTietThanhVienModel.getNgaySinh());
+			csmt.setString("Quan", chiTietThanhVienModel.getQuanHuyen());
+			csmt.setString("Email", chiTietThanhVienModel.getEmail());
+			csmt.setString("ThanhPho", chiTietThanhVienModel.getThanhPho());
+			csmt.setString("CMND", chiTietThanhVienModel.getChungMinhNhanDan());
+			csmt.setString("DTNha", chiTietThanhVienModel.getDienThoaiNha());
+			csmt.setString("DTDD", chiTietThanhVienModel.getDienThoaiDiDong());
+			csmt.setString("SoTK", chiTietThanhVienModel.getSoTaiKhoan());
+			csmt.setString("NganHang", chiTietThanhVienModel.getNganHang());
+			csmt.setString("LoaiBang", chiTietThanhVienModel.getLoaiBang());
+			csmt.setString("TruongCap", chiTietThanhVienModel.getTruongCap());
+			csmt.setString("NgayLapThe",chiTietThanhVienModel.getNgayLapThe());
+			csmt.setString("LoaiTotNghiep", chiTietThanhVienModel.getLoaiTotNghiep());
+			
+			Boolean ketQua = DataUtil.executeNonStore(csmt);								
+			if (ketQua) { // Update mat khau thanh cong
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		}
+						
+		return result;
+	}
 	
 	public static int countThanhVien() {
 		Integer count=0;
