@@ -84,7 +84,14 @@ public class ChiTietThanhVienModel implements Serializable {
 	private String ngayCap;
 	private String noiCap;
 	
-	
+	public String diaChi;
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
 
 	public ArrayList<LuongModel> getListLuong() {
 		return listLuong;
