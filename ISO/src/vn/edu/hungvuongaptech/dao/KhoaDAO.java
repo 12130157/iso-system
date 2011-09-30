@@ -16,6 +16,28 @@ import vn.edu.hungvuongaptech.util.StringUtil;
 
 public class KhoaDAO {
 
+	//Tac gia: La Quoc Chuong
+	public static ArrayList<KhoaModel> getAllKhoa_QLSV(){
+		ArrayList<KhoaModel> list = new ArrayList<KhoaModel>();
+		KhoaModel model;
+		try {
+			String sql = "SELECT * "
+						+" FROM KHOA_TRUNGTAM "
+						+" WHERE ID='6' OR ID='7' OR ID='8' OR ID='9' OR ID='11' OR ID='10' OR ID='11' OR ID='12' OR ID='13' OR ID='14'";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model=new KhoaModel();
+				model.setMaKhoa(rs.getString("ID"));
+				model.setTenKhoa(rs.getString("Ten"));
+				list.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	public static ArrayList<KhoaModel> showAllKhoa() {
 		ArrayList<KhoaModel> listKetQua = new ArrayList<KhoaModel>();
 		try {
