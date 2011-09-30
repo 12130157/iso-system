@@ -101,7 +101,8 @@ public class Constant {
 	public static String APP_XEMDIEM = "3";
 	public static String APP_FEEDBACK = "4";
 	//public static String APP_BAOCAO = "5";
-	public static String APP_QUANLYTHIETBI = "5";	
+	public static String APP_QUANLYTHIETBI = "5";
+	public static String APP_QUANLYSINHVIEN = "7";	
 	
 	public static Integer NUM_ROWS_PHAN_1 = 1;
 	public static Integer NUM_ROWS_PHAN_2 = 1;
