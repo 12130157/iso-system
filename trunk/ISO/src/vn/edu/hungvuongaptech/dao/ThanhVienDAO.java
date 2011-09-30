@@ -23,6 +23,131 @@ import vn.edu.hungvuongaptech.util.StringUtil;
  *
  */
 public class ThanhVienDAO {
+
+	//Tác gi?: La Qu?c Chuong
+	public static boolean themSoLuocLyLich(String tenDangNhap,String matKhau,int maVaiTro,int maBoPhan,String soTaiKhoan,
+											String nganHang,String ngayLapThe,String soNha,String duong,String phuong,
+											String quan,String thanhPho,String dtNha,String loaiBang,String truongCap,
+											String loaiTotNghiep,String ho,String tenLot,String ten,String ngaySinh,
+											String email,String dtdd,String cmnd,String hoTenKhaiSinh,String tenThuongGoi,
+											String queQuan,String danToc,String trinhDoHocVanTruocKhiVaoHoc,
+											String ngayChinhThuc,String hoTenBo,String ngheNghiepBo,String hoTenMe,
+											String ngheNghiepMe,String hoTenVoChong,String ngheNghiepVoChong,
+											String doiTuongThuocDienChinhSach,String ngheNghiepLamTruocKhiVaoHoc,
+											String nguyenVong,int gioiTinh,String noiSinh,String noiDangKyThuongTru,
+											String tonGiao,String ngayThamGiaDang,String ngayKetNapDoan)
+	{
+		boolean bo = false;
+		try {
+			CallableStatement cs = DataUtil.getConnection().prepareCall("{call SP_QLSV_ThemMoiSoLuocLyLich(?,?,?,?,?,?,?,?,?,?," +
+					"																					  ?,?,?,?,?,?,?,?,?,?," +
+					"																					  ?,?,?,?,?,?,?,?,?,?," +
+					"																					  ?,?,?,?,?,?,?,?,?,?," +
+					"																					  ?,?,?,?,?)}");
+			cs.setString(1, tenDangNhap);
+			cs.setString(2, matKhau);
+			cs.setInt(3, maVaiTro);
+			cs.setInt(4, maBoPhan);
+			cs.setString(5, soTaiKhoan);
+			cs.setString(6, nganHang);
+			cs.setString(7, ngayLapThe);
+			cs.setString(8, soNha);
+			cs.setString(9, duong);
+			cs.setString(10, phuong);
+			cs.setString(11, quan);
+			cs.setString(12, thanhPho);
+			cs.setString(13, dtNha);
+			cs.setString(14, loaiBang);
+			cs.setString(15, truongCap);
+			cs.setString(16, loaiTotNghiep);
+			cs.setString(17, ho);
+			cs.setString(18, tenLot);
+			cs.setString(19, ten);
+			cs.setString(20, ngaySinh);
+			cs.setString(21, email);
+			cs.setString(22, dtdd);
+			cs.setString(23, cmnd);
+			cs.setString(24, hoTenKhaiSinh);
+			cs.setString(25, tenThuongGoi);
+			cs.setString(26, queQuan);
+			cs.setString(27, danToc);
+			cs.setString(28, trinhDoHocVanTruocKhiVaoHoc);
+			cs.setString(29, ngayChinhThuc);
+			cs.setString(30, hoTenBo);
+			cs.setString(31, ngheNghiepBo);
+			cs.setString(32, hoTenMe);
+			cs.setString(33, ngheNghiepMe);
+			cs.setString(34, hoTenVoChong);
+			cs.setString(35, ngheNghiepVoChong);
+			cs.setString(36, doiTuongThuocDienChinhSach);
+			cs.setString(37, ngheNghiepLamTruocKhiVaoHoc);
+			cs.setString(38, nguyenVong);
+			cs.setInt(39, gioiTinh);
+			cs.setString(40, noiSinh);
+			cs.setString(41, noiDangKyThuongTru);
+			cs.setString(42, tonGiao);
+			cs.setString(43, ngayThamGiaDang);
+			cs.setString(44, ngayKetNapDoan);
+			cs.registerOutParameter(45, java.sql.Types.INTEGER);
+			cs.execute();
+			int i = cs.getInt("ketQua");
+			if(i == 1)
+				bo = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bo;
+	}
+
+	//Tác gia: La Quoc Chuong
+	public static boolean kiemTraMaThanhVien(String maThanhVien)
+	{
+		boolean bo = false;
+		ChiTietThanhVienModel d = XemChiTietThanhVienByMaThanhVien(maThanhVien);
+		if(d.getMaVaiTro().equals("8") || d.getMaVaiTro().equals("9"))
+			bo = true;
+		return bo;
+	}
+
+	//Tác gia: La Quoc Chuong
+	public static ArrayList<ChiTietThanhVienModel> timSinhVien(String ho,String tenLot,String ten,String soNha,String duong,String phuongXa,String quanHuyen,String tinhTP,String ngaySinh,String email,String boPhan,String maLopHoc)
+	{
+		ArrayList<ChiTietThanhVienModel> arr = new ArrayList<ChiTietThanhVienModel>();
+		try{
+			CallableStatement c = DataUtil.getConnection().prepareCall("{call SP_QLSV_TIMKIEM_SINHVIEN(?,?,?,?,?,?,?,?,?,?,?,?)}");
+			c.setString("HO", ho);
+			c.setString("TEN_LOT", tenLot);
+			c.setString("TEN", ten);
+			c.setString("SO_NHA", soNha);
+			c.setString("DUONG", duong);
+			c.setString("PHUONG_XA", phuongXa);
+			c.setString("QUAN_HUYEN", quanHuyen);
+			c.setString("TINH_TP", tinhTP);
+			c.setString("NGAYSINH", ngaySinh);
+			c.setString("EMAIL", email);
+			c.setString("BOPHAN", boPhan);
+			c.setString("MALOPHOC", maLopHoc);
+			ResultSet rs = c.executeQuery();
+			while(rs.next())
+			{
+				ChiTietThanhVienModel m = new ChiTietThanhVienModel();
+				m.setMaThanhVien(rs.getString("ID"));
+				m.setHoTen(rs.getString("HOTEN"));
+				m.setDiaChi(rs.getString("DIACHI"));
+				m.setNgaySinh(rs.getString("NGAYSINH"));
+				m.setEmail(rs.getString("EMAIL"));
+				m.setTenKhoa(rs.getString("BOPHAN"));
+				m.setTenVaiTro(rs.getString("VAITRO"));
+				arr.add(m);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.getMessage();
+		}
+		return arr;
+	}
+
 	public static ThanhVienModel timThanhVien(String username, String password) {
 		ThanhVienModel thanhVienModel = new ThanhVienModel();
 		try {
