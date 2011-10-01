@@ -599,7 +599,16 @@
 			</w:paging>
 		</c:if>
 	</div>
-
+			<input type="hidden" name="gv" value='<c:if test="${not empty param.gv }">${param.gv }</c:if>' />
+			<input type="hidden" name="nam" value='<c:if test="${not empty param.nam }">${param.nam }</c:if>' />
+			<input type="hidden" name="lop" value='<c:if test="${not empty param.lop }">${param.lop }</c:if>' />
+			<input type="hidden" name="mon" value='<c:if test="${not empty param.mon }">${param.mon }</c:if>' />
+			<input type="hidden" name="hk" value='<c:if test="${not empty param.hk }">${param.hk }</c:if>' />
+			<input type="hidden" name="tt" value='<c:if test="${not empty param.tt }">${param.tt }</c:if>' />
+			<input type="hidden" name="ngayBD" value='<c:if test="${not empty param.date1 }">${param.date1 }</c:if>' />
+			<input type="hidden" name="ngayKT" value='<c:if test="${not empty param.date2 }">${param.date2 }</c:if>' />
+			<input type="hidden" name="maBoPhan" value='${sessionScope.maBoPhan }' />
+			<input type="hidden" name="khoa" value='<c:if test="${not empty param.khoa }">${param.khoa }</c:if>' />
 	</form>
 	<!-- S FOOT CONTENT -->
 			<jsp:include page="../../block/footer.jsp" />
