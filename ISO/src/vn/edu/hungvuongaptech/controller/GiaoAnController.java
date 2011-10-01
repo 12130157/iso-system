@@ -1,7 +1,12 @@
 package vn.edu.hungvuongaptech.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +19,7 @@ import vn.edu.hungvuongaptech.dao.MailDAO;
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
 import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.GiaoAnModel;
+import vn.edu.hungvuongaptech.model.KetQuaTimGiaoAnModel;
 import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel2;
 import vn.edu.hungvuongaptech.taglib.ChangeStringTaglib;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -105,7 +111,12 @@ public class GiaoAnController extends HttpServlet {
 			
 		}
 		else if(actionType.equalsIgnoreCase("emailNhacNho")){
-			sendMailsNhacNhoCacGiaoVien(request,response);
+			try {
+				sendMailsNhacNhoCacGiaoVien(request,response);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(actionType.equalsIgnoreCase("soSanhGA")){
 			String path="?true=true";
@@ -423,8 +434,10 @@ public class GiaoAnController extends HttpServlet {
 		}
 	}
 	
-	private void sendMailsNhacNhoCacGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		if(request.getParameter("totalEmail")!=null){
+	private void sendMailsNhacNhoCacGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException{
+		/*
+		 if(request.getParameter("totalEmail")!=null){
+		 
 			int total=Integer.parseInt(request.getParameter("totalEmail"));
 			//*****************GOM MAIL********************************
 			if(total!=0){
@@ -446,6 +459,39 @@ public class GiaoAnController extends HttpServlet {
 				emailNhacNho(thanhVienList,request,response);
 			}
 		}
+		* 
+		*/
+		String gv = request.getParameter("gv");
+		String nam = request.getParameter("nam");
+		String lop = request.getParameter("lop");
+		String mon = request.getParameter("mon");
+		String hk = request.getParameter("hk");
+		String tt = request.getParameter("tt");
+		String ngayBD = request.getParameter("ngayBD");
+		String ngayKT = request.getParameter("ngayKT");
+		String maBoPhan = request.getSession().getAttribute("maBoPhan").toString();
+		String khoa = request.getParameter("khoa");
+		String ngayHienTai = DateUtil.setDate3(SysParamsDAO.getSysParams().getGioHeThong());
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		int resultTG = 0;
+		ArrayList<KetQuaTimGiaoAnModel> listGA = GiaoAnDAO.findGiaoAn("",0,gv,nam,lop,mon,hk,tt,ngayBD,ngayKT,maBoPhan,khoa);
+		ThanhVienNhacNhoModel2 thanhVienModel=null;
+		ArrayList<ThanhVienNhacNhoModel2> thanhVienList=new ArrayList<ThanhVienNhacNhoModel2>();
+		for (KetQuaTimGiaoAnModel model : listGA) {
+			resultTG = Integer.parseInt(DateUtil.diffDate(DateUtil.changeDMYtoMDY(ngayHienTai), DateUtil.changeDMYtoMDY(model.getNgayDay())));
+			if((df.parse(ngayHienTai).after(df.parse(model.getNgayDay()))==true && model.getTinhTrang().equals("0")) 
+					|| (df.parse(ngayHienTai).after(df.parse(model.getNgayDay()))==false && model.getTinhTrang().equals("0") && resultTG <=7 && resultTG>=0)){
+					thanhVienModel=new ThanhVienNhacNhoModel2();
+					String tenChuongTrinh= "Giáo án số "+StringUtil.toUTF8(model.getSoGiaoAn())+" thuộc " + model.getTenMonHoc() + " - "+ StringUtil.toUTF8(model.getTenLopHoc());
+					thanhVienModel.setMaThanhVien(model.getMaGiaoVien());
+					thanhVienModel.setTenThanhVien(model.getTenGiaoVien());
+					thanhVienModel.setTenChuongTrinh(tenChuongTrinh);
+					thanhVienModel.setNgayDay(model.getNgayDay());
+					thanhVienModel.setEmail(MailDAO.getMailByMaThanhVien(model.getMaGiaoVien()));
+					thanhVienList.add(thanhVienModel);
+			}
+		}
+		emailNhacNho(thanhVienList,request,response);
 		response.sendRedirect(request.getParameter("pathPage"));
 	}
 
