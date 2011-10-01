@@ -24,7 +24,7 @@ import vn.edu.hungvuongaptech.util.StringUtil;
  */
 public class ThanhVienDAO {
 
-	//Tác gi?: La Qu?c Chuong
+	//Tac gia: La Quoc Chuong
 	public static boolean themSoLuocLyLich(String tenDangNhap,String matKhau,int maVaiTro,int maBoPhan,String soTaiKhoan,
 											String nganHang,String ngayLapThe,String soNha,String duong,String phuong,
 											String quan,String thanhPho,String dtNha,String loaiBang,String truongCap,
@@ -110,7 +110,7 @@ public class ThanhVienDAO {
 		return bo;
 	}
 
-	//Tác gia: La Quoc Chuong
+	//Tac gia: La Quoc Chuong
 	public static ArrayList<ChiTietThanhVienModel> timSinhVien(String ho,String tenLot,String ten,String soNha,String duong,String phuongXa,String quanHuyen,String tinhTP,String ngaySinh,String email,String boPhan,String maLopHoc)
 	{
 		ArrayList<ChiTietThanhVienModel> arr = new ArrayList<ChiTietThanhVienModel>();
@@ -231,7 +231,7 @@ public class ThanhVienDAO {
 		return listKetQua;
 	}
 	
-	//Tác gi?: La Qu?c Chuong
+	//Tac gia: La Quoc Chuong
 	/*chi tiet thanh vien*/
 	public static ChiTietThanhVienModel XemChiTietThanhVienByMaThanhVien(String maThanhVien) {
 		ChiTietThanhVienModel chiTietThanhVienModel = new ChiTietThanhVienModel();
@@ -689,8 +689,8 @@ public class ThanhVienDAO {
 		return result;
 	}
 
-	//Tác gi?: La Qu?c Chuong
-	/*update chi tiet thanh vien in quan ly sinh vien LQChuong*/
+	//Tac gia: La Quoc Chuong
+	/*update chi tiet sinh vien in quan ly sinh vien LQChuong*/
 	public static Boolean updateChiTietSinhVien(ChiTietThanhVienModel chiTietThanhVienModel) {
 		Boolean result = false;		
 		try {
