@@ -232,4 +232,25 @@ public class XemDiemDAO {
 		}
 		return dangKyMonHocList;
 	}
+	
+	public static String getDiemByMaLop_MaHocSinh_MaMonHoc(String maLop, String maMonHoc, String maThanhVien){
+		String diem = "";
+		try {
+			String sql = "SELECT A.Diem_trung_binh as Diem "
+						+" FROM DANGKYMONHOC A INNER JOIN MONHOCTKB B ON A.MA_MON_HOC_TKB=B.ID "
+						+" INNER JOIN THOIKHOABIEU C ON B.MA_TKB=C.ID "
+						+" WHERE B.MA_MON_HOC=? AND C.MA_LOP=? AND A.MA_HOC_VIEN=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maMonHoc);
+			ps.setString(2, maLop);
+			ps.setString(3, maThanhVien);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				diem = rs.getString("Diem");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return diem;
+	}
 }

@@ -109,13 +109,61 @@
 					</td>
 				</tr>
 			</table>
+			<table style="background-color: transparent;width: 700px"  align="center">
+				<tr style="background-color: transparent;">
+					<td style="text-align: center;">
+						<strong>Kết quả học tập</strong>
+					</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td>
+						<table style="background-color: transparent;width: 680px;margin-bottom: 20px;" border="1">
+							<tr style="background-color: transparent;">
+								<th rowspan="3" style="width: 50px;">Stt</th>
+								<th rowspan="3" style="width: 180px;">Họ và tên học sinh</th>
+								<th colspan="5" style="width: 300px;">Kiểm tra định kỳ</th>
+								<th rowspan="2" colspan="2" style="width: 100px;">Kiểm tra kết thúc môn học/module</th>
+								<th rowspan="3" style="width: 50px;">Điểm tổng kết</th>
+							</tr>
+							<tr style="background-color: transparent;">
+								<th colspan="5">Hệ Số 2</th>
+							</tr>
+							<tr style="background-color: transparent;">
+								<th>1</th>
+								<th>2</th>
+								<th>3</th>
+								<th>4</th>
+								<th>5</th>
+								<th>Lần 1</th>
+								<th>Lần 2</th>
+							</tr>
+							<c:set var="m" value="1"></c:set>
+							<c:forEach var="HocSinh" items="${SoTayGiaoVien.listHocSinh}">
+								<tr style="background-color: transparent;">
+									<td style="text-align: center;">${m }</td>
+									<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;"></td>
+									<td style="text-align: center;">${HocSinh.user1 }</td>
+								</tr>
+								<c:set var="m" value="${m+1}"></c:set>
+							</c:forEach>
+						</table>
+					</td>
+				</tr>
+			</table>
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
 				<c:set var="stt" value="1"></c:set>
 				<p align="center" style="font-weight: bold;">Tháng ${listThang }</p>
 				<table align="center" border="1" style=";text-align: center; background-color: transparent;width: 680px;margin-bottom: 20px;font-size: 10px;" id="${listThang }">
 					<tr style="background-color: transparent;">
 						<th rowspan="2" style="width: 10px;">Stt</th>
-						<th rowspan="2" style="width: 149px;">Họ và tên học sinh</th>
+						<th rowspan="2" style="width: 129px;">Họ và tên học sinh</th>
 						<th colspan="31" style="width: 496px;">Ngày học</th>
 						<th rowspan="2" style="width: 25px;">Tổng cộng</th>
 					</tr>
@@ -155,8 +203,8 @@
 											<c:choose>
 											<c:when test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
 												<c:if test="${count eq 1}">
-												K
-												<c:set var="songaynghi" value="${songaynghi+1}"></c:set>
+													k
+													<c:set var="songaynghi" value="${songaynghi+1}"></c:set>
 												</c:if>
 												<c:set var="count" value="${count+1}"></c:set>
 											</c:when>
@@ -172,6 +220,33 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
+			<table style="background-color: transparent;width: 680px;" align="center">
+				<tr style="background-color: transparent;">
+					<td>
+						<p align="center" style="font-weight: bold;">Quản Lý Học Sinh Cá Biệt<br/>
+						(Tên học sinh, đặc điểm, hình thức quản lý giáo dục, đánh giá phát triển)</p>
+						
+					</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td>
+						${SoTayGiaoVien.quanLyHocSinhCaBiet }
+					</td>
+				</tr>
+			</table>
+			<table style="background-color: transparent;width: 680px;" align="center">
+				<tr style="background-color: transparent;">
+					<td>
+						<p align="center" style="font-weight: bold;">Đánh Giá Qui Trình Giảng Dạy<br/>
+						(đánh giá chung quá trình tổ chức đào tạo, quản lý lớp học và kết quả học tập của lớp học, kinh nghiệm giảng dạy môn học/mô-đun)</p>
+					</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td>
+						${SoTayGiaoVien.danhGiaQuiTrinhGiangDay }
+					</td>
+				</tr>
+			</table>
 </td>
 </tr>
 </table>
