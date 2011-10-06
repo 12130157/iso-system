@@ -41,9 +41,21 @@ public class MonHocTKBModel  implements Serializable{
 	private String maMonHocTKBThayDoi;
 	private String maChiTietTKBThayDoi;
 	
+	//So len lop
+	
+	private ArrayList<ThanhVienDiemDanhModel> tVDD_CTDDList;
+	//
 	
 	public String getThayDoiMonHocTKB() {
 		return thayDoiMonHocTKB;
+	}
+	
+	public ArrayList<ThanhVienDiemDanhModel> gettVDD_CTDDList() {
+		return tVDD_CTDDList;
+	}
+	public void settVDD_CTDDList(
+			ArrayList<ThanhVienDiemDanhModel> tVDDCTDDList) {
+		tVDD_CTDDList = tVDDCTDDList;
 	}
 	public void setThayDoiMonHocTKB(String thayDoiMonHocTKB) {
 		this.thayDoiMonHocTKB = thayDoiMonHocTKB;

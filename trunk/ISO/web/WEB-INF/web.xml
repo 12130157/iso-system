@@ -459,6 +459,18 @@
 	    	<url-pattern>/phanCongController</url-pattern>
 	    </servlet-mapping>
     <!-- ****************************End Of PhanCongController******* -->
+
+    <!-- ****************************SoLenLopController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>SoLenLopController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.SoLenLopController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>SoLenLopController</servlet-name>
+	    	<url-pattern>/soLenLopController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of SoLenLopController******* -->
+
     <!-- ****************************PhanCongController************** -->
 	   <servlet>    	    	
 	    	<servlet-name>SoTayGiaoVienController</servlet-name>
@@ -469,4 +481,5 @@
 	    	<url-pattern>/soTayGiaoVienController</url-pattern>
 	    </servlet-mapping>
     <!-- ****************************End Of PhanCongController******* -->
+
 </web-app>
