@@ -2657,7 +2657,7 @@ BEGIN
  DECLARE @DieuKienMaNamHoc varchar(100)    
  DECLARE @DieuKienTimNgay varchar(100)    
  DECLARE @DieuKienMaBoPhan varchar(100)    
-    
+ DECLARE @DieuKienLengthPage varchar(100)
     
  SET @DieuKienMaNguoiTao=''    
  SET @DieuKienMaLop=''    
@@ -2665,7 +2665,8 @@ BEGIN
  SET @DieuKienTinhTrang=''    
  SET @DieuKienHocKi=''    
  SET @DieuKienMaNamHoc=''    
- SET @DieuKienTimNgay=''    
+ SET @DieuKienTimNgay=''
+ SET @DieuKienLengthPage=''
     
  IF (@MaBoPhan = 0 OR @MaBoPhan = 1 OR @MaBoPhan=16 OR @MaBoPhan=4 OR @MaBoPhan=2) AND @MaKhoa = ''    
  BEGIN    
@@ -2726,7 +2727,13 @@ BEGIN
  BEGIN    
   SET @DieuKienMaNamHoc=' AND Ma_nam_hoc  = '+ @MaNamHoc    
  END    
-     
+ 
+ IF @LengthPage = '' OR @LengthPage = '0'
+ BEGIN
+  SET @DieuKienLengthPage = '
+ SELECT @N=COUNT(*) FROM #TEMP
+ '
+ END
     
  DECLARE @sql nvarchar(2000)    
  DECLARE @MaLoaiCT varchar(10)    
@@ -2771,12 +2778,17 @@ LEFT JOIN DSThuocPhieuKPPN AS KPPN1
 ON  KPPN1.Ma_Chuong_Trinh=B.ID AND KPPN1.Tinh_trang=0 AND KPPN1.Ma_loai='+@MaLoaiCT+' '+    
     
 @DieuKienTimNgay +'      
-ORDER BY U.Ngay_BD ASC    
-    
+ORDER BY U.Ngay_BD ASC 
+
+ DECLARE @N INT
+ SET @N = 0
+'
+
++ @DieuKienLengthPage +'
 SELECT * FROM (SELECT     
 (SELECT COUNT(*) FROM #TEMP AS A WHERE A.MaGiaoAn<= B.MaGiaoAn) AS [Index],*      
 FROM #TEMP  AS B) AS C    
-WHERE C.[Index] BETWEEN '+@IndexPage+' AND '+CAST((CAST(@LengthPage AS INT)+CAST(@IndexPage AS INT)-1)AS VARCHAR) +' ORDER BY [Index] ASC '    
+WHERE C.[Index] BETWEEN '+@IndexPage+' AND CAST(@N AS INT)+ '+CAST((CAST(@LengthPage AS INT)+CAST(@IndexPage AS INT)-1)AS VARCHAR) +' ORDER BY [Index] ASC '    
 PRINT @SQL
 exec sp_executesql @sql
 END    
@@ -12094,6 +12106,349 @@ END
 
 GO
 
+GO
+
+--SP_QLSV_ThemMoiSoLuocLyLich.sql
+/*
+Tác giả: La Quốc Chương
+Ngày : 28/09/2011
+Mô tả : SP_QLSV_ThemMoiSoLuocLyLich dùng để thêm sơ lược lý lịch của sinh viên trong module QuanLySinhVien
+*/
+if exists (select * from sysobjects where name = 'SP_QLSV_ThemMoiSoLuocLyLich')
+begin
+	drop proc SP_QLSV_ThemMoiSoLuocLyLich
+end
+go
+create proc SP_QLSV_ThemMoiSoLuocLyLich
+--thanh vien
+@TenDangNhap varchar(20),
+@MatKhau varchar(20),
+@MaVaiTro int,
+@MaBoPhan int,
+--tai khoan
+@SoTaiKhoan varchar(20),
+@NganHang varchar(20),
+@NgayLapThe datetime,
+--dia chi
+@SoNha nvarchar(20),
+@Duong nvarchar(300),
+@Phuong nvarchar(50),
+@Quan nvarchar(50),
+@ThanhPho nvarchar(50),
+@DTNha varchar(20),
+--bang cap 
+@LoaiBang nvarchar(40),
+@TruongCap nvarchar(200),
+@LoaiTotNghiep nvarchar(10),
+--chi tiet thanh vien 
+--chu y ma dia chi va ma tinh trang = 1
+@Ho nvarchar(40),
+@TenLot nvarchar(40),
+@Ten nvarchar(40),
+@NgaySinh datetime,
+@Email varchar(40),
+@DTDD varchar(20),
+@CMND varchar(15),
+--thong tin ca nhan gia dinh
+@HoTenKhaiSinh nvarchar(100),
+@TenThuongGoi nvarchar(100),
+@QueQuan nvarchar(100),
+@DanToc nvarchar(100),
+@TrinhDoHocVanTruocKhiVaoHoc nvarchar(100),
+@NgayChinhThuc datetime,
+@HoTenBo nvarchar(100),
+@NgheNghiepBo nvarchar(100),
+@HoTenMe nvarchar(100),
+@NgheNghiepMe nvarchar(100),
+@HoTenVoChong nvarchar(100),
+@NgheNghiepVoChong nvarchar(100),
+@DoiTuongThuocDienChinhSach nvarchar(100),
+@NgheNghiepLamTruocKhiVaoHoc nvarchar(100),
+@NguyenVong nvarchar(500),
+@GioiTinh int,
+@NoiSinh nvarchar(100),
+@NoiDangKyThuongTru nvarchar(100),
+@TonGiao nvarchar(100),
+@NgayThamGiaDang datetime,
+@NgayKetNapDoan datetime,
+@ketQua int output
+as
+begin
+	declare @MaThanhVien int
+	declare @MaTaiKhoan int
+	declare @MaBangCap int
+	declare @MaDiaChi int
+	declare @n int
+	set @n = 0
+	set @MaThanhVien = 0
+	set @MaTaiKhoan = 0
+	set @MaBangCap = 0
+	set @MaDiaChi = 0
+	if not exists (select * from ChiTietThanhVien where Ten_dang_nhap = @TenDangnhap)
+	begin
+		--insert vao thanhvien - select * from thanhvien
+		insert into ThanhVien (Ten_DN,Mat_khau,Ma_vai_tro,Ma_bo_phan)
+			values (@TenDangNhap,@MatKhau,@MaVaiTro,@MaBoPhan)
+		--lay ma thanh vien tu cau insert tren
+		set @MaThanhVien = (select id from ThanhVien where Ten_DN = @TenDangNhap)
+		--insert vao taikhoanselect * from taikhoan - select * from taiKhoan
+		insert into TaiKhoan (So_tai_khoan,Ngan_hang,Ngay_lap_the)
+			values (@SoTaiKhoan,@NganHang,@NgayLapThe)
+		--lay ma tai khoan tu cau insert tren
+		set @MaTaiKhoan = (select top 1 id from TaiKhoan order by id desc)
+		--insert vao diachi - select * from diachi
+		insert into DiaChi (So_nha,Duong,Phuong_xa,Quan_huyen,Tinh_Thanhpho,Dien_thoai_nha)
+			values (@SoNha,@Duong,@Phuong,@Quan,@ThanhPho,@DTNha)
+		--lay ma dia chi tu cau insert tren
+		set @MaDiaChi = (select top 1 id from DiaChi order by id desc)
+		--insert vao bangcap - select * from bangcap
+		insert into BangCap (Ma_thanh_vien,Loai_bang,Truong_cap,Loai_tot_nghiep)
+			values (@MaThanhVien,@LoaiBang,@TruongCap,@LoaiTotNghiep)
+		--lay ma bang cap tu cau insert tren
+		set @MaBangCap = (select top 1 id from BangCap where Ma_thanh_vien = @MaThanhVien)
+		--insert vao thong tin ca nhan gia dinh - select * from thongtincanhangiadinh
+		insert into ThongTinCaNhanGiaDinh values (@TenDangNhap,@HoTenKhaiSinh,@TenThuongGoi,
+				@QueQuan,@DanToc,@TrinhDoHocVanTruocKhiVaoHoc,@NgayChinhThuc,@HoTenBo,
+				@NgheNghiepBo,@HoTenMe,@NgheNghiepMe,@HoTenVoChong,@NgheNghiepVoChong,
+				@DoiTuongThuocDienChinhSach,@NgheNghiepLamTruocKhiVaoHoc,@NguyenVong,
+				@GioiTinh,@NoiSinh,@NoiDangKyThuongTru,@TonGiao,@NgayThamGiaDang,
+				@NgayKetNapDoan)
+		--insert vao chi tiet thanh vien
+		insert into ChiTietThanhVien (Ten_dang_nhap,Ho,Ten_lot,Ten,Ngay_sinh,
+				Ma_dia_chi,Email,Dien_thoai_dd,Ma_bang_cap,Ma_tai_khoan,Tinh_trang,
+				Chung_minh_nhan_dan) values (@TenDangNhap,@Ho,@TenLot,@Ten,
+				@NgaySinh,@MaDiaChi,@Email,@DTDD,@MaBangCap,@MaTaiKhoan,1,@CMND)		
+		set @n = 1
+	end
+	set @ketQua = @n
+end
+
+/* -- 7,20,29,43,44 là ngày tháng
+declare @ketQua int
+exec SP_QLSV_ThemMoiSoLuocLyLich 'ThienVD1','123',9,6,'123','123',
+							'2011-09-30','123','123','123','123','123',
+							'123','123','123','123','123','123',
+							'123','2011-09-30','123','123','123','123',
+							'123','123','123','123','2011-09-30','123',
+							'123','123','123','123','123','123',
+							'123','123','123','123',0,'123','2011-09-30',
+							'2011-09-30',@ketQua output
+print @ketQua
+select * from taiKhoan
+select * from thanhvien where ten_dn like '%ThienVD2%'
+*/
+GO
+
+--SP_QLSV_TIMKIEM_SINHVIEN.sql
+
+/*
+		Nguoi Viet: AMIN
+ 		Ngay viet:	20/07/2011
+		Muc dich:   SEARCH Sinh Vien6
+*/
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE NAME='SP_QLSV_TIMKIEM_SINHVIEN')
+BEGIN
+	DROP PROC SP_QLSV_TIMKIEM_SINHVIEN
+END
+GO
+CREATE PROC SP_QLSV_TIMKIEM_SINHVIEN
+	@HO				NVARCHAR(200),
+	@TEN_LOT		NVARCHAR(200),
+	@TEN			NVARCHAR(200),
+	@SO_NHA			NVARCHAR(50),
+	@DUONG			NVARCHAR(200),
+	@PHUONG_XA		NVARCHAR(200),
+	@QUAN_HUYEN		NVARCHAR(200),
+	@TINH_TP		NVARCHAR(200),
+	@NGAYSINH		VARCHAR(10),
+	@EMAIL			VARCHAR(60),
+	@BOPHAN			VARCHAR(10),
+	@MALOPHOC		VARCHAR(10)
+AS
+BEGIN
+DECLARE @DIEUKIENHOTEN			NVARCHAR(300)
+DECLARE @DIEUKIENDIACHI			NVARCHAR(300)
+DECLARE @DIEUKIENNGAYSINH		VARCHAR(100)
+DECLARE @DIEUKIENEMAIL			VARCHAR(100)
+DECLARE @DIEUKIENBOPHAN			VARCHAR(100)
+DECLARE @DIEUKIENLOPHOC			VARCHAR(100)
+
+SET @DIEUKIENHOTEN=''
+SET @DIEUKIENDIACHI=''
+SET @DIEUKIENNGAYSINH=''
+SET @DIEUKIENEMAIL=''
+SET @DIEUKIENBOPHAN=''
+SET @DIEUKIENLOPHOC=''
+
+IF @HO <> ''  
+	BEGIN  
+		SET @DIEUKIENHOTEN=' AND D.HO LIKE N''%'+ @HO +'%'' '
+	END  
+IF @TEN_LOT <> ''  
+	BEGIN  
+		SET @DIEUKIENHOTEN = @DIEUKIENHOTEN + ' AND D.TEN_LOT LIKE N''%'+ @TEN_LOT +'%'' '
+	END
+IF @TEN <> ''  
+	BEGIN  
+		SET @DIEUKIENHOTEN = @DIEUKIENHOTEN + ' AND D.TEN LIKE N''%'+ @TEN +'%'' '
+	END
+IF @SO_NHA <> ''  
+	BEGIN  
+		SET @DIEUKIENDIACHI = @DIEUKIENDIACHI + ' AND E.SO_NHA LIKE N''%'+ @SO_NHA +'%'' '
+	END 
+IF @DUONG <> ''  
+	BEGIN  
+		SET @DIEUKIENDIACHI = @DIEUKIENDIACHI + ' AND E.DUONG LIKE N''%'+ @DUONG +'%'' '
+	END 
+IF @PHUONG_XA <> ''  
+	BEGIN  
+		SET @DIEUKIENDIACHI = @DIEUKIENDIACHI + ' AND E.PHUONG_XA LIKE N''%'+ @PHUONG_XA +'%'' '
+	END 
+IF @QUAN_HUYEN <> ''  
+	BEGIN  
+		SET @DIEUKIENDIACHI = @DIEUKIENDIACHI + ' AND E.QUAN_HUYEN LIKE N''%'+ @QUAN_HUYEN +'%'' '
+	END 
+IF @TINH_TP <> ''  
+	BEGIN  
+		SET @DIEUKIENDIACHI = @DIEUKIENDIACHI + ' AND E.TINH_THANHPHO LIKE N''%'+ @TINH_TP +'%'' '
+	END 
+IF @NGAYSINH <> ''  
+	BEGIN  
+		SET @DIEUKIENNGAYSINH=' AND convert(VARCHAR(10),D.NGAY_SINH,105) LIKE ''%' + @NGAYSINH + '%'' '
+	END 
+IF @EMAIL <> ''  
+	BEGIN  
+		SET @DIEUKIENEMAIL=' AND D.EMAIL LIKE ''%'+ @EMAIL +'%'' '
+	END 
+IF @BOPHAN <> ''  
+	BEGIN  
+		IF @BOPHAN = 'all'
+		BEGIN
+			SET @DIEUKIENBOPHAN=''
+		END
+		ELSE
+		BEGIN
+			SET @DIEUKIENBOPHAN=' AND C.ID='+@BOPHAN
+		END
+	END 
+IF @MALOPHOC <> ''
+	BEGIN
+		SET @DIEUKIENLOPHOC=' AND D.Ma_lop_hoc='+@MALOPHOC
+	END
+
+
+DECLARE @sql NVARCHAR(2000)
+
+SET @sql = '
+SELECT A.ID,(D.HO +'' ''+ D.TEN_LOT +'' ''+ D.TEN) AS HOTEN, 
+(E.SO_NHA +'' ''+ E.DUONG +'' ''+ E.PHUONG_XA +'' ''+ E.QUAN_HUYEN +'' ''+ E.TINH_THANHPHO) AS DIACHI,
+convert(VARCHAR(10),D.NGAY_SINH,105) AS NGAYSINH,
+D.EMAIL,C.TEN AS BOPHAN,B.TEN_VAI_TRO AS VAITRO
+FROM ThanhVien A LEFT JOIN VAITRO B ON A.MA_VAI_TRO=B.ID 
+LEFT JOIN KHOA_TRUNGTAM C ON A.MA_BO_PHAN=C.ID
+LEFT JOIN CHITIETTHANHVIEN D ON A.TEN_DN=D.TEN_DANG_NHAP 
+LEFT JOIN DIACHI E ON D.MA_DIA_CHI=E.ID
+WHERE B.ID=9 '
++ @DIEUKIENHOTEN			
++ @DIEUKIENDIACHI			
++ @DIEUKIENNGAYSINH				
++ @DIEUKIENEMAIL			
++ @DIEUKIENBOPHAN								
++ ' ORDER BY A.ID ASC'
+
+
+	PRINT @SQL
+	EXEC sp_executesql @sql
+END
+GO
+
+
+
+ 
+
+GO
+
+--SP_QLSV_UPDATE_SINHVIEN.sql
+--AUTHOR : LA QUOC CHUONG
+--DATETIME : 6/9/2011
+--PURPOSE : UPDATE PERSONAL INFORMATION IN QUANLYSINHVIEN MODULE
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'SP_QLSV_UPDATE_SINHVIEN')
+BEGIN
+	DROP PROC SP_QLSV_UPDATE_SINHVIEN
+END
+GO
+CREATE PROC SP_QLSV_UPDATE_SINHVIEN
+@MaThanhVien nvarchar(100),
+@HoThanhVien nvarchar(100),
+@SoNha nvarchar(100),
+@TenLot nvarchar(100),
+@Duong nvarchar(100),
+@Ten nvarchar(100),
+@Phuong nvarchar(100),
+@NgaySinh datetime,
+@Quan nvarchar(100),
+@Email nvarchar(100),
+@ThanhPho nvarchar(100),
+@CMND nvarchar(100),
+@DTNha nvarchar(100),
+@DTDD nvarchar(100),
+@SoTK nvarchar(100),
+@NganHang nvarchar(100),
+@LoaiBang nvarchar(100),
+@TruongCap nvarchar(100),
+@NgayLapThe datetime,
+@LoaiTotNghiep nvarchar(100)
+AS
+BEGIN
+	declare @TenDangNhap nvarchar(100)
+	set @TenDangNhap = (select ten_dn from thanhvien where id = @MaThanhVien)
+	declare @MaDiaChi nvarchar(100)
+	set @MaDiaChi  = (select ma_dia_chi from chitietthanhvien where ten_dang_nhap = @TenDangNhap)
+	declare @MaTaiKhoan nvarchar(100)
+	set @MaTaiKhoan = (select ma_tai_khoan from chitietthanhvien where ten_dang_nhap = @TenDangNhap)
+	declare @MaBangCap nvarchar(100)
+	set @MaBangCap = (select ma_bang_cap from chitietthanhvien where ten_dang_nhap = @TenDangNhap)
+
+	--kiểm tra mã địa chỉ
+	if(@MaDiaChi is null)
+	begin
+		insert into diachi (so_nha,duong,phuong_xa,quan_huyen,tinh_thanhpho,dien_thoai_nha)	values(@SoNha,@Duong,@Phuong,@Quan,@ThanhPho,@DTNha)
+		set @MaDiaChi = (select top(1) id from diachi order by id desc)
+	end
+	else 
+	begin
+		update diachi set so_nha = @SoNha, duong = @Duong, phuong_xa = @Phuong, quan_huyen = @Quan, tinh_thanhpho = @ThanhPho, dien_thoai_nha = @DTNha where id = @MaDiaChi
+	end
+	
+	--kiểm tra mã tài khoản
+	if(@MaTaiKhoan is null)
+	begin
+		insert into taikhoan (so_tai_khoan,ngan_hang,ngay_lap_the) values(@SoTK,@NganHang,@NgayLapThe)
+		set @MaTaiKhoan = (select top(1) id from taikhoan order by id desc)
+	end
+	else
+	begin
+		update taikhoan set so_tai_khoan = @SoTK, ngan_hang = @NganHang, ngay_lap_the = @NgayLapThe where id = @MaTaiKhoan
+	end
+
+	--kiểm tra mã bằng cấp
+	if(@MaBangCap is null)
+	begin
+		insert into bangcap (loai_bang,truong_cap,loai_tot_nghiep) values(@LoaiBang,@TruongCap,@LoaiTotNghiep)
+		set @MaBangCap = (select top(1) id from bangcap order by id desc)
+	end
+	else
+	begin
+		update bangcap set loai_bang = @LoaiBang, truong_cap = @TruongCap, loai_tot_nghiep = @LoaiTotNghiep where id = @MaBangCap
+	end
+
+	--update chi tiết thành viên
+	update chitietthanhvien set ho = @HoThanhVien, ten_lot = @TenLot, ten = @Ten, ngay_sinh = @NgaySinh,
+				ma_dia_chi = @MaDiaChi, email = @Email, dien_thoai_dd = @DTDD, ma_bang_cap = @MaBangCap,
+				ma_tai_khoan = @MaTaiKhoan, chung_minh_nhan_dan = @CMND
+	where ten_dang_nhap = @TenDangNhap
+END
 GO
 
 --sp_XemDiem_DeleteChiTietDiem.sql
