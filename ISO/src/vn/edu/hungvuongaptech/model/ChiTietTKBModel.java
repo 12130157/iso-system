@@ -1,6 +1,7 @@
 package vn.edu.hungvuongaptech.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ChiTietTKBModel implements Serializable {
 	// TODO Auto-generated method stub
@@ -28,6 +29,38 @@ public class ChiTietTKBModel implements Serializable {
 	private String ngayBatDauTuan;
 	private String ngayKetThucTuan;
 	
+	//So len lop
+	private String noiDungBaiDay;
+	private ArrayList<ThanhVienDiemDanhModel> thanhVienDiemDanhList;
+	private String tinhTrangDiDay;
+	private String soSVVangMat;
+	
+	public String getSoSVVangMat() {
+		return soSVVangMat;
+	}
+	public void setSoSVVangMat(String soSVVangMat) {
+		this.soSVVangMat = soSVVangMat;
+	}
+	public String getTinhTrangDiDay() {
+		return tinhTrangDiDay;
+	}
+	public void setTinhTrangDiDay(String tinhTrangDiDay) {
+		this.tinhTrangDiDay = tinhTrangDiDay;
+	}
+	public ArrayList<ThanhVienDiemDanhModel> getThanhVienDiemDanhList() {
+		return thanhVienDiemDanhList;
+	}
+	public void setThanhVienDiemDanhList(
+			ArrayList<ThanhVienDiemDanhModel> thanhVienDiemDanhList) {
+		this.thanhVienDiemDanhList = thanhVienDiemDanhList;
+	}
+	public String getNoiDungBaiDay() {
+		return noiDungBaiDay;
+	}
+	public void setNoiDungBaiDay(String noiDungBaiDay) {
+		this.noiDungBaiDay = noiDungBaiDay;
+	}
+	//
 	public String getNgayBatDauTuan() {
 		return ngayBatDauTuan;
 	}

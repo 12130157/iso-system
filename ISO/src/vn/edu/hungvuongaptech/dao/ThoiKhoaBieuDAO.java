@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.model.ChiTietDiemDanhModel;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
+import vn.edu.hungvuongaptech.model.DiemDanhModel;
 import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.PhanCongGiaoVienModel;
+import vn.edu.hungvuongaptech.model.ThangTheoDoiModel;
+import vn.edu.hungvuongaptech.model.ThanhVienDiemDanhModel;
 import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
 import vn.edu.hungvuongaptech.model.ToTrinhModel;
 import vn.edu.hungvuongaptech.util.DataUtil;

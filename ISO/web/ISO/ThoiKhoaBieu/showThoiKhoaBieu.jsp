@@ -144,7 +144,10 @@
 					items = "${ListthoiKhoaBieu}">
 			<c:set var="iterator" value="<%=count %>"></c:set>			
 					  <tr style="background-color: transparent;">
-						<td bgcolor = "#99bff9"><a href = "ThoiKhoaBieu.jsp?maID=${ObjthoiKhoaBieu.maThoiKhoaBieu}">${ObjthoiKhoaBieu.tenThoiKhoaBieu}</a></td>
+						<td bgcolor = "#99bff9"><a href = "ThoiKhoaBieu.jsp?maID=${ObjthoiKhoaBieu.maThoiKhoaBieu}">${ObjthoiKhoaBieu.tenThoiKhoaBieu}</a>
+						<c:if test = "${ObjthoiKhoaBieu.tinhTrang eq APPROVE}">
+							<br/><a href="<%=request.getContextPath() %>/ISO/SoLenLop/SoLenLop.jsp?maTKB=${ObjthoiKhoaBieu.maThoiKhoaBieu}">Sổ lên lớp</a>
+						</c:if></td>
 						<td bgcolor = "#99bff9">${ObjthoiKhoaBieu.tenNguoiTao}</td>
 						<td bgcolor = "#99bff9">${ObjthoiKhoaBieu.ngayCapNhatCuoi}</td>
 		<!-- Trường hợp 'TRUONG_KHOA', kế hoạch bị 'approve', 'reject' thi daisable radio  -->

@@ -8,11 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
-import vn.edu.hungvuongaptech.model.ChiTietKHDTModel;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
-import vn.edu.hungvuongaptech.model.ChiTietTKBThayDoiModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
-import vn.edu.hungvuongaptech.model.SuDungModel;
 import vn.edu.hungvuongaptech.model.TuanLeModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
@@ -41,18 +38,20 @@ public class ChiTietTKBDAO {
 			csmt.setString("Co_hieu", chiTietTKBModel.getCoHieu());
 			csmt.setString("User1", chiTietTKBModel.getMaNamHoc());
 			csmt.setString("User2", chiTietTKBModel.getTietBatDau());
-			csmt.setString("User3", chiTietTKBModel.getUser3());
 			csmt.setString("User4", chiTietTKBModel.getUser4());
 			csmt.setString("User5", chiTietTKBModel.getUser5());
-			if(chiTietTKBModel.getTenChuong() == null)
+			if(chiTietTKBModel.getTenChuong() == null) {
 				csmt.setString("Ten_chuong", null);
-			else {
+				csmt.setString("User3", null);
+			} else {
 				tenChuong = chiTietTKBModel.getTenChuong().replace("-DAUNHAY-", "'");
 				tenChuong = tenChuong.replace("-DAUNHAY1-", "\"");
 				csmt.setNString("Ten_chuong", tenChuong.replace("<+++>", "\r\n"));
+				csmt.setNString("User3", tenChuong.replace("<+++>", "\r\n"));
 			}
 			if(chiTietTKBModel.getMucTieu() == null || chiTietTKBModel.getMucTieu().equals("null"))
 				csmt.setString("Muc_tieu", "");
+				
 			else {
 				mucTieu = chiTietTKBModel.getMucTieu().replace("-DAUNHAY-", "'");
 				mucTieu = mucTieu.replace("-DAUNHAY1-", "\"");
@@ -92,15 +91,16 @@ public class ChiTietTKBDAO {
 			csmt.setString("Co_hieu", chiTietTKBModel.getCoHieu());
 			csmt.setString("User1", chiTietTKBModel.getMaNamHoc());
 			csmt.setString("User2", chiTietTKBModel.getTietBatDau());
-			csmt.setString("User3", chiTietTKBModel.getUser3());
 			csmt.setString("User4", chiTietTKBModel.getUser4());
 			csmt.setString("User5", chiTietTKBModel.getUser5());
-			if(chiTietTKBModel.getTenChuong() == null)
+			if(chiTietTKBModel.getTenChuong() == null) {
 				csmt.setString("Ten_chuong", null);
-			else {
+				csmt.setString("User3", null);
+			} else {
 				tenChuong = chiTietTKBModel.getTenChuong().replace("-DAUNHAY-", "'");
 				tenChuong = tenChuong.replace("-DAUNHAY1-", "\"");
 				csmt.setString("Ten_chuong", tenChuong.replace("<+++>", "\r\n"));
+				csmt.setString("User3", tenChuong.replace("<+++>", "\r\n"));
 			}
 			if(chiTietTKBModel.getMucTieu() == null || chiTietTKBModel.getMucTieu().equals("null"))
 				csmt.setString("Muc_tieu", "");
@@ -573,5 +573,20 @@ public class ChiTietTKBDAO {
 		
 		
 		return arrayArrayList;
+	}
+	public static int capNhatTomTatNoiDung(String maChiTietTKB, String noiDung) {
+		int result = 0;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.capNhatTomTatNoiDung"));
+			preparedStatement.setString(1, noiDung);
+			preparedStatement.setString(2, maChiTietTKB);
+			result = preparedStatement.executeUpdate();
+			return result;
+		}catch(Exception e){e.printStackTrace();}
+		return result;
 	}
 }
