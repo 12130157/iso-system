@@ -86,6 +86,17 @@
 	<c:if test="${not empty param.id}">
 		<c:set var="SoTayGiaoVien" value='<%=SoTayGiaoVienDAO.getSoTayGiaoVienById(request.getParameter("id")) %>' scope="session"></c:set>
 	</c:if>
+	<script language="javascript">
+		function submitForm(ac){
+			if(ac=='U'){
+				document.getElementById("action").value = "update";
+			} else if(ac=='S'){
+				document.getElementById("action").value = "send";
+			}
+			document.forms["SoTayGiaoVien"].submit();
+		}
+		
+	</script>
 </head>
 
 <body>
@@ -94,7 +105,7 @@
 			<jsp:include page="../../block/header.jsp" />
 		<!-- E HEAD CONTENT -->
 				
-		<form action="" id="SoTayGiaoVien" name="SoTayGiaoVien" method="post">
+		<form action="<%=request.getContextPath() %>/soTayGiaoVienController" id="SoTayGiaoVien" name="SoTayGiaoVien" method="post">
 			<table style="background-color: transparent;width: 300px;">
 				<tr style="background-color: transparent;">
 					<td colspan="2">
@@ -118,7 +129,7 @@
 					<td colspan="2" style="text-align: left">Trình độ đào tạo : ${SoTayGiaoVien.tenHeDaoTao }</td>
 				</tr>
 			</table>
-			<table style="background-color: transparent;border-spacing: 30px;">
+			<table style="background-color: transparent;">
 				<tr style="background-color: transparent;">
 					<td style="text-align: center;">
 						<strong>Thông tin về lớp học/khóa</strong>
@@ -148,10 +159,72 @@
 					</td>
 				</tr>
 			</table>
+			<table style="background-color: transparent;">
+				<tr style="background-color: transparent;">
+					<td style="text-align: center;">
+						<strong>Kết quả học tập</strong>
+					</td>
+				</tr>
+				<tr style="background-color: transparent;">
+					<td>
+						<table style="background-color: transparent;width: 800px;margin-bottom: 20px;" border="1">
+							<tr style="background-color: transparent;">
+								<th rowspan="3" style="width: 50px;">Stt</th>
+								<th rowspan="3" style="width: 190px;">Họ và tên học sinh</th>
+								<th colspan="5" style="width: 350px;">Kiểm tra định kỳ</th>
+								<th rowspan="2" colspan="2" style="width: 140px;">Kiểm tra kết thúc môn học/module</th>
+								<th rowspan="3" style="width: 70px;">Điểm tổng kết</th>
+							</tr>
+							<tr style="background-color: transparent;">
+								<th colspan="5">Hệ Số 2</th>
+							</tr>
+							<tr style="background-color: transparent;">
+								<th>1</th>
+								<th>2</th>
+								<th>3</th>
+								<th>4</th>
+								<th>5</th>
+								<th>Lần 1</th>
+								<th>Lần 2</th>
+							</tr>
+							<c:set var="m" value="1"></c:set>
+							<c:forEach var="HocSinh" items="${SoTayGiaoVien.listHocSinh}">
+								<tr style="background-color: transparent;">
+									<td>${m }</td>
+									<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>${HocSinh.user1 }</td>
+								</tr>
+								<c:set var="m" value="${m+1}"></c:set>
+							</c:forEach>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table style="background-color: transparent;">
+				<tr style="background-color: transparent;">
+					<td>
+						<Strong>Quản Lý Học Sinh Cá Biệt : <br/></Strong>
+						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="60" id="QuanLyHocSinhCaBiet" name="QuanLyHocSinhCaBiet">${SoTayGiaoVien.quanLyHocSinhCaBiet }</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<Strong>Đánh Giá Qui Trình Giảng Dạy : <br/></Strong>
+						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="60" id="DanhGiaQuiTrinhGiangDay" name="DanhGiaQuiTrinhGiangDay">${SoTayGiaoVien.danhGiaQuiTrinhGiangDay }</textarea>
+					</td>
+				</tr>
+			</table>
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
 				<c:set var="stt" value="1"></c:set>
 				<strong>Tháng ${listThang }</strong>
-				<table style="background-color: transparent;width: 800px;margin: 20px 0;" id="${listThang }" border="1">
+				<table style="background-color: transparent;width: 800px;margin-bottom: 20px;" id="${listThang }" border="1">
 					<tr style="background-color: transparent;">
 						<th rowspan="2" style="width: 20px;">Stt</th>
 						<th rowspan="2" style="width: 100px;">Họ và tên học sinh</th>
@@ -208,9 +281,23 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
-			<a href = "<%=request.getContextPath() %>/ISO/KeHoachGiangDay/PrintSoTayGiaoVien.jsp">								 
-				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
-			</a>
+			<c:choose>
+				<c:when test="${SoTayGiaoVien.tinhTrang eq 0}">
+					<a href = "javascript: submitForm('U')">								 
+						<img src="<%=request.getContextPath()%>/images/buttom/capnhat2.png" alt="Cập Nhật" border = "0" />
+					</a>
+					<a href = "javascript: submitForm('S')">								 
+						<img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi" border = "0" />
+					</a>
+				</c:when>
+				<c:otherwise>
+					<a href = "<%=request.getContextPath() %>/ISO/KeHoachGiangDay/PrintSoTayGiaoVien.jsp">								 
+						<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
+					</a>
+				</c:otherwise>
+			</c:choose>
+			<input type="hidden" name="action" id="action"/>
+			<input type="hidden" name="id" id="id" value="${SoTayGiaoVien.id }"/>
 		</form>
 		
 		

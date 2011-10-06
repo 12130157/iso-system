@@ -96,6 +96,7 @@ public class SoTayGiaoVienDAO {
 			model.setListHocSinh(ThanhVienDAO.getThanhVienByMaLop(KHGD.getMaLop()));
 			for (ThanhVienModel thanhVien : model.getListHocSinh()) {
 				thanhVien.setDiemDanhList(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(),thanhVien.getMaThanhVien()));
+				thanhVien.setUser1(XemDiemDAO.getDiemByMaLop_MaHocSinh_MaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(), thanhVien.getMaThanhVien()));
 			}
 			ThoiGianGiangDayModel BE = KeHoachGiangDayDAO.getBatDauAndKetThucByMaKeHoachGiangDay(model.getMaKHGD());
 			model.setListThang(DateUtil.getMonthByTwoDate(BE.getBatDau(),BE.getKetThuc()));

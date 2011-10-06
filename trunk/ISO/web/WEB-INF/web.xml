@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
 	<display-name>HungVuongISO</display-name>
 	<welcome-file-list>
 		 <welcome-file>index.jsp</welcome-file> 
@@ -457,6 +457,16 @@
 	    <servlet-mapping>
 	    	<servlet-name>PhanCongController</servlet-name>
 	    	<url-pattern>/phanCongController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of PhanCongController******* -->
+    <!-- ****************************PhanCongController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>SoTayGiaoVienController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.SoTayGiaoVienController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>SoTayGiaoVienController</servlet-name>
+	    	<url-pattern>/soTayGiaoVienController</url-pattern>
 	    </servlet-mapping>
     <!-- ****************************End Of PhanCongController******* -->
 </web-app>
