@@ -718,6 +718,7 @@ var kieuDayLyThuyet = new Array();
 	<c:set var = "vaiTro" value = '<%= (String) session.getAttribute("maVaiTro") %>'> </c:set>
 	<c:set var = "Truong_Khoa" value="<%=Constant.TRUONG_KHOA %>"></c:set>
 	<c:set var = "Pho_Khoa" value="<%=Constant.PHO_KHOA %>"></c:set>
+	<c:set var = "Giao_vien" value="<%=Constant.GIAO_VIEN %>"></c:set>
 	<c:set var = "Truong_Bo_Mon" value="<%=Constant.TRUONG_BO_MON %>"></c:set>
 	
 	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
@@ -992,7 +993,7 @@ var kieuDayLyThuyet = new Array();
 			</a>									
 		</c:if>
 		<!--DeCuongMonHoc.status eq APPROVE and ( khi tình trang approve mới in--> 
-		<c:if test="${DeCuongMonHoc.status ne null and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien or DeCuongMonHoc.maNguoiDuyet eq maThanhVien)}">										
+		<c:if test="${DeCuongMonHoc.status ne null and ((vaiTro eq Giao_vien and DeCuongMonHoc.maNguoiTao eq maThanhVien) or vaiTro ne Giao_vien)}">										
 			<a href = "<%=Constant.PATH_RES.getString("iso.InDeCuongMonHocPath") %>">								 
 				<img src="<%=request.getContextPath()%>/images/buttom/in.png" alt="Xuất File" border = "0" />
 			</a>
