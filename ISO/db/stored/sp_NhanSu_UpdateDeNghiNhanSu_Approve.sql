@@ -24,8 +24,24 @@ BEGIN
 
 		IF(@Tinh_trang=1)
 		BEGIN
-			UPDATE DeNghiNhanSu SET Tinh_trang='2',Truong_khoa=@Ma_nguoi_duyet,Ngay_TK_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
-			SET @KQ = 1
+			SELECT @BOPHAN=Ma_bo_phan FROM THANHVIEN WHERE ID=@Ma_nguoi_duyet
+			IF (@BOPHAN = 1)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='3',Phong_DT=@Ma_nguoi_duyet,Ngay_DT_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
+
+			IF (@BOPHAN = 2)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='3',Phong_HC=@Ma_nguoi_duyet,Ngay_HC_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
+			
+			IF (@BOPHAN <> 1 OR @BOPHAN <> 2)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='2',Truong_khoa=@Ma_nguoi_duyet,Ngay_TK_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
 		END
 		IF(@Tinh_trang=2)
 		BEGIN
