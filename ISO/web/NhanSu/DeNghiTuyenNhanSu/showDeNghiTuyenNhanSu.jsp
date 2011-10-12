@@ -36,6 +36,9 @@
 	<c:set var = "BO_PHAN_PDT" value = '<%= Constant.BO_PHAN_PDT %>'></c:set>
 	<c:set var = "BO_PHAN_BGH" value = '<%= Constant.BO_PHAN_BGH %>'></c:set>
 	<c:set var = "TRUONG_KHOA" value= '<%=Constant.TRUONG_KHOA %>'></c:set>
+	<c:set var = "PHO_KHOA" value= '<%=Constant.PHO_KHOA %>'></c:set>
+	<c:set var = "TRUONG_PHONG" value= '<%=Constant.TRUONG_PHONG %>'></c:set>
+	<c:set var = "PHO_PHONG" value= '<%=Constant.PHO_PHONG %>'></c:set>
 	<c:set var = "ADMIN" value= '<%=Constant.ADMIN %>'></c:set>
 	
 	<c:set var = "TINHTRANG_BGH_APPROVE_DNTNS" value = '<%= Constant.TINHTRANG_BGH_APPROVE_DNTNS %>'></c:set>
@@ -131,17 +134,11 @@
 			</tr>	
 		</c:forEach>
 		</table>
-					<c:choose>
-						<c:when test="${MaBoPhan eq BO_PHAN_ADMIN || MaBoPhan eq BO_PHAN_BGH || MaBoPhan eq BO_PHAN_PDT || MaBoPhan eq BO_PHAN_PHC}">
-						</c:when>
-						<c:otherwise>
-							<c:if test="${vaiTro eq TRUONG_KHOA || vaiTro eq ADMIN}">
+							<c:if test="${vaiTro eq TRUONG_KHOA || vaiTro eq PHO_KHOA || vaiTro eq TRUONG_PHONG || vaiTro eq PHO_PHONG || vaiTro eq ADMIN}">
 								<a href="<%=request.getContextPath() %>/NhanSu/DeNghiTuyenNhanSu/DeNghiTuyenNhanSu.jsp?Them=yes">
 									<img src="<%=request.getContextPath()%>/images/buttom/taomoi.png" alt="tạo mới" border = "0" />
 								</a>
-							</c:if>								
-						</c:otherwise>
-					</c:choose>																
+							</c:if>																							
 		
 		<input type="hidden" id="action" name="action" />
 		</form>

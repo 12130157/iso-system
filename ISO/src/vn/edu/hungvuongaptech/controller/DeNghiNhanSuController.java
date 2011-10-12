@@ -122,13 +122,41 @@ public class DeNghiNhanSuController extends HttpServlet{
 		if(kq != -1){
 			DeNghiNhanSuModel DNNS = DeNghiNhanSuDAO.getDNNSByID(model.getId());
 			DeNghiNhanSuDAO.ApproveDNNS(DNNS.getId(), DNNS.getNguoi_de_nghi());
-			ArrayList<String> listMail = MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC);
+			DNNS = DeNghiNhanSuDAO.getDNNSByID(model.getId());
+			ArrayList<String> listMail = new ArrayList<String>(); 
+			
 			if(!model.getChuc_danh().equals("8")){
-				model.setTinh_trang("3");
-				DeNghiNhanSuDAO.UpdateDNNS(model);
+				if(DNNS.getMa_bo_phan().equals("2")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_BGH));
+					model.setTinh_trang("4");
+					DeNghiNhanSuDAO.UpdateDNNS(model);
+				}else if(DNNS.getMa_bo_phan().equals("1")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC));
+				}else{
+					model.setTinh_trang("3");
+					DeNghiNhanSuDAO.UpdateDNNS(model);
+				}
 			}else{
-				listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+				if(DNNS.getMa_bo_phan().equals("2")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+				}else if(DNNS.getMa_bo_phan().equals("1")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC));
+				}else{
+					model.setTinh_trang("3");
+					DeNghiNhanSuDAO.UpdateDNNS(model);
+				}
 			}
+			/*}else{
+				if(!DNNS.getPhong_DT().equals("")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PHC));
+				}else if(!DNNS.getPhong_HC().equals("")){
+					listMail.addAll(MailDAO.getMailListByMaBoPhan(Constant.BO_PHAN_PDT));
+				}
+			}*/
+			
+			
+			
+			
 			MailUtil.sendEmailToBoPhan(listMail,
 						MailDAO.getMailListByMaBoPhan(""),
 											MailDAO.getSubjectReviewByChucNang(Constant.CHUCNANG_DENGHINHANSU),

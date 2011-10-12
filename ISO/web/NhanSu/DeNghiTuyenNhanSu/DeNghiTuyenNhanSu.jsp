@@ -25,6 +25,20 @@
 	<script src="<%=request.getContextPath()%>/js/jquery.js" type="text/javascript"></script>
 	<script src="<%=request.getContextPath()%>/js/interface.js" type="text/javascript"></script>
 	<title>GIẤY ĐỀ XUẤT TUYỂN DỤNG NHÂN SỰ</title>
+	<c:if test="${not empty param.Them}">
+		<c:remove var="DeNghiNhanSu" scope="session"/>
+		<c:remove var="listTieuChuan" scope="session"/>
+	</c:if>
+	
+	<c:if test="${not empty param.id}">
+		<c:set var="DeNghiNhanSu" value='<%=DeNghiNhanSuDAO.getDNNSByID(request.getParameter("id")) %>' scope="session"></c:set>
+		<c:set var="listTieuChuan" value='<%=TieuChuanDAO.getTieuChuanByMaDeNghi(request.getParameter("id")) %>' scope="session" ></c:set>
+		<c:if test="${DeNghiNhanSu.tinh_trang ne '0' and DeNghiNhanSu.tinh_trang ne '6' or maThanhVien ne DeNghiNhanSu.ma_truong_khoa}">
+			<c:set var="locktext" value="readonly"></c:set>
+			<c:set var="lockbtn" value="disabled"></c:set>	
+		</c:if>
+	</c:if>
+	<c:set var = "row" value="1"></c:set>
 	<%
 		SysParamsModel TGHT = SysParamsDAO.getNgayGioHeThong();
 	 %>
@@ -172,10 +186,30 @@
 		
 		function checkChucDanh(){
 			var chucDanh = document.getElementById("txtChucDanh").value;
-			if(chucDanh=="8"){
-				document.getElementById("pdt").style.display = "inline";
-			}else{
-				document.getElementById("pdt").style.display = "none";
+			<% 
+				if(request.getParameter("id")!="" && request.getParameter("id")!=null){
+			%>
+				var maBoPhan = ${DeNghiNhanSu.ma_bo_phan};
+			<%
+				}else{
+			%>
+				var maBoPhan = "";
+			<%
+				}
+			%>
+			if(maBoPhan!=""){
+				if(maBoPhan!="1" && maBoPhan!="2"){
+					alert(maBoPhan);
+					if(chucDanh=="8"){
+						document.getElementById("pdt").style.display = "inline";
+						
+					}else{
+						document.getElementById("pdt").style.display = "none";
+					}
+				}else{
+					alert("ok");
+					document.getElementById("tk").style.display = "none";
+				}
 			}
 		}
 	</script>
@@ -190,20 +224,7 @@
 	<c:set var = "BO_PHAN_ADMIN" value = '<%=Constant.BO_PHAN_ADMIN %>'></c:set>
 	<c:set var = "dsVaiTro" value = '<%=VaiTroDAO.getVaiTroDeNghiNhanSu() %>'></c:set>
 	<c:set var="Khoa" value='<%=KhoaDAO.getKhoaByMaBoPhan(session.getAttribute("maBoPhan").toString()) %>'></c:set>
-	<c:if test="${not empty param.Them}">
-		<c:remove var="DeNghiNhanSu" scope="session"/>
-		<c:remove var="listTieuChuan" scope="session"/>
-	</c:if>
 	
-	<c:if test="${not empty param.id}">
-		<c:set var="DeNghiNhanSu" value='<%=DeNghiNhanSuDAO.getDNNSByID(request.getParameter("id")) %>' scope="session"></c:set>
-		<c:set var="listTieuChuan" value='<%=TieuChuanDAO.getTieuChuanByMaDeNghi(request.getParameter("id")) %>' scope="session" ></c:set>
-		<c:if test="${DeNghiNhanSu.tinh_trang ne '0' and DeNghiNhanSu.tinh_trang ne '6' or maThanhVien ne DeNghiNhanSu.ma_truong_khoa}">
-			<c:set var="locktext" value="readonly"></c:set>
-			<c:set var="lockbtn" value="disabled"></c:set>	
-		</c:if>
-	</c:if>
-	<c:set var = "row" value="1"></c:set>
 </head>
 <body onload="checkChucDanh()">
 <div align="center">
@@ -363,12 +384,12 @@
 							<br /><b>${DeNghiNhanSu.ten_phong_HC }</b>
 							
 						</td>
-						<td style="padding-bottom: 50px;display: none;" id="pdt">
+						<td style="padding-bottom: 50px;display: inline;" id="pdt">
 							ngày <input type="text" size = 10 value="${DeNghiNhanSu.ngay_DT_duyet_mdy }" readonly="readonly" style="background-color: transparent;"/> 
 							<br /><strong>TRƯỞNG PHÒNG ĐÀO TẠO</strong><br />
 							<br /><b>${DeNghiNhanSu.ten_phong_DT }</b>
 						</td>
-						<td style="padding-bottom: 50px;">
+						<td style="padding-bottom: 50px;display: inline;" id="tk">
 							Quận5,ngày <input type="text" size = 10 value="${DeNghiNhanSu.ngay_lap_mdy }" readonly="readonly" style="background-color: transparent;"/> 
 							<br /><strong>TRƯỞNG P/K/BM ${boPhan.tenKhoa }</strong><br />
 							<br /><b>${DeNghiNhanSu.ten_truong_khoa }</b>

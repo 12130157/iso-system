@@ -585,6 +585,7 @@ public class MailDAO {
 		result = result + "</table>";
 
 		// ********************************************************
+		
 		result = result
 				+ "<br/><br/>Hiện tại đã là ngày: "
 				+ DateUtil.setDate(SysParamsDAO.getSysParams().getGioHeThong(),
