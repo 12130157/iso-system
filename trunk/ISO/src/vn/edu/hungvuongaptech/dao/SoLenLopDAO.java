@@ -8,7 +8,6 @@ import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
 import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.SoLenLopModel;
-import vn.edu.hungvuongaptech.model.ThoiKhoaBieuModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class SoLenLopDAO {

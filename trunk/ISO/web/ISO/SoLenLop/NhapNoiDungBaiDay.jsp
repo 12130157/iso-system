@@ -37,7 +37,7 @@ var text = window.dialogArguments;
 			{// code for IE6, IE5
 				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xmlhttp.onreadystatechange=function()
+			/*xmlhttp.onreadystatechange=function()
 			{
 			  	if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			    {/*alert("shsd");
@@ -45,9 +45,9 @@ var text = window.dialogArguments;
 			  			//window.returnValue = str;
 			  			alert("ok");
 			  		else
-				  		alert("fail");*/
+				  		alert("fail");
 			    }
-			}
+			}*/
 			xmlhttp.open("POST",<%="'" + request.getContextPath() + "'"%> + "/soLenLopController?str="+str+"&maCT=" + <%="'" + request.getParameter("maCT") + "'"%>,true);
 			xmlhttp.send();
 		}
