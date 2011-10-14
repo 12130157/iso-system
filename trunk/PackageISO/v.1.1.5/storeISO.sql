@@ -4297,8 +4297,10 @@ BEGIN
 		Ma_mon_hoc			int,
 		Ten_mon_hoc			nvarchar(50),
 		Giao_an_so			int,
-		Ngay_day			datetime,
-		Nhom				int
+		Ngay_day			varchar(10),
+		Ngay_gui			varchar(10),
+		Nhom				int,
+		Co_hieu				int
 	)
 	
 	insert into GiaoAnDelayList
@@ -4312,21 +4314,51 @@ BEGIN
 		A.Ma_mon_hoc,
 		F.Ten_mon_hoc,
 		B.STT_noi_dung as 'Giao_an_so',
-		B.Ngay_BD as 'Ngay_day',
-		B.Nhom as 'Nhom'				
+		CONVERT(VARCHAR(10),B.Ngay_BD,105) as 'Ngay_day',
+		'' as 'Ngay_gui',
+		B.Nhom as 'Nhom',
+		'1' as 'Co_hieu'		
 	from KeHoachGiangDay A
 	inner join ChiTietKHGD B on A.ID=B.Ma_ke_hoach_giang_day
 	inner join ThanhVien C on A.Ma_giao_vien=C.ID
 	inner join ChiTietThanhVien D on C.Ten_DN=D.Ten_dang_nhap
 	inner join LopHoc E on A.Ma_lop=E.ID
 	inner join MonHoc F on A.Ma_mon_hoc=F.ID
-	where Ma_ke_hoach_giang_day=1
-	and ISNULL(B.Ma_giao_an,'')=''
+	where ISNULL(B.Ma_giao_an,'')=''
 	and DATEDIFF(day, getdate(),B.Ngay_BD) >=0 
-	and DATEDIFF(day, getdate(),B.Ngay_BD) <= @Day
-	and ISNULL(B.User1,'') = ''		
-	
+	and DATEDIFF(day, getdate(),B.Ngay_BD) <= @Day	
+	order by B.Ngay_BD
+
+	insert into GiaoAnDelayList
+	select
+		B.ID AS 'id_ChiTietKHGD', 
+		A.Ma_giao_vien,
+		D.Ho + ' ' + D.Ten_lot + ' ' + D.Ten as 'Ho_ten_giao_vien',
+		D.Email,
+		A.Ma_lop,
+		E.Ki_hieu as 'Ten_lop',
+		A.Ma_mon_hoc,
+		F.Ten_mon_hoc,
+		B.STT_noi_dung as 'Giao_an_so',
+		CONVERT(VARCHAR(10),B.Ngay_BD,105) as 'Ngay_day',
+		ISNULL(CONVERT(VARCHAR(10),G.NgayGui,105),'') as 'Ngay_gui',
+		B.Nhom as 'Nhom',
+		'2' as 'Co_hieu'	
+	from KeHoachGiangDay A
+	inner join ChiTietKHGD B on A.ID=B.Ma_ke_hoach_giang_day
+	inner join ThanhVien C on A.Ma_giao_vien=C.ID
+	inner join ChiTietThanhVien D on C.Ten_DN=D.Ten_dang_nhap
+	inner join LopHoc E on A.Ma_lop=E.ID
+	inner join MonHoc F on A.Ma_mon_hoc=F.ID
+	left join GiaoAn G on B.Ma_giao_an=G.id
+	where (ISNULL(B.Ma_giao_an,'')='' or  (SELECT NgayGui FROM GIAOAN WHERE ID=B.Ma_giao_an) > B.Ngay_BD)
+	and getdate() > B.Ngay_BD
+	and A.Ma_nam_hoc = (SELECT ID FROM NAMHOC WHERE Nam_bat_dau=DATEPART(YEAR,GETDATE()))
+	order by B.Ngay_BD
+
 	-- UPDATE COLUMN USER1 TRONG TABLE ChiTietKHGD THANH 1, CO HIEU LA DA EMAIL NHAC NHO GIAOAN DELAY ROI	
+	/*
+	ThienVD
 	DECLARE @ID_ChiTietKHGD INT		
 	DECLARE @C CURSOR		
 	SET @C = CURSOR FOR SELECT id_ChiTietKHGD FROM GiaoAnDelayList
@@ -4342,7 +4374,7 @@ BEGIN
 		
 		FETCH NEXT FROM @C INTO @ID_ChiTietKHGD
 	END
-	/*
+	
 	-- LAY DU LIEU TRA VE DE SEND EMAIL
 	SELECT
 		
@@ -10615,7 +10647,7 @@ BEGIN
 		BEGIN
 			SELECT A.*,B.Ma_truong_khoa as Ma_truong_khoa,B.Ten as Ten_bo_phan,(E.Ho+' '+E.Ten_lot+' '+E.Ten) as Ten_nguoi_de_nghi,C.Ten_vai_tro AS Ten_Chuc_danh,CONVERT(VARCHAR(50),A.Ngay_lap,105) as Ngay_lap_mdy
 			FROM DENGHINHANSU A LEFT JOIN KHOA_TRUNGTAM B ON A.Ma_bo_phan=B.ID LEFT JOIN VAITRO C ON A.Chuc_danh=C.ID LEFT JOIN ThanhVien D ON A.Nguoi_de_nghi=D.ID LEFT JOIN ChiTietThanhVien E ON D.Ten_DN=E.Ten_dang_nhap
-			WHERE A.Tinh_trang>='2'
+			WHERE A.Tinh_trang>='2' OR A.Nguoi_de_nghi=@Nguoi_de_nghi
 			ORDER BY A.NGAY_CAP_NHAT_CUOI DESC
 		END
 		IF(@Tinh_trang <> '')
@@ -10623,7 +10655,7 @@ BEGIN
 			SELECT * FROM(
 			SELECT A.*,B.Ma_truong_khoa as Ma_truong_khoa,B.Ten as Ten_bo_phan,(E.Ho+' '+E.Ten_lot+' '+E.Ten) as Ten_nguoi_de_nghi,C.Ten_vai_tro AS Ten_Chuc_danh,CONVERT(VARCHAR(50),A.Ngay_lap,105) as Ngay_lap_mdy
 			FROM DENGHINHANSU A LEFT JOIN KHOA_TRUNGTAM B ON A.Ma_bo_phan=B.ID LEFT JOIN VAITRO C ON A.Chuc_danh=C.ID LEFT JOIN ThanhVien D ON A.Nguoi_de_nghi=D.ID LEFT JOIN ChiTietThanhVien E ON D.Ten_DN=E.Ten_dang_nhap
-			WHERE A.Tinh_trang>='2') AS TB1 WHERE Tinh_trang=@Tinh_trang ORDER BY NGAY_CAP_NHAT_CUOI DESC
+			WHERE A.Tinh_trang>='2' OR A.Nguoi_de_nghi=@Nguoi_de_nghi) AS TB1 WHERE Tinh_trang=@Tinh_trang ORDER BY NGAY_CAP_NHAT_CUOI DESC
 		END
 	END
 	IF(@Ma_bo_phan = '0')
@@ -11530,8 +11562,24 @@ BEGIN
 
 		IF(@Tinh_trang=1)
 		BEGIN
-			UPDATE DeNghiNhanSu SET Tinh_trang='2',Truong_khoa=@Ma_nguoi_duyet,Ngay_TK_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
-			SET @KQ = 1
+			SELECT @BOPHAN=Ma_bo_phan FROM THANHVIEN WHERE ID=@Ma_nguoi_duyet
+			IF (@BOPHAN = 1)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='3',Phong_DT=@Ma_nguoi_duyet,Ngay_DT_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
+
+			IF (@BOPHAN = 2)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='3',Phong_HC=@Ma_nguoi_duyet,Ngay_HC_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
+			
+			IF (@BOPHAN <> 1 OR @BOPHAN <> 2)
+			BEGIN
+				UPDATE DeNghiNhanSu SET Tinh_trang='2',Truong_khoa=@Ma_nguoi_duyet,Ngay_TK_duyet=getdate(),Ngay_cap_nhat_cuoi=getdate() WHERE ID=@ID
+				SET @KQ = 1
+			END
 		END
 		IF(@Tinh_trang=2)
 		BEGIN
