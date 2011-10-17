@@ -146,7 +146,9 @@ public class AutoEmailService extends JFrame {
 		if (cbThu == null) {
 			cbThu = new JComboBox(listThu);
 			cbThu.setBounds(new Rectangle(11, 210, 100, 25));
-			cbThu.setEnabled(true);
+			cbThu.setSelectedIndex(5);
+			cbThu.setEnabled(false);
+			
 		}
 		return cbThu;
 	}
@@ -163,6 +165,7 @@ public class AutoEmailService extends JFrame {
 			}
 			cbGio = new JComboBox(listGio);
 			cbGio.setBounds(new Rectangle(120, 210, 45, 25));
+			cbGio.setSelectedIndex(6);
 		}
 		return cbGio;
 	}
@@ -179,6 +182,7 @@ public class AutoEmailService extends JFrame {
 			}
 			cbPhut = new JComboBox(listPhut);
 			cbPhut.setBounds(new Rectangle(180, 210, 45, 25));
+			cbPhut.setSelectedIndex(0);
 		}
 		return cbPhut;
 	}
