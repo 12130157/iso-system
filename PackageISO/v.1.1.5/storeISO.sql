@@ -12462,7 +12462,7 @@ BEGIN
 	if(@MaDiaChi is null)
 	begin
 		insert into diachi (so_nha,duong,phuong_xa,quan_huyen,tinh_thanhpho,dien_thoai_nha)	values(@SoNha,@Duong,@Phuong,@Quan,@ThanhPho,@DTNha)
-		set @MaDiaChi = (select top(1) id from diachi order by id desc)
+		set @MaDiaChi = (select top 1 id from diachi order by id desc)
 	end
 	else 
 	begin
@@ -12473,7 +12473,7 @@ BEGIN
 	if(@MaTaiKhoan is null)
 	begin
 		insert into taikhoan (so_tai_khoan,ngan_hang,ngay_lap_the) values(@SoTK,@NganHang,@NgayLapThe)
-		set @MaTaiKhoan = (select top(1) id from taikhoan order by id desc)
+		set @MaTaiKhoan = (select top 1 id from taikhoan order by id desc)
 	end
 	else
 	begin
@@ -12484,7 +12484,7 @@ BEGIN
 	if(@MaBangCap is null)
 	begin
 		insert into bangcap (loai_bang,truong_cap,loai_tot_nghiep) values(@LoaiBang,@TruongCap,@LoaiTotNghiep)
-		set @MaBangCap = (select top(1) id from bangcap order by id desc)
+		set @MaBangCap = (select top 1 id from bangcap order by id desc)
 	end
 	else
 	begin
