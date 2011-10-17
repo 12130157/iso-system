@@ -220,7 +220,7 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
-			<table style="background-color: transparent;width: 680px;" align="center">
+			<table style="background-color: transparent;width: 680px;height: 750px;" align="center">
 				<tr style="background-color: transparent;">
 					<td>
 						<p align="center" style="font-weight: bold;">Quản Lý Học Sinh Cá Biệt<br/>
@@ -234,7 +234,7 @@
 					</td>
 				</tr>
 			</table>
-			<table style="background-color: transparent;width: 680px;" align="center">
+			<table style="background-color: transparent;width: 680px;height: 750px;" align="center">
 				<tr style="background-color: transparent;">
 					<td>
 						<p align="center" style="font-weight: bold;">Đánh Giá Qui Trình Giảng Dạy<br/>
