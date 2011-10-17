@@ -51,44 +51,11 @@ public class EmailServiceController extends TimerTask {
 			System.out.println("Thời gian nhập vào không đúng qui định !!!");
 		}
 		
-		
-		if(thu.equals("7")){
-			if(gio.matches(regex) && phut.matches(regex)){
 				
-				if(Integer.parseInt(gio) > 23){
-					gio = "0";
-				}
-				
-				if(Integer.parseInt(phut) > 59){
-					phut = "0";
-				}
-				
-				if(nowDate.getHours()==Integer.parseInt(gio) && nowDate.getMinutes()==Integer.parseInt(phut)){
-					GiaoAnDAO.emailGiaoAnDelay("7","2");
-				}
-			}else {
-				System.out.println("Thời gian nhập vào không đúng qui định !!!");
-			}
-		}else {
-			if(gio.matches(regex) && phut.matches(regex)){
-				
-				if(Integer.parseInt(gio) > 23){
-					gio = "0";
-				}
-				
-				if(Integer.parseInt(phut) > 59){
-					phut = "0";
-				}
-				
-				if(nowDate.getDay()==Integer.parseInt(thu) && nowDate.getHours()==Integer.parseInt(gio) && nowDate.getMinutes()==Integer.parseInt(phut)){
-					GiaoAnDAO.emailGiaoAnDelay("7","2");
-				}
-			}else {
-				System.out.println("Thời gian nhập vào không đúng qui định !!!");
-			}
+		if(nowDate.getDay()==6 && nowDate.getHours()==11 && nowDate.getMinutes()==30){
+			GiaoAnDAO.emailGiaoAnDelay("7","2");
 		}
 
-		
 	}
 	
 	public String getThu() {
