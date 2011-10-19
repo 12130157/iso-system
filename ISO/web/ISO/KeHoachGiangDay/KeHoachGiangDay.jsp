@@ -1087,9 +1087,29 @@
 					</c:if>
 				</c:if>
 				<c:if test="${( (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and empty param.cp)}">
-					<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}&cp=true&maMonHocCopy=${objKHGD.maMonHoc}">								 
+					<a href = "javascript: saoChep();">								 
 						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 					</a>
+					<script language="javascript">
+						function saoChep(){
+							var value = false;
+							var chieucao = 200;
+							var chieurong = 340;
+							var top = screen.availHeight/2-chieucao/2;
+							var left = screen.availWidth/2-chieurong/2;
+
+							value = window.showModalDialog("SaoChepKHGD.jsp?maKHGD=${objKHGD.maKHGD}&maMonHoc=${objKHGD.maMonHoc}","Arg1","dialogHeight: "+chieucao+"px; dialogWidth: "+chieurong+"px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
+							if(value != false && value != null){
+								if(!isNaN(value)){
+									var strPath=<%="'"+request.getContextPath()+"/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp?maKHGD=" %>+value;
+									location.href=strPath;
+								}
+							}
+							else {
+								return;
+							}
+						}
+					</script>
 				</c:if>
 				<c:if test="${(maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and not empty param.cp }">
 					<a href = "javascript: submitCopyForm()" name="TaoMoi" > 
