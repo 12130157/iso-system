@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.dao.ChiTietKHGDDAO;
+import vn.edu.hungvuongaptech.dao.ChiTietTKBDAO;
 import vn.edu.hungvuongaptech.dao.KeHoachGiangDayDAO;
 import vn.edu.hungvuongaptech.dao.MailDAO;
+import vn.edu.hungvuongaptech.dao.MonHocTKBDAO;
 import vn.edu.hungvuongaptech.dao.SoTayGiaoVienDAO;
 import vn.edu.hungvuongaptech.dao.SysParamsDAO;
 import vn.edu.hungvuongaptech.dao.ThanhVienDAO;
 import vn.edu.hungvuongaptech.model.ChiTietKHGDModel;
+import vn.edu.hungvuongaptech.model.ChiTietTKBModel;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
+import vn.edu.hungvuongaptech.model.MonHocTKBModel;
 import vn.edu.hungvuongaptech.model.ThanhVienNhacNhoModel2;
 import vn.edu.hungvuongaptech.util.DateUtil;
 import vn.edu.hungvuongaptech.util.MailUtil;
@@ -80,6 +85,13 @@ public class KeHoachGiangDayController extends HttpServlet{
 				String id = SoTayGiaoVienDAO.InsertSoTayGiaoVien(maKHGD);
 				response.sendRedirect("/HungVuongISO/ISO/KeHoachGiangDay/SoTayGiaoVien.jsp?id="+id);
 			}
+			else if(request.getParameter("action") != null){
+				if(request.getParameter("action").equalsIgnoreCase("capNhatCTKHGD")){
+					capNhatCTKHGD(request, response);
+				}else if(request.getParameter("action").equalsIgnoreCase("saoChep")){
+					saoChepKHGD(request,response);
+				}
+			}
 		}
 		
 	}
@@ -91,6 +103,50 @@ public class KeHoachGiangDayController extends HttpServlet{
 //				.getString("iso.XemKeHoachGiangDayPath")
 //				+ "?msg=" + select);	
 //	}
+	
+	private void capNhatCTKHGD(HttpServletRequest request, HttpServletResponse response){
+		int max = Integer.parseInt(request.getParameter("max").toString());
+		for (int i = 1; i < max; i++) {
+			ChiTietKHGDDAO.updateCoHieuChiTietKHGD(request.getParameter("maCTKHGD"+i).toString(), request.getParameter("CoHieu"+i).toString());
+			
+			System.out.println(request.getParameter("CoHieu"+i).toString());
+		}
+		KeHoachGiangDayModel KHGD = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(request.getParameter("maKHGD").toString());
+		try {
+			RequestDispatcher rd = request.getRequestDispatcher("/ISO/KeHoachGiangDay/SaoChepKHGD.jsp?maKHGD="+KHGD.getMaKHGD()+"&maMonHoc="+KHGD.getMaMonHoc());
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void saoChepKHGD(HttpServletRequest request, HttpServletResponse response){
+		ArrayList<ChiTietKHGDModel> listKHGD =  ChiTietKHGDDAO.getAllChiTietKHGDByMaKHGD(request.getParameter("maKHGD").toString());
+		MonHocTKBModel MonHocTKB = MonHocTKBDAO.getMonHocTKBByMaTKBAndMaMonHoc(request.getParameter("ThoiKhoaBieu").toString(), request.getParameter("maMonHoc").toString());
+		ArrayList<ChiTietTKBModel> listCTTKB= ChiTietTKBDAO.getChiTietTKBByMaTKBAndMaMonHocTKB(request.getParameter("ThoiKhoaBieu").toString(), MonHocTKB.getMaMonHocTKB());
+		String msg = "";
+		String path = "";
+		if(listKHGD.size()==listCTTKB.size()){
+			String id = KeHoachGiangDayDAO.CopyKHGD(request.getParameter("maKHGD").toString(), request.getParameter("ThoiKhoaBieu").toString());
+			KeHoachGiangDayModel KHGD = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(id);
+			msg = "Đã sao chép thành công qua <br/>"+KHGD.getTenKHGD();
+			path = "/ISO/KeHoachGiangDay/SaoChepKHGD.jsp?maKHGD="+KHGD.getMaKHGD()+"&maMonHoc="+KHGD.getMaMonHoc();
+		}else{
+			msg = "Sao chép thất bại <br/> Thời gian Kế Hoạch Giảng Dạy không khớp với Thời Khóa Biểu mới !!!";
+			path = "/ISO/KeHoachGiangDay/SaoChepKHGD.jsp?maKHGD="+request.getParameter("maKHGD").toString()+"&maMonHoc="+request.getParameter("maMonHoc").toString();
+		}
+		
+		
+		
+		try {
+			
+			request.setAttribute("msg", msg);
+			RequestDispatcher rd = request.getRequestDispatcher(path);
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void duyet1KeHoach(HttpServletRequest request,
 		HttpServletResponse response, String maKHGD)throws ServletException, IOException {

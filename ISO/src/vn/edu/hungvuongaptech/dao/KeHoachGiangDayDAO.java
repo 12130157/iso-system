@@ -33,6 +33,21 @@ public class KeHoachGiangDayDAO {
 		return count;
 	}
 	
+	public static String CopyKHGD(String maKHGD,String maThoiKhoaBieu){
+		String kq = "";
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ISO_CopyKHGD(?,?,?)}");
+			csmt.setString("Ma_KHGD", maKHGD);
+			csmt.setString("Ma_TKB", maThoiKhoaBieu);
+			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
+			csmt.executeUpdate();
+			kq = csmt.getString("KQ");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kq;
+	}
+	
 	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan,String tenMonHoc,String maKhoa,String maHocKi,String maNamHoc) {
 		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelsList = new ArrayList<KeHoachGiangDayModel>();
 		try {

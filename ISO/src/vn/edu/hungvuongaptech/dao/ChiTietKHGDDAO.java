@@ -74,6 +74,21 @@ public class ChiTietKHGDDAO {
 		return result;
 	}
 	
+	public static String updateCoHieuChiTietKHGD(String maChiTietKHGD,String coHieu){
+		String kq = "";
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ISO_UpdateCoHieuOfChiTietKHGD(?,?,?)}");
+			csmt.setString("ID", maChiTietKHGD);
+			csmt.setString("CO_HIEU", coHieu);
+			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
+			csmt.executeUpdate();
+			kq = csmt.getString("KQ");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kq;
+	}
+	
 	public static ArrayList<ChiTietKHGDModel> getChiTietKHGDByMaKHGD(String maKHGD) {
 		ArrayList<ChiTietKHGDModel> chiTietKHGDModelList = new ArrayList<ChiTietKHGDModel>();
 		try {
@@ -96,6 +111,7 @@ public class ChiTietKHGDDAO {
 				chiTietKHGDModel.setNgayBD(DateUtil.setDate2(rs.getString("NgayBD")));
 				chiTietKHGDModel.setNgayCapNhatCuoi(rs.getString("NgayCapNhatCuoi"));
 				chiTietKHGDModel.setMaGiaoAn(rs.getString("MaGiaoAn"));
+				chiTietKHGDModel.setTenChuongTextBox(chiTietKHGDModel.getTenChuong().replace("\r\n", "<br/>"));
 				chiTietKHGDModelList.add(chiTietKHGDModel);
 			}
 		} catch (SQLException e) {
