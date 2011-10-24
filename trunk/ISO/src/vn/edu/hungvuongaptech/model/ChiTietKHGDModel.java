@@ -32,7 +32,18 @@ public class ChiTietKHGDModel implements Serializable{
 	private String User3;
 	private String User4;
 	private String User5;
+	private String tenChuongTextBox;
 	
+	
+	
+	public String getTenChuongTextBox() {
+		return tenChuongTextBox;
+	}
+
+	public void setTenChuongTextBox(String tenChuongTextBox) {
+		this.tenChuongTextBox = tenChuongTextBox;
+	}
+
 	public String getNhom()
 	{
 		return nhom;

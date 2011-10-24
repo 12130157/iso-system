@@ -375,6 +375,23 @@
 		
 	}
 	
+	function saochep(){
+		var value = false;
+		var chieucao = screen.availHeight-100;
+		var chieurong = 800;
+		var top = screen.availHeight/2-chieucao/2;
+		var left = screen.availWidth/2-chieurong/2;
+		value = window.showModalDialog("<%=request.getContextPath() %>/ISO/KeHoachGiangDay/SaoChepKHGD.jsp?maKHGD=${objKHGD.maKHGD}&maMonHoc=${objKHGD.maMonHoc}",this,"dialogHeight: "+chieucao+"px; dialogWidth: "+chieurong+"px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: Yes; status: No;");
+		if(value != false && value != null){
+			if(!isNaN(value)){
+				var strPath=<%="'"+request.getContextPath()+"/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp?maKHGD='" %>+value;
+				location.href=strPath;
+			}
+		}
+		else {
+			return;
+		}
+	}
 	
 
 </script>
@@ -1087,28 +1104,11 @@
 					</c:if>
 				</c:if>
 				<c:if test="${( (maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and empty param.cp)}">
-					<a href = "javascript: saoChep();">								 
+					<a href = "javascript: saochep()">								 
 						<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 					</a>
 					<script language="javascript">
-						function saoChep(){
-							var value = false;
-							var chieucao = 200;
-							var chieurong = 340;
-							var top = screen.availHeight/2-chieucao/2;
-							var left = screen.availWidth/2-chieurong/2;
-
-							value = window.showModalDialog("SaoChepKHGD.jsp?maKHGD=${objKHGD.maKHGD}&maMonHoc=${objKHGD.maMonHoc}","Arg1","dialogHeight: "+chieucao+"px; dialogWidth: "+chieurong+"px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
-							if(value != false && value != null){
-								if(!isNaN(value)){
-									var strPath=<%="'"+request.getContextPath()+"/ISO/KeHoachGiangDay/KeHoachGiangDay.jsp?maKHGD=" %>+value;
-									location.href=strPath;
-								}
-							}
-							else {
-								return;
-							}
-						}
+						
 					</script>
 				</c:if>
 				<c:if test="${(maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin ) and not empty param.cp }">
