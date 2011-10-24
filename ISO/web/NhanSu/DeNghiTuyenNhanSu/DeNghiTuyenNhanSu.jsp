@@ -178,9 +178,6 @@
 			if(value_TGBDL<value_TGHT){
 				alert("Thời Gian Bắt Đầu Làm Việc phải sau "+TGHT+" !!!");
 				document.getElementById("txtCalendar").value = "";
-			}else if((value_TGBDL-value_TGHT)<5){
-				alert("Khoảng cách giữa ngày hiện tại và ngày bắt đầu làm ít nhất phải lớn hơn 5 !!!");
-				document.getElementById("txtCalendar").value = "";
 			}
 		}
 		

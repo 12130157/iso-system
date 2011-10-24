@@ -144,10 +144,6 @@
 					alert("Thời Gian Bắt Đầu Làm Việc phải sau "+TGHT+" !!!");
 					document.getElementById("txtBatDau").value = "";
 					return;
-				}else if((value_batdau-value_TGHT)<5){
-					alert("Khoảng cách giữa ngày hiện tại và ngày bắt đầu làm ít nhất phải lớn hơn 5 !!!");
-					document.getElementById("txtBatDau").value = "";
-					return;
 				}
 				
 				var n = batdau.split("-");
