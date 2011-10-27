@@ -98,7 +98,7 @@ public class ThoiKhoaBieuDAO {
 			//csmt.setString("Ngay_tao", DateUtil.setDate(thoiKhoaBieuModel.getNgayTao()));
 			csmt.setString("Ma_nguoi_duyet", thoiKhoaBieuModel.getMaNguoiDuyet());
 			csmt.setString("Ngay_duyet", null);
-			csmt.setString("Tinh_trang", thoiKhoaBieuModel.getTinhTrang());
+			csmt.setString("Tinh_trang", Constant.TINHTRANG_NEW);
 			csmt.registerOutParameter("Ngay_cap_nhat_cuoi",java.sql.Types.VARCHAR);
 			csmt.setNString("Ten", thoiKhoaBieuModel.getTenThoiKhoaBieu());
 			csmt.setString("Hoc_ki", thoiKhoaBieuModel.getHocKi());

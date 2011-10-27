@@ -986,7 +986,7 @@ var kieuDayLyThuyet = new Array();
 			</c:choose>	
 		</c:if>	
 		<!--<c:set var="check" value=""></c:set>
-	--><c:if test="${DeCuongMonHoc.status eq APPROVE and (MaBoPhan eq BO_PHAN_ADMIN or DeCuongMonHoc.maNguoiTao eq maThanhVien)}">	
+	--><c:if test="${DeCuongMonHoc.tinhTrang ne null and ((vaiTro eq Giao_vien and DeCuongMonHoc.maNguoiTao eq maThanhVien) or vaiTro ne Giao_vien)}">	
 			<a href = "javascript: xuLyFile(2);">	
 				<input type="hidden" name="Copy" value = "Copy" />							 
 				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
