@@ -230,6 +230,13 @@ function submit(){
 					</a>
 				</td>
 				</c:if>
+				<c:if test='${maThanhVien != sessionMaThanhVien}'>
+				<td colspan="2">
+					<a href = "PrintSoLuocLyLich.jsp">	
+						<img src="<%=request.getContextPath()%>/images/buttom/Printer-icon.png" border = "0" />
+					</a>
+				</td>
+				</c:if>
 			</tr>	
 		</table>
 			
