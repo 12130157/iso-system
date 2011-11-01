@@ -219,14 +219,6 @@ public class HoSoDuTuyenController extends HttpServlet{
 	
 	private void searchHoSoDuTuyen(HttpServletRequest request,HttpServletResponse response){
 		String tinhtrang = request.getParameter("selectTinhTrang");
-		ArrayList<HoSoDuTuyenModel> listHSDT;
-		if(tinhtrang.equals("All")){
-			tinhtrang = "";
-		}
-			listHSDT = HoSoDuTuyenDAO.getAllHoSoByTinhTrang(tinhtrang);
-		
-		request.setAttribute("listHSDT", listHSDT);
-		
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/showHoSoDuTuyen.jsp?msg="+tinhtrang);
 			rd.forward(request, response);

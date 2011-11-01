@@ -220,6 +220,7 @@
 				document.getElementById("txtKetThuc").value = "";
 			}
 		}
+	
 	</script>
 </head>
 <body>

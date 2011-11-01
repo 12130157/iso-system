@@ -141,7 +141,7 @@
 					Ngày ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_HC_duyet_mdy,2,sig)}
 				</c:if>
 			</td>
-			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+			<c:if test="${DeNghiNhanSu.chuc_danh eq '8'}">
 				<td>
 					<c:if test="${not empty DeNghiNhanSu.ngay_DT_duyet_mdy}">
 						Ngày ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,0,sig)} tháng ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,1,sig)} năm ${sf:getElement(DeNghiNhanSu.ngay_DT_duyet_mdy,2,sig)}
@@ -152,7 +152,7 @@
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG PHÒNG TCHCQT </p></td>
-			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+			<c:if test="${DeNghiNhanSu.chuc_danh eq '8'}">
 				<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG PHÒNG ĐÀO TẠO </p></td>
 			</c:if>
 			<td><p style="font-weight: bold; font-size: 14px">TRƯỞNG P/K/BM</p></td>
@@ -163,7 +163,7 @@
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 14px;">
 			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_phong_HC } </p></td>
-			<c:if test="${DeNghiNhanSu.chuc_danh ne '8'}">
+			<c:if test="${DeNghiNhanSu.chuc_danh eq '8'}">
 				<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_phong_DT } </p></td>
 			</c:if>
 			<td><p style="font-weight: bold; font-size: 14px">${DeNghiNhanSu.ten_truong_khoa }</p></td>
