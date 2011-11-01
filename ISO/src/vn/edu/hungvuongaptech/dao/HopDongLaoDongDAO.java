@@ -127,7 +127,12 @@ public class HopDongLaoDongDAO {
 				model = new HopDongLaoDongModel();
 				model.setId(rs.getString("ID"));
 				model.setNguoi_du_tuyen(rs.getString("NGUOI_DU_TUYEN"));
-				model.setThoi_gian(rs.getString("THOI_GIAN"));
+				String n[] = rs.getString("THOI_GIAN").split(".");
+				if(Integer.parseInt(n[1])==0){
+					model.setThoi_gian(n[0]);
+				}else{
+					model.setThoi_gian(rs.getString("THOI_GIAN"));
+				}
 				model.setBat_dau(rs.getString("BAT_DAU"));
 				model.setKet_thuc(rs.getString("KET_THUC"));
 				model.setLoai_vien_chuc(rs.getString("Loai_vien_chuc"));

@@ -196,7 +196,6 @@
 			%>
 			if(maBoPhan!=""){
 				if(maBoPhan!="1" && maBoPhan!="2"){
-					alert(maBoPhan);
 					if(chucDanh=="8"){
 						document.getElementById("pdt").style.display = "inline";
 						
@@ -204,8 +203,12 @@
 						document.getElementById("pdt").style.display = "none";
 					}
 				}else{
-					alert("ok");
 					document.getElementById("tk").style.display = "none";
+					if(chucDanh=="8"){
+						document.getElementById("pdt").style.display = "inline";
+					}else{
+						document.getElementById("pdt").style.display = "none";
+					}
 				}
 			}
 		}
@@ -424,7 +427,7 @@
 						</c:if>
 						<c:if test="${DeNghiNhanSu.tinh_trang eq '5' and maThanhVien eq DeNghiNhanSu.nguoi_de_nghi}">
 							<a href = "javascript: submitForm('B')">
-								<input type="button" value="Bổ Sung" />
+								<input type="button" value="Copy" />
 							</a>
 						</c:if>
 					</c:otherwise>

@@ -80,8 +80,8 @@
 	<c:set var = "BO_PHAN_ADMIN" value = '<%= Constant.BO_PHAN_ADMIN %>'></c:set>
 	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
 	<c:choose>
-		<c:when test="${requestScope.listHSDT ne null}">
-			<c:set var="listHSDT" value="${requestScope.listHSDT}"></c:set>
+		<c:when test="${not empty param.msg}">
+			<c:set var="listHSDT" value='<%=HoSoDuTuyenDAO.getAllHoSoByTinhTrang(request.getParameter("msg").toString()) %>'></c:set>
 		</c:when>
 		<c:otherwise>
 			<c:set var="listHSDT" value='<%=HoSoDuTuyenDAO.getAllHoSo() %>'></c:set>
@@ -98,8 +98,8 @@
 				<tr style="background-color: transparent;">	
 					<td colspan = "6">	
 						<div class = "div_tinhtrang">Tình trạng :	
-							<select name = "selectTinhTrang">	
-								<option value = "All" <c:if test = "${param.msg eq 'All'}">selected</c:if>>Tất Cả</option>
+							<select name = "selectTinhTrang">
+								<option value = "" <c:if test = "${param.msg eq 'All'}">selected</c:if>>Tất Cả</option>
 								<c:if test="${MaBoPhan eq BO_PHAN_PHC or MaBoPhan eq BO_PHAN_ADMIN}">
 									<option value = "0" <c:if test = "${param.msg eq '0'}">selected</c:if>>Mới</option>
 								</c:if>	
