@@ -338,7 +338,7 @@
   Zapatec.Calendar.setup({
 	firstDay          : 1,
 	weekNumbers       : false,
-	range             : [1960.01, 2020.12],
+	range             : [1940.01, 2020.12],
 	electric          : false,
 	inputField        : "NgayVaoLam",
 	button            : "NgayVaoLam",
@@ -347,7 +347,7 @@
    Zapatec.Calendar.setup({
 	firstDay          : 1,
 	weekNumbers       : false,
-	range             : [1960.01, 2020.12],
+	range             : [1940.01, 2020.12],
 	electric          : false,
 	inputField        : "txtNgayCap",
 	button            : "txtNgayCap",
