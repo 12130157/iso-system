@@ -320,7 +320,7 @@
   Zapatec.Calendar.setup({
 	firstDay          : 1,
 	weekNumbers       : false,
-	range             : [1962.01, 1991.12],
+	range             : [1940.01, 1991.12],
 	electric          : false,
 	inputField        : "NgaySinh",
 	button            : "NgaySinh",
@@ -329,7 +329,7 @@
   Zapatec.Calendar.setup({
 	firstDay          : 1,
 	weekNumbers       : false,
-	range             : [1960.01, 2020.12],
+	range             : [1940.01, 2020.12],
 	electric          : false,
 	inputField        : "NgayThuViec",
 	button            : "NgayThuViec",
