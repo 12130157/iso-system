@@ -71,6 +71,17 @@ public class BangCapDAO {
 		}
 	}
 	
+	public static void deleteBangCap(String maBangCap){
+		try {
+			String sql = "DELETE FROM BANGCAP WHERE ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maBangCap);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static int countBangCapByMaThanhVien(String maThanhVien){
 		int kq = 0;
 		try {

@@ -41,6 +41,10 @@
 	<c:if test="${not empty param.maThanhVien}">
 		<c:set var="ThongTinChiTiet" value='<%=HoSoDuTuyenDAO.getThongTinNhanSuByMaThanhVien(request.getParameter("maThanhVien").toString()) %>'></c:set>
 	</c:if>
+	<c:set var = "maVaiTro" value = '<%=(String) session.getAttribute("maVaiTro")%>'> </c:set>
+	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
+	<c:set var = "TRUONG_PHONG" value = '<%= Constant.TRUONG_PHONG %>'></c:set>
+	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
 	<c:set var="row" value="1"></c:set>
 	<c:set var="listNamTotNghiep" value='<%=NamHocDAO.getAllNamHocByNow() %>'></c:set>
 	<script language="javascript">
@@ -127,6 +131,12 @@
 			table.rows[i].insertCell(4).innerHTML = "<input type='text' onchange='checkNamTotNghiep(this)' style='text-align:center;width: 50px;background-color: transparent;' name='Nam"+i+"' id='Nam"+i+"' />";
 			table.rows[i].insertCell(5).innerHTML = "<select style='background-color: transparent;' name='LoaiTotNghiep"+i+"' id='LoaiTotNghiep"+i+"'><option value='Xuất Sắc'>Xuất Sắc</option><option value='Giỏi'>Giỏi</option><option value='Khá'>Khá</option><option value='Trung Bình-Khá'>Trung Bình-Khá</option><option value='Trung Bình'>Trung Bình</option></select>";
 			document.getElementById('row').value = i+1;
+		}
+		
+		function xoaBangCap(id){
+			document.getElementById("action").value = "xoaBangCap";
+			document.getElementById("MaBangCap").value = id;
+			document.forms['ThongTinChiTiet'].submit();
 		}
 		
 		function checkNamTotNghiep(id){
@@ -229,7 +239,7 @@
 						<c:forEach var="VT" items="${listVT}">
 							<option 
 							<c:if test="${ThongTinChiTiet.ma_vai_tro eq VT.maVaiTro }">selected</c:if>
-							<c:if test="${not empty param.maThanhVien }">disabled</c:if>
+							<c:if test="${maVaiTro eq TRUONG_PHONG }">disabled</c:if>
 							value="${VT.maVaiTro }">${VT.tenVaiTro }</option>
 						</c:forEach>
 					</select>
@@ -241,7 +251,7 @@
 						<c:forEach var="BP" items="${listBP}">
 							<option 
 							<c:if test="${ThongTinChiTiet.ma_bo_phan eq BP.maKhoa }">selected</c:if>
-							<c:if test="${not empty param.maThanhVien }">disabled</c:if>
+							<c:if test="${maVaiTro eq TRUONG_PHONG }">disabled</c:if>
 							 value="${BP.maKhoa }">${BP.tenKhoa }</option>
 						</c:forEach>
 					</select>
@@ -277,7 +287,14 @@
 									<input type="hidden" name="maBangCap${row }" value="${BangCap.id }" />
 								</td>
 								<td style="width: 150px;text-align: center;font-weight: bold;">${BangCap.loaiBang }</td>
-								<td style="width: 150px;text-align: center;font-weight: bold;">${BangCap.truongCap }</td>
+								<td style="width: 150px;text-align: center;font-weight: bold;">
+									<a href="javascript: xoaBangCap(${BangCap.id })" style="text-decoration: none;color: red;">
+										<c:if test="${BangCap.truongCap eq ''}">
+											tmp
+										</c:if>
+										${BangCap.truongCap }
+									</a>
+								</td>
 								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCap.chuyenNganh }</td>
 								<td style="width: 50px;text-align: center;font-weight: bold;">${BangCap.namTotNghiep }</td>
 								<td style="width: 110px;text-align: center;font-weight: bold;">${BangCap.loaiTotNghiep }</td>
@@ -308,6 +325,7 @@
 		<input type="hidden" id="row" name="row" value="${row}" />
 		<input type="hidden" id="maThanhVien" name="maThanhVien" value="${ThongTinChiTiet.id}" />
 		<input type="hidden" id="action" name="action" />
+		<input type="hidden" id="MaBangCap" name="MaBangCap" />
 	</form>
 
 	<!-- S FOOT CONTENT -->
