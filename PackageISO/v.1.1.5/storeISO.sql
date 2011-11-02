@@ -10264,12 +10264,17 @@ CREATE PROC sp_NhanSu_InsertDeNghiKTV
 	@KQ						INT OUTPUT  
 AS  
 BEGIN  
-	SET @KQ = -1  
+	SET @KQ = -1
 	IF NOT EXISTS (SELECT * FROM DeNghiKTV WHERE Nguoi_du_tuyen=@Nguoi_du_tuyen)   
 	BEGIN  
 		INSERT INTO DeNghiKTV(Nguoi_du_tuyen,Tinh_trang,Ngay_lap,Truong_khoa,Ngay_cap_nhat_cuoi,User1,User2,User3,User4,User5) VALUES(@Nguoi_du_tuyen,@Tinh_trang,GETDATE(),@Ma_truong_khoa,GETDATE(),'','','','','')
 		SELECT @KQ=MAX(ID) FROM DeNghiKTV
 	END  
+	ELSE
+	BEGIN
+		UPDATE DeNghiKTV SET Tinh_trang=@Tinh_trang WHERE Nguoi_du_tuyen=@Nguoi_du_tuyen
+		SELECT @KQ=ID FROM DeNghiKTV WHERE Nguoi_du_tuyen=@Nguoi_du_tuyen
+	END
 END  
 GO
 /*
