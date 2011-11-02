@@ -19,8 +19,10 @@ BEGIN
 	DECLARE @CongViecChuanBi nvarchar(2000)
 	DECLARE @STTNoiDung int
 	DECLARE @Nhom int
+	DECLARE @TempNhom int
 	DECLARE @Tuan int
 	DECLARE @MaGiaoAn int
+	DECLARE @TempMaGiaoAn int
 	DECLARE @TempSTTND int	
 	DECLARE @CoHieuLT int
 	DECLARE @CoHieuTH int
@@ -211,10 +213,17 @@ BEGIN
 
 	SET @TempSTTND =-1
 	SET @CoHieuTemp=-1
+	SET @TempNhom = -1
+	SET @TempMaGiaoAn = -1
 	SELECT @MaGiaoVien=Ma_nguoi_tao,@SoTietMoiBuoi=So_tiet_moi_buoi FROM KeHoachGiangDay WHERE ID=@MaKHGD
 	
 	WHILE @@FETCH_STATUS=0
 	BEGIN
+		-------------------------------------------------------------------------------------
+		IF (ISNULL(@MaGiaoAn,'') = '' AND (@STTNoiDung = @TempSTTND AND @CoHieu = @CoHieuTemp AND @Nhom <> @TempNhom))
+		BEGIN
+			UPDATE ChiTietKHGD SET Ma_giao_an=@TempMaGiaoAn WHERE ID=@MaCTKHGD
+		END	
 	
 		-------------------------------------------------------------------------------------
 		IF ISNULL(@MaGiaoAn,'') ='' 
@@ -223,6 +232,7 @@ BEGIN
 			
 			SET @TempSTTND=@STTNoiDung
 			SET @CoHieuTemp=@CoHieu
+			SET @TempNhom = @Nhom
 			IF @CoHieu = @CoHieuLT
 			BEGIN
 				SET	@MucTieu=@Muc_Tieu_Bai_Hoc
@@ -272,6 +282,7 @@ BEGIN
 			BEGIN
 				UPDATE ChiTietKHGD SET Ma_giao_an=@MaGiaoAn WHERE ID=@MaCTKHGD
 				UPDATE GiaoAn SET User1=@CoHieu WHERE ID=@MaGiaoAn
+				SET @TempMaGiaoAn = @MaGiaoAn
 			END
 		END
 		-------------------------------------------------------------------------------------
