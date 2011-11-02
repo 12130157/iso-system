@@ -542,10 +542,10 @@ public class HoSoDuTuyenDAO {
 	}
 	
 	
-	public static String updateThongTinThanhVien(String id,String ho,String tenLot,String ten,String gioiTinh,String ngaySinh,String CMND,String ngayCap,String noiCap,String soNha,String duong,String phuongXa,String quanHuyen,String tinhThanhPho,String dienThoaiNha,String email,String dienThoaiDD,String ngayThuViec,String ngayVaolam){
+	public static String updateThongTinThanhVien(String id,String ho,String tenLot,String ten,String gioiTinh,String ngaySinh,String CMND,String ngayCap,String noiCap,String soNha,String duong,String phuongXa,String quanHuyen,String tinhThanhPho,String dienThoaiNha,String email,String dienThoaiDD,String ngayThuViec,String ngayVaolam,String vaiTro, String boPhan){
 		String kq = "";
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_CapNhatThongTin(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_NhanSu_CapNhatThongTin(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("ID", id);
 			csmt.setString("Ho", ho);
 			csmt.setString("Ten_lot", tenLot);
@@ -565,6 +565,8 @@ public class HoSoDuTuyenDAO {
 			csmt.setString("Dien_thoai_dd", dienThoaiDD);
 			csmt.setString("Ngay_thu_viec", ngayThuViec);
 			csmt.setString("Ngay_vao_lam", ngayVaolam);
+			csmt.setString("Vai_tro", vaiTro);
+			csmt.setString("Bo_phan", boPhan);
 			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
 			csmt.executeUpdate();
 			kq = csmt.getString("KQ");

@@ -69,6 +69,18 @@ public class HoSoDuTuyenController extends HttpServlet{
 			doPostThanks(request, response);
 		} else if(action.equals("restore")){
 			doPostRestore(request, response);
+		} else if(action.equalsIgnoreCase("xoaBangCap")){
+			doPostDeleteBangCap(request,response);
+		}
+	}
+	
+	private void doPostDeleteBangCap(HttpServletRequest request,HttpServletResponse response){
+		BangCapDAO.deleteBangCap(request.getParameter("MaBangCap").toString());
+		try {
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/NhapThongTin.jsp?maThanhVien="+request.getParameter("maThanhVien"));
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -337,7 +349,9 @@ public class HoSoDuTuyenController extends HttpServlet{
 				request.getParameter("Email").trim(),
 				request.getParameter("DTDD").trim(),
 				DateUtil.changeDMYtoMDY(request.getParameter("NgayThuViec")),
-				DateUtil.changeDMYtoMDY(request.getParameter("NgayVaoLam")));
+				DateUtil.changeDMYtoMDY(request.getParameter("NgayVaoLam")),
+				request.getParameter("VaiTro"),
+				request.getParameter("BoPhan"));
 
 		if(!kq.equals("-1")){
 			int max = Integer.parseInt(request.getParameter("row").trim());
