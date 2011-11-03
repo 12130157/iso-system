@@ -407,13 +407,20 @@ function createPhongBan()
 	document.getElementById('phongLyThuyet').innerHTML = null;
 	document.getElementById('phongThucHanh').innerHTML = null;
 	<%
-		for(int i=0;i<phongBanModelList.size();i++) {
+		/*for(int i=0;i<phongBanModelList.size();i++) {
 			out.print("if('LT' == '" + phongBanModelList.get(i).getChucNang() + "') {");
 			out.print("var opt = new Option('" + phongBanModelList.get(i).getKiHieu() + "','" + phongBanModelList.get(i).getMaPhongBan() + "');");
 			out.print("document.getElementById('phongLyThuyet').add(opt,undefined); }");
 			out.print("if('TH' == '" + phongBanModelList.get(i).getChucNang() + "') {");
 			out.print("var opt = new Option('" + phongBanModelList.get(i).getKiHieu() + "','" + phongBanModelList.get(i).getMaPhongBan() + "');");
 			out.print("document.getElementById('phongThucHanh').add(opt,undefined); }");
+		}*/
+		
+		for(int i=0;i<phongBanModelList.size();i++) {
+			out.print("var opt = new Option('" + phongBanModelList.get(i).getKiHieu() + "','" + phongBanModelList.get(i).getMaPhongBan() + "');");
+			out.print("document.getElementById('phongLyThuyet').add(opt,undefined);");
+			out.print("var opt = new Option('" + phongBanModelList.get(i).getKiHieu() + "','" + phongBanModelList.get(i).getMaPhongBan() + "');");
+			out.print("document.getElementById('phongThucHanh').add(opt,undefined);");
 		}
 	%>
 	selectPhongThucHanh();
