@@ -3297,6 +3297,46 @@ END
 
 GO
 
+--sp_ISO_FixKHGD.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_ISO_FixKHGD')
+BEGIN
+	DROP PROC sp_ISO_FixKHGD
+END
+GO
+CREATE PROC sp_ISO_FixKHGD
+AS
+BEGIN
+	DECLARE @Ma_CTKHGD INT
+	DECLARE @Ma_KHGD INT
+	DECLARE @Ma_giao_an INT
+	DECLARE @STT_noi_dung INT
+	DECLARE @COUNT INT
+	SET @COUNT = 0
+	DECLARE @C CURSOR
+	SET @C = CURSOR FOR SELECT ID,MA_KE_HOACH_GIANG_DAY,STT_NOI_DUNG FROM CHITIETKHGD WHERE ISNULL(Ma_giao_an,'')=''
+
+	OPEN @C
+	FETCH NEXT FROM @C INTO @Ma_CTKHGD,@Ma_KHGD,@STT_noi_dung
+	
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SELECT @Ma_giao_an=Ma_giao_an FROM CHITIETKHGD WHERE Ma_ke_hoach_giang_day=@Ma_KHGD AND STT_noi_dung=@STT_noi_dung AND ID <> @Ma_CTKHGD
+		PRINT @Ma_giao_an
+		IF(@Ma_giao_an <> null or @Ma_giao_an <> '')
+		BEGIN
+			UPDATE CHITIETKHGD SET Ma_giao_an=@Ma_giao_an WHERE ID=@Ma_CTKHGD
+			SET @COUNT = @COUNT + 1
+		END
+		FETCH NEXT FROM @C INTO @Ma_CTKHGD,@Ma_KHGD,@STT_noi_dung
+	END
+	
+	CLOSE @C
+	DEALLOCATE @C
+
+	PRINT N'Đã fix '+CAST(@COUNT AS VARCHAR)+' record'
+END
+GO
+
 --sp_ISO_GetBangPhanCong.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_GetBangPhanCong]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_GetBangPhanCong]
