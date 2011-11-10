@@ -118,6 +118,10 @@ public class ChangeStringTaglib {
 	public static boolean compareDate(String value1, String value2) {
 		boolean result = false;
 		if(value2 != null) {
+			String[] arr = value2.split("/");
+			if(arr.length > 2) {
+				value2 = value2.replaceAll("/", "-");
+			}
 			DateFormat df = new SimpleDateFormat("dd-MM-yy");
 			try {
 				Date d1 = (Date)df.parse(value1);
@@ -231,26 +235,5 @@ public class ChangeStringTaglib {
 		str.add(tenChuong.substring(0, tenChuong.indexOf("1.")));
 		str.add(tenChuong.substring(tenChuong.indexOf("1."), tenChuong.length()));
 		return str;
-	}
-	
-	public static String chuyenChuInHoa(String value) {		
-		String result = "";
-		char[] arr = value.toCharArray();
-		for(int i=0;i<arr.length;i++) {
-			int a = (int) 'Ạ';
-			a = (int) 'ạ';
-				a = (int) 'À';
-				a = (int) 'à';
-				a = (int) 'Á';
-				a = (int) 'á';
-				a = (int) 'A';
-				a = (int) 'a';
-				a = (int) 'Ả';
-				a = (int) 'ả';
-				a = (int) 'Ã';
-				a = (int) 'ã';
-			result += (char)((int) arr[i] + 60);
-		}
-		return result;
 	}
 }
