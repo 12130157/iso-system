@@ -9,7 +9,8 @@
 <%@page import="vn.edu.hungvuongaptech.common.Constant"%>
 <%@page import="vn.edu.hungvuongaptech.model.SoLenLopModel"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="vn.edu.hungvuongaptech.model.ThangTheoDoiModel"%><html>
+<%@page import="vn.edu.hungvuongaptech.model.ThangTheoDoiModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SysParamsDAO"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -70,6 +71,7 @@
 		<c:set var = "MaThanhVien" value = '<%=request.getSession().getAttribute("maThanhVien") %>'/>
 		<c:set var = "MaBoPhan" value = '<%=request.getSession().getAttribute("maBoPhan") %>'/>
 		<c:set var = "ADMIN" value = "<%=Constant.BO_PHAN_ADMIN %>"/>
+		<c:set var = "NgayHienTai" value="<%=SysParamsDAO.getNgayGioHeThong().getNgayHeThong() %>"/>
 		<table width = "800" style="background-color: transparent;" border="1">
 			<tr style="background-color: transparent;">
 				<td>Lớp : ${SoLenLop.kiHieuLop }</td>
@@ -134,12 +136,20 @@
 						<c:otherwise><td>0</td><td>0</td><td>0</td><td>${ChiTietTKB.soTietHoc1Buoi}</td></c:otherwise>
 					</c:choose>
 					<td>
-						<textarea id = "txtNoiDungBaiDay<%=count %>" 
-							<c:if test = "${MaThanhVien eq BangTomTatNoiDung.maGiaoVien or MaBoPhan eq ADMIN}">onclick = "nhapNoiDungBaiDay(<%=count %>)"</c:if>
+						<c:set var = "SoSanhNgay" value = "${sf:compareDate(NgayHienTai, ChiTietTKB.ngayHoc)}"></c:set>
+						<textarea id = "txtNoiDungBaiDay<%=count %>" readonly="readonly"
+							<c:if test = "${(MaThanhVien eq BangTomTatNoiDung.maGiaoVien or MaBoPhan eq ADMIN) and SoSanhNgay eq true}">onclick = "nhapNoiDungBaiDay(<%=count %>)"</c:if>
 								>${ChiTietTKB.noiDungBaiDay }</textarea>
 						<input type = "hidden" value = "${ChiTietTKB.maChiTietTKB }" id = "txtMaChiTietTKB<%=count %>"/>	
 					</td>
-					<td>${ChiTietTKB.soSVVangMat }</td>
+					<td><c:choose>
+						<c:when test="${SoSanhNgay eq true}">
+							${ChiTietTKB.soSVVangMat }
+						</c:when>
+						<c:otherwise>
+							<p></p>
+						</c:otherwise>
+					</c:choose></td>
 					<td></td>
 				</tr>
 				<%count++; %>

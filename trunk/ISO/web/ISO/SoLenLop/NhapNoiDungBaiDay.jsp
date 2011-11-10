@@ -28,6 +28,13 @@ var text = window.dialogArguments;
 		}
 		else
 		{
+			var arrStr = str.split("\n");
+			str = "";
+			
+			for(var i=0;i<arrStr.length;i++)
+			{
+				str += arrStr[i] + "<--->";
+			} 
 			var xmlhttp;
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -51,7 +58,7 @@ var text = window.dialogArguments;
 			xmlhttp.open("POST",<%="'" + request.getContextPath() + "'"%> + "/soLenLopController?str="+str+"&maCT=" + <%="'" + request.getParameter("maCT") + "'"%>,true);
 			xmlhttp.send();
 		}
-		window.returnValue = str;
+		window.returnValue = document.getElementById('areaInput').value;
 		window.close();
 	}
 		
