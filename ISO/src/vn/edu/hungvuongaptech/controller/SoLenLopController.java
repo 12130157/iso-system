@@ -36,6 +36,13 @@ public class SoLenLopController extends HttpServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String noiDung = StringUtil.toUTF8(request.getParameter("str").trim());
+		String[] arrStr = noiDung.split("<--->");
+		noiDung = "";
+		
+		for(int i=0;i<arrStr.length;i++)
+		{
+			noiDung += arrStr[i] + "\r\n";
+		} 
 		String maCT = request.getParameter("maCT");
 		//response.setContentType("text/html");
 		if(ChiTietTKBDAO.capNhatTomTatNoiDung(maCT, noiDung) == 1) {
