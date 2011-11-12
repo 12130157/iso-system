@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import common.Constant;
+
 
 /**
  * Containing methods to manipulate database.
@@ -17,16 +19,16 @@ public class DataUtil {
 
 	static Connection conn = null;
 	
-	public static String URL = "jdbc:sqlserver://COLDER_TRAN;databaseName=hungvuongsystem";
-	public static String USER_NAME = "sa";
-	public static String PASSWORD = "123456";
+	public static String URL = Constant.SETTING_RES.getString("URL");
+	public static String USER_NAME = Constant.SETTING_RES.getString("USER");
+	public static String PASSWORD = Constant.SETTING_RES.getString("PASS");
 
 	/**
 	 * Create connection to database.
 	 */
 	public static void connect() {
 		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Class.forName(Constant.SETTING_RES.getString("DB_DRIVER"));
 			conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
