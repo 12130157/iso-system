@@ -16,16 +16,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.Timer;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListDataListener;
+
+import common.Constant;
 
 import controller.EmailServiceController;
+import controller.ThongBao;
 
 public class AutoEmailService extends JFrame {
 
@@ -38,14 +47,13 @@ public class AutoEmailService extends JFrame {
 	private JButton btHide = null;
 	private JButton btExit = null;
 	private JTextField txtStatus = null;
-	private JComboBox cbThu = null;
 	private JComboBox cbGio = null;
 	private JComboBox cbPhut = null;
-	private JTextField txtBatDau = null;
-	private JTextField txtKetThuc = null;
-	private final String [] listThu = {"Chủ Nhật","Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Every Day"};
 	private final String [] listGio = new String[24];
 	private final String [] listPhut = new String[60];
+	private Timer timer = null;
+	private ThongBao thongBao = new ThongBao();
+	private JList listThongBao = null;
 	
 	public SystemTray tray = null ;  //  @jve:decl-index=0:
 	public TrayIcon trayIcon = null;  //  @jve:decl-index=0:
@@ -65,14 +73,14 @@ public class AutoEmailService extends JFrame {
 	 */
 	private void initialize() {
 		//this.setSize(358, 247);
-		this.setSize(358, 300);
+		this.setSize(600, 500);
 		this.setContentPane(getJContentPane());
 		this.setTitle("ISO Automail Service");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		//setLocation((ScreenSize.width- 358)/2, (ScreenSize.height- 247)/2);
-		setLocation((ScreenSize.width- 358)/2, (ScreenSize.height- 300)/2);
+		setLocation((ScreenSize.width- 600)/2, (ScreenSize.height- 500)/2);
 		setResizable(false);
 		setVisible(true);
 	}
@@ -88,10 +96,12 @@ public class AutoEmailService extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			lbTitle = new JLabel();
-			lbTitle.setBounds(new Rectangle(34, 9, 270, 38));
+			lbTitle.setBounds(new Rectangle(34, 9, 600, 38));
 			lbTitle.setFont(new Font("Dialog", Font.BOLD, 24));
 			lbTitle.setForeground(new Color(51, 51, 171));
-			lbTitle.setText("ISO Auto Email Service");
+			lbTitle.setAlignmentX(CENTER_ALIGNMENT);
+			lbTitle.setText("Hệ Thống Mail Nhắc Nhở");
+			
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(getChkGiaoAnDelay(), null);
@@ -101,9 +111,9 @@ public class AutoEmailService extends JFrame {
 			jContentPane.add(getBtHide(), null);
 			jContentPane.add(getBtExit(), null);
 			jContentPane.add(getTxtStatus(), null);
-			jContentPane.add(getCbThu(),null);
 			jContentPane.add(getCbGio(),null);
 			jContentPane.add(getCbPhut(),null);
+			jContentPane.add(getListThongBao(),null);
 		}
 		return jContentPane;
 	}
@@ -131,26 +141,10 @@ public class AutoEmailService extends JFrame {
 		if (chkCongTacDelay == null) {
 			chkCongTacDelay = new JCheckBox();
 			chkCongTacDelay.setBounds(new Rectangle(19, 71, 153, 24));
-			chkCongTacDelay.setText("Công Tác Delay");
+			chkCongTacDelay.setText("Kế Hoạch Giảng Dạy");
 			chkCongTacDelay.setEnabled(false);
 		}
 		return chkCongTacDelay;
-	}
-	
-	/**
-	 * This method initializes cbThu	
-	 * 	asdasd
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbThu() {
-		if (cbThu == null) {
-			cbThu = new JComboBox(listThu);
-			cbThu.setBounds(new Rectangle(11, 210, 100, 25));
-			cbThu.setSelectedIndex(5);
-			cbThu.setEnabled(false);
-			
-		}
-		return cbThu;
 	}
 
 	/**
@@ -201,14 +195,22 @@ public class AutoEmailService extends JFrame {
 					//txtStatus.setText("Service running ....");
 					if (chkGiaoAnDelay.isSelected())
 					{
-						cbThu.setEnabled(false);
-						cbGio.setEnabled(false);
-						cbPhut.setEnabled(false);
-						EmailServiceController autoEmailService = new EmailServiceController(cbThu.getSelectedIndex()+"",
-								cbGio.getSelectedIndex()+"",cbPhut.getSelectedIndex()+"");
-						Timer timer = new Timer();
-						timer.schedule(autoEmailService, 1000, 60000);
-						txtStatus.setText("Running");
+						if(btRun.getText().equalsIgnoreCase("Run")){
+							cbGio.setEnabled(false);
+							cbPhut.setEnabled(false);
+							EmailServiceController autoEmailService = new EmailServiceController(
+									cbGio.getSelectedIndex()+"",cbPhut.getSelectedIndex()+"");
+							timer = new Timer();
+							timer.schedule(autoEmailService, 1000, 60000);
+							txtStatus.setText("Running");
+							btRun.setText("Stop");
+						}else{
+							timer.cancel();
+							cbGio.setEnabled(true);
+							cbPhut.setEnabled(true);
+							txtStatus.setText("Stop");
+							btRun.setText("Run");
+						}
 					}else
 					{
 						JOptionPane.showMessageDialog(null,"Bạn phải chọn công việc để thực thi.");
@@ -288,6 +290,18 @@ public class AutoEmailService extends JFrame {
 		}
 		return txtStatus;
 	}
+	
+	private JList getListThongBao() {
+		if (listThongBao == null) {
+			listThongBao = new JList(Constant.model);
+			listThongBao.setBounds(new Rectangle(0, 250, 0, 20));
+			listThongBao.setSize(new Dimension(600, 200));
+			listThongBao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			listThongBao.setEnabled(true);
+		}
+		return listThongBao;
+	}
+	
 /*	public class ShowMessageListener implements ActionListener
 	  {
 		    TrayIcon trayIcon;
