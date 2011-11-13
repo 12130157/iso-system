@@ -13,10 +13,8 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.util.Timer;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -25,16 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListDataListener;
 
 import common.Constant;
 
 import controller.EmailServiceController;
-import controller.ThongBao;
 
 public class AutoEmailService extends JFrame {
 
@@ -52,7 +46,6 @@ public class AutoEmailService extends JFrame {
 	private final String [] listGio = new String[24];
 	private final String [] listPhut = new String[60];
 	private Timer timer = null;
-	private ThongBao thongBao = new ThongBao();
 	private JList listThongBao = null;
 	
 	public SystemTray tray = null ;  //  @jve:decl-index=0:

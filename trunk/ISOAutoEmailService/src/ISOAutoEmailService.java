@@ -1,8 +1,6 @@
-import common.Constant;
-import common.InitConfig;
-import controller.ThongBao;
-
 import view.AutoEmailService;
+
+import common.InitConfig;
 
 
 public class ISOAutoEmailService {
