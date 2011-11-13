@@ -45,13 +45,20 @@ public class EmailServiceController extends TimerTask {
 			}
 			
 			if(nowDate.getHours()==Integer.parseInt(gio) && nowDate.getMinutes()==Integer.parseInt(phut)){
+				Constant.model.clear();
 				System.out.println("Đang kiểm tra giáo án !!!");
+				Constant.model.addElement("Đang kiểm tra giáo án !!!");
 				GiaoAnDAO.soanGiaoAn(Constant.SETTING_RES.getString("ngayDelay"));
 				System.out.println("Email Nhắc Nhở");
+				Constant.model.addElement("Email Nhắc Nhở");
 				GiaoAnDAO.emailGiaoAnNhacNho();
 				System.out.println("------------------------------------------------------------");
-				System.out.println("Email Thực Hiện");
-				GiaoAnDAO.emailGiaoAnThucHien();
+				Constant.model.addElement("------------------------------------------------------------");
+				if(nowDate.getDay()==Integer.parseInt(Constant.SETTING_RES.getString("thu"))){
+					System.out.println("Email Thực Hiện");
+					Constant.model.addElement("Email Thực Hiện");
+					GiaoAnDAO.emailGiaoAnThucHien();
+				}
 			}
 		}else {
 			System.out.println("Thời gian nhập vào không đúng qui định !!!");

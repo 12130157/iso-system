@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -23,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
@@ -66,14 +69,16 @@ public class AutoEmailService extends JFrame {
 	 */
 	private void initialize() {
 		//this.setSize(358, 247);
-		this.setSize(600, 500);
-		this.setContentPane(getJContentPane());
+		this.setSize(600, 350);
+		//this.setContentPane(getJContentPane());
+		this.add(getJContentPane());
+		this.getContentPane().add(new JScrollPane(getListThongBao()),BorderLayout.SOUTH);
 		this.setTitle("ISO Automail Service");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		//setLocation((ScreenSize.width- 358)/2, (ScreenSize.height- 247)/2);
-		setLocation((ScreenSize.width- 600)/2, (ScreenSize.height- 500)/2);
+		setLocation((ScreenSize.width- 600)/2, (ScreenSize.height- 350)/2);
 		setResizable(false);
 		setVisible(true);
 	}
@@ -89,7 +94,7 @@ public class AutoEmailService extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			lbTitle = new JLabel();
-			lbTitle.setBounds(new Rectangle(34, 9, 600, 38));
+			lbTitle.setBounds(new Rectangle(150, 10, 600, 38));
 			lbTitle.setFont(new Font("Dialog", Font.BOLD, 24));
 			lbTitle.setForeground(new Color(51, 51, 171));
 			lbTitle.setAlignmentX(CENTER_ALIGNMENT);
@@ -106,7 +111,9 @@ public class AutoEmailService extends JFrame {
 			jContentPane.add(getTxtStatus(), null);
 			jContentPane.add(getCbGio(),null);
 			jContentPane.add(getCbPhut(),null);
-			jContentPane.add(getListThongBao(),null);
+			
+			
+			
 		}
 		return jContentPane;
 	}
@@ -119,7 +126,7 @@ public class AutoEmailService extends JFrame {
 	private JCheckBox getChkGiaoAnDelay() {
 		if (chkGiaoAnDelay == null) {
 			chkGiaoAnDelay = new JCheckBox();
-			chkGiaoAnDelay.setBounds(new Rectangle(198, 74, 117, 21));
+			chkGiaoAnDelay.setBounds(new Rectangle(200, 70, 150, 25));
 			chkGiaoAnDelay.setText("Giáo án Delay");
 		}
 		return chkGiaoAnDelay;
@@ -133,7 +140,7 @@ public class AutoEmailService extends JFrame {
 	private JCheckBox getChkCongTacDelay() {
 		if (chkCongTacDelay == null) {
 			chkCongTacDelay = new JCheckBox();
-			chkCongTacDelay.setBounds(new Rectangle(19, 71, 153, 24));
+			chkCongTacDelay.setBounds(new Rectangle(10, 70, 150, 25));
 			chkCongTacDelay.setText("Kế Hoạch Giảng Dạy");
 			chkCongTacDelay.setEnabled(false);
 		}
@@ -151,7 +158,7 @@ public class AutoEmailService extends JFrame {
 				listGio[i] = i+"";
 			}
 			cbGio = new JComboBox(listGio);
-			cbGio.setBounds(new Rectangle(120, 210, 45, 25));
+			cbGio.setBounds(new Rectangle(10, 163, 45, 25));
 			cbGio.setSelectedIndex(6);
 		}
 		return cbGio;
@@ -168,7 +175,7 @@ public class AutoEmailService extends JFrame {
 				listPhut[i] = i+"";
 			}
 			cbPhut = new JComboBox(listPhut);
-			cbPhut.setBounds(new Rectangle(180, 210, 45, 25));
+			cbPhut.setBounds(new Rectangle(65, 163, 45, 25));
 			cbPhut.setSelectedIndex(0);
 		}
 		return cbPhut;
@@ -181,7 +188,7 @@ public class AutoEmailService extends JFrame {
 	private JButton getBtRun() {
 		if (btRun == null) {
 			btRun = new JButton();
-			btRun.setBounds(new Rectangle(11, 160, 77, 29));
+			btRun.setBounds(new Rectangle(210, 160, 80, 30));
 			btRun.setText("Run");
 			btRun.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -223,7 +230,8 @@ public class AutoEmailService extends JFrame {
 	private JButton getBtHide() {
 		if (btHide == null) {
 			btHide = new JButton();
-			btHide.setBounds(new Rectangle(130, 161, 77, 26));
+			
+			btHide.setBounds(new Rectangle(330, 160, 80, 30));
 			btHide.setText("Hide");
 			btHide.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) 
@@ -258,7 +266,7 @@ public class AutoEmailService extends JFrame {
 	private JButton getBtExit() {
 		if (btExit == null) {
 			btExit = new JButton();
-			btExit.setBounds(new Rectangle(255, 161, 59, 26));
+			btExit.setBounds(new Rectangle(450, 160, 80, 30));
 			btExit.setText("Exit");
 			btExit.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -277,7 +285,7 @@ public class AutoEmailService extends JFrame {
 	private JTextField getTxtStatus() {
 		if (txtStatus == null) {
 			txtStatus = new JTextField();
-			txtStatus.setBounds(new Rectangle(13, 113, 301, 25));
+			txtStatus.setBounds(new Rectangle(10, 110, 575, 25));
 			txtStatus.setText("Ready");
 			txtStatus.setEnabled(false);
 		}
@@ -287,8 +295,6 @@ public class AutoEmailService extends JFrame {
 	private JList getListThongBao() {
 		if (listThongBao == null) {
 			listThongBao = new JList(Constant.model);
-			listThongBao.setBounds(new Rectangle(0, 250, 0, 20));
-			listThongBao.setSize(new Dimension(600, 200));
 			listThongBao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listThongBao.setEnabled(true);
 		}
