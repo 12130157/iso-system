@@ -7,6 +7,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import util.DataUtil;
 import util.MailUtil;
@@ -27,7 +28,7 @@ public class GiaoAnDAO {
 	
 	public static void emailGiaoAnNhacNho(){
 		ArrayList<String> mailTO = new ArrayList<String>();
-		ArrayList<String> mailCC = new ArrayList<String>();
+		
 		String result = "";
 		//String subject = "[ISO] - Thong Bao - Thuc Hien - GIAO AN";
 		String subject = "[ISO] - Thong Bao - Nhac Nho - GIAO AN";
@@ -69,21 +70,19 @@ public class GiaoAnDAO {
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 		if (mailTO.size() > 0) {
-			MailUtil.sendEmailToBoPhan(mailTO, mailCC,
+			MailUtil.sendEmailToBoPhan(mailTO, Constant.mailCC,
 				subject, result);
 		}
 	}
 	
 	public static void emailGiaoAnThucHien(){
 		ArrayList<String> mailTO = new ArrayList<String>();
-		ArrayList<String> mailCC = new ArrayList<String>();
 		mailTO.add(Constant.SETTING_RES.getString("mailHungVuongSystem"));
-		mailCC.add(Constant.SETTING_RES.getString("mailCC"));
 		String result = "";
 		String subject = "[ISO] - Thong Bao - Thuc Hien - GIAO AN";
 		 
 		result += " <p> Hệ thống ISO xin thông báo. </p>";
-		result += "<p>Danh sách các giáo viên yêu cầu: </p>";
+		result += "<p>Danh sách các giáo án bị trễ hẹn : </p>";
 		// ********************************************************
 		result = result
 				+ "<table border='1'><tr><th>Giáo viên</th><th>Chương trình</th><th>Ngày dạy</th><th>Ngày gửi</th></tr>";
@@ -109,18 +108,13 @@ public class GiaoAnDAO {
 		}		
 			
 		result = result + "</table>";
-		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-		Date nowDate = new Date();
-		result = result
-			+ "<br/><br/>Hiện tại đã là ngày: "
-			+ formatter.format(nowDate)
-			+ " nhưng giáo viên vẫn chưa hoàn thành.";
+		
 
-		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để duyệt chương trình này.<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 		
-		MailUtil.sendEmailToBoPhan(mailTO, mailCC, subject, result);
+		MailUtil.sendEmailToBoPhan(mailTO, Constant.mailCC, subject, result);
 		System.out.println("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
+		Constant.model.addElement("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
 	}
 }
