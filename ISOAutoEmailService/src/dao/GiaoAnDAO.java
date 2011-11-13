@@ -3,17 +3,15 @@ package dao;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import common.Constant;
-import controller.ThongBao;
-
 import util.DataUtil;
 import util.MailUtil;
+
+import common.Constant;
 
 public class GiaoAnDAO {
 	public static void soanGiaoAn(String ngayDelay) {		
