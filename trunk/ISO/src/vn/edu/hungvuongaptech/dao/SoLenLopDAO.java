@@ -27,6 +27,7 @@ public class SoLenLopDAO {
 						Constant.SQL_RES
 								.getString("iso.sql.getSoLenLopByMaTKB"));
 				preparedStatement.setString(1, maTKB);
+				preparedStatement.setString(2, maTKB);
 				rs = preparedStatement.executeQuery();
 			} else {
 				PreparedStatement preparedStatement = DataUtil
@@ -35,7 +36,8 @@ public class SoLenLopDAO {
 						Constant.SQL_RES
 								.getString("iso.sql.getSoLenLopByMaTKBAndMaGiaoVien"));
 				preparedStatement.setString(1, maTKB);
-				preparedStatement.setString(2, maGiaoVien);
+				preparedStatement.setString(2, maTKB);
+				preparedStatement.setString(3, maGiaoVien);
 				rs = preparedStatement.executeQuery();
 			}
 			while(rs.next()) {
