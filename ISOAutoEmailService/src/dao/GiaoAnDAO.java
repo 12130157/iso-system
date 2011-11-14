@@ -28,7 +28,7 @@ public class GiaoAnDAO {
 	
 	public static void emailGiaoAnNhacNho(){
 		ArrayList<String> mailTO = new ArrayList<String>();
-		
+		Format formatter2 = new SimpleDateFormat("h:mm:ss dd-MM-yyyy");
 		String result = "";
 		//String subject = "[ISO] - Thong Bao - Thuc Hien - GIAO AN";
 		String subject = "[ISO] - Thong Bao - Nhac Nho - GIAO AN";
@@ -44,7 +44,7 @@ public class GiaoAnDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				mailTO.add(rs.getString("Email"));
-				String mes = "Đã gửi Email Nhắc Nhở đến "+rs.getString("Email")+" thành công !!!";
+				String mes = "Đã gửi Email Nhắc Nhở đến "+rs.getString("Email")+" thành công vào lúc "+ formatter2.format(new Date());
 				System.out.println(mes);
 				Constant.model.addElement(mes);
 				
@@ -66,7 +66,7 @@ public class GiaoAnDAO {
 			+ formatter.format(nowDate)
 			+ " nhưng giáo viên vẫn chưa hoàn thành.";
 
-		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để duyệt chương trình này.<br/>";
+		result += "<br/> Hãy vào hệ thống ISO (http://its.hungvuongtech.edu.vn:8080/HungVuongISO) để thực hiện chương trình này.<br/>";
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 		if (mailTO.size() > 0) {
@@ -82,7 +82,7 @@ public class GiaoAnDAO {
 		String subject = "[ISO] - Thong Bao - Thuc Hien - GIAO AN";
 		 
 		result += " <p> Hệ thống ISO xin thông báo. </p>";
-		result += "<p>Danh sách các giáo án bị trễ hẹn : </p>";
+		result += "<p>Danh sách các giáo án bị trễ : </p>";
 		// ********************************************************
 		result = result
 				+ "<table border='1'><tr><th>Giáo viên</th><th>Chương trình</th><th>Ngày dạy</th><th>Ngày gửi</th></tr>";

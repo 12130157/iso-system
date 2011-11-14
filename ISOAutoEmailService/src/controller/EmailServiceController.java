@@ -10,12 +10,14 @@ import dao.GiaoAnDAO;
 public class EmailServiceController extends TimerTask {
 	private String gio;
 	private String phut;
+	private String thu;
 	
 	/*
 	 * Gửi liên tục nhắc nhở trong vòng 7 ngày cho Giáo Viên chưa làm Giáo Án, tính từ ngày hiện tại với ngày dạy
 	 * Mỗi tuần sẽ gửi cả trường danh sách không hoàn thành Giáo Án
 	 */
-	public EmailServiceController(String gio, String phut) {
+	public EmailServiceController(String thu,String gio, String phut) {
+		this.thu= thu;
 		this.gio = gio;
 		this.phut = phut;
 	}
@@ -54,7 +56,7 @@ public class EmailServiceController extends TimerTask {
 				GiaoAnDAO.emailGiaoAnNhacNho();
 				System.out.println("------------------------------------------------------------");
 				Constant.model.addElement("------------------------------------------------------------");
-				if(nowDate.getDay()==Integer.parseInt(Constant.SETTING_RES.getString("thu"))){
+				if(nowDate.getDay()==Integer.parseInt(thu)){
 					System.out.println("Email Thực Hiện");
 					Constant.model.addElement("Email Thực Hiện");
 					GiaoAnDAO.emailGiaoAnThucHien();

@@ -46,8 +46,8 @@ public class AutoEmailService extends JFrame {
 	private JTextField txtStatus = null;
 	private JComboBox cbGio = null;
 	private JComboBox cbPhut = null;
-	private final String [] listGio = new String[24];
-	private final String [] listPhut = new String[60];
+	private JComboBox cbThu = null;
+	
 	private Timer timer = null;
 	private JList listThongBao = null;
 	
@@ -109,6 +109,7 @@ public class AutoEmailService extends JFrame {
 			jContentPane.add(getBtHide(), null);
 			jContentPane.add(getBtExit(), null);
 			jContentPane.add(getTxtStatus(), null);
+			jContentPane.add(getCbThu(),null);
 			jContentPane.add(getCbGio(),null);
 			jContentPane.add(getCbPhut(),null);
 			
@@ -148,34 +149,42 @@ public class AutoEmailService extends JFrame {
 	}
 
 	/**
-	 * This method initializes txtGio	
+	 * This method initializes cbThu	
+	 * 	asdasd
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getCbThu() {
+		if (cbThu == null) {
+			cbThu = new JComboBox(Constant.listThu);
+			cbThu.setBounds(new Rectangle(10, 163, 100, 25));
+			cbThu.setSelectedIndex(5);
+		}
+		return cbThu;
+	}
+	
+	/**
+	 * This method initializes cbGio	
 	 * 	asdasd
 	 * @return javax.swing.JComboBox	
 	 */
 	private JComboBox getCbGio() {
 		if (cbGio == null) {
-			for (int i = 0; i < 24; i++) {
-				listGio[i] = i+"";
-			}
-			cbGio = new JComboBox(listGio);
-			cbGio.setBounds(new Rectangle(10, 163, 45, 25));
+			cbGio = new JComboBox(Constant.listGio);
+			cbGio.setBounds(new Rectangle(110, 163, 45, 25));
 			cbGio.setSelectedIndex(6);
 		}
 		return cbGio;
 	}
 	
 	/**
-	 * This method initializes txtPhut	
-	 * 	asdasd
+	 * This method initializes cbPhut	
+	 * 
 	 * @return javax.swing.JComboBox	
 	 */
 	private JComboBox getCbPhut() {
 		if (cbPhut == null) {
-			for (int i = 0; i < 60; i++) {
-				listPhut[i] = i+"";
-			}
-			cbPhut = new JComboBox(listPhut);
-			cbPhut.setBounds(new Rectangle(65, 163, 45, 25));
+			cbPhut = new JComboBox(Constant.listPhut);
+			cbPhut.setBounds(new Rectangle(155, 163, 45, 25));
 			cbPhut.setSelectedIndex(0);
 		}
 		return cbPhut;
@@ -196,9 +205,10 @@ public class AutoEmailService extends JFrame {
 					if (chkGiaoAnDelay.isSelected())
 					{
 						if(btRun.getText().equalsIgnoreCase("Run")){
+							cbThu.setEnabled(false);
 							cbGio.setEnabled(false);
 							cbPhut.setEnabled(false);
-							EmailServiceController autoEmailService = new EmailServiceController(
+							EmailServiceController autoEmailService = new EmailServiceController(cbThu.getSelectedIndex()+"",
 									cbGio.getSelectedIndex()+"",cbPhut.getSelectedIndex()+"");
 							timer = new Timer();
 							timer.schedule(autoEmailService, 1000, 60000);
@@ -206,6 +216,7 @@ public class AutoEmailService extends JFrame {
 							btRun.setText("Stop");
 						}else{
 							timer.cancel();
+							cbThu.setEnabled(true);
 							cbGio.setEnabled(true);
 							cbPhut.setEnabled(true);
 							txtStatus.setText("Stop");
