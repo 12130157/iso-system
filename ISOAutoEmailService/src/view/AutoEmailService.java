@@ -39,7 +39,7 @@ public class AutoEmailService extends JFrame {
 	private JPanel jContentPane = null;
 	private JCheckBox chkGiaoAnDelay = null;
 	private JLabel lbTitle = null;
-	private JCheckBox chkCongTacDelay = null;
+	private JCheckBox chkKeHoachGiangDayDelay = null;
 	private JButton btRun = null;
 	private JButton btHide = null;
 	private JButton btExit = null;
@@ -69,7 +69,7 @@ public class AutoEmailService extends JFrame {
 	 */
 	private void initialize() {
 		//this.setSize(358, 247);
-		this.setSize(600, 350);
+		this.setSize(600, 400);
 		//this.setContentPane(getJContentPane());
 		this.add(getJContentPane());
 		this.getContentPane().add(new JScrollPane(getListThongBao()),BorderLayout.SOUTH);
@@ -78,7 +78,7 @@ public class AutoEmailService extends JFrame {
 		
 		Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		//setLocation((ScreenSize.width- 358)/2, (ScreenSize.height- 247)/2);
-		setLocation((ScreenSize.width- 600)/2, (ScreenSize.height- 350)/2);
+		setLocation((ScreenSize.width- 600)/2, (ScreenSize.height- 400)/2);
 		setResizable(false);
 		setVisible(true);
 	}
@@ -104,7 +104,7 @@ public class AutoEmailService extends JFrame {
 			jContentPane.setLayout(null);
 			jContentPane.add(getChkGiaoAnDelay(), null);
 			jContentPane.add(lbTitle, null);
-			jContentPane.add(getChkCongTacDelay(), null);
+			jContentPane.add(getchkKeHoachGiangDayDelay(), null);
 			jContentPane.add(getBtRun(), null);
 			jContentPane.add(getBtHide(), null);
 			jContentPane.add(getBtExit(), null);
@@ -134,18 +134,18 @@ public class AutoEmailService extends JFrame {
 	}
 
 	/**
-	 * This method initializes chkCongTacDelay	
+	 * This method initializes chkKeHoachGiangDayDelay	
 	 * 	
 	 * @return javax.swing.JCheckBox	
 	 */
-	private JCheckBox getChkCongTacDelay() {
-		if (chkCongTacDelay == null) {
-			chkCongTacDelay = new JCheckBox();
-			chkCongTacDelay.setBounds(new Rectangle(10, 70, 150, 25));
-			chkCongTacDelay.setText("Kế Hoạch Giảng Dạy");
-			chkCongTacDelay.setEnabled(false);
+	private JCheckBox getchkKeHoachGiangDayDelay() {
+		if (chkKeHoachGiangDayDelay == null) {
+			chkKeHoachGiangDayDelay = new JCheckBox();
+			chkKeHoachGiangDayDelay.setBounds(new Rectangle(10, 70, 150, 25));
+			chkKeHoachGiangDayDelay.setText("Kế Hoạch Giảng Dạy");
+			chkKeHoachGiangDayDelay.setEnabled(true);
 		}
-		return chkCongTacDelay;
+		return chkKeHoachGiangDayDelay;
 	}
 
 	/**
@@ -202,14 +202,28 @@ public class AutoEmailService extends JFrame {
 			btRun.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//txtStatus.setText("Service running ....");
-					if (chkGiaoAnDelay.isSelected())
+					if (chkGiaoAnDelay.isSelected() || chkKeHoachGiangDayDelay.isSelected())
 					{
+						int typeCheck = 0;
+						
+						if(chkGiaoAnDelay.isSelected() && chkKeHoachGiangDayDelay.isSelected()){
+							typeCheck = 2;
+						}
+						
+						if(chkGiaoAnDelay.isSelected()==true && chkKeHoachGiangDayDelay.isSelected()==false){
+							typeCheck = 0;
+						}
+						
+						if(chkGiaoAnDelay.isSelected()==false && chkKeHoachGiangDayDelay.isSelected()==true){
+							typeCheck = 1;
+						}
+						
 						if(btRun.getText().equalsIgnoreCase("Run")){
 							cbThu.setEnabled(false);
 							cbGio.setEnabled(false);
 							cbPhut.setEnabled(false);
 							EmailServiceController autoEmailService = new EmailServiceController(cbThu.getSelectedIndex()+"",
-									cbGio.getSelectedIndex()+"",cbPhut.getSelectedIndex()+"");
+									cbGio.getSelectedIndex()+"",cbPhut.getSelectedIndex()+"",typeCheck+"");
 							timer = new Timer();
 							timer.schedule(autoEmailService, 1000, 60000);
 							txtStatus.setText("Running");
