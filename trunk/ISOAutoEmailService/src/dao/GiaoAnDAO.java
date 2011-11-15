@@ -18,8 +18,9 @@ public class GiaoAnDAO {
 	public static void soanGiaoAn(String ngayDelay) {		
 		try {
 			CallableStatement csmt = DataUtil.getConnection().prepareCall(
-					"{call sp_ISO_GetGiaoAnDelayList(?)}");
+					"{call sp_ISO_GetGiaoAnDelayList(?,?)}");
 			csmt.setNString("Day", ngayDelay);
+			csmt.setNString("Date", Constant.SETTING_RES.getString("ngayBatDauXetGiaoAnKPPN"));
 			csmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
