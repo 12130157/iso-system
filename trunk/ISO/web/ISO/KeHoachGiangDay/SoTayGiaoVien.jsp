@@ -3,6 +3,8 @@
 
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
@@ -211,19 +213,19 @@
 				<tr style="background-color: transparent;">
 					<td>
 						<Strong>Quản Lý Học Sinh Cá Biệt : <br/></Strong>
-						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="60" id="QuanLyHocSinhCaBiet" name="QuanLyHocSinhCaBiet">${SoTayGiaoVien.quanLyHocSinhCaBiet }</textarea>
+						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="80" id="QuanLyHocSinhCaBiet" name="QuanLyHocSinhCaBiet">${SoTayGiaoVien.quanLyHocSinhCaBiet }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<Strong>Đánh Giá Qui Trình Giảng Dạy : <br/></Strong>
-						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="60" id="DanhGiaQuiTrinhGiangDay" name="DanhGiaQuiTrinhGiangDay">${SoTayGiaoVien.danhGiaQuiTrinhGiangDay }</textarea>
+						<textarea <c:if test="${SoTayGiaoVien.tinhTrang ne 0}">readonly</c:if> rows="3" cols="80" id="DanhGiaQuiTrinhGiangDay" name="DanhGiaQuiTrinhGiangDay">${SoTayGiaoVien.danhGiaQuiTrinhGiangDay }</textarea>
 					</td>
 				</tr>
 			</table>
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
 				<c:set var="stt" value="1"></c:set>
-				<strong>Tháng ${listThang }</strong>
+				<strong>Tháng ${listThang.thang }-${listThang.nam }</strong>
 				<table style="background-color: transparent;width: 800px;margin-bottom: 20px;" id="${listThang }" border="1">
 					<tr style="background-color: transparent;">
 						<th rowspan="2" style="width: 20px;">Stt</th>
@@ -245,7 +247,7 @@
 							</td>
 						</c:forEach>
 					</tr>
-					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
+					<c:forEach var="listHocSinh" items="${listThang.listHocSinh}">
 						<c:set var="songaynghi" value="0"></c:set>
 						<tr style="background-color: transparent;height: 30px;">
 							<td>${stt }</td>
@@ -253,10 +255,10 @@
 							<c:forEach begin="1" end="31" step="1" var="i">
 								<c:choose>
 									<c:when test="${i lt 10}">
-										<c:set var="NgayHoc" value="0${i}-${listThang }"></c:set>
+										<c:set var="NgayHoc" value="0${i}-${listThang.thang }-${listThang.nam }"></c:set>
 									</c:when>
 									<c:otherwise>
-										<c:set var="NgayHoc" value="${i}-${listThang }"></c:set>
+										<c:set var="NgayHoc" value="${i}-${listThang.thang }-${listThang.nam }"></c:set>
 									</c:otherwise>	
 								</c:choose>
 								
@@ -281,6 +283,33 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
+			<strong>Tổng số giờ nghỉ của môn học/module</strong>
+			<table style="background-color: transparent;width: 800px;" border="1">
+					<tr style="background-color: transparent;">
+						<th rowspan="2" style="width: 20px;">Stt</th>
+						<th rowspan="2" style="width: 200px;">Họ và tên học sinh</th>
+						<th colspan="${fn:length(SoTayGiaoVien.listThang)}" style="width: 530px;">Tháng</th>
+						<th rowspan="2" style="width: 100px;">Tổng cộng</th>
+					</tr>
+					<tr style="background-color: transparent;">
+						<c:forEach var="thangModel" items="${SoTayGiaoVien.listThang}">
+							<th>${thangModel.thang }</th>
+						</c:forEach>
+					</tr>
+					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
+						<c:set var="songaynghi" value="0"></c:set>
+						<tr style="background-color: transparent;height: 30px;">
+							<td>${stt }</td>
+							<td>${listHocSinh.hoThanhVien} ${listHocSinh.tenLot } ${listHocSinh.tenThanhVien }</td>
+							<c:forEach var="thangList" items="${listHocSinh.thangList}">
+								<td>${thangList.tongNgayNghi }</td>
+								<c:set var="songaynghi" value="${songaynghi+thangList.tongNgayNghi}"></c:set>
+							</c:forEach>
+							<td>${songaynghi }</td>
+						</tr>
+						<c:set var="stt" value="${stt + 1}"></c:set>
+					</c:forEach>
+				</table>
 			<c:choose>
 				<c:when test="${SoTayGiaoVien.tinhTrang eq 0}">
 					<a href = "javascript: submitForm('U')">								 
