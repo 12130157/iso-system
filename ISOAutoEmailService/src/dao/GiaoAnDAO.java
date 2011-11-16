@@ -79,9 +79,10 @@ public class GiaoAnDAO {
 	public static void emailGiaoAnThucHien(){
 		ArrayList<String> mailTO = new ArrayList<String>();
 		mailTO.add(Constant.SETTING_RES.getString("mailHungVuongSystem"));
+		int kq = 0;
 		String result = "";
 		String subject = "[ISO] - Thong Bao - Thuc Hien - GIAO AN";
-		 
+		
 		result += " <p> Hệ thống ISO xin thông báo. </p>";
 		result += "<p>Danh sách các giáo án bị trễ : </p>";
 		// ********************************************************
@@ -102,7 +103,8 @@ public class GiaoAnDAO {
 				result += rs.getString("Ho_ten_giao_vien") + "</td><td>"
 					+ "GIÁO ÁN - Giáo án số "+rs.getString("Giao_an_so")+" thuộc "+rs.getString("Ten_mon_hoc")+" - "+rs.getString("Ten_lop") + "</td><td>"
 					+ rs.getString("Ngay_day") + "</td><td>"
-					+ rs.getString("Ngay_gui") + "</td></tr>"; 
+					+ rs.getString("Ngay_gui") + "</td></tr>";
+				kq++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,8 +116,14 @@ public class GiaoAnDAO {
 
 		result += "<p><i> Đây là mail tự động của hệ thống, xin vui lòng đừng hồi âm. </i> </p>";
 		
-		MailUtil.sendEmailToBoPhan(mailTO, Constant.mailCC, subject, result);
-		System.out.println("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
-		Constant.model.addElement("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
+		if(kq!=0){
+			MailUtil.sendEmailToBoPhan(mailTO, Constant.mailCC, subject, result);
+			System.out.println("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
+			Constant.model.addElement("Đã gửi Email Thực Hiện Giáo Án thành công !!!");
+		}else{
+			System.out.println("Không có Giáo Án chưa thực hiện !!!");
+			Constant.model.addElement("Không có Giáo Án chưa thực hiện !!!");
+		}
+		
 	}
 }
