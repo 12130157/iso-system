@@ -1,5 +1,6 @@
 <%@ taglib uri="http://pd4ml.com/tlds/pd4ml/2.6" prefix="pd4ml" %>
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -79,7 +80,8 @@
 					<td style="text-align: left;padding-left: 200px;">Trình độ đào tạo : ${SoTayGiaoVien.tenHeDaoTao }</td>
 				</tr>
 			</table>
-			<table style="background-color: transparent;margin-bottom: 30px;font-size: 20px;" align="center">
+			<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
+			<table style="background-color: transparent;font-size: 20px;" align="center">
 				<tr style="background-color: transparent;">
 					<td style="text-align: center;font-weight: bold;">
 						Thông tin về lớp học/khóa
@@ -109,6 +111,7 @@
 					</td>
 				</tr>
 			</table>
+			<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
 			<table style="background-color: transparent;width: 700px"  align="center">
 				<tr style="background-color: transparent;">
 					<td style="text-align: center;">
@@ -142,13 +145,13 @@
 								<tr style="background-color: transparent;">
 									<td style="text-align: center;">${m }</td>
 									<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
-									<td style="text-align: center;"></td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
+									<td style="text-align: center;">&nbsp;</td>
 									<td style="text-align: center;">${HocSinh.user1 }</td>
 								</tr>
 								<c:set var="m" value="${m+1}"></c:set>
@@ -157,9 +160,11 @@
 					</td>
 				</tr>
 			</table>
+			
 			<c:forEach var="listThang" items="${SoTayGiaoVien.listThang}">
 				<c:set var="stt" value="1"></c:set>
-				<p align="center" style="font-weight: bold;">Tháng ${listThang }</p>
+				<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
+				<p align="center" style="font-weight: bold;">Tháng ${listThang.thang }-${listThang.nam }</p>
 				<table align="center" border="1" style=";text-align: center; background-color: transparent;width: 680px;margin-bottom: 20px;font-size: 10px;" id="${listThang }">
 					<tr style="background-color: transparent;">
 						<th rowspan="2" style="width: 10px;">Stt</th>
@@ -181,37 +186,41 @@
 							</td>
 						</c:forEach>
 					</tr>
-					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
+					<c:forEach var="listHocSinh" items="${listThang.listHocSinh}">
 						<c:set var="songaynghi" value="0"></c:set>
 						<tr style="background-color: transparent;height: 30px;">
-							<td style="text-align: center;">${stt }</td>
+							<td>${stt }</td>
 							<td>${listHocSinh.hoThanhVien} ${listHocSinh.tenLot } ${listHocSinh.tenThanhVien }</td>						
 							<c:forEach begin="1" end="31" step="1" var="i">
 								<c:choose>
 									<c:when test="${i lt 10}">
-										<c:set var="NgayHoc" value="0${i}-${listThang }"></c:set>
+										<c:set var="NgayHoc" value="0${i}-${listThang.thang }-${listThang.nam }"></c:set>
 									</c:when>
 									<c:otherwise>
-										<c:set var="NgayHoc" value="${i}-${listThang }"></c:set>
+										<c:set var="NgayHoc" value="${i}-${listThang.thang }-${listThang.nam }"></c:set>
 									</c:otherwise>	
 								</c:choose>
 								
 								<c:set var="count" value="1"></c:set>
+								<c:set var="n" value="0"></c:set>
 								<td style="text-align: center;">
+									
 									<c:forEach var="listDiemDanh" items="${listHocSinh.diemDanhList}">
-										<c:if test="${listDiemDanh.ngayHoc eq NgayHoc}">
-											<c:choose>
-											<c:when test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
-												<c:if test="${count eq 1}">
-													k
-													<c:set var="songaynghi" value="${songaynghi+1}"></c:set>
-												</c:if>
-												<c:set var="count" value="${count+1}"></c:set>
-											</c:when>
-											<c:otherwise>&nbsp;</c:otherwise>
-											</c:choose>
-										</c:if>
+											<c:if test="${listDiemDanh.ngayHoc eq NgayHoc}">
+												<c:set var="n" value="1"></c:set>
+												<c:choose>
+													<c:when test="${listDiemDanh.tinhTrang eq '1' or listDiemDanh.tinhTrang eq '2' or listDiemDanh.tinhTrang eq '3'}">
+														<c:if test="${count eq 1}">
+														k
+														<c:set var="songaynghi" value="${songaynghi+1}"></c:set>
+														</c:if>
+														<c:set var="count" value="${count+1}"></c:set>
+													</c:when>
+													<c:otherwise>&nbsp;</c:otherwise>
+												</c:choose>
+											</c:if>
 									</c:forEach>
+									<c:if test="${n eq 0}">&nbsp;</c:if>
 								</td>
 							</c:forEach>
 							<td style="text-align: center;">${songaynghi }</td>
@@ -220,12 +229,41 @@
 					</c:forEach>
 				</table>
 			</c:forEach>
-			<table style="background-color: transparent;width: 680px;height: 750px;" align="center">
+			<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
+			<p align="center" style="font-weight: bold;">Tổng số giờ nghỉ của môn học/module</p>
+			<table style="background-color: transparent;width: 680px;" border="1">
+					<c:set var="stt" value="1"></c:set>
+					<tr style="background-color: transparent;">
+						<th rowspan="2" style="width: 20px;">Stt</th>
+						<th rowspan="2" style="width: 200px;">Họ và tên học sinh</th>
+						<th colspan="${fn:length(SoTayGiaoVien.listThang)}" style="width: 360px;">Tháng</th>
+						<th rowspan="2" style="width: 100px;">Tổng cộng</th>
+					</tr>
+					<tr style="background-color: transparent;">
+						<c:forEach var="thangModel" items="${SoTayGiaoVien.listThang}">
+							<th>${thangModel.thang }</th>
+						</c:forEach>
+					</tr>
+					<c:forEach var="listHocSinh" items="${SoTayGiaoVien.listHocSinh}">
+						<c:set var="songaynghi" value="0"></c:set>
+						<tr style="background-color: transparent;height: 30px;">
+							<td style="text-align: center;">${stt }</td>
+							<td>${listHocSinh.hoThanhVien} ${listHocSinh.tenLot } ${listHocSinh.tenThanhVien }</td>
+							<c:forEach var="thangList" items="${listHocSinh.thangList}">
+								<td style="text-align: center;">${thangList.tongNgayNghi }</td>
+								<c:set var="songaynghi" value="${songaynghi+thangList.tongNgayNghi}"></c:set>
+							</c:forEach>
+							<td style="text-align: center;">${songaynghi }</td>
+						</tr>
+						<c:set var="stt" value="${stt + 1}"></c:set>
+					</c:forEach>
+				</table>
+			<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
+			<table style="background-color: transparent;width: 680px;" align="center">
 				<tr style="background-color: transparent;">
 					<td>
 						<p align="center" style="font-weight: bold;">Quản Lý Học Sinh Cá Biệt<br/>
 						(Tên học sinh, đặc điểm, hình thức quản lý giáo dục, đánh giá phát triển)</p>
-						
 					</td>
 				</tr>
 				<tr style="background-color: transparent;">
@@ -234,7 +272,8 @@
 					</td>
 				</tr>
 			</table>
-			<table style="background-color: transparent;width: 680px;height: 750px;" align="center">
+			<pd4ml:page_break pageCounter="1"></pd4ml:page_break>
+			<table style="background-color: transparent;width: 680px;" align="center">
 				<tr style="background-color: transparent;">
 					<td>
 						<p align="center" style="font-weight: bold;">Đánh Giá Qui Trình Giảng Dạy<br/>
@@ -247,6 +286,7 @@
 					</td>
 				</tr>
 			</table>
+			
 </td>
 </tr>
 </table>

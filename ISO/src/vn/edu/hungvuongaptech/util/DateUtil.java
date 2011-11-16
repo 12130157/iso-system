@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.common.DateType;
+import vn.edu.hungvuongaptech.model.ThangModel;
 
 public class DateUtil {
 	public static String setDate(String value) {
@@ -133,8 +134,8 @@ public class DateUtil {
 	}
 	
 	
-	public static ArrayList<String> getMonthByTwoDate(String batdau,String ketthuc){
-		ArrayList<String> list = new ArrayList<String>();
+	public static ArrayList<ThangModel> getMonthByTwoDate(String batdau,String ketthuc){
+		ArrayList<ThangModel> list = new ArrayList<ThangModel>();
 		String ngaybatdau[] = batdau.split("-");
 		String ngayketthuc[] = ketthuc.split("-");
 		int thangbatdau = Integer.parseInt(ngaybatdau[1]);
@@ -146,26 +147,34 @@ public class DateUtil {
 			thangketthuc += 12*n;
 			int count = 1;
 			for (int i = thangbatdau; i <= thangketthuc; i++) {
+				ThangModel model = new ThangModel();
 				int tmp = i-12*(count-1);
 				if(tmp<10){
-					list.add("0"+tmp+"-"+nambatdau);
+					model.setThang("0"+tmp);
+					model.setNam(nambatdau+"");
 				}else{
-					list.add(tmp+"-"+nambatdau);
+					model.setThang(tmp+"");
+					model.setNam(nambatdau+"");
 				}
 				
 				if(i==12*count){
 					nambatdau+=1;
 					count++;
 				}
+				list.add(model);
 			}
 		}else{
 			for (int i = thangbatdau; i <= thangketthuc; i++) {
+				ThangModel model = new ThangModel();
 				int tmp = i;
 				if(tmp<10){
-					list.add("0"+tmp+"-"+nambatdau);
+					model.setThang("0"+tmp);
+					model.setNam(nambatdau+"");
 				}else{
-					list.add(tmp+"-"+nambatdau);
+					model.setThang(tmp+"");
+					model.setNam(nambatdau+"");
 				}
+				list.add(model);
 			}
 		}
 		return list;

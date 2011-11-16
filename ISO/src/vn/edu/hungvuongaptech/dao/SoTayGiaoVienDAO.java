@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import vn.edu.hungvuongaptech.model.DiemDanhModel;
 import vn.edu.hungvuongaptech.model.KeHoachGiangDayModel;
 import vn.edu.hungvuongaptech.model.SoTayGiaoVienModel;
+import vn.edu.hungvuongaptech.model.ThangModel;
 import vn.edu.hungvuongaptech.model.ThanhVienModel;
 import vn.edu.hungvuongaptech.model.ThoiGianGiangDayModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
@@ -93,13 +95,33 @@ public class SoTayGiaoVienDAO {
 				model.setTenQuyetDinh(rs.getString("TenQuyetDinh"));
 			}
 			KeHoachGiangDayModel KHGD = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(model.getMaKHGD());
+			ThoiGianGiangDayModel BE = KeHoachGiangDayDAO.getBatDauAndKetThucByMaKeHoachGiangDay(model.getMaKHGD());
 			model.setListHocSinh(ThanhVienDAO.getThanhVienByMaLop(KHGD.getMaLop()));
 			for (ThanhVienModel thanhVien : model.getListHocSinh()) {
-				thanhVien.setDiemDanhList(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(),thanhVien.getMaThanhVien()));
 				thanhVien.setUser1(XemDiemDAO.getDiemByMaLop_MaHocSinh_MaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(), thanhVien.getMaThanhVien()));
+				thanhVien.setThangList(DateUtil.getMonthByTwoDate(BE.getBatDau(),BE.getKetThuc()));
+				for (ThangModel thang : thanhVien.getThangList()) {
+					int tongNgayNghi = 0;
+					thanhVien.setDiemDanhList(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(),thanhVien.getMaThanhVien(),thang.getThang(),thang.getNam()));
+					for (DiemDanhModel diemDanh : thanhVien.getDiemDanhList()) {
+						if(diemDanh.getTinhTrang().equals("1") || diemDanh.getTinhTrang().equals("2") || diemDanh.getTinhTrang().equals("3")){
+							tongNgayNghi++;
+						}
+					}
+					thang.setTongNgayNghi(tongNgayNghi+"");
+				}
+				
 			}
-			ThoiGianGiangDayModel BE = KeHoachGiangDayDAO.getBatDauAndKetThucByMaKeHoachGiangDay(model.getMaKHGD());
+			
 			model.setListThang(DateUtil.getMonthByTwoDate(BE.getBatDau(),BE.getKetThuc()));
+			
+			for (ThangModel thang : model.getListThang()) {
+				
+				thang.setListHocSinh(ThanhVienDAO.getThanhVienByMaLop(KHGD.getMaLop()));
+				for (ThanhVienModel thanhVien : thang.getListHocSinh()) {
+					thanhVien.setDiemDanhList(DiemDanhDAO.getListHocSinhDiemDanhByMaLopAndMaMonHoc(KHGD.getMaLop(), KHGD.getMaMonHoc(),thanhVien.getMaThanhVien(),thang.getThang(),thang.getNam()));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

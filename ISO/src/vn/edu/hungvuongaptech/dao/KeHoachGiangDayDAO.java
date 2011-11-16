@@ -15,16 +15,16 @@ import vn.edu.hungvuongaptech.util.DataUtil;
 import vn.edu.hungvuongaptech.util.DateUtil;
 
 public class KeHoachGiangDayDAO {
-	public static int getCountKeHoachGiangDay(String tinhtrang, String maNguoiTao) {
+	public static int getCountKeHoachGiangDay(String tinhtrang,
+			String maNguoiTao) {
 		int count = 0;
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_ISO_GetCountKeHoachGiangDay(?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_ISO_GetCountKeHoachGiangDay(?,?)}");
 			csmt.setString("Tinh_trang", tinhtrang);
 			csmt.setString("Ma_nguoi_tao", maNguoiTao);
 			ResultSet rs = DataUtil.executeStore(csmt);
-			if(rs.next()) {
+			if (rs.next()) {
 				count = Integer.parseInt(rs.getString("Count"));
 			}
 		} catch (SQLException e) {
@@ -32,11 +32,12 @@ public class KeHoachGiangDayDAO {
 		}
 		return count;
 	}
-	
-	public static String CopyKHGD(String maKHGD,String maThoiKhoaBieu){
+
+	public static String CopyKHGD(String maKHGD, String maThoiKhoaBieu) {
 		String kq = "";
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ISO_CopyKHGD(?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_ISO_CopyKHGD(?,?,?)}");
 			csmt.setString("Ma_KHGD", maKHGD);
 			csmt.setString("Ma_TKB", maThoiKhoaBieu);
 			csmt.registerOutParameter("KQ", java.sql.Types.INTEGER);
@@ -47,13 +48,15 @@ public class KeHoachGiangDayDAO {
 		}
 		return kq;
 	}
-	
-	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(int totalRows, String currenPage, String tinhTrang, String maNguoiTao,String maBoPhan,String tenMonHoc,String maKhoa,String maHocKi,String maNamHoc) {
+
+	public static ArrayList<KeHoachGiangDayModel> getKeHoachGiangDay(
+			int totalRows, String currenPage, String tinhTrang,
+			String maNguoiTao, String maBoPhan, String tenMonHoc,
+			String maKhoa, String maHocKi, String maNamHoc) {
 		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelsList = new ArrayList<KeHoachGiangDayModel>();
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_ISO_GetKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("NumRows", Constant.RECORDS_PER_PAGE + "");
 			csmt.setString("TotalRows", totalRows + "");
 			csmt.setString("CurrentPage", currenPage);
@@ -62,33 +65,36 @@ public class KeHoachGiangDayDAO {
 			csmt.setString("Ma_bo_phan", maBoPhan);
 			csmt.setNString("TenMonHoc", tenMonHoc);
 			csmt.setString("MaKhoa", maKhoa);
-			csmt.setString("MaHocKi",maHocKi);
-			csmt.setString("MaNamHoc",maNamHoc);
-			
+			csmt.setString("MaHocKi", maHocKi);
+			csmt.setString("MaNamHoc", maNamHoc);
+
 			ResultSet rs = DataUtil.executeStore(csmt);
-			while(rs.next())
-			{
+			while (rs.next()) {
 				KeHoachGiangDayModel keHoachGiangDayModel = new KeHoachGiangDayModel();
-				keHoachGiangDayModel.setMaKHGD(rs.getString("MaKeHoachGiangDay"));
-				keHoachGiangDayModel.setTenKHGD(rs.getNString("TenKeHoachGiangDay"));
+				keHoachGiangDayModel.setMaKHGD(rs
+						.getString("MaKeHoachGiangDay"));
+				keHoachGiangDayModel.setTenKHGD(rs
+						.getNString("TenKeHoachGiangDay"));
 				keHoachGiangDayModel.setMaNguoiTao(rs.getString("MaNguoitao"));
-				keHoachGiangDayModel.setTenNguoiTao(rs.getNString("TenNguoitao"));
+				keHoachGiangDayModel.setTenNguoiTao(rs
+						.getNString("TenNguoitao"));
 				keHoachGiangDayModel.setNgayTao(rs.getString("Ngaytao"));
 				keHoachGiangDayModel.setTinhTrang(rs.getString("TinhTrang"));
 				keHoachGiangDayModel.setLyDoReject(rs.getNString("LyDoReject"));
-				keHoachGiangDayModel.setTinhTrangHT(rs.getString("Tinh_Trang_HT"));
-			
+				keHoachGiangDayModel.setTinhTrangHT(rs
+						.getString("Tinh_Trang_HT"));
+
 				keHoachGiangDayModelsList.add(keHoachGiangDayModel);
 			}
-			Constant.CHECK_ROWS = keHoachGiangDayModelsList.size()-1; 
+			Constant.CHECK_ROWS = keHoachGiangDayModelsList.size() - 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return keHoachGiangDayModelsList;
 	}
-	
+
 	public static ArrayList<KeHoachGiangDayModel> getAllKHGDApproved() {
-		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelList = new ArrayList<KeHoachGiangDayModel>();		
+		ArrayList<KeHoachGiangDayModel> keHoachGiangDayModelList = new ArrayList<KeHoachGiangDayModel>();
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
@@ -99,8 +105,10 @@ public class KeHoachGiangDayDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				KeHoachGiangDayModel keHoachGiangDayModel = new KeHoachGiangDayModel();
-				keHoachGiangDayModel.setMaKHGD(rs.getString("MaKeHoachGiangDay"));
-				keHoachGiangDayModel.setTenKHGD(rs.getNString("TenKeHoachGiangDay"));
+				keHoachGiangDayModel.setMaKHGD(rs
+						.getString("MaKeHoachGiangDay"));
+				keHoachGiangDayModel.setTenKHGD(rs
+						.getNString("TenKeHoachGiangDay"));
 				keHoachGiangDayModel.setMaNguoiTao(rs.getString("MaNguoiLap"));
 				keHoachGiangDayModelList.add(keHoachGiangDayModel);
 			}
@@ -109,7 +117,7 @@ public class KeHoachGiangDayDAO {
 		}
 		return keHoachGiangDayModelList;
 	}
-	
+
 	public static KeHoachGiangDayModel getKeHoachGiangDayByMaKHGD(String maKHGD) {
 		KeHoachGiangDayModel keHoachGiangDayModel = new KeHoachGiangDayModel();
 		try {
@@ -121,53 +129,67 @@ public class KeHoachGiangDayDAO {
 			preparedStatement.setString(1, maKHGD);
 			ResultSet rs = preparedStatement.executeQuery();
 			if (rs.next()) {
-				keHoachGiangDayModel.setMaKHGD(rs.getString("MaKeHoachGiangDay"));
+				keHoachGiangDayModel.setMaKHGD(rs
+						.getString("MaKeHoachGiangDay"));
 				keHoachGiangDayModel.setMaMonHoc(rs.getString("MaMonHoc"));
 				keHoachGiangDayModel.setTenMonHoc(rs.getNString("TenMonHoc"));
 				keHoachGiangDayModel.setMaGiaoVien(rs.getString("MaGiaoVien"));
-				keHoachGiangDayModel.setTenGiaoVien(rs.getNString("TenGiaoVien"));
+				keHoachGiangDayModel.setTenGiaoVien(rs
+						.getNString("TenGiaoVien"));
 				keHoachGiangDayModel.setMaLop(rs.getString("MaLop"));
 				keHoachGiangDayModel.setKiHieuLop(rs.getString("KiHieuLop"));
 				keHoachGiangDayModel.setHocKi(rs.getString("HocKi"));
 				keHoachGiangDayModel.setMaNamHoc(rs.getString("MaNamHoc"));
 				keHoachGiangDayModel.setNamHoc(rs.getString("NamHoc"));
-				keHoachGiangDayModel.setSoCaThucHanh(rs.getString("SoCaThucHanh"));
+				keHoachGiangDayModel.setSoCaThucHanh(rs
+						.getString("SoCaThucHanh"));
 				keHoachGiangDayModel.setMaNguoiTao(rs.getString("MaNguoiTao"));
-				keHoachGiangDayModel.setTenNguoiTao(rs.getNString("TenNguoiTao"));
+				keHoachGiangDayModel.setTenNguoiTao(rs
+						.getNString("TenNguoiTao"));
 				keHoachGiangDayModel.setNgayTao(rs.getString("NgayTao"));
 				keHoachGiangDayModel.setGioTao(rs.getString("GioTao"));
-				keHoachGiangDayModel.setMaNguoiDuyet(rs.getString("MaNguoiDuyet"));
-				keHoachGiangDayModel.setTenNguoiDuyet(rs.getNString("TenNguoiDuyet"));
+				keHoachGiangDayModel.setMaNguoiDuyet(rs
+						.getString("MaNguoiDuyet"));
+				keHoachGiangDayModel.setTenNguoiDuyet(rs
+						.getNString("TenNguoiDuyet"));
 				keHoachGiangDayModel.setNgayDuyet(rs.getString("NgayDuyet"));
 				keHoachGiangDayModel.setGioDuyet(rs.getString("GioDuyet"));
 				keHoachGiangDayModel.setTinhTrang(rs.getString("TinhTrang"));
-				keHoachGiangDayModel.setTenKHGD(rs.getNString("TenKeHoachGiangDay"));
+				keHoachGiangDayModel.setTenKHGD(rs
+						.getNString("TenKeHoachGiangDay"));
 				keHoachGiangDayModel.setLyDoReject(rs.getNString("LyDoReject"));
 				keHoachGiangDayModel.setSoGioLT(rs.getString("SoGioLT"));
 				keHoachGiangDayModel.setSoGioTH(rs.getString("SoGioTH"));
-				keHoachGiangDayModel.setMaTruongKhoa(rs.getString("MaTruongKhoa"));
+				keHoachGiangDayModel.setMaTruongKhoa(rs
+						.getString("MaTruongKhoa"));
 				keHoachGiangDayModel.setTenTruongKhoa(rs.getNString("TenTK"));
-				keHoachGiangDayModel.setNgayTKDuyet(rs.getString("NgayTKDuyet"));
+				keHoachGiangDayModel
+						.setNgayTKDuyet(rs.getString("NgayTKDuyet"));
 				keHoachGiangDayModel.setGioTKDuyet(rs.getString("GioTKDuyet"));
-				keHoachGiangDayModel.setSoTietMoiBuoi(rs.getString("SoTietMoiBuoi"));
-				keHoachGiangDayModel.setNgayCapNhatCuoi(rs.getString("NgayCapNhatCuoi"));
-				keHoachGiangDayModel.setGioCapNhatCuoi(rs.getString("GioCapNhatCuoi"));
-				keHoachGiangDayModel.setTinhTrangHT(rs.getString("TinhTrangHT"));
-				ArrayList<ChiTietKHGDModel> chiTietKHGDModelList = ChiTietKHGDDAO.getChiTietKHGDByMaKHGD(maKHGD);
-				keHoachGiangDayModel.setChiTietKHGDModelList(chiTietKHGDModelList);
+				keHoachGiangDayModel.setSoTietMoiBuoi(rs
+						.getString("SoTietMoiBuoi"));
+				keHoachGiangDayModel.setNgayCapNhatCuoi(rs
+						.getString("NgayCapNhatCuoi"));
+				keHoachGiangDayModel.setGioCapNhatCuoi(rs
+						.getString("GioCapNhatCuoi"));
+				keHoachGiangDayModel
+						.setTinhTrangHT(rs.getString("TinhTrangHT"));
+				ArrayList<ChiTietKHGDModel> chiTietKHGDModelList = ChiTietKHGDDAO
+						.getChiTietKHGDByMaKHGD(maKHGD);
+				keHoachGiangDayModel
+						.setChiTietKHGDModelList(chiTietKHGDModelList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return keHoachGiangDayModel;
 	}
-	
+
 	public static Boolean checkLopAndMonHocOfKHGD(String maLop, String maMonHoc) {
 		Boolean result = true;
 		try {
-			CallableStatement csmt = DataUtil
-			.getConnection()
-			.prepareCall("{call sp_ISO_FindKHGDByLopAndMonHoc(?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_ISO_FindKHGDByLopAndMonHoc(?,?,?)}");
 			csmt.setString("maLop", maLop);
 			csmt.setString("maMonHoc", maMonHoc);
 			csmt.registerOutParameter("result", java.sql.Types.VARCHAR);
@@ -176,32 +198,36 @@ public class KeHoachGiangDayDAO {
 				if (kq.equals("1")) {
 					result = false;
 				}
-			}		
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-	public static Boolean insertKHGD(KeHoachGiangDayModel keHoachGiangDayModel){
+
+	public static Boolean insertKHGD(KeHoachGiangDayModel keHoachGiangDayModel) {
 		Boolean result = false;
 		String maKHGDNew = "";
 		try {
 			CallableStatement csmt = DataUtil
-				.getConnection()
-					.prepareCall("{call sp_ISO_InsertKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+					.getConnection()
+					.prepareCall(
+							"{call sp_ISO_InsertKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("maMonHoc", keHoachGiangDayModel.getMaMonHoc());
-			csmt.setNString("tenGiaoVien", keHoachGiangDayModel.getTenGiaoVien());
+			csmt.setNString("tenGiaoVien", keHoachGiangDayModel
+					.getTenGiaoVien());
 			csmt.setString("maLop", keHoachGiangDayModel.getMaLop());
 			csmt.setString("hocKi", keHoachGiangDayModel.getHocKi());
-			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());			
-			csmt.setString("soCaThucHanh", keHoachGiangDayModel.getSoCaThucHanh());
+			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());
+			csmt.setString("soCaThucHanh", keHoachGiangDayModel
+					.getSoCaThucHanh());
 			csmt.setString("maNguoiTao", keHoachGiangDayModel.getMaNguoiTao());
 			csmt.setString("ngayTao", keHoachGiangDayModel.getNgayTao());
 			csmt.setString("maNguoiDuyet", null);
 			csmt.setString("ngayDuyet", null);
 			csmt.setString("tinhTrang", Constant.TINHTRANG_NEW);
-			csmt.setString("soTietMoiBuoi", keHoachGiangDayModel.getSoTietMoiBuoi());
+			csmt.setString("soTietMoiBuoi", keHoachGiangDayModel
+					.getSoTietMoiBuoi());
 			csmt.setNString("lyDoReject", keHoachGiangDayModel.getLyDoReject());
 			csmt.setString("soGioLT", keHoachGiangDayModel.getSoGioLT());
 			csmt.setString("soGioTH", keHoachGiangDayModel.getSoGioTH());
@@ -212,35 +238,36 @@ public class KeHoachGiangDayDAO {
 			csmt.setString("User3", keHoachGiangDayModel.getUser3());
 			csmt.setString("User4", keHoachGiangDayModel.getUser4());
 			csmt.setString("User5", keHoachGiangDayModel.getUser5());
-			csmt.registerOutParameter("ID",java.sql.Types.INTEGER);
-			csmt.registerOutParameter("tenKHGD",java.sql.Types.NVARCHAR);
-			csmt.registerOutParameter("ngayCapNhatCuoi",java.sql.Types.DATE);
+			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
+			csmt.registerOutParameter("tenKHGD", java.sql.Types.NVARCHAR);
+			csmt.registerOutParameter("ngayCapNhatCuoi", java.sql.Types.DATE);
 			Boolean ketQua = DataUtil.executeNonStore(csmt);
 			if (ketQua) { // Insert thanh cong
 				maKHGDNew = csmt.getString("ID");
 				keHoachGiangDayModel.setMaKHGD(maKHGDNew);
-				keHoachGiangDayModel.setNgayCapNhatCuoi(csmt.getString("ngayCapNhatCuoi"));
+				keHoachGiangDayModel.setNgayCapNhatCuoi(csmt
+						.getString("ngayCapNhatCuoi"));
 				keHoachGiangDayModel.setTenKHGD(csmt.getNString("tenKHGD"));
-				
-				ArrayList<ChiTietKHGDModel> chiTietKHGDList = keHoachGiangDayModel.getChiTietKHGDModelList();
-				
+
+				ArrayList<ChiTietKHGDModel> chiTietKHGDList = keHoachGiangDayModel
+						.getChiTietKHGDModelList();
+
 				for (ChiTietKHGDModel obj : chiTietKHGDList) {
 					obj.setMaKHGD(maKHGDNew);
 					if (ChiTietKHGDDAO.insertChiTietKHGD(obj)) {
 					}
 				}
-				
+
 				result = true;
-				if(result){
+				if (result) {
 					try {
-						csmt = DataUtil
-							.getConnection()
-								.prepareCall("{call sp_ISO_GenerateGiaoAn(?)}");
-						csmt.setString("MaKHGD", keHoachGiangDayModel.getMaKHGD());
-						result=DataUtil.executeNonStore(csmt);
-					}
-					catch(Exception e){
-						result=false;
+						csmt = DataUtil.getConnection().prepareCall(
+								"{call sp_ISO_GenerateGiaoAn(?)}");
+						csmt.setString("MaKHGD", keHoachGiangDayModel
+								.getMaKHGD());
+						result = DataUtil.executeNonStore(csmt);
+					} catch (Exception e) {
+						result = false;
 					}
 				}
 			}
@@ -249,26 +276,31 @@ public class KeHoachGiangDayDAO {
 		}
 		return result;
 	}
-	
-	public static Boolean insertKHGDCopy(KeHoachGiangDayModel keHoachGiangDayModel){
+
+	public static Boolean insertKHGDCopy(
+			KeHoachGiangDayModel keHoachGiangDayModel) {
 		Boolean result = false;
 		String maKHGDNew = "";
 		try {
 			CallableStatement csmt = DataUtil
-				.getConnection()
-					.prepareCall("{call sp_ISO_InsertKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+					.getConnection()
+					.prepareCall(
+							"{call sp_ISO_InsertKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("maMonHoc", keHoachGiangDayModel.getMaMonHoc());
-			csmt.setNString("tenGiaoVien", keHoachGiangDayModel.getTenGiaoVien());
+			csmt.setNString("tenGiaoVien", keHoachGiangDayModel
+					.getTenGiaoVien());
 			csmt.setString("maLop", keHoachGiangDayModel.getMaLop());
 			csmt.setString("hocKi", keHoachGiangDayModel.getHocKi());
-			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());			
-			csmt.setString("soCaThucHanh", keHoachGiangDayModel.getSoCaThucHanh());
+			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());
+			csmt.setString("soCaThucHanh", keHoachGiangDayModel
+					.getSoCaThucHanh());
 			csmt.setString("maNguoiTao", keHoachGiangDayModel.getMaNguoiTao());
 			csmt.setString("ngayTao", keHoachGiangDayModel.getNgayTao());
 			csmt.setString("maNguoiDuyet", null);
 			csmt.setString("ngayDuyet", null);
 			csmt.setString("tinhTrang", Constant.TINHTRANG_NEW);
-			csmt.setString("soTietMoiBuoi", keHoachGiangDayModel.getSoTietMoiBuoi());
+			csmt.setString("soTietMoiBuoi", keHoachGiangDayModel
+					.getSoTietMoiBuoi());
 			csmt.setNString("lyDoReject", keHoachGiangDayModel.getLyDoReject());
 			csmt.setString("soGioLT", keHoachGiangDayModel.getSoGioLT());
 			csmt.setString("soGioTH", keHoachGiangDayModel.getSoGioTH());
@@ -279,34 +311,37 @@ public class KeHoachGiangDayDAO {
 			csmt.setString("User3", keHoachGiangDayModel.getUser3());
 			csmt.setString("User4", keHoachGiangDayModel.getUser4());
 			csmt.setString("User5", keHoachGiangDayModel.getUser5());
-			csmt.registerOutParameter("ID",java.sql.Types.INTEGER);
-			csmt.registerOutParameter("tenKHGD",java.sql.Types.NVARCHAR);
-			csmt.registerOutParameter("ngayCapNhatCuoi",java.sql.Types.DATE);
+			csmt.registerOutParameter("ID", java.sql.Types.INTEGER);
+			csmt.registerOutParameter("tenKHGD", java.sql.Types.NVARCHAR);
+			csmt.registerOutParameter("ngayCapNhatCuoi", java.sql.Types.DATE);
 			Boolean ketQua = DataUtil.executeNonStore(csmt);
 			if (ketQua) { // Insert thanh cong
 				maKHGDNew = csmt.getString("ID");
-				GiaoAnDAO.copyGiaoAnByMaKHGD(maKHGDNew, keHoachGiangDayModel.getMaKHGD());
+				GiaoAnDAO.copyGiaoAnByMaKHGD(maKHGDNew, keHoachGiangDayModel
+						.getMaKHGD());
 				keHoachGiangDayModel.setMaKHGD(maKHGDNew);
-				result=ketQua;
+				result = ketQua;
 			}
 		} catch (Exception e) {
 		}
 		return result;
 	}
-	
-	public static Boolean updateKHGD(KeHoachGiangDayModel keHoachGiangDayModel){
-		Boolean result = false;		
+
+	public static Boolean updateKHGD(KeHoachGiangDayModel keHoachGiangDayModel) {
+		Boolean result = false;
 		try {
 			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_ISO_UpdateKHGD(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+					.getConnection()
+					.prepareCall(
+							"{call sp_ISO_UpdateKHGD(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("ID", keHoachGiangDayModel.getMaKHGD());
 			csmt.setString("maMonHoc", keHoachGiangDayModel.getMaMonHoc());
 			csmt.setString("maGiaoVien", keHoachGiangDayModel.getMaNguoiTao());
 			csmt.setString("maLop", keHoachGiangDayModel.getMaLop());
 			csmt.setString("hocKi", keHoachGiangDayModel.getHocKi());
 			csmt.setString("namHoc", keHoachGiangDayModel.getNamHoc());
-			csmt.setString("soCaThucHanh", keHoachGiangDayModel.getSoCaThucHanh());
+			csmt.setString("soCaThucHanh", keHoachGiangDayModel
+					.getSoCaThucHanh());
 			csmt.setString("maNguoiTao", keHoachGiangDayModel.getMaNguoiTao());
 			csmt.setString("maNguoiDuyet", null);
 			csmt.setString("maTruongKhoa", null);
@@ -315,26 +350,30 @@ public class KeHoachGiangDayDAO {
 			csmt.setNString("tenKHGD", keHoachGiangDayModel.getTenKHGD());
 			csmt.setString("soGioLT", keHoachGiangDayModel.getSoGioLT());
 			csmt.setString("soGioTH", keHoachGiangDayModel.getSoGioTH());
-			csmt.setNString("lyDoReject", null);	
-			csmt.registerOutParameter("ngayCapNhatCuoi",java.sql.Types.DATE);
+			csmt.setNString("lyDoReject", null);
+			csmt.registerOutParameter("ngayCapNhatCuoi", java.sql.Types.DATE);
 			csmt.setString("User1", keHoachGiangDayModel.getUser1());
 			csmt.setString("User2", keHoachGiangDayModel.getUser2());
 			csmt.setString("User3", keHoachGiangDayModel.getUser3());
 			csmt.setString("User4", keHoachGiangDayModel.getUser4());
 			csmt.setString("User5", keHoachGiangDayModel.getUser5());
-			
-			Boolean ketQua = DataUtil.executeNonStore(csmt);								
+
+			Boolean ketQua = DataUtil.executeNonStore(csmt);
 			if (ketQua) { // Update "Ke hoach giang day" thanh cong
-				keHoachGiangDayModel.setNgayCapNhatCuoi(csmt.getString("ngayCapNhatCuoi").toString());
-				
-				ArrayList<ChiTietKHGDModel> chiTietKHGDModel = keHoachGiangDayModel.getChiTietKHGDModelList();
-				
+				keHoachGiangDayModel.setNgayCapNhatCuoi(csmt.getString(
+						"ngayCapNhatCuoi").toString());
+
+				ArrayList<ChiTietKHGDModel> chiTietKHGDModel = keHoachGiangDayModel
+						.getChiTietKHGDModelList();
+
 				for (ChiTietKHGDModel obj : chiTietKHGDModel) {
 					obj.setMaKHGD(keHoachGiangDayModel.getMaKHGD());
 					ChiTietKHGDDAO.updateChiTietKHGD(obj);
-					//**********
-					if(obj.getMaGiaoAn()!=null&&!obj.getMaGiaoAn().equals("")){
-						GiaoAnDAO.updateHDTXByMaGA(obj.getMaGiaoAn(),obj.getNoiDungTH());
+					// **********
+					if (obj.getMaGiaoAn() != null
+							&& !obj.getMaGiaoAn().equals("")) {
+						GiaoAnDAO.updateHDTXByMaGA(obj.getMaGiaoAn(), obj
+								.getNoiDungTH());
 					}
 				}
 				result = true;
@@ -342,11 +381,12 @@ public class KeHoachGiangDayDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
-		}			
+		}
 		return result;
 	}
-	
-	public static int tkDuyetKHGD(String maNguoiDuyet, String maKHGD, String tinhTrang, String lyDoReject) {
+
+	public static int tkDuyetKHGD(String maNguoiDuyet, String maKHGD,
+			String tinhTrang, String lyDoReject) {
 		int result = 0;
 		try {
 			PreparedStatement preparedStatement = DataUtil
@@ -359,11 +399,14 @@ public class KeHoachGiangDayDAO {
 			preparedStatement.setNString(3, lyDoReject);
 			preparedStatement.setString(4, maKHGD);
 			result = preparedStatement.executeUpdate();
-		}catch(Exception e){e.printStackTrace();}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
-	
-	public static int htDuyetKHGD(String maNguoiDuyet, String maKHGD, String tinhTrang, String lyDoReject) {
+
+	public static int htDuyetKHGD(String maNguoiDuyet, String maKHGD,
+			String tinhTrang, String lyDoReject) {
 		int result = 0;
 		try {
 			PreparedStatement preparedStatement = DataUtil
@@ -376,24 +419,26 @@ public class KeHoachGiangDayDAO {
 			preparedStatement.setNString(3, lyDoReject);
 			preparedStatement.setString(4, maKHGD);
 			result = preparedStatement.executeUpdate();
-		}catch(Exception e){e.printStackTrace();}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
-	
-	public static String calSoPhutDCMHByMaKHGD(String maKHGD,String soPhut){
-		
-		String soTiet=KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(maKHGD).getSoTietMoiBuoi();
-		int i=0;
-		
-		if(soTiet!=null)
-			i=Integer.parseInt(soTiet)*Integer.parseInt(soPhut);
-	
-		return i+"";
+	public static String calSoPhutDCMHByMaKHGD(String maKHGD, String soPhut) {
+
+		String soTiet = KeHoachGiangDayDAO.getKeHoachGiangDayByMaKHGD(maKHGD)
+				.getSoTietMoiBuoi();
+		int i = 0;
+
+		if (soTiet != null)
+			i = Integer.parseInt(soTiet) * Integer.parseInt(soPhut);
+
+		return i + "";
 	}
 
-	public static String getTenKHGDByMaKHGD(String maKHGD){
-		String tenKHGD="";
+	public static String getTenKHGDByMaKHGD(String maKHGD) {
+		String tenKHGD = "";
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
@@ -403,60 +448,57 @@ public class KeHoachGiangDayDAO {
 			preparedStatement.setString(1, maKHGD);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next())
-				tenKHGD=rs.getString("ten");
-		}
-		catch(Exception e){
-			tenKHGD=null;
+				tenKHGD = rs.getString("ten");
+		} catch (Exception e) {
+			tenKHGD = null;
 		}
 		return tenKHGD;
 	}
 
-	public static Boolean updateTinhTrangKeHoachGiangDayByMaKHGD(String maKHGD,String tinhTrang){
-		Boolean result=false;
-		try{
+	public static Boolean updateTinhTrangKeHoachGiangDayByMaKHGD(String maKHGD,
+			String tinhTrang) {
+		Boolean result = false;
+		try {
 			PreparedStatement preparedStatement = DataUtil
-			.getConnection()
-			.prepareStatement(
-					Constant.SQL_RES
-							.getString("iso.sql.UpdateTinhTrangKeHoachGiangDayByMaKHGD"));
-			preparedStatement.setString(1,tinhTrang);
-			preparedStatement.setString(2,maKHGD);
-			
-			if(preparedStatement.executeUpdate()==1)
-				result=true;
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-		return result;
-	}
-	
-	public static Boolean updateTinhTrangHTKeHoachGiangDayByMaKHGD(String maKHGD,String tinhTrang){
-		Boolean result=false;
-		try{
-			PreparedStatement preparedStatement = DataUtil
-			.getConnection()
-			.prepareStatement(
-					Constant.SQL_RES
-							.getString("iso.sql.UpdateTinhTrangHTKeHoachGiangDayByMaKHGD"));
-			preparedStatement.setString(1,tinhTrang);
-			preparedStatement.setString(2,maKHGD);
-			
-			if(preparedStatement.executeUpdate()==1)
-				result=true;
-		}
-		catch(SQLException e)
-		{
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.UpdateTinhTrangKeHoachGiangDayByMaKHGD"));
+			preparedStatement.setString(1, tinhTrang);
+			preparedStatement.setString(2, maKHGD);
+
+			if (preparedStatement.executeUpdate() == 1)
+				result = true;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return result;
 	}
 
-	public static String getTinhTrangHTByMaKHGD(String maKHGD){
-		String tinhTrang="";
+	public static Boolean updateTinhTrangHTKeHoachGiangDayByMaKHGD(
+			String maKHGD, String tinhTrang) {
+		Boolean result = false;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.UpdateTinhTrangHTKeHoachGiangDayByMaKHGD"));
+			preparedStatement.setString(1, tinhTrang);
+			preparedStatement.setString(2, maKHGD);
+
+			if (preparedStatement.executeUpdate() == 1)
+				result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return result;
+	}
+
+	public static String getTinhTrangHTByMaKHGD(String maKHGD) {
+		String tinhTrang = "";
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
@@ -466,237 +508,223 @@ public class KeHoachGiangDayDAO {
 			preparedStatement.setString(1, maKHGD);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next())
-				tinhTrang=rs.getString("TINH_TRANG_HT");
-		}
-		catch(Exception e){
-			tinhTrang=null;
+				tinhTrang = rs.getString("TINH_TRANG_HT");
+		} catch (Exception e) {
+			tinhTrang = null;
 		}
 		return tinhTrang;
 	}
-	
-	public static Boolean updateMaNguoiDuyetKHGDByMaKHGD(String maKHGD,String maNguoiDuyet){
-		Boolean result=false;
-		try{
-			CallableStatement csmt = DataUtil
-			.getConnection()
-			.prepareCall("{call sp_ISO_UpdateMaNguoiDuyetKHGDByMaKHGD(?,?)}");
-			csmt.setNString("MaKHGD",maKHGD);
-			csmt.setNString("Ma_nguoi_duyet",maNguoiDuyet);
-			
+
+	public static Boolean updateMaNguoiDuyetKHGDByMaKHGD(String maKHGD,
+			String maNguoiDuyet) {
+		Boolean result = false;
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_ISO_UpdateMaNguoiDuyetKHGDByMaKHGD(?,?)}");
+			csmt.setNString("MaKHGD", maKHGD);
+			csmt.setNString("Ma_nguoi_duyet", maNguoiDuyet);
+
 			result = DataUtil.executeNonStore(csmt);
 
-		}
-		catch(SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return result;
 
 	}
-	
-	public static String getMaKHGDEnd(){
-		String maKHGD="";
+
+	public static String getMaKHGDEnd() {
+		String maKHGD = "";
 		try {
-			PreparedStatement preparedStatement = DataUtil
-					.getConnection()
+			PreparedStatement preparedStatement = DataUtil.getConnection()
 					.prepareStatement(
-							Constant.SQL_RES
-									.getString("iso.sql.GetMaKHGDEnd"));
-			
+							Constant.SQL_RES.getString("iso.sql.GetMaKHGDEnd"));
+
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next())
-				maKHGD=rs.getString("MaKHGD");
-		}
-		catch(Exception e){
-			maKHGD=null;
+				maKHGD = rs.getString("MaKHGD");
+		} catch (Exception e) {
+			maKHGD = null;
 		}
 		return maKHGD;
 	}
-	
-	public static String getLyDoRejectByMaKHGD(String maKHGD){
-		String lyDo="";
+
+	public static String getLyDoRejectByMaKHGD(String maKHGD) {
+		String lyDo = "";
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
 					.prepareStatement(
 							Constant.SQL_RES
 									.getString("iso.sql.GetLyDoRejectByMaKHGD"));
-			preparedStatement.setNString(1,maKHGD);
+			preparedStatement.setNString(1, maKHGD);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next())
-				lyDo=rs.getNString("Ly_do_reject");
-			if(lyDo==null)
+				lyDo = rs.getNString("Ly_do_reject");
+			if (lyDo == null)
 				return "";
-		}
-		catch(Exception e){
-			lyDo=null;
+		} catch (Exception e) {
+			lyDo = null;
 		}
 		return lyDo;
 	}
-	
-	public static ArrayList<KeHoachGiangDayModel> getAllLopAndMonHocOfKHGD()
-	{
-		ArrayList<KeHoachGiangDayModel> keHoachList=new ArrayList<KeHoachGiangDayModel>();
+
+	public static ArrayList<KeHoachGiangDayModel> getAllLopAndMonHocOfKHGD() {
+		ArrayList<KeHoachGiangDayModel> keHoachList = new ArrayList<KeHoachGiangDayModel>();
 		KeHoachGiangDayModel keHoachModel;
-	
+
 		try {
-			PreparedStatement preparedStatement = DataUtil
-					.getConnection()
+			PreparedStatement preparedStatement = DataUtil.getConnection()
 					.prepareStatement(
-							Constant.SQL_RES
-									.getString("iso.sql.GetAllKHGD"));
-			
+							Constant.SQL_RES.getString("iso.sql.GetAllKHGD"));
+
 			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()){
-				keHoachModel=new KeHoachGiangDayModel();
+			while (rs.next()) {
+				keHoachModel = new KeHoachGiangDayModel();
 				keHoachModel.setMaKHGD(rs.getString("MaKeHoachGiangDay"));
 				keHoachModel.setMaMonHoc(rs.getString("MaMonHoc"));
 				keHoachModel.setMaLop(rs.getString("MaLop"));
 				keHoachList.add(keHoachModel);
 			}
-		
-		}
-		catch(Exception e){
+
+		} catch (Exception e) {
 			return null;
 		}
-		
-		
+
 		return keHoachList;
-		
+
 	}
-	
-	public static String GetCongViecChuanBi(){
-		String cvcb="";
+
+	public static String GetCongViecChuanBi() {
+		String cvcb = "";
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_iso_SetCVCBKHGD(?)}");
-			csmt.setNString("CVCB",cvcb);
-			csmt.registerOutParameter("CVCB",java.sql.Types.NVARCHAR);
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_iso_SetCVCBKHGD(?)}");
+			csmt.setNString("CVCB", cvcb);
+			csmt.registerOutParameter("CVCB", java.sql.Types.NVARCHAR);
 			DataUtil.executeNonStore(csmt);
-			cvcb=csmt.getNString("CVCB");
-			
+			cvcb = csmt.getNString("CVCB");
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}			
+		}
 		return cvcb;
-	
+
 	}
-	
-	
-	public static ArrayList<KetQuaTimGiaoAnModel> findKHGD(String maNguoiTao,String maNamHoc,String maLop,String maMonHoc,String hocKi,String tinhTrang,String ngayDayBD,String ngayDayKT,String maBoPhan,String maKhoa)
-	{
-		KetQuaTimGiaoAnModel ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
-		
-		ArrayList<KetQuaTimGiaoAnModel> ketQuaList=new ArrayList<KetQuaTimGiaoAnModel>();
-		
+
+	public static ArrayList<KetQuaTimGiaoAnModel> findKHGD(String maNguoiTao,
+			String maNamHoc, String maLop, String maMonHoc, String hocKi,
+			String tinhTrang, String ngayDayBD, String ngayDayKT,
+			String maBoPhan, String maKhoa) {
+		KetQuaTimGiaoAnModel ketQuaGiaoAn = new KetQuaTimGiaoAnModel();
+
+		ArrayList<KetQuaTimGiaoAnModel> ketQuaList = new ArrayList<KetQuaTimGiaoAnModel>();
+
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_iso_findKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?)}");
-			
-			csmt.setString("MaNguoiTao",maNguoiTao);		
-			csmt.setString("MaNamHoc",maNamHoc);
-			csmt.setString("MaLop",maLop);
-			csmt.setString("MaMonHoc",maMonHoc);
-			csmt.setString("HocKi",hocKi);
-			csmt.setString("TinhTrang",tinhTrang);
-			csmt.setString("HocKi",hocKi);
-			csmt.setString("TinhTrang",tinhTrang);
-			csmt.setString("NgayTimBD",DateUtil.setDate(ngayDayBD));
-			csmt.setString("NgayTimKT",DateUtil.setDate(ngayDayKT));
-			csmt.setString("MaBoPhan",maBoPhan);
-			csmt.setString("MaKhoa",maKhoa);
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_iso_findKeHoachGiangDay(?,?,?,?,?,?,?,?,?,?)}");
+
+			csmt.setString("MaNguoiTao", maNguoiTao);
+			csmt.setString("MaNamHoc", maNamHoc);
+			csmt.setString("MaLop", maLop);
+			csmt.setString("MaMonHoc", maMonHoc);
+			csmt.setString("HocKi", hocKi);
+			csmt.setString("TinhTrang", tinhTrang);
+			csmt.setString("HocKi", hocKi);
+			csmt.setString("TinhTrang", tinhTrang);
+			csmt.setString("NgayTimBD", DateUtil.setDate(ngayDayBD));
+			csmt.setString("NgayTimKT", DateUtil.setDate(ngayDayKT));
+			csmt.setString("MaBoPhan", maBoPhan);
+			csmt.setString("MaKhoa", maKhoa);
 			ResultSet rs = DataUtil.executeStore(csmt);
-			
-			int i=1;
-			while(rs.next()){
-				ketQuaGiaoAn=new KetQuaTimGiaoAnModel();
+
+			int i = 1;
+			while (rs.next()) {
+				ketQuaGiaoAn = new KetQuaTimGiaoAnModel();
 				ketQuaGiaoAn.setTenMonHoc(rs.getNString("TenMonHoc"));
 				ketQuaGiaoAn.setTenLopHoc(rs.getNString("KiHieu"));
-				ketQuaGiaoAn.setSoGiaoAn(i+"");
+				ketQuaGiaoAn.setSoGiaoAn(i + "");
 				ketQuaGiaoAn.setMaGiaoVien(rs.getString("MaNguoiTao"));
-				
-				ketQuaGiaoAn.setNgayDay(DateUtil.setDate2(rs.getString("NgayThucHien")));
-				
-				ketQuaGiaoAn.setNgayGui(DateUtil.setDate2(rs.getString("NgayGui")));
-				
+
+				ketQuaGiaoAn.setNgayDay(DateUtil.setDate2(rs
+						.getString("NgayThucHien")));
+
+				ketQuaGiaoAn.setNgayGui(DateUtil.setDate2(rs
+						.getString("NgayGui")));
+
 				ketQuaGiaoAn.setMaNguoiDuyet(rs.getString("NguoiDuyet"));
-				
-				ketQuaGiaoAn.setNgayDuyet(DateUtil.setDate2(rs.getString("NgayDuyet")));
-				
+
+				ketQuaGiaoAn.setNgayDuyet(DateUtil.setDate2(rs
+						.getString("NgayDuyet")));
+
 				ketQuaGiaoAn.setTinhTrang(rs.getString("TinhTrang"));
 				ketQuaGiaoAn.setTenGiaoVien(rs.getString("NguoiTao"));
 				ketQuaGiaoAn.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
 				ketQuaGiaoAn.setMaKHGD(rs.getString("maKHGD"));
 				ketQuaGiaoAn.setTinhTrangHT(rs.getString("TinhTrangHT"));
 				ketQuaGiaoAn.setMaPhieuKPPN(rs.getString("MaPhieu"));
-				
-				
+
 				ketQuaList.add(ketQuaGiaoAn);
 				i++;
 			}
-			
-		
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		catch(Exception e){
-			e.printStackTrace();	
-		}
-		
+
 		return ketQuaList;
 	}
-	
-	public static Boolean updateNgayGuiByMaKHGD(String maKHGD){
-		Boolean result=false;
-		try{
-			PreparedStatement preparedStatement = DataUtil
-			.getConnection()
-			.prepareStatement(
-					Constant.SQL_RES
-							.getString("iso.sql.UpdateNgayGuiByMaKHGD"));
-			
-			preparedStatement.setString(1,maKHGD);
 
-			if(preparedStatement.executeUpdate()==1)
-				result=true;
-		}
-		catch(SQLException e)
-		{
+	public static Boolean updateNgayGuiByMaKHGD(String maKHGD) {
+		Boolean result = false;
+		try {
+			PreparedStatement preparedStatement = DataUtil
+					.getConnection()
+					.prepareStatement(
+							Constant.SQL_RES
+									.getString("iso.sql.UpdateNgayGuiByMaKHGD"));
+
+			preparedStatement.setString(1, maKHGD);
+
+			if (preparedStatement.executeUpdate() == 1)
+				result = true;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return result;
 	}
-	
-	public static Boolean updateNgayDayKeHoachGiangDay(int maKHGD){
-		Boolean result = false;		
+
+	public static Boolean updateNgayDayKeHoachGiangDay(int maKHGD) {
+		Boolean result = false;
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_iso_UpdateNgaydayKHGD(?)}");
-			csmt.setInt("MaKHGD", maKHGD);		
-			return DataUtil.executeNonStore(csmt);								
-			
+			CallableStatement csmt = DataUtil.getConnection().prepareCall(
+					"{call sp_iso_UpdateNgaydayKHGD(?)}");
+			csmt.setInt("MaKHGD", maKHGD);
+			return DataUtil.executeNonStore(csmt);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
-		}			
+		}
 		return result;
 	}
-	
-	public static ArrayList<KeHoachGiangDayModel> getThoiGianGiangDayByMaThanhVien(String maThanhVien){
+
+	public static ArrayList<KeHoachGiangDayModel> getThoiGianGiangDayByMaThanhVien(
+			String maThanhVien) {
 		ArrayList<KeHoachGiangDayModel> list = new ArrayList<KeHoachGiangDayModel>();
 		try {
 			String sql = "SELECT A.*,C.Ten_mon_hoc,(CAST(D.Nam_bat_dau AS VARCHAR)+' - '+CAST(D.Nam_ket_thuc AS VARCHAR)) as Nam_hoc, B.Ki_hieu as Ten_lop_hoc "
-						+" FROM KEHOACHGIANGDAY A INNER JOIN LOPHOC B ON A.Ma_lop=B.ID "
-						+" INNER JOIN MONHOC C ON A.Ma_mon_hoc=C.ID "
-						+" INNER JOIN NAMHOC D ON A.Ma_nam_hoc=D.ID "
-						+" WHERE A.Tinh_trang='2' AND A.Tinh_trang_HT='1' AND A.Ma_giao_vien=? AND Ma_nam_hoc in (SELECT ID FROM NAMHOC WHERE Nam_ket_thuc <= YEAR(GETDATE()))";
-			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+					+ " FROM KEHOACHGIANGDAY A INNER JOIN LOPHOC B ON A.Ma_lop=B.ID "
+					+ " INNER JOIN MONHOC C ON A.Ma_mon_hoc=C.ID "
+					+ " INNER JOIN NAMHOC D ON A.Ma_nam_hoc=D.ID "
+					+ " WHERE A.Tinh_trang='2' AND A.Tinh_trang_HT='1' AND A.Ma_giao_vien=? AND Ma_nam_hoc in (SELECT ID FROM NAMHOC WHERE Nam_ket_thuc <= YEAR(GETDATE()))";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(
+					sql);
 			ps.setString(1, maThanhVien);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				KeHoachGiangDayModel model = new KeHoachGiangDayModel();
 				model.setMaKHGD(rs.getString("ID"));
 				model.setMaMonHoc(rs.getString("Ma_mon_hoc"));
@@ -725,25 +753,27 @@ public class KeHoachGiangDayDAO {
 				list.add(model);
 			}
 			for (KeHoachGiangDayModel model : list) {
-				model.setChiTietKHGDModelList(ChiTietKHGDDAO.getChiTietKHGDByMaKHGD(model.getMaKHGD()));
+				model.setChiTietKHGDModelList(ChiTietKHGDDAO
+						.getChiTietKHGDByMaKHGD(model.getMaKHGD()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
-	
-	public static ThoiGianGiangDayModel getBatDauAndKetThucByMaKeHoachGiangDay(String id){
+
+	public static ThoiGianGiangDayModel getBatDauAndKetThucByMaKeHoachGiangDay(
+			String id) {
 		ThoiGianGiangDayModel model = null;
 		try {
-			String sql = "SELECT CONVERT(VARCHAR(10),MIN(Ngay_BD),105) as Ngay_bat_dau, CONVERT(VARCHAR(10),MAX(Ngay_BD),105) as Ngay_ket_thuc " 
-						+" FROM CHITIETKHGD "
-						+" WHERE Ma_ke_hoach_giang_day=?";
-			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			String sql = "SELECT CONVERT(VARCHAR(10),MIN(Ngay_BD),105) as Ngay_bat_dau, CONVERT(VARCHAR(10),MAX(Ngay_BD),105) as Ngay_ket_thuc "
+					+ " FROM CHITIETKHGD " + " WHERE Ma_ke_hoach_giang_day=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(
+					sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				model = new ThoiGianGiangDayModel();
 				model.setBatDau(rs.getString("Ngay_bat_dau"));
 				model.setKetThuc(rs.getString("Ngay_ket_thuc"));

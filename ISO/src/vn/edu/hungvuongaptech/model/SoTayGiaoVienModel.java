@@ -10,7 +10,7 @@ public class SoTayGiaoVienModel {
 	private String tinhTrang;
 	private String ngayCapNhatCuoi;
 	private ArrayList<ThanhVienModel> listHocSinh;
-	private ArrayList<String> listThang;
+	private ArrayList<ThangModel> listThang;
 	private String maMonHoc;
 	private String tenMonHoc;
 	private String maLopHoc;
@@ -163,10 +163,10 @@ public class SoTayGiaoVienModel {
 	public void setListHocSinh(ArrayList<ThanhVienModel> listHocSinh) {
 		this.listHocSinh = listHocSinh;
 	}
-	public ArrayList<String> getListThang() {
+	public ArrayList<ThangModel> getListThang() {
 		return listThang;
 	}
-	public void setListThang(ArrayList<String> listThang) {
+	public void setListThang(ArrayList<ThangModel> listThang) {
 		this.listThang = listThang;
 	}
 	
