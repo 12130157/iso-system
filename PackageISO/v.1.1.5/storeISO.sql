@@ -4495,7 +4495,8 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_Get
 drop procedure [dbo].[sp_ISO_GetGiaoAnDelayList]
 GO
 CREATE PROCEDURE sp_ISO_GetGiaoAnDelayList
-	@Day		int
+	@Day		int,
+	@Date		DATETIME
 AS
 BEGIN
 	if exists (select * from dbo.sysobjects where name='GiaoAnDelayList')
@@ -4540,7 +4541,7 @@ BEGIN
 	inner join ChiTietThanhVien D on C.Ten_DN=D.Ten_dang_nhap
 	inner join LopHoc E on A.Ma_lop=E.ID
 	inner join MonHoc F on A.Ma_mon_hoc=F.ID
-	where ISNULL(B.Ma_giao_an,'')=''
+	where (ISNULL(B.Ma_giao_an,'')='' or (select tinh_trang from giaoan where id=B.Ma_giao_an) = 0 )
 	and DATEDIFF(day, getdate(),B.Ngay_BD) >=0 
 	and DATEDIFF(day, getdate(),B.Ngay_BD) <= @Day	
 	order by B.Ngay_BD
@@ -4567,9 +4568,9 @@ BEGIN
 	inner join LopHoc E on A.Ma_lop=E.ID
 	inner join MonHoc F on A.Ma_mon_hoc=F.ID
 	left join GiaoAn G on B.Ma_giao_an=G.id
-	where (ISNULL(B.Ma_giao_an,'')='' or  (SELECT NgayGui FROM GIAOAN WHERE ID=B.Ma_giao_an) > B.Ngay_BD)
+	where (ISNULL(B.Ma_giao_an,'')='' or  (SELECT NgayGui FROM GIAOAN WHERE ID=B.Ma_giao_an) > B.Ngay_BD+1)
 	and getdate() > B.Ngay_BD
-	and A.Ma_nam_hoc = (SELECT ID FROM NAMHOC WHERE Nam_bat_dau=DATEPART(YEAR,GETDATE()))
+	and B.Ngay_BD > @Date
 	order by B.Ngay_BD
 
 	-- UPDATE COLUMN USER1 TRONG TABLE ChiTietKHGD THANH 1, CO HIEU LA DA EMAIL NHAC NHO GIAOAN DELAY ROI	
