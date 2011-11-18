@@ -77,14 +77,37 @@ public class ChiTietThanhVienModel implements Serializable {
 	private ArrayList<ChiTietCongViecThanhVienModel> listKhenThuongKyLuat;
 	private ArrayList<ChiTietLopHocModel> listLopHocChuNhiem;
 	private ArrayList<BangCapModel> listBangCap;
+	private ArrayList<ChungChiBangCapKhacModel> listBangCapKhac;
+	private ArrayList<QuaTrinhCongTacModel> listQuaTrinhCongTac;
 	private ArrayList<KeHoachGiangDayModel> listLopHocGiangDay;
 	private ArrayList<String> listChucVu;
 	private ArrayList<LuongModel> listLuong;
 	
+	
+	
+	public ArrayList<QuaTrinhCongTacModel> getListQuaTrinhCongTac() {
+		return listQuaTrinhCongTac;
+	}
+
+	public void setListQuaTrinhCongTac(
+			ArrayList<QuaTrinhCongTacModel> listQuaTrinhCongTac) {
+		this.listQuaTrinhCongTac = listQuaTrinhCongTac;
+	}
 	private String ngayCap;
 	private String noiCap;
 	
 	public String diaChi;
+	
+	
+	public ArrayList<ChungChiBangCapKhacModel> getListBangCapKhac() {
+		return listBangCapKhac;
+	}
+
+	public void setListBangCapKhac(
+			ArrayList<ChungChiBangCapKhacModel> listBangCapKhac) {
+		this.listBangCapKhac = listBangCapKhac;
+	}
+
 	public String getDiaChi() {
 		return diaChi;
 	}

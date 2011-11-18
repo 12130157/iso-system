@@ -100,7 +100,7 @@ public class ThanhVienDAO {
 		return bo;
 	}
 
-	//Tác gia: La Quoc Chuong
+	//Tï¿½c gia: La Quoc Chuong
 	public static boolean kiemTraMaThanhVien(String maThanhVien)
 	{
 		boolean bo = false;
@@ -1253,6 +1253,8 @@ public class ThanhVienDAO {
 			chiTietThanhVienModel.setListLopHocGiangDay(KeHoachGiangDayDAO.getThoiGianGiangDayByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
 			chiTietThanhVienModel.setListChucVu(ChiTietCongViecThanhVienDAO.getChucVuByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
 			chiTietThanhVienModel.setListBangCap(BangCapDAO.getAllBangCapByMaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListBangCapKhac(ChungChiBangCapKhacDAO.getDanhSachChungChiBangCapKhacCuaThanhVien(chiTietThanhVienModel.getMaThanhVien()));
+			chiTietThanhVienModel.setListQuaTrinhCongTac(QuaTrinhCongTacDAO.getQuaTrinhCongTac(chiTietThanhVienModel.getMaThanhVien()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

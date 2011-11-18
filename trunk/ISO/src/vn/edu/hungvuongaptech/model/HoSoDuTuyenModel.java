@@ -51,9 +51,17 @@ public class HoSoDuTuyenModel {
 	private String ngayVaoLam;
 	private String tenTruongKhoa;
 	private ArrayList<BangCapModel> listBangCap;
+	private ArrayList<ChungChiBangCapKhacModel> listBangCapKhac;
 	private DeNghiKTVModel deNghiKTV;
 	
 	
+	public ArrayList<ChungChiBangCapKhacModel> getListBangCapKhac() {
+		return listBangCapKhac;
+	}
+	public void setListBangCapKhac(
+			ArrayList<ChungChiBangCapKhacModel> listBangCapKhac) {
+		this.listBangCapKhac = listBangCapKhac;
+	}
 	public String getTenTruongKhoa() {
 		return tenTruongKhoa;
 	}

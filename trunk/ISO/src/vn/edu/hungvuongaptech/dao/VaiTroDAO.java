@@ -218,4 +218,24 @@ public class VaiTroDAO {
 		}
 		return listKetQua;
 	}
+	
+	public static ArrayList<VaiTroModel> getVaiTroKhongSinhVien() {
+		ArrayList<VaiTroModel> listKetQua = new ArrayList<VaiTroModel>();			
+		try {
+			String sql = "select A.ID AS MaVaiTro,  A.ten_vai_tro AS TenVaiTro, A.ngay_cap_nhat_cuoi AS NgayCapNhatCuoi from vaitro A where A.ID <> 9 order by A.ten_vai_tro";
+			PreparedStatement preparedStatement = DataUtil.getConnection().prepareStatement(sql);				
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				VaiTroModel vaiTroModel = new VaiTroModel();
+				vaiTroModel.setMaVaiTro(rs.getString("MaVaiTro"));
+				vaiTroModel.setTenVaiTro(rs.getString("TenVaiTro"));
+				vaiTroModel.setNgayCapNhatCuoi(rs.getString("NgayCapNhatCuoi"));
+				
+				listKetQua.add(vaiTroModel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listKetQua;
+	}
 }

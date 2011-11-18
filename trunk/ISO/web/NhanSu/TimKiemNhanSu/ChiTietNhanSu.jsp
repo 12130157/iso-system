@@ -39,6 +39,25 @@
 			location.href = '<%=request.getContextPath() %>/NhanSu/TimKiemNhanSu/ChiTietNhanSu.jsp?maThanhVien=<%=request.getParameter("maThanhVien") %>';
 		}
 	}
+	function openQuaTrinhCongTac(){
+		var TV = new Object;
+		var top = screen.height/2 - 200;
+		var left = screen.width/2 - 350;
+		TV = window.showModalDialog('QuaTrinhCongTac.jsp?maThanhVien=<%=request.getParameter("maThanhVien") %>',this,"dialogHeight: 400px; dialogWidth: 700px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: Yes; status: No;");
+		if(TV == null){
+			location.href = '<%=request.getContextPath() %>/NhanSu/TimKiemNhanSu/ChiTietNhanSu.jsp?maThanhVien=<%=request.getParameter("maThanhVien") %>';
+		}
+	}
+	
+	function openChungChiBangCapKhac(){
+		var TV = new Object;
+		var top = screen.height/2 - 200;
+		var left = screen.width/2 - 350;
+		TV = window.showModalDialog('ChungChiBangCapKhac.jsp?loai=1',this,"dialogHeight: 400px; dialogWidth: 700px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: Yes; status: No;");
+		if(TV == null){
+			location.href = '<%=request.getContextPath() %>/NhanSu/TimKiemNhanSu/ChiTietNhanSu.jsp?maThanhVien=<%=request.getParameter("maThanhVien") %>';
+		}
+	}
 </script>
 </head>
 <body>
@@ -263,6 +282,69 @@
 					</table>
 				</td>
 			</tr>
+			
+			<tr style="background-color: #696565;font-size: 16px;font-weight: bold;font-style: italic;">
+				<td colspan="2" style="text-align: left;padding-left: 20px;font-weight: bold;"><a href="javascript: openChungChiBangCapKhac();" style="font-weight: bold;text-decoration: none;color: black;">Chứng Chỉ Bằng Cấp Khác</a></td>
+			</tr>
+			<tr style="background-color: transparent;">
+				<td colspan="2">
+					<table border="1">
+						<tr style="background-color: transparent;">
+							<td style="width: 110px;text-align: center;font-weight: bold;">Loại</td>
+							<td style="width: 250px;text-align: center;font-weight: bold;">Tên</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Năm tốt nghiệp</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Loại tốt nghiệp</td>
+						</tr>
+						<c:forEach var="BangCapKhac" items="${ChiTietThanhVien.listBangCapKhac}">
+							<tr style="background-color: transparent;">
+								<td style="width: 110px;">
+									<c:choose>
+										<c:when test="${BangCapKhac.loai eq 1}">
+											Anh Văn
+										</c:when>
+										<c:when test="${BangCapKhac.loai eq 2}">
+											Tin Học
+										</c:when>
+										<c:when test="${BangCapKhac.loai eq 3}">
+											Khác
+										</c:when>
+									</c:choose>
+								</td>
+								<td style="width: 250px;text-align: left;padding-left: 5px;,font-weight: bold;">
+									${BangCapKhac.ten }
+								</td>
+								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCapKhac.ngayTotNghiep }</td>
+								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCapKhac.xepLoai }</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</td>
+			</tr>
+			
+			<tr style="background-color: #696565;font-size: 16px;font-weight: bold;font-style: italic;">
+				<td colspan="2" style="text-align: left;padding-left: 20px;font-weight: bold;"><a href="javascript: openQuaTrinhCongTac();" style="font-weight: bold;text-decoration: none;color: black;">Quá Trình Công Tác</a></td>
+			</tr>
+			<tr style="background-color: transparent;">
+				<td colspan="2">
+					<table border="1">
+						<tr style="background-color: transparent;">
+							<td style="width: 110px;text-align: center;font-weight: bold;">Ngày Nhận Chức</td>
+							<td style="width: 250px;text-align: center;font-weight: bold;">Chức Vụ</td>
+						</tr>
+						<c:forEach var="QuaTrinhCongTac" items="${ChiTietThanhVien.listQuaTrinhCongTac}">
+							<tr style="background-color: transparent;">
+								<td style="width: 110px;">
+									${QuaTrinhCongTac.ngayNhanChuc }
+								</td>
+								<td style="width: 250px;text-align: left;padding-left: 5px;,font-weight: bold;">
+									${QuaTrinhCongTac.tenChucVu }
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</td>
+			</tr>
+			
 			<tr style="background-color: #696565;font-size: 16px;font-weight: bold;font-style: italic;">
 				<td colspan="2" style="text-align: left;padding-left: 20px;font-weight: bold;">Thông Tin Khác</td>
 			</tr>

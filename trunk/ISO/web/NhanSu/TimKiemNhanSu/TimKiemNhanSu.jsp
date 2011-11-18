@@ -155,7 +155,7 @@
 				<td>
 					<select name="SVaiTro" style="width:150px;background-color: transparent;">
 						<option value="All">Tất Cả</option>
-						<c:set var="listVT" value="<%=VaiTroDAO.showAllVaiTro() %>"/>
+						<c:set var="listVT" value="<%=VaiTroDAO.getVaiTroKhongSinhVien() %>"/>
 						<c:forEach items="${listVT}" var="model">		
 							<option
 								<c:choose>
