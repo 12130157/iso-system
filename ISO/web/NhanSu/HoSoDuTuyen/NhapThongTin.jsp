@@ -13,7 +13,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="vn.edu.hungvuongaptech.model.HoSoDuTuyenModel"%>
 <%@page import="vn.edu.hungvuongaptech.model.ThanhVienModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.NamHocDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.NamHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.ChungChiBangCapKhacDAO"%><html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp"/>
@@ -41,11 +42,13 @@
 	<c:if test="${not empty param.maThanhVien}">
 		<c:set var="ThongTinChiTiet" value='<%=HoSoDuTuyenDAO.getThongTinNhanSuByMaThanhVien(request.getParameter("maThanhVien").toString()) %>'></c:set>
 	</c:if>
+	<c:set var="listChungChiBangCapKhac" value='<%=ChungChiBangCapKhacDAO.getDanhSachChungChiBangCapKhac() %>'></c:set>
 	<c:set var = "maVaiTro" value = '<%=(String) session.getAttribute("maVaiTro")%>'> </c:set>
 	<c:set var = "MaBoPhan" value = '<%= (String) session.getAttribute("maBoPhan") %>'></c:set>
 	<c:set var = "TRUONG_PHONG" value = '<%= Constant.TRUONG_PHONG %>'></c:set>
 	<c:set var = "BO_PHAN_PHC" value = '<%= Constant.BO_PHAN_PHC %>'></c:set>
 	<c:set var="row" value="1"></c:set>
+	<c:set var="row2" value="1"></c:set>
 	<c:set var="listNamTotNghiep" value='<%=NamHocDAO.getAllNamHocByNow() %>'></c:set>
 	<script language="javascript">
 		function submitForm(ac){	
@@ -135,6 +138,24 @@
 		
 		function xoaBangCap(id){
 			document.getElementById("action").value = "xoaBangCap";
+			document.getElementById("MaBangCap").value = id;
+			document.forms['ThongTinChiTiet'].submit();
+		}
+		
+		function ThemBangCapKhac(){
+			var i = parseInt(document.getElementById("row2").value);
+			var table = document.getElementById("BangCapKhac");
+			table.insertRow(i).style.backgroundColor = "transparent";
+			table.rows[i].insertCell(0).innerHTML = i;
+			table.rows[i].insertCell(1).innerHTML = "";
+			table.rows[i].insertCell(2).innerHTML = "<select name='maCCBCK"+i+"' id='maCCBCK"+i+"'><c:forEach var='ccbck' items='${listChungChiBangCapKhac}'><option value='${ccbck.id}'>${ccbck.ten}</option></c:forEach></select>";
+			table.rows[i].insertCell(3).innerHTML = "<input type='text' onchange='checkNamTotNghiep(this)' style='text-align:center;width: 50px;background-color: transparent;' name='NamTotNghiep"+i+"' id='NamTotNghiep"+i+"' />";
+			table.rows[i].insertCell(4).innerHTML = "<select style='background-color: transparent;' name='XepLoai"+i+"' id='XepLoai"+i+"'><option value='Xuất Sắc'>Xuất Sắc</option><option value='Giỏi'>Giỏi</option><option value='Khá'>Khá</option><option value='Trung Bình-Khá'>Trung Bình-Khá</option><option value='Trung Bình'>Trung Bình</option></select>";
+			document.getElementById('row2').value = i+1;
+		}
+		
+		function xoaBangCapKhac(id){
+			document.getElementById("action").value = "xoaBangCapKhac";
 			document.getElementById("MaBangCap").value = id;
 			document.forms['ThongTinChiTiet'].submit();
 		}
@@ -305,6 +326,56 @@
 					</table>
 				</td>
 			</tr>
+			<tr style="background-color: transparent;" >
+				<td valign="top" style="font-weight: bold;">Chứng Chỉ/Bằng Cấp Khác</td>
+				<td colspan="3">
+					<table border="1" style="width: 610px" id="BangCapKhac">
+						<tr style="background-color: transparent;">
+							<td style="width: 50px;">
+								<a href = "javascript: ThemBangCapKhac()">
+									<img src="<%=request.getContextPath()%>/images/icon_action/add.png" alt="Thêm" border = "0"/>
+								</a>
+							</td>
+							<td style="width: 110px;text-align: center;font-weight: bold;">Loại</td>
+							<td style="width: 250px;text-align: center;font-weight: bold;">Tên</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Năm tốt nghiệp</td>
+							<td style="width: 100px;text-align: center;font-weight: bold;">Loại tốt nghiệp</td>
+						</tr>
+						<c:forEach var="BangCapKhac" items="${ThongTinChiTiet.listBangCapKhac}">
+							<tr style="background-color: transparent;">
+								<td style="width: 50px;">${row2 }</td>
+								<td style="width: 110px;">
+									<c:choose>
+										<c:when test="${BangCapKhac.loai eq 1}">
+											Anh Văn
+										</c:when>
+										<c:when test="${BangCapKhac.loai eq 2}">
+											Tin Học
+										</c:when>
+										<c:when test="${BangCapKhac.loai eq 3}">
+											Khác
+										</c:when>
+									</c:choose>
+									<input type="hidden" name="maBangCap${row }" value="${BangCapKhac.id }" />
+								</td>
+								<td style="width: 250px;text-align: left;padding-left: 5px;,font-weight: bold;">
+									<!-- <a href="javascript: xoaBangCapKhac(${BangCapKhac.id })" style="text-decoration: none;color: red;">
+									</a>
+										<c:if test="${BangCapKhac.ten eq ''}">
+											tmp
+										</c:if>
+									 -->
+										${BangCapKhac.ten }
+									
+								</td>
+								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCapKhac.ngayTotNghiep }</td>
+								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCapKhac.xepLoai }</td>
+							</tr>
+							<c:set var="row2" value="${row2+1}"></c:set>
+						</c:forEach>
+					</table>
+				</td>
+			</tr>
 		</table>
 		
 		<c:choose>
@@ -323,6 +394,7 @@
 		</c:choose>
 		
 		<input type="hidden" id="row" name="row" value="${row}" />
+		<input type="hidden" id="row2" name="row2" value="${row2}" />
 		<input type="hidden" id="maThanhVien" name="maThanhVien" value="${ThongTinChiTiet.id}" />
 		<input type="hidden" id="action" name="action" />
 		<input type="hidden" id="MaBangCap" name="MaBangCap" />

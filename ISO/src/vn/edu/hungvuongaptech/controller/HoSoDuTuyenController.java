@@ -11,6 +11,7 @@ import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.dao.BangCapDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietKHTNSDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietThanhVienDAO;
+import vn.edu.hungvuongaptech.dao.ChungChiBangCapKhacDAO;
 import vn.edu.hungvuongaptech.dao.DeNghiKhoanThuViecDAO;
 import vn.edu.hungvuongaptech.dao.DeNghiNhanSuDAO;
 import vn.edu.hungvuongaptech.dao.HoSoDuTuyenDAO;
@@ -375,6 +376,12 @@ public class HoSoDuTuyenController extends HttpServlet{
 							n);
 				}
 				
+			}
+			max = Integer.parseInt(request.getParameter("row2"));
+			count = ChungChiBangCapKhacDAO.countBangCapKhac(kq);
+			for (int i = count+1; i < max; i++) {
+				ChungChiBangCapKhacDAO.insertChungChiBangCapKhacCuaThanhVien(kq,
+						request.getParameter("maCCBCK"+i), "", "", request.getParameter("NamTotNghiep"+i), StringUtil.toUTF8(request.getParameter("XepLoai"+i)));
 			}
 			error = "Cập Nhật Thông Tin Thành Công !!!";
 		}else{

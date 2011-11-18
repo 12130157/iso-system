@@ -482,4 +482,25 @@
 	    </servlet-mapping>
     <!-- ****************************End Of PhanCongController******* -->
 
+    <!-- ****************************ChungChiBangCapKhacController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>ChungChiBangCapKhacController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.ChungChiBangCapKhacController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>ChungChiBangCapKhacController</servlet-name>
+	    	<url-pattern>/chungChiBangCapKhacController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of ChungChiBangCapKhacController******* -->
+    
+    <!-- ****************************QuaTrinhCongTacController************** -->
+	   <servlet>    	    	
+	    	<servlet-name>QuaTrinhCongTacController</servlet-name>
+	    	<servlet-class>vn.edu.hungvuongaptech.controller.QuaTrinhCongTacController</servlet-class>
+	    </servlet>
+	    <servlet-mapping>
+	    	<servlet-name>QuaTrinhCongTacController</servlet-name>
+	    	<url-pattern>/quaTrinhCongTacController</url-pattern>
+	    </servlet-mapping>
+    <!-- ****************************End Of QuaTrinhCongTacController******* -->
 </web-app>

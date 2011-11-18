@@ -464,6 +464,7 @@ public class HoSoDuTuyenDAO {
 				model.setHo_ten(rs.getString("HOTEN"));	
 			}
 			model.setListBangCap(BangCapDAO.getAllBangCapByMaThanhVien(model.getId()));
+			model.setListBangCapKhac(ChungChiBangCapKhacDAO.getDanhSachChungChiBangCapKhacCuaThanhVien(model.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
