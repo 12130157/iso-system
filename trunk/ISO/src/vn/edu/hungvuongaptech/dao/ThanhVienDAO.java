@@ -30,7 +30,7 @@ public class ThanhVienDAO {
 	{
 		ChiTietThongTinCaNhanGiaDinh model = new ChiTietThongTinCaNhanGiaDinh();
 		try {
-			CallableStatement c = DataUtil.getConnection().prepareCall("{call SP_QLSV_GETTHONGTINCANHANSVBYTENDN(?)}");
+			CallableStatement c = DataUtil.getConnection().prepareCall("{call SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN(?)}");
 			c.setString(1, tenDN);
 			ResultSet rs = c.executeQuery();
 			while(rs.next())
