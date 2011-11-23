@@ -2,7 +2,9 @@
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<pd4ml:transform
+
+<%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietThongTinCaNhanGiaDinh"%><pd4ml:transform
 	screenWidth="700"
 	pageFormat="A4"
 	pageOrientation="portrait"	
@@ -44,113 +46,151 @@
 <title>Print Sơ Lược Lý Lịch</title>
 </head>
 <body>
+<%
+ThanhVienDAO d = new ThanhVienDAO();
+ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThanhVien").toString());
+%>
 <div align="center">	
-<table border="1" bgcolor="transparent" cellspacing="2" cellpadding="3" style="width: 670px; border-style:none">
+<table border="1" bgcolor="transparent" cellspacing="1" cellpadding="2" style="width: 670px; height:900px; border-style:none">
 		<tr>
 			<td colspan="4" style="height:50px; vertical-align: middle;"><center><font size="4" style="font-weight: bold; font-family: tahoma">SƠ LƯỢC LÝ LỊCH</font></center></td>			
 		</tr>
 		<tr style="border:1px">
 			<td style="text-align: left"><p style="width:150px">Họ và tên khai sinh</p></td>
-			<td style="text-align: left"><p style="width:10px"><input type="text" style="width:150px"  /></p></td>
+			<td style="text-align: left"><p><% if(model.getTenKhaiSinh().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getTenKhaiSinh());} %></p></td>
 			<td style="text-align: right"><p style="width:85px">Giới tính</p></td>
-			<td><p style="width:50px"><input type="text" style="width:100px"  /></p></td>
+			<td><p style="width:50px">
+				<%
+					if(model.getGioiTinh().toString().toLowerCase().equals("null"))
+					{
+				%>					
+						<input type="text" style="width:100px; border:none;" value="Chưa có" />			
+				<%  }else if(model.getGioiTinh().toString().toLowerCase().equals("0"))
+					{
+				%>
+						<input type="text" style="width:100px; border:none;" value="Nữ" />
+				<%
+					}
+					else if(model.getGioiTinh().toString().toLowerCase().equals("1"))
+					{
+				%>
+						<input type="text" style="width:100px; border:none;" value="Nam" />	
+				<%
+					}
+				%>						
+				</p></td>					
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Tên thường gọi</p></td>
-			<td style="text-align: left"><p style="width:10px"><input type="text" style="width:150px"  /></p></td>
+			<td style="text-align: left"><p style="width:10px"><input type="text" style="width:180px; border:none;" value="<% if(model.getTenThuongGoi().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getTenThuongGoi());} %>"  /></p></td>
 			<td style="text-align: right"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Ngày sinh</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;"  value="<% if(model.getNgaySinh().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgaySinh());} %>" /></td>
 			<td style="text-align: right"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>		
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Nơi sinh</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getNoiSinh().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNoiSinh());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Quê quán</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getQueQuan().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getQueQuan());} %>" /></td>
 			<td style="text-align: left"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Nơi đăng ký thường trú</p></td>
-			<td colspan="3" style="text-align: left">
-				<textarea name="NoiDangKyThuongTru" rows="6" cols="30" style="font-family:tahoma; resize:none; font-size: 12px" wrap="HARD"></textarea>
+			<td colspan="3" style="text-align: left;">
+				<p width="480">
+					<% if(model.getNoiDangKyThuongTru().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNoiDangKyThuongTru());} %>			
+				</p>
+				<!-- <textarea name="NoiDangKyThuongTru" rows="6" cols="40" style="font-family:tahoma; border:none; resize:none; overflow:hidden; font-size: 12px" wrap="HARD"></textarea> -->
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Dân tộc</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getDanToc().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getDanToc());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px">Tôn giáo</td>
-			<td style="text-align: left"><input type="text" style="width:130px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:130px; border:none;" value="<% if(model.getTonGiao().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getTonGiao());} %>" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Trình độ học vấn trước khi vào học</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getTrinhDoHocVanTruocKhiVaoHoc().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getTrinhDoHocVanTruocKhiVaoHoc());} %>"  /></td>
 			<td style="text-align: left"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Ngày tham gia vào Đảng CSVN</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getNgayThamGiaDangCSVN().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgayThamGiaDangCSVN());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px">Ngày chính thức</p></td>
-			<td style="text-align: left"><input type="text" style="width:130px" /></td>
+			<td style="text-align: left"><input type="text" style="width:130px; border:none;" value="<% if(model.getNgayChinhThuc().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgayChinhThuc());} %>" /></td>
 		</tr>		
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Ngày kết nạp vào Đoàn TNCS Hồ Chí Minh</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getNgayKetNapDoanTNCS().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgayKetNapDoanTNCS());} %>"  /></td>
 			<td style="text-align: left"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>		
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Họ và tên bố</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getHoTenBo().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getHoTenBo());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px">Nghề nghiệp</p></td>
-			<td style="text-align: left"><input type="text" style="width:130px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:130px; border:none;" value="<% if(model.getNgheNghiepBo().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgheNghiepBo());} %>" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Họ và tên mẹ</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getHoTenMe().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getHoTenMe());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px">Nghề nghiệp</p></td>
-			<td style="text-align: left"><input type="text" style="width:130px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:130px; border:none;" value="<% if(model.getNgheNghiepMe().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgheNghiepMe());} %>"  /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Họ và tên vợ (chồng)</p></td>
-			<td style="text-align: left"><input type="text" style="width:150px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;" value="<% if(model.getHoTenVoChong().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getHoTenVoChong());} %>"  /></td>
 			<td style="text-align: right"><p style="width:85px">Nghề nghiệp</p></td>
-			<td style="text-align: left"><input type="text" style="width:130px"  /></td>
+			<td style="text-align: left"><input type="text" style="width:130px; border:none;" value="<% if(model.getNgheNghiepVoChong().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgheNghiepVoChong());} %>"  /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Đối tượng thuộc diện chính sách</p></td>
 			<td colspan="3" style="text-align: left">
-				<textarea name="DoiTuongThuocDienChinhSach" rows="6" cols="30" style="font-family:tahoma; resize:none; font-size: 12px" wrap="HARD"></textarea>
+				<!-- <textarea name="DoiTuongThuocDienChinhSach" rows="6" cols="40" style="font-family:tahoma; resize:none; border:none; overflow:hidden; font-size: 12px" wrap="HARD"></textarea> -->
+				<p width="480">
+					<% if(model.getDoiTuongThuocDienChinhSach().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getDoiTuongThuocDienChinhSach());} %>
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Nghề nghiệp làm trước khi vào học</p></td>
 			<td colspan="3" style="text-align: left">
-				<textarea name="NgheNghiepLamTruocKhiVaoHoc" rows="6" cols="30" style="font-family:tahoma; resize:none; font-size: 12px" wrap="HARD"></textarea>
+				<!-- <textarea name="NgheNghiepLamTruocKhiVaoHoc" rows="6" cols="40" style="font-family:tahoma; resize:none; border:none; overflow:hidden; font-size: 12px" wrap="HARD"></textarea>-->
+				<p width="480">	
+					<% if(model.getNgheNghiepLamTruocKhiVaoHoc().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgheNghiepLamTruocKhiVaoHoc());} %>
+				</p>
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Địa chỉ liên lạc</p></td>
 			<td style="text-align: left">
-				<textarea name="DiaChiLienLac" rows="6" cols="13" style="font-family:tahoma; resize:none; font-size: 12px" wrap="HARD"></textarea>
+				<!-- <textarea name="DiaChiLienLac" rows="6" cols="16" style="font-family:tahoma; border:none; overflow:hidden; resize:none; font-size: 12px" wrap="HARD"></textarea> -->
+				<p width="250">
+					<% if(model.getDiaChi().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getDiaChi());} %>
+				</p>
 			</td>
 			<td style="text-align: right; vertical-align:top"><p style="width:85px">Điện thoại</p></td>
-			<td style="text-align: left; vertical-align:top"><input type="text" style="width:130px"  /></td>
+			<td style="text-align: left; vertical-align:top"><input type="text" style="width:130px; border:none;" value="<% if(model.getDTDD().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getDTDD());} %>"  /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Nguyện vọng làm việc sau khi kết thúc khóa học</p></td>
 			<td colspan="3" style="text-align: left">
-				<textarea name="NguyenVong" rows="6" cols="30" style="font-family:tahoma; resize:none; font-size: 12px" wrap="HARD"></textarea>
+				<!-- <textarea name="NguyenVong" rows="6" cols="40" style="font-family:tahoma; resize:none; border:none; overflow:hidden; font-size: 12px" wrap="HARD"></textarea> -->
+				<p width="480">
+					<% if(model.getNguyenVong().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNguyenVong());} %>
+				</p>
 			</td>			
 		</tr>
 	</table>
