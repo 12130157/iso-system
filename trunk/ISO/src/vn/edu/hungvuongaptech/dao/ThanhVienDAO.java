@@ -24,6 +24,49 @@ import vn.edu.hungvuongaptech.util.StringUtil;
  */
 public class ThanhVienDAO {
 
+	//Nguoi viet: LQChuong
+	public static ChiTietThongTinCaNhanGiaDinh getSVByTenDN(String tenDN)
+	{
+		ChiTietThongTinCaNhanGiaDinh model = new ChiTietThongTinCaNhanGiaDinh();
+		try {
+			CallableStatement c = DataUtil.getConnection().prepareCall("{call SP_QLSV_GETTHONGTINCANHANSVBYTENDN(?)}");
+			c.setString(1, tenDN);
+			ResultSet rs = c.executeQuery();
+			while(rs.next())
+			{
+				model.setTenDangNhap(rs.getString("Ten_dang_nhap"));				
+				model.setGioiTinh(rs.getString("GioiTinh"));
+				model.setTenKhaiSinh(rs.getString("TenKhaiSinh"));
+				model.setTenThuongGoi(rs.getString("TenThuongGoi"));
+				model.setNgaySinh(rs.getString("Ngay_Sinh"));
+				model.setNoiSinh(rs.getString("NoiSinh"));
+				model.setQueQuan(rs.getString("QueQuan"));
+				model.setNoiDangKyThuongTru(rs.getString("NoiDangKyThuongTru"));
+				model.setDanToc(rs.getString("DanToc"));
+				model.setTonGiao(rs.getString("TonGiao"));
+				model.setTrinhDoHocVanTruocKhiVaoHoc(rs.getString("TrinhDoHocVanTruocKhiVaoHoc"));
+				model.setNgayThamGiaDangCSVN(rs.getString("NgayThamGiaDangCSVN"));
+				model.setNgayChinhThuc(rs.getString("NgayChinhThuc"));
+				model.setNgayKetNapDoanTNCS(rs.getString("NgayKetNapDoanTNCS"));
+				model.setHoTenBo(rs.getString("HoTenBo"));
+				model.setNgheNghiepBo(rs.getString("NgheNghiepBo"));
+				model.setHoTenMe(rs.getString("HoTenMe"));
+				model.setNgheNghiepMe(rs.getString("NgheNghiepMe"));
+				model.setHoTenVoChong(rs.getString("HoTenVoChong"));
+				model.setNgheNghiepVoChong(rs.getString("NgheNghiepVoChong"));
+				model.setNgheNghiepLamTruocKhiVaoHoc(rs.getString("NgheNghiepLamTruocKhiVaoHoc"));
+				model.setDoiTuongThuocDienChinhSach(rs.getString("DoiTuongThuocDienChinhSach"));
+				model.setDiaChi(rs.getString("DiaChi"));
+				model.setDTDD(rs.getString("Dien_thoai_dd"));
+				model.setNguyenVong(rs.getString("NguyenVong"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return model;
+	}
+
 	//Tac gia: La Quoc Chuong
 	public static boolean themSoLuocLyLich(String tenDangNhap,String matKhau,int maVaiTro,int maBoPhan,String soTaiKhoan,
 											String nganHang,String ngayLapThe,String soNha,String duong,String phuong,
