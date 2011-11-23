@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietThanhVienModel;
+import vn.edu.hungvuongaptech.model.ChiTietThongTinCaNhanGiaDinh;
 import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.QuyetDinhModel;
 import vn.edu.hungvuongaptech.model.ThanhVienModel;
