@@ -97,6 +97,7 @@
 					<c:forEach var = "Ngay" begin = "1" end = "31">
 						<c:set var = "check" value = "0"/><!-- kiem tra xem ngay do co hoc ko -->
 						<c:set var = "check1" value = "0"/><!-- kiem tra xem ngay do co hoc nhieu buoi ko -->
+						<c:set var = "TinhTrangDiHoc" value = "x"/>
 						<td>
 							<c:forEach var = "Count" begin = "${dem}" end = "<%=size %>">
 								<c:if test = "${Ngay eq ThanhVienDiemDanh.chiTietDiemDanhList[Count].ngay}">
@@ -121,11 +122,13 @@
 													</c:when>
 													<c:otherwise>
 														<c:set var = "TinhTrangDiHoc" value = "k"/>
-														<c:set var = "SoNgayNghi" value = "${SoNgayNghi + 1}"/>
 													</c:otherwise>
 												</c:choose>
 											</c:if>
-											${TinhTrangDiHoc }&nbsp;
+											<c:choose>
+												<c:when test = "${TinhTrangDiHoc  eq 'x'}">&nbsp;&nbsp;&nbsp;</c:when>
+												<c:otherwise>${TinhTrangDiHoc }&nbsp;<c:set var = "SoNgayNghi" value = "${SoNgayNghi + 1}"/></c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 									<!--<c:choose>
