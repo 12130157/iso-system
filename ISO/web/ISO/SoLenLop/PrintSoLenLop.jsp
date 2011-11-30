@@ -163,19 +163,53 @@
 					int size = thangTheoDoiList.get(countThang).getThanhVienDiemDanhModelList().get(count1).getChiTietDiemDanhList().size();
 					count1++; 
 				%>
+				<c:set var = "dem" value = "0"/>
+				<c:set var = "SoNgayNghi" value = "0"/>
 				<tr style="background-color: transparent; font-size: 9px" align="center">
 					<td><%=count1 %></td>
 					<td>${ThanhVienDiemDanh.tenThanhVien}</td>
 					<c:forEach var = "Ngay" begin = "1" end = "31">
-						<c:set var = "check" value = "0"/>
+						<c:set var = "check" value = "0"/><!-- kiem tra xem ngay do co hoc ko -->
+						<c:set var = "check1" value = "0"/><!-- kiem tra xem ngay do co hoc nhieu buoi ko -->
+						<c:set var = "TinhTrangDiHoc" value = "x"/>
 						<td>
 							<c:forEach var = "Count" begin = "${dem}" end = "<%=size %>">
 								<c:if test = "${Ngay eq ThanhVienDiemDanh.chiTietDiemDanhList[Count].ngay}">
 									<c:choose>
+										<c:when test = "${ThanhVienDiemDanh.chiTietDiemDanhList[Count + 1].ngay eq ThanhVienDiemDanh.chiTietDiemDanhList[Count].ngay 
+											and not empty ThanhVienDiemDanh.chiTietDiemDanhList[Count + 1].ngay}">
+											<c:choose>
+												<c:when test="${ChiTietDiemDanh[Count].tinhTrangDiHoc eq 4 and TinhTrangDiHoc eq 'x'}">
+													<c:set var = "TinhTrangDiHoc" value = "x"/>
+												</c:when>
+												<c:otherwise>
+													<c:set var = "TinhTrangDiHoc" value = "k"/>
+												</c:otherwise>
+											</c:choose>
+											<c:set var = "check1" value = "${check1 + 1}"/>
+										</c:when>
+										<c:otherwise>
+											<c:if test = "${check1 eq '0'}">
+												<c:choose>
+													<c:when test = "${ChiTietDiemDanh[Count].tinhTrangDiHoc eq 4}">
+														<c:set var = "TinhTrangDiHoc" value = "x"/>
+													</c:when>
+													<c:otherwise>
+														<c:set var = "TinhTrangDiHoc" value = "k"/>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+											<c:choose>
+												<c:when test = "${TinhTrangDiHoc  eq 'x'}">&nbsp;&nbsp;&nbsp;</c:when>
+												<c:otherwise>${TinhTrangDiHoc }&nbsp;<c:set var = "SoNgayNghi" value = "${SoNgayNghi + 1}"/></c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+									<!--<c:choose>
 										<c:when test = "${ChiTietDiemDanh[Count].tinhTrangDiHoc eq 4}">x&nbsp;</c:when>
 										<c:otherwise>k&nbsp;</c:otherwise>
 									</c:choose>
-									<c:set var = "dem" value = "${Count + 1}"/>
+									--><c:set var = "dem" value = "${Count + 1}"/>
 									<c:set var = "check" value = "1"/>
 								</c:if>
 							</c:forEach>
@@ -183,7 +217,7 @@
 						</td>
 					</c:forEach>
 					<td><p></p></td>
-					<td><p></p></td>
+					<td>${SoNgayNghi }</td>
 					<td><p></p></td>
 				</tr>
 			</c:forEach>
