@@ -439,8 +439,8 @@
 			<td>Quận 5, ngày ${sf:getElement(CTDT.ngayDuyet,0,sig)} tháng ${sf:getElement(CTDT.ngayDuyet,1,sig)} năm ${sf:getElement(CTDT.ngayDuyet,2,sig)}</td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-			<td><p style="font-weight: bold;">TRƯỞNG KHOA </p></td>
 			<td><p style="font-weight: bold;">HIỆU TRƯỞNG</p></td>
+			<td><p style="font-weight: bold;">TRƯỞNG KHOA </p></td>
 		</tr>
 		<!--<tr>
 			<td><p></p></td>
