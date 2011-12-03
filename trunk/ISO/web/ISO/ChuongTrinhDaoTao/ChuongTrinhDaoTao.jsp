@@ -491,7 +491,8 @@ function selectSogio(x, y) {
 	document.getElementById('PhanBo4').value = parseInt(document.getElementById('TongSoThucHanh_PhanII').value) + parseInt(document.getElementById('TongSoThucHanh_PhanIII').value);
 	document.getElementById('TongSo').value = parseInt(document.getElementById('TongSo_PhanI').value) + parseInt(document.getElementById('TongSo_PhanII').value) + parseInt(document.getElementById('TongSo_PhanIII').value);
 	document.getElementById('TongSoLyThuyet').value = parseInt(document.getElementById('TongSoLyThuyet_PhanI').value) + parseInt(document.getElementById('TongSoLyThuyet_PhanII').value) + parseInt(document.getElementById('TongSoLyThuyet_PhanIII').value);
-	document.getElementById('TongSoThucHanh').value = parseInt(document.getElementById('TongSoThucHanh_PhanI').value) + parseInt(document.getElementById('TongSoThucHanh_PhanII').value) + parseInt(document.getElementById('TongSoThucHanh_PhanIII').value);	
+	document.getElementById('TongSoThucHanh').value = parseInt(document.getElementById('TongSoThucHanh_PhanI').value) + parseInt(document.getElementById('TongSoThucHanh_PhanII').value) + parseInt(document.getElementById('TongSoThucHanh_PhanIII').value);
+	document.getElementById('ThoiGian4').value = parseInt(document.getElementById('PhanBo1').value) + parseInt(document.getElementById('PhanBo2').value);	
 }
 
 function isEmpty() {
@@ -895,10 +896,10 @@ function validateInputNumber()
 				<select id = "ThoiGianHocTap" name="cboThoiGianHocTap">
 					<option value = null>--Select--</option>
 				</select> tuần.<br />
-				-   Thời gian thực học tối thiểu:
-				<select id = "ThoigianThucHocToiThieu" name="cboThoigianThucHocToiThieu" onclick="selectThoiGianToiThieu();">
+				-   Thời gian thực học tối thiểu:<!--  onclick="selectThoiGianToiThieu();" -->
+				<select id = "ThoigianThucHocToiThieu" name="cboThoigianThucHocToiThieu">
 					<option>--Select--</option>
-				</select> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "0" name = "txtThoiGian4" onblur="validateInputNumber();"/> giờ).
+				</select> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "" name = "txtThoiGian4" readonly="readonly" onblur="validateInputNumber();"/> giờ).
 				<c:if test="${not empty param.err and ChuongTrinhDaoTao.thoiGian4 eq ''}"><b class="error">(*)</b></c:if><br /><br />
 				-   Thời gian ôn, kiểm tra hết môn, thi: 
 				<input type = "text" size = "3" id = "ThoiGian5" style="background-color: transparent;" name="txtThoiGian5" readonly="readonly"/> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian6" id = "ThoiGian6" readonly="readonly"/> giờ)<br />

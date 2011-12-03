@@ -17,7 +17,7 @@
 </pd4ml:header>
 <pd4ml:footer 
 	   fontFace="Times New Roman"
-       titleTemplate="     BM05-QT7.3/1           		Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     BM03a-QT7.3/1           		Ngày hiệu lực: 20/8/2010"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -284,18 +284,20 @@
 	<br /><div style="">
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;" border = "1">
 	<tr style="background-color: transparent; font-size: 16px;">
-		<td rowspan = "2">STT</td>
-		<td rowspan = "2">Tên môn học, module</td>
+		<td rowspan = "3">STT</td>
+		<td rowspan = "3">Tên môn học, module</td>
 		<td colspan = "2">Thời gian  đào tạo</td>
-		<td colspan = "4">Thời gian của môn học, module (giờ)</td>
+		<td colspan = "3">Thời gian của môn học, module (giờ)</td>
 	</tr> 
 	<tr style="background-color: transparent; font-size: 16px;">
-		<td>Năm học</td>
-		<td>Học kì</td>
-		<td>Tổng số</td>
+		<td rowspan="2">Năm học</td>
+		<td rowspan="2">Học kì</td>
+		<td rowspan="2">Tổng số</td>
+		<td colspan="2">Trong đó</td>
+	</tr>
+	<tr style="background-color: transparent; font-size: 16px;">
 		<td>Lý thuyết</td>
 		<td>Thực hành</td>
-		<td>Kiểm tra</td>
 	</tr>
 	<tr style="background-color: transparent; background-position: center; background-color: aqua; font-weight: bold; font-size: 16px">
 		<td><p></td>
@@ -305,7 +307,6 @@
 		<td>${TongSo_PhanI}</td>
 		<td>${TongSoLyThuyet_PhanI}</td>
 		<td>${TongSoThucHanh_PhanI}</td>
-		<td><p></td>
 	</tr>
 	<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">
@@ -318,7 +319,6 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
-				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>
@@ -330,7 +330,6 @@
 			<td>${TongSo_PhanII}</td>
 			<td>${TongSoLyThuyet_PhanII}</td>
 			<td>${TongSoThucHanh_PhanII}</td>
-			<td><p></td>
 		</tr>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">			
@@ -342,7 +341,6 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
-				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>	
@@ -354,7 +352,6 @@
 			<td>${TongSo_PhanIII}</td>
 			<td>${TongSoLyThuyet_PhanIII}</td>
 			<td>${TongSoThucHanh_PhanIII}</td>
-			<td><p></td>
 		</tr>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">		
@@ -381,7 +378,6 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
-				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>
@@ -393,7 +389,6 @@
 		<td>${TongSo_PhanI + TongSo_PhanII + TongSo_PhanIII}</td>
 		<td>${TongSoLyThuyet_PhanI + TongSoLyThuyet_PhanII + TongSoLyThuyet_PhanIII}</td>
 		<td>${TongSoThucHanh_PhanI + TongSoThucHanh_PhanII + TongSoThucHanh_PhanIII}</td>
-		<td><p></td>
 	</tr>	
 	</table>
 	</div>
@@ -459,6 +454,8 @@
 			<td><p>${CTDT.tenNguoiDuyet}</p></td>
 		</tr>
 	--></table>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	</td></tr>
 </table>
 </div>
 </div>
