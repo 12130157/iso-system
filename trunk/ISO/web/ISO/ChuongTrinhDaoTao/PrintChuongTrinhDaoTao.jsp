@@ -7,7 +7,7 @@
 	screenWidth="700"
 	pageFormat="A4"
 	pageOrientation="portrait"	
-	pageInsets="10,20,0,20,points"
+	pageInsets="30,20,0,20,points"
 	enableImageSplit="false"
 	encoding="UTF-8">
 <pd4ml:usettf from="java:fonts" serif="Times New Roman" sansserif="Times New Roman" monospace="Courier New" />
@@ -16,10 +16,9 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-	   fontFace="Times New Roman"
-       titleTemplate="     BM03a-QT7.3/1           		Ngày hiệu lực: 20/8/2010"
+       titleTemplate="     BM03a-QT7.3/1               Ngày hiệu lực: 20/8/2010"
        pageNumberTemplate="Trang $[page]/$[total]"
-       titleAlignment="left"
+       titleAlignment="left" 
        pageNumberAlignment="right"       
        color="#000000"             
        initialPageNumber="1"       
@@ -430,7 +429,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 			<c:set var="sig" value="-"></c:set>
-			<td>ngày ${sf:getElement(CTDT.ngayCapNhatCuoi,0,sig)} tháng ${sf:getElement(CTDT.ngayCapNhatCuoi,1,sig)} năm ${sf:getElement(CTDT.ngayCapNhatCuoi,2,sig)}</td>
+			<td>Ngày ${sf:getElement(CTDT.ngayCapNhatCuoi,0,sig)} tháng ${sf:getElement(CTDT.ngayCapNhatCuoi,1,sig)} năm ${sf:getElement(CTDT.ngayCapNhatCuoi,2,sig)}</td>
 			<td>Quận 5, ngày ${sf:getElement(CTDT.ngayDuyet,0,sig)} tháng ${sf:getElement(CTDT.ngayDuyet,1,sig)} năm ${sf:getElement(CTDT.ngayDuyet,2,sig)}</td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
