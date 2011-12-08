@@ -712,7 +712,8 @@ function capNhat()
 				<tr align="center">
 					<td>
 						<a href = "javascript: capNhat()">	
-								<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" border = "0" />
+							<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" border = "0" />
+							<img src="<%=request.getContextPath()%>/images/buttom/indiem.png" />
 						</a>
 					</td>
 				</tr>
