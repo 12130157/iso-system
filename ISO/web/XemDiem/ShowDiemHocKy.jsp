@@ -88,10 +88,13 @@
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">STT</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Tên sinh viên</div></th>
 				<th bgcolor = "#186fb2" colspan="10"><div class = "div_textWhite">Môn học</div></th>
-				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Điểm RL</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Điểm TB</div></th>
+				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Điểm RL</div></th>
+				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Điểm TBC</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Học lực</div></th>
 				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Hạnh kiểm</div></th>
+				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Số ngày nghỉ</div></th>
+				<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Ghi chú</div></th>
 			</tr>
 			
 			<tr style="background-color: transparent;">
