@@ -25,6 +25,29 @@ import vn.edu.hungvuongaptech.util.StringUtil;
  */
 public class ThanhVienDAO {
 
+	//NGUOI VIET: LQCHUONG
+	public static ArrayList<DangKyMonHocModel> getMonHocDiemTrungBinh(int maThanhVien,int hocKi)
+	{
+		ArrayList<DangKyMonHocModel> arr = new ArrayList<DangKyMonHocModel>();
+		try {
+			CallableStatement c = DataUtil.getConnection().prepareCall("{call SP_QLSV_GETDIEMSVTHEOHOCKI(?,?)}");
+			c.setInt(1, maThanhVien);
+			c.setInt(2, hocKi);
+			ResultSet rs = c.executeQuery();
+			while(rs.next())
+			{
+				DangKyMonHocModel model = new DangKyMonHocModel();
+				model.setTenMonHoc(rs.getString("TEN_MON_HOC"));
+				model.setDiemTrungBinh(rs.getString("DIEM_TRUNG_BINH"));
+				arr.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return arr;
+	}
+	
 	//Nguoi viet: LQChuong
 	public static ChiTietThongTinCaNhanGiaDinh getSVByTenDN(String tenDN)
 	{
@@ -67,6 +90,7 @@ public class ThanhVienDAO {
 		}
 		return model;
 	}
+
 
 	//Tac gia: La Quoc Chuong
 	public static boolean themSoLuocLyLich(String tenDangNhap,String matKhau,int maVaiTro,int maBoPhan,String soTaiKhoan,
