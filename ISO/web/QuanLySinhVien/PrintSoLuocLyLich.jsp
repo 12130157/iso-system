@@ -4,7 +4,9 @@
 
 
 <%@page import="vn.edu.hungvuongaptech.dao.ThanhVienDAO"%>
-<%@page import="vn.edu.hungvuongaptech.model.ChiTietThongTinCaNhanGiaDinh"%><pd4ml:transform
+<%@page import="vn.edu.hungvuongaptech.model.ChiTietThongTinCaNhanGiaDinh"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="vn.edu.hungvuongaptech.model.DangKyMonHocModel"%><pd4ml:transform
 	screenWidth="700"
 	pageFormat="A4"
 	pageOrientation="portrait"	
@@ -18,7 +20,7 @@
 </pd4ml:header>
 <pd4ml:footer 
 	   fontFace="Times New Roman"
-       titleTemplate="     BM05-QT7.3/1           		Ngày hiệu lực: 15/9/2009"
+       titleTemplate="     "
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
@@ -50,6 +52,8 @@
 ThanhVienDAO d = new ThanhVienDAO();
 ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThanhVien").toString());
 %>
+
+
 <div align="center">	
 <table border="1" bgcolor="transparent" cellspacing="1" cellpadding="2" style="width: 670px; height:900px; border-style:none">
 		<tr>
@@ -88,7 +92,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		</tr>
 		<tr>
 			<td style="text-align: left"><p style="width:150px">Ngày sinh</p></td>
-			<td style="text-align: left"><input type="text" style="width:180px; border:none;"  value="<% if(model.getNgaySinh().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getNgaySinh());} %>" /></td>
+			<td style="text-align: left"><input type="text" style="width:180px; border:none;"  value="<% if(model.getNgaySinh() == null){out.print("Chưa có");} else {out.print(model.getNgaySinh());} %>" /></td>
 			<td style="text-align: right"><p style="width:85px"></p></td>
 			<td style="text-align: left"><p style="width:10px"></p></td>
 		</tr>		
@@ -182,7 +186,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 				</p>
 			</td>
 			<td style="text-align: right; vertical-align:top"><p style="width:85px">Điện thoại</p></td>
-			<td style="text-align: left; vertical-align:top"><input type="text" style="width:130px; border:none;" value="<% if(model.getDTDD().toLowerCase().toString().equals("null")){out.print("Chưa có");} else {out.print(model.getDTDD());} %>"  /></td>
+			<td style="text-align: left; vertical-align:top"><input type="text" style="width:130px; border:none;" value="<% if(model.getDTDD() == null){out.print("Chưa có");} else {out.print(model.getDTDD());} %>"  /></td>
 		</tr>
 		<tr>
 			<td style="text-align: left; vertical-align: top"><p style="width:150px">Nguyện vọng làm việc sau khi kết thúc khóa học</p></td>
@@ -199,6 +203,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 	<br />
 	<br />
 	<br />
+	<br /><br /><br /><br />
 	
 	<!-- NĂM THỨ 1 - NIÊN KHÓA 2010 - 2012 -->
 <center><div  style="font-size: 17px; margin-top: 50px; font-weight: bold">II. KẾT QUẢ HỌC TẬP TỪNG NĂM</div></center>
@@ -217,7 +222,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 	<tr>
 		<td rowspan="2" colspan="4" style="vertical-align: middle; text-align: center"><p style="width:80px;">Kiểm tra định kỳ</p></td>
 		<td colspan="2" style="vertical-align: middle; text-align: center"><p style="width:80px;">Kiểm tra hết MH/MĐ</p></td>	
-		<td rowspan="2" style="vertical-align: middle; text-align: center"><p style="width:70px;">Tổng kết</p></td>	
+		<td rowspan="2" style="vertical-align: middle; text-align: center"><p style="width:60px;">Tổng kết</p></td>	
 		<td rowspan="2" colspan="4" style="vertical-align: middle; text-align: center"><p style="width:80px;">Kiểm tra định kỳ</p></td>
 		<td colspan="2" style="vertical-align: middle; text-align: center"><p style="width:80px;">Kiểm tra hết MH/MĐ</p></td>	
 		<td rowspan="2" style="vertical-align: middle; text-align: center"><p style="width:70px;">Tổng kết</p></td>	
@@ -228,7 +233,113 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td style="vertical-align: middle">Lần 1</td>
 		<td style="vertical-align: middle">Lần 2</td>
 	</tr>
+	
+	<%
+	ArrayList<DangKyMonHocModel> arr = d.getMonHocDiemTrungBinh(Integer.parseInt(request.getParameter("maThanhVien")),1);
+	ArrayList<DangKyMonHocModel> arr2 = d.getMonHocDiemTrungBinh(Integer.parseInt(request.getParameter("maThanhVien")),2);
+	int num = 0;
+	if(arr.size() >= arr2.size())
+		num = arr.size();
+	else if(arr.size() <= arr2.size())
+		num = arr2.size();
+	for(int i = 0; i < num; i++)
+	{
+	%>
 	<tr>
+		<td class="a" style="height:30px">
+			<%
+			if(arr.size() != 0)
+			{
+				if(arr.size() <= arr2.size())
+				{
+					if(i != arr.size())
+						out.println(arr.get(i).getTenMonHoc().toString());
+					else if(i == arr.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr.size() > arr2.size())
+				{
+					out.println(arr.get(i).getTenMonHoc().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p>
+			<%
+			if(arr.size() != 0)
+			{
+				if(arr.size() <= arr2.size())
+				{
+					if(i != arr.size())
+						out.println(arr.get(i).getDiemTrungBinh().toString());
+					else if(i == arr.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr.size() > arr2.size())
+				{
+					out.println(arr.get(i).getDiemTrungBinh().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td class="a">
+			<%
+			if(arr2.size() != 0)
+			{
+				if(arr2.size() <= arr.size())
+				{
+					if(i != arr2.size())
+						out.println(arr2.get(i).getTenMonHoc().toString());
+					else if(i == arr2.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr2.size() > arr.size())
+				{
+					out.println(arr2.get(i).getTenMonHoc().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">
+			<%
+			if(arr2.size() != 0)
+			{
+				if(arr2.size() <= arr.size())
+				{
+					if(i != arr2.size())
+						out.println(arr2.get(i).getDiemTrungBinh().toString());
+					else if(i == arr2.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr2.size() > arr.size())
+				{
+					out.println(arr2.get(i).getDiemTrungBinh().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</p></td>
+	</tr>
+	<%
+	}
+	%>
+		
+	<!-- <tr>
 		<td class="a" style="height:30px">Anh văn 1</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -236,7 +347,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Anh văn 2</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -244,7 +355,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px">Tin học đại cương</td>
@@ -254,7 +365,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Giáo dục quốc phòng</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -262,7 +373,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px">Vẽ kĩ thuật 1</td>
@@ -272,7 +383,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Vẽ kĩ thuật 2</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -280,7 +391,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px">Dung sai - kỹ thuật đo</td>
@@ -290,7 +401,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">CAD</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -298,7 +409,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px">Nguội cơ bản</td>
@@ -308,7 +419,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Cơ kỹ thuật</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -316,7 +427,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px">Kỹ thuật Tiện 1</td>
@@ -326,7 +437,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Vật liệu học</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -334,7 +445,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px"><p style="width:10px"></p></td>
@@ -344,7 +455,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Chi tiết máy</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -352,7 +463,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px"><p style="width:10px"></p></td>
@@ -362,7 +473,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Điện kỹ thuật</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -370,7 +481,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px"><p style="width:10px"></p></td>
@@ -380,7 +491,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Kỹ thuật Hàn</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -388,7 +499,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
 	<tr>
 		<td class="a" style="height:30px"><p style="width:10px"></p></td>
@@ -398,7 +509,7 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 		<td class="a">Kỹ thuật Phay 1</td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
@@ -406,8 +517,9 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
-		<td><p style="width:20px"></p></td>
+		<td><p style="width:20px">0</p></td>
 	</tr>
+	-->
 	<tr>
 		<td colspan="8" class="a" style="text-align: left">Xếp loại học tập: </td>		
 		<td colspan="8" style="text-align: left" >Xếp loại học tập: </td>		
@@ -454,6 +566,113 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td style="vertical-align: middle">Lần 1</td>
 		<td style="vertical-align: middle">Lần 2</td>
 	</tr>
+	
+	<%
+	ArrayList<DangKyMonHocModel> arr3 = d.getMonHocDiemTrungBinh(Integer.parseInt(request.getParameter("maThanhVien")),3);
+	ArrayList<DangKyMonHocModel> arr4 = d.getMonHocDiemTrungBinh(Integer.parseInt(request.getParameter("maThanhVien")),4);
+	int num2 = 0;
+	if(arr3.size() >= arr4.size())
+		num2 = arr3.size();
+	else if(arr3.size() <= arr4.size())
+		num2 = arr4.size();
+	for(int i = 0; i < num2; i++)
+	{
+	%>
+	<tr>
+		<td class="a" style="height:30px">
+			<%
+			if(arr3.size() != 0)
+			{
+				if(arr3.size() <= arr4.size())
+				{
+					if(i != arr3.size())
+						out.println(arr3.get(i).getTenMonHoc().toString());
+					else if(i == arr3.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr3.size() > arr4.size())
+				{
+					out.println(arr3.get(i).getTenMonHoc().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p>
+			<%
+			if(arr3.size() != 0)
+			{
+				if(arr3.size() <= arr4.size())
+				{
+					if(i != arr3.size())
+						out.println(arr3.get(i).getDiemTrungBinh().toString());
+					else if(i == arr3.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr3.size() > arr4.size())
+				{
+					out.println(arr3.get(i).getDiemTrungBinh().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td class="a">
+			<%
+			if(arr4.size() != 0)
+			{
+				if(arr4.size() <= arr3.size())
+				{
+					if(i != arr4.size())
+						out.println(arr4.get(i).getTenMonHoc().toString());
+					else if(i == arr4.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr4.size() > arr3.size())
+				{
+					out.println(arr4.get(i).getTenMonHoc().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">&nbsp;</p></td>
+		<td><p style="width:20px">
+			<%
+			if(arr4.size() != 0)
+			{
+				if(arr4.size() <= arr3.size())
+				{
+					if(i != arr4.size())
+						out.println(arr4.get(i).getDiemTrungBinh().toString());
+					else if(i == arr4.size())
+						out.println("<p>&nbsp;</p>");
+				}
+				else if(arr4.size() > arr3.size())
+				{
+					out.println(arr4.get(i).getDiemTrungBinh().toString());
+				}
+			}else
+				out.println("<p>&nbsp;</p>");			
+			%>
+		</p></td>
+	</tr>
+	<%
+	}
+	%>
+	
+	<!-- 
 	<tr>
 		<td class="a" style="height:30px">Anh văn kỹ thuật</td>
 		<td><p style="width:20px"></p></td>
@@ -634,6 +853,8 @@ ChiTietThongTinCaNhanGiaDinh model = d.getSVByTenDN(request.getParameter("maThan
 		<td><p style="width:20px"></p></td>
 		<td><p style="width:20px"></p></td>
 	</tr>
+	-->
+	
 	<tr>
 		<td colspan="8" class="a" style="text-align: left">Xếp loại học tập: </td>		
 		<td colspan="8"  style="text-align: left">Xếp loại học tập: </td>		
