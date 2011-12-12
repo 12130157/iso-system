@@ -67,7 +67,6 @@ var kieuDayLyThuyet = new Array();
 		//monHocModelList = MonHocDAO.getMonHoc();
 		//check = 0;
 		chiTietMonHocCTDTModelList = ChiTietMonHocCTDTDAO.getChiTietCTDTByMaDeCuong(maDeCuong);
-		
 	}
 	else
 	{
@@ -988,7 +987,7 @@ var kieuDayLyThuyet = new Array();
 		<!--<c:set var="check" value=""></c:set>
 	--><c:if test="${DeCuongMonHoc.tinhTrang ne null and ((vaiTro eq Giao_vien and DeCuongMonHoc.maNguoiTao eq maThanhVien) or vaiTro ne Giao_vien)}">	
 			<a href = "javascript: xuLyFile(2);">	
-				<input type="hidden" name="Copy" value = "Copy" />							 
+				<input type="hidden" name="Copy" value = "" />							 
 				<img src="<%=request.getContextPath()%>/images/buttom/saochep.png" alt="Sao chép" border = "0" />
 			</a>									
 		</c:if>
