@@ -209,7 +209,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian thực học tối thiểu : ${CTDT.thoiGian3} tuần (${CTDT.thoiGian4} giờ) </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian thực học tối thiểu : ${CTDT.thoiGian4} giờ </p>
 				</td>
 		</tr>
 	</table>
