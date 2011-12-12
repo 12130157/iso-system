@@ -171,6 +171,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 		if (req.getParameter("areaYKienDeXuat") != null) {
 			chuongTrinhDaoTaoModel.setyKienDeXuat(StringUtil.toUTF8(req.getParameter("areaYKienDeXuat").trim())); }
 		chuongTrinhDaoTaoModel.setNgayGui("");
+		chuongTrinhDaoTaoModel.setThoiGian3("0");
 		Integer count = 0; 
 		int status = 0;
 		ArrayList<ChiTietMonHocCTDTModel> chiTietMonHocCTDTModelList1 = new ArrayList<ChiTietMonHocCTDTModel>();

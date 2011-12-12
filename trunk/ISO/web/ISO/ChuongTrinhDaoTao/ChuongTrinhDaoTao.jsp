@@ -65,8 +65,8 @@ function loadPage()
 		out.print("if('" + chuongTrinhDaoTaoModel.getMaNghe() + "' != ''){");
 		out.print("document.getElementById('nghe').value = '" + chuongTrinhDaoTaoModel.getMaNghe() + "';");
 		out.print("selectNghe();");
-		out.print("document.getElementById('ThoiGianHocTap').value = '" + chuongTrinhDaoTaoModel.getThoiGian2() + "';");
-		out.print("document.getElementById('ThoigianThucHocToiThieu').value = '" + chuongTrinhDaoTaoModel.getThoiGian3() + "';}");
+		out.print("document.getElementById('ThoiGianHocTap').value = '" + chuongTrinhDaoTaoModel.getThoiGian2() + "';}");
+		//out.print("document.getElementById('ThoigianThucHocToiThieu').value = '" + chuongTrinhDaoTaoModel.getThoiGian3() + "';}");
 		out.print("count1=1, count2=1, count3=1, dem = 0;");
 		if(request.getParameter("Them")== null || request.getParameter("maID") != null) {
 			for(int i=0;i<chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().size();i++)
@@ -197,7 +197,7 @@ function selectNghe()
 function selectHeDaoTao(maTrinhDo)
 {
 	document.getElementById('ThoiGianHocTap').innerHTML = null;
-	document.getElementById('ThoigianThucHocToiThieu').innerHTML = null;
+	//document.getElementById('ThoigianThucHocToiThieu').innerHTML = null;
 	<%
 	
 	ArrayList<HeDaoTaoModel> heDaoTaoModelList = HeDaoTaoDAO.getHeDaoTao();
@@ -236,14 +236,19 @@ function selectHeDaoTao(maTrinhDo)
 		selectNamHoc('III', i);
 	}
 	
-	for(var i = document.getElementById('ThoiGianDaoTao').value*12*4-15;i<document.getElementById('ThoiGianDaoTao').value*12*4 + 15;i++)
+	for(var i = document.getElementById('ThoiGianDaoTao').value*12*4-20;i<document.getElementById('ThoiGianDaoTao').value*12*4 + 20;i++)
 	{
 		var opt = new Option(i,i);
 		document.getElementById('ThoiGianHocTap').add(opt,undefined);
-		var opt = new Option(i,i);
-		document.getElementById('ThoigianThucHocToiThieu').add(opt,undefined);
+		//var opt = new Option(i,i);
+		//document.getElementById('ThoigianThucHocToiThieu').add(opt,undefined);
 	}
-	selectThoiGianToiThieu();
+	if(document.getElementById('ThoiGianDaoTao').value == '2')
+	{
+		document.getElementById('ThoiGianHocTap').value = '80';
+		document.getElementById('ThoiGianHocTap').disabled = true;
+	}
+	//selectThoiGianToiThieu();
 }
 function selectThoiGianToiThieu()
 {
@@ -896,10 +901,11 @@ function validateInputNumber()
 				<select id = "ThoiGianHocTap" name="cboThoiGianHocTap">
 					<option value = null>--Select--</option>
 				</select> tuần.<br />
-				-   Thời gian thực học tối thiểu:<!--  onclick="selectThoiGianToiThieu();" -->
-				<select id = "ThoigianThucHocToiThieu" name="cboThoigianThucHocToiThieu">
+				-   Thời gian thực học tối thiểu:<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "" name = "txtThoiGian4" readonly="readonly" onblur="validateInputNumber();"/> giờ.
+				<!--  onclick="selectThoiGianToiThieu();" -->
+				<!--<select id = "ThoigianThucHocToiThieu" name="cboThoigianThucHocToiThieu">
 					<option>--Select--</option>
-				</select> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "" name = "txtThoiGian4" readonly="readonly" onblur="validateInputNumber();"/> giờ).
+				</select> tuần ( giờ).-->
 				<c:if test="${not empty param.err and ChuongTrinhDaoTao.thoiGian4 eq ''}"><b class="error">(*)</b></c:if><br /><br />
 				-   Thời gian ôn, kiểm tra hết môn, thi: 
 				<input type = "text" size = "3" id = "ThoiGian5" style="background-color: transparent;" name="txtThoiGian5" readonly="readonly"/> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian6" id = "ThoiGian6" readonly="readonly"/> giờ)<br />
