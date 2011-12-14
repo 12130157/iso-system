@@ -69,7 +69,7 @@
 				</td>
 			</tr>
 		</table>
-			<c:choose>
+		<c:choose>
 			<c:when test = "${param.BaoHuThietBi eq 'ok'}">
 				<font class="msg">Báo hư thiết bị thành công</font>
 			</c:when>
@@ -109,65 +109,88 @@
 		<table border='1' style="background-color: transparent;">
 			<tr>
 				<td>
-					Loại 	
-						<select id="cboLoaiThietBi" name="cboLoaiThietBi">
-							<option 
-								<c:if test="${param.maLoaiThietBi eq ''}"> selected</c:if>
-									value = "" >Chọn</option>	
-												
-							<c:forEach var="loaiThietBi" items="${listLoaiThietBi}">
-								<option 
-									<c:if test="${param.loaiThietBi eq loaiThietBi.maLoaiThietBi}">selected</c:if>
-										value="${loaiThietBi.maLoaiThietBi}">${loaiThietBi.tenLoaiThietBi}
-								</option>
-							</c:forEach>
-						</select>	
+					Phòng 
+					<select>
+						<option>Chọn</option>
+						<option>G2.1</option>
+					</select>	
 				</td>
 				<td>
-					Phòng 	
-					<select id="cboPhong" name="cboPhong">
-						<option 
-								<c:if test="${param.phongBan eq ''}"> selected</c:if>
-								value = "" >Chọn</option>	
-											
-						<c:forEach var="phong" items="${listPhong}">
-							<option 
-									<c:if test="${param.phongBan eq phong.maPhongBan}">selected</c:if>
-									value="${phong.maPhongBan}">${phong.kiHieu}
-							</option> 
-						</c:forEach>
+					Khoa/TT
+					<select>
+						<option>Chọn</option>
+						<option>Công Nghệ Thông Tin</option>
 					</select> 
 				</td>
+				<td>
+					Loại Thiết Bị
+					<select>
+						<option>Chọn</option>
+						<option>PC</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Tình Trạng
+					<select>
+						<option>Chọn</option>
+						<option>Tốt</option>
+					</select>
+				</td>
+				<td colspan="2">
+					Vào lúc
+					<select>
+						<option>Chọn</option>
+						<c:forEach var="n" begin="0" end="23" step="1">
+							<option>${n}</option>
+						</c:forEach>
+					</select>
+					:
+					<select>
+						<option>Chọn</option>
+						<c:forEach var="n" begin="0" end="59" step="1">
+							<option>${n}</option>
+						</c:forEach>
+					</select>
+					đến
+					<select>
+						<option>Chọn</option>
+						<c:forEach var="n" begin="0" end="23" step="1">
+							<option>${n}</option>
+						</c:forEach>
+					</select>
+					:
+					<select>
+						<option>Chọn</option>
+						<c:forEach var="n" begin="0" end="59" step="1">
+							<option>${n}</option>
+						</c:forEach>
+					</select> 
+				</td>		
 			</tr>
 			<tr>				
-				<td>Tình trạng 
-						<select id="cboTinhTrang" name="cboTinhTrang">
-							<option 
-								<c:if test="${param.tinhTrang eq ''}"> selected</c:if>
-									value = "" >All</option>	
-												
-								<c:forEach var="tt" items="${listTinhTrang}">
-									<option 
-										<c:if test="${param.tinhTrang eq tt.maTinhTrang}">selected</c:if>
-										value="${tt.maTinhTrang}">${tt.tenTinhTrang}
-									</option> 
-								</c:forEach>
-						</select>
+				<td>Hiện Trạng
+					<select>
+						<option>Chọn</option>
+						<option>Tốt</option>
+					</select>
 				</td>
-				<td>Tên thiết bị 
-						<input type = "text" id = "txtTenThietBi" name = "txtTenThietBi" value = "<%=tenThietBi %>"/>
+				<td colspan="2">
+					Từ ngày 
+					<input type="text" />
+					đến
+					<input type="text" />
+					<input type="button" value="Tìm Kiếm" />
 				</td>
-				<td><a href = "javascript: search();"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a></td>
 			</tr>
 		</table>		
 		
 		<table border="1">
 			<tr>
-				<th style='background-color: #186fb2;color:white'>&nbsp;&nbsp;&nbsp;</th>
 				<th bgcolor = "#186fb2">
-								<div class = "div_textWhite">
-									<input type="checkbox" name="chkAll" id="chkAll" onclick="checkAll();"></input>
-								</div>
+					<div class = "div_textWhite">
+						<input type="checkbox" name="chkAll" id="chkAll" onclick="checkAll();"></input>
+					</div>
 				</th>
 				<th style='background-color: #186fb2;color:white'>STT</th>
 				<th style='background-color: #186fb2;color:white'>Loại thiết bị</th>
@@ -175,132 +198,7 @@
 				<th style='background-color: #186fb2;color:white'>Tên thiết bị</th>
 				<th style='background-color: #186fb2;color:white'>Tên phòng ban</th>
 				<th style='background-color: #186fb2;color:white'>Tình trạng</th>								
-			</tr>
-					
-			<c:set var="listThietBi" value="<%= thietBiList %>" scope = "session"></c:set>
-					
-			
-			<c:forEach var="ThietBi" items="${listThietBi}">
-				<tr>
-					<td>
-						<c:if test = "${ThietBi.tinhTrangDuocXoa eq 1}">X</c:if>
-						<input type = "hidden" id = "txtTinhTrangDuocXoa<%=c %>" value = "${ThietBi.tinhTrangDuocXoa }"/>
-					</td>
-					<td>
-						<input type="checkbox" name="chk<%=c %>" id="chk<%=c %>" onclick="checkRow();" value="${ThietBi.maThietBi}"/>
-					</td>
-					<td><%=c %></td>
-					<td>
-						<a href = "<%= Constant.PATH_RES.getString("qltb.XemThietBiPath") %>?maThietBi=${ThietBi.maThietBi}">${ThietBi.tenLoaiThietBi }</a>
-					</td>
-					<td>${ThietBi.kiHieu }</td>
-					<td>${ThietBi.tenThietBi }</td>
-					<td>${ThietBi.tenPhongBan }</td>
-					<td>${ThietBi.tenTinhTrang }</td>					
-				</tr>
-				<%c++; %>
-				
-			</c:forEach>
-			<input type = "hidden" id = "txtListMaThietBiCanXoa" name="txtListMaThietBiCanXoa"/>
-			<script language="JavaScript" type="text/javascript">
-				
-			
-				function checkAll()
-				{		
-					if (document.getElementById("chkAll").checked == true) {
-						<%
-							for(int i = 1; i< c; i++) {
-								out.print("document.getElementById('chk" + i + "').checked = true;\n");
-							}
-						%>	
-					}else {
-						<%
-							for(int i = 1; i< c; i++) {
-								out.print("document.getElementById('chk" + i + "').checked = false;\n");
-							}
-						%>
-					}
-				}
-				
-				function checkRow(){
-					if(document.getElementById('chkAll').checked == true)
-						document.getElementById('chkAll').checked = false;
-				}
-				
-				function xoaThietBi()
-				{
-					var listThietBiCanXoa = "";
-					var check = false, check1 = true;
-					<%
-						for(int i=1;i<c;i++)
-						{
-							out.print("if(document.getElementById('chk" + i + "').checked == true) {");
-							out.print("check = true;");
-							out.print("if(document.getElementById('txtTinhTrangDuocXoa" + i + "').value == '2')");
-							out.print("check1 = false;");
-							out.print("else {");
-							out.print("listThietBiCanXoa += '-' + document.getElementById('chk" + i + "').value;}}");
-						}
-					%>
-					if(check == false)
-					{
-						alert("Bạn chưa chọn checkbox nào!!!!");
-					}
-					else if(check == true)
-					{
-						if(check1 == true) 
-						{
-							if(confirm("Bạn có chắc muốn xoá không???"))
-							{
-								document.getElementById('actionType').value = 'XoaThietBi';
-								document.getElementById('txtListThietBi').value = listThietBiCanXoa;
-								document.forms["formThietBi"].submit();
-							}
-						}
-						else
-						{
-							alert("Hãy chọn đúng thiết bị được phép xóa!!!");
-						}
-					}
-				}
-				function baoHuThietBi()
-				{
-					var str = "";
-					for(var i=1;i<<%=c%>;i++)
-					{
-						if(document.getElementById('chk' + i).checked == true)
-							str += '-' + document.getElementById('chk' + i).value;
-					}
-					if(str != "")
-					{
-						var value = window.showModalDialog("BaoHuThietBi.jsp?listMaThietBi="+str,"","dialogHeight: 650px; dialogWidth: 750px; dialogTop: 150px; dialogLeft: 150px; edge: Raised; center: Yes; help: No; scroll: Yes; status: Yes;");
-						if(value != null)
-						{
-							document.getElementById('txtListThietBi').value = value;
-							document.getElementById('actionType').value = 'BaoHuThietBi';
-							document.forms["formThietBi"].submit();
-						}
-					}
-					else
-						alert("Hãy chọn thiết bị!!!");
-				}
-			</script>
-			<c:set var = "TotalPage" value="<%= (int) Math.round( ((float)totalRow) /Constant.RECORDS_PER_PAGE + 0.4)%>"></c:set>
-		<c:if test = "${TotalPage gt 1}">		
-		 	<tr style="background-color: transparent;">
-				<td colspan="7">
-					<c:if test = "${CurrentPage gt 1}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${CurrentPage - 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/lui.png" border="0" /></a>
-					</c:if>	
-					<c:forEach var = "PageCount" begin = "1" end = "${TotalPage}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${PageCount}&msg=${PhanLoai}">${PageCount}</a>
-					</c:forEach>
-					<c:if test = "${CurrentPage lt TotalPage}">
-						<a href="<%=Constant.PATH_RES.getString("qltb.DanhSachThietBi")%>?page=${CurrentPage + 1}&msg=${PhanLoai}" ><img src="<%=request.getContextPath()%>/images/icon_action/toi.png" border="0"/></a>
-					</c:if>	
-				</td>
-			</tr> 	
-		</c:if>		
+			</tr>	
 		</table>
 		<table>
 			<tr>
