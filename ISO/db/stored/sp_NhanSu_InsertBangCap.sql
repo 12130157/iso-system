@@ -6,10 +6,10 @@ GO
 CREATE PROC sp_NhanSu_InsertBangCap
 @Ma_thanh_vien INT,
 @Loai_bang NVARCHAR(20),
-@Truong_cap NVARCHAR(200),
+@Truong_cap NVARCHAR(500),
 @Nam_tot_nghiep INT,
 @Loai_tot_nghiep NVARCHAR(40),
-@Chuyen_nganh	NVARCHAR(100),
+@Chuyen_nganh	NVARCHAR(300),
 @Bang_cap_chinh INT,
 @KQ	INT OUTPUT
 AS
