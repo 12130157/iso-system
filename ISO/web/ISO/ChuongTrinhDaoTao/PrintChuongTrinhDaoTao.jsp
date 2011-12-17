@@ -136,7 +136,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-style: italic; font-weight: bold">	4.Cơ hội việc làm:</p>${sf:appendPTag(CTDT.mucTieu4)}
+					<p style="font-style: italic; font-weight: bold">	4.Thái độ lao động:</p>${sf:appendPTag(CTDT.mucTieu4)}
 				</td>
 		</tr>
 	</table>
