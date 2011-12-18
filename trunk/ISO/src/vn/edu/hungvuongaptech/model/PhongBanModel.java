@@ -1,6 +1,7 @@
 package vn.edu.hungvuongaptech.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PhongBanModel implements Serializable{
 	/**
@@ -22,6 +23,16 @@ public class PhongBanModel implements Serializable{
 	private String user3;
 	private String user4;
 	private String user5;
+	private ArrayList<LoaiThietBiModel> listLoaiThietBi;
+	
+	
+
+	public ArrayList<LoaiThietBiModel> getListLoaiThietBi() {
+		return listLoaiThietBi;
+	}
+	public void setListLoaiThietBi(ArrayList<LoaiThietBiModel> listLoaiThietBi) {
+		this.listLoaiThietBi = listLoaiThietBi;
+	}
 	public String getMaThietBi() {
 		return maThietBi;
 	}

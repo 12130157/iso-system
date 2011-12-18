@@ -7,12 +7,15 @@ public class ThietBiModel implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String maThietBi;
+	private String ma;
 	private String tenThietBi;
 	private String maLoaiThietBi;
 	private String tenLoaiThietBi;
 	private String kiHieu;
 	private String maTinhTrang;
-	private String tenTinhTrang;	
+	private String tenTinhTrang;
+	private String maHienTrang;
+	private String tenHienTrang;
 	private String ghiChu;
 	private String maBoPhan;
 	private String tenBoPhan;	
@@ -41,19 +44,31 @@ public class ThietBiModel implements Serializable{
 	private String user3;
 	private String user4;
 	private String user5;
+
 	
-	private String maThietBiTruoc;
-	private String soLuong;
-	private String tinhTrangDuocXoa;
 	
-	private ArrayList<ChiTietThietBiModel> chiTietThietBiList;
-	
-	public String getTinhTrangDuocXoa() {
-		return tinhTrangDuocXoa;
+	public String getMa() {
+		return ma;
 	}
 
-	public void setTinhTrangDuocXoa(String tinhTrangDuocXoa) {
-		this.tinhTrangDuocXoa = tinhTrangDuocXoa;
+	public void setMa(String ma) {
+		this.ma = ma;
+	}
+
+	public String getMaHienTrang() {
+		return maHienTrang;
+	}
+
+	public void setMaHienTrang(String maHienTrang) {
+		this.maHienTrang = maHienTrang;
+	}
+
+	public String getTenHienTrang() {
+		return tenHienTrang;
+	}
+
+	public void setTenHienTrang(String tenHienTrang) {
+		this.tenHienTrang = tenHienTrang;
 	}
 
 	public String getKiemTraTonTai() {
@@ -102,24 +117,6 @@ public class ThietBiModel implements Serializable{
 
 	public void setUser5(String user5) {
 		this.user5 = user5;
-	}
-
-
-	public String getMaThietBiTruoc() {
-		return maThietBiTruoc;
-	}
-
-	public void setMaThietBiTruoc(String maThietBiTruoc) {
-		this.maThietBiTruoc = maThietBiTruoc;
-	}
-
-	public ArrayList<ChiTietThietBiModel> getChiTietThietBiList() {
-		return chiTietThietBiList;
-	}
-
-	public void setChiTietThietBiList(
-			ArrayList<ChiTietThietBiModel> chiTietThietBiList) {
-		this.chiTietThietBiList = chiTietThietBiList;
 	}
 
 	public String getMaThietBi() {
@@ -344,14 +341,6 @@ public class ThietBiModel implements Serializable{
 
 	public void setSoLanBaoTri(String soLanBaoTri) {
 		this.soLanBaoTri = soLanBaoTri;
-	}
-
-	public String getSoLuong() {
-		return soLuong;
-	}
-
-	public void setSoLuong(String soLuong) {
-		this.soLuong = soLuong;
 	}
 
 	public String getMaTanSuat() {
