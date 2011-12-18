@@ -88,7 +88,8 @@ public class ThietBiController extends HttpServlet {
 		{
 			searchLinhKien(request,response);
 		}
-	}		
+	}
+	
 	private void xoaLinhKien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean check = true;
 		String pageNext = Constant.PATH_RES.getString("qltb.XemLinhKienShortPath");
@@ -236,8 +237,8 @@ public class ThietBiController extends HttpServlet {
 		thietBiModel.setMaNguoiTao(request.getSession().getAttribute("maThanhVien").toString());
 		thietBiModel.setKiHieu(StringUtil.toUTF8(request.getParameter("txtKiHieu")).trim());
 		thietBiModel.setMaTanSuat(request.getParameter("cboTanSuat"));
-		if(request.getParameter("cboSoLuong") != null)
-			thietBiModel.setSoLuong(request.getParameter("cboSoLuong"));
+//		if(request.getParameter("cboSoLuong") != null)
+//			thietBiModel.setSoLuong(request.getParameter("cboSoLuong"));
 		/*ChiTietThietBiModel chiTietThietBiModel;
 		ArrayList<ChiTietThietBiModel> chiTietList=new ArrayList<ChiTietThietBiModel>();
 		

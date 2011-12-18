@@ -12,7 +12,7 @@ public class ChungChiBangCapKhacDAO {
 	public static ArrayList<ChungChiBangCapKhacModel> getDanhSachChungChiBangCapKhac(){
 		ArrayList<ChungChiBangCapKhacModel> list = new ArrayList<ChungChiBangCapKhacModel>();
 		try {
-			String sql = "SELECT * FROM CHUNGCHIBANGCAPKHAC ORDER BY LOAI";
+			String sql = "SELECT * FROM CHUNGCHIBANGCAPKHAC ORDER BY LOAI,DO_UU_TIEN";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){

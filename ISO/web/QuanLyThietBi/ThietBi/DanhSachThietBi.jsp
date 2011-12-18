@@ -18,7 +18,9 @@
 <%@page import="vn.edu.hungvuongaptech.dao.ThietBiDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.ThietBiModel"%>
 <%@page import="vn.edu.hungvuongaptech.controller.ThietBiController"%>
-<%@page import="vn.edu.hungvuongaptech.dao.TinhTrangThietBiDAO"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="vn.edu.hungvuongaptech.dao.TinhTrangThietBiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.KhoaModel"%>
+<%@page import="com.sun.xml.internal.txw2.Document"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -31,37 +33,89 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar-en.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/interface.js" type="text/javascript"></script>
-<script type="text/javascript" language="JavaScript">	
-	function search()
-	{
-		document.getElementById('actionType').value = 'searchThietBi';
-		document.forms['formThietBi'].submit();
-	}
-	function submit()
-	{
-		document.getElementById("formThietBi").submit();
-	}
-</script>
+
 <!--[if lt IE 7]>
  <style type="text/css">
  div, img { behavior: url("<%=request.getContextPath()%>/css/iepngfix.htc") }
  </style>
 <![endif]-->
+
 <title>Hệ Thống Quản Lý Thiết Bị</title>
+<script language="javascript">
+	var listBoPhan = new Array(); 
+	<%
+		ArrayList<KhoaModel> listBoPhan = ThietBiDAO.getComboBoxDanhSachThietBi();
+		int n = 0;
+		for(KhoaModel boPhan : listBoPhan){
+			out.print("var objBoPhan = new Object();");
+			out.print("objBoPhan.maBoPhan = '"+boPhan.getMaKhoa()+"'");
+			out.print("objBoPhan.tenBoPhan = '"+boPhan.getTenKhoa()+"'");
+			out.print("var listPhongBan = new Array();");
+			int i = 0;
+			for(PhongBanModel phongBan : boPhan.getListPhongBan()){
+				out.print("var objPhongBan = new Object();");
+				out.print("objPhongBan.maPhongBan = '"+phongBan.getMaPhongBan()+"'");
+				out.print("objPhongBan.tenPhongBan = '"+phongBan.getKiHieu()+"'");
+				out.print("var listLoaiThietBi = new Array();");
+				int j = 0;
+				for(LoaiThietBiModel loaiThietBi : phongBan.getListLoaiThietBi()){
+					out.print("var objLoaiThietBi = new Object();");
+					out.print("objLoaiThietBi.maLoaiThietBi = '"+loaiThietBi.getMaLoaiThietBi()+"'");
+					out.print("objLoaiThietBi.tenLoaiThietBi = '"+loaiThietBi.getTenLoaiThietBi()+"'");
+					out.print("listLoaiThietBi["+j+"] = objLoaiThietBi");
+					j++;	
+				}
+				out.print("listPhongBan["+i+"] = objPhongBan");
+				i++;
+			}
+			out.print("listBoPhan["+n+"] = objBoPhan");
+			n++;
+		}
+	%>
+	
+	function loadData(){
+		
+	}
+	
+	function selectBoPhan(){
+		var cbMaBoPhan = document.getElementById("cbBoPhan").value;
+		for ( var obj in listBoPhan) {
+			if(listBoPhan[obj].maBoPhan==cbMaBoPhan){
+				document.getElementById("cbPhongBan").innerHTML = null;
+				for ( var obj2 in listBoPhan[obj].listPhongBan) {
+					var option = new Option(listBoPhan[obj].listPhongBan[obj2].maPhongBan,listBoPhan[obj].listPhongBan[obj2].tenPhongBan);
+					document.getElementById("cbPhongBan").add(option);
+				}
+				selectPhongBan();
+				break;
+			}
+		}
+	}
+	
+	function selectPhongBan(){
+		var cbMaPhongBan = document.getELementById("cbPhongBan").value;
+		for (var obj in listBoPhan){
+			for ( var obj2 in listBoPhan[obj]) {
+				if(listBoPhan[obj].listPhongBan[obj2].maPhongBan==cbMaPhongBan){
+					document.getElementById("cbLoaiThietBi").innerHTML = null;
+					for ( var obj3 in listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi) {
+						var option = new Option(listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].maLoaiThietBi,listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].tenLoaiThietBi);
+						document.getElementById("cbLoaiThietBi").add(option);
+					}
+					break;		
+				}
+			}
+		}
+	}
+</script>
 </head>
 <body>
 <div align="center">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_QuanLyThietBi.jsp" />
 	<!-- E HEAD CONTENT -->
-	<br/><br/><br/>	
-	<c:set var="listPhong" value="<%= PhongBanDAO.getAllPhongBan() %>"></c:set>
-	<c:set var="listLoaiThietBi" value="<%= LoaiThietBiDAO.getAllLoaiThietBi() %>"></c:set>
-	<c:set var="listTinhTrang" value="<%= TinhTrangThietBiDAO.getAllTinhTrangThietBi()%>" />
-	
+	<br/><br/><br/>
 	<form action="<%=request.getContextPath()%>/ThietBiController" name  = "formThietBi" id = "formThietBi" method="post">
-		<div>
-		<input type="hidden" id="actionType" value="tinhtrang" name = "actionType"/>		
 		<table>
 			<tr style="background-color: transparent;">
 				<td colspan="9">
@@ -69,62 +123,26 @@
 				</td>
 			</tr>
 		</table>
-		<c:choose>
-			<c:when test = "${param.BaoHuThietBi eq 'ok'}">
-				<font class="msg">Báo hư thiết bị thành công</font>
-			</c:when>
-			<c:when test = "${param.BaoHuThietBi eq 'fail'}">
-				<font class="error">Báo hư thiết bị thất bại</font>
-			</c:when>
-			<c:when test = "${param.XoaThietBi eq 'ok'}">
-				<font class="msg">Xóa thiết bị thành công</font>
-			</c:when>
-			<c:when test = "${param.XoaThietBi eq 'fail'}">
-				<font class="error">Xóa thiết bị thất bại</font>
-			</c:when>
-		</c:choose>
 	
-		<% 
-			String loaiThietBi = "", phongBan = "", tinhTrang = "", currentPage = "1", tenThietBi = ""; 
-			if(request.getParameter("loaiThietBi") != null)
-				loaiThietBi = request.getParameter("loaiThietBi");
-			
-			if(request.getParameter("phongBan") != null)
-				phongBan = request.getParameter("phongBan");
-			
-			if(request.getParameter("tinhTrang") != null)
-				tinhTrang = request.getParameter("tinhTrang");
-			
-			if(request.getParameter("page") != null)
-				currentPage = request.getParameter("page");
-			
-			if(request.getAttribute("tenThietBi") != null)
-			tenThietBi = (String) request.getAttribute("tenThietBi");
-			
-			int c = 1, totalRow = 0;
-			totalRow = ThietBiDAO.getCountThietBi(loaiThietBi, phongBan, tinhTrang, tenThietBi);
-			ArrayList<ThietBiModel> thietBiList = ThietBiDAO.getAllThietBiByDieuKien(loaiThietBi, phongBan, tinhTrang, totalRow, currentPage, "", "2");
-		%>
-		<c:set var="CurrentPage" value="<%=currentPage %>"></c:set>
 		<table border='1' style="background-color: transparent;">
 			<tr>
 				<td>
-					Phòng 
-					<select>
-						<option>Chọn</option>
-						<option>G2.1</option>
-					</select>	
-				</td>
-				<td>
 					Khoa/TT
-					<select>
+					<select id="cbBoPhan" name="cbBoPhan" onchange="selectBoPhan()">
 						<option>Chọn</option>
 						<option>Công Nghệ Thông Tin</option>
 					</select> 
 				</td>
 				<td>
+					Phòng 
+					<select id="cbPhongBan" name="cbPhongBan" onchange="selectPhongBan()">
+						<option>Chọn</option>
+						<option>G2.1</option>
+					</select>	
+				</td>
+				<td>
 					Loại Thiết Bị
-					<select>
+					<select id="cbLoaiThietBi" name="cbLoaiThietBi">
 						<option>Chọn</option>
 						<option>PC</option>
 					</select>
@@ -185,6 +203,17 @@
 			</tr>
 		</table>		
 		
+		<%
+			String page = 1;
+			if(request.getParameter("page")!=null){
+				page = request.getParameter("page");
+			}		
+		 %>
+			
+		
+		<c:set var="listThietBi" value='<%=ThietBiDAO.getDanhSachThietBi(request.getParameter("maPhongBan"),request.getParameter("maBoPhan"),request.getParameter("maLoaiThietBi"),request.getParameter("tinhTrang"),
+		request.getParameter("hienTrang"),request.getParameter("gioBD"),request.getParameter("phutBD"),request.getParameter("gioKT"),request.getParameter("phutKT"),request.getParameter("ngayBD"),request.getParameter("ngayKT"),"10",Constant.NUM_RECORD_THIETBI) %>'></c:set>
+		<c:set var="NUM_RECORD_THIETBI" value='<%=Constant.NUM_RECORD_THIETBI %>'></c:set>
 		<table border="1">
 			<tr>
 				<th bgcolor = "#186fb2">
@@ -194,31 +223,39 @@
 				</th>
 				<th style='background-color: #186fb2;color:white'>STT</th>
 				<th style='background-color: #186fb2;color:white'>Loại thiết bị</th>
+				<th style='background-color: #186fb2;color:white'>Mã</th>
 				<th style='background-color: #186fb2;color:white'>Kí Hiệu</th>
-				<th style='background-color: #186fb2;color:white'>Tên thiết bị</th>
-				<th style='background-color: #186fb2;color:white'>Tên phòng ban</th>
-				<th style='background-color: #186fb2;color:white'>Tình trạng</th>								
-			</tr>	
+				<th style='background-color: #186fb2;color:white'>Tên Thiết Bị</th>
+				<th style='background-color: #186fb2;color:white'>Vị Trí Lắp Đặt</th>
+				<th style='background-color: #186fb2;color:white'>Tình trạng</th>
+				<th style='background-color: #186fb2;color:white'>Hiện trạng</th>
+			</tr>
+			<c:set var="stt" value="1"></c:set>
+			<c:forEach var="thietBi" items="${listThietBi.danhSachThietBi}">
+				<tr>
+					<td><input type="checkbox" name="maThietBi${stt }" id="maThietBi${stt }"/></td>
+					<td>${stt}</td>
+					<td>${thietBi.tenLoaiThietBi }</td>
+					<td>${thietBi.ma }</td>
+					<td>${thietBi.kiHieu }</td>
+					<td>${thietBi.tenThietBi }</td>
+					<td>${thietBi.tenPhongBan }</td>
+					<td>${thietBi.tinhTrang }</td>
+					<td>${thietBi.hienTrang }</td>
+				</tr>
+			</c:forEach>	
 		</table>
-		<table>
-			<tr>
-				<td>
-					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/ThemThietBi.jsp"><img src="<%=request.getContextPath()%>/images/buttom/themthietbi.png" alt="thêm thiết bị" border = "0" /></a>
-					<a href = "javascript: xoaThietBi()">
-						<img src="<%=request.getContextPath()%>/images/buttom/xoa.png" alt="Xóa Thiết bị" border = "0" />
-					</a>
-					<a href = "javascript:baoHuThietBi();" alt="Báo Hư" border = "0" /><img src="<%=request.getContextPath()%>/images/buttom/baohu.png" alt="Báo hư" border = "0" /></a>	
-					<input type = "hidden" name="xuly" id = "xuly" />									
-				</td>
-				<!--<td>
-					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/MuonThietBi.jsp"><img src="<%=request.getContextPath()%>/images/buttom/muon.png" alt="Mượn Thiết Bị" border = "0" /></a>
-					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/BaoThietBiDenHan.jsp"><img src="<%=request.getContextPath()%>/images/buttom/tra.png" alt="Trả Thiết Bị" border = "0" /></a>
-					<a href = "<%=request.getContextPath()%>/QuanLyThietBi/ThietBi/ThayDoiThietBi.jsp"><img src="<%=request.getContextPath()%>/images/buttom/thaydoithietbi.png" alt="Thay Đổi Thiết Bị" border = "0" /></a>			
-				</td>	
-			--></tr>
-		</table>
-		</div>
-		<input type = "hidden" name = "txtListThietBi" id = "txtListThietBi"/>
+		
+		<c:choose>
+			<c:when test="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI gt 1}">
+				<c:forEach var="i" begin="1" end="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI+1}" step="1">
+					<a href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
+					&maBoPhan=${param.maBoPhan }&maPhongBan=${param.maPhongBan }&maLoaiThietBi=${param.maLoaiThietBi }
+					&tinhtrang=${param.tinhTrang }&hienTrang=${param.hienTrang }&gioBD=${param.gioBD }&phutBD=${param.phutBD }
+					&gioKT=${param.gioKT }&phutKT=${param.phutKT }&ngayBD=${param.ngayBD }&ngayKT=${param.ngayKT }">${i }</a>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 	</form>	
 	<br/>
 	<!-- S FOOT CONTENT -->

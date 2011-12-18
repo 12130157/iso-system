@@ -23,7 +23,16 @@ public class KhoaModel implements Serializable {
 	private String user4;
 	private String user5;
 	ArrayList<LopHocModel> lopHocList;
+	ArrayList<PhongBanModel> listPhongBan;
 	
+	
+	
+	public ArrayList<PhongBanModel> getListPhongBan() {
+		return listPhongBan;
+	}
+	public void setListPhongBan(ArrayList<PhongBanModel> listPhongBan) {
+		this.listPhongBan = listPhongBan;
+	}
 	public ArrayList<LopHocModel> getLopHocList() {
 		return lopHocList;
 	}

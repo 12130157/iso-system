@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.model.ChiTietThietBiModel;
+import vn.edu.hungvuongaptech.model.DanhSachThietBiModel;
+import vn.edu.hungvuongaptech.model.KhoaModel;
+import vn.edu.hungvuongaptech.model.LoaiThietBiModel;
+import vn.edu.hungvuongaptech.model.PhongBanModel;
 import vn.edu.hungvuongaptech.model.ThietBiModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
@@ -156,88 +160,151 @@ public class ThietBiDAO {
 		}						
 		return result;
 	}
-	public static int getCountThietBi(String loaiThietBi, String phongBan, String tinhTrang, String tenThietBi) {
-		int count = 0;		
+	
+	public static ArrayList<KhoaModel> getComboBoxDanhSachThietBi(){
+		ArrayList<KhoaModel> listBoPhan = new ArrayList<KhoaModel>();
+		ArrayList<PhongBanModel> listPhongBan = new ArrayList<PhongBanModel>();
+		ArrayList<LoaiThietBiModel> listLoaiThietBi = new ArrayList<LoaiThietBiModel>();
+		String maBoPhan = "";
+		String maPhongBan = "";
+		String maLoaiThietBi = "";
 		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_QLTB_GetCountThietBi(?,?,?,?)}");
+			String sql = "SELECT C.ID AS MaBoPhan,C.TEN AS TenBoPhan,D.ID AS MaPhongBan,D.KI_HIEU_PHONG AS TenPhongBan, "
+				+" E.ID AS MaLoaiThietBi,E.TEN_LOAI_THIET_BI AS TenLoaiThietBi "
+				+" FROM THIETBI A INNER JOIN LYLICHTHIETBI B ON B.MA_THIET_BI=A.ID "
+				+" INNER JOIN KHOA_TRUNGTAM C ON B.BO_PHAN_NHAN=C.ID "
+				+" INNER JOIN PHONGBAN D ON A.VI_TRI_LAP_DAT=D.ID "
+				+" INNER JOIN LOAITHIETBI E ON A.MA_LOAI_THIET_BI=E.ID "
+				+" ORDER BY C.ID,D.ID,E.ID";
 			
-			csmt.setString("Loai_thiet_bi",loaiThietBi);
-			csmt.setString("Phong_ban", phongBan);
-			csmt.setString("Tinh_trang", tinhTrang);
-			csmt.setNString("Ten_thiet_bi", tenThietBi);
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			
-			ResultSet rs = DataUtil.executeStore(csmt);
-			if(rs.next()) {
-				count = Integer.parseInt(rs.getString("Count"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}						
-		return count;
-	}
-	public static ArrayList<ThietBiModel> getAllThietBiByDieuKien(String loaiThietBi, String phongBan, String tinhTrang, 
-					int count, String currentPage, String tenThietBi, String choice) {
-		ArrayList<ThietBiModel> thietBiList = new ArrayList<ThietBiModel>();		
-		try {
-			CallableStatement csmt = DataUtil
-				.getConnection()
-				.prepareCall("{call sp_QLTB_GetThietBiByDieuKien(?,?,?,?,?,?,?,?)}");
-			
-			csmt.setString("Loai_thiet_bi",loaiThietBi);
-			csmt.setString("Phong_ban", phongBan);
-			csmt.setString("Tinh_trang", tinhTrang);
-			csmt.setString("Num_row", Constant.RECORDS_PER_PAGE + "");
-			csmt.setString("Total_row", count + "");
-			csmt.setString("CurrentPage", currentPage);
-			csmt.setNString("Ten_thiet_bi", tenThietBi);
-			csmt.setString("Choice", choice);
-			ResultSet rs = DataUtil.executeStore(csmt);
-			ThietBiModel thietBi = new ThietBiModel();
-			if(choice.equals("1")) {
-				while(rs.next()) {
-					thietBi = new ThietBiModel();
-					thietBi.setMaThietBi(rs.getString("MaThietBi"));
-					thietBi.setTenThietBi(rs.getNString("tenThietBi"));
-					thietBi.setKiHieu(rs.getString("KiHieu"));
-					thietBi.setTenLoaiThietBi(rs.getNString("LoaiThietBi"));
-					thietBi.setTenTinhTrang(rs.getNString("TenTinhTrang"));
-					thietBi.setMaTinhTrang(rs.getString("MaTinhTrang"));
-					thietBi.setTenPhongBan(rs.getNString("KiHieuPhong"));
-					thietBiList.add(thietBi);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				int check = 0;
+				if(!maBoPhan.equals(rs.getString("MaBoPhan"))){
+					KhoaModel boPhan = new KhoaModel();
+					boPhan.setMaKhoa(rs.getString("MaBoPhan"));
+					boPhan.setTenKhoa(rs.getString("TenBoPhan"));
+					listPhongBan = new ArrayList<PhongBanModel>();
+					listBoPhan.add(boPhan);
+					maBoPhan = rs.getString("MaBoPhan");
 				}
-			}
-			else {
-				String maThietBi = "na";
-				while(rs.next()) {
-					if(!maThietBi.equals(rs.getString("MaThietBi"))) {
-						thietBi = new ThietBiModel();
-						thietBi.setMaThietBi(rs.getString("MaThietBi"));
-						thietBi.setTenThietBi(rs.getNString("tenThietBi"));
-						thietBi.setKiHieu(rs.getString("KiHieu"));
-						thietBi.setTenLoaiThietBi(rs.getNString("LoaiThietBi"));
-						thietBi.setTenTinhTrang(rs.getNString("TenTinhTrang"));
-						thietBi.setMaTinhTrang(rs.getString("MaTinhTrang"));
-						thietBi.setTenPhongBan(rs.getNString("KiHieuPhong"));
-						if(Integer.parseInt(rs.getString("SoLanSuDungThietBi")) > 0 || !(thietBi.getMaTinhTrang().equals(Constant.TINHTRANGTHIETBIRANH)))
-							thietBi.setTinhTrangDuocXoa("2");
-						else	
-							thietBi.setTinhTrangDuocXoa("1");
-						maThietBi = thietBi.getMaThietBi();
-						thietBiList.add(thietBi);
+				
+				if(!maPhongBan.equals(rs.getString("MaPhongBan"))){
+					check = 0;
+					PhongBanModel phongBan = new PhongBanModel();
+					phongBan.setMaPhongBan(rs.getString("MaPhongBan"));
+					phongBan.setKiHieu(rs.getString("TenPhongBan"));
+					listLoaiThietBi = new ArrayList<LoaiThietBiModel>();
+					for (PhongBanModel model : listPhongBan) {
+						if(phongBan.getMaPhongBan().equals(model.getMaPhongBan())){
+							check = 1;
+						}
 					}
-					if(rs.getString("MaChiTietThietBi") != null) {
-						if(Integer.parseInt(rs.getString("SoLanSuDungChiTiet")) > 0 || !(rs.getString("MaTinhTrangChiTiet").equals(Constant.TINHTRANGTHIETBIRANH)))
-							thietBi.setTinhTrangDuocXoa("2");
+					if(check==0){
+						listPhongBan.add(phongBan);
 					}
+					maPhongBan = rs.getString("MaPhongBan");
+				}
+				
+				if(!maLoaiThietBi.equals(rs.getString("MaLoaiThietBi"))){
+					check = 0;
+					LoaiThietBiModel thietBi = new LoaiThietBiModel();
+					thietBi.setMaLoaiThietBi(rs.getString("MaLoaiThietBi"));
+					thietBi.setTenLoaiThietBi(rs.getString("TenLoaiThietBi"));
+					for (LoaiThietBiModel model : listLoaiThietBi) {
+						if(thietBi.getMaLoaiThietBi().equals(model.getMaLoaiThietBi())){
+							check = 1;
+						}
+					}
+					if(check==0){
+						listLoaiThietBi.add(thietBi);
+					}
+					maLoaiThietBi = rs.getString("MaLoaiThietBi");
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}						
-		return thietBiList;
+		}
+		
+		
+		return listBoPhan;
 	}
+	
+	public static String countDanhSachThietBi(String phong,String khoa,String loaiThietBi,
+	String tinhTrang, String hienTrang, String gioBD, String phutBD, String gioKT,
+	String phutKT, String ngayBD, String ngayKT){
+		String kq = "";
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ThietBi_DanhSachThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("Phong", phong);
+			csmt.setString("Khoa", khoa);
+			csmt.setString("Loai_thiet_bi", loaiThietBi);
+			csmt.setString("Tinh_trang", tinhTrang);
+			csmt.setString("Hien_trang", hienTrang);
+			csmt.setString("Gio_bd", gioBD);
+			csmt.setString("Phut_bd", phutBD);
+			csmt.setString("Gio_kt", gioKT);
+			csmt.setString("Phut_kt", phutKT);
+			csmt.setString("Ngay_bd", ngayBD);
+			csmt.setString("Ngay_kt", ngayKT);
+			ResultSet rs = csmt.executeQuery();
+			while(rs.next()){
+				kq = rs.getString("KQ");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kq;
+	}
+	
+	public static DanhSachThietBiModel getDanhSachThietBi(String phong,String khoa,String loaiThietBi,
+			String tinhTrang, String hienTrang, String gioBD, String phutBD, String gioKT,
+			String phutKT, String ngayBD, String ngayKT, String numPage, String numRecord){
+		DanhSachThietBiModel model = new DanhSachThietBiModel();
+		ArrayList<ThietBiModel> listThietBi = new ArrayList<ThietBiModel>();
+		try {
+			
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ThietBi_DanhSachThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("Phong", phong);
+			csmt.setString("Khoa", khoa);
+			csmt.setString("Loai_thiet_bi", loaiThietBi);
+			csmt.setString("Tinh_trang", tinhTrang);
+			csmt.setString("Hien_trang", hienTrang);
+			csmt.setString("Gio_bd", gioBD);
+			csmt.setString("Phut_bd", phutBD);
+			csmt.setString("Gio_kt", gioKT);
+			csmt.setString("Phut_kt", phutKT);
+			csmt.setString("Ngay_bd", ngayBD);
+			csmt.setString("Ngay_kt", ngayKT);
+			csmt.setString("NUM_PAGE", numPage);
+			csmt.setString("NUM_RECORD", numRecord);
+			ResultSet rs = csmt.executeQuery();
+			while(rs.next()){
+				ThietBiModel m = new ThietBiModel();
+				m.setMaThietBi(rs.getString("MaThietBi"));
+				m.setTenThietBi(rs.getString("TenThietBi"));
+				m.setMaLoaiThietBi(rs.getString("MaLoaiThietBi"));
+				m.setTenLoaiThietBi(rs.getString("TenLoaiThietBi"));
+				m.setMa(rs.getString("Ma"));
+				m.setKiHieu(rs.getString("KiHieu"));
+				m.setMaPhongBan(rs.getString("MaPhongBan"));
+				m.setTenPhongBan(rs.getString("TenPhongBan"));
+				m.setMaTinhTrang(rs.getString("MaTinhTrang"));
+				m.setTenTinhTrang(rs.getString("TenTinhTrang"));
+				m.setMaHienTrang(rs.getString("MaHienTrang"));
+				m.setTenHienTrang(rs.getString("TenHienTrang"));
+				listThietBi.add(m);
+			}
+			model.setDanhSachThietBi(listThietBi);
+			model.setTongSoThietBi(countDanhSachThietBi(phong, khoa, loaiThietBi, tinhTrang, hienTrang, gioBD, phutBD, gioKT, phutKT, ngayBD, ngayKT));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
 	public static Boolean baoHuThietBi(String id) {
 		Boolean result = false;		
 		try {
@@ -344,7 +411,7 @@ public class ThietBiDAO {
 					thietBi.setMaTanSuat(rs.getString("MaTanSuat"));
 					thietBi.setTanSuatSuDung(rs.getString("TanSuatSuDung"));
 					maThietBi = thietBi.getMaThietBi();
-					thietBi.setChiTietThietBiList(chiTietThietBiList);
+//					thietBi.setChiTietThietBiList(chiTietThietBiList);
 				}
 				if(rs.getString("MaChiTietThietBi") != null) {
 					ChiTietThietBiModel chiTietThietBi = new ChiTietThietBiModel();
@@ -379,7 +446,7 @@ public class ThietBiDAO {
 					thietBi.setKiHieu(rs.getString("KiHieuThietBi"));
 					
 					maThietBi = thietBi.getMaThietBi();
-					thietBi.setChiTietThietBiList(chiTietThietBiList);
+//					thietBi.setChiTietThietBiList(chiTietThietBiList);
 				}
 				if(rs.getString("MaChiTietThietBi") != null) {
 					ChiTietThietBiModel chiTietThietBi = new ChiTietThietBiModel();
