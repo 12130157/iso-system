@@ -186,9 +186,11 @@ public class ThietBiDAO {
 					KhoaModel boPhan = new KhoaModel();
 					boPhan.setMaKhoa(rs.getString("MaBoPhan"));
 					boPhan.setTenKhoa(rs.getString("TenBoPhan"));
-					listPhongBan = new ArrayList<PhongBanModel>();
 					listBoPhan.add(boPhan);
+					listPhongBan = new ArrayList<PhongBanModel>();
+					boPhan.setListPhongBan(listPhongBan);
 					maBoPhan = rs.getString("MaBoPhan");
+					maPhongBan = "";
 				}
 				
 				if(!maPhongBan.equals(rs.getString("MaPhongBan"))){
@@ -196,7 +198,6 @@ public class ThietBiDAO {
 					PhongBanModel phongBan = new PhongBanModel();
 					phongBan.setMaPhongBan(rs.getString("MaPhongBan"));
 					phongBan.setKiHieu(rs.getString("TenPhongBan"));
-					listLoaiThietBi = new ArrayList<LoaiThietBiModel>();
 					for (PhongBanModel model : listPhongBan) {
 						if(phongBan.getMaPhongBan().equals(model.getMaPhongBan())){
 							check = 1;
@@ -205,7 +206,11 @@ public class ThietBiDAO {
 					if(check==0){
 						listPhongBan.add(phongBan);
 					}
+					
+					listLoaiThietBi = new ArrayList<LoaiThietBiModel>();
+					phongBan.setListLoaiThietBi(listLoaiThietBi);
 					maPhongBan = rs.getString("MaPhongBan");
+					maLoaiThietBi = "";
 				}
 				
 				if(!maLoaiThietBi.equals(rs.getString("MaLoaiThietBi"))){
@@ -228,7 +233,7 @@ public class ThietBiDAO {
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println(listBoPhan.size());
 		return listBoPhan;
 	}
 	
@@ -237,7 +242,7 @@ public class ThietBiDAO {
 	String phutKT, String ngayBD, String ngayKT){
 		String kq = "";
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ThietBi_DanhSachThietBi(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_ThietBi_countDanhSachThietBi(?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("Phong", phong);
 			csmt.setString("Khoa", khoa);
 			csmt.setString("Loai_thiet_bi", loaiThietBi);
@@ -262,6 +267,17 @@ public class ThietBiDAO {
 	public static DanhSachThietBiModel getDanhSachThietBi(String phong,String khoa,String loaiThietBi,
 			String tinhTrang, String hienTrang, String gioBD, String phutBD, String gioKT,
 			String phutKT, String ngayBD, String ngayKT, String numPage, String numRecord){
+		if(phong==null) phong="";
+		if(khoa==null) khoa="";
+		if(loaiThietBi==null) loaiThietBi="";
+		if(tinhTrang==null) tinhTrang="";
+		if(hienTrang==null) hienTrang="";
+		if(gioBD==null) gioBD="";
+		if(phutBD==null) phutBD="";
+		if(gioKT==null) gioKT="";
+		if(phutKT==null) phutKT="";
+		if(ngayBD==null) ngayBD="";
+		if(ngayKT==null) ngayKT="";
 		DanhSachThietBiModel model = new DanhSachThietBiModel();
 		ArrayList<ThietBiModel> listThietBi = new ArrayList<ThietBiModel>();
 		try {

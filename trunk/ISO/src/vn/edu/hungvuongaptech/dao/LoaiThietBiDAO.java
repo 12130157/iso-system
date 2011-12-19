@@ -14,23 +14,16 @@ public class LoaiThietBiDAO {
 		ArrayList<LoaiThietBiModel> loaiThietBiList=new ArrayList<LoaiThietBiModel>();
 		LoaiThietBiModel loaiThietBiModel;
 		try {
+			String sql = "SELECT * FROM LOAITHIETBI ORDER BY ID";
 			PreparedStatement preparedStatement = DataUtil
 			.getConnection()
 			.prepareStatement(
-					Constant.SQL_RES
-							.getString("QLTB.sql.getAllLoaiThietBi"));
+					sql);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()){
 				loaiThietBiModel = new LoaiThietBiModel();
-				loaiThietBiModel.setMaLoaiThietBi(rs.getString("MaLoaiThietBi"));
-				loaiThietBiModel.setTenLoaiThietBi(rs.getNString("TenLoaiThietBi"));
-				loaiThietBiModel.setGhiChu(rs.getNString("GhiChu"));
-				loaiThietBiModel.setNgayCapNhatCuoi(rs.getString("NgayCapNhatCuoi"));
-				loaiThietBiModel.setUser1(rs.getString("User1"));
-				loaiThietBiModel.setUser2(rs.getString("User2"));							
-				loaiThietBiModel.setUser3(rs.getString("User3"));
-				loaiThietBiModel.setUser4(rs.getString("User4"));
-				loaiThietBiModel.setUser5(rs.getString("User5"));
+				loaiThietBiModel.setMaLoaiThietBi(rs.getString("ID"));
+				loaiThietBiModel.setTenLoaiThietBi(rs.getNString("Ten_loai_thiet_bi"));
 				loaiThietBiList.add(loaiThietBiModel);
 			}
 		} catch (SQLException e) {
