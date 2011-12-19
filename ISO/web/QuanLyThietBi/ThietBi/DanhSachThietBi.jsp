@@ -20,7 +20,9 @@
 <%@page import="vn.edu.hungvuongaptech.controller.ThietBiController"%>
 <%@page import="vn.edu.hungvuongaptech.dao.TinhTrangThietBiDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.KhoaModel"%>
-<%@page import="com.sun.xml.internal.txw2.Document"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="com.sun.xml.internal.txw2.Document"%>
+<%@page import="vn.edu.hungvuongaptech.util.DataUtil"%>
+<%@page import="vn.edu.hungvuongaptech.util.DateUtil"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=Logout.jsp">
@@ -46,45 +48,124 @@
 	<%
 		ArrayList<KhoaModel> listBoPhan = ThietBiDAO.getComboBoxDanhSachThietBi();
 		int n = 0;
+		int k = 0;
+		String outT = "";
 		for(KhoaModel boPhan : listBoPhan){
-			out.print("var objBoPhan = new Object();");
-			out.print("objBoPhan.maBoPhan = '"+boPhan.getMaKhoa()+"'");
-			out.print("objBoPhan.tenBoPhan = '"+boPhan.getTenKhoa()+"'");
-			out.print("var listPhongBan = new Array();");
+			out.print("var objBoPhan = new Object();\n");
+			out.print("objBoPhan.maBoPhan = '"+boPhan.getMaKhoa()+"';\n");
+			out.print("objBoPhan.tenBoPhan = '"+boPhan.getTenKhoa()+"';\n");
+			out.print("var listPhongBan = new Array();\n");
 			int i = 0;
 			for(PhongBanModel phongBan : boPhan.getListPhongBan()){
-				out.print("var objPhongBan = new Object();");
-				out.print("objPhongBan.maPhongBan = '"+phongBan.getMaPhongBan()+"'");
-				out.print("objPhongBan.tenPhongBan = '"+phongBan.getKiHieu()+"'");
-				out.print("var listLoaiThietBi = new Array();");
+				out.print("var objPhongBan = new Object();\n");
+				out.print("objPhongBan.maPhongBan = '"+phongBan.getMaPhongBan()+"';\n");
+				out.print("objPhongBan.tenPhongBan = '"+phongBan.getKiHieu()+"';\n");
+				out.print("var listLoaiThietBi = new Array();\n");
 				int j = 0;
 				for(LoaiThietBiModel loaiThietBi : phongBan.getListLoaiThietBi()){
-					out.print("var objLoaiThietBi = new Object();");
-					out.print("objLoaiThietBi.maLoaiThietBi = '"+loaiThietBi.getMaLoaiThietBi()+"'");
-					out.print("objLoaiThietBi.tenLoaiThietBi = '"+loaiThietBi.getTenLoaiThietBi()+"'");
-					out.print("listLoaiThietBi["+j+"] = objLoaiThietBi");
+					out.print("var objLoaiThietBi = new Object();\n");
+					out.print("objLoaiThietBi.maLoaiThietBi = '"+loaiThietBi.getMaLoaiThietBi()+"';\n");
+					out.print("objLoaiThietBi.tenLoaiThietBi = '"+loaiThietBi.getTenLoaiThietBi()+"';\n");
+					out.print("listLoaiThietBi["+j+"] = objLoaiThietBi;\n");
 					j++;	
 				}
-				out.print("listPhongBan["+i+"] = objPhongBan");
+				out.print("objPhongBan.listLoaiThietBi = listLoaiThietBi;\n");
+				out.print("listPhongBan["+i+"] = objPhongBan;\n");
 				i++;
 			}
-			out.print("listBoPhan["+n+"] = objBoPhan");
+			out.print("objBoPhan.listPhongBan = listPhongBan;\n");
+			out.print("listBoPhan["+n+"] = objBoPhan;\n");
 			n++;
 		}
 	%>
 	
 	function loadData(){
+		document.getElementById("cbBoPhan").innerHTML = null;
+		document.getElementById("cbPhongBan").innerHTML = null;
+		document.getElementById("cbLoaiThietBi").innerHTML = null;
+		document.getElementById("cbBoPhan").add(new Option("Chọn",""));
+		for (var obj in listBoPhan){
+			var option = new Option(listBoPhan[obj].tenBoPhan,listBoPhan[obj].maBoPhan);
+			document.getElementById("cbBoPhan").add(option,null);
+		}
+		document.getElementById("cbPhongBan").add(new Option("Chọn",""));
+		/*for ( var obj2 in listBoPhan[0].listPhongBan) {
+			var option = new Option(listBoPhan[0].listPhongBan[obj2].tenPhongBan,listBoPhan[0].listPhongBan[obj2].maPhongBan);
+			document.getElementById("cbPhongBan").add(option,null);
+		}*/
+		document.getElementById("cbLoaiThietBi").add(new Option("Chọn",""));
+		/*for ( var obj3 in listBoPhan[0].listPhongBan[0].listLoaiThietBi) {
+			var option = new Option(listBoPhan[0].listPhongBan[0].listLoaiThietBi[obj3].tenLoaiThietBi,listBoPhan[0].listPhongBan[0].listLoaiThietBi[obj3].maLoaiThietBi);
+			document.getElementById("cbLoaiThietBi").add(option,null);
+		}*/
+		<%
+			if(request.getParameter("maBoPhan")!=null && request.getParameter("maBoPhan")!=""){
+				out.print("var maBoPhan='"+request.getParameter("maBoPhan")+"';\n");
+				out.print("for(var obj in listBoPhan){\n");
+				out.print("if(listBoPhan[obj].maBoPhan==maBoPhan){document.getElementById('cbBoPhan').selectedIndex=obj+1;}}");
+			}
+			
+			k = 0;
+			for(PhongBanModel model : PhongBanDAO.getAllPhongBan()){
+				if(request.getParameter("maPhongBan")!=null && request.getParameter("maPhongBan")!=""){
+					if(model.getMaPhongBan().equals(request.getParameter("maPhongBan"))){
+						outT = "document.getElementById('cbPhongBan').selectedIndex = "+ ++k +";";
+					}	
+				}
+				out.print("var option= new Option('"+model.getKiHieu()+"','"+model.getMaPhongBan()+"');");
+				out.print("document.getElementById('cbPhongBan').add(option,null);");
+				k++;
+			}
+			out.print(outT);
+			
+			k = 0;
+			outT = "";
+			for(LoaiThietBiModel model : LoaiThietBiDAO.getAllLoaiThietBi()){
+				if(request.getParameter("maLoaiThietBi")!=null && request.getParameter("maLoaiThietBi")!=""){
+					if(model.getMaLoaiThietBi().equals(request.getParameter("maLoaiThietBi"))){
+						outT = "document.getElementById('cbLoaiThietBi').selectedIndex = "+ ++k +";"; 		
+					}
+				}
+				out.print("var option= new Option('"+model.getTenLoaiThietBi()+"','"+model.getMaLoaiThietBi()+"');");
+				out.print("document.getElementById('cbLoaiThietBi').add(option,null);");
+				k++;
+			}
+			out.print(outT);
+		%>
 		
 	}
 	
 	function selectBoPhan(){
 		var cbMaBoPhan = document.getElementById("cbBoPhan").value;
+		document.getElementById("cbPhongBan").innerHTML = null;
+
+		if(cbMaBoPhan==""){
+			var option = new Option("Chọn","");
+			document.getElementById("cbPhongBan").add(option,null);
+			<%
+				for(PhongBanModel model : PhongBanDAO.getAllPhongBan()){
+					out.print("var option= new Option('"+model.getKiHieu()+"','"+model.getMaPhongBan()+"');");
+					out.print("document.getElementById('cbPhongBan').add(option,null);");
+				}
+			%>
+			document.getElementById("cbLoaiThietBi").innerHTML = null;
+			var option = new Option("Chọn","");
+			document.getElementById("cbLoaiThietBi").add(option,null);
+			<%
+				for(LoaiThietBiModel model : LoaiThietBiDAO.getAllLoaiThietBi()){
+					out.print("var option= new Option('"+model.getTenLoaiThietBi()+"','"+model.getMaLoaiThietBi()+"');");
+					out.print("document.getElementById('cbLoaiThietBi').add(option,null);");
+				}
+			%>
+			return;
+		}
+		document.getElementById("cbPhongBan").innerHTML = null;
 		for ( var obj in listBoPhan) {
 			if(listBoPhan[obj].maBoPhan==cbMaBoPhan){
-				document.getElementById("cbPhongBan").innerHTML = null;
+				document.getElementById("cbPhongBan").add(new Option("Chọn",""));
 				for ( var obj2 in listBoPhan[obj].listPhongBan) {
-					var option = new Option(listBoPhan[obj].listPhongBan[obj2].maPhongBan,listBoPhan[obj].listPhongBan[obj2].tenPhongBan);
-					document.getElementById("cbPhongBan").add(option);
+					var option = new Option(listBoPhan[obj].listPhongBan[obj2].tenPhongBan,listBoPhan[obj].listPhongBan[obj2].maPhongBan);
+					document.getElementById("cbPhongBan").add(option,null);
 				}
 				selectPhongBan();
 				break;
@@ -93,23 +174,80 @@
 	}
 	
 	function selectPhongBan(){
-		var cbMaPhongBan = document.getELementById("cbPhongBan").value;
-		for (var obj in listBoPhan){
-			for ( var obj2 in listBoPhan[obj]) {
-				if(listBoPhan[obj].listPhongBan[obj2].maPhongBan==cbMaPhongBan){
-					document.getElementById("cbLoaiThietBi").innerHTML = null;
-					for ( var obj3 in listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi) {
-						var option = new Option(listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].maLoaiThietBi,listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].tenLoaiThietBi);
-						document.getElementById("cbLoaiThietBi").add(option);
-					}
-					break;		
+		var cbMaPhongBan = document.getElementById("cbPhongBan").value;
+		var cbMaBoPhan = document.getElementById("cbBoPhan").value;
+		if(cbMaBoPhan=="" && cbMaPhongBan!="") return;
+		document.getElementById("cbLoaiThietBi").innerHTML = null;
+		if(cbMaPhongBan=="") {
+			var option = new Option("Chọn","");
+			document.getElementById("cbLoaiThietBi").add(option,null);
+			<%
+				for(LoaiThietBiModel model : LoaiThietBiDAO.getAllLoaiThietBi()){
+					out.print("var option= new Option('"+model.getTenLoaiThietBi()+"','"+model.getMaLoaiThietBi()+"');");
+					out.print("document.getElementById('cbLoaiThietBi').add(option,null);");
 				}
-			}
+			%>
+			return;
 		}
+		for (var obj in listBoPhan){
+			if(listBoPhan[obj].maBoPhan==cbMaBoPhan){
+				for ( var obj2 in listBoPhan[obj].listPhongBan) {
+					if(listBoPhan[obj].listPhongBan[obj2].maPhongBan==cbMaPhongBan){
+						document.getElementById("cbLoaiThietBi").add(new Option("Chọn",""));
+						for ( var obj3 in listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi) {
+							var option = new Option(listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].tenLoaiThietBi,listBoPhan[obj].listPhongBan[obj2].listLoaiThietBi[obj3].maLoaiThietBi);
+							document.getElementById("cbLoaiThietBi").add(option,null);
+						}
+						break;		
+					}
+				}
+				break;
+			}
+			
+		}
+	}
+	
+	function timKiem(){
+		var maBoPhan = document.getElementById("cbBoPhan").value;
+		var maPhongBan = document.getElementById("cbPhongBan").value;
+		var maLoaiThietBi = document.getElementById("cbLoaiThietBi").value;
+		var maTinhTrang = document.getElementById("cbTinhTrang").value;
+		var maHienTrang = document.getElementById("cbHienTrang").value;
+		var gioBD = document.getElementById("cbGioBD").value;
+		var phutBD = document.getElementById("cbPhutBD").value;
+		var gioKT = document.getElementById("cbGioKT").value;
+		var phutKT = document.getElementById("cbPhutKT").value;
+		var ngayBD = document.getElementById("txtNgayBD").value;
+		var ngayKT = document.getElementById("txtNgayKT").value;
+		location.href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?maBoPhan="+maBoPhan
+		+"&maPhongBan="+maPhongBan
+		+"&maLoaiThietBi="+maLoaiThietBi
+		+"&maTinhTrang="+maTinhTrang
+		+"&maHienTrang="+maHienTrang
+		+"&gioBD="+gioBD
+		+"&phutBD="+phutBD
+		+"&gioKT="+gioKT
+		+"&phutKT="+phutKT
+		+"&ngayBD="+ngayBD
+		+"&ngayKT="+ngayKT;
+	}
+	
+	function reSet(){
+		document.getElementById("cbBoPhan").value = "";
+		document.getElementById("cbPhongBan").value = "";
+		document.getElementById("cbLoaiThietBi").value = "";
+		document.getElementById("cbTinhTrang").value = "";
+		document.getElementById("cbHienTrang").value = "";
+		document.getElementById("cbGioBD").value = "";
+		document.getElementById("cbPhutBD").value = "";
+		document.getElementById("cbGioKT").value = "";
+		document.getElementById("cbPhutKT").value = "";
+		document.getElementById("txtNgayBD").value = "";
+		document.getElementById("txtNgayKT").value = "";
 	}
 </script>
 </head>
-<body>
+<body onload="loadData()">
 <div align="center">
 	<!-- S HEAD CONTENT -->
 			<jsp:include page="../../block/header_QuanLyThietBi.jsp" />
@@ -128,91 +266,87 @@
 			<tr>
 				<td>
 					Khoa/TT
-					<select id="cbBoPhan" name="cbBoPhan" onchange="selectBoPhan()">
-						<option>Chọn</option>
-						<option>Công Nghệ Thông Tin</option>
-					</select> 
+					<select id="cbBoPhan" name="cbBoPhan" onchange="selectBoPhan()"></select> 
 				</td>
 				<td>
 					Phòng 
-					<select id="cbPhongBan" name="cbPhongBan" onchange="selectPhongBan()">
-						<option>Chọn</option>
-						<option>G2.1</option>
-					</select>	
+					<select id="cbPhongBan" name="cbPhongBan" onchange="selectPhongBan()"></select>	
 				</td>
 				<td>
 					Loại Thiết Bị
-					<select id="cbLoaiThietBi" name="cbLoaiThietBi">
-						<option>Chọn</option>
-						<option>PC</option>
-					</select>
+					<select id="cbLoaiThietBi" name="cbLoaiThietBi"></select>
 				</td>
 			</tr>
 			<tr>
 				<td>Tình Trạng
-					<select>
-						<option>Chọn</option>
-						<option>Tốt</option>
+					<select id="cbTinhTrang" name="cbTinhTrang">
+						<option value="">Chọn</option>
+						<option value="0" <c:if test="${param.maTinhTrang eq '0'}">selected</c:if>>Tốt</option>
+						<option value="1" <c:if test="${param.maTinhTrang eq '1'}">selected</c:if>>Hỏng</option>
+						<option value="2" <c:if test="${param.maTinhTrang eq '2'}">selected</c:if>>Bảo Trì</option>
+						<option value="3" <c:if test="${param.maTinhTrang eq '3'}">selected</c:if>>Bảo Hành</option>
 					</select>
 				</td>
 				<td colspan="2">
 					Vào lúc
-					<select>
-						<option>Chọn</option>
+					<select id="cbGioBD" name="cbGioBD">
+						<option value="">Chọn</option>
 						<c:forEach var="n" begin="0" end="23" step="1">
-							<option>${n}</option>
+							<option <c:if test="${param.gioBD eq n}">selected</c:if> value="${n }">${n}</option>
 						</c:forEach>
 					</select>
 					:
-					<select>
-						<option>Chọn</option>
+					<select id="cbPhutBD" name="cbPhutBD">
+						<option value="">Chọn</option>
 						<c:forEach var="n" begin="0" end="59" step="1">
-							<option>${n}</option>
+							<option <c:if test="${param.phutBD eq n}">selected</c:if> value="${n }">${n}</option>
 						</c:forEach>
 					</select>
 					đến
-					<select>
-						<option>Chọn</option>
+					<select id="cbGioKT" name="cbGioKT">
+						<option value="">Chọn</option>
 						<c:forEach var="n" begin="0" end="23" step="1">
-							<option>${n}</option>
+							<option <c:if test="${param.gioKT eq n}">selected</c:if> value="${n }">${n}</option>
 						</c:forEach>
 					</select>
 					:
-					<select>
-						<option>Chọn</option>
+					<select id="cbPhutKT" name="cbPhutKT">
+						<option value="">Chọn</option>
 						<c:forEach var="n" begin="0" end="59" step="1">
-							<option>${n}</option>
+							<option <c:if test="${param.phutKT eq n}">selected</c:if> value="${n }">${n}</option>
 						</c:forEach>
-					</select> 
+					</select>
+					<input type="button" value="Reset" onclick="reSet();"/> 
 				</td>		
 			</tr>
 			<tr>				
 				<td>Hiện Trạng
-					<select>
-						<option>Chọn</option>
-						<option>Tốt</option>
+					<select id="cbHienTrang" name="cbHienTrang">
+						<option value="">Chọn</option>
+						<option value="0" <c:if test="${param.maHienTrang eq '0'}">selected</c:if>>Rãnh</option>
+						<option value="1" <c:if test="${param.maHienTrang eq '1'}">selected</c:if>>Bận</option>
 					</select>
 				</td>
 				<td colspan="2">
 					Từ ngày 
-					<input type="text" />
+					<input type="text" id="txtNgayBD" name="txtNgayBD" value="${param.ngayBD }"/>
 					đến
-					<input type="text" />
-					<input type="button" value="Tìm Kiếm" />
+					<input type="text" id="txtNgayKT" name="txtNgayKT" value="${param.ngayKT }"/>
+					<input type="button" value="Tìm Kiếm" onclick="timKiem();"/>
 				</td>
 			</tr>
 		</table>		
 		
 		<%
-			String page = 1;
+			String pages = "1";
 			if(request.getParameter("page")!=null){
-				page = request.getParameter("page");
+				pages = request.getParameter("page");
 			}		
 		 %>
 			
 		
-		<c:set var="listThietBi" value='<%=ThietBiDAO.getDanhSachThietBi(request.getParameter("maPhongBan"),request.getParameter("maBoPhan"),request.getParameter("maLoaiThietBi"),request.getParameter("tinhTrang"),
-		request.getParameter("hienTrang"),request.getParameter("gioBD"),request.getParameter("phutBD"),request.getParameter("gioKT"),request.getParameter("phutKT"),request.getParameter("ngayBD"),request.getParameter("ngayKT"),"10",Constant.NUM_RECORD_THIETBI) %>'></c:set>
+		<c:set var="listThietBi" value='<%=ThietBiDAO.getDanhSachThietBi(request.getParameter("maPhongBan"),request.getParameter("maBoPhan"),request.getParameter("maLoaiThietBi"),request.getParameter("maTinhTrang"),
+		request.getParameter("maHienTrang"),request.getParameter("gioBD"),request.getParameter("phutBD"),request.getParameter("gioKT"),request.getParameter("phutKT"),DateUtil.changeDMYtoMDY(request.getParameter("ngayBD")),DateUtil.changeDMYtoMDY(request.getParameter("ngayKT")),pages,Constant.NUM_RECORD_THIETBI) %>'></c:set>
 		<c:set var="NUM_RECORD_THIETBI" value='<%=Constant.NUM_RECORD_THIETBI %>'></c:set>
 		<table border="1">
 			<tr>
@@ -240,18 +374,19 @@
 					<td>${thietBi.kiHieu }</td>
 					<td>${thietBi.tenThietBi }</td>
 					<td>${thietBi.tenPhongBan }</td>
-					<td>${thietBi.tinhTrang }</td>
-					<td>${thietBi.hienTrang }</td>
+					<td>${thietBi.tenTinhTrang }</td>
+					<td>${thietBi.tenHienTrang }</td>
 				</tr>
+				<c:set var="stt" value="${stt+1}"></c:set>
 			</c:forEach>	
 		</table>
 		
 		<c:choose>
 			<c:when test="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI gt 1}">
-				<c:forEach var="i" begin="1" end="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI+1}" step="1">
+				<c:forEach var="i" begin="1" end="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI}" step="1">
 					<a href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
 					&maBoPhan=${param.maBoPhan }&maPhongBan=${param.maPhongBan }&maLoaiThietBi=${param.maLoaiThietBi }
-					&tinhtrang=${param.tinhTrang }&hienTrang=${param.hienTrang }&gioBD=${param.gioBD }&phutBD=${param.phutBD }
+					&tinhTrang=${param.tinhTrang }&hienTrang=${param.hienTrang }&gioBD=${param.gioBD }&phutBD=${param.phutBD }
 					&gioKT=${param.gioKT }&phutKT=${param.phutKT }&ngayBD=${param.ngayBD }&ngayKT=${param.ngayKT }">${i }</a>
 				</c:forEach>
 			</c:when>
@@ -262,5 +397,25 @@
 			<jsp:include page="../../block/footer.jsp" />
 	<!-- E FOOT CONTENT -->
 </div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [2010.01, 2020.12],
+	electric          : false,
+	inputField        : "txtNgayBD",
+	button            : "txtNgayBD",
+	ifFormat          : "%d-%m-%Y"
+  });
+  Zapatec.Calendar.setup({
+	firstDay          : 1,
+	weekNumbers       : false,
+	range             : [2010.01, 2020.12],
+	electric          : false,
+	inputField        : "txtNgayKT",
+	button            : "txtNgayKT",
+	ifFormat          : "%d-%m-%Y"
+  });
+ </script>
 </body>
 </html>
