@@ -904,6 +904,7 @@ function getTuanHoc(tuanMacDinh)
 }
 function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 {
+	var checkNgayHoc = true;
 	if(validateTuan(tuanMacDinh) == true)
 	{
 		var objNgayHoc = new Object();
@@ -932,6 +933,18 @@ function doiTuanHoc(buoiBatDau, soBuoi, tuanMacDinh)
 			else 
 				ngayHoc = objNgayHoc.chuNhat;
 			document.getElementById('txtNgayHoc' + i).value = ngayHoc;
+			for(var j=0;j<ngayLeList.length;j++)
+			{
+				var m = document.getElementById('txtNgayHoc' + i).value.split("/");
+				if(m[0] == ngayLeList[j].ngay && m[1] == ngayLeList[j].thang)
+				{
+					document.getElementById('txtNgayHoc' + i).style.color = "red"; 
+					checkNgayHoc = false;
+					break;
+				}
+			}
+			if(checkNgayHoc == true)
+				document.getElementById('txtNgayHoc' + i).style.color = "black";
 		}
 		document.getElementById('txtTuanHoc' + tuanMacDinh).style.background = "";
 	}
