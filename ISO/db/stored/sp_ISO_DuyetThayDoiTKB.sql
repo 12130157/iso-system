@@ -72,6 +72,8 @@ BEGIN
 			FROM ChiTietTKB AS A 
 				INNER JOIN ChiTietTKBThayDoi AS B ON A.ID = B.Ma_chi_tiet_TKB AND B.Tinh_trang = '1'
 			WHERE B.Ma_to_trinh = @Ma_to_trinh  
+		
+		EXEC sp_updateKHGDfollowChiTietTKB @Ma_to_trinh
 
 		UPDATE ChiTietTKBThayDoi
 			SET
