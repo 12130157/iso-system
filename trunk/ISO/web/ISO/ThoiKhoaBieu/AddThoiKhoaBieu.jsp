@@ -27,7 +27,8 @@
 <%@page import="vn.edu.hungvuongaptech.model.TuanLeModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.TuanLeDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.NgayLeModel"%>
-<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%><html>
+<%@page import="vn.edu.hungvuongaptech.dao.NgayLeDAO"%>
+<%@page import="vn.edu.hungvuongaptech.common.Constant"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Thêm môn học TKB</title>
@@ -1170,6 +1171,8 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 		alert("Hãy tạo bảng trước");
 		check = false;
 	}
+	else if (<%=Constant.SETTING_RES.getString("Check")%> == 1)
+		check = true;
 	else if(kiemTraTrungGioHoc() == false)
 	{
 		alert("Giờ học không hợp lệ");
