@@ -1147,6 +1147,8 @@ function taoMonHoc()// tao ra mon hoc voi day du du lieu va truyen ve cu so chin
 		alert("Hãy chọn giáo viên");
 		check = false;
 	} 
+	else if (<%=Constant.SETTING_RES.getString("Check")%> == 1)
+		check = true;
 	else if(kiemTraTrungGioHoc() == false)
 	{
 		alert("Giờ học không hợp lệ");
