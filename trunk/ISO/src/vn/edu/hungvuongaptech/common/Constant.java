@@ -276,5 +276,5 @@ public class Constant {
 	   'U', 'u', };
 	//***********************************************************************************************
 	//*****************************He thong quan ly thiet bi *****************************************
-	public static String NUM_RECORD_THIETBI = "10";
+	public static String NUM_RECORD_THIETBI = "30";
 }
