@@ -244,6 +244,7 @@
 		document.getElementById("cbPhutKT").value = "";
 		document.getElementById("txtNgayBD").value = "";
 		document.getElementById("txtNgayKT").value = "";
+		timKiem();
 	}
 </script>
 </head>
@@ -368,7 +369,16 @@
 			<c:forEach var="thietBi" items="${listThietBi.danhSachThietBi}">
 				<tr>
 					<td><input type="checkbox" name="maThietBi${stt }" id="maThietBi${stt }"/></td>
-					<td>${stt}</td>
+					<td>
+						<c:choose>
+							<c:when test="${not empty param.page}">
+								${(param.page-1)*10+stt }
+							</c:when>
+							<c:otherwise>
+								${stt}	
+							</c:otherwise>		
+						</c:choose>
+					</td>
 					<td>${thietBi.tenLoaiThietBi }</td>
 					<td>${thietBi.ma }</td>
 					<td>${thietBi.kiHieu }</td>
@@ -384,7 +394,7 @@
 		<c:choose>
 			<c:when test="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI gt 1}">
 				<c:forEach var="i" begin="1" end="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI}" step="1">
-					<a href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
+					<a <c:if test="${param.page eq i or empty param.page and i eq '1'}">style="text-decoration:none;"</c:if> href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
 					&maBoPhan=${param.maBoPhan }&maPhongBan=${param.maPhongBan }&maLoaiThietBi=${param.maLoaiThietBi }
 					&tinhTrang=${param.tinhTrang }&hienTrang=${param.hienTrang }&gioBD=${param.gioBD }&phutBD=${param.phutBD }
 					&gioKT=${param.gioKT }&phutKT=${param.phutKT }&ngayBD=${param.ngayBD }&ngayKT=${param.ngayKT }">${i }</a>

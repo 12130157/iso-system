@@ -43,7 +43,7 @@
 			</tr>
 		<c:forEach var = "ThietBi" items="${ThietBiList}">	
 			<% 
-				int count1 = thietBiList.get(count).getChiTietThietBiList().size(); 
+				int count1 = 0; 
 				count++;
 			%>
 			<tr style="background-color: transparent;">
