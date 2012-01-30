@@ -266,6 +266,15 @@
 			{
 				out.println("<font style='color:red; font-size:13px; font-weight:bold;'>Vui lòng check chọn các thiết bị cần mượn.</font>");
 			}
+			if(String.valueOf(request.getAttribute("FlagMuonThietBi")).equals("1"))
+			{
+				%>
+				<script language="javascript">
+					alert("Bạn đã mượn thiết bị thành công");
+					window.location = "QuanLyThietBi/ThietBi/DanhSachThietBi.jsp";
+				</script>
+				<%				
+			}
 		%>
 		<table>
 			<tr style="background-color: transparent;">
