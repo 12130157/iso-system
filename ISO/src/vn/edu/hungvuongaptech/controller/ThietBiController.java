@@ -207,6 +207,11 @@ public class ThietBiController extends HttpServlet {
 			//insert tam thoi du lieu mau vao bang chitietmuonthietbi
 			for(int i = 0; i < arrThietBiDcChon.length; i++)
 				ThietBiDAO.insertChiTietMuonThietBi(maChiTietPhieuGiaoNhanThietBi, Integer.parseInt(arrThietBiDcChon[i]), "02-21-2012 11:30:00" , "02-21-2012 11:30:00", 0 , "02-21-2012 11:30:00", "", "", "", "", "");
+				
+			request.setAttribute("FlagMuonThietBi", "1");//1 là thành công,0 thất bại or null
+			RequestDispatcher r = request.getRequestDispatcher("QuanLyThietBi/ThietBi/DanhSachThietBi.jsp");
+			r.forward(request, response);	
+				
 		}
 		else if(actionType.equalsIgnoreCase("ThemThietBi") || actionType.equalsIgnoreCase("CapNhatThietBi")){
 			themThietBi(request, response);
