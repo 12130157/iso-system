@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class ThietBiModel implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	private String idThietBi;
 	private String maThietBi;
 	private String ma;
 	private String tenThietBi;
@@ -45,7 +46,13 @@ public class ThietBiModel implements Serializable{
 	private String user4;
 	private String user5;
 
-	
+	public void setIdThietBi(String idThietBi) {
+		this.idThietBi = idThietBi;
+	}
+
+	public String getIdThietBi() {
+		return idThietBi;
+	}
 	
 	public String getMa() {
 		return ma;
@@ -350,5 +357,6 @@ public class ThietBiModel implements Serializable{
 	public void setMaTanSuat(String maTanSuat) {
 		this.maTanSuat = maTanSuat;
 	}
+
 
 }
