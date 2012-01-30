@@ -11,13 +11,169 @@ import vn.edu.hungvuongaptech.model.ChiTietThietBiModel;
 import vn.edu.hungvuongaptech.model.DanhSachThietBiModel;
 import vn.edu.hungvuongaptech.model.KhoaModel;
 import vn.edu.hungvuongaptech.model.LoaiThietBiModel;
+import vn.edu.hungvuongaptech.model.LopHocModel;
 import vn.edu.hungvuongaptech.model.PhongBanModel;
 import vn.edu.hungvuongaptech.model.ThietBiModel;
 import vn.edu.hungvuongaptech.util.DataUtil;
 
 public class ThietBiDAO {
 	
+	//nguoi viet: Quoc Chuong
+	//muc dich: insert data vao db table chitietmuonthietbi
+	public static void insertChiTietMuonThietBi(
+			int maChiTietPGNTB,int maThietBi,String thoiGianNhan,
+			String thoiGianTra,int tinhTrang,String ngayCapNhatCuoi,
+			String user1,String user2,String user3,String user4,String user5)
+	{
+		int i = DataUtil.executeUpdate("insert into chitietmuonthietbi (ma_chi_tiet_pgntb,ma_thiet_bi,thoi_gian_nhan,thoi_gian_tra,tinh_trang,ngay_cap_nhat_cuoi,user1,user2,user3,user4,user5) " +
+				" values ("+maChiTietPGNTB+","+maThietBi+",'"+thoiGianNhan+"'," +
+				"'"+thoiGianTra+"',"+tinhTrang+",'"+ngayCapNhatCuoi+"'," +
+				"'"+user1+"','"+user2+"','"+user3+"','"+user4+"','"+user5+"')");
+		
+		//in ket qua i sau khi insert vao chitietmuonthietbi
+		System.out.println("Ket qua sau khi insert vao chitietmuonthietbi : "+i);
+		if(i == 1)
+			System.out.println("Insert thanh cong vao table chitietmuonthietbi");
+		else
+			System.out.println("Insert that bai vao table chitietmuonthietbi");
+	}
 	
+	
+	//nguoi viet: Quoc Chuong
+	//muc dich: insert data vao db table ChiTietPhieuGiaoNhanThietBi
+	public static void insertChiTietPhieuGiaoNhanThietBi(
+									int maSoGiaoNhan,String tenSoGiaoNhan,int nguoiNhan,
+									int lop,String ngayNhan,int tinhTrangNhan,
+									int kyNhan,int tinhTrangTra,int kyTra,
+									String ghiChu,int tinhTrang,String ngayCapNhatCuoi,
+									String user1,String user2,String user3,String user4,String user5)
+	{
+		int i = DataUtil.executeUpdate("insert into chitietphieugiaonhanthietbi (ma_so_giao_nhan,ten_so_giao_nhan,nguoi_nhan,lop,ngay_nhan,tinh_trang_nhan,ky_nhan,tinh_trang_tra,ky_tra,ghi_chu,tinh_trang,ngay_cap_nhat_cuoi,user1,user2,user3,user4,user5) " +
+					"values ("+maSoGiaoNhan+",'"+tenSoGiaoNhan+"',"+nguoiNhan+","
+					 +lop+",'"+ngayNhan+"',"+tinhTrangNhan+","+kyNhan+"," 
+					 +tinhTrangTra+","+kyTra+",'"+ghiChu+"',"+tinhTrang+",'"+ngayCapNhatCuoi+"','"+
+					 user1+"','"+user2+"','"+user3+"','"+user4+"','"+user5+"')")	;	
+		//in ket qua i sau khi insert vao chitietphieugiaonhanthietbi
+		System.out.println("Ket qua sau khi insert vao chitietphieugiaonhanthietbi : "+i);
+		if(i == 1)
+			System.out.println("Insert thanh cong vao table chitietphieugiaonhanthietbi");
+		else
+			System.out.println("Insert that bai vao table chitietphieugiaonhanthietbi");
+		
+		
+	}
+	
+	
+	//nguoi viet: Quoc Chuong
+	//muc dich: lấy tất cả phòng ban load lên PhieuMuonThietBi.jsp in QuanLyThietBi/ThietBi/
+	public static ArrayList<PhongBanModel> getAllPhongBan()
+	{
+		ArrayList<PhongBanModel> arr = new ArrayList<PhongBanModel>();
+		ResultSet rs = DataUtil.executeQuery("select id,ki_hieu_phong from phongban");
+		try {
+			while(rs.next())
+			{
+				PhongBanModel model = new PhongBanModel();
+				model.setMaPhongBan(String.valueOf(rs.getInt("id")));
+				model.setKiHieu(rs.getString("ki_hieu_phong"));
+				arr.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arr;
+	}
+	
+	//nguoi viet: Quoc Chuong
+	//muc dich: insert du lieu vao db table sogiaonhanthietbi
+	//chu y 2 cột nguoi_lap (=tenDangNhap or nguoiMuon),ngay_lap(=ngayLap or thoiGianNgayMuon)
+	public static void insertSoGiaoNhanThietBi(String phong,int hocKi,int nam,String ghiChu,
+												int nguoiLap,String ngayLap,int nguoiDuyet,String ngayDuyet,
+												int tinhTrang,String ngayCapNhatCuoi,String user1,String user2,
+												String user3,String user4,String user5)
+	{	
+		 int i = DataUtil.executeUpdate("insert into sogiaonhanthietbi (phong,hoc_ki,nam,ghi_chu,nguoi_lap,ngay_lap,nguoi_duyet,ngay_duyet,tinh_trang,ngay_cap_nhat_cuoi,user1,user2,user3,user4,user5) " +
+		 									"values ('"+phong+"',"+hocKi+","+nam+",'"+ghiChu+"',"+
+		 									nguoiLap+",'"+ngayLap+"',"+nguoiDuyet+",'"+ngayDuyet+
+		 									"',"+tinhTrang+",'"+ngayCapNhatCuoi+"','"+user1+
+		 									"','"+user2+"','"+user3+"','"+user4+"','"+user5+"')");
+		 //System.out.println("ket qua insert sogiaonhanthietbi: "+i);
+		 if(i == 1)
+			System.out.println("Insert thanh cong vao sogiaonhanthietbi");
+		 else
+			 System.out.println("Insert that bai vao sogiaonhanthietbi");
+	}
+	
+	//nguoi viet: Quoc Chuong
+	//muc dich: lay thong tin cua 1 thiet bi thong qua idThietBi do. 
+	//chu y: su dung store SP_ThietBi_GetThietBiInfo nhan vao 1 tham so idThietBi 
+	//load vao PhieuMuonThietBi.jsp in QuanLyThietBi/ThietBi/
+	public static ThietBiModel getThietBiInfo(int idThietBi)
+	{
+		ThietBiModel model = new ThietBiModel();
+		try {
+			CallableStatement ca = DataUtil.getConnection().prepareCall("{call SP_ThietBi_GetThietBiInfo(?)}");
+			ca.setInt(1, idThietBi);
+			ResultSet rs = ca.executeQuery();
+			while(rs.next())
+			{
+				model.setIdThietBi(rs.getString("id"));
+				model.setTenThietBi(rs.getString("ten_thiet_bi"));
+				model.setMa(rs.getString("ma"));
+				model.setKiHieu(rs.getString("ki_hieu"));
+				model.setTenLoaiThietBi(rs.getString("ten_loai_thiet_bi"));
+				model.setMaPhongBan(rs.getString("maPhongBan"));
+				model.setTenPhongBan(rs.getString("ki_hieu_phong"));//ten phong ban chinh la ki_hieu_phong trong store
+				model.setTenTinhTrang(rs.getString("ten_tinh_trang"));
+				model.setTenHienTrang(rs.getString("ten_hien_trang"));				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return model;
+	}
+	
+	//Nguoi viet: Quoc Chuong
+	//muc dich: lấy tất cả lớp học load từ db lên PhieuMuonThietBi.jsp in QuanLyThietBi/ThietBi/
+	public static ArrayList<LopHocModel> getAllLopHoc()
+	{
+		ArrayList<LopHocModel> arr = new ArrayList<LopHocModel>();
+		ResultSet rs = DataUtil.executeQuery("select id, ki_hieu from lophoc");
+		try {
+			while(rs.next())
+			{
+				LopHocModel model = new LopHocModel();
+				model.setMaLopHoc(rs.getString("id"));
+				model.setKiHieu(rs.getString("ki_hieu"));
+				arr.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arr;
+	}
+	
+	//Nguoi viet: Quoc Chuong
+	//Muc dich: lấy số phiếu (id) cuối cùng trong table sogiaonhanthietbi để load lên giao diện PhieuMuonThietBi.jsp in QuanLyThietBi/ThietBi/
+	//Chu y: số phiếu load lên dc nhưng vẫn chưa dc insert vào csdl vì kiểu cột số phiếu tự tăng
+	public static int getSoPhieu()
+	{
+		int soPhieu = 0;
+		ResultSet rs = DataUtil.executeQuery("select top 1 id from sogiaonhanthietbi order by id desc");
+		try {
+			while(rs.next())
+			{
+				soPhieu = rs.getInt("id")+1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return soPhieu;
+	}
 	
 	public static Boolean insertThietBi(ThietBiModel thietBiModel){
 		Boolean result=false;
