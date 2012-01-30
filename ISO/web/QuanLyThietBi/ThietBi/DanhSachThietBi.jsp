@@ -244,7 +244,12 @@
 		document.getElementById("cbPhutKT").value = "";
 		document.getElementById("txtNgayBD").value = "";
 		document.getElementById("txtNgayKT").value = "";
-		timKiem();
+	}
+
+	function btnMuon()
+	{
+		document.getElementById("actionType").value = "DanhSachMuonThietBi";
+		document.forms["formThietBi"].submit();
 	}
 </script>
 </head>
@@ -255,6 +260,13 @@
 	<!-- E HEAD CONTENT -->
 	<br/><br/><br/>
 	<form action="<%=request.getContextPath()%>/ThietBiController" name  = "formThietBi" id = "formThietBi" method="post">
+		<input name="actionType" id="actionType" value="actionType" type="hidden" />
+		<%			
+			if(String.valueOf(request.getAttribute("error")).equals("1"))
+			{
+				out.println("<font style='color:red; font-size:13px; font-weight:bold;'>Vui lòng check chọn các thiết bị cần mượn.</font>");
+			}
+		%>
 		<table>
 			<tr style="background-color: transparent;">
 				<td colspan="9">
@@ -368,17 +380,9 @@
 			<c:set var="stt" value="1"></c:set>
 			<c:forEach var="thietBi" items="${listThietBi.danhSachThietBi}">
 				<tr>
-					<td><input type="checkbox" name="maThietBi${stt }" id="maThietBi${stt }"/></td>
-					<td>
-						<c:choose>
-							<c:when test="${not empty param.page}">
-								${(param.page-1)*10+stt }
-							</c:when>
-							<c:otherwise>
-								${stt}	
-							</c:otherwise>		
-						</c:choose>
-					</td>
+					<td><!--<input type="checkbox" name="maThietBi${stt }" id="maThietBi${stt }"/>--><input type="checkbox" value="${thietBi.maThietBi}" name="ckbox" id="ckbox" /></td>
+
+					<td>${stt}</td>
 					<td>${thietBi.tenLoaiThietBi }</td>
 					<td>${thietBi.ma }</td>
 					<td>${thietBi.kiHieu }</td>
@@ -394,13 +398,15 @@
 		<c:choose>
 			<c:when test="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI gt 1}">
 				<c:forEach var="i" begin="1" end="${listThietBi.tongSoThietBi/NUM_RECORD_THIETBI}" step="1">
-					<a <c:if test="${param.page eq i or empty param.page and i eq '1'}">style="text-decoration:none;"</c:if> href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
+					<a href="<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/DanhSachThietBi.jsp?page=${i}
 					&maBoPhan=${param.maBoPhan }&maPhongBan=${param.maPhongBan }&maLoaiThietBi=${param.maLoaiThietBi }
 					&tinhTrang=${param.tinhTrang }&hienTrang=${param.hienTrang }&gioBD=${param.gioBD }&phutBD=${param.phutBD }
 					&gioKT=${param.gioKT }&phutKT=${param.phutKT }&ngayBD=${param.ngayBD }&ngayKT=${param.ngayKT }">${i }</a>
 				</c:forEach>
 			</c:when>
 		</c:choose>
+		<br />
+		<input type="button" value="Mượn" onclick="return btnMuon();" />
 	</form>	
 	<br/>
 	<!-- S FOOT CONTENT -->
@@ -427,5 +433,6 @@
 	ifFormat          : "%d-%m-%Y"
   });
  </script>
+
 </body>
 </html>
