@@ -1,15 +1,23 @@
 package vn.edu.hungvuongaptech.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import vn.edu.hungvuongaptech.common.Constant;
 import vn.edu.hungvuongaptech.dao.NhaCungCapDAO;
@@ -59,9 +67,148 @@ public class ThietBiController extends HttpServlet {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String actionType=request.getParameter("actionType");
 		
-		if(actionType.equalsIgnoreCase("ThemThietBi") || actionType.equalsIgnoreCase("CapNhatThietBi")){
+		String actionType=request.getParameter("actionType");	
+		//nguoi viet: Quoc Chuong (MuonThietBi)
+		//muc dich:lay danh sach thiet bi khi nguoi chon check vao thietbi sau do load sang PhieuMuonThietBi.jsp in QuanLyThietBi/ThietBi/
+		if(actionType.equalsIgnoreCase("DanhSachMuonThietBi"))
+		{
+			if(request.getParameterValues("ckbox") != null)
+			{
+				System.out.println("\nCac thiet bi duoc chon nhu sau:");
+				String[] str = request.getParameterValues("ckbox");
+				
+				//in test lấy danh sách các thiết bị dc check từ trang DanhSachThietBi.jsp
+				for(int i = 0; i < str.length; i++)
+					System.out.println(str[i].toString());
+				
+				//request.setAttribute("abc",str);
+				request.setAttribute("arrThietBiDuocChon", str);
+				RequestDispatcher r = request.getRequestDispatcher("QuanLyThietBi/ThietBi/PhieuMuonThietBi.jsp");
+				r.forward(request, response);
+			}
+			else if(request.getParameterValues("ckbox") == null)
+			{
+				request.setAttribute("error", "1");
+				RequestDispatcher r = request.getRequestDispatcher("QuanLyThietBi/ThietBi/DanhSachThietBi.jsp");
+				r.forward(request, response);
+			}
+			
+			
+		}
+		//nguoi viet : Quoc Chuong
+		//muc dich: thuc hien viec muon thiet bi insert thang vao db
+		else if(actionType.equalsIgnoreCase("MuonThietBi"))
+		{
+			//System.out.println("ok muon thiet bi");
+			String arrIdThietBi = request.getParameter("txtArrIdThietBi").trim();
+			String soPhieu = request.getParameter("txtSoPhieu");
+			//nguoi muon o day la ten dang nhap
+			String nguoiMuon = request.getParameter("txtNguoiMuon");
+			//lop la ma lop
+			String lop = request.getParameter("txtLop");
+			
+			//parse ngày mượn từ kiểu String sang Date. Sau đó, format thành chuẩn MM-dd-yyyy HH:mm:ss
+			String ngayMuon = request.getParameter("txtNgayMuon");
+			SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy");
+			Date d1;
+			String thoiGianNgayMuon = "";
+			try {
+				d1 = formatter1.parse(ngayMuon);
+				SimpleDateFormat pattern1 = new SimpleDateFormat("MM-dd-yyyy");
+				thoiGianNgayMuon = pattern1.format(d1); 
+				//System.out.println("Thoi gian ngay muon theo chuan (MM-dd-yyyy): "+thoiGianNgayMuon);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+			
+			//parse ngày trả từ kiểu String sang Date. Sau đó, format thành chuẩn MM-dd-yyyy HH:mm:ss
+			String ngayTra = request.getParameter("txtNgayTra");
+			//thoi gian tra
+			String gio = request.getParameter("txtGio");
+			String phut = request.getParameter("txtPhut");
+			String giay = "00";
+			String thoiGianNgayTra = ngayTra+" "+gio+":"+phut+":"+giay;
+			/*System.out.println("arrIdThietBi: " +arrIdThietBi+
+								"\nSo phieu: "+soPhieu+
+								"\nNguoi muon: "+nguoiMuon+
+								"\nLop: "+lop+
+								"\nNgay muon: "+ngayMuon+
+								"\nNgay tra: "+ngayTra+" "+gio+":"+phut+":"+giay);
+		    */
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+			try {
+				Date d = formatter.parse(thoiGianNgayTra);
+				//System.out.println(d);
+				SimpleDateFormat pattern = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+				//System.out.println("Thoi gian ngay tra theo chuan (MM-dd-yyyy HH:mm:ss): "+pattern.format(d));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//lấy về mã phòng ban
+			String phongBan = request.getParameter("txtPhongBan");
+			System.out.println("Danh sach duoc chon theo chuoi: "+arrIdThietBi);
+			String[] arrThietBiDcChon = arrIdThietBi.split(",");
+			for(int i = 0; i < arrThietBiDcChon.length; i++)
+			{
+				System.out.println("Thiet bi "+(i+1)+": "+arrThietBiDcChon[i]);
+				
+			}
+			
+			//lay id cua thanhvien truoc de insert vao bang sogiaonhanthietbi voi nguoi lap la id thanh vien
+			ResultSet rs = DataUtil.executeQuery("select top 1 id from thanhvien where ten_dn = '"+nguoiMuon+"'");
+			int idThanhVien = 0;
+			try {
+				while(rs.next())
+				{
+					idThanhVien = rs.getInt("id");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//insert tam thoi du lieu mẫu vao bảng soGiaoNhanThietBi
+			ThietBiDAO.insertSoGiaoNhanThietBi(phongBan,1,2001,"ghi chu 1",idThanhVien, thoiGianNgayMuon,
+											2,"02-15-2012",0,"02-18-2012","","","","","");//nguoi muon la ten dang nhap
+			
+			//lấy masogiaonhanthietbi sau khi insert sogiaonhanthietbi
+			int maSoGiaoNhanThietBi = 0;
+			ResultSet rs2 = DataUtil.executeQuery("select top 1 id from sogiaonhanthietbi order by id desc");
+			try {
+				while(rs2.next())
+				{
+					maSoGiaoNhanThietBi = rs2.getInt("id");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//insert tam thoi du lieu mau vao bang chitietphieugiaonhanthietbi
+			ThietBiDAO.insertChiTietPhieuGiaoNhanThietBi(maSoGiaoNhanThietBi, "tên sổ giao nhận 1", idThanhVien, Integer.parseInt(lop), "02-18-2012 10:45:20", 0, 0, 0, 0, "Ghi chú nhe", 0, "02-20-2012 11:30:00", "", "", "", "", "");
+			
+			//lấy id ma chitietphieugiaonhanthietbi sau khi insert chitietphieugiaonhanthietbi
+			int maChiTietPhieuGiaoNhanThietBi = 0;
+			ResultSet rs3 = DataUtil.executeQuery("select top 1 id from chitietphieugiaonhanthietbi order by id desc");
+			try {
+				while(rs3.next())
+				{
+					maChiTietPhieuGiaoNhanThietBi = rs3.getInt("id");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//insert tam thoi du lieu mau vao bang chitietmuonthietbi
+			for(int i = 0; i < arrThietBiDcChon.length; i++)
+				ThietBiDAO.insertChiTietMuonThietBi(maChiTietPhieuGiaoNhanThietBi, Integer.parseInt(arrThietBiDcChon[i]), "02-21-2012 11:30:00" , "02-21-2012 11:30:00", 0 , "02-21-2012 11:30:00", "", "", "", "", "");
+		}
+		else if(actionType.equalsIgnoreCase("ThemThietBi") || actionType.equalsIgnoreCase("CapNhatThietBi")){
 			themThietBi(request, response);
 		}
 		else if(actionType.equalsIgnoreCase("BaoHuThietBi")) {
