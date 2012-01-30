@@ -251,6 +251,15 @@
 		document.getElementById("actionType").value = "DanhSachMuonThietBi";
 		document.forms["formThietBi"].submit();
 	}
+	
+	function openLichSuThietBi(maThietBi){
+		var obj = new Object;
+		var chieucao = 300;
+		var chieurong = 600;
+		var top = screen.availHeight/2-chieucao/2;
+		var left = screen.availWidth/2-chieurong/2;
+		obj = window.showModalDialog("<%=request.getContextPath() %>/QuanLyThietBi/ThietBi/LichSuThietBi.jsp?maThietBi="+maThietBi,this,"dialogHeight: "+chieucao+"px; dialogWidth: "+chieurong+"px; dialogTop: "+top+"px; dialogLeft: "+left+"px; edge: Raised; center: Yes; help: No; scroll: Yes; status: No;");
+	}
 </script>
 </head>
 <body onload="loadData()">
@@ -389,13 +398,25 @@
 			<c:set var="stt" value="1"></c:set>
 			<c:forEach var="thietBi" items="${listThietBi.danhSachThietBi}">
 				<tr>
-					<td><!--<input type="checkbox" name="maThietBi${stt }" id="maThietBi${stt }"/>--><input type="checkbox" value="${thietBi.maThietBi}" name="ckbox" id="ckbox" /></td>
-
-					<td>${stt}</td>
+					<td><input type="checkbox" name="chkbox${stt }" id="chkbox${stt }" value="${thietBi.maThietBi }"/></td>
+					<td>
+						<c:choose>
+							<c:when test="${not empty param.page}">
+								${(param.page-1)*10+stt }
+							</c:when>
+							<c:otherwise>
+								${stt}	
+							</c:otherwise>		
+						</c:choose>
+					</td>
 					<td>${thietBi.tenLoaiThietBi }</td>
 					<td>${thietBi.ma }</td>
 					<td>${thietBi.kiHieu }</td>
-					<td>${thietBi.tenThietBi }</td>
+					<td>
+						<a href="javascript: openLichSuThietBi('${thietBi.maThietBi }')">
+							${thietBi.tenThietBi }
+						</a>
+					</td>
 					<td>${thietBi.tenPhongBan }</td>
 					<td>${thietBi.tenTinhTrang }</td>
 					<td>${thietBi.tenHienTrang }</td>
