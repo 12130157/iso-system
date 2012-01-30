@@ -277,4 +277,8 @@ public class Constant {
 	//***********************************************************************************************
 	//*****************************He thong quan ly thiet bi *****************************************
 	public static String NUM_RECORD_THIETBI = "30";
+	public static String HANHDONG_MUON = "0";
+	public static String HANHDONG_TRA = "0";
+	public static String HANHDONG_BAOTRI = "0";
+	public static String HANHDONG_BAOHONG = "0";
 }
