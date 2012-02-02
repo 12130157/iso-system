@@ -275,7 +275,7 @@
 									<tr style="background-color: transparent;">
 										<td width="120">
 											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
-											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+											<c:if test="${(objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE) or ((sessionScope.maVaiTro eq '5' or sessionScope.maVaiTro eq '6')  and sessionScope.maBoPhan eq objKHGD.user1 and objKHGD.tinhTrang eq APPROVE)}">
 												<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>
@@ -326,7 +326,7 @@
 									<tr style="background-color: transparent;">
 										<td width="120">
 											<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
-											<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+											<c:if test="${(objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE) or ((sessionScope.maVaiTro eq '5' or sessionScope.maVaiTro eq '6')  and sessionScope.maBoPhan eq objKHGD.user1 and objKHGD.tinhTrang eq APPROVE)}">
 												<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>
@@ -436,7 +436,7 @@
 								 	<tr>
 								 		<td width="120">
 								 			<a href = "KeHoachGiangDay.jsp?maKHGD=${objKHGD.maKHGD}">${objKHGD.tenKHGD}</a><br/>
-								 			<c:if test="${objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE}">
+								 			<c:if test="${(objKHGD.maNguoiTao eq sessionScope.maThanhVien and objKHGD.tinhTrang eq APPROVE) or ((sessionScope.maVaiTro eq '5' or sessionScope.maVaiTro eq '6')  and sessionScope.maBoPhan eq objKHGD.user1 and objKHGD.tinhTrang eq APPROVE)}">
 								 				<a style="text-decoration: none;" href="javascript: SoTayGiaoVien(${objKHGD.maKHGD })">
 													<input type="button" value="Sổ Tay Giáo Viên"/>
 												</a>

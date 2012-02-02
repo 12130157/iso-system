@@ -312,12 +312,14 @@
 				</table>
 			<c:choose>
 				<c:when test="${SoTayGiaoVien.tinhTrang eq 0}">
-					<a href = "javascript: submitForm('U')">								 
-						<img src="<%=request.getContextPath()%>/images/buttom/capnhat2.png" alt="Cập Nhật" border = "0" />
-					</a>
-					<a href = "javascript: submitForm('S')">								 
-						<img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi" border = "0" />
-					</a>
+					<c:if test="${sessionScope.maThanhVien eq SoTayGiaoVien.maGiaoVien}">
+						<a href = "javascript: submitForm('U')">								 
+							<img src="<%=request.getContextPath()%>/images/buttom/capnhat2.png" alt="Cập Nhật" border = "0" />
+						</a>
+						<a href = "javascript: submitForm('S')">								 
+							<img src="<%=request.getContextPath()%>/images/buttom/gui.png" alt="Gửi" border = "0" />
+						</a>
+					</c:if>
 				</c:when>
 				<c:otherwise>
 					<a href = "<%=request.getContextPath() %>/ISO/KeHoachGiangDay/PrintSoTayGiaoVien.jsp">								 

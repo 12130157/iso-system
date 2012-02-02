@@ -72,11 +72,23 @@ public class HoSoDuTuyenController extends HttpServlet{
 			doPostRestore(request, response);
 		} else if(action.equalsIgnoreCase("xoaBangCap")){
 			doPostDeleteBangCap(request,response);
+		} else if(action.equalsIgnoreCase("xoaBangCapKhac")){
+			doPostDeleteBangCapKhac(request,response);
 		}
 	}
 	
 	private void doPostDeleteBangCap(HttpServletRequest request,HttpServletResponse response){
 		BangCapDAO.deleteBangCap(request.getParameter("MaBangCap").toString());
+		try {
+			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/NhapThongTin.jsp?maThanhVien="+request.getParameter("maThanhVien"));
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void doPostDeleteBangCapKhac(HttpServletRequest request,HttpServletResponse response){
+		ChungChiBangCapKhacDAO.deleteChungChiBangCapKhacCuaThanhVien(request.getParameter("MaBangCap").toString());
 		try {
 			RequestDispatcher rd = request.getRequestDispatcher("/NhanSu/HoSoDuTuyen/NhapThongTin.jsp?maThanhVien="+request.getParameter("maThanhVien"));
 			rd.forward(request, response);
@@ -357,10 +369,12 @@ public class HoSoDuTuyenController extends HttpServlet{
 		if(!kq.equals("-1")){
 			int max = Integer.parseInt(request.getParameter("row").trim());
 			int count = BangCapDAO.countBangCapByMaThanhVien(kq);
-			String n;
+			String n = "0";
 			for (int i = 1; i < max; i++) {
-				if(Integer.parseInt(request.getParameter("BangCapChinh"))==i){
-					n = "1";
+				if(request.getParameter("BangCapChinh")!=null){
+					if(Integer.parseInt(request.getParameter("BangCapChinh"))==i){
+						n = "1";
+					}
 				}else{
 					n = "0";
 				}

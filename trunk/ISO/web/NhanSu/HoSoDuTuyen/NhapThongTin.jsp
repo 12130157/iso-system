@@ -344,7 +344,7 @@
 						<c:forEach var="BangCapKhac" items="${ThongTinChiTiet.listBangCapKhac}">
 							<tr style="background-color: transparent;">
 								<td style="width: 50px;">${row2 }</td>
-								<td style="width: 110px;">
+								<td style="width: 110px;font-weight: bold;">
 									<c:choose>
 										<c:when test="${BangCapKhac.loai eq 1}">
 											Anh Văn
@@ -359,13 +359,9 @@
 									<input type="hidden" name="maBangCap${row }" value="${BangCapKhac.id }" />
 								</td>
 								<td style="width: 250px;text-align: left;padding-left: 5px;,font-weight: bold;">
-									<!-- <a href="javascript: xoaBangCapKhac(${BangCapKhac.id })" style="text-decoration: none;color: red;">
-									</a>
-										<c:if test="${BangCapKhac.ten eq ''}">
-											tmp
-										</c:if>
-									 -->
+									<a href="javascript: xoaBangCapKhac(${BangCapKhac.id })" style="text-decoration: none;color: red;">
 										${BangCapKhac.ten }
+									</a>
 									
 								</td>
 								<td style="width: 100px;text-align: center;font-weight: bold;">${BangCapKhac.ngayTotNghiep }</td>
