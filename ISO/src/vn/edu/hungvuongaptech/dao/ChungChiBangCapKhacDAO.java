@@ -132,4 +132,14 @@ public class ChungChiBangCapKhacDAO {
 		return kq;
 	}
 	
+	public static void deleteChungChiBangCapKhacCuaThanhVien(String maBangCap){
+		try {
+			String sql = "DELETE FROM CHUNGCHIBANGCAPKHACCUATHANHVIEN WHERE ID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maBangCap);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -83,7 +83,7 @@ public class KeHoachGiangDayDAO {
 				keHoachGiangDayModel.setLyDoReject(rs.getNString("LyDoReject"));
 				keHoachGiangDayModel.setTinhTrangHT(rs
 						.getString("Tinh_Trang_HT"));
-
+				keHoachGiangDayModel.setUser1(rs.getString("MaBoPhan"));
 				keHoachGiangDayModelsList.add(keHoachGiangDayModel);
 			}
 			Constant.CHECK_ROWS = keHoachGiangDayModelsList.size() - 1;
