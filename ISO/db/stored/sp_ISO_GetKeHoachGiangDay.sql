@@ -78,7 +78,7 @@ BEGIN
 		
 	SELECT @sql = '
 		SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
-		TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
+		TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao,G.ID As MaBoPhan 
 		FROM KeHoachGiangDay AS TB2 		
 			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
 			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
