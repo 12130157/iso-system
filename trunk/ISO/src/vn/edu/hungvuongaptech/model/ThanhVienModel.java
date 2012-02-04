@@ -35,12 +35,18 @@ public class ThanhVienModel implements Serializable {
 	private String email;
 	private String maBoPhan;
 	private String tenBoPhan;
-	ArrayList<MonHocModel> monHocList;
-	ArrayList<DiemDanhModel> diemDanhList;
-	ArrayList<ThangModel> thangList;
+	private ArrayList<MonHocModel> monHocList;
+	private ArrayList<DiemDanhModel> diemDanhList;
+	private ArrayList<ThangModel> thangList;
+	private DangKyMonHocModel dangKyMonHocModel;
 	
 	
-	
+	public DangKyMonHocModel getDangKyMonHocModel() {
+		return dangKyMonHocModel;
+	}
+	public void setDangKyMonHocModel(DangKyMonHocModel dangKyMonHocModel) {
+		this.dangKyMonHocModel = dangKyMonHocModel;
+	}
 	public ArrayList<ThangModel> getThangList() {
 		return thangList;
 	}

@@ -80,4 +80,31 @@ public class DangKyMonHocDAO {
 						
 		return result;
 	}
+	
+	
+	public static DangKyMonHocModel getDiemByMaLop_MaHocSinh_MaMonHoc(String maLop, String maMonHoc, String maThanhVien){
+		DangKyMonHocModel model = null;
+		try {
+			String sql = "SELECT A.ID as MaDangKyMonHoc,A.Diem_trung_binh as DiemTrungBinh "
+						+" FROM DANGKYMONHOC A INNER JOIN MONHOCTKB B ON A.MA_MON_HOC_TKB=B.ID "
+						+" INNER JOIN THOIKHOABIEU C ON B.MA_TKB=C.ID "
+						+" WHERE B.MA_MON_HOC=? AND C.MA_LOP=? AND A.MA_HOC_VIEN=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maMonHoc);
+			ps.setString(2, maLop);
+			ps.setString(3, maThanhVien);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new DangKyMonHocModel();
+				model.setMaDangKyMonHoc(rs.getString("MaDangKyMonHoc"));
+				model.setDiemTrungBinh(rs.getString("DiemTrungBinh"));
+			}
+			if(model!=null){
+				model.setChiTietDiemList(ChiTietDiemDAO.getListDiemByMaDangKyMonHoc(model.getMaDangKyMonHoc()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 }
