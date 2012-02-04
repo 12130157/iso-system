@@ -191,18 +191,54 @@
 							</tr>
 							<c:set var="m" value="1"></c:set>
 							<c:forEach var="HocSinh" items="${SoTayGiaoVien.listHocSinh}">
-								<tr style="background-color: transparent;">
-									<td>${m }</td>
-									<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td>${HocSinh.user1 }</td>
-								</tr>
+								<c:set var="DangKyMonHocModel" value="${HocSinh.dangKyMonHocModel}"></c:set>
+								<c:set var="listChiTietDiem" value="${DangKyMonHocModel.chiTietDiemList}"></c:set>
+								<c:set var="listChiTietDiemLength" value="${fn:length(listChiTietDiem)}"></c:set>
+								<c:set var="count" value="0"></c:set>
+								<c:if test="${listChiTietDiemLength eq '4'}">
+									<tr style="background-color: transparent;">
+										<td>${m }</td>
+										<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
+										<c:forEach var="chiTietDiem" items="${listChiTietDiem}">
+											<c:if test="${count eq 2}">
+												<td>${chiTietDiem.diem }</td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</c:if>
+											<c:if test="${count eq 3}">
+												<td>${chiTietDiem.diem }</td>
+												<td></td>
+											</c:if>
+											<c:set var="count" value="${count+1}"></c:set>
+										</c:forEach>
+										<td>${DangKyMonHocModel.diemTrungBinh }</td>
+									</tr>
+								</c:if>
+								<c:if test="${listChiTietDiemLength eq '8'}">
+									<tr style="background-color: transparent;">
+										<td>${m }</td>
+										<td style="text-align: left;padding-left: 5px;">${HocSinh.hoThanhVien } ${HocSinh.tenLot } ${HocSinh.tenThanhVien }</td>
+										<c:forEach var="chiTietDiem" items="${listChiTietDiem}">
+											<c:if test="${count eq 4}">
+												<td>${chiTietDiem.diem }</td>
+											</c:if>
+											<c:if test="${count eq 5}">
+												<td>${chiTietDiem.diem }</td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</c:if>
+											<c:if test="${count eq 6}">
+												<td>${chiTietDiem.diem }</td>
+												<td></td>
+											</c:if>
+											<c:set var="count" value="${count+1}"></c:set>
+										</c:forEach>
+										<td>${DangKyMonHocModel.diemTrungBinh }</td>
+									</tr>
+								</c:if>
 								<c:set var="m" value="${m+1}"></c:set>
 							</c:forEach>
 						</table>

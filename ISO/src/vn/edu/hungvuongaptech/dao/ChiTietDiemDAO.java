@@ -105,4 +105,27 @@ public class ChiTietDiemDAO {
 						
 		return result;
 	}
+	
+	public static ArrayList<ChiTietDiemModel> getListDiemByMaDangKyMonHoc(String maDangKyMonHoc){
+		ArrayList<ChiTietDiemModel> list = new ArrayList<ChiTietDiemModel>();
+		ChiTietDiemModel model = null;
+		try {
+			String sql = "SELECT CASE A.Diem WHEN -1 THEN NULL ELSE A.Diem END AS Diem,B.Ma_bai_kiem_tra as MaBaiKiemTra "
+						+" FROM CHITIETDIEM A INNER JOIN BAIKIEMTRA B ON A.MA_BAI_KIEM_TRA=B.ID " 
+						+" WHERE A.MA_DANG_KY_MON_HOC=? "
+						+" ORDER BY A.MA_DANG_KY_MON_HOC,B.MA_BAI_KIEM_TRA,A.ID";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, maDangKyMonHoc);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new ChiTietDiemModel();
+				model.setDiem(rs.getString("Diem"));
+				model.setMaBaiKiemTra(rs.getString("MaBaiKiemTra"));
+				list.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

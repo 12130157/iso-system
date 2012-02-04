@@ -5,6 +5,7 @@ public class ChiTietDiemModel {
 	private String maChiTietDiem;
 	private String maDangKyMonHoc;
 	private String maBaiKiemTra;
+	private String maHinhThuc;
 	private String diem;
 	private String ghiChu;
 	private String ngayCapNhatCuoi;
@@ -16,6 +17,12 @@ public class ChiTietDiemModel {
 	
 	private String tenBaiKiemTra;
 	
+	public String getMaHinhThuc() {
+		return maHinhThuc;
+	}
+	public void setMaHinhThuc(String maHinhThuc) {
+		this.maHinhThuc = maHinhThuc;
+	}
 	public String getTenBaiKiemTra() {
 		return tenBaiKiemTra;
 	}
