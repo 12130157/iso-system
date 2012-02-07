@@ -1754,6 +1754,153 @@ END
 
 GO
 
+--sp_HoTroDiemDanh.sql
+--Input
+--Mã Giáo Viên
+--Ngày Học (tháng-ngày-năm) exam : 09-23-2011 
+--Lưu ý : phải có số 0 phía trước tháng và ngày nhỏ hơn 10
+--******************************************************
+--Lấy max của gio_bat_dau,gio_ket_thuc + random() 
+--để gán vào người chưa đi học, đồng thời update tinh_trang=4
+/* demo xem trước khi chạy store
+SELECT A.NGAY_HOC, B.MA_THANH_VIEN,A.GIO_BAT_DAU,A.GIO_KET_THUC,A.TINH_TRANG
+FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+WHERE C.MA_GIAO_VIEN='0' AND CONVERT(VARCHAR(10),A.NGAY_HOC,110)='09-21-2011' AND A.TINH_TRANG=4
+*/
+--sp_HoTroDiemDanh '0','09-23-2011'
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_HoTroDiemDanh')
+BEGIN
+	DROP PROC sp_HoTroDiemDanh
+END
+GO
+CREATE PROC sp_HoTroDiemDanh
+@MA_GIAO_VIEN INT,
+@NGAY_HOC VARCHAR(10),
+@Buoi_IN INT
+AS
+BEGIN
+	DECLARE @MaChiTietDiemDanh INT,@MaThanhVien INT,@MaMonHoc INT,
+			@TinhTrang INT,@Count INT,
+			@BEGIN DATETIME,@END DATETIME,@BEGIN_DEFAULT DATETIME,@END_DEFAULT DATETIME, @Buoi NVARCHAR(20)
+	DECLARE @C CURSOR
+	IF @Buoi_IN = 0
+	BEGIN
+		SET @C = CURSOR FOR
+		SELECT MAX(A.GIO_BAT_DAU),MAX(A.GIO_KET_THUC),C.MA_MON_HOC,A.Buoi
+		FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+		INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+		WHERE C.MA_GIAO_VIEN=@MA_GIAO_VIEN AND CONVERT(VARCHAR(10),A.NGAY_HOC,110)=@NGAY_HOC
+		GROUP BY C.MA_MON_HOC,A.Buoi
+	END
+	ELSE
+	BEGIN
+		DECLARE @DK_Buoi NVARCHAR(100)
+		SET @DK_Buoi = ''
+		IF @Buoi = 1
+		BEGIN
+			SET @DK_Buoi = N'Sáng'
+		END
+		
+		IF @Buoi = 2
+		BEGIN
+			SET @DK_Buoi = N'Chiều'
+		END
+
+		SET @C = CURSOR FOR
+		SELECT MAX(A.GIO_BAT_DAU),MAX(A.GIO_KET_THUC),C.MA_MON_HOC,A.Buoi
+		FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+		INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+		WHERE C.MA_GIAO_VIEN=@MA_GIAO_VIEN AND CONVERT(VARCHAR(10),A.NGAY_HOC,110)=@NGAY_HOC AND A.Buoi like @DK_Buoi
+		GROUP BY C.MA_MON_HOC,A.Buoi
+	END
+
+	OPEN @C
+	FETCH NEXT FROM @C INTO @BEGIN,@END,@MaMonHoc,@Buoi
+	WHILE @@FETCH_STATUS = 0	
+	BEGIN
+
+	IF @BEGIN=0 OR @END=0
+	BEGIN
+		IF @Buoi like N'%Sáng%'
+		BEGIN
+			SET @BEGIN = @NGAY_HOC + ' 07:30:00'
+			SET @BEGIN = @BEGIN + ((CAST(5*RAND() AS INT)+1)*0.000777)
+			SET @END = @NGAY_HOC +' 10:30:00'
+			SET @END = @END + ((CAST(5*RAND() AS INT)+1)*0.000777)	
+			SET @BEGIN_DEFAULT = @BEGIN
+			SET @END_DEFAULT = @END
+		END
+		ELSE
+		BEGIN
+			SET @BEGIN = @NGAY_HOC + ' 13:30:00'
+			SET @BEGIN = @BEGIN + ((CAST(5*RAND() AS INT)+1)*0.000777)
+			SET @END = @NGAY_HOC +' 16:30:00'
+			SET @END = @END + ((CAST(5*RAND() AS INT)+1)*0.000777)
+			SET @BEGIN_DEFAULT = @BEGIN
+			SET @END_DEFAULT = @END
+		END
+	END
+
+	DECLARE @C1 CURSOR
+	DECLARE @C2 CURSOR
+	SET @C1 = CURSOR FOR
+	SELECT A.ID, B.MA_THANH_VIEN
+	FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+	INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+	WHERE CONVERT(VARCHAR(10),A.NGAY_HOC,110)=@NGAY_HOC AND C.MA_GIAO_VIEN=@MA_GIAO_VIEN AND A.TINH_TRANG<>4
+	
+	OPEN @C1
+	FETCH NEXT FROM @C1 INTO @MaChiTietDiemDanh,@MaThanhVien
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @Count = 0
+		SET @C2 = CURSOR FOR 
+		SELECT A.TINH_TRANG
+		FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+		INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+		WHERE B.MA_THANH_VIEN=@MaThanhVien AND C.MA_MON_HOC=@MaMonHoc
+		
+		OPEN @C2
+		FETCH NEXT FROM @C2 INTO @TinhTrang
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			IF(@TinhTrang = 4)
+			BEGIN
+				SET @Count = @Count+1
+			END
+			FETCH NEXT FROM @C2 INTO @TinhTrang
+		END
+		CLOSE @C2
+		DEALLOCATE @C2
+		IF(@Count>0)		
+		BEGIN
+			SET @BEGIN = @BEGIN + (2*RAND()*0.000777)
+			SET @END = @END + (2*RAND()*0.000777)
+			UPDATE CHITIETDIEMDANH SET Tinh_trang=4, Gio_bat_dau=@BEGIN, Gio_ket_thuc=@END,Ngay_cap_nhat_cuoi=@END WHERE ID=@MaChiTietDiemDanh
+		END
+		ELSE
+		BEGIN
+			UPDATE CHITIETDIEMDANH SET Tinh_trang=1, Gio_bat_dau=@BEGIN_DEFAULT, Gio_ket_thuc=@END_DEFAULT,Ngay_cap_nhat_cuoi=@END WHERE ID=@MaChiTietDiemDanh
+		END
+		FETCH NEXT FROM @C1 INTO @MaChiTietDiemDanh,@MaThanhVien
+	END
+
+	CLOSE @C1
+	DEALLOCATE @C1
+	
+	END
+	
+	CLOSE @C
+	DEALLOCATE @C
+
+	SELECT A.NGAY_HOC, B.MA_THANH_VIEN,A.GIO_BAT_DAU,A.GIO_KET_THUC,A.TINH_TRANG
+	FROM CHITIETDIEMDANH A INNER JOIN THANHVIENDIEMDANH B ON A.MA_TVDD=B.ID
+	INNER JOIN DIEMDANH C ON B.MA_DIEM_DANH=C.ID
+	WHERE CONVERT(VARCHAR(10),A.NGAY_HOC,110)=@NGAY_HOC AND C.MA_GIAO_VIEN=@MA_GIAO_VIEN
+END
+GO
+
 --sp_ISO_BoSungKHDT.sql
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_ISO_BoSungKHDT]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 drop procedure [dbo].[sp_ISO_BoSungKHDT]
@@ -2702,6 +2849,8 @@ BEGIN
 			FROM ChiTietTKB AS A 
 				INNER JOIN ChiTietTKBThayDoi AS B ON A.ID = B.Ma_chi_tiet_TKB AND B.Tinh_trang = '1'
 			WHERE B.Ma_to_trinh = @Ma_to_trinh  
+		
+		EXEC sp_updateKHGDfollowChiTietTKB @Ma_to_trinh
 
 		UPDATE ChiTietTKBThayDoi
 			SET
@@ -4927,7 +5076,7 @@ BEGIN
 		
 	SELECT @sql = '
 		SELECT TB2.ID As MaKeHoachGiangDay, D.Ten_Mon_Hoc+'' - ''+E.Ki_Hieu  As TenKeHoachGiangDay, TB2.Ma_nguoi_tao As MaNguoiTao, (C.Ho + '' '' + C.Ten_Lot + '' '' + C.Ten) As TenNguoitao, 
-		TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao 
+		TB2.Tinh_trang As TinhTrang, TB2.Ly_do_reject As LyDoReject,TINH_TRANG_HT,TB2.Ma_mon_hoc,TB2.Ma_Lop,convert(varchar(20),TB2.Ngay_tao,105) As Ngaytao,G.ID As MaBoPhan 
 		FROM KeHoachGiangDay AS TB2 		
 			INNER JOIN MonHoc As D On D.ID = TB2.Ma_Mon_Hoc And D.Ten_Mon_Hoc like N''%'+@TenMonHoc+'%''   
 			INNER JOIN LopHoc As E On E.ID = TB2.Ma_Lop   			
@@ -6453,18 +6602,18 @@ CREATE PROCEDURE sp_ISO_InsertChuongTrinhDaoTao
 	@Ten_nghe nvarchar(40),
 	@Ma_nghe int,
 	@Ma_trinh_do int,
-	@Doi_tuong_1 nvarchar(1000),
-	@Doi_tuong_2 nvarchar(1000),
-	@Doi_tuong_3 nvarchar(1000),
+	@Doi_tuong_1 ntext,
+	@Doi_tuong_2 ntext,
+	@Doi_tuong_3 ntext,
 	@So_luong_mon_hoc nvarchar(100),
-	@Muc_tieu_1 nvarchar(1000),
-	@Muc_tieu_2 nvarchar(1000),
-	@Muc_tieu_3 nvarchar(1000),
-	@Muc_tieu_4 nvarchar(1000),
-	@Muc_tieu_5 nvarchar(1000),
-	@Phuong_phap_1 nvarchar(1000),
-	@Phuong_phap_2 nvarchar(1000),
-	@Phuong_phap_3 nvarchar(1000),
+	@Muc_tieu_1 ntext,
+	@Muc_tieu_2 ntext,
+	@Muc_tieu_3 ntext,
+	@Muc_tieu_4 ntext,
+	@Muc_tieu_5 ntext,
+	@Phuong_phap_1 ntext,
+	@Phuong_phap_2 ntext,
+	@Phuong_phap_3 ntext,
 	@Thoi_gian_1 nvarchar(10),
 	@Thoi_gian_2 nvarchar(10),
 	@Thoi_gian_3 nvarchar(10),
@@ -6479,17 +6628,17 @@ CREATE PROCEDURE sp_ISO_InsertChuongTrinhDaoTao
 	@Phan_bo_4 nvarchar(10),
 	@Phan_bo_5 nvarchar(10),
 	@Phan_bo_6 nvarchar(10),
-	@Thi_hoc_ki nvarchar(1000),
-	@Thi_tot_nghiep nvarchar(1000),
-	@Thuc_tap nvarchar(1000),
-	@Y_kien_de_xuat nvarchar(1000),
+	@Thi_hoc_ki ntext,
+	@Thi_tot_nghiep ntext,
+	@Thuc_tap ntext,
+	@Y_kien_de_xuat ntext,
 	@Ngay_tao datetime,
 	@Ngay_cap_nhat_cuoi varchar(30) output,
 	@Ma_nguoi_tao int,
 	@Ma_nguoi_duyet int,
 	@Ngay_duyet datetime,
 	@Tinh_trang int,
-	@Ly_do_reject nvarchar(1000),
+	@Ly_do_reject ntext,
 	@Ma_quyet_dinh int,
 	@Bang_cap nvarchar(40),
 	@Ngay_gui		datetime,
@@ -8469,18 +8618,18 @@ CREATE PROCEDURE sp_ISO_UpdateChuongTrinhDaoTao
 	@Ten_nghe nvarchar(40) output,
 	@Ma_nghe varchar(40),
 	@Ma_trinh_do int,
-	@Doi_tuong_1 nvarchar(1000),
-	@Doi_tuong_2 nvarchar(1000),
-	@Doi_tuong_3 nvarchar(1000),
+	@Doi_tuong_1 ntext,
+	@Doi_tuong_2 ntext,
+	@Doi_tuong_3 ntext,
 	@So_luong_mon_hoc nvarchar(100),
-	@Muc_tieu_1 nvarchar(1000),
-	@Muc_tieu_2 nvarchar(1000),
-	@Muc_tieu_3 nvarchar(1000),
-	@Muc_tieu_4 nvarchar(1000),
-	@Muc_tieu_5 nvarchar(1000),
-	@Phuong_phap_1 nvarchar(1000),
-	@Phuong_phap_2 nvarchar(1000),
-	@Phuong_phap_3 nvarchar(1000),
+	@Muc_tieu_1 ntext,
+	@Muc_tieu_2 ntext,
+	@Muc_tieu_3 ntext,
+	@Muc_tieu_4 ntext,
+	@Muc_tieu_5 ntext,
+	@Phuong_phap_1 ntext,
+	@Phuong_phap_2 ntext,
+	@Phuong_phap_3 ntext,
 	@Thoi_gian_1 nvarchar(10),
 	@Thoi_gian_2 nvarchar(10),
 	@Thoi_gian_3 nvarchar(10),
@@ -8495,17 +8644,17 @@ CREATE PROCEDURE sp_ISO_UpdateChuongTrinhDaoTao
 	@Phan_bo_4 nvarchar(10),
 	@Phan_bo_5 nvarchar(10),
 	@Phan_bo_6 nvarchar(10),
-	@Thi_hoc_ki nvarchar(1000),
-	@Thi_tot_nghiep nvarchar(1000),
-	@Thuc_tap nvarchar(1000),
-	@Y_kien_de_xuat nvarchar(1000),
+	@Thi_hoc_ki ntext,
+	@Thi_tot_nghiep ntext,
+	@Thuc_tap ntext,
+	@Y_kien_de_xuat ntext,
 	--@Ngay_tao datetime,
 	@Ngay_cap_nhat_cuoi varchar(30) output,
 	@Ma_nguoi_tao int,
 	@Ma_nguoi_duyet int,
 	@Ngay_duyet datetime,
 	@Tinh_trang int,
-	@Ly_do_reject nvarchar(1000),
+	@Ly_do_reject ntext,
 	@Ma_quyet_dinh int,
 	@Bang_cap nvarchar(40),
 	@Ngay_gui		datetime,
@@ -10222,10 +10371,10 @@ GO
 CREATE PROC sp_NhanSu_InsertBangCap
 @Ma_thanh_vien INT,
 @Loai_bang NVARCHAR(20),
-@Truong_cap NVARCHAR(200),
+@Truong_cap NVARCHAR(500),
 @Nam_tot_nghiep INT,
 @Loai_tot_nghiep NVARCHAR(40),
-@Chuyen_nganh	NVARCHAR(100),
+@Chuyen_nganh	NVARCHAR(300),
 @Bang_cap_chinh INT,
 @KQ	INT OUTPUT
 AS
@@ -10314,6 +10463,84 @@ SELECT * FROM DeNghiNhanSu
 
 */
 
+GO
+
+--sp_NhanSu_InsertChungChiBangCapKhac.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_InsertChungChiBangCapKhac')
+BEGIN
+	DROP PROC sp_NhanSu_InsertChungChiBangCapKhac
+END
+GO
+CREATE PROC sp_NhanSu_InsertChungChiBangCapKhac
+@Ten NVARCHAR(1000),
+@Loai INT,
+@Do_uu_tien INT,
+@KQ INT OUTPUT
+AS
+BEGIN
+	SET @KQ = -1
+	IF NOT EXISTS (SELECT * FROM CHUNGCHIBANGCAPKHAC WHERE Ten=@Ten)
+	BEGIN
+		DECLARE @C CURSOR
+		DECLARE @ID INT
+		DECLARE @DUT INT
+		IF EXISTS (SELECT * FROM CHUNGCHIBANGCAPKHAC WHERE Loai=@Loai AND Do_uu_tien=@Do_uu_tien+1)
+		BEGIN
+			SET @C = CURSOR FOR SELECT ID,Do_uu_tien FROM CHUNGCHIBANGCAPKHAC WHERE Loai=@Loai AND Do_uu_tien>@Do_uu_tien
+			OPEN @C
+			FETCH NEXT FROM @C INTO @ID,@DUT
+			WHILE @@FETCH_STATUS = 0
+			BEGIN
+				UPDATE CHUNGCHIBANGCAPKHAC SET Do_uu_tien=@DUT+1 WHERE ID=@ID
+				FETCH NEXT FROM @C INTO @ID,@DUT
+			END
+			CLOSE @C
+			DEALLOCATE @C
+		END
+		INSERT INTO CHUNGCHIBANGCAPKHAC(Ten,Loai,Do_uu_tien,Ngay_cap_nhat_cuoi)
+		VALUES (@Ten,@Loai,@Do_uu_tien+1,GETDATE())
+		SELECT @KQ=MAX(ID) FROM CHUNGCHIBANGCAPKHAC
+		SET @C = CURSOR FOR SELECT ID FROM CHUNGCHIBANGCAPKHAC WHERE Loai=@Loai ORDER BY Do_uu_tien
+		SET @DUT = 0
+		OPEN @C
+		FETCH NEXT FROM @C INTO @ID
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			UPDATE CHUNGCHIBANGCAPKHAC SET Do_uu_tien=@DUT WHERE ID=@ID
+			SET @DUT = @DUT+1
+			FETCH NEXT FROM @C INTO @ID
+		END
+		CLOSE @C
+		DEALLOCATE @C
+		
+	END	
+END
+GO
+
+--sp_NhanSu_InsertChungChiBangCapKhacCuaThanhVien.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_InsertChungChiBangCapKhacCuaThanhVien')
+BEGIN
+	DROP PROC sp_NhanSu_InsertChungChiBangCapKhacCuaThanhVien
+END
+GO
+CREATE PROC sp_NhanSu_InsertChungChiBangCapKhacCuaThanhVien
+@Ma_thanh_vien INT,
+@Ma_CCBCK INT,
+@Ngay_bat_dau DATETIME,
+@Ngay_ket_thuc DATETIME,
+@Nam_tot_nghiep INT,
+@Xep_loai NVARCHAR(100), 
+@KQ INT OUTPUT
+AS
+BEGIN
+	SET @KQ = -1
+	IF NOT EXISTS (SELECT * FROM CHUNGCHIBANGCAPKHACCUATHANHVIEN WHERE Ma_thanh_vien=@Ma_thanh_vien AND Ma_CCBCK=@Ma_CCBCK)
+	BEGIN
+		INSERT INTO CHUNGCHIBANGCAPKHACCUATHANHVIEN(Ma_thanh_vien,Ma_CCBCK,Ngay_bat_dau,Ngay_ket_thuc,Nam_tot_nghiep,Xep_loai)
+		VALUES (@Ma_thanh_vien,@Ma_CCBCK,@Ngay_bat_dau,@Ngay_ket_thuc,@Nam_tot_nghiep,@Xep_loai)
+		SELECT @KQ=MAX(ID) FROM CHUNGCHIBANGCAPKHACCUATHANHVIEN
+	END
+END
 GO
 
 --sp_NhanSu_InsertDeNghiKTV.sql
@@ -10649,6 +10876,29 @@ SELECT @KQ
 SELECT * FROM NhanXetKetQuaThuViec
 */
 
+GO
+
+--sp_NhanSu_InsertQuaTrinhCongTac.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_NhanSu_InsertQuaTrinhCongTac')
+BEGIN
+	DROP PROC sp_NhanSu_InsertQuaTrinhCongTac
+END
+GO
+CREATE PROC sp_NhanSu_InsertQuaTrinhCongTac
+@Ma_thanh_vien INT,
+@Ngay_nhan_chuc DATETIME,
+@Chuc_vu INT,
+@KQ INT OUTPUT
+AS
+BEGIN
+	SET @KQ = -1
+	IF NOT EXISTS (SELECT * FROM QUATRINHCONGTAC WHERE Ma_thanh_vien=@Ma_thanh_vien AND Chuc_vu=@Chuc_vu AND DATEPART(YEAR,Ngay_nhan_chuc)=DATEPART(YEAR,@Ngay_nhan_chuc))
+	BEGIN
+		INSERT INTO QuaTrinhCongTac(Ma_thanh_vien,Ngay_nhan_chuc,Chuc_vu,Ngay_cap_nhat_cuoi)
+		VALUES (@Ma_thanh_vien,@Ngay_nhan_chuc,@Chuc_vu,GETDATE())
+		SELECT @KQ=MAX(ID) FROM QUATRINHCONGTAC
+	END
+END
 GO
 
 --sp_NhanSu_InsertThoiGianTuyenDung.sql
@@ -12429,6 +12679,374 @@ GO
 
 GO
 
+--SP_QLSV_GETDIEMSVTHEOHOCKI.sql
+/*
+NGUOI VIET: QCHUONG
+NGAY VIET: 02/12/2011
+MUC DICH: LAY DIEM TONG DIEM (DIEM TB) TUNG MON HOC CUA 1 SINH VIEN 
+THAM SO VAO:
+-MASV(KHONG PHAI TEN DANG NHAP).
+-HOCKI: NHAP VAO SO HOC KI (VD: 1|2|3) TUONG DUONG VOI: 1<=>HOC KI 1 DUA VAO COT USER1 TRONG TABLE THOIKHOABIEU 
+Luu y: insert du lieu mau va cap nhat lai du lieu de co the print theo SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN và SP_QLSV_GETDIEMSVTHEOHOCKI
+insert và cap nhat lai du lieu cuoi file SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN
+*/
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'SP_QLSV_GETDIEMSVTHEOHOCKI')
+BEGIN
+	DROP PROC SP_QLSV_GETDIEMSVTHEOHOCKI
+END
+GO
+CREATE PROC SP_QLSV_GETDIEMSVTHEOHOCKI
+@MASV INT,
+@HOCKI INT
+AS
+BEGIN
+	DECLARE @QUERY NVARCHAR(2000)
+	DECLARE @HK INT
+	DECLARE @MALOP INT
+	DECLARE @TENDN VARCHAR(100)
+	SET @HK = NULL
+	SET @TENDN = (SELECT TEN_DN FROM THANHVIEN WHERE ID = @MASV)
+	SET @MALOP = (SELECT MA_LOP_HOC FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = @TENDN)
+	SET @HK = (SELECT ID FROM THOIKHOABIEU WHERE MA_LOP = @MALOP AND UPPER(USER1) LIKE N'%HỌC KÌ '+CAST(@HOCKI AS VARCHAR)+'%')	
+--	PRINT 'TENDN : '+CAST(@TENDN AS VARCHAR)
+--	PRINT 'MALOP : '+CAST(@MALOP AS VARCHAR)
+--	PRINT 'HOCKI : '+CAST(@HK AS VARCHAR)
+	
+	SELECT DISTINCT /*T1.ID AS [MASV],T1.TEN_DN,C.MA_LOP_HOC,M.ID,M.MA_TKB,M.MA_MON_HOC,M.TEN_MON_HOC,*/MH.TEN_MON_HOC,D.DIEM_TRUNG_BINH 
+	FROM THANHVIEN T1 INNER JOIN CHITIETTHANHVIEN C ON T1.TEN_DN = C.TEN_DANG_NHAP
+	INNER JOIN THOIKHOABIEU T2 ON C.MA_LOP_HOC = T2.MA_LOP
+	INNER JOIN MONHOCTKB M ON T2.ID = M.MA_TKB 
+	INNER JOIN DANGKYMONHOC D ON D.MA_MON_HOC_TKB = M.ID
+	INNER JOIN MONHOC MH ON MH.ID = M.MA_MON_HOC
+	WHERE D.MA_HOC_VIEN = CAST(@MASV AS VARCHAR(10)) AND D.MA_HOC_VIEN = T1.ID 
+									AND M.MA_TKB = CAST(@HK AS VARCHAR(10))
+		--PRINT @QUERY
+END
+
+--DECLARE @A INT
+--SET @A = 123
+--DECLARE @Q NVARCHAR(2000)
+--SET @Q = 'SELECT '+CAST(123123 AS VARCHAR)
+--PRINT @Q 
+
+/*
+EXEC SP_QLSV_GETDIEMSVTHEOHOCKI 56,2
+
+maThanhVien dùng để test: 56,106,187
+SELECT * FROM THANHVIEN WHERE ID = 106
+SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = 'binh_vt.hv' ->Ma_lop_hoc = null -> ko co du lieu
+*/
+
+
+/*
+select * from thanhvien where ten_dn='thanh_tc'
+
+select * from thoikhoabieu where ma_lop = 9
+select * from monhoctkb where ma_tkb = 5
+
+
+SELECT * FROM THANHVIEN WHERE ID = 434 --TEN_DN = '10SCM2.25'
+SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10SCM2.25' --MA_LOP_HOC = 6
+SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 6 --ID = 15,16,17
+SELECT * FROM MONHOCTKB WHERE MA_TKB IN (15,16,17)
+SELECT * FROM DANGKYMONHOC WHERE MA_HOC_VIEN = 434
+SELECT * FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB = 126 AND MA_HOC_VIEN = 434
+
+
+SELECT * FROM THANHVIEN WHERE ID = 187 --TEN_DN = '10KTHD1.02'
+SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10KTHD1.02' --MA_LOP_HOC = 7
+SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 7 --ID = 15,16,17
+SELECT * FROM MONHOCTKB WHERE MA_TKB IN (4,7,19)
+SELECT * FROM DANGKYMONHOC WHERE MA_HOC_VIEN = 187
+SELECT * FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB = 24 AND MA_HOC_VIEN = 187
+
+
+
+SELECT * FROM THANHVIEN WHERE TEN_DN = '10SCM2.25'
+SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10SCM2.25'--'10KTHN1.02'
+SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 6
+SELECT * FROM MONHOCTKB WHERE MA_TKB IN (15,16,17)
+SELECT * FROM DANGKYMONHOC WHERE MA_HOC_VIEN = 434 AND MA_MON_HOC_TKB = 11
+
+*/
+GO
+
+--SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN.sql
+/*
+Nguoi viet: LQChuong
+Ngay viet: 14/11/2011
+Muc dich: lay thong tin ca nhan gia dinh sinh vien by maThanhVien
+Luu y: insert du lieu mau va cap nhat lai du lieu de co the print theo SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN và SP_QLSV_GETDIEMSVTHEOHOCKI
+insert và cap nhat lai du lieu cuoi file SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN
+*/
+if exists (select * from sysobjects where name = 'SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN')
+begin
+	drop proc SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN
+end
+go
+create proc SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN 
+@maThanhVien varchar(20)
+as
+begin
+declare @TenDN nvarchar(100)
+set @TenDN = (select Ten_DN from ThanhVien where id = @maThanhVien)
+declare @MaDChi varchar(100)
+SET @MaDChi = (SELECT cast(Ma_dia_chi as varchar(100)) FROM chitietthanhvien WHERE ten_dang_nhap = @TenDN)
+declare @count int
+set @count = (select count(*) from thongtincanhangiadinh where TenDangNhap = @TenDN)
+Declare @sql nvarchar(2000)
+declare @kq int
+set @kq = 0
+if(@MaDChi is not null and @count != 0)
+begin
+	set @kq = 1
+	set @sql = 'select c.Ten_dang_nhap,t.GioiTinh,t.TenKhaiSinh,t.TenThuongGoi,
+	(cast(DatePart(dd,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(mm,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(yyyy,c.Ngay_sinh) as varchar)) as [Ngay_Sinh],
+	t.NoiSinh,t.QueQuan,t.NoiDangKyThuongTru,t.DanToc,
+	t.TonGiao,t.TrinhDoHocVanTruocKhiVaoHoc,
+	(cast(datepart(dd,t.NgayThamGiaDangCSVN) as varchar)+''-''+cast(datepart(mm,t.NgayThamGiaDangCSVN) as varchar)+''-''+cast(datepart(yyyy,t.NgayThamGiaDangCSVN) as varchar) ) as [NgayThamGiaDangCSVN],
+	(cast(datepart(dd,t.NgayChinhThuc) as varchar)+''-''+cast(datepart(mm,t.NgayChinhThuc) as varchar)+''-''+cast(datepart(yyyy,t.NgayChinhThuc) as varchar) ) as [NgayChinhThuc],
+	(cast(datepart(dd,t.NgayKetNapDoanTNCS) as varchar)+''-''+cast(datepart(mm,t.NgayKetNapDoanTNCS) as varchar)+''-''+cast(datepart(yyyy,t.NgayKetNapDoanTNCS) as varchar) ) as [NgayKetNapDoanTNCS],
+	t.HoTenBo,t.NgheNghiepBo,t.HoTenMe,t.NgheNghiepMe,
+	t.HoTenVoChong,t.NgheNghiepVoChong,t.DoiTuongThuocDienChinhSach,
+	t.NgheNghiepLamTruocKhiVaoHoc,d.So_nha+'' ''+d.Duong+'' ''+d.Phuong_xa+'' ''+d.Quan_huyen+
+	'' ''+d.Tinh_Thanhpho as [DiaChi],c.Dien_thoai_dd,t.NguyenVong
+	from ThongTinCaNhanGiaDinh t inner join ChiTietThanhVien c
+	on t.TenDangNhap = c.Ten_dang_nhap 
+	inner join DiaChi d 
+	on c.Ma_dia_chi = d.ID
+	where c.Ten_dang_nhap = '''+@TenDN+''''
+end
+else if(@MaDChi is null and @count = 0)
+begin
+	set @kq = 2
+	set @sql = 'select c.Ten_dang_nhap,''NULL'' as GioiTinh,''NULL'' as TenKhaiSinh,''NULL'' as TenThuongGoi,
+	(cast(DatePart(dd,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(mm,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(yyyy,c.Ngay_sinh) as varchar)) as [Ngay_Sinh],
+	''NULL'' as NoiSinh,''NULL'' as QueQuan,''NULL'' as NoiDangKyThuongTru,''NULL'' as DanToc,
+	''NULL'' as TonGiao,''NULL'' as TrinhDoHocVanTruocKhiVaoHoc,
+	''NULL'' as [NgayThamGiaDangCSVN],
+	''NULL'' as [NgayChinhThuc],
+	''NULL'' as [NgayKetNapDoanTNCS],
+	''NULL'' as HoTenBo,''NULL'' as NgheNghiepBo,''NULL'' as HoTenMe,''NULL'' as NgheNghiepMe,
+	''NULL'' as HoTenVoChong,''NULL'' as NgheNghiepVoChong,''NULL'' as DoiTuongThuocDienChinhSach,
+	''NULL'' as NgheNghiepLamTruocKhiVaoHoc,''NULL'' as [DiaChi],c.Dien_thoai_dd,''NULL'' as NguyenVong
+	from ChiTietThanhVien c
+	where c.Ten_dang_nhap = '''+@TenDN+''''
+end
+else if(@MaDChi is null or @count = 0)
+begin
+	set @kq = 3
+	if(@MaDChi is null)
+	begin
+		set @kq =4
+		set @sql = 'select c.Ten_dang_nhap,t.GioiTinh,t.TenKhaiSinh,t.TenThuongGoi,
+		(cast(DatePart(dd,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(mm,c.Ngay_sinh) as varchar)+''-''+cast(DatePart(yyyy,c.Ngay_sinh) as varchar)) as [Ngay_Sinh],
+		t.NoiSinh,t.QueQuan,t.NoiDangKyThuongTru,t.DanToc,
+		t.TonGiao,t.TrinhDoHocVanTruocKhiVaoHoc,
+		(cast(datepart(dd,t.NgayThamGiaDangCSVN) as varchar)+''-''+cast(datepart(mm,t.NgayThamGiaDangCSVN) as varchar)+''-''+cast(datepart(yyyy,t.NgayThamGiaDangCSVN) as varchar) ) as [NgayThamGiaDangCSVN],
+		(cast(datepart(dd,t.NgayChinhThuc) as varchar)+''-''+cast(datepart(mm,t.NgayChinhThuc) as varchar)+''-''+cast(datepart(yyyy,t.NgayChinhThuc) as varchar) ) as [NgayChinhThuc],
+		(cast(datepart(dd,t.NgayKetNapDoanTNCS) as varchar)+''-''+cast(datepart(mm,t.NgayKetNapDoanTNCS) as varchar)+''-''+cast(datepart(yyyy,t.NgayKetNapDoanTNCS) as varchar) ) as [NgayKetNapDoanTNCS],
+		t.HoTenBo,t.NgheNghiepBo,t.HoTenMe,t.NgheNghiepMe,
+		t.HoTenVoChong,t.NgheNghiepVoChong,t.DoiTuongThuocDienChinhSach,
+		t.NgheNghiepLamTruocKhiVaoHoc,''NULL'' as [DiaChi],c.Dien_thoai_dd,t.NguyenVong
+		from ThongTinCaNhanGiaDinh t inner join ChiTietThanhVien c
+		on t.TenDangNhap = c.Ten_dang_nhap 		
+		where c.Ten_dang_nhap = '''+@TenDN+''''
+	end
+	else if(@count = 0)
+	begin
+		set @kq = 5
+		set @sql = 'select c.Ten_dang_nhap,''NULL'' as GioiTinh,''NULL'' as TenKhaiSinh,''NULL'' as TenThuongGoi,
+		''NULL'' as [Ngay_Sinh],''NULL'' as NoiSinh,''NULL'' as QueQuan,''NULL'' as NoiDangKyThuongTru,
+		''NULL'' as DanToc,
+		''NULL'' as TonGiao,''NULL'' as TrinhDoHocVanTruocKhiVaoHoc,
+	    ''NULL'' as [NgayThamGiaDangCSVN],
+		''NULL'' as [NgayChinhThuc],
+		''NULL'' as [NgayKetNapDoanTNCS],
+		''NULL'' as HoTenBo,''NULL'' as NgheNghiepBo,''NULL'' as HoTenMe,''NULL'' as NgheNghiepMe,
+		''NULL'' as HoTenVoChong,''NULL'' as NgheNghiepVoChong,''NULL'' as DoiTuongThuocDienChinhSach,
+		''NULL'' as NgheNghiepLamTruocKhiVaoHoc,d.So_nha+'' ''+d.Duong+'' ''+d.Phuong_xa+'' ''+d.Quan_huyen+
+		'' ''+d.Tinh_Thanhpho as [DiaChi],c.Dien_thoai_dd,''NULL'' as NguyenVong
+		from ChiTietThanhVien c inner join DiaChi d 
+		on c.Ma_dia_chi = d.ID 		
+		where c.Ten_dang_nhap = '''+@TenDN+''''
+	end
+end
+else
+begin
+	set @kq = 6
+	set @sql = 'select 1'
+end
+print @sql
+print cast(@kq as varchar)
+--print 'Count : '+cast(@count as varchar)
+exec sp_executesql @sql
+--select @sql
+end
+
+--select cast(datepart(day,'2009-1-2') as char(2))+'-'+cast(datepart(month,'2009-1-2') as varchar(2))+'-'+cast(datepart(year,'2009-1-2') as varchar(4))
+--exec SP_QLSV_GETTHONGTINCANHANSVBYMATHANHVIEN 56            '10KTHN1.02'
+--select * from thongtincanhangiadinh where tendangnhap = '10kthl1.10'
+--select * from chitietthanhvien where ten_dang_nhap = '10kthl1.10'
+
+-------kiem tra cac dieu kien trong store co chinh xac ?
+--thanh_tc -->data 2 bang
+--hung_lq -->data dia chi co dia chi la 21, ko co thong tin ca nhan gia dinh
+--10kthl1.10 -->data thong tin ca nhan gia dinh, ko co dia chi = null
+--10KTHD1.06 -->2 bang deu rong,
+-----------------------------------------------------------------------------------
+
+
+/*
+--insert du lieu mau
+--56 la luong hoai bao
+insert into thongtincanhangiadinh
+values 
+(
+'10KTHN1.02',N'Lương Hoài Bảo',N'Bảo',N'Hồ Chí Minh',N'Kinh','12/12','2011-05-05',
+N'Lương Tuấn Anh',N'Bác sĩ',N'Nguyễn Mai',N'Nội trợ',
+'...','...',N'Bình thường',N'Sinh viên','...',1,N'Hồ Chí Minh',N'Hồ Chí Minh',N'Không','2000-08-09','1999-08-09'
+)
+--106 là vu tien binh
+insert into thongtincanhangiadinh
+values 
+(
+'binh_vt.hv',N'Vũ Tiến Bình',N'Bình',N'Hồ Chí Minh',N'Kinh','12/12','2011-05-08',
+N'Vũ Tuấn Anh',N'Bác sĩ',N'Nguyễn Mẫn',N'Nội trợ',
+'...','...',N'Bình thường',N'Sinh viên','...',1,N'Hồ Chí Minh',N'Hồ Chí Minh',N'Không','2000-08-09','1999-08-09'
+)
+--434 la tran mai truong
+insert into thongtincanhangiadinh
+values 
+(
+'10SCM2.25',N'Trần Mai Trường',N'Trường',N'Hồ Chí Minh',N'Kinh','12/12','2011-09-08',
+N'Trần Tuấn Anh',N'Bác sĩ',N'Nguyễn Linh',N'Nội trợ',
+'...','...',N'Bình thường',N'Sinh viên','...',1,N'Hồ Chí Minh',N'Hồ Chí Minh',N'Không','2000-08-09','1999-08-09'
+)
+--187 la tran cam an
+insert into thongtincanhangiadinh
+values 
+(
+'10KTHD1.02',N'Trần Cẩm A',N'An',N'Hồ Chí Minh',N'Kinh','12/12','2011-12-15',
+N'Trần Anh Tuấn',N'Bác sĩ',N'Nguyễn Thu',N'Nội trợ',
+'...','...',N'Bình thường',N'Sinh viên','...',1,N'Hồ Chí Minh',N'Hồ Chí Minh',N'Không','2000-08-09','1999-08-09'
+)
+
+--UPDATE DULIEU MATHANHVIEN = 56 MUC DICH LA SET LAI USER1 THEO LUAT
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 1(2010-2011-10KTHN)' WHERE ID = 6 AND MA_LOP = 8
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 2(2010-2011-10KTHN)' WHERE ID = 8 AND MA_LOP = 8
+--SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 8
+--SELECT * FROM THOIKHOABIEU WHERE USER1 = N'HỌC KÌ 1(2010-2011-10KTHN)'
+
+--UPDATE DULIEU MATHANHVIEN = 434 MUC DICH LA SET LAI USER1 THEO LUAT
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 1(2010-2011)-10SCM' WHERE ID = 15 AND MA_LOP = 6
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 2(2010-2011)-10SCM' WHERE ID = 16 AND MA_LOP = 6
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 3(2011-2012)-10SCM' WHERE ID = 17 AND MA_LOP = 6
+
+--UPDATE DULIEU MATHANHVIEN = 187 MUC DICH LA SET LAI USER1 THEO LUAT
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 1(2010-2011)-10KTHD' WHERE ID = 4 AND MA_LOP = 7
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 2(2010-2011)-10KTHD' WHERE ID = 7 AND MA_LOP = 7
+UPDATE THOIKHOABIEU SET USER1 = N'HỌC KÌ 3(2011-2012)-10KTHD' WHERE ID = 19 AND MA_LOP = 7
+
+--INSERT DULIEU MAU CHO THANHVIEN CO MATHANHVIEN = 56
+--SELECT * FROM THANHVIEN WHERE ID = 56 --TEN_DN = '10KTHN1.02'
+--SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10KTHN1.02'
+--SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 8 --6,8,20
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (6) --30,31,32,34,35,40
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (8) --48,49,50,78,81,90,94
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (20)--163,177,178,179,180,181,182
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (30,31,32,34,35,40)  AND MA_HOC_VIEN = 56
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (48,49,50,78,81,90,94)  AND MA_HOC_VIEN = 56
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (163,177,178,179,180,181,182)  AND MA_HOC_VIEN = 56
+
+
+--SELECT * FROM DANGKYMONHOC
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (30,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (31,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (32,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (34,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (35,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (40,56,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (30,31,32,34,35,40) AND MA_HOC_VIEN = 56
+
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (48,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (49,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (50,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (78,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (81,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (90,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (94,56,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (48,49,50,78,81,90,94) AND MA_HOC_VIEN = 56
+
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (163,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (177,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (178,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (179,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (180,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (181,56,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (182,56,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (163,177,178,179,180,181,182) AND MA_HOC_VIEN = 56
+
+
+
+---------------------------------------------------------------------------
+--INSERT DULIEU MAU MATHANHVIEN = 434
+--SELECT * FROM THANHVIEN WHERE ID = 434 --TEN_DN = '10SCM2.25'
+--SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10SCM2.25' --MA_LOP = 6
+--SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 6 --15,16,17
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (15)--112,113,114,115,116,122
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (16)--117,118,119,120,121
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (17)--126,128,129,132,133,142,143
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (112,113,114,115,116,122) AND MA_HOC_VIEN = 434
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (117,118,119,120,121) AND MA_HOC_VIEN = 434
+--SELECT DISTINCT MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (126,128,129,132,133,142,143) AND MA_HOC_VIEN = 434
+
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (112,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (113,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (114,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (115,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (116,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (122,434,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (112,113,114,115,116,122) AND MA_HOC_VIEN = 434
+
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (117,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (118,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (119,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (120,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (121,434,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (117,118,119,120,121) AND MA_HOC_VIEN = 434
+
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (126,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (128,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (129,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (132,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (133,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (142,434,0)
+INSERT INTO DANGKYMONHOC (MA_MON_HOC_TKB,MA_HOC_VIEN,DIEM_TRUNG_BINH) VALUES (143,434,0)
+--DELETE FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (126,128,129,132,133,142,143) AND MA_HOC_VIEN = 434
+
+
+
+-----------------------------------------------------------------------------
+--INSERT DULIEU MAU MATHANHVIEN = 187
+--SELECT * FROM THANHVIEN WHERE ID = 187 --TEN_DN = '10KTHD1.02'
+--SELECT * FROM CHITIETTHANHVIEN WHERE TEN_DANG_NHAP = '10KTHD1.02' --MA_LOP = 7
+--SELECT * FROM THOIKHOABIEU WHERE MA_LOP = 7 --4,7,19
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (4)--24,25,26,38,42,43
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (7)--44,45,46,47,55,83,84
+--SELECT * FROM MONHOCTKB WHERE MA_TKB IN (19)--154,173,176,191,192,193,194
+--SELECT DISTINCT MA_MON_HOC_TKB, MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (24,25,26,38,42,43) AND MA_HOC_VIEN = 187
+--SELECT DISTINCT MA_MON_HOC_TKB, MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (44,45,46,47,55,83,84) AND MA_HOC_VIEN = 187
+--SELECT DISTINCT MA_MON_HOC_TKB, MA_HOC_VIEN,DIEM_TRUNG_BINH FROM DANGKYMONHOC WHERE MA_MON_HOC_TKB IN (154,173,176,191,192,193,194) AND MA_HOC_VIEN = 187
+--DULIEU MAU DA CO SAN
+
+
+
+
+*/
+
+GO
+
 --SP_QLSV_ThemMoiSoLuocLyLich.sql
 /*
 Tác giả: La Quốc Chương
@@ -12735,7 +13353,7 @@ BEGIN
 	if(@MaDiaChi is null)
 	begin
 		insert into diachi (so_nha,duong,phuong_xa,quan_huyen,tinh_thanhpho,dien_thoai_nha)	values(@SoNha,@Duong,@Phuong,@Quan,@ThanhPho,@DTNha)
-		set @MaDiaChi = (select top 1 id from diachi order by id desc)
+		set @MaDiaChi = (select top(1) id from diachi order by id desc)
 	end
 	else 
 	begin
@@ -12746,7 +13364,7 @@ BEGIN
 	if(@MaTaiKhoan is null)
 	begin
 		insert into taikhoan (so_tai_khoan,ngan_hang,ngay_lap_the) values(@SoTK,@NganHang,@NgayLapThe)
-		set @MaTaiKhoan = (select top 1 id from taikhoan order by id desc)
+		set @MaTaiKhoan = (select top(1) id from taikhoan order by id desc)
 	end
 	else
 	begin
@@ -12757,7 +13375,7 @@ BEGIN
 	if(@MaBangCap is null)
 	begin
 		insert into bangcap (loai_bang,truong_cap,loai_tot_nghiep) values(@LoaiBang,@TruongCap,@LoaiTotNghiep)
-		set @MaBangCap = (select top 1 id from bangcap order by id desc)
+		set @MaBangCap = (select top(1) id from bangcap order by id desc)
 	end
 	else
 	begin
@@ -12769,6 +13387,376 @@ BEGIN
 				ma_dia_chi = @MaDiaChi, email = @Email, dien_thoai_dd = @DTDD, ma_bang_cap = @MaBangCap,
 				ma_tai_khoan = @MaTaiKhoan, chung_minh_nhan_dan = @CMND
 	where ten_dang_nhap = @TenDangNhap
+END
+GO
+
+--sp_ThietBi_countDanhSachThietBi.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_ThietBi_countDanhSachThietBi')
+BEGIN
+	DROP PROC sp_ThietBi_countDanhSachThietBi
+END
+GO
+CREATE PROC sp_ThietBi_countDanhSachThietBi
+@Phong VARCHAR(10),
+@Khoa VARCHAR(10),
+@Loai_thiet_bi VARCHAR(10),
+@Tinh_trang VARCHAR(10),
+@Hien_trang VARCHAR(10),
+@Gio_bd VARCHAR(10),
+@Phut_bd VARCHAR(10),
+@Gio_kt VARCHAR(10),
+@Phut_kt VARCHAR(10),
+@Ngay_bd VARCHAR(10),
+@Ngay_kt VARCHAR(10)
+AS
+BEGIN
+	DECLARE @DK_Phong VARCHAR(100)
+	DECLARE @DK_Khoa VARCHAR(100)
+	DECLARE @DK_Loai_thiet_bi VARCHAR(100)
+	DECLARE @DK_Tinh_trang VARCHAR(100)
+	DECLARE @DK_Hien_trang VARCHAR(100)
+	DECLARE @DK_Ngay VARCHAR(200)
+	DECLARE @BD VARCHAR(20)
+	DECLARE @KT VARCHAR(20)
+
+	SET @DK_Phong = ''
+	SET @DK_Khoa = ''
+	SET @DK_Loai_thiet_bi = ''
+	SET @DK_Tinh_trang = ''
+	SET @DK_Hien_trang = ''
+	SET @DK_Ngay = ''
+
+	IF @Phong <> ''
+	BEGIN
+		SET @DK_Phong = ' AND A.Vi_tri_lap_dat='+@Phong
+	END
+	IF @Khoa <> ''
+	BEGIN
+		SET @DK_Khoa = ' AND B.Bo_phan_nhan='+@Khoa
+	END
+	IF @Loai_thiet_bi <> ''
+	BEGIN
+		SET @DK_Loai_thiet_bi = ' AND A.Ma_loai_thiet_bi='+@Loai_thiet_bi
+	END
+	IF @Tinh_trang <> ''
+	BEGIN
+		SET @DK_Tinh_trang = ' AND A.Tinh_trang='+@Tinh_trang
+	END
+	IF @Hien_trang <> ''
+	BEGIN
+		SET @DK_Hien_trang = ' AND A.Hien_trang='+@Hien_trang
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd = '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian từ hh:mm đến hh:mm
+		SET @BD = @Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND CAST((CONVERT(VARCHAR,C.Thoi_gian_nhan,108)) AS DATETIME)>=CAST('''+@BD+''' AS DATETIME) AND CAST((CONVERT(VARCHAR,C.Thoi_gian_tra,108)) AS DATETIME)<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd <> '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd hh:mm đến Ngay_bd hh:mm
+		
+		SET @BD = @Ngay_bd+' '+@Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Ngay_bd+' '+@Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND C.Thoi_gian_nhan>=CAST('''+@BD+''' AS DATETIME) AND C.Thoi_gian_tra<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd <> '' AND @Ngay_kt <> ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd hh:mm đến Ngay_kt hh:mm 
+		SET @BD = @Ngay_bd+' '+@Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Ngay_kt+' '+@Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND C.Thoi_gian_nhan>=CAST('''+@BD+''' AS DATETIME) AND C.Thoi_gian_tra<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd = '' OR @Phut_bd = '' OR @Gio_kt = '' OR @Phut_kt = '') AND @Ngay_bd <> '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian dd-mm-yyyy
+		SET @DK_Ngay = ' AND CONVERT(VARCHAR,C.Thoi_gian_nhan,110) <> '+@Ngay_bd
+	END
+	IF (@Gio_bd = '' OR @Phut_bd = '' OR @Gio_kt = '' OR @Phut_kt = '') AND @Ngay_bd <> '' AND @Ngay_kt <> ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd đến Ngay_kt
+		SET @DK_Ngay = ' AND CAST(CONVERT(VARCHAR,C.Thoi_gian_nhan,110) AS DATETIME)>=CAST('''+@Ngay_bd+''' AS DATETIME) AND CAST(CONVERT(VARCHAR,C.Thoi_gian_TRA,110) AS DATETIME)<=CAST('''+@Ngay_kt+''' AS DATETIME)'
+	END
+	
+	DECLARE @SQL NVARCHAR(4000)
+	SET @SQL = '
+		SELECT COUNT(*) AS KQ
+		FROM THIETBI A LEFT JOIN LYLICHTHIETBI B ON B.MA_THIET_BI=A.ID
+		LEFT JOIN CHITIETMUONTHIETBI C ON C.MA_THIET_BI=A.ID
+		INNER JOIN LOAITHIETBI D ON A.MA_LOAI_THIET_BI=D.ID
+		INNER JOIN PHONGBAN E ON A.Vi_tri_lap_dat=E.ID
+		WHERE 1=1'
+		+ @DK_Phong
+		+ @DK_Khoa
+		+ @DK_Loai_thiet_bi
+		+ @DK_Tinh_trang
+		+ @DK_Hien_trang
+		+ @DK_Ngay 
+	
+
+	PRINT @SQL
+	EXEC sp_executesql @SQL
+END
+GO
+
+--sp_ThietBi_DanhSachThietBi.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_ThietBi_DanhSachThietBi')
+BEGIN
+	DROP PROC sp_ThietBi_DanhSachThietBi
+END
+GO
+CREATE PROC sp_ThietBi_DanhSachThietBi
+@Phong VARCHAR(10),
+@Khoa VARCHAR(10),
+@Loai_thiet_bi VARCHAR(10),
+@Tinh_trang VARCHAR(10),
+@Hien_trang VARCHAR(10),
+@Gio_bd VARCHAR(10),
+@Phut_bd VARCHAR(10),
+@Gio_kt VARCHAR(10),
+@Phut_kt VARCHAR(10),
+@Ngay_bd VARCHAR(10),
+@Ngay_kt VARCHAR(10),
+@NUM_PAGE VARCHAR(10),
+@NUM_RECORD VARCHAR(10)
+AS
+BEGIN
+	DECLARE @DK_Phong VARCHAR(100)
+	DECLARE @DK_Khoa VARCHAR(100)
+	DECLARE @DK_Loai_thiet_bi VARCHAR(100)
+	DECLARE @DK_Tinh_trang VARCHAR(100)
+	DECLARE @DK_Hien_trang VARCHAR(100)
+	DECLARE @DK_Ngay VARCHAR(200)
+	DECLARE @BD VARCHAR(20)
+	DECLARE @KT VARCHAR(20)
+
+	SET @DK_Phong = ''
+	SET @DK_Khoa = ''
+	SET @DK_Loai_thiet_bi = ''
+	SET @DK_Tinh_trang = ''
+	SET @DK_Hien_trang = ''
+	SET @DK_Ngay = ''
+
+	IF @Phong <> ''
+	BEGIN
+		SET @DK_Phong = ' AND A.Vi_tri_lap_dat='+@Phong
+	END
+	IF @Khoa <> ''
+	BEGIN
+		SET @DK_Khoa = ' AND B.Bo_phan_nhan='+@Khoa
+	END
+	IF @Loai_thiet_bi <> ''
+	BEGIN
+		SET @DK_Loai_thiet_bi = ' AND A.Ma_loai_thiet_bi='+@Loai_thiet_bi
+	END
+	IF @Tinh_trang <> ''
+	BEGIN
+		SET @DK_Tinh_trang = ' AND A.Tinh_trang='+@Tinh_trang
+	END
+	IF @Hien_trang <> ''
+	BEGIN
+		SET @DK_Hien_trang = ' AND A.Hien_trang='+@Hien_trang
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd = '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian từ hh:mm đến hh:mm
+		SET @BD = @Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND CAST((CONVERT(VARCHAR,C.Thoi_gian_nhan,108)) AS DATETIME)>=CAST('''+@BD+''' AS DATETIME) AND CAST((CONVERT(VARCHAR,C.Thoi_gian_tra,108)) AS DATETIME)<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd <> '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd hh:mm đến Ngay_bd hh:mm
+		
+		SET @BD = @Ngay_bd+' '+@Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Ngay_bd+' '+@Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND C.Thoi_gian_nhan>=CAST('''+@BD+''' AS DATETIME) AND C.Thoi_gian_tra<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd <> '' OR @Phut_bd <> '' OR @Gio_kt <> '' OR @Phut_kt <> '') AND @Ngay_bd <> '' AND @Ngay_kt <> ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd hh:mm đến Ngay_kt hh:mm 
+		SET @BD = @Ngay_bd+' '+@Gio_bd+':'+@Phut_bd+':00'
+		SET @KT = @Ngay_kt+' '+@Gio_kt+':'+@Phut_kt+':00'
+		SET @DK_Ngay = ' AND C.Thoi_gian_nhan>=CAST('''+@BD+''' AS DATETIME) AND C.Thoi_gian_tra<=CAST('''+@KT+''' AS DATETIME)'
+	END
+	IF (@Gio_bd = '' OR @Phut_bd = '' OR @Gio_kt = '' OR @Phut_kt = '') AND @Ngay_bd <> '' AND @Ngay_kt = ''
+	BEGIN
+		--Tìm kiếm theo thời gian dd-mm-yyyy
+		SET @DK_Ngay = ' AND CONVERT(VARCHAR,C.Thoi_gian_nhan,110) <> '+@Ngay_bd
+	END
+	IF (@Gio_bd = '' OR @Phut_bd = '' OR @Gio_kt = '' OR @Phut_kt = '') AND @Ngay_bd <> '' AND @Ngay_kt <> ''
+	BEGIN
+		--Tìm kiếm theo thời gian Ngay_bd đến Ngay_kt
+		SET @DK_Ngay = ' AND CAST(CONVERT(VARCHAR,C.Thoi_gian_nhan,110) AS DATETIME)>=CAST('''+@Ngay_bd+''' AS DATETIME) AND CAST(CONVERT(VARCHAR,C.Thoi_gian_TRA,110) AS DATETIME)<=CAST('''+@Ngay_kt+''' AS DATETIME)'
+	END
+	
+	DECLARE @SQL NVARCHAR(4000)
+	SET @SQL = '
+	SELECT * FROM ( 
+	SELECT TOP '+@NUM_RECORD+' * FROM 
+		(SELECT TOP '+CAST((SELECT COUNT(*)-((CAST(@NUM_PAGE AS INT)-1)*CAST(@NUM_RECORD AS INT)) FROM THIETBI) AS VARCHAR)
+		+ ' A.ID as MaThietBi,D.ID as MaLoaiThietBi,D.Ten_loai_thiet_bi as TenLoaiThietBi,A.Ma as Ma, A.Ki_hieu as KiHieu,A.Ten_thiet_bi as TenThietBi,E.ID as MaPhongBan,E.Ki_hieu_phong as TenPhongBan,F.ID as MaTinhTrang,F.Ten_tinh_trang as TenTinhTrang,J.ID as MaHienTrang,J.Ten_hien_trang as TenHienTrang
+		FROM THIETBI A LEFT JOIN LYLICHTHIETBI B ON B.MA_THIET_BI=A.ID
+		LEFT JOIN CHITIETMUONTHIETBI C ON C.MA_THIET_BI=A.ID
+		INNER JOIN LOAITHIETBI D ON A.MA_LOAI_THIET_BI=D.ID
+		INNER JOIN PHONGBAN E ON A.Vi_tri_lap_dat=E.ID
+		INNER JOIN TINHTRANG F ON F.ID=A.Tinh_trang
+		INNER JOIN HIENTRANG J on J.ID=a.Hien_trang
+		WHERE 1=1'
+		+ @DK_Phong
+		+ @DK_Khoa
+		+ @DK_Loai_thiet_bi
+		+ @DK_Tinh_trang
+		+ @DK_Hien_trang
+		+ @DK_Ngay 
+		+ ' ORDER BY A.ID DESC) AS TB1 ORDER BY MaThietBi ASC
+	) AS TB2 ORDER BY MaThietBi ASC' 
+	
+
+	PRINT @SQL
+	EXEC sp_executesql @SQL
+END
+GO
+
+--SP_ThietBi_GetThietBiInfo.sql
+/*
+nguoi viet: Quoc Chuong
+muc dich: lay thong tin cua thiet bi thong qua id cua thiet bi do.
+tham so: vao(@idThietBi)
+ket qua se xuat ra thong tin thiet bi gom:
+	id,ten_thiet_bi,
+	ma,ki_hieu,ten_loai_thiet_bi,
+	ki_hieu_phong,ten_tinh_trang,
+	ten_hien_trang
+*/
+
+if exists (select * from sysobjects where name = 'SP_ThietBi_GetThietBiInfo')
+begin
+	drop proc SP_ThietBi_GetThietBiInfo
+end
+go
+create proc SP_ThietBi_GetThietBiInfo
+@idThietBi int
+as
+begin
+	select t.id, ten_thiet_bi, ma, ki_hieu,ten_loai_thiet_bi,vi_tri_lap_dat as maPhongBan, ki_hieu_phong, ten_tinh_trang, ten_hien_trang  
+	from  
+	thietbi t inner join loaithietbi l on t.ma_loai_thiet_bi = l.id 
+	inner join hientrang h on t.hien_trang = h.id 
+	inner join tinhtrang t2 on t.tinh_trang = t2.id 
+	inner join phongban p on t.vi_tri_lap_dat = p.id 
+	where t.id = @idThietBi
+end
+
+/*
+exec SP_ThietBi_GetThietBiInfo 1
+*/
+GO
+
+--sp_updateKHGDfollowChiTietTKb.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_updateKHGDfollowChiTietTKB')
+BEGIN
+	DROP PROC sp_updateKHGDfollowChiTietTKB
+END
+GO
+CREATE PROC sp_updateKHGDfollowChiTietTKB
+@Ma_to_trinh INT
+AS
+BEGIN
+	DECLARE @C CURSOR
+	DECLARE @Ma_CTTKB INT
+	DECLARE @Thu_trong_tuan INT
+	DECLARE @Tuan INT
+	DECLARE @Buoi NVARCHAR(100)
+	DECLARE @Phong INT
+	DECLARE @Ngay_hoc DATETIME
+	
+	DECLARE	@So_thu_tu INT	
+	DECLARE @Ma_lop INT
+	DECLARE @Hoc_ki INT
+	DECLARE @Nam_bat_dau INT
+	DECLARE @Ma_nam_hoc INT
+	DECLARE @Ma_mon_hoc_TKB INT
+	DECLARE @Ma_mon_hoc INT
+
+	DECLARE @Ma_CTKHGD INT
+	
+	DECLARE @Ma_GA INT
+
+	SET @C = CURSOR FOR SELECT Ma_chi_tiet_TKB,Thu_trong_tuan,Buoi,Ma_phong,Tuan,Ngay_hoc FROM CHITIETTKBTHAYDOI WHERE Ma_to_trinh=@Ma_to_trinh
+	OPEN @C
+	FETCH NEXT FROM @C INTO @Ma_CTTKB,@Thu_trong_tuan,@Buoi,@Phong,@Tuan,@Ngay_hoc
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SELECT @So_thu_tu=So_thu_tu FROM ChiTietTKB WHERE ID=@Ma_CTTKB
+		SELECT @Ma_mon_hoc_TKB=Ma_mon_hoc_TKB FROM CHITIETTKB WHERE ID=@Ma_CTTKB
+		SELECT @Ma_lop=Ma_lop,@Hoc_ki=Hoc_ki,@Nam_bat_dau=Nam_bat_dau FROM THOIKHOABIEU WHERE ID=(SELECT MA_TKB FROM CHITIETTKB WHERE ID=@Ma_CTTKB)
+		SELECT @Ma_nam_hoc=ID FROM NAMHOC WHERE Nam_bat_dau=@Nam_bat_dau
+		SELECT @Ma_mon_hoc=Ma_mon_hoc FROM MONHOCTKB WHERE ID=@Ma_mon_hoc_TKB 
+		
+		SELECT @Ma_CTKHGD=B.ID FROM KEHOACHGIANGDAY A INNER JOIN CHITIETKHGD B ON A.ID=B.MA_KE_HOACH_GIANG_DAY
+		WHERE A.Ma_mon_hoc=@Ma_mon_hoc AND A.Ma_lop=@Ma_lop AND A.Ma_nam_hoc=@Ma_nam_hoc AND A.Hoc_ki=@Hoc_ki AND B.User1=@So_thu_tu
+
+		PRINT @Ma_CTTKB
+		PRINT @Ma_mon_hoc
+		PRINT @Ma_lop
+		PRINT @Ma_nam_hoc
+		PRINT @Hoc_ki
+		PRINT @So_thu_tu	
+		PRINT '------------'
+	
+		IF(@Ma_CTKHGD <> '')
+		BEGIN
+			UPDATE CHITIETKHGD 
+			SET Tuan=@Tuan,Buoi=@Buoi,Ngay_BD=@Ngay_hoc,Thu=@Thu_trong_tuan,Ten_phong=(SELECT Ki_hieu_phong FROM PHONGBAN WHERE ID=@Phong)
+			WHERE ID=@Ma_CTKHGD
+			SELECT @Ma_GA=Ma_giao_an FROM CHITIETKHGD WHERE ID=@Ma_CTKHGD
+			UPDATE GIAOAN SET Ngay_thuc_hien=@Ngay_hoc WHERE ID=@Ma_GA
+		END
+		FETCH NEXT FROM @C INTO @Ma_CTTKB,@Thu_trong_tuan,@Buoi,@Phong,@Tuan,@Ngay_hoc
+	END
+	CLOSE @C
+	DEALLOCATE @C
+END
+
+GO
+
+--sp_UpdateSttKHGD.sql
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_UpdateSttChiTietKHGD')
+BEGIN
+	DROP PROC sp_UpdateSttChiTietKHGD
+END
+GO
+CREATE PROC sp_UpdateSttChiTietKHGD
+AS
+BEGIN
+	DECLARE @C CURSOR
+	DECLARE @C1 CURSOR
+	DECLARE @Ma_KHGD INT
+	DECLARE @Ma_CTKHGD INT
+	DECLARE @STT INT
+	SET @C = CURSOR FOR SELECT ID FROM KEHOACHGIANGDAY
+	OPEN @C
+	FETCH NEXT FROM @C INTO @Ma_KHGD
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @STT=1
+		SET @C1 = CURSOR FOR SELECT ID FROM CHITIETKHGD WHERE MA_KE_HOACH_GIANG_DAY=@Ma_KHGD ORDER BY Ngay_BD ASC
+		OPEN @C1
+		FETCH NEXT FROM @C1 INTO @Ma_CTKHGD
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			UPDATE CHITIETKHGD SET USER1=@STT WHERE ID=@Ma_CTKHGD
+			SET @STT=@STT+1
+			FETCH NEXT FROM @C1 INTO @Ma_CTKHGD
+		END
+		CLOSE @C1
+		DEALLOCATE @C1
+		FETCH NEXT FROM @C INTO @Ma_KHGD
+	END
+	CLOSE @C
+	DEALLOCATE @C
 END
 GO
 
