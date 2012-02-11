@@ -239,7 +239,7 @@ BEGIN
 				SET @DanNhap=@Muc_Tieu_Bai_Hoc
 				SET @NoiDungBaiGiang=@TenChuong
 				SET @CungCoKienThuc=@Muc_Tieu_Bai_Hoc
-				SET @ThoiGianTHBH=@SoTietMoiBuoi*45
+				SET @ThoiGianTHBH=@SoTietMoiBuoi*45-@ThoiGianOD
 				--------------------CALL STORE INSERT GiaoAn LY THUYET--------------------------
 				Execute sp_ISO_InsertGiaoAnLyThuyet
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu,@DoDungPTDH,@OnDinhLH
@@ -254,7 +254,7 @@ BEGIN
 				SET @DanNhap2=@Muc_Tieu_Bai_Hoc
 				SET @TenChuong=@NoiDungTH
 				SET @HuongDanBanDau2=@NoiDungTH
-				SET @ThoiGianTHBH2=@SoTietMoiBuoi*60
+				SET @ThoiGianTHBH2=@SoTietMoiBuoi*60-@ThoiGianOnDinh2
 				--------------------CALL STORE INSERT GiaoAn THUC HANH--------------------------
 				Execute sp_ISO_InsertGiaoAnThucHanh
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu2,@DoDungPTDH2,@HinhThucTCDH2,@OnDinhLH2,@ThoiGianOnDinh2
@@ -269,7 +269,7 @@ BEGIN
 				SET @GioiThieuChuDe3=@TenChuong
 				SET	@MucTieu3=@Muc_Tieu_Bai_Hoc
 				SET @DanNhap3=@Muc_Tieu_Bai_Hoc
-				SET @ThoiGianTHBH3=@SoTietMoiBuoi*45
+				SET @ThoiGianTHBH3=@SoTietMoiBuoi*45-@ThoiGianOnDinh3
 				Execute sp_ISO_InsertGiaoAnTichHop
 						@MaGiaoAn output,@MaKHGD,@SoGiaoAn,@Ngay_BD,@MucTieu3,@DoDungPTDH3,@HinhThucTCDH3,@OnDinhLH3,@ThoiGianOnDinh3,@ThoiGianTHBH3
 						,@DanNhap3,@HDDanNhapGV3,@HDDanNhapHS3,@ThoiGianDanNhap3,@GioiThieuChuDe3,@HDGTCDGV3,@HDGTCDHS3,@ThoiGianGTCD3,@GiaiQuyetVanDe3,@HDGQVDGV3,@HDGQVDHS3
