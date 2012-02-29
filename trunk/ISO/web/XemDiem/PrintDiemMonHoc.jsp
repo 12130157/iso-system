@@ -2,7 +2,8 @@
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<pd4ml:transform
+
+<%@page import="vn.edu.hungvuongaptech.dao.SoDiemMonHocDAO"%><pd4ml:transform
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
@@ -50,7 +51,9 @@
 <body onload="pageLoad()">
 <div align="center">
 <div class = "div_body">
-
+<c:set var = "BaiKiemTraList" value = "sessionScope.BaiKiemTraList"/>
+<c:set var = "SoDiemMonHoc" value = "sessionScope.SoDiemMonHoc"/>
+<c:set var = "SoDiemMonHocSimple" value = '<%=SoDiemMonHocDAO.getSoDiemMonHocByMaMonHocTKBSimple(request.getParameter("maMonHocTKB")) %>' />
 <table width="1000" height="691" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');">	
 	<tr>
 		<td>
@@ -65,45 +68,76 @@
 				</tr>
 				<tr align="right" style="background-color: transparent; background-position: center; font-size: 16px;">
 					<td colspan="2">
-						Lớp :  - Chuyên ngành :  - Năm học: <br/>
-						Môn học:  - Mã môn: <br/>
-						Giáo viên: 
+						Lớp : ${SoDiemMonHocSimple.kiHieuLop } - Chuyên ngành : ${SoDiemMonHocSimple.tenChuyenNganh } - Năm học: ${SoDiemMonHocSimple.namHoc }<br/>
+						Môn học : ${SoDiemMonHocSimple.tenMonHoc }  - Mã môn: <br/>
+						Giáo viên: ${SoDiemMonHocSimple.tenGiaoVien }
 					</td>
 				</tr>
 			</table>
-				
 			<table width = "900" border = "1" align="center" style="background-color: transparent; background-position: top;">
-				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-					<td width="9%" rowspan="2"><strong>STT</strong></td>
-					<td width="13%" rowspan="2"><strong>Tên học viên</strong></td>
-					<td width="13%" colspan="2"><strong>Miệng</strong></td>
-					<td width="13%" colspan="2"><strong>15 phút</strong></td>
-					<td width="13%" colspan="2"><strong>1 tiết</strong></td>
-					<td width="13%" colspan="2"><strong>Thi</strong></td>
-					<td width="13%" rowspan="2"><strong>TB môn</strong></td>
-					<td width="13%" colspan="2"><strong>Số ngày nghỉ</strong></td>
-					<td width="13%" rowspan="2"><strong>Ghi chú</strong></td>
+				<tr style="background-color: transparent;">
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">STT</div></th>
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Mã Sinh Viên</div></th>
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">Tên sinh viên</div></th>
+					<c:set var = "BaiKiemTraList" value = "<%=baiKiemTraList %>" scope="session"/>
+					<c:forEach var = "BaiKiemTra" items = "${BaiKiemTraList}">
+						<%count++; count1++; %>
+						<c:set var = "count" value = "<%=count %>"/>
+						<c:if test = "${(BaiKiemTra.maTenBaiKiemTra ne BaiKiemTraList[count].maTenBaiKiemTra and not empty BaiKiemTraList[count]) or empty  BaiKiemTraList[count]}">
+							<th bgcolor = "#186fb2" colspan="<%=count1 %>"><div class = "div_textWhite">${BaiKiemTra.tenBaiKiemTra}</div></th>
+							<%count1 = 0;%>
+						</c:if>
+					</c:forEach>
+					<th bgcolor = "#186fb2" rowspan="2"><div class = "div_textWhite">TB môn</div></th>		
 				</tr>
-				
-				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-					<td width="13%"><strong>Lần 1</strong></td>
-					<td width="13%"><strong>Lần 2</strong></td>
-					<td width="13%"><strong>Lần 1</strong></td>
-					<td width="13%"><strong>Lần 2</strong></td>
-					<td width="13%"><strong>Lần 1</strong></td>
-					<td width="13%"><strong>Lần 2</strong></td>
-					<td width="13%"><strong>Lần 1</strong></td>
-					<td width="13%"><strong>Lần 2</strong></td>
-					<td width="13%"><strong>Phép</strong></td>
-					<td width="13%"><strong>Ko P</strong></td>
+				<tr style="background-color: transparent;">
+				<%count = 0; count1 = 0;%>
+					<c:forEach var = "BaiKiemTra" items = "${BaiKiemTraList}">
+						<%count++; count1++;%>
+						<c:set var = "count" value = "<%=count %>"/>
+						<td>Lần <%=count1 %></td>
+						<c:if test = "${(BaiKiemTra.maTenBaiKiemTra ne BaiKiemTraList[count].maTenBaiKiemTra and not empty BaiKiemTraList[count]) or empty  BaiKiemTraList[count]}">
+							 <%count1 = 0; %>
+						</c:if>
+					</c:forEach>			
 				</tr>
-				
-				<tr align="center" style="background-color: transparent; background-position: center;  font-size: 16px;" valign="top">
-					
-				</tr>
-				
-			</table>
-			
+				<%int c = 1, iterator = 0;%>
+				<c:set var = "MaTenBaiKiemTra" value = "-1"/>
+				<c:forEach var = "SinhVien" items="${SoDiemMonHoc.dangKyMonHocList}">
+					<c:set var = "ListDiem" value = "${SinhVien.chiTietDiemList}"/>
+					<c:set var = "i" value = "0"/>
+					<tr style="background-color: transparent;">
+						<td style="background-color: transparent;">
+							<%= c %>
+							<input type="hidden" name = "txtDangKiMonHoc<%=c%>" value = "${SinhVien.maDangKyMonHoc}"/>
+						</td>
+						<td style="background-color: transparent;"><div class = "div_txleft">${SinhVien.tenDangNhap}</div></td>
+						<td style="background-color: transparent;"><div class = "div_txleft">${SinhVien.tenHocVien}</div></td>
+						<c:forEach var = "BaiKiemTra" items="${BaiKiemTraList}">
+							
+							<td style="background-color: transparent;">
+								
+								<input type="text"  name= "txtDiem<%=c%>_<%=iterator %>" id = "txtDiem<%=c%>_<%=iterator %>" onblur = "kiemTraSo(<%=c + "," + iterator %>)" onfocus="getSoDiem(<%=c + "," + iterator %>)"
+									<c:if test="${ListDiem[i].diem ne '-1.0'}">
+										value = "${ListDiem[i].diem}"	
+									</c:if>
+								size="5"/>	
+								<c:set var = "i" value = "${i + 1}"/>
+								<c:set var = "MaTenBaiKiemTra" value = "${BaiKiemTra.maTenBaiKiemTra}"/>
+								<input type = "hidden" id = "txtMaTenBaiKiemTra<%=c %>" value = "${MaTenBaiKiemTra }"/>	
+								 		
+							</td>
+							
+							<%iterator++; %>
+							
+						</c:forEach>
+						<td style="background-color: transparent;">
+							<input type="text" readonly="readonly" id = "txtTrungBinhMon<%=c %>" name = "txtTrungBinhMon<%=c %>" value = "${SinhVien.diemTrungBinh}" size="5"/>
+						</td>
+					</tr>
+					<%c++; iterator = 0; %>
+				</c:forEach>
+			</table>			
 			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
 				<tr style="background-color: transparent; font-size: 16px;">
 					<td></td>

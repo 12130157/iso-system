@@ -117,8 +117,13 @@
 	  	<function-signature>java.util.ArrayList appendPTag(java.lang.String)</function-signature> 
 	</function>
 	<function>
-	  	<name>chuyenChuInHoa</name> 
-	  	<function-class>vn.edu.hungvuongaptech.taglib.ChangeStringTaglib</function-class> 
-	  	<function-signature>java.lang.String chuyenChuInHoa(java.lang.String)</function-signature> 
+	  	<name>getTongSoMonHoc</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ModelTaglib</function-class> 
+	  	<function-signature>java.lang.Integer getTongSoMonHoc(java.util.ArrayList)</function-signature> 
+	</function>
+	<function>
+	  	<name>getAllMonHoc</name> 
+	  	<function-class>vn.edu.hungvuongaptech.taglib.ModelTaglib</function-class> 
+	  	<function-signature>java.util.ArrayList getAllMonHoc(java.util.ArrayList)</function-signature> 
 	</function>
 </taglib>

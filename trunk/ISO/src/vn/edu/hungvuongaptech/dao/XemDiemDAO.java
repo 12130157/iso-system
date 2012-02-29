@@ -1,5 +1,6 @@
 package vn.edu.hungvuongaptech.dao;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -176,7 +177,7 @@ public class XemDiemDAO {
 		}
 		return dangKyMonHocList;
 	}
-	public static ArrayList<DangKyMonHocModel> getShowDiemSinhVien(String maHocVien, String hocKi, String maLop) {
+	public static ArrayList<DangKyMonHocModel> getShowDiemSinhVien(String maHocVien, String hocKi, String maLop, String maNamHoc) {
 		// TODO Auto-generated method stub
 		String maDangKyMonHoc = "na", maChiTietDiem = "na";
 		
@@ -188,10 +189,11 @@ public class XemDiemDAO {
 					.getConnection()
 					.prepareStatement(
 							Constant.SQL_RES
-									.getString("iso.sql.getShowDiemSinhVien"));
-			preparedStatement.setString(1, maHocVien);
-			preparedStatement.setString(2, hocKi);
-			preparedStatement.setString(3, maLop);
+									.getString("XemDiem.sql.getShowDiemSinhVien"));
+			preparedStatement.setString(1, maLop);
+			preparedStatement.setString(2, maNamHoc);
+			preparedStatement.setString(3, hocKi);
+			preparedStatement.setString(4, maHocVien);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				// Bang dang ky mon hoc
@@ -199,10 +201,10 @@ public class XemDiemDAO {
 				{
 					DangKyMonHocModel dangKyMonHoc = new DangKyMonHocModel();
 					
-					dangKyMonHoc.setDiemTrungBinh(rs.getString("DiemTrungBinh"));
-					dangKyMonHoc.setHanhKiem(rs.getString("HanhKiem"));
-					dangKyMonHoc.setHocLuc(rs.getString("HocLuc"));
-					dangKyMonHoc.setDanhHieu(rs.getString("DanhHieu"));
+					dangKyMonHoc.setDiemTrungBinh(rs.getString("DiemTBMon"));
+					//dangKyMonHoc.setHanhKiem(rs.getString("HanhKiem"));
+					//dangKyMonHoc.setHocLuc(rs.getString("HocLuc"));
+					//dangKyMonHoc.setDanhHieu(rs.getString("DanhHieu"));
 					//dangKyMonHoc.setMaDangKyMonHoc(rs.getString("MaDangKyMonHoc"));
 					//dangKyMonHoc.setMaMonHocTKB(rs.getString("MaMonHocTKB"));
 					dangKyMonHoc.setTenMonHoc(rs.getString("TenMonHoc"));

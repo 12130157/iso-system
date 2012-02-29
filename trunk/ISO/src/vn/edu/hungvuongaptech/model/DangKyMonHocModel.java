@@ -22,6 +22,23 @@ public class DangKyMonHocModel {
 	private String tenMonHoc;
 	private String tenDangNhap;
 	
+	//
+	private String maSoDiemMonHoc;
+	private String maMonHoc;
+	
+	public String getMaSoDiemMonHoc() {
+		return maSoDiemMonHoc;
+	}
+	public void setMaSoDiemMonHoc(String maSoDiemMonHoc) {
+		this.maSoDiemMonHoc = maSoDiemMonHoc;
+	}
+	public String getMaMonHoc() {
+		return maMonHoc;
+	}
+	public void setMaMonHoc(String maMonHoc) {
+		this.maMonHoc = maMonHoc;
+	}
+	//
 	public String getTenDangNhap() {
 		return tenDangNhap;
 	}
