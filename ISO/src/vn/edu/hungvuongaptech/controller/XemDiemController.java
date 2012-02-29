@@ -10,15 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import vn.edu.hungvuongaptech.common.Constant;
+import vn.edu.hungvuongaptech.dao.BangDiemHocKiDAO;
 import vn.edu.hungvuongaptech.dao.ChiTietDiemDAO;
 import vn.edu.hungvuongaptech.dao.DangKyMonHocDAO;
+import vn.edu.hungvuongaptech.dao.HocKiTungLopDAO;
+import vn.edu.hungvuongaptech.dao.SoDiemMonHocDAO;
 import vn.edu.hungvuongaptech.model.BaiKiemTraModel;
+import vn.edu.hungvuongaptech.model.BangDiemHocKiModel;
 import vn.edu.hungvuongaptech.model.ChiTietDiemModel;
 import vn.edu.hungvuongaptech.model.DangKyMonHocModel;
 import vn.edu.hungvuongaptech.model.DeCuongMonHocModel;
+import vn.edu.hungvuongaptech.model.SoDiemMonHocModel;
+import vn.edu.hungvuongaptech.model.ThanhVienModel;
 
 public class XemDiemController extends HttpServlet{
-	private boolean check = true;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -42,9 +47,13 @@ public class XemDiemController extends HttpServlet{
 		{
 			searchGiaoVienTN(request, response);
 		}
-		else if(actionType.equalsIgnoreCase("CapNhatDiem")) {
+		else if(actionType.equalsIgnoreCase("CapNhatDiem") || actionType.equalsIgnoreCase("GuiSoDiem")) {
 			doPostGiaoVien(request, response);
 		}
+		else if(actionType.equalsIgnoreCase("LuuBangDiemHocKi") || actionType.equalsIgnoreCase("GuiBangDiemHocKi")) {
+			tinhBangDiemHocKi(request, response);
+		}
+		
 	}
 	
 	private void doPostSinhVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -71,42 +80,46 @@ public class XemDiemController extends HttpServlet{
 	}
 	private void doPostGiaoVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		check = true;
-		String maKhoa = request.getParameter("cboKhoa");
-		String maLop = request.getParameter("cboLopHoc");
+		boolean check = true;
 		String maNamHoc = request.getParameter("cboNamHoc");
 		String hocki = request.getParameter("cboHocKy");
-		String maMonHocTKB = request.getParameter("cboMonHoc");
-		String maMonHoc = request.getParameter("txtMaMonHoc");
-		String maGiaoVien = request.getParameter("txtMaGiaoVien");
-		String pageNext = Constant.PATH_RES.getString("xemDiem.showDiemShortPath") + "?khoa=" + maKhoa + "&lop=" + maLop + "&namHoc=" + maNamHoc + "&hocKi=" + hocki + "&monHocTKB=" + maMonHocTKB + "&monHoc=" + maMonHoc + "&maGiaoVien=" + maGiaoVien;
+		String[] monHoc = request.getParameter("cboMonHoc").split("-");
+		String maHKTL = request.getParameter("cboLop");
+		String pageNext = Constant.PATH_RES.getString("xemDiem.showDiemShortPath") + "?MaNamHoc=" + maNamHoc + "&HocKi=" + hocki + "&maMonHoc=" + monHoc[1] + "&maMonHocTKB=" + monHoc[0] + "&maHKTL=" + maHKTL;
 		RequestDispatcher rd;		
-		ArrayList<DangKyMonHocModel> dangKyMonHocList = new ArrayList<DangKyMonHocModel>();		
+		SoDiemMonHocModel soDiemMonHoc = new SoDiemMonHocModel();	
 		request.setCharacterEncoding("UTF-8");
 		
-		if(request.getSession().getAttribute("SinhVienList") != null){
-			dangKyMonHocList = (ArrayList<DangKyMonHocModel>) request.getSession().getAttribute("SinhVienList");
+		if(request.getSession().getAttribute("SoDiemMonHoc") != null){
+			soDiemMonHoc = (SoDiemMonHocModel) request.getSession().getAttribute("SoDiemMonHoc");
 		}
-		mapParameter(request, response, dangKyMonHocList);
-		for(int i=0;i<dangKyMonHocList.size();i++) {
-			if(DangKyMonHocDAO.updateDangKyMonHoc(dangKyMonHocList.get(i)) == false)
-				check = false;
+		check = mapParameter(request, response, soDiemMonHoc);
+		if(request.getParameter("actionType").equalsIgnoreCase("CapNhatDiem")) {
+			if(check)
+				pageNext += "&CapNhat=ThanhCong";
+			else
+				pageNext += "&Error=KoThanhCong";
 		}
-		if(check)
-			pageNext += "&CapNhat=ThanhCong";
-		else
-			pageNext += "&Error=KoThanhCong";
-		request.setAttribute(Constant.DANG_KY_MON_HOC_LIST, dangKyMonHocList);
+		else if(request.getParameter("actionType").equalsIgnoreCase("GuiSoDiem")) {
+			if(SoDiemMonHocDAO.guiSoDiemMonHocChoGVCN(soDiemMonHoc.getMaSoDiemMonHoc()) == 1 && check == true)
+				pageNext += "&Gui=ThanhCong";
+			else
+				pageNext += "&Gui=KoThanhCong";
+		}
+		request.setAttribute("soDiemMonHoc", soDiemMonHoc);
 		rd = request.getRequestDispatcher(pageNext);
 		rd.forward(request, response);
 	}
-	private void mapParameter(HttpServletRequest request, HttpServletResponse response, ArrayList<DangKyMonHocModel> list) throws ServletException, IOException {
+	private boolean mapParameter(HttpServletRequest request, HttpServletResponse response, SoDiemMonHocModel soDiemMonHoc) throws ServletException, IOException {
 		ArrayList<BaiKiemTraModel> baiKiemTraList = new ArrayList<BaiKiemTraModel>();
+		boolean check = true;
+		int dem = 0;
 		if(request.getSession().getAttribute("BaiKiemTraList") != null)
 			baiKiemTraList = (ArrayList<BaiKiemTraModel>)request.getSession().getAttribute("BaiKiemTraList");
-		for(Integer i=1;i<=list.size();i++) {
+		for(Integer i=1;i<=soDiemMonHoc.getDangKyMonHocList().size();i++) {
+			dem = 0;
 			String maDangKiMonHoc = request.getParameter("txtDangKiMonHoc" + i.toString());
-			DangKyMonHocModel dangKyMonHoc = list.get(i-1);
+			DangKyMonHocModel dangKyMonHoc = soDiemMonHoc.getDangKyMonHocList().get(i-1);
 			dangKyMonHoc.setDiemTrungBinh(request.getParameter("txtTrungBinhMon" + i.toString()));
 			ArrayList<ChiTietDiemModel> chiTietDiemList = new ArrayList<ChiTietDiemModel>();
 			for(Integer j=0;j<baiKiemTraList.size();j++) {
@@ -115,29 +128,32 @@ public class XemDiemController extends HttpServlet{
 				if(dangKyMonHoc.getChiTietDiemList() != null && j < dangKyMonHoc.getChiTietDiemList().size()) 
 					chiTietDiem = dangKyMonHoc.getChiTietDiemList().get(j);
 				
-					chiTietDiem.setMaBaiKiemTra(baiKiemTraList.get(j).getMaBaiKiemTra());
-					chiTietDiem.setMaDangKyMonHoc(maDangKiMonHoc);
-				
-					if(!request.getParameter("txtDiem" + i.toString() + "_" + j.toString()).equals("")){
-						chiTietDiem.setDiem(request.getParameter("txtDiem" + i.toString() + "_" + j.toString()));
+					/*if(!chiTietDiem.getMaBaiKiemTra().equals(baiKiemTraList.get(j).getMaBaiKiemTra())) {
+						chiTietDiem.setMaBaiKiemTra(baiKiemTraList.get(j).getMaBaiKiemTra());
+						chiTietDiem.setMaDangKyMonHoc(maDangKiMonHoc);
 						
-						/*if(chiTietDiem.getMaChiTietDiem() != null) {
-							
-							ChiTietDiemDAO.updateChiTietDiem(chiTietDiem);
-						} else
-							ChiTietDiemDAO.insertChiTietDiem(chiTietDiem);*/
-						
-					} else {
-						/*if(chiTietDiem.getMaChiTietDiem() != null)
-							ChiTietDiemDAO.deleteChiTietDiem(chiTietDiem.getMaChiTietDiem());*/
-						chiTietDiem.setDiem("-1");
+					}*/
+				if(!(request.getParameter("txtDiem" + i.toString() + "_" + j.toString()).equals("")) || !chiTietDiem.getDiem().equals("-1.0")) {
+					if(!chiTietDiem.getDiem().equals(request.getParameter("txtDiem" + i.toString() + "_" + j.toString()))) {
+						if(request.getParameter("txtDiem" + i.toString() + "_" + j.toString()).equals(""))
+							chiTietDiem.setDiem("-1.0");
+						else	
+							chiTietDiem.setDiem(request.getParameter("txtDiem" + i.toString() + "_" + j.toString()));
+						if(!ChiTietDiemDAO.updateChiTietDiem(chiTietDiem))
+							check = false;
+						dem++;
 					}
-					chiTietDiemList.add(chiTietDiem);
-				
+				}
+					chiTietDiemList.add(chiTietDiem);	
+			}
+			if(dem > 0) {
+				if(!DangKyMonHocDAO.updateDangKyMonHoc(dangKyMonHoc))
+					check = false;
 			}
 			dangKyMonHoc.setChiTietDiemList(chiTietDiemList);
-			list.set(i-1, dangKyMonHoc);
+			soDiemMonHoc.getDangKyMonHocList().set(i-1, dangKyMonHoc);
 		}
+		return check;
 	}
 	
 	//--------seach diem tot nghiep cua sinh vien----------//
@@ -156,4 +172,46 @@ public class XemDiemController extends HttpServlet{
 		
 	}
 	//--------end---------//
+	private void tinhBangDiemHocKi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String maNamHoc = request.getParameter("cboNamHoc");
+		String hocKi = request.getParameter("cboHocKy");
+		String[] lop = request.getParameter("cboLop").split("-");
+		String pageNext = Constant.PATH_RES.getString("xemDiem.showDiemHocKyShortPath") + "?MaNamHoc=" + maNamHoc + "&HocKi=" + hocKi + "&MaHKTL=" + lop[0];
+		ArrayList<ThanhVienModel> thanhVienList = new ArrayList<ThanhVienModel>();
+		ArrayList<BangDiemHocKiModel> bangDiemHocKiList = new ArrayList<BangDiemHocKiModel>();
+		Boolean check = true;
+		if(request.getSession().getAttribute("BangDiemHocVienList") != null)
+			thanhVienList = (ArrayList<ThanhVienModel>) request.getSession().getAttribute("BangDiemHocVienList");
+		//if(request.getSession().getAttribute("BangDiemHocKiList") != null)
+			//bangDiemHocKiList = (ArrayList<BangDiemHocKiModel>) request.getSession().getAttribute("BangDiemHocKiList");
+		for(Integer i=1; i<Integer.parseInt(request.getParameter("txtCount"));i++) {
+			BangDiemHocKiModel bangDiemHocKi = new BangDiemHocKiModel();
+			bangDiemHocKi.setDiemTrungBinh(request.getParameter("txtDiemTrungBinh" + i.toString()));
+			bangDiemHocKi.setDiemRenLuyen(request.getParameter("txtDiemRenLuyen" + i.toString()));
+			bangDiemHocKi.setDiemTBHocKi(request.getParameter("txtDiemTBHocKi" + i.toString()));
+			bangDiemHocKi.setHocLuc(request.getParameter("txtHocLuc" + i.toString()));
+			bangDiemHocKi.setHanhKiem(request.getParameter("txtHanhKiem" + i.toString()));
+			
+			if(BangDiemHocKiDAO.updateBangDiemHocKi(bangDiemHocKi) == false)
+				check = false;
+			bangDiemHocKiList.add(bangDiemHocKi);
+		}
+		if(request.getParameter("actionType").equalsIgnoreCase("LuuBangDiemHocKi")) {
+			if(check)
+				pageNext += "&TinhTrang=" + lop[1] + "&Luu=ThanhCong";
+			else
+				pageNext += "&TinhTrang=" + lop[1] + "&Luu=KoThanhCong";
+		} else if(request.getParameter("actionType").equalsIgnoreCase("GuiBangDiemHocKi")) {
+			String tinhTrang = (Integer.parseInt(lop[1]) + 1) + "";
+			if(HocKiTungLopDAO.guiSoDiemHocKiMaHocKiTungLop(lop[0], tinhTrang) && check == true) {
+				pageNext += "&TinhTrang=" + tinhTrang + "&Gui=ThanhCong";
+			}
+			else
+				pageNext += "&TinhTrang=" + lop[1] + "&Gui=KoThanhCong";
+		}
+		request.setAttribute("BangDiemHocVienList", thanhVienList);
+		request.setAttribute("BangDiemHocKiList", bangDiemHocKiList);
+		RequestDispatcher rd = request.getRequestDispatcher(pageNext);
+		rd.forward(request, response);
+	}
 }

@@ -2,7 +2,12 @@
 <%@ taglib uri="/WEB-INF/tlds/StringFunction" prefix="sf" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<pd4ml:transform
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="vn.edu.hungvuongaptech.model.BangDiemHocKiModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.ThanhVienModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.HocKiTungLopModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.HocKiTungLopDAO"%><pd4ml:transform
 	screenWidth="1000"
 	pageFormat="A4"
 	pageOrientation="landscape"	
@@ -47,10 +52,17 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/print.css" rel="stylesheet"/>
 <title>Print Điểm Học Kỳ</title> 
 </head>
+<%
+	ArrayList<BangDiemHocKiModel> bangDiemHocKiList = (ArrayList<BangDiemHocKiModel>) request.getSession().getAttribute("BangDiemHocKiList");
+	ArrayList<ThanhVienModel> thanhVienList = (ArrayList<ThanhVienModel>) request.getSession().getAttribute("BangDiemHocVienList");
+	HocKiTungLopModel hocKiTungLop = HocKiTungLopDAO.getHocKiTungLopByID(request.getParameter("MaHKTL"));
+%>
 <body onload="pageLoad()">
 <div align="center">
 <div class = "div_body">
-
+	<c:set var = "BangDiemHocVienList" value = "<%=thanhVienList %>" scope="session"/>
+	<c:set var = "BangDiemHocKiList" value = "<%=bangDiemHocKiList %>" scope="session"/>
+	<c:set var = "HocKiTungLop" value = "<%=hocKiTungLop %>"/>
 <table width="1000" height="691" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print.jpg');">	
 	<tr>
 		<td>
@@ -61,78 +73,105 @@
 													 Độc lập - Tự do - Hạnh phúc</p></td>
 				</tr>
 				<tr align="center" style="background-color: transparent; background-position: center;">
-					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 18px">BẢNG ĐIỂM HỌC KỲ</p><br /></th>
+					<th colspan = "2"><br /> <p style="font-weight: bold; font-size: 18px">BẢNG TỔNG KẾT KẾT QUẢ HỌC TẬP HỌC KỲ ${HocKiTungLop.hocKi } NĂM HỌC ${HocKiTungLop.namHoc }</p><br /></th>
 				</tr>
 				<tr align="right" style="background-color: transparent; background-position: center; font-size: 16px;">
 					<td colspan="2">
-						Lớp :  - Chuyên ngành : <br/>
-						Năm học:  - Học kỳ: <br/>
+						Ngành: ${HocKiTungLop.tenChuyenNganh }
+						Lớp: ${HocKiTungLop.kiHieuLop }
 					</td>
 				</tr>
 			</table>
-				
+			<c:set var = "MonHocList" value = "${sf:getAllMonHoc(BangDiemHocVienList)}"/>
+			<c:set var = "TongSoMonHoc" value = "${sf:getTongSoMonHoc(MonHocList)}"/>
+			<c:set var = "Count" value = "1"/>
 			<table width = "900" border = "1" align="center" style="background-color: transparent; background-position: top;">
 				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-					<td width="9%" rowspan="2"><strong>STT</strong></td>
-					<td width="13%" rowspan="2"><strong>Tên học viên</strong></td>
-					<td width="13%" colspan="6"><strong>Môn học</strong></td>
-					<td width="13%" rowspan="2"><strong>TBHK</strong></td>
-					<td width="13%" rowspan="2"><strong>Điểm RL</strong></td>
-					<td width="13%" rowspan="2"><strong>TBC</strong></td>
-					<td width="13%" colspan="2"><strong>Số ngày nghỉ</strong></td>
-					<td width="13%" rowspan="2"><strong>Hạnh kiểm</strong></td>
-					<td width="13%" rowspan="2"><strong>Xếp loại</strong></td>
+					<td width="9%" colspan="2"><strong>STT</strong></td>
+					<td width="13%" colspan="2"><strong>MSHV</strong></td>
+					<td width="13%" colspan="2"><strong>Họ và tên</strong></td>
+					<td width="13%" colspan="2"><strong>ĐTB</strong></td>
+					<td width="13%" colspan="2"><strong>ĐRL</strong></td>
+					<td width="13%" colspan="2"><strong>ĐTBC</strong></td>
+					<td width="13%" colspan="2"><strong>Xếp loại</strong></td>
+					<td width="13%" rowspan="2"><strong>Xếp loại hạnh kiểm</strong></td>
+					<td width="13%" rowspan="2"><strong>Số ngày nghỉ</strong></td>
 					<td width="13%" rowspan="2"><strong>Ghi chú</strong></td>
+					<c:forEach var = "CountMonHoc" begin = "1" end="${TongSoMonHoc}">
+						<td></td>
+					</c:forEach>
 				</tr>
 				
 				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-					<td width="13%"><strong>A35</strong></td>
-					<td width="13%"><strong>B6</strong></td>
-					<td width="13%"><strong>B8</strong></td>
-					<td width="13%"><strong>A12</strong></td>
-					<td width="13%"><strong>C1</strong></td>
-					<td width="13%"><strong>A8</strong></td>
-					<td width="13%"><strong>Phép</strong></td>
-					<td width="13%"><strong>Ko P</strong></td>
+					<c:forEach var = "CountMonHoc" begin = "1" end="${TongSoMonHoc}">
+						<td></td>
+					</c:forEach>
 				</tr>
 				
-				<tr align="center" style="background-color: transparent; background-position: center;  font-size: 16px;" valign="top">
-					
-				</tr>
-				
+				<c:forEach var = "ThanhVien" items="${BangDiemHocVienList}">
+					<tr>
+						<td>${Count }</td>
+						<td></td>
+						<td>${ThanhVien.tenThanhVien}</td>
+						<td>${BangDiemHocKi[Count-1].diemTrungBinh }</td>
+						<td>${BangDiemHocKi[Count-1].diemRenLuyen }</td>
+						<td>${BangDiemHocKi[Count-1].diemTBHocKi }</td>
+						<td>${BangDiemHocKi[Count-1].hocLuc }</td>
+						<td>${BangDiemHocKi[Count-1].hanhKiem }</td>
+						<td>-</td>
+						<td>${BangDiemHocKi[Count-1].ghiChu }</td>
+						<c:forEach var = "DangKyMonHoc" items="${ThanhVien.dangKyMonHocList}">
+							<td>${DangKyMonHoc.diemTrungBinh }<input type = "hidden" value = "${DangKyMonHoc.diemTrungBinh }" id = "txtDiemTB${DangKyMonHoc.maHocVien}_${DangKyMonHoc.maMonHoc}"/></td>
+						</c:forEach>
+					</tr>
+					<c:set var = "Count" value = "${Count + 1}"/>
+				</c:forEach>
 			</table>
-			
+			<c:set var = "Count" value = "0"/>
 			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
 				<tr style="background-color: transparent; font-size: 16px;">
 					<td>
 						<table>
 							<tr>
-								<td>Số HV đạt loại Kém: </td>
+								<td>Số học sinh đạt loại Trung bình</td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại Yếu: </td>
+								<td>Số học sinh đạt loại Trung bình khá </td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại Trung Bình: </td>
+								<td>Số học sinh đạt loại Xuất sắc</td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại TB Khá: </td>
+								<td>Số học sinh đạt loại Yếu </td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại Khá: </td>
+								<td>Số học sinh đạt loại Giỏi </td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại Giỏi: </td>
+								<td>Số học sinh đạt loại Kém </td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
 							
 							<tr>
-								<td>Số HV đạt loại Xuất sắc: </td>
+								<td>Số học sinh đạt loại Khá </td>
+								<td><c:if test = "${not empty MonHocList[count]}">${MonHocList}<c:set var = "Count" value = "${Count + 1}"/></c:if></td>
 							</tr>
+							<c:if test = "${Count lt TongSoMonHoc}">
+								<c:forEach var = "CountMonHoc" begin="${Count}" end = "${TongSoMonHoc - 1}">
+									<td><p></p></td>
+									<td>${MonHocList[CountMonHoc]}</td>
+								</c:forEach>
+							</c:if>
 						</table>
 					</td>
 					
@@ -148,18 +187,12 @@
 			
 			<table width = "900" align="center" style="background-color: transparent; background-position: top;">
 				<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
-					<td><p style="font-weight: bold">Ban Giám hiệu </td>
-					<td><p style="font-weight: bold">Trưởng khoa CNTT</td>
+					<td><p style="font-weight: bold">KT.Hiệu trưởng </td>
+					<td><p style="font-weight: bold">Trưởng/Phó Khoa/TT</td>
+					<td><p style="font-weight: bold">Giáo vụ khoa/TT tổng hợp</td>
 				</tr>
 				<tr>
-					<td><p></p></td>
-					<td><p></p></td>
-				</tr>
-				<tr>
-					<td><p></p></td>
-					<td><p></p></td>
-				</tr>
-				<tr>
+					<td><p style="font-weight: bold">Phó Hiệu trưởng </td>
 					<td><p></p></td>
 					<td><p></p></td>
 				</tr>

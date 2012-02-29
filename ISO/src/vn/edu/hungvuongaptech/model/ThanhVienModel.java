@@ -39,7 +39,17 @@ public class ThanhVienModel implements Serializable {
 	private ArrayList<DiemDanhModel> diemDanhList;
 	private ArrayList<ThangModel> thangList;
 	private DangKyMonHocModel dangKyMonHocModel;
+	ArrayList<DangKyMonHocModel> dangKyMonHocList;
+		
 	
+
+	public ArrayList<DangKyMonHocModel> getDangKyMonHocList() {
+		return dangKyMonHocList;
+	}
+	public void setDangKyMonHocList(ArrayList<DangKyMonHocModel> dangKyMonHocList) {
+		this.dangKyMonHocList = dangKyMonHocList;
+	}
+
 	
 	public DangKyMonHocModel getDangKyMonHocModel() {
 		return dangKyMonHocModel;
@@ -47,6 +57,7 @@ public class ThanhVienModel implements Serializable {
 	public void setDangKyMonHocModel(DangKyMonHocModel dangKyMonHocModel) {
 		this.dangKyMonHocModel = dangKyMonHocModel;
 	}
+
 	public ArrayList<ThangModel> getThangList() {
 		return thangList;
 	}

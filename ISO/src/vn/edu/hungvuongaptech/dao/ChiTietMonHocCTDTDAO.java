@@ -212,6 +212,7 @@ public class ChiTietMonHocCTDTDAO {
 				chiTietMonHocCTDTModel.setThucHanh(rs.getString("ThucHanh"));
 				chiTietMonHocCTDTModel.setTenKhoa(rs.getString("TenKhoa"));
 				chiTietMonHocCTDTModel.setTinhChat(rs.getString("TinhChat"));
+				chiTietMonHocCTDTModel.setMaDeCuong(rs.getString("MaDeCuong"));
 				chiTietMonHocCTDTModelList.add(chiTietMonHocCTDTModel);
 			}
 				return chiTietMonHocCTDTModelList;

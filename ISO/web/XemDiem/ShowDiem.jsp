@@ -31,7 +31,13 @@
 <%@page import="vn.edu.hungvuongaptech.dao.BaiKiemTraDAO"%>
 <%@page import="vn.edu.hungvuongaptech.model.DangKyMonHocModel"%>
 <%@page import="vn.edu.hungvuongaptech.dao.ThoiKhoaBieuDAO"%>
-<%@page import="vn.edu.hungvuongaptech.model.BaiKiemTraModel"%><html>
+<%@page import="vn.edu.hungvuongaptech.model.BaiKiemTraModel"%>
+<%@page import="vn.edu.hungvuongaptech.model.HocKiTungLopModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.HocKiTungLopDAO"%>
+<%@page import="vn.edu.hungvuongaptech.dao.SoDiemMonHocDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.BangDiemHocKiModel"%>
+<%@page import="vn.edu.hungvuongaptech.dao.BangDiemHocKiDAO"%>
+<%@page import="vn.edu.hungvuongaptech.model.SoDiemMonHocModel"%><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh" content="<%= session.getMaxInactiveInterval() %>;url=<%=request.getContextPath()%>/Logout.jsp">
@@ -54,282 +60,247 @@
 <![endif]-->
 <title> Xem Điểm</title>
 <script type="text/javascript" language="JavaScript">
-var khoaList = new Array();
 var lopHocList = new Array();
 var namHocList = new Array();
-var hocKiList = new Array();
-var monHocTKBList = new Array();
 var diem = 0;
 var TBHocKy = 0;
 var soMonHoc = 0;
+var path = "HungVuongISO/XemDiem";
+var monHocTC = "";
+var namHocTC = "";
+var hocKiTC = "";
+var maHKTLTC = "";
+var path = "";
 function pageLoad()
 {
 <%	
-	String maSinhVien = "", hocKyChon = "";
-	ArrayList<ChiTietThanhVienModel> sinhVienList = new ArrayList<ChiTietThanhVienModel>();
-	ArrayList<DangKyMonHocModel> dangKyMonHocList = new ArrayList<DangKyMonHocModel>();
 	String maVaiTro = (String)session.getAttribute("maVaiTro");
 	String maMonHocTKB = "" ,maMonHoc = "", maGiaoVien = "";
-	ArrayList<KhoaModel> khoaList;
-	if(!maVaiTro.equals(Constant.MA_VAI_TRO_HS)) { 
-	khoaList = XemDiemDAO.getDieuKienXemDiemOfGiaoVien();
-	
+	SoDiemMonHocModel soDiemMonHoc = new SoDiemMonHocModel();
+	BangDiemHocKiModel bangDiemHocKi = new BangDiemHocKiModel();
+	ArrayList<HocKiTungLopModel> hocKiTungLopList = new ArrayList<HocKiTungLopModel>();
+	ArrayList<DangKyMonHocModel> dangKyMonHocList = new ArrayList<DangKyMonHocModel>();
+	if(maVaiTro.equals(Constant.MA_VAI_TRO_HS)) { 
+		if(request.getParameter("MaNamHoc") != null) {
+			out.print("namHocTC = '" + request.getParameter("MaNamHoc") + "';");
+			out.print("hocKiTC = '" + request.getParameter("HocKi") + "';");
+		}
+		hocKiTungLopList = HocKiTungLopDAO.getHocKiTungLopByMaLop(request.getSession().getAttribute("maLop") + "");
+		String maNamHoc = "na";
+		out.print("var length1 = 0;");
+		for(int i=0;i<hocKiTungLopList.size();i++) {
+			HocKiTungLopModel hocKiTungLop = hocKiTungLopList.get(i);
+			if(!maNamHoc.equals(hocKiTungLop.getMaNamHoc())) {
+				out.print("var opt = new Option('" + hocKiTungLop.getNamHoc() + "', '" + hocKiTungLop.getMaNamHoc() + "');");
+				out.print("document.getElementById('cboNamHoc').add(opt, undefined);");
+				out.print("var namHoc = new Object();");
+				out.print("namHoc.maNamHoc = '" + hocKiTungLop.getMaNamHoc() + "';");
+				out.print("namHoc.namHoc = '" + hocKiTungLop.getNamHoc() + "';");
+				out.print("var hocKiList = new Array();");
+				out.print("namHoc.hocKiList = hocKiList;");
+				out.print("var length2 = 0;");
+				out.print("namHocList[length1] = namHoc;");
+				out.print("length1++;");
+				maNamHoc = hocKiTungLop.getMaNamHoc();
+			}
+			out.print("var hocKi = '" + hocKiTungLop.getHocKi() +  "';");
+			out.print("hocKiList[length2] = hocKi;");
+			out.print("length2++;");
+		}
+		out.print("document.getElementById('cboNamHoc').value = namHocTC;");	
+		out.print("changeNamHocSinhVien();");
+		if(request.getParameter("HocKi") != null) {
+			out.print("document.getElementById('cboHocKy').value = hocKiTC;");
+			dangKyMonHocList = XemDiemDAO.getShowDiemSinhVien(request.getSession().getAttribute("maThanhVien") + "", request.getParameter("HocKi") + "", (String)session.getAttribute("maLop"), request.getParameter("MaNamHoc") + "");
+			bangDiemHocKi = BangDiemHocKiDAO.getBangDiemHocKiByHocKiAndMaLopAndMaNamHocAndMaSinhVien(request.getParameter("MaNamHoc") + "", request.getSession().getAttribute("maThanhVien") + "", request.getParameter("HocKi") + "", (String)session.getAttribute("maLop"));
+		}
+	}
+	else {
+		if(request.getParameter("MaNamHoc") != null) {
+			out.print("namHocTC = '" + request.getParameter("MaNamHoc") + "';");
+			out.print("hocKiTC = '" + request.getParameter("HocKi") + "';");
+			hocKiTungLopList = HocKiTungLopDAO.getHocKiTungLopByMaNamHocAndHocKiAndMaGiaoVien(request.getParameter("MaNamHoc"), request.getParameter("HocKi"), request.getSession().getAttribute("maThanhVien") + "");
+			out.print("var length1 = 0;");
+			for(int i=0;i<hocKiTungLopList.size();i++) {
+				HocKiTungLopModel hocKiTungLop = hocKiTungLopList.get(i);
+				out.print("var lopHoc = new Object();");
+				out.print("lopHoc.maLopHoc = '" + hocKiTungLop.getMaLop() + "';");
+				out.print("lopHoc.maHKTL = '" + hocKiTungLop.getMaHocKiTungLop() + "';");
+				out.print("lopHoc.kiHieuLop = '" + hocKiTungLop.getKiHieuLop() + "';");
+				out.print("var opt = new Option('" + hocKiTungLop.getKiHieuLop() + "', '" + hocKiTungLop.getMaHocKiTungLop() + "');");
+				out.print("document.getElementById('cboLop').add(opt, undefined);");
+				out.print("var monHocTKBList = new Array();");
+				out.print("var length2 = 0;");
+				for(int j=0;j<hocKiTungLopList.get(i).getMonHocTKBList().size();j++) {
+					MonHocTKBModel monHocTKB = hocKiTungLopList.get(i).getMonHocTKBList().get(j);
+					out.print("var monHocTKB = new Object();");
+					out.print("monHocTKB.maMonHocTKB = '" + monHocTKB.getMaMonHocTKB() + "';");
+					out.print("monHocTKB.maMonHoc = '" + monHocTKB.getMaMonHoc() + "';");
+					out.print("monHocTKB.tenMonHoc = '" + monHocTKB.getTenMonHoc() + "';");
+					out.print("monHocTKBList[length2] = monHocTKB;");
+					out.print("length2++;");
+					//out.print("var opt = new Option('" + monHocTKB.getMaMonHocTKB() + "', '" + monHocTKB.getTenMonHoc() + "')");
+					//out.print("document.getElementById('cboMonHoc').add(opt, undefined);");
+				}
+				out.print("lopHoc.monHocTKBList = monHocTKBList;");
+				out.print("lopHocList[length1] = lopHoc;");
+			}
+			out.print("document.getElementById('cboNamHoc').value = namHocTC;");
+			out.print("document.getElementById('cboHocKy').value = hocKiTC;");
+			if(request.getParameter("maMonHocTKB") != null) {
+				out.print("maHKTLTC = '" + request.getParameter("maHKTL") + "';");
+				out.print("document.getElementById('cboLop').value = maHKTLTC;");
+				out.print("document.getElementById('cboHocKy').value = hocKiTC;");
+				out.print("changeLopHoc();");
+				maMonHocTKB = request.getParameter("maMonHocTKB") + "";
+				if(request.getAttribute("soDiemMonHoc") != null) {
+					soDiemMonHoc = (SoDiemMonHocModel)request.getAttribute("soDiemMonHoc");
+					out.print("path = 'HungVuongISO/XemDiem/';");
+				} else
+					soDiemMonHoc = SoDiemMonHocDAO.getSoDiemMonHocByMaMonHocTKB(maMonHocTKB);
+				out.print("maMonHocTC = '" + request.getParameter("maMonHoc") + "-" + request.getParameter("maMonHocTKB") + "';");
+				out.print("document.getElementById('cboMonHoc').value = '" + request.getParameter("maMonHocTKB") + "-" + request.getParameter("maMonHoc") + "';");
+			}
+		}
+	}
 	if(request.getParameter("monHocTKB") != null) {
 		maMonHocTKB = request.getParameter("monHocTKB");
 		maMonHoc = request.getParameter("monHoc");
 		maGiaoVien = request.getParameter("maGiaoVien");
 	}
-	else {
-		if(khoaList.size() > 0) {
-			maMonHocTKB = khoaList.get(0).getLopHocList().get(0).getNamHocList().get(0).getHocKyList().get(0).getMonHocTKBList().get(0).getMaMonHocTKB();
-			maMonHoc = khoaList.get(0).getLopHocList().get(0).getNamHocList().get(0).getHocKyList().get(0).getMonHocTKBList().get(0).getMaMonHoc();
-			maGiaoVien = khoaList.get(0).getLopHocList().get(0).getNamHocList().get(0).getHocKyList().get(0).getMonHocTKBList().get(0).getMaGiaoVien();
-		}
-	}
-	
-	if(khoaList.size() > 0)
-		out.print("document.getElementById('cboKhoa').innerHTML = '';");
-	for(int i=0;i<khoaList.size();i++) {
-		out.print("var objKhoa = new Object();");
-		out.print("objKhoa.maKhoa = '" + khoaList.get(i).getMaKhoa() + "';");
-		out.print("objKhoa.tenKhoa = '" + khoaList.get(i).getTenKhoa() + "';");
-		out.print("var opt = new Option(objKhoa.tenKhoa, objKhoa.maKhoa);");
-		out.print("document.getElementById('cboKhoa').add(opt, undefined);");
-		out.print("var arrLopHoc = new Array();");
-		for(int j=0;j<khoaList.get(i).getLopHocList().size();j++) {
-			out.print("var objLopHoc = new Object();");
-			out.print("objLopHoc.maLop = '" + khoaList.get(i).getLopHocList().get(j).getMaLopHoc() + "';");
-			out.print("objLopHoc.kiHieuLop = '" + khoaList.get(i).getLopHocList().get(j).getKiHieu() + "';");
-			out.print("var arrNamHoc = new Array();");
-			for(int k=0;k<khoaList.get(i).getLopHocList().get(j).getNamHocList().size();k++) {
-				out.print("var objNamHoc = new Object();");
-				out.print("objNamHoc.maNamHoc = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getMaNamHoc() + "';");
-				out.print("objNamHoc.namBatDau = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getNamBatDau() + "';");
-				out.print("objNamHoc.namKetThuc = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getNamKetThuc() + "';");
-				out.print("var arrHocKi = new Array();");
-				for(int m=0;m<khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().size();m++) {
-					out.print("var objHocKi = new Object();");
-					out.print("objHocKi.hocKi = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getHocKy() + "';");
-					out.print("var arrMonHocTKB = new Array();");
-					for(int n=0;n<khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().size();n++) {
-						out.print("var objMonHocTKB = new Object();");
-						out.print("objMonHocTKB.maMonHocTKB = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().get(n).getMaMonHocTKB() + "';");
-						out.print("objMonHocTKB.tenMonHoc = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().get(n).getTenMonHoc() + "';");
-						out.print("objMonHocTKB.tenGiaoVien = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().get(n).getTenGiaoVien() + "';");
-						out.print("objMonHocTKB.maMonHoc = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().get(n).getMaMonHoc() + "';");
-						out.print("objMonHocTKB.maGiaoVien = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getHocKyList().get(m).getMonHocTKBList().get(n).getMaGiaoVien() + "';");
-						out.print("arrMonHocTKB[arrMonHocTKB.length] = objMonHocTKB;");
-					}
-					out.print("objHocKi.monHocTKBList = arrMonHocTKB;");
-					out.print("arrHocKi[arrHocKi.length] = objHocKi;");
-				}
-				out.print("objNamHoc.hocKiList = arrHocKi;");
-				out.print("arrNamHoc[arrNamHoc.length] = objNamHoc;");
-			}
-			out.print("objLopHoc.namHocList = arrNamHoc;");
-			out.print("arrLopHoc[arrLopHoc.length] = objLopHoc;");
-		}
-		out.print("objKhoa.lopHocList = arrLopHoc;");
-		out.print("khoaList[khoaList.length] = objKhoa;");
-	}
-	out.print("selectKhoa(2);");
-} else {
-	String namHoc = "na", hocKi = "na";
-	out.print("var arrHocKi = new Array();");
-	ArrayList<ThoiKhoaBieuModel> list = ThoiKhoaBieuDAO.getAllThoiKhoaBieuApproveByMaLop((String) session.getAttribute("maLop"));
-	sinhVienList = ChiTietThanhVienDAO.getAllChiTietThanhVienByMaLop((String) session.getAttribute("maLop"));
-	if(list.size() > 0)
-		out.print("document.getElementById('cboNamHoc').innerHTML = '';");
-	for(int i=0;i<list.size();i++) {
-		if(!hocKi.equals(list.get(i).getHocKi()) || !namHoc.equals(list.get(i).getNam1())) {
-			out.print("arrHocKi[arrHocKi.length] = '" + list.get(i).getHocKi() + "';");
-		}
-		if(!namHoc.equals(list.get(i).getNam1())) {
-			out.print("var namHoc = new Object();");
-			out.print("namHoc.nam1 = '" + list.get(i).getNam1() + "';");
-			out.print("namHoc.nam2 = '" + list.get(i).getNam2() + "';");
-			out.print("namHoc.hocKiList = arrHocKi;");
-			out.print("var arrHocKi = new Array();");
-			out.print("var opt = new Option(namHoc.nam1 + '-' + namHoc.nam2, namHoc.nam1);");
-			out.print("document.getElementById('cboNamHoc').add(opt,undefined);");
-			out.print("namHocList[namHocList.length] = namHoc;");
-		}
-			
-	}
-	out.print("document.getElementById('cboNamHoc').value = '" + request.getParameter("namHoc") + "';");
-	out.print("selectNamHocSinhVien();");
-	out.print("document.getElementById('cboHocKy').value = '" + request.getParameter("hocKi") + "'");
-	if(request.getParameter("maSinhVien") != null) {
-		maSinhVien = request.getParameter("maSinhVien");
-		hocKyChon = request.getParameter("hocKyChon");
-	}
-	else {
-		maSinhVien = (String) request.getSession().getAttribute("maThanhVien");
-		hocKyChon = list.get(0).getHocKi();
-	}
-}
-	ArrayList<BaiKiemTraModel> baiKiemTraList =  BaiKiemTraDAO.getAllBaiKiemTraByMaMonHocOrderByTenBaiKiemTra(maMonHoc);
+	ArrayList<BaiKiemTraModel> baiKiemTraList =  BaiKiemTraDAO.getAllBaiKiemTraByMaMonHocOrderByTenBaiKiemTra(request.getParameter("maMonHoc"));
 %>
 	
 }
-function selectKhoa(x)
+function changeLopHoc()
 {
-	if(x == 2)
-		document.getElementById("cboKhoa").value = <%="'" + request.getParameter("khoa") + "'"%>;
-	if(document.getElementById("cboKhoa").value != '') {
-		var maKhoa = document.getElementById("cboKhoa").value;
-		document.getElementById('cboLopHoc').innerHTML = '';
-		for(var i=0;i<khoaList.length;i++)
-		{
-			var objKhoa = new Object();
-			objKhoa = khoaList[i];
-			if(objKhoa.maKhoa == maKhoa)
-			{
-				lopHocList = objKhoa.lopHocList;
-				for(var j=0;j<lopHocList.length;j++)
-				{
-					var objLopHoc = new Object();
-					objLopHoc = lopHocList[j];
-					var opt = new Option(objLopHoc.kiHieuLop, objLopHoc.maLop);
-					document.getElementById('cboLopHoc').add(opt, undefined);
-				}
-				break;
-			}
-		}
-		selectLopHoc(x);
-	}
-}
-function selectLopHoc(x)
-{
-	if(x == 2)
-		document.getElementById('cboLopHoc').value = <%="'" + request.getParameter("lop") + "'"%>;
-	var maLop = document.getElementById("cboLopHoc").value;
-	document.getElementById('cboNamHoc').innerHTML = '';
+	var maHKTL = document.getElementById("cboLop").value;
+	document.getElementById('cboMonHoc').innerHTML = '';
+	var opt = new Option('	---		Chọn	---	 ', '');
+	document.getElementById('cboMonHoc').add(opt, undefined);
 	for(var i=0;i<lopHocList.length;i++)
 	{
-		var objLopHoc = new Object();
-		objLopHoc = lopHocList[i];
-		if(objLopHoc.maLop == maLop)
+		var lopHoc = new Object();
+		lopHoc = lopHocList[i];
+		if(lopHoc.maHKTL == maHKTL)
 		{
-			namHocList = objLopHoc.namHocList;
-			for(var j=0;j<namHocList.length;j++)
-			{
-				var objNamHoc = new Object();
-				objNamHoc = namHocList[j];
-				var opt = new Option(objNamHoc.namBatDau + '-' + objNamHoc.namKetThuc, objNamHoc.maNamHoc);
-				document.getElementById('cboNamHoc').add(opt, undefined);
-			}
-			break;
-		}
-	}
-	selectNamHoc(x);
-}
-function selectNamHoc(x)
-{
-	if(x== 2)
-		document.getElementById('cboNamHoc').value = <%="'" +request.getParameter("namHoc") + "'"%>;
-	var maNam = document.getElementById("cboNamHoc").value;
-	document.getElementById('cboHocKy').innerHTML = '';
-	for(var i=0;i<namHocList.length;i++)
-	{
-		var objNamHoc = new Object();
-		objNamHoc = namHocList[i];
-		if(objNamHoc.maNamHoc == maNam)
-		{
-			hocKiList = objNamHoc.hocKiList;
-			for(var j=0;j<hocKiList.length;j++)
-			{
-				var objHocKi = new Object();
-				objHocKi = hocKiList[j];
-				var opt = new Option(objHocKi.hocKi, objHocKi.hocKi);
-				document.getElementById('cboHocKy').add(opt, undefined);
-			}
-			break;
-		}
-	}
-	selectHocKi(x);
-}
-function selectHocKi(x)
-{
-	if(x == 2)
-		document.getElementById('cboHocKy').value = <%="'" + request.getParameter("hocKi") + "'"%>;
-	var hocKy = document.getElementById("cboHocKy").value;
-	document.getElementById('cboMonHoc').innerHTML = '';
-	for(var i=0;i<hocKiList.length;i++)
-	{
-		var objHocKi = new Object();
-		objHocKi = hocKiList[i];
-		if(objHocKi.hocKi == hocKy)
-		{
-			monHocTKBList = objHocKi.monHocTKBList;
+			monHocTKBList = lopHoc.monHocTKBList;
 			for(var j=0;j<monHocTKBList.length;j++)
 			{
-				var objMonHocTKB = new Object();
-				objMonHocTKB = monHocTKBList[j];
-				var opt = new Option(objMonHocTKB.tenMonHoc, objMonHocTKB.maMonHocTKB);
+				var monHocTKB = new Object();
+				monHocTKB = monHocTKBList[j];
+				var opt = new Option(monHocTKB.tenMonHoc, monHocTKB.maMonHocTKB + "-" + monHocTKB.maMonHoc);
 				document.getElementById('cboMonHoc').add(opt, undefined);
 			}
 			break;
 		}
 	}
-	selectMonHoc(x);
 }
-function selectMonHoc(x)
+function changeNamHocSinhVien()
 {
-	if(x == 2)
-		document.getElementById('cboMonHoc').value = <%="'" + maMonHocTKB + "'"%>;
-	var maMonHocTKB = document.getElementById("cboMonHoc").value;
-	document.getElementById('txtGiaoVien').value = '';
-	for(var i=0;i<monHocTKBList.length;i++)
-	{
-		var objMonHocTKB = new Object();
-		objMonHocTKB = monHocTKBList[i];
-		if(objMonHocTKB.maMonHocTKB == maMonHocTKB)
-		{
-			document.getElementById('txtGiaoVien').value = objMonHocTKB.tenGiaoVien;
-			document.getElementById('txtMaMonHoc').value = objMonHocTKB.maMonHoc;
-			document.getElementById('txtMaGiaoVien').value = objMonHocTKB.maGiaoVien;
-			break;
-		}
-	}
-}
-function selectNamHocSinhVien()
-{
-	var nam1 = document.getElementById("cboNamHoc").value;
+	var maNamHoc = document.getElementById("cboNamHoc").value;
 	document.getElementById('cboHocKy').innerHTML = '';
+	var opt = new Option('	---		Chọn	---	 ', '');
+	document.getElementById('cboHocKy').add(opt, undefined);
 	for(var i=0;i<namHocList.length;i++)
 	{
-		var objNamHoc = new Object();
-		objNamHoc = namHocList[i];
-		if(objNamHoc.nam1 == nam1)
+		var namHoc = new Object();
+		namHoc = namHocList[i];
+		if(namHoc.maNamHoc == maNamHoc)
 		{
-			hocKiList = objNamHoc.hocKiList;
+			hocKiList = namHoc.hocKiList;
 			for(var j=0;j<hocKiList.length;j++)
 			{
-				var opt = new Option(hocKiList[i], hocKiList[i]);
+				var opt = new Option(hocKiList[j], hocKiList[j]);
 				document.getElementById('cboHocKy').add(opt, undefined);
 			}
 			break;
 		}
 	}
-}
-
-function search()
-{
-	document.getElementById('actionType').value = 'GiaoVien';
-	document.forms['ShowDiem'].submit();
-}
-function searchOfSinhVien()
-{
-	document.getElementById('actionType').value = 'SinhVien';
-	document.forms['ShowDiem'].submit();
 }
 function capNhat()
 {
 	document.getElementById('actionType').value = 'CapNhatDiem';
 	document.forms['ShowDiem'].submit();
 }
-
+function selectNamHoc()
+{
+	var namHoc = document.getElementById('cboNamHoc').value;
+	var hocKi = document.getElementById('cboHocKy').value;
+	if(namHoc == '')
+	{
+		alert("Năm học chọn sai !!!");
+		document.getElementById('cboLopHoc').value = namHocTC;
+	}
+	else if(hocKi != '')
+	{
+		location.href = path + "ShowDiem.jsp?MaNamHoc=" + namHoc + "&HocKi=" + hocKi;
+	}
+}
+function selectHocKi()
+{
+	var namHoc = document.getElementById('cboNamHoc').value;
+	var hocKi = document.getElementById('cboHocKy').value;
+	if(hocKi == '') 
+	{
+		alert("Học kỳ chọn sai !!!");
+		document.getElementById('cboHocKy').value = hocKiTC;
+	}
+	else if(namHoc != '')
+	{
+		location.href = path + "ShowDiem.jsp?MaNamHoc=" + namHoc + "&HocKi=" + hocKi;
+	}
+}
+function selectLop()
+{
+	var namHoc = document.getElementById('cboNamHoc').value;
+	var hocKi = doument.getElementById('cboHocKy').value;
+	var lop = doument.getElementById('cboLop').value;
+	var monHoc = document.getElementById('cboMonHoc').value;
+	if(lop == '')
+	{
+		alert("Lớp chọn sai !!!");
+		document.getElementById('cboLopHoc').value = maHKTLTC;
+	}
+	else
+		changeLopHoc();
+}
+function selectMonHoc()
+{
+	var namHoc = document.getElementById('cboNamHoc').value;
+	var hocKi = document.getElementById('cboHocKy').value;
+	var lop = document.getElementById('cboLop').value;
+	var str = document.getElementById('cboMonHoc').value.split("-");
+	if(document.getElementById('cboMonHoc').value == '')
+	{
+		alert("Môn học chọn sai");
+		document.getElementById('cboMonHoc').value = monHocTC;
+	}
+	else
+		location.href = path + "ShowDiem.jsp?MaNamHoc=" + namHoc + "&HocKi=" + hocKi + "&maMonHoc=" + str[1] + "&maMonHocTKB=" + str[0] + "&maHKTL=" + lop;
+	                  	
+}
+function getNamHoc(value)
+{
+	namHocTC = value;	
+}
+function getHocKi(value)
+{
+	hocKiTC = value;
+}
+function getLop(value)
+{
+	maHKTLTC = value;
+}
+function getMonHoc(value)
+{
+	monHocTC = value;
+}
+function guiSoDiem()
+{
+	document.getElementById('actionType').value = 'GuiSoDiem';
+	document.forms['ShowDiem'].submit();
+}
 </script>
 </head>
 <body onload="pageLoad();">
@@ -342,37 +313,12 @@ function capNhat()
 <c:set var="MaThanhVien" value='<%= (String) session.getAttribute("maThanhVien") %>'></c:set>
 <c:set var = "VaiTroSV" value="<%=Constant.MA_VAI_TRO_HS%>"/>
 	<c:if test="${sessionScope.maVaiTro eq VaiTroSV}" >
-		
-		<c:set var = "MonHocList" value = '<%=XemDiemDAO.getShowDiemSinhVien(maSinhVien, hocKyChon, (String)session.getAttribute("maLop")) %>'/>
+		<c:set var = "BangDiemHocKi" value = "<%=bangDiemHocKi %>"/>
+		<c:set var = "MonHocList" value = "<%=dangKyMonHocList %>"/>
 		<table style="background-color: transparent;">
 			<tr style="background-color: transparent;"><td colspan="9"><div class = "div_thanhvientieude">Bảng Điểm</div></td></tr>
 			
-			<tr style="background-color: transparent;">
-				
-				<th style="background-color: #99bff9" align="right">
-					Tên SV
-				</th>
-				<th style="background-color: #99bff9" align="left">
-					<c:choose>
-						<c:when test = "${empty param.maSinhVien}">
-							<c:set var = "MaSV" value = "${MaThanhVien}"/>
-						</c:when>
-						<c:otherwise>
-							<c:set var = "MaSV" value = "${param.maSinhVien}"/>
-						</c:otherwise>
-					</c:choose>
-					<c:set var = "SinhVienList" value = "<%=sinhVienList %>"/>
-					<select name="cboTenSV" id="cboTenSV">
-						<c:forEach var="SinhVien" items="${SinhVienList}">
-							<c:set var = "i" value = "1"/>
-							<option value="${SinhVien.maThanhVien }" <c:if test = "${MaSV eq SinhVien.maThanhVien}">selected</c:if>>${SinhVien.hoThanhVien} ${SinhVien.tenLot} ${SinhVien.tenThanhVien }</option>
-						</c:forEach>
-						<c:if test="${empty i}">
-							<option value = "">Không có</option>
-						</c:if>
-					</select>
-				</th>
-				
+			<tr style="background-color: transparent;">				
 				<th style="background-color: #99bff9" align="left">
 					Lớp học
 				</th>
@@ -384,16 +330,16 @@ function capNhat()
 					Năm học
 				</th>
 				<th style="background-color: #99bff9" align="left">
-					<select id = "cboNamHoc" name = "cboNamHoc" onchange="selectNamHocSinhVien()">
-						<option value = "">Không có</option>
+					<select id = "cboNamHoc" name = "cboNamHoc" onchange="changeNamHocSinhVien()" onclick = "getNamHoc(this.value);">
+						<option value = "">		---		Chọn	---		</option>
 					</select>
 				</th>
 				<th style="background-color: #99bff9" align="left">
 					Học kỳ
 				</th>
 				<th style="background-color: #99bff9" align="left">
-					<select name="cboHocKy" id="cboHocKy">
-						<option value = "">Không có</option>
+					<select name="cboHocKy" id="cboHocKy" onclick="getHocKi();" onchange="selectHocKi(this.value);">
+						<option value = "">		---		Chọn	---		</option>
 					</select>
 				</th>
 				
@@ -420,15 +366,15 @@ function capNhat()
 			<c:forEach var = "MonHoc" items="${MonHocList}">
 				<%c++;%>
 				<script type="text/javascript" language="JavaScript">
-					var heSo = ${MonHoc.user1};
+					//var heSo = ${MonHoc.user1};
 					<%
 						//if(c != 1) {
 							out.print("document.getElementById('td1_" + (c-1) + "').rowSpan = " + c1 + ";");
 							out.print("document.getElementById('td2_" + (c-1) + "').rowSpan = " + c1 + ";");
 							out.print("if(document.getElementById('td3_" + (c-1) + "') != null) {");
-								out.print("document.getElementById('td3_" + (c-1) + "').rowSpan = " + c1 + ";");
-								out.print("soMonHoc+=heSo;");
-								out.print("TBHocKy += parseFloat(document.getElementById('td3_" + (c-1) + "').innerHTML)*heSo;}");
+								out.print("document.getElementById('td3_" + (c-1) + "').rowSpan = " + c1 + ";}");
+								//out.print("soMonHoc+=heSo;");
+								//out.print("TBHocKy += parseFloat(document.getElementById('td3_" + (c-1) + "').innerHTML)*heSo;}");
 						//}
 						c1 = 0;
 					%>
@@ -480,91 +426,75 @@ function capNhat()
 				document.getElementById("txtTBMHocKy").innerHTML = (TBHocKy/soMonHoc).toFixed(2);
 			</script>
 		</table>
+		<c:choose>
+			<c:when test = "${not empty param.HocKi}">
+				Điểm TB các môn : ${BangDiemHocKi.diemTrungBinh }<br/>
+				Điểm rèn luyện : ${BangDiemHocKi.diemRenLuyen }<br/>
+				Điểm TB học kì : ${BangDiemHocKi.diemTBHocKi }<br/>
+				Học lực : ${BangDiemHocKi.hocLuc }<br/>
+				Hạnh kiểm : ${BangDiemHocKi.hanhKiem }
+			</c:when>	
+		</c:choose>
 	</c:if>
 	
 	<c:if test="${sessionScope.maVaiTro ne VaiTroSV}">
-	<c:choose>
-		<c:when test = "${empty param.capNhat}">
-			<c:set var = "SinhVienList" value = "<%=XemDiemDAO.getShowDiem(maMonHocTKB) %>" scope="session"/>
-		</c:when>
-		<c:otherwise>
-			<c:set var = "SinhVienList" value = '<%=(ArrayList<DangKyMonHocModel>) session.getAttribute("dangKyMonHocList")  %>' scope="session"/>
-		</c:otherwise>
-	</c:choose>	
+	<c:set var = "SoDiemMonHoc" value = "<%=soDiemMonHoc %>" scope="session"/>	
+		<c:choose>
+			<c:when test="${param.CapNhat eq 'ThanhCong'}">
+				Cập nhật điểm thành công
+			</c:when>
+			<c:when test="${param.CapNhat eq 'KoThanhCong'}">
+				Cập nhật điểm không thành công
+			</c:when>
+			<c:when test="${param.Gui eq 'ThanhCong'}">
+				Gửi sổ điểm thành công
+			</c:when>
+			<c:when test="${param.Gui eq 'KoThanhCong'}">
+				Gửi sổ điểm không thành công
+			</c:when>
+		</c:choose>
 		<table style="background-color: transparent;">
-			<tr style="background-color: transparent;"><td colspan="7"><div class = "div_thanhvientieude">Danh Sách Điểm</div></td></tr>
+			<tr style="background-color: transparent;"><td colspan="5"><div class = "div_thanhvientieude">Bảng Điểm Học Kỳ</div></td></tr>
 			
 			<tr style="background-color: transparent;">
-				<td colspan="10">
-					<c:if test="${not empty param.CapNhat}">
-						<b class="msg">Cập nhật điểm thành công !!!</b>
-					</c:if>
-					<c:if test="${not empty param.Error}">
-						<b class="err">Cập nhật điểm thất bại !!!</b>
-					</c:if>
-				</td>
-			</tr>
-			
-			<tr style="background-color: transparent;">
+								
+				<th style="background-color: #99bff9" align="left">Năm học</th>
+				
 				<th style="background-color: #99bff9" align="left">
-					Khoa
-				</th>
-				<th style="background-color: #99bff9" align="left">
-			
-					<select name="cboKhoa" id="cboKhoa" onchange="selectKhoa('1');">
-						<option value = "">Không có</option>
+					<select name="cboNamHoc" id="cboNamHoc" onchange="selectNamHoc();" onclick="getNamHoc(this.value);">
+						<option value = "">		---		Chọn	---		</option>
+						<c:forEach var = "NamHoc" items="<%=NamHocDAO.getAllNamHoc() %>">
+							<option value = "${NamHoc.maNamHoc }">${NamHoc.namBatDau } - ${NamHoc.namKetThuc }</option>
+						</c:forEach>
 					</select>
 				</th>
-				<th style="background-color: #99bff9" align="left">
-					Lớp
-				</th>
-				<th style="background-color: #99bff9" align="left">
-					<select name="cboLopHoc" id="cboLopHoc" onchange="selectLopHoc('1');">
-							<option value = "">Không có</option>
-					</select>
-				</th>
-				<th style="background-color: #99bff9" align="left">
-					Năm học
-				</th>
-				<th style="background-color: #99bff9" align="left">
-					<select name="cboNamHoc" id="cboNamHoc" onchange="selectNamHoc('1');">
-						<option value = "">Không có</option>
-					</select>
-				</th>
-				
-				
-				
-				<th style="background-color: #99bff9" rowspan="2">
-					<a href = "javascript: search()"><img src="<%=request.getContextPath()%>/images/buttom/timkiem.png" alt="tìm kiếm" border = "0" /></a>
-				</th>
-			</tr>
-			
-			<tr style="background-color: transparent;">
 				<th style="background-color: #99bff9" align="left">
 					Học kỳ
 				</th>
 				<th style="background-color: #99bff9" align="left">
-					<select name="cboHocKy" id="cboHocKy" onchange="selectHocKi('1');">
-						<option value = "">Không có</option>
+					<select name="cboHocKy" id="cboHocKy" onchange="selectHocKi();" onclick="getHocKi(this.value)">
+						<option value = "">		---		Chọn	---		</option>
+						<c:forEach var="HocKy" begin="1" end="4">
+							<option value = "${HocKy }">${HocKy }</option>
+						</c:forEach>
+					</select>
+				</th>
+				<th style="background-color: #99bff9" align="left">
+					Lớp học
+				</th>
+				<th style="background-color: #99bff9" align="left">
+					<select name="cboLop" id="cboLop" onchange="changeLopHoc();" onclick="getLop(this.value)">
+						<option value = "">		---		Chọn	---		</option>
 					</select>
 				</th>
 				<th style="background-color: #99bff9" align="left">
 					Môn học
 				</th>
 				<th style="background-color: #99bff9" align="left">
-					<select name="cboMonHoc" id="cboMonHoc" onchange="selectMonHoc('1');">
-						<option value = "">Không có</option>
+					<select name="cboMonHoc" id="cboMonHoc" onchange="selectMonHoc();" onclick="getMonHoc(this.value)">
+						<option value = "">		---		Chọn	---		</option>
 					</select>
 				</th>
-				
-				<th style="background-color: #99bff9" align="left">
-					Giáo viên
-				</th>
-				<th style="background-color: #99bff9" align="left">
-					<input type="text" id = "txtGiaoVien" readonly="readonly" value = "Không có"/>
-				</th>
-				
-				
 			</tr>
 		</table>
 		<%int count = 0, count1 = 0; %>
@@ -597,7 +527,7 @@ function capNhat()
 			</tr>
 			<%int c = 1, iterator = 0;%>
 			<c:set var = "MaTenBaiKiemTra" value = "-1"/>
-			<c:forEach var = "SinhVien" items="${SinhVienList}">
+			<c:forEach var = "SinhVien" items="${SoDiemMonHoc.dangKyMonHocList}">
 				<c:set var = "ListDiem" value = "${SinhVien.chiTietDiemList}"/>
 				<c:set var = "i" value = "0"/>
 				<tr style="background-color: transparent;">
@@ -612,12 +542,12 @@ function capNhat()
 						<td style="background-color: transparent;">
 							
 							<input type="text"  name= "txtDiem<%=c%>_<%=iterator %>" id = "txtDiem<%=c%>_<%=iterator %>" onblur = "kiemTraSo(<%=c + "," + iterator %>)" onfocus="getSoDiem(<%=c + "," + iterator %>)"
-								<c:if test="${not empty ListDiem[i]}">
+								<c:if test="${ListDiem[i].diem ne '-1.0'}">
 									value = "${ListDiem[i].diem}"	
-									<c:set var = "i" value = "${i + 1}"/>
-									<c:set var = "MaTenBaiKiemTra" value = "${BaiKiemTra.maTenBaiKiemTra}"/>
 								</c:if>
 							size="5"/>	
+							<c:set var = "i" value = "${i + 1}"/>
+							<c:set var = "MaTenBaiKiemTra" value = "${BaiKiemTra.maTenBaiKiemTra}"/>
 							<input type = "hidden" id = "txtMaTenBaiKiemTra<%=c %>" value = "${MaTenBaiKiemTra }"/>	
 							 		
 						</td>
@@ -646,7 +576,7 @@ function capNhat()
 							tong += parseFloat(document.getElementById('txtDiem' + x + '_' + i).value);
 							soBai++;
 						}
-						else if(document.getElementById('txtMaTenBaiKiemTra'+x).value == <%="'" + Constant.MADIEM15 + "'"%> || document.getElmentById('txtMaTenBaiKiemTra').value == <%="'" + Constant.MADIEM1TIET + "'"%>)
+						else if(document.getElementById('txtMaTenBaiKiemTra'+x).value == <%="'" + Constant.MADIEM15 + "'"%> || document.getElementById('txtMaTenBaiKiemTra' + x).value == <%="'" + Constant.MADIEM1TIET + "'"%>)
 						{
 							tong += (parseFloat(document.getElementById('txtDiem' + x + '_' + i).value) * 2);
 							soBai = soBai + 2;
@@ -703,22 +633,23 @@ function capNhat()
 			}
 		</script>
 		<c:set var="maGiaoVien" value="<%= maGiaoVien %>"></c:set>
-		<%System.out.println(maGiaoVien);
-		System.out.println((String) session.getAttribute("maThanhVien"));
-			
-		%>
-		<c:if test="${maGiaoVien eq MaThanhVien}">
-			<table>
+		<table>
 				<tr align="center">
 					<td>
 						<a href = "javascript: capNhat()">	
 							<img src="<%=request.getContextPath()%>/images/buttom/capnhat.png" border = "0" />
+						</a>	
+							<c:if test = "${SoDiemMonHoc.tinhTrang eq 0}">
+								<a href = "javascript: guiSoDiem();">
+									<img src="<%=request.getContextPath()%>/images/buttom/gui.png" border = "0" />
+								</a>	
+							</c:if>
+						<a href = "<%=request.getContextPath() + Constant.PATH_RES.getString("xemDiem.InDiemMonHocShortPath") + "?maMonHocTKB=" + request.getParameter("maMonHocTKB")%>">	
 							<img src="<%=request.getContextPath()%>/images/buttom/indiem.png" />
 						</a>
 					</td>
 				</tr>
 			</table>
-		</c:if>
 		<input type="hidden"  name="txtMaGiaoVien" id="txtMaGiaoVien"/>
 	</c:if>
 	<input type="hidden" value = "" name="txtMaMonHoc" id = "txtMaMonHoc"/>
