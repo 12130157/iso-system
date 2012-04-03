@@ -86,6 +86,12 @@
 							out.print("arrMonHoc[arrMonHoc.length] = objMonHoc;");
 						}
 						for(int n=0;n<khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getNhomList().get(m).getThanhVienList().size();n++) {
+							if(n==0){
+								out.print("var objHocSinh = new Object();");
+								out.print("objHocSinh.maThanhVien = '';");
+								out.print("objHocSinh.tenThanhVien = '';");
+								out.print("arrHocSinh[arrHocSinh.length] = objHocSinh;");	
+							}
 							out.print("var objHocSinh = new Object();");
 							out.print("objHocSinh.maThanhVien = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getNhomList().get(m).getThanhVienList().get(n).getMaThanhVien() + "';");
 							out.print("objHocSinh.tenThanhVien = '" + khoaList.get(i).getLopHocList().get(j).getNamHocList().get(k).getNhomList().get(m).getThanhVienList().get(n).getTenThanhVien() + "';");
@@ -323,7 +329,7 @@
 			if(request.getParameter("MonHoc") != null)
 				MonHoc = request.getParameter("MonHoc");
 			if(request.getParameter("Nhom") != null)
-				Nhom = request.getParameter("ThoiGian");
+				Nhom = request.getParameter("Nhom");
 			if(request.getParameter("NgayHoc") != null)
 				NgayHoc = request.getParameter("NgayHoc");
 			int stt = 1 ;

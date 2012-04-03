@@ -322,7 +322,7 @@ function pageLoad(){
 			<tr style="background-color: transparent;">
 			<td><%=stt %></td>
 			<td>
-				<a href="<%=request.getContextPath() %>/DiemDanh/HocSinh/BaoCaoDiemDanhHS.jsp?Khoa=${obj.maKhoa }&Lop=${obj.maLop }&NamHoc=${obj.maNamHoc }&HocSinh=&MonHoc=${obj.maMonHoc }&Nhom=&NgayHoc=${obj.ngayBatDau}">
+				<a href="<%=request.getContextPath() %>/DiemDanh/HocSinh/BaoCaoDiemDanhHS.jsp?Khoa=${obj.maKhoa }&Lop=${obj.maLop }&NamHoc=${obj.maNamHoc }&HocSinh=&MonHoc=${obj.maMonHoc }&Nhom=<c:if test="${obj.nhom ne ''}">${obj.nhom}</c:if>&NgayHoc=${obj.ngayBatDau}">
 					${obj.tenGiaoVien}
 				</a>
 			</td>
