@@ -901,7 +901,7 @@ function validateInputNumber()
 				<select id = "ThoiGianHocTap" name="cboThoiGianHocTap">
 					<option value = null>--Select--</option>
 				</select> tuần.<br />
-				-   Thời gian thực học tối thiểu:<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "" name = "txtThoiGian4" readonly="readonly" onblur="validateInputNumber();"/> giờ.
+				-   Thời gian thực học:<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian4" id = "ThoiGian4" value = "" name = "txtThoiGian4" onblur="validateInputNumber();"/> giờ.
 				<!--  onclick="selectThoiGianToiThieu();" -->
 				<!--<select id = "ThoigianThucHocToiThieu" name="cboThoigianThucHocToiThieu">
 					<option>--Select--</option>
@@ -1224,7 +1224,7 @@ function validateInputNumber()
 		<td colspan="2"><div class = "div_tr">
 			<ul><li>Đề cương chi tiết chương trình môn học, module đào tạo nghề bắt buộc ( đính kèm).</li></ul>
 			<strong>V. CÔNG TÁC THI/ KIỂM TRA:</strong><br />
-				* Thi học kỳ:<br />
+				* Thi học kỳ, thi hết môn:<br />
 				
 				<textarea  rows="2" cols="70" style="background-color: transparent;" name="areaThiHocKi">${ChuongTrinhDaoTao.thiHocKi}</textarea>
 				
