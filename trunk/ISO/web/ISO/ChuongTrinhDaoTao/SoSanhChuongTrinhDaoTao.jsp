@@ -217,8 +217,8 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent;">
 				<td colspan = "2">
-					<p>- Thời gian thực học tối thiểu : ${CTDT.thoiGian3} tuần (${CTDT.thoiGian4} giờ) </p>
-					<p style="background-color: yellow;">- Thời gian thực học tối thiểu : ${CTDTSoSanh.thoiGian3} tuần (${CTDTSoSanh.thoiGian4} giờ) </p>
+					<p>- Thời gian thực học : ${CTDT.thoiGian3} tuần (${CTDT.thoiGian4} giờ) </p>
+					<p style="background-color: yellow;">- Thời gian thực học : ${CTDTSoSanh.thoiGian3} tuần (${CTDTSoSanh.thoiGian4} giờ) </p>
 				</td>
 		</tr>
 	</table>
@@ -560,7 +560,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent;">
 				<td colspan = "2">
-					<u>1/Thi học kì:</u>${sf:appendPTag(CTDT.thiHocKi)}
+					<u>1/Thi học kì, thi hết môn:</u>${sf:appendPTag(CTDT.thiHocKi)}
 				</td>
 		</tr>
 	</table>

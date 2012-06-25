@@ -209,7 +209,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian thực học tối thiểu : ${CTDT.thoiGian4} giờ </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian thực học : ${CTDT.thoiGian4} giờ </p>
 				</td>
 		</tr>
 	</table>
@@ -401,7 +401,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<u style="font-weight: bold">1/Thi học kì:</u>${sf:appendPTag(CTDT.thiHocKi)}
+					<u style="font-weight: bold">1/Thi học kì, thi hết môn:</u>${sf:appendPTag(CTDT.thiHocKi)}
 				</td>
 		</tr>
 	</table>
