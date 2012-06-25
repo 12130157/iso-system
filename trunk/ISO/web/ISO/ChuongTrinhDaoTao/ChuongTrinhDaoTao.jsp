@@ -908,18 +908,18 @@ function validateInputNumber()
 				</select> tuần ( giờ).-->
 				<c:if test="${not empty param.err and ChuongTrinhDaoTao.thoiGian4 eq ''}"><b class="error">(*)</b></c:if><br /><br />
 				-   Thời gian ôn, kiểm tra hết môn, thi: 
-				<input type = "text" size = "3" id = "ThoiGian5" style="background-color: transparent;" name="txtThoiGian5" readonly="readonly"/> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian6" id = "ThoiGian6" readonly="readonly"/> giờ)<br />
+				<input type = "text" size = "3" id = "ThoiGian5" style="background-color: transparent;" name="txtThoiGian5" /> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian6" id = "ThoiGian6"/> giờ)<br />
 				-   trong đó thi tốt nghiệp: 
-				<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian7" id = "ThoiGian7" readonly="readonly"/> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian8" id = "ThoiGian8" readonly="readonly"/> giờ).<br />
+				<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian7" id = "ThoiGian7"/> tuần (<input type = "text" size = "3" style="background-color: transparent;" name="txtThoiGian8" id = "ThoiGian8"/> giờ).<br />
 				<li>Phân bố thời gian thực học tối thiểu:</li><br />
 				-   Thời gian học các môn học chung bắt buộc: 
-				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo1" id = "PhanBo1" readonly="readonly"/> giờ.<br />
+				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo1" id = "PhanBo1"/> giờ.<br />
 				-   Thời gian học các môn học, module đào tạo nghề: 
-				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo2" id = "PhanBo2" value = "0" readonly="readonly"/> giờ.<br />
+				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo2" id = "PhanBo2" value = "0"/> giờ.<br />
 				-   Thời gian học lý thuyết:
-				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo3" id = "PhanBo3" value="0" readonly="readonly"/><br />
+				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo3" id = "PhanBo3" value="0"/><br />
 				-   Thời gian học thực hành:
-				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo4" id = "PhanBo4" value="0" readonly="readonly"/><br />
+				<input type = "text" size = "3" style="background-color: transparent;" name = "txtPhanBo4" id = "PhanBo4" value="0"/><br />
 			</ul>
 			<strong>IV. PHÂN PHỐI CHƯƠNG TRÌNH CÁC MÔN HỌC:</strong><br />
 			<ul>
