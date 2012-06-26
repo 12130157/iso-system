@@ -61,12 +61,15 @@ function loadPage()
 		out.print("if('" + request.getParameter("Them") + "' == 'null' || " + request.getParameter("maID") + " != null){");
 		out.print("if('" + chuongTrinhDaoTaoModel.getMaQuyetDinh() + "' != ''){");
 		out.print("document.getElementById('QuyetDinh').value = '" + chuongTrinhDaoTaoModel.getMaQuyetDinh() + "';");
-		out.print("selectQuyetDinh();}");
+		out.print("selectQuyetDinh();");
+		out.print("document.getElementById('ThoiGian5').value = '" + chuongTrinhDaoTaoModel.getThoiGian5() + "';");
+		out.print("document.getElementById('ThoiGian6').value = '" + chuongTrinhDaoTaoModel.getThoiGian6() + "';");
+		out.print("document.getElementById('ThoiGian7').value = '" + chuongTrinhDaoTaoModel.getThoiGian7() + "';");
+		out.print("document.getElementById('ThoiGian8').value = '" + chuongTrinhDaoTaoModel.getThoiGian8() + "';}");
 		out.print("if('" + chuongTrinhDaoTaoModel.getMaNghe() + "' != ''){");
 		out.print("document.getElementById('nghe').value = '" + chuongTrinhDaoTaoModel.getMaNghe() + "';");
 		out.print("selectNghe();");
 		out.print("document.getElementById('ThoiGianHocTap').value = '" + chuongTrinhDaoTaoModel.getThoiGian2() + "';}");
-		//out.print("document.getElementById('ThoigianThucHocToiThieu').value = '" + chuongTrinhDaoTaoModel.getThoiGian3() + "';}");
 		out.print("count1=1, count2=1, count3=1, dem = 0;");
 		if(request.getParameter("Them")== null || request.getParameter("maID") != null) {
 			for(int i=0;i<chuongTrinhDaoTaoModel.getChiTietMonHocCTDTModelList1().size();i++)
