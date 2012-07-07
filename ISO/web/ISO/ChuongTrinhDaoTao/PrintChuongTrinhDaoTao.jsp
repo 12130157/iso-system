@@ -286,7 +286,7 @@
 		<td rowspan = "3">STT</td>
 		<td rowspan = "3">Tên môn học, module</td>
 		<td colspan = "2">Thời gian  đào tạo</td>
-		<td colspan = "3">Thời gian của môn học, module (giờ)</td>
+		<td colspan = "4">Thời gian của môn học, module (giờ)</td>
 	</tr> 
 	<tr style="background-color: transparent; font-size: 16px;">
 		<td rowspan="2">Năm học</td>
