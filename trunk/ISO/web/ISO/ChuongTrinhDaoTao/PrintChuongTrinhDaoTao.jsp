@@ -292,11 +292,12 @@
 		<td rowspan="2">Năm học</td>
 		<td rowspan="2">Học kì</td>
 		<td rowspan="2">Tổng số</td>
-		<td colspan="2">Trong đó</td>
+		<td colspan="3">Trong đó</td>
 	</tr>
 	<tr style="background-color: transparent; font-size: 16px;">
 		<td>Lý thuyết</td>
 		<td>Thực hành</td>
+		<td>Kiểm Tra</td>
 	</tr>
 	<tr style="background-color: transparent; background-position: center; background-color: aqua; font-weight: bold; font-size: 16px">
 		<td><p></td>
@@ -306,6 +307,7 @@
 		<td>${TongSo_PhanI}</td>
 		<td>${TongSoLyThuyet_PhanI}</td>
 		<td>${TongSoThucHanh_PhanI}</td>
+		<td>&nbsp;</td>
 	</tr>
 	<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">
@@ -318,6 +320,7 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
+				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>
@@ -329,6 +332,7 @@
 			<td>${TongSo_PhanII}</td>
 			<td>${TongSoLyThuyet_PhanII}</td>
 			<td>${TongSoThucHanh_PhanII}</td>
+			<td>&nbsp;</td>
 		</tr>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">			
@@ -340,6 +344,7 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
+				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>	
@@ -351,6 +356,7 @@
 			<td>${TongSo_PhanIII}</td>
 			<td>${TongSoLyThuyet_PhanIII}</td>
 			<td>${TongSoThucHanh_PhanIII}</td>
+			<td>&nbsp;</td>
 		</tr>
 		<c:set var="ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3}"></c:set>
 		<c:forEach var = "iterator" items="${ChiTietList}">		
@@ -377,6 +383,7 @@
 				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
+				<td>${iterator.tinhChat}</td>
 			</tr>
 			<%count++; %>
 		</c:forEach>
@@ -388,6 +395,7 @@
 		<td>${TongSo_PhanI + TongSo_PhanII + TongSo_PhanIII}</td>
 		<td>${TongSoLyThuyet_PhanI + TongSoLyThuyet_PhanII + TongSoLyThuyet_PhanIII}</td>
 		<td>${TongSoThucHanh_PhanI + TongSoThucHanh_PhanII + TongSoThucHanh_PhanIII}</td>
+		<td></td>
 	</tr>	
 	</table>
 	</div>
