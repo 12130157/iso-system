@@ -4,6 +4,7 @@ drop procedure [dbo].[sp_ISO_UpdateChiTietKHGD]
 GO
 CREATE PROCEDURE sp_ISO_UpdateChiTietKHGD
 	@ID						int,
+	@tenChuong				nvarchar(4000),
 	@noiDungTH				nvarchar(4000),
 	@congViecChuanBi		nvarchar(4000),
 	@ngayCapNhatCuoi		datetime,
@@ -15,6 +16,7 @@ BEGIN
 	SET @ngayCapNhatCuoi = GETDATE()
 	UPDATE ChiTietKHGD
 	SET 
+		Ten_chuong				=	@tenChuong,
 		Noi_dung_TH				=	@noiDungTH,
 		Cong_viec_chuan_bi		=	@congViecChuanBi,
 		Ngay_cap_nhat_cuoi		=	@ngayCapNhatCuoi,

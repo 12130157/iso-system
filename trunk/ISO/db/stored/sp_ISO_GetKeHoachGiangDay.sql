@@ -62,7 +62,7 @@ BEGIN
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 	END
 
-	IF(@VAITRO = 5 AND @Ma_Nguoi_Tao <> '')
+	IF(@VAITRO = 5 AND @Ma_Nguoi_Tao <> '' OR @VAITRO = 6 AND @Ma_Nguoi_Tao <> '')
 	BEGIN
 		SET @Dieu_kien_ma_nguoi_tao = ' AND TB2.Ma_nguoi_tao = ' + @Ma_nguoi_tao
 		SET	@Dieu_kien_ma_bo_phan = ' OR G.ID='+@Ma_Bo_Phan
