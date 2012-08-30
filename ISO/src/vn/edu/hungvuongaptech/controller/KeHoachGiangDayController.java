@@ -64,7 +64,6 @@ public class KeHoachGiangDayController extends HttpServlet{
 				else if(request.getParameter("actionType").equalsIgnoreCase("emailNhacNho")){
 					sendMailsNhacNhoCacGiaoVien(request,response);		
 				}
-				
 			}
 		}
 		else{

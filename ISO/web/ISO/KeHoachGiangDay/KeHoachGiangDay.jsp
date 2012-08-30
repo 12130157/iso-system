@@ -329,7 +329,7 @@
 			var myObject = new Object();
 		    myObject.valueContent = objLT.innerHTML;
 		    myObject.titleContent =mapTitleByID(areaId); 
-		    myObject.quyen="false";
+		    myObject.quyen=document.getElementById("quyen").value;
 		    height=450;
 			width=450;
 		
@@ -338,7 +338,7 @@
 			
 			value =window.showModalDialog(<%String pathLT="'"+request.getContextPath()+"/ISO/GiaoAn/NhapText.jsp'"; out.print(pathLT);%>,myObject,"dialogHeight: "+height+"px; dialogWidth: "+width+"px; dialogTop:"+y+"px; dialogLeft:"+z+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
 			if(value!=false&&value!=undefined)
-				document.getElementById(x).innerHTML=value;						
+				document.getElementById(areaId).innerHTML=value;						
 		}
 	}
 

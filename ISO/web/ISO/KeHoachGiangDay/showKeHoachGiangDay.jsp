@@ -87,6 +87,7 @@
 	<c:set var = "giaoVien" value = '<%=Constant.GIAO_VIEN%>'> </c:set>
 	<c:set var = "truongBoMon" value = '<%=Constant.TRUONG_BO_MON%>'> </c:set>
 	<c:set var = "truongKhoa" value = '<%=Constant.TRUONG_KHOA%>'> </c:set>
+	<c:set var = "phoKhoa" value = '<%=Constant.PHO_KHOA%>'> </c:set>
 	<c:set var = "Hieu_Truong" value = '<%=Constant.HIEU_TRUONG%>'></c:set>
 	<c:set var = "NEW" value = '<%=Constant.TINHTRANG_NEW%>'> </c:set>
 	<c:set var = "SEND" value = '<%=Constant.TINHTRANG_SEND%>'> </c:set>
@@ -321,7 +322,7 @@
 								</c:if>
 								
 								<!-- TRUONG HOP ADMIN KHONG PHAI NGUOI TAO -->
-								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (maKhoa eq boPhanBGH and(objKHGD.tinhTrangHT ne NEW) ) or (vaiTro eq truongKhoa and(objKHGD.tinhTrang ne NEW) ))}">
+								<c:if test="${admin ne sessionScope.maThanhVien and (objKHGD.maNguoiTao eq sessionScope.maThanhVien or (maKhoa eq boPhanBGH and(objKHGD.tinhTrangHT ne NEW) ) or ((vaiTro eq truongKhoa or vaiTro eq phoKhoa) and (objKHGD.tinhTrang ne NEW) ))}">
 									
 									<tr style="background-color: transparent;">
 										<td width="120">

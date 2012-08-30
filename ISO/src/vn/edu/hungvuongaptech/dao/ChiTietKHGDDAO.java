@@ -60,8 +60,9 @@ public class ChiTietKHGDDAO {
 		try {
 			CallableStatement csmt = DataUtil
 				.getConnection()
-					.prepareCall("{call sp_ISO_UpdateChiTietKHGD(?,?,?,?,?,?)}");		
+					.prepareCall("{call sp_ISO_UpdateChiTietKHGD(?,?,?,?,?,?,?)}");		
 			csmt.setString("ID", chiTietKHGDModel.getMaChiTietKHGD());
+			csmt.setNString("tenChuong", chiTietKHGDModel.getTenChuong());
 			csmt.setNString("congViecChuanBi", chiTietKHGDModel.getCongViecChuanBi());
 			csmt.setNString("noiDungTH", chiTietKHGDModel.getNoiDungTH());
 			csmt.setString("ngayCapNhatCuoi", chiTietKHGDModel.getNgayCapNhatCuoi());
