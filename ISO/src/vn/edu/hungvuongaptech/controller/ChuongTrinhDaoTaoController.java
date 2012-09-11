@@ -226,6 +226,8 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanI_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanI_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanI_" + i.toString().trim()))); }
+			if (req.getParameter("cboTichHop_PhanI_" + i.toString()) != null) {
+				obj.setUser1(StringUtil.toUTF8(req.getParameter("cboTichHop_PhanI_" + i.toString().trim()))); }
 			if ((req.getParameter("chkRow_PhanI_" + i.toString()) != null && req.getParameter("XuLyDong_Phan1").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
 				
@@ -314,6 +316,8 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanII_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanII_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanII_" + i.toString().trim()))); }
+			if (req.getParameter("cboTichHop_PhanII_" + i.toString()) != null) {
+				obj.setUser1(StringUtil.toUTF8(req.getParameter("cboTichHop_PhanII_" + i.toString().trim()))); }
 			if ((req.getParameter("chkRow_PhanII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan2").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
 				
@@ -401,6 +405,8 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				obj.setThucHanh(req.getParameter("cboThucHanh_PhanIII_" + i.toString().trim())); }
 			if (req.getParameter("cboTinhChat_PhanIII_" + i.toString()) != null) {
 				obj.setTinhChat(StringUtil.toUTF8(req.getParameter("cboTinhChat_PhanIII_" + i.toString().trim()))); }
+			if (req.getParameter("cboTichHop_PhanIII_" + i.toString()) != null) {
+				obj.setUser1(StringUtil.toUTF8(req.getParameter("cboTichHop_PhanIII_" + i.toString().trim()))); }
 			if ((req.getParameter("chkRow_PhanIII_" + i.toString()) != null && req.getParameter("XuLyDong_Phan3").equals("XoaDong")) || status == 1) { 
 			// Row nay dang bi chon de DELETE ==> ko dua vao Object Model
 				

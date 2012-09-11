@@ -210,6 +210,8 @@ public class ChiTietMonHocCTDTModel implements Serializable{
 			result = false;
 		} else if (tinhChat == null || tinhChat.equals("")) {
 			result = false;
+		} else if (user1 == null || user1.equals("")) {
+			result = false;
 		} 
 		
 		return result;
