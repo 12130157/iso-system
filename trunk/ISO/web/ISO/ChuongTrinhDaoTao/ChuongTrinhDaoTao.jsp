@@ -87,6 +87,7 @@ function loadPage()
 					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
 					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
 					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.TiH = '" + chiTiet.getUser1() + "';");
 					out.print("objChiTietMonHoc.thayDoi = '0';");
 					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
 					out.print("dem++;");
@@ -107,6 +108,7 @@ function loadPage()
 					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
 					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
 					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.TiH = '" + chiTiet.getUser1() + "';");
 					out.print("objChiTietMonHoc.thayDoi = '0';");
 					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
 					out.print("dem++;");
@@ -127,6 +129,7 @@ function loadPage()
 					out.print("objChiTietMonHoc.tenMonHoc = '" + chiTiet.getTenMonHoc() + "';");
 					out.print("objChiTietMonHoc.LT = '" + chiTiet.getLyThuyet() + "';");
 					out.print("objChiTietMonHoc.TH = '" + chiTiet.getThucHanh() + "';");
+					out.print("objChiTietMonHoc.TiH = '" + chiTiet.getUser1() + "';");
 					out.print("objChiTietMonHoc.thayDoi = '0';");
 					out.print("listChiTietMonHoc[dem] = objChiTietMonHoc;");
 					out.print("dem++;");
@@ -389,17 +392,21 @@ function selectSogio(x, y) {
 	{
 		var tongLT = 0;
 		var tongTH = 0;
+		var tongTiH = 0;
 		for(var i=1;i<=parseInt(document.getElementById('txtRows1').value);i++)
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanI_' + i).value);
 			tongLT += a;
 			var b = parseInt(document.getElementById('ThucHanh_PhanI_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSo_PhanI_' + i).value = a + b;
+			var c = parseInt(document.getElementById('TichHop_PhanI_' + i).value);
+			tongTiH += c;
+			document.getElementById('TongSo_PhanI_' + i).value = a + b + c;
 		}
 		document.getElementById('TongSoLyThuyet_PhanI').value = tongLT;
 		document.getElementById('TongSoThucHanh_PhanI').value = tongTH;
-		document.getElementById('TongSo_PhanI').value = tongLT + tongTH;
+		document.getElementById('TongSoTichHop_PhanI').value = tongTiH;
+		document.getElementById('TongSo_PhanI').value = tongLT + tongTH + tongTiH;
 		if(y != null)
 		{
 			for(var i=0;i<listChiTietMonHoc.length;i++)
@@ -408,7 +415,7 @@ function selectSogio(x, y) {
 				objChiTietMonHoc = listChiTietMonHoc[i];
 				if(document.getElementById('MonHoc_PhanI_' + y).value == objChiTietMonHoc.maMonHoc)
 				{
-					if(document.getElementById('LyThuyet_PhanI_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanI_' + y).value == objChiTietMonHoc.thucHanh)
+					if(document.getElementById('LyThuyet_PhanI_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanI_' + y).value == objChiTietMonHoc.thucHanh || document.getElementById('TichHop_PhanI_' + y).value == objChiTietMonHoc.user1)
 						objChiTietMonHoc.thayDoi = "0";
 					else
 						objChiTietMonHoc.thayDoi = "1";
@@ -422,17 +429,21 @@ function selectSogio(x, y) {
 	{
 		var tongLT = 0;
 		var tongTH = 0;
+		var tongTiH = 0;
 		for(var i=1;i<=parseInt(document.getElementById('txtRows2').value);i++)
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanII_' + i).value);
 			tongLT += a;
 			var b = parseInt(document.getElementById('ThucHanh_PhanII_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSo_PhanII_' + i).value = a + b;
+			var c = parseInt(document.getElementById('TichHop_PhanII_' + i).value);
+			tongTiH += c;
+			document.getElementById('TongSo_PhanII_' + i).value = a + b + c;
 		}
 		document.getElementById('TongSoLyThuyet_PhanII').value = tongLT;
 		document.getElementById('TongSoThucHanh_PhanII').value = tongTH;
-		document.getElementById('TongSo_PhanII').value = tongLT + tongTH;
+		document.getElementById('TongSoTichHop_PhanII').value = tongTiH;
+		document.getElementById('TongSo_PhanII').value = tongLT + tongTH + tongTiH;
 		if(y != null)
 		{
 			for(var i=0;i<listChiTietMonHoc.length;i++)
@@ -441,7 +452,7 @@ function selectSogio(x, y) {
 				objChiTietMonHoc = listChiTietMonHoc[i];
 				if(document.getElementById('MonHoc_PhanII_' + y).value == objChiTietMonHoc.maMonHoc)
 				{
-					if(document.getElementById('LyThuyet_PhanII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanII_' + y).value == objChiTietMonHoc.thucHanh)
+					if(document.getElementById('LyThuyet_PhanII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanII_' + y).value == objChiTietMonHoc.thucHanh || document.getElementById('TichHop_PhanII_' + y).value == objChiTietMonHoc.user1)
 						objChiTietMonHoc.thayDoi = "0";
 					else
 						objChiTietMonHoc.thayDoi = "1";
@@ -455,17 +466,21 @@ function selectSogio(x, y) {
 	{
 		var tongLT = 0;
 		var tongTH = 0;
+		var tongTiH = 0;
 		for(var i=1;i<=parseInt(document.getElementById('txtRows3').value);i++)
 		{
 			var a = parseInt(document.getElementById('LyThuyet_PhanIII_' + i).value);
 			tongLT += a;
 			var b = parseInt(document.getElementById('ThucHanh_PhanIII_' + i).value);
 			tongTH += b;
-			document.getElementById('TongSo_PhanIII_' + i).value = a + b;
+			var c = parseInt(document.getElementById('TichHop_PhanIII_' + i).value);
+			tongTiH += c;
+			document.getElementById('TongSo_PhanIII_' + i).value = a + b + c;
 		}
 		document.getElementById('TongSoLyThuyet_PhanIII').value = tongLT;
 		document.getElementById('TongSoThucHanh_PhanIII').value = tongTH;
-		document.getElementById('TongSo_PhanIII').value = tongLT + tongTH;
+		document.getElementById('TongSoTichHop_PhanIII').value = tongTiH;
+		document.getElementById('TongSo_PhanIII').value = tongLT + tongTH + tongTiH;
 		if(y != null)
 		{
 			for(var i=0;i<listChiTietMonHoc.length;i++)
@@ -474,7 +489,7 @@ function selectSogio(x, y) {
 				objChiTietMonHoc = listChiTietMonHoc[i];
 				if(document.getElementById('MonHoc_PhanIII_' + y).value == objChiTietMonHoc.maMonHoc)
 				{
-					if(document.getElementById('LyThuyet_PhanIII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanIII_' + y).value == objChiTietMonHoc.thucHanh)
+					if(document.getElementById('LyThuyet_PhanIII_' + y).value == objChiTietMonHoc.lyThuyet || document.getElementById('ThucHanh_PhanIII_' + y).value == objChiTietMonHoc.thucHanh || document.getElementById('TichHop_PhanIII_' + y).value == objChiTietMonHoc.user1)
 						objChiTietMonHoc.thayDoi = "0";
 					else
 						objChiTietMonHoc.thayDoi = "1";
@@ -491,6 +506,7 @@ function selectSogio(x, y) {
 	document.getElementById('TongSo').value = parseInt(document.getElementById('TongSo_PhanI').value) + parseInt(document.getElementById('TongSo_PhanII').value) + parseInt(document.getElementById('TongSo_PhanIII').value);
 	document.getElementById('TongSoLyThuyet').value = parseInt(document.getElementById('TongSoLyThuyet_PhanI').value) + parseInt(document.getElementById('TongSoLyThuyet_PhanII').value) + parseInt(document.getElementById('TongSoLyThuyet_PhanIII').value);
 	document.getElementById('TongSoThucHanh').value = parseInt(document.getElementById('TongSoThucHanh_PhanI').value) + parseInt(document.getElementById('TongSoThucHanh_PhanII').value) + parseInt(document.getElementById('TongSoThucHanh_PhanIII').value);
+	document.getElementById('TongSoTichHop').value = parseInt(document.getElementById('TongSoTichHop_PhanI').value) + parseInt(document.getElementById('TongSoTichHop_PhanII').value) + parseInt(document.getElementById('TongSoTichHop_PhanIII').value);
 	document.getElementById('ThoiGian4').value = parseInt(document.getElementById('PhanBo1').value) + parseInt(document.getElementById('PhanBo2').value);	
 }
 
@@ -516,7 +532,7 @@ function submitForm(){
 		objChiTietMonHoc = listChiTietMonHoc[i];
 		if(objChiTietMonHoc.thayDoi == "1")
 		{
-			str += objChiTietMonHoc.tenMonHoc + ' : LT/' + objChiTietMonHoc.LT + ' TH/' + objChiTietMonHoc.TH + '\n'; 
+			str += objChiTietMonHoc.tenMonHoc + ' : LT/' + objChiTietMonHoc.LT + ' TH/' + objChiTietMonHoc.TH + 'TiH/' + objChiTietMonHoc.TiH + '\n'; 
 		}
 	}
 	if(str != '')
@@ -934,7 +950,7 @@ function validateInputNumber()
 		<td>Tổng số</td>
 		<td>Lý thuyết</td>
 		<td>Thực hành</td>
-		<td>Kiểm tra</td>
+		<td>Tích Hợp</td>
 	</tr>
 	<tr style="background-color: transparent; background-color: #c3d9ff;">
 		<td>&nbsp;</td>
@@ -946,7 +962,7 @@ function validateInputNumber()
 		<td><input type = "text" size = "2" id = "TongSo_PhanI" value = "0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoLyThuyet_PhanI" value = "0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoThucHanh_PhanI" value = "0" readonly="readonly"></input></td>
-		<td>&nbsp;</td>
+		<td><input type = "text" size = "2" id = "TongSoTichHop_PhanI" value = "0" readonly="readonly"></input></td>
 	</tr>
 
 <c:forEach var = "count" begin = "1" end = "${Rows1}" step = "1">
@@ -997,13 +1013,22 @@ function validateInputNumber()
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.thucHanh eq iterator}">selected</c:if>>${iterator}</option>
 			</c:forEach>
 		</select></td>
-		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
+		<td>
+		<select style="display: none;" <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
 				id = "TinhChat_PhanI_${count}" name="cboTinhChat_PhanI_${count}">
 			<option value = "Thi" <c:if test="${ChiTietCTDT.tinhChat eq 'Thi'}">selected</c:if>>Thi</option>
 			<option value = "Kiểm tra" <c:if test="${ChiTietCTDT.tinhChat eq 'Kiểm tra'}">selected</c:if>>Kiểm tra</option>
 			<option value = "Báo cáo" <c:if test="${ChiTietCTDT.tinhChat eq 'Báo cáo'}">selected</c:if>>Báo cáo</option>
 			<option value = "Đồ án" <c:if test="${ChiTietCTDT.tinhChat eq 'Đồ án'}">selected</c:if>>Đồ án</option>
-		</select></td>
+		</select>
+		<select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
+				id = "TichHop_PhanI_${count}" name="cboTichHop_PhanI_${count}" onchange="selectSogio(1, ${count});">
+			<option value = "0">0</option>
+			<c:forEach var = "iterator" begin = "1" end = "500">
+				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.user1 eq iterator}">selected</c:if>>${iterator}</option>
+			</c:forEach>
+		</select>
+		</td>
 	</tr>
 </c:forEach>
 	<tr style="background-color: transparent;">
@@ -1033,7 +1058,7 @@ function validateInputNumber()
 		<td><input type = "text" size = "2" id = "TongSo_PhanII" value = "0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoLyThuyet_PhanII" value = "0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoThucHanh_PhanII" value = "0" readonly="readonly"></input></td>
-		<td>&nbsp;</td>
+		<td><input type = "text" size = "2" id = "TongSoTichHop_PhanII" value = "0" readonly="readonly"></input></td>
 	</tr>
 	<c:forEach var = "count" begin = "1" end = "${Rows2}" step = "1">
 		<c:set var="ChiTietCTDT" value="${ChuongTrinhDaoTao.chiTietMonHocCTDTModelList2[count-1]}"></c:set>
@@ -1084,13 +1109,22 @@ function validateInputNumber()
 			</c:forEach>
 		</select></td>
 		
-		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "TinhChat_PhanII_${count}" name="cboTinhChat_PhanII_${count}">
-			<option value = "Thi" <c:if test="${ChiTietCTDT.tinhChat eq 'Thi'}">selected</c:if>>Thi</option>
-			<option value = "Kiểm tra" <c:if test="${ChiTietCTDT.tinhChat eq 'Kiểm tra'}">selected</c:if>>Kiểm tra</option>
-			<option value = "Báo cáo" <c:if test="${ChiTietCTDT.tinhChat eq 'Báo cáo'}">selected</c:if>>Báo cáo</option>
-			<option value = "Đồ án" <c:if test="${ChiTietCTDT.tinhChat eq 'Đồ án'}">selected</c:if>>Đồ án</option>
-		</select></td>
+		<td>
+			<select style="display: none;" <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
+					id = "TinhChat_PhanII_${count}" name="cboTinhChat_PhanII_${count}">
+				<option value = "Thi" <c:if test="${ChiTietCTDT.tinhChat eq 'Thi'}">selected</c:if>>Thi</option>
+				<option value = "Kiểm tra" <c:if test="${ChiTietCTDT.tinhChat eq 'Kiểm tra'}">selected</c:if>>Kiểm tra</option>
+				<option value = "Báo cáo" <c:if test="${ChiTietCTDT.tinhChat eq 'Báo cáo'}">selected</c:if>>Báo cáo</option>
+				<option value = "Đồ án" <c:if test="${ChiTietCTDT.tinhChat eq 'Đồ án'}">selected</c:if>>Đồ án</option>
+			</select>
+			<select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
+				id = "TichHop_PhanII_${count}" name="cboTichHop_PhanII_${count}" onchange="selectSogio(2, ${count});">
+			<option value = "0">0</option>
+			<c:forEach var = "iterator" begin = "1" end = "500">
+				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.user1 eq iterator}">selected</c:if>>${iterator}</option>
+			</c:forEach>
+			</select>
+		</td>
 	</tr>
 </c:forEach>
 	<tr style="background-color: transparent;">
@@ -1120,7 +1154,7 @@ function validateInputNumber()
 		<td><input type = "text" size = "2" id = "TongSo_PhanIII" value="0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoLyThuyet_PhanIII" value="0" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id = "TongSoThucHanh_PhanIII" value="0" readonly="readonly"></input></td>
-		<td>&nbsp;</td>
+		<td><input type = "text" size = "2" id = "TongSoTichHop_PhanIII" value = "0" readonly="readonly"></input></td>
 	</tr>
 	<c:forEach var = "count" begin = "1" end = "${Rows3}" step = "1">
 		<c:set var="ChiTietCTDT" value="${ChuongTrinhDaoTao.chiTietMonHocCTDTModelList3[count-1]}"></c:set>
@@ -1170,13 +1204,22 @@ function validateInputNumber()
 				<option value = "${iterator }" <c:if test = "${ChiTietCTDT.thucHanh eq iterator}">selected</c:if>>${iterator}</option>
 			</c:forEach>
 		</select></td>
-		<td><select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
-				id = "TinhChat_PhanIII_${count}" name="cboTinhChat_PhanIII_${count}">
-			<option value = "Thi" <c:if test="${ChiTietCTDT.tinhChat eq 'Thi'}">selected</c:if>>Thi</option>
-			<option value = "Kiểm tra" <c:if test="${ChiTietCTDT.tinhChat eq 'Kiểm tra'}">selected</c:if>>Kiểm tra</option>
-			<option value = "Báo cáo" <c:if test="${ChiTietCTDT.tinhChat eq 'Báo cáo'}">selected</c:if>>Báo cáo</option>
-			<option value = "Đồ án" <c:if test="${ChiTietCTDT.tinhChat eq 'Đồ án'}">selected</c:if>>Đồ án</option>
-		</select></td>
+		<td>
+			<select style="display: none;" <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if>
+					id = "TinhChat_PhanIII_${count}" name="cboTinhChat_PhanIII_${count}">
+				<option value = "Thi" <c:if test="${ChiTietCTDT.tinhChat eq 'Thi'}">selected</c:if>>Thi</option>
+				<option value = "Kiểm tra" <c:if test="${ChiTietCTDT.tinhChat eq 'Kiểm tra'}">selected</c:if>>Kiểm tra</option>
+				<option value = "Báo cáo" <c:if test="${ChiTietCTDT.tinhChat eq 'Báo cáo'}">selected</c:if>>Báo cáo</option>
+				<option value = "Đồ án" <c:if test="${ChiTietCTDT.tinhChat eq 'Đồ án'}">selected</c:if>>Đồ án</option>
+			</select>
+			<select <c:if test = "${ChiTietCTDT.tinhTrang eq APPROVE}">disabled</c:if> 
+					id = "TichHop_PhanIII_${count}" name="cboTichHop_PhanIII_${count}" onchange="selectSogio(3, ${count});">
+				<option value = "0">0</option>
+				<c:forEach var = "iterator" begin = "1" end = "500">
+					<option value = "${iterator }" <c:if test = "${ChiTietCTDT.user1 eq iterator}">selected</c:if>>${iterator}</option>
+				</c:forEach>
+			</select>
+		</td>
 	</tr>
 </c:forEach>
 <tr style="background-color: transparent;">
@@ -1206,7 +1249,7 @@ function validateInputNumber()
 		<td><input type = "text" size = "2" id ="TongSo" name = "txtTongSo" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id ="TongSoLyThuyet" readonly="readonly"></input></td>
 		<td><input type = "text" size = "2" id ="TongSoThucHanh" readonly="readonly"></input></td>
-		<td>&nbsp;</td>
+		<td><input type = "text" size = "2" id ="TongSoTichHop" readonly="readonly"></input></td>
 	</tr>
 </table>
 <table style="background-color: transparent;">
