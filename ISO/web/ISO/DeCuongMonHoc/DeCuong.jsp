@@ -198,9 +198,9 @@ var kieuDayLyThuyet = new Array();
 			%>
 			if(lyThuyet == 0 || thucHanh == 0)
 			{
-				document.DCMH.Kieu[0].disabled = true;
-				document.DCMH.Kieu[1].disabled = true;
-				document.DCMH.Kieu[2].disabled = true;
+				//document.DCMH.Kieu[0].disabled = true;
+				//document.DCMH.Kieu[1].disabled = true;
+				//document.DCMH.Kieu[2].disabled = true;
 				truongHop = 1;	
 			}	
 			else if(parseInt(thucHanh) % parseInt(lyThuyet) == 0 || parseInt(lyThuyet) % parseInt(thucHanh) == 0)
@@ -209,7 +209,7 @@ var kieuDayLyThuyet = new Array();
 				document.DCMH.Kieu[1].disabled = false;
 				document.DCMH.Kieu[2].disabled = false;
 				if(parseInt(lyThuyet) % parseInt(thucHanh) == 0)
-					document.DCMH.Kieu[1].disabled = true;
+					//document.DCMH.Kieu[1].disabled = true;
 				if(document.DCMH.Kieu[0].checked == true || kieuBienSoan == 0) 
 					truongHop = 1;
 				else if(document.DCMH.Kieu[1].checked == true || kieuBienSoan == 1) 
@@ -221,7 +221,7 @@ var kieuDayLyThuyet = new Array();
 			{
 				
 				
-				document.DCMH.Kieu[1].disabled = true;
+				//document.DCMH.Kieu[1].disabled = true;
 				if(parseInt(thucHanh) >= parseInt(lyThuyet))
 				{
 					document.DCMH.Kieu[0].disabled = false;
@@ -233,8 +233,8 @@ var kieuDayLyThuyet = new Array();
 				}
 				else
 				{
-					document.DCMH.Kieu[2].disabled = true;
-					document.DCMH.Kieu[0].disabled = true;
+					//document.DCMH.Kieu[2].disabled = true;
+					//document.DCMH.Kieu[0].disabled = true;
 					truongHop = 1;
 				}
 					
