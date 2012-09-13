@@ -129,10 +129,12 @@ var kieuDayLyThuyet = new Array();
 		out.print("if(lyThuyet != " + deCuongMonHocModel.getLyThuyet() + " && thucHanh != " + deCuongMonHocModel.getThucHanh() + ") {");
 		out.print("document.getElementById('LyThuyet').value = lyThuyet;");
 		out.print("document.getElementById('ThucHanh').value = thucHanh;");
+		out.print("document.getElementById('TichHop').value = tichHop;");
 		out.print("document.getElementById('KiemTra').value = 0;");
 		out.print("} else {");
 		out.print("document.getElementById('LyThuyet').value = " + deCuongMonHocModel.getLyThuyet() + ";");
 		out.print("document.getElementById('ThucHanh').value = " + deCuongMonHocModel.getThucHanh() + ";");
+		out.print("document.getElementById('TichHop').value = " + deCuongMonHocModel.getUser1() + ";");
 		out.print("document.getElementById('KiemTra').value = " + deCuongMonHocModel.getKiemTra() + "; }");
 		
 		out.print("createRow(); }");
@@ -199,14 +201,14 @@ var kieuDayLyThuyet = new Array();
 				out.print("thucHanh = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + "; } }");
 			}
 			%>
-			if(lyThuyet == 0 || thucHanh == 0)
+			if((lyThuyet == 0 || thucHanh == 0) && tichHop == 0)
 			{
 				//document.DCMH.Kieu[0].disabled = true;
 				//document.DCMH.Kieu[1].disabled = true;
 				//document.DCMH.Kieu[2].disabled = true;
 				truongHop = 1;	
 			}	
-			else if(parseInt(thucHanh) % parseInt(lyThuyet) == 0 || parseInt(lyThuyet) % parseInt(thucHanh) == 0)
+			else if(parseInt(thucHanh) % parseInt(lyThuyet) == 0 || parseInt(lyThuyet) % parseInt(thucHanh) == 0 || (parseInt(thucHanh) == 0 && parseInt(lyThuyet == 0)))
 			{
 				document.DCMH.Kieu[0].disabled = false;
 				document.DCMH.Kieu[1].disabled = false;
@@ -219,7 +221,7 @@ var kieuDayLyThuyet = new Array();
 					truongHop = 2;
 				else if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
 					truongHop = 3;
-			}
+			} 
 			else
 			{
 				

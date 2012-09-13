@@ -183,6 +183,7 @@ public class ChiTietMonHocCTDTDAO {
 				chiTietMonHocCTDTModel.setThucHanh(rs.getString("ThucHanh"));
 				chiTietMonHocCTDTModel.setTenKhoa(rs.getString("TenKhoa"));
 				chiTietMonHocCTDTModel.setTinhChat(rs.getString("TinhChat"));
+				chiTietMonHocCTDTModel.setUser1(rs.getString("User1"));
 				chiTietMonHocCTDTModelList.add(chiTietMonHocCTDTModel);
 			}
 				return chiTietMonHocCTDTModelList;
@@ -213,6 +214,7 @@ public class ChiTietMonHocCTDTDAO {
 				chiTietMonHocCTDTModel.setTenKhoa(rs.getString("TenKhoa"));
 				chiTietMonHocCTDTModel.setTinhChat(rs.getString("TinhChat"));
 				chiTietMonHocCTDTModel.setMaDeCuong(rs.getString("MaDeCuong"));
+				chiTietMonHocCTDTModel.setUser1(rs.getString("User1"));
 				chiTietMonHocCTDTModelList.add(chiTietMonHocCTDTModel);
 			}
 				return chiTietMonHocCTDTModelList;

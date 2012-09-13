@@ -346,6 +346,8 @@ public class DeCuongMonHocController extends HttpServlet{
 			deCuongMonHocModel.setLyThuyet(req.getParameter("txtLyThuyet").trim()); }
 		if (req.getParameter("txtThucHanh") != null) {
 			deCuongMonHocModel.setThucHanh(req.getParameter("txtThucHanh").trim()); }
+		if (req.getParameter("txtTichHop") != null) {
+			deCuongMonHocModel.setUser1(req.getParameter("txtTichHop").trim()); }
 		if (req.getParameter("txtKiemTra") != null) {
 			deCuongMonHocModel.setKiemTra(req.getParameter("txtKiemTra").trim()); }
 		if (req.getParameter("areaViTriMonHoc") != null) {			
@@ -391,7 +393,7 @@ public class DeCuongMonHocController extends HttpServlet{
 			soDongDaCo = deCuongMonHocModel.getNoiDungDCMHModelsList().size();
 		}
 		if(deCuongMonHocModel.getMaChuongTrinh() != "" && deCuongMonHocModel.getMaMonHoc() != "") {
-			soDong = (Integer.parseInt(deCuongMonHocModel.getLyThuyet()) + Integer.parseInt(deCuongMonHocModel.getThucHanh()) + Integer.parseInt(deCuongMonHocModel.getKiemTra())) /Integer.parseInt(deCuongMonHocModel.getSoTietHocMotBuoi());
+			soDong = (Integer.parseInt(deCuongMonHocModel.getLyThuyet()) + Integer.parseInt(deCuongMonHocModel.getThucHanh()) + Integer.parseInt(deCuongMonHocModel.getKiemTra()) + Integer.parseInt(deCuongMonHocModel.getUser1()) ) /Integer.parseInt(deCuongMonHocModel.getSoTietHocMotBuoi());
 			if(truongHop == 1 && Integer.parseInt(deCuongMonHocModel.getLyThuyet()) > 0)
 				count1 = (Integer.parseInt(deCuongMonHocModel.getThucHanh()) + Integer.parseInt(deCuongMonHocModel.getKiemTra()))/Integer.parseInt(deCuongMonHocModel.getLyThuyet());
 			count2 = Integer.parseInt(deCuongMonHocModel.getLyThuyet())/Integer.parseInt(deCuongMonHocModel.getSoTietHocMotBuoi());
