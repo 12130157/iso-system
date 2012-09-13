@@ -185,14 +185,17 @@ var kieuDayLyThuyet = new Array();
 				out.print("if(document.getElementById('monHoc').value == " + chiTietMonHocCTDTModelList.get(i).getMaMonHoc() + ") {");	
 				out.print("document.getElementById('TenMonHoc').value = '" + chiTietMonHocCTDTModelList.get(i).getTenMonHoc() + "';");
 				out.print("document.getElementById('TenKhoa').value = '" + chiTietMonHocCTDTModelList.get(i).getTenKhoa() + "';");
-				out.print("document.getElementById('ThoiGianMonHoc').value = " + (Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getLyThuyet()) + Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getThucHanh())) + ";");
+				out.print("document.getElementById('ThoiGianMonHoc').value = " + (Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getLyThuyet()) + Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getThucHanh()) + Integer.parseInt(chiTietMonHocCTDTModelList.get(i).getUser1())) + ";");
 				out.print("document.getElementById('LyThuyet').value = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
 				out.print("document.getElementById('ThucHanh').value = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + ";");
+				out.print("document.getElementById('TichHop').value = " + chiTietMonHocCTDTModelList.get(i).getUser1() + ";");
 				out.print("document.getElementById('txtLyThuyetCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
 				out.print("document.getElementById('txtThucHanhCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + ";");
+				out.print("document.getElementById('txtTichHopCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getUser1() + ";");
 				out.print("document.getElementById('TinhChatMonHoc').value = '" + chiTietMonHocCTDTModelList.get(i).getTinhChat() + "';");
 				out.print("document.getElementById('KiemTra').value = 0;");
 				out.print("lyThuyet = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
+				out.print("tichHop = " + chiTietMonHocCTDTModelList.get(i).getUser1() + ";");
 				out.print("thucHanh = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + "; } }");
 			}
 			%>
@@ -369,7 +372,7 @@ var kieuDayLyThuyet = new Array();
 			//var count3 = parseInt(document.getElementById('ThucHanh').value)/parseInt(document.getElementById('SoTiet').value);
 			var thucHanh1 = 0;
 			var lyThuyet1 = 0;
-			var ticHop = 0;
+			var tichHop = 0;
 			var err = "";
 			if(truongHop != 3)
 				lyThuyet1 = parseInt(document.getElementById('SoTiet').value);
@@ -451,6 +454,8 @@ var kieuDayLyThuyet = new Array();
 					row.cells[3].id = "td_" + i + "_" + 3;
 					if(thucHanh != 0)
 						row.cells[3].onclick = (function(a,b) {return function(){ doiKieuDay(a,b); }})(i, 3);
+					if(tichHop != 0)
+						row.cells[4].onclick = (function(a,b) {return function(){ doiKieuDay(a,b); }})(i, 4);
 					row.cells[7].id = "td_" + i + "_" + 7;
 					if(document.getElementById('KiemTra').value != '0')
 						row.cells[7].onclick = (function(a,b) {return function(){ doiKieuDay(a,b); }})(i, 7);
@@ -500,7 +505,7 @@ var kieuDayLyThuyet = new Array();
 				{
 					if(truongHop != 3) 
 					{
-						row.cells[2].innerHTML = lyThuyet1;
+					 	row.cells[2].innerHTML = lyThuyet1;
 						row.cells[3].innerHTML = tongSo - lyThuyet1;
 					}
 					else
@@ -526,7 +531,7 @@ var kieuDayLyThuyet = new Array();
 		{
 			table.rows[soDong+2].cells[2].innerHTML = document.getElementById('LyThuyet').value;
 			table.rows[soDong+2].cells[3].innerHTML = document.getElementById('ThucHanh').value;
-			table.rows[soDong+2].cells[4].innerHTML = 0;
+			table.rows[soDong+2].cells[4].innerHTML = document.getElementById('TichHop').value;
 		}
 		else
 		{
@@ -806,11 +811,28 @@ var kieuDayLyThuyet = new Array();
 					<div class = "div_tr">
 						-	Thời gian môn học  <input type = "text" id = "ThoiGianMonHoc" size = "" style="background-color: transparent;" name="txtThoiGianMonHoc" readonly="readonly" value="0"/>
 					</div> 
-						Lý thuyết <input type = "text" id = "LyThuyet" size = "" style="background-color: transparent;" name="txtLyThuyet" readonly="readonly" value="0"/> 
-							<input type = "hidden" id = "txtLyThuyetCTDT"  name="txtLyThuyetCTDT" value = "0"/>
-						Thực hành <input type = "text" id = "ThucHanh" size = ""  style="background-color: transparent;" name="txtThucHanh" readonly="readonly" value="0"/> 
-							<input type = "hidden" id = "txtThucHanhCTDT"  name="txtThucHanhCTDT" value = "0"/>
-						Kiểm tra <input type = "text" id = "KiemTra" size = "" style="background-color: transparent;" name="txtKiemTra" onblur="changeKiemTra();" value="0"/>
+					<Table>
+						<tr style="background-color: transparent;">
+							<td>Lý thuyết</td>
+							<td><input type = "text" id = "LyThuyet" size = "" style="background-color: transparent;" name="txtLyThuyet" readonly="readonly" value="0"/> 
+							<input type = "hidden" id = "txtLyThuyetCTDT"  name="txtLyThuyetCTDT" value = "0"/></td>
+							<td>Thực hành</td>
+							<td><input type = "text" id = "ThucHanh" size = ""  style="background-color: transparent;" name="txtThucHanh" readonly="readonly" value="0"/> 
+							<input type = "hidden" id = "txtThucHanhCTDT"  name="txtThucHanhCTDT" value = "0"/></td>
+						</tr>
+						<tr style="background-color: transparent;">
+							<td>Tích Hợp</td>
+							<td><input type = "text" id = "TichHop" size = ""  style="background-color: transparent;" name="txtTichHop" readonly="readonly" value="0"/> 
+							<input type = "hidden" id = "txtTichHopCTDT"  name="txtTichHopCTDT" value = "0"/></td>
+							<td>Kiểm tra</td>
+							<td><input type = "text" id = "KiemTra" size = "" style="background-color: transparent;" name="txtKiemTra" onblur="changeKiemTra();" value="0"/></td>
+						</tr>
+					</Table>
+						 
+						 
+							
+						 
+						 
 				</td>
 			</tr>
 				<c:if test="${empty DeCuongMonHoc.maDeCuongMonHoc}">
