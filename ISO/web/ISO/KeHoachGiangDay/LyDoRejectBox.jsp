@@ -8,11 +8,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Lý do reject Dialog</title>
 <script language="JavaScript" type="text/javascript">
+	var arg = window.dialogArguments;
 	function closeWindow()
 	{
 		window.close();
 		window.returnValue = false;
 	}
+	
+	function pageLoad(){
+		document.getElementById("LyDoReject").value = arg.valueContent;
+		document.title = arg.titleContent;
+		if (arg.quyen == "false") {
+			document.getElementById("Reject").disabled = true;
+		}
+	}
+	
 	function confirm()
 	{
 		if(document.getElementById('LyDoReject').value == '')
@@ -28,7 +38,7 @@
 	}
 </script>
 </head>
-<body >
+<body onload="pageLoad()">
 	<form name="KHDT-Reject">
 		<table width="200" >
 			<th colspan="2">Nhập lý do reject</th>

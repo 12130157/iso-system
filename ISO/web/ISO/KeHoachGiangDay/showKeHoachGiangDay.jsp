@@ -40,12 +40,12 @@
 		document.getElementById("MaKHGD").value = x;
 		document.forms["SoTayGiaoVien"].submit();
 	}
-	function showPopUp(x)
+	function showPopUp(obj)
 	{
 		 var myObject = new Object();
-		 myObject.valueContent = document.getElementById(x).value;
+		 myObject.valueContent = document.getElementById(obj).value;
 		 myObject.titleContent ="Lý do reject"; 
-		 if(document.getElementById(x).readOnly!=true)
+		 if(document.getElementById(obj).readOnly!=true)
 		   myObject.quyen="true"; 
 		 else
 		   myObject.quyen="false";
@@ -55,12 +55,11 @@
 		width=300;			
 		y=(window.screen.height-height)/2;
 		x=(window.screen.width-width)/2;
-		value= window.showModalDialog("LyDoRejectBox.jsp","Arg1","dialogHeight: "+height+"px; dialogWidth: "+width+"px; dialogTop:"+y+"px; dialogLeft:"+x+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
-
-		 if(document.getElementById(x).readOnly!=true)
+		value = window.showModalDialog("LyDoRejectBox.jsp", myObject,"dialogHeight: "+height+"px; dialogWidth: "+width+"px; dialogTop:"+y+"px; dialogLeft:"+x+"px; edge: Raised; center: Yes; help: No; scroll: No; status: Yes;");
+		 if(document.getElementById(obj).readOnly!=true) {
 			if(value!=false&&value!=undefined)
-				document.getElementById(x).innerHTML=value;	
-		
+				document.getElementById(obj).innerHTML=value;
+		 }
 	}
 
 	
