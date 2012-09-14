@@ -598,7 +598,7 @@
 							<div class = "div_textleft">Số giờ  môn học :</div> 
 						</td>
 						<td>
-							<input type = "text" id="txtSoGioMonHoc" name="txtSoGioMonHoc" style="background-color: transparent;width:50px" readonly="readonly" value="<c:if test="${not empty param.maKHGD}">${objKHGD.soGioLT + objKHGD.soGioTH}</c:if><c:if test="${empty param.maKHGD and not empty param.maMonHoc and not empty param.maLop}">${deCuongMonHocModel.lyThuyet+deCuongMonHocModel.thucHanh}</c:if>" /> 
+							<input type = "text" id="txtSoGioMonHoc" name="txtSoGioMonHoc" style="background-color: transparent;width:50px" readonly="readonly" value="<c:if test="${not empty param.maKHGD}">${objKHGD.soGioLT + objKHGD.soGioTH}</c:if><c:if test="${empty param.maKHGD and not empty param.maMonHoc and not empty param.maLop}">${deCuongMonHocModel.lyThuyet+deCuongMonHocModel.thucHanh+deCuongMonHocModel.kiemTra}</c:if>" /> 
 						</td>
 						<td width="100px">
 							<div class = "div_textleft">Giáo viên :</div> 
@@ -636,8 +636,12 @@
 						<td>
 							<input type = "text" id="txtSoGioTH" name="txtSoGioTH" style="background-color: transparent;width:50px" readonly="readonly" value="<c:if test="${not empty param.maKHGD}">${objKHGD.soGioTH}</c:if><c:if test="${empty param.maKHGD and not empty param.maMonHoc and not empty param.maLop}">${deCuongMonHocModel.thucHanh}</c:if>"/> 
 						</td>
-						<td></td>
-						<td></td>
+						<td>
+							<div class = "div_textleft">Số giờ kiểm tra :</div>
+						</td>
+						<td>
+							<input type = "text" id="txtSoGioKT" name="txtSoGioKT" style="background-color: transparent;width:50px" readonly="readonly" value="<c:if test="${not empty param.maKHGD}">${objKHGD.user5}</c:if><c:if test="${empty param.maKHGD and not empty param.maMonHoc and not empty param.maLop}">${deCuongMonHocModel.kiemTra}</c:if>"/>
+						</td>
 					</tr>
 				</table>
 				

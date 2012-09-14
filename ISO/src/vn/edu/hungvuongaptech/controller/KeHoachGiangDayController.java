@@ -294,6 +294,8 @@ public class KeHoachGiangDayController extends HttpServlet{
 			keHoachGiangDayModel.setSoGioLT(req.getParameter("txtSoGioLT").trim()); }
 		if (req.getParameter("txtSoGioTH") != null) {
 			keHoachGiangDayModel.setSoGioTH(req.getParameter("txtSoGioTH").trim()); }
+		if (req.getParameter("txtSoGioKT") != null) {
+			keHoachGiangDayModel.setUser5(req.getParameter("txtSoGioKT").trim()); }
 		if (req.getParameter("txtGiaoVien") != null) {
 			keHoachGiangDayModel.setTenGiaoVien(StringUtil.toUTF8(req.getParameter("txtGiaoVien").trim())); }
 		if (req.getParameter("txtSoCaTH") != null) {
