@@ -174,6 +174,8 @@ public class KeHoachGiangDayDAO {
 						.getString("GioCapNhatCuoi"));
 				keHoachGiangDayModel
 						.setTinhTrangHT(rs.getString("TinhTrangHT"));
+				keHoachGiangDayModel.setUser5(rs
+						.getString("User5"));
 				ArrayList<ChiTietKHGDModel> chiTietKHGDModelList = ChiTietKHGDDAO
 						.getChiTietKHGDByMaKHGD(maKHGD);
 				keHoachGiangDayModel
