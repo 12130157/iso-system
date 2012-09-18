@@ -439,10 +439,10 @@ function selectMonHoc()
 		for(int i=0;i<deCuongMonHocModelList.size();i++) {
 			out.print("if(document.getElementById('monHoc').value == '" + deCuongMonHocModelList.get(i).getMaMonHoc() + "') {");
 			out.print("if('" + deCuongMonHocModelList.get(i).getThucHanhCTMH() + "' == '0') {");
-			out.print("document.getElementById('phongThucHanh').disabled = true;");
+			//out.print("document.getElementById('phongThucHanh').disabled = true;");
 			out.print("document.getElementById('SoCa').readonly = true; }");
 			out.print("if('" + deCuongMonHocModelList.get(i).getLyThuyetCTMH() + "' == '0' || '" + deCuongMonHocModelList.get(i).getKieuBienSoan() + "' == '2')");
-			out.print("document.getElementById('phongLyThuyet').disabled = true;");
+			//out.print("document.getElementById('phongLyThuyet').disabled = true;");
 			out.print("lyThuyet = '" + deCuongMonHocModelList.get(i).getLyThuyetCTMH() + "';");
 			out.print("thucHanh = '" + deCuongMonHocModelList.get(i).getThucHanhCTMH() + "';");
 			out.print("soTiet = '" + deCuongMonHocModelList.get(i).getSoTietHocMotBuoi() + "';");

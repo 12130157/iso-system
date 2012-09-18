@@ -299,7 +299,7 @@ public class ThoiKhoaBieuController extends HttpServlet {
 		else if(result2.equals("1"))
 			pageNext += "?ThayDoiChiTiet=ok";
 		else
-			pageNext += "ThayDoiThoiKhoaBieu.jsp?Error=ok";
+			pageNext += "?Error=ok";
 		res.sendRedirect(pageNext);
 	}
 	private void themThoiKhoaBieu(HttpServletRequest request,
