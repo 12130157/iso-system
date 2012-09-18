@@ -16,7 +16,7 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     Đề Cương Môn Học               Ngày hiệu lực: 20/8/2010"
+       titleTemplate="     BM04-QT7.3/1               Ngày hiệu lực: 25/7/2012"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left"
        pageNumberAlignment="right"       
