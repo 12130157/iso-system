@@ -16,7 +16,7 @@
 	   	watermarkBounds="0,795,600,20">
 </pd4ml:header>
 <pd4ml:footer 
-       titleTemplate="     BM03a-QT7.3/1               Ngày hiệu lực: 20/8/2010"
+       titleTemplate="     Chương Trình Đạo Tạo               Ngày hiệu lực: 20/8/2010"
        pageNumberTemplate="Trang $[page]/$[total]"
        titleAlignment="left" 
        pageNumberAlignment="right"       

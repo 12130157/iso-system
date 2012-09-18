@@ -324,7 +324,7 @@ public class ChuongTrinhDaoTaoController extends HttpServlet{
 				String id = obj.getMaChiTietCTDT();
 				if(id != null) {
 					if(obj.getMaDeCuong() != "") {
-						DeCuongMonHocDAO.deleteDCMH(obj.getMaDeCuong());
+						//DeCuongMonHocDAO.deleteDCMH(obj.getMaDeCuong());
 						MailUtil.sendEmail(	MailDAO.getMailByMaThanhVien(obj.getMaNguoiTaoDeCuong()),
 								MailDAO.getMailByMaThanhVien(chuongTrinhDaoTaoModel.getMaNguoiTao()),
 									"[ISO] - Thong Bao - Update - CHUONG TRINH DAO TAO",

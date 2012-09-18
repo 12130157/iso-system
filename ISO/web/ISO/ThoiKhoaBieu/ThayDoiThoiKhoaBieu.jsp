@@ -182,11 +182,11 @@ function loadPage()
 		document.getElementById('txtSoTiet1Buoi').value = objMonHocTKB.soTiet1Buoi;
 		if(objMonHocTKB.maPhongLT == "null") {
 			document.getElementById('phongLyThuyet').options[0].selected = true;
-			document.getElementById('phongLyThuyet').disabled = true;
+			//document.getElementById('phongLyThuyet').disabled = true;
 		}
 		if(objMonHocTKB.maPhongTH == "null") {
 			document.getElementById('phongThucHanh').options[0].selected = true;
-			document.getElementById('phongThucHanh').disabled = true;
+			//document.getElementById('phongThucHanh').disabled = true;
 		}
 		if((parseInt(objMonHocTKB.tuanBatDauLT) <= parseInt(objMonHocTKB.tuanBatDauTH) && objMonHocTKB.tuanBatDauLT != 0) || parseInt(objMonHocTKB.tuanBatDauTH) == 0)
 		{

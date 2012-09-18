@@ -859,7 +859,7 @@ var kieuDayLyThuyet = new Array();
 				<td>
 					<div class = "div_tr">
 						-	Tính chất môn học <br />
-						<input type="text" style="background-color: transparent;" id="TinhChatMonHoc" name="areaTinhChatMonHoc" readonly="readonly"/>
+						<input type="text" style="background-color: transparent;" id="TinhChatMonHoc" name="areaTinhChatMonHoc"/>
 					</div>
 				</td>
 			</tr>
