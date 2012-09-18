@@ -335,7 +335,7 @@
 			<c:set var="sig" value="-"></c:set>
 			<td></td>
 			<td></td>
-			<td>Quận 5, ngày ${sf:getElement(DeCuongMonHoc.ngayTao,0,sig)} tháng ${sf:getElement(DeCuongMonHoc.ngayTao,1,sig)} năm ${sf:getElement(DeCuongMonHoc.ngayTao,2,sig)}</td>
+			<td>Quận 5, ngày ${sf:getElement(DeCuongMonHoc.ngayTao,1,sig)} tháng ${sf:getElement(DeCuongMonHoc.ngayTao,0,sig)} năm ${sf:getElement(DeCuongMonHoc.ngayTao,2,sig)}</td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 15px;">
 			<td><p style="font-weight: bold; font-size: 16px">Hiệu Trưởng </p></td>
