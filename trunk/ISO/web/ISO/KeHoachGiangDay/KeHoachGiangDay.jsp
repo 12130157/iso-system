@@ -865,7 +865,7 @@
 													<!-- Ly thuyet -->
 													<c:if test="${obj1.coHieu eq coHieuLT}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) }">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq PhoKhoa or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin) }">
 																	<c:set var="statusGA" value="false"></c:set>
 																	<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																		<c:forEach var="maGA" items="${maGAList}" >
@@ -908,7 +908,7 @@
 													<!-- Thuc hanh -->
 													<c:if test="${obj1.coHieu eq coHieuTH}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1 )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq PhoKhoa or vaiTro eq TruongKhoa or thuocCN eq 1 )) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
 																<c:set var="statusGA" value="false"></c:set>
 																<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																	
@@ -951,7 +951,7 @@
 														<!-- Tich hop -->	
 														<c:if test="${obj1.coHieu ne coHieuTH and obj1.coHieu ne coHieuLT}">
 														<c:choose>
-															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
+															<c:when test="${ not empty obj1.maGiaoAn and (((obj1.tinhTrangGiaoAn ne '0' and not empty obj1.tinhTrangGiaoAn) and ( vaiTro eq HieuTruong or vaiTro eq PhoKhoa or vaiTro eq TruongKhoa or thuocCN eq 1)) or  maNguoiTao eq sessionScope.maThanhVien or vaiTro eq Admin)}">
 																<c:set var="statusGA" value="false"></c:set>
 																<c:if test="${maNguoiTao eq sessionScope.maThanhVien}">
 																	
