@@ -136,14 +136,14 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-style: italic; font-weight: bold">	4.Thái độ lao động:</p>${sf:appendPTag(CTDT.mucTieu4)}
+					<p style="font-style: italic; font-weight: bold">	4.Kỹ năng khác:</p>${sf:appendPTag(CTDT.mucTieu5)}
 				</td>
 		</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-style: italic; font-weight: bold">	5.Kỹ năng khác:</p>${sf:appendPTag(CTDT.mucTieu5)}
+					<p style="font-style: italic; font-weight: bold">	5.Cơ hội việc làm:</p>${sf:appendPTag(CTDT.mucTieu4)}
 				</td>
 		</tr>
 	</table>
@@ -183,7 +183,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
-				<br/><p style="font-weight: bold">III./THỜI GIAN HỌC TẬP :</p></div>
+				<br/><p style="font-weight: bold">III./THỜI GIAN CỦA KHÓA HỌC VÀ THỜI GIAN THỰC HỌC TỐI THIỂU:</p></div>
 			</td>
 		</tr>	
 		<tr style="background-color: transparent; font-size: 16px;">
@@ -216,8 +216,8 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi học kỳ : ${CTDT.thoiGian5} tuần ${CTDT.thoiGian6} giờ </p>
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi tốt nghiệp : ${CTDT.thoiGian7} tuần ${CTDT.thoiGian8} giờ </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi học kỳ : ${CTDT.thoiGian5} tuần (${CTDT.thoiGian6} giờ) </p>
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian ôn và thi tốt nghiệp : ${CTDT.thoiGian7} tuần (${CTDT.thoiGian8} giờ) </p>
 		</tr>
 	</table>	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
@@ -238,13 +238,6 @@
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
 					<p>&nbsp;&nbsp;&nbsp;- Thời gian học các môn học, modun đào tạo nghề : ${CTDT.phanBo2} giờ </p>
-				</td>
-		</tr>
-	</table>
-	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
-		<tr style="background-color: transparent; font-size: 16px;">
-				<td colspan = "2">
-					<p>&nbsp;&nbsp;&nbsp;- Thời gian học lý thuyết : ${CTDT.phanBo3} giờ, thời gian học thực hành : ${CTDT.phanBo4} giờ </p>
 				</td>
 		</tr>
 	</table>
@@ -272,14 +265,24 @@
 		<c:set var = "TongSoTichHop_PhanIII" value = "${TongSoTichHop_PhanIII + ChiTiet.user1}"></c:set>
 	</c:forEach>
 	<c:set var = "TongSo_PhanIII" value = "${TongSoLyThuyet_PhanIII + TongSoThucHanh_PhanIII + TongSoTichHop_PhanIII}"></c:set>
-	
-	
+	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
+		<tr style="background-color: transparent; font-size: 16px;">
+				<td colspan = "2">
+					<p>&nbsp;&nbsp;&nbsp;- Thời gian học lý thuyết : ${CTDT.phanBo3} giờ, thời gian học thực hành : ${CTDT.phanBo4} giờ, thời gian học tích hợp : ${TongSoTichHop_PhanI + TongSoTichHop_PhanII + TongSoTichHop_PhanIII} giờ</p>
+				</td>
+		</tr>
+	</table>
 	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">IV./DANH MỤC CÁC MÔN HỌC :</p></div>
 			</td>
+		</tr>
+		<tr style="background-color: transparent; font-size: 16px;">
+				<td colspan = "2">
+					<p style="font-weight: bold;">IV.1 :</p>
+				</td>
 		</tr>
 	</table>
 	<%int count = 1; %>
@@ -404,6 +407,13 @@
 	</div>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
+				<td colspan = "2">
+					<p style="font-weight: bold;">IV.2 </p>
+				</td>
+		</tr>
+	</table>
+	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
+		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">V./CÔNG TÁC THI, KIỂM TRA :</p></div>
 			</td>
@@ -441,7 +451,7 @@
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 			<c:set var="sig" value="-"></c:set>
 			<td>Ngày ${sf:getElement(CTDT.ngayCapNhatCuoi,0,sig)} tháng ${sf:getElement(CTDT.ngayCapNhatCuoi,1,sig)} năm ${sf:getElement(CTDT.ngayCapNhatCuoi,2,sig)}</td>
-			<td>Quận 5, ngày ${sf:getElement(CTDT.ngayDuyet,0,sig)} tháng ${sf:getElement(CTDT.ngayDuyet,1,sig)} năm ${sf:getElement(CTDT.ngayDuyet,2,sig)}</td>
+			<td>Quận 5, ngày <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,0,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose> tháng <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,1,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose> năm <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,2,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose></td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 			<td><p style="font-weight: bold;">HIỆU TRƯỞNG</p></td>
