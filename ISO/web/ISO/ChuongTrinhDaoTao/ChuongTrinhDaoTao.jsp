@@ -867,7 +867,7 @@ function validateInputNumber()
 				
 				<c:if test="${not empty param.err and ChuongTrinhDaoTao.mucTieu3 eq ''}"><b class="error">(*)</b></c:if>
 				<br />
-				3.	Thái độ lao động:<br />
+				3.	Cơ hội việc làm:<br />
 				
 				<textarea  rows="2" cols="70" style="background-color: transparent;" name = "areaKiNang">${ChuongTrinhDaoTao.mucTieu4}</textarea>
 				
