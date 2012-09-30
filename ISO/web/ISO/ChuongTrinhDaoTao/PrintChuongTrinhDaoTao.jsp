@@ -188,7 +188,7 @@
 		</tr>	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-weight: bold;">III.1 Thời gian của khóa học và thời gian thực học tối thiểu:</p>
+					<p style="font-style: italic; font-weight: bold">III.1 Thời gian của khóa học và thời gian thực học tối thiểu:</p>
 				</td>
 		</tr>
 	</table>
@@ -223,7 +223,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-weight: bold;">III.2.Phân bố thời gian thực học tối thiểu:</p>
+					<p style="font-style: italic; font-weight: bold">III.2.Phân bố thời gian thực học tối thiểu:</p>
 				</td>
 		</tr>
 	</table>
@@ -276,12 +276,12 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
-				<br/><p style="font-weight: bold;">IV./DANH MỤC CÁC MÔN HỌC :</p></div>
+				<br/><p style="font-weight: bold;">IV./PHÂN PHỐI CHƯƠNG TRÌNH CÁC MÔN HỌC:</p></div>
 			</td>
 		</tr>
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-weight: bold;">IV.1 :</p>
+					<p style="font-style: italic; font-weight: bold">IV.1 Danh mục môn học mộ-đoun đào tạo nghề bắt buộc</p>
 				</td>
 		</tr>
 	</table>
@@ -404,11 +404,11 @@
 		<td>${TongSoTichHop_PhanI + TongSoTichHop_PhanII + TongSoTichHop_PhanIII}</td>
 	</tr>	
 	</table>
-	</div>
+	</div><br />
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-weight: bold;">IV.2 </p>
+					<p style="font-style: italic; font-weight: bold">IV.2 Đề cương chi tiết chương trình môn học mô-đun đào tạo nghề bắt buộc (đính kèm theo BM04-QT7.3/1).</p>
 				</td>
 		</tr>
 	</table>
