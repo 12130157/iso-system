@@ -9,7 +9,7 @@
 	<p align="center">		
 		<!--<br />Trường Kỹ Thuật Công Nghệ Hùng Vương.<br>
 		161 - 165 Nguyễn Chí Thanh - F12 - Q5 - TP.Hồ Chí Minh. Tel: (84) 8558016 - (84) 8563399. -->
-		<br /><b>Build: <u> 11h00  20/07/2011 (r598)</u></b>
+		<br /><b>Build: <u> 11h00    04/10/2012 </u></b>
 	</p>
 </div>
 

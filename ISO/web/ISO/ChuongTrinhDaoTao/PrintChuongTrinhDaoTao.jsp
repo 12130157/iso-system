@@ -47,11 +47,38 @@
 <div align="center">
 <div class = "div_body">
 <c:set var="CTDT" value='<%=ChuongTrinhDaoTaoDAO.getChuongTrinhDaoTaoByID(request.getParameter("maID")) %>'></c:set>
+<c:set var="soLuongMonHoc" value="0"></c:set>
+<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1}"></c:set>
+	<c:forEach var = "ChiTiet" items="${ChiTietList}">
+		<c:set var = "TongSoLyThuyet_PhanI" value = "${TongSoLyThuyet_PhanI + ChiTiet.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanI" value = "${TongSoThucHanh_PhanI + ChiTiet.thucHanh}"></c:set>
+		<c:set var = "TongSoTichHop_PhanI" value = "${TongSoTichHop_PhanI + ChiTiet.user1}"></c:set>
+		<c:set var="soLuongMonHoc" value="${soLuongMonHoc + 1}"></c:set>
+	</c:forEach>
+	<c:set var = "TongSo_PhanI" value = "${TongSoLyThuyet_PhanI + TongSoThucHanh_PhanI + TongSoTichHop_PhanI}"></c:set>
+	<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2}"></c:set>
+	<c:forEach var = "ChiTiet" items="${ChiTietList}">
+		
+		<c:set var = "TongSoLyThuyet_PhanII" value = "${TongSoLyThuyet_PhanII + ChiTiet.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanII" value = "${TongSoThucHanh_PhanII + ChiTiet.thucHanh}"></c:set>
+		<c:set var = "TongSoTichHop_PhanII" value = "${TongSoTichHop_PhanII + ChiTiet.user1}"></c:set>
+		<c:set var="soLuongMonHoc" value="${soLuongMonHoc + 1}"></c:set>
+	</c:forEach>
+	<c:set var = "TongSo_PhanII" value = "${TongSoLyThuyet_PhanII + TongSoThucHanh_PhanII + TongSoTichHop_PhanII}"></c:set>
+	<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3}"></c:set>
+	<c:forEach var = "ChiTiet" items="${ChiTietList}">
+		
+		<c:set var = "TongSoLyThuyet_PhanIII" value = "${TongSoLyThuyet_PhanIII + ChiTiet.lyThuyet}"></c:set>
+		<c:set var = "TongSoThucHanh_PhanIII" value = "${TongSoThucHanh_PhanIII + ChiTiet.thucHanh}"></c:set>
+		<c:set var = "TongSoTichHop_PhanIII" value = "${TongSoTichHop_PhanIII + ChiTiet.user1}"></c:set>
+		<c:set var="soLuongMonHoc" value="${soLuongMonHoc + 1}"></c:set>
+	</c:forEach>
+	<c:set var = "TongSo_PhanIII" value = "${TongSoLyThuyet_PhanIII + TongSoThucHanh_PhanIII + TongSoTichHop_PhanIII}"></c:set>
 <table width="700" height="930" bgcolor="#808080" align="center" style="background-image: url('<%=request.getContextPath()%>/images/background_print2.jpg');">
 	<tr><td>
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr align="center" style="background-color: transparent; background-position: center;">
-			<td><p style="font-size: 15">ỦY BAN NHÂN DÂN QUẬN 5<br/><font style="font-weight: bold;">TRƯỜNG TCN KTCN HÙNG VƯƠNG</font></p></td>
+			<td><p style="font-size: 15"><font style="font-weight: bold;">TRƯỜNG TCN KTCN HÙNG VƯƠNG</font><br/>Khoa/TT: ${CTDT.tenKhoa}</p></td>
 			<td><p style="font-size: 15; font-weight: bold;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br/>
 											 Độc lập - Tự do - Hạnh phúc<br/>--o0o--</p></td>					 
 		</tr>
@@ -94,7 +121,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p><font style="font-weight: bold">Số lượng môn học, mô đun đào tạo :</font> ${CTDT.soLuongMonHoc}</p>
+					<p><font style="font-weight: bold">Số lượng môn học, mô đun đào tạo :</font> ${soLuongMonHoc}</p>
 				</td>
 			</tr>
 	</table>
@@ -129,7 +156,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-style: italic; font-weight: bold">	3.Chính trị, đạo đức:</p>${sf:appendPTag(CTDT.mucTieu3)}
+					<p style="font-style: italic; font-weight: bold">	3.Chính trị, đạo đức, thể chức quốc phòng:</p>${sf:appendPTag(CTDT.mucTieu3)}
 				</td>
 		</tr>
 	</table>
@@ -241,30 +268,7 @@
 				</td>
 		</tr>
 	</table>
-	<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList1}"></c:set>
-	<c:forEach var = "ChiTiet" items="${ChiTietList}">
-		
-		<c:set var = "TongSoLyThuyet_PhanI" value = "${TongSoLyThuyet_PhanI + ChiTiet.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanI" value = "${TongSoThucHanh_PhanI + ChiTiet.thucHanh}"></c:set>
-		<c:set var = "TongSoTichHop_PhanI" value = "${TongSoTichHop_PhanI + ChiTiet.user1}"></c:set>
-	</c:forEach>
-	<c:set var = "TongSo_PhanI" value = "${TongSoLyThuyet_PhanI + TongSoThucHanh_PhanI + TongSoTichHop_PhanI}"></c:set>
-	<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList2}"></c:set>
-	<c:forEach var = "ChiTiet" items="${ChiTietList}">
-		
-		<c:set var = "TongSoLyThuyet_PhanII" value = "${TongSoLyThuyet_PhanII + ChiTiet.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanII" value = "${TongSoThucHanh_PhanII + ChiTiet.thucHanh}"></c:set>
-		<c:set var = "TongSoTichHop_PhanII" value = "${TongSoTichHop_PhanII + ChiTiet.user1}"></c:set>
-	</c:forEach>
-	<c:set var = "TongSo_PhanII" value = "${TongSoLyThuyet_PhanII + TongSoThucHanh_PhanII + TongSoTichHop_PhanII}"></c:set>
-	<c:set var = "ChiTietList" value = "${CTDT.chiTietMonHocCTDTModelList3}"></c:set>
-	<c:forEach var = "ChiTiet" items="${ChiTietList}">
-		
-		<c:set var = "TongSoLyThuyet_PhanIII" value = "${TongSoLyThuyet_PhanIII + ChiTiet.lyThuyet}"></c:set>
-		<c:set var = "TongSoThucHanh_PhanIII" value = "${TongSoThucHanh_PhanIII + ChiTiet.thucHanh}"></c:set>
-		<c:set var = "TongSoTichHop_PhanIII" value = "${TongSoTichHop_PhanIII + ChiTiet.user1}"></c:set>
-	</c:forEach>
-	<c:set var = "TongSo_PhanIII" value = "${TongSoLyThuyet_PhanIII + TongSoThucHanh_PhanIII + TongSoTichHop_PhanIII}"></c:set>
+	
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">	
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
@@ -281,7 +285,7 @@
 		</tr>
 		<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p style="font-style: italic; font-weight: bold">IV.1 Danh mục môn học mộ-đoun đào tạo nghề bắt buộc</p>
+					<p style="font-style: italic; font-weight: bold">IV.1 Danh mục môn học mô đun đào tạo nghề bắt buộc</p>
 				</td>
 		</tr>
 	</table>
@@ -289,7 +293,7 @@
 	<br /><div style="">
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;" border = "1">
 	<tr style="background-color: transparent; font-size: 16px;">
-		<td rowspan = "3">STT</td>
+		<td rowspan = "3">Mã số MH-MĐ</td>
 		<td rowspan = "3">Tên môn học, module</td>
 		<td colspan = "2">Thời gian  đào tạo</td>
 		<td colspan = "4">Thời gian của môn học, module (giờ)</td>
@@ -440,18 +444,19 @@
 			</td>
 		</tr>	
 	</table>
+	<!-- 
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">
 		<tr style="background-color: transparent; font-size: 16px;">
 			<td colspan = "2"><div class = "div_textleft">
 				<br/><p style="font-weight: bold;">VII.NHỮNG Ý KIẾN ĐỀ XUẤT :</p> ${sf:appendPTag(CTDT.yKienDeXuat)}</div>
 			</td>
 		</tr>	
-	</table>
+	</table> -->
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 			<c:set var="sig" value="-"></c:set>
-			<td>Ngày ${sf:getElement(CTDT.ngayCapNhatCuoi,0,sig)} tháng ${sf:getElement(CTDT.ngayCapNhatCuoi,1,sig)} năm ${sf:getElement(CTDT.ngayCapNhatCuoi,2,sig)}</td>
-			<td>Quận 5, ngày <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,0,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose> tháng <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,1,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose> năm <c:choose><c:when test="${!empty(CTDT.ngayDuyet)}">${sf:getElement(CTDT.ngayDuyet,2,sig)}</c:when><c:otherwise>&nbsp;&nbsp;&nbsp;</c:otherwise> </c:choose></td>
+			<td>Ngày &nbsp;&nbsp;&nbsp; tháng &nbsp;&nbsp;&nbsp; năm &nbsp;&nbsp;&nbsp;</td>
+			<td>Quận 5, ngày &nbsp;&nbsp;&nbsp; tháng &nbsp;&nbsp;&nbsp; năm &nbsp;&nbsp;&nbsp;</td>
 		</tr>
 		<tr align="center" style="background-color: transparent; background-position: center; font-size: 16px;">
 			<td><p style="font-weight: bold;">HIỆU TRƯỞNG</p></td>

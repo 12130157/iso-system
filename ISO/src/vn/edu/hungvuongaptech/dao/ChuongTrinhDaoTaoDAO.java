@@ -135,6 +135,7 @@ public class ChuongTrinhDaoTaoDAO {
 				chuongTrinhDaoTaoModel.setTenNguoiDuyet(rs.getString("NguoiDuyet"));
 				chuongTrinhDaoTaoModel.setTenTrinhDo(rs.getString("TenTrinhDo"));
 				chuongTrinhDaoTaoModel.setMaKhoa(rs.getString("MaKhoa"));
+				chuongTrinhDaoTaoModel.setTenKhoa(rs.getString("TenKhoa"));
 				ChiTietMonHocCTDTDAO.getChiTietCTDTByMaChuongTrinh(chuongTrinhDaoTaoModel);
 			}
 			return chuongTrinhDaoTaoModel;
