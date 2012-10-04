@@ -294,9 +294,9 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;" border = "1">
 	<tr style="background-color: transparent; font-size: 16px;">
 		<td rowspan = "3">Mã số MH-MĐ</td>
-		<td rowspan = "3">Tên môn học, module</td>
+		<td rowspan = "3">Tên môn học, mô đun</td>
 		<td colspan = "2">Thời gian  đào tạo</td>
-		<td colspan = "4">Thời gian của môn học, module (giờ)</td>
+		<td colspan = "4">Thời gian của môn học, mô đun (giờ)</td>
 	</tr> 
 	<tr style="background-color: transparent; font-size: 16px;">
 		<td rowspan="2">Năm học</td>
@@ -327,7 +327,7 @@
 				<td>${iterator.tenMonHoc}</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
-				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
+				<td>${iterator.lyThuyet + iterator.thucHanh + iterator.user1}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
 				<td>${iterator.user1}</td>
@@ -351,7 +351,7 @@
 				<td>${iterator.tenMonHoc}</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
-				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
+				<td>${iterator.lyThuyet + iterator.thucHanh + iterator.user1}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
 				<td>${iterator.user1}</td>
@@ -390,7 +390,7 @@
 				</td>
 				<td>${iterator.namHoc}</td>
 				<td>${iterator.hocKi}</td>
-				<td>${iterator.lyThuyet + iterator.thucHanh}</td>
+				<td>${iterator.lyThuyet + iterator.thucHanh + iterator.user1}</td>
 				<td>${iterator.lyThuyet}</td>
 				<td>${iterator.thucHanh}</td>
 				<td>${iterator.user1}</td>
