@@ -24,6 +24,7 @@ BEGIN
 	DECLARE @Ma_mon_hoc INT
 
 	DECLARE @Ma_CTKHGD INT
+	DECLARE @Ma_GIAOAN INT
 
 	SELECT @Ma_CTTKB=ID,@Tuan=Tuan,@Buoi=Buoi,@Nhom=Nhom,@So_thu_tu=So_thu_tu,@Ngay_hoc=Ngay_hoc FROM INSERTED
 	SELECT @Ma_mon_hoc_TKB=Ma_mon_hoc_TKB FROM CHITIETTKB WHERE ID=@Ma_CTTKB
@@ -33,11 +34,20 @@ BEGIN
 	
 	SELECT @Ma_CTKHGD=B.ID FROM KEHOACHGIANGDAY A INNER JOIN CHITIETKHGD B ON A.ID=B.MA_KE_HOACH_GIANG_DAY
 	WHERE A.Ma_mon_hoc=@Ma_mon_hoc AND A.Ma_lop=@Ma_lop AND A.Ma_nam_hoc=@Ma_nam_hoc AND A.Hoc_ki=@Hoc_ki AND B.User1=@So_thu_tu
+	
+	SELECT @Ma_GIAOAN=ma_giao_an FROM CHITIETKHGD WHERE ID=@Ma_CTKHGD
 
 	IF(@Ma_CTKHGD <> '')
 	BEGIN
 		UPDATE CHITIETKHGD 
 		SET Tuan=@Tuan,Buoi=@Buoi,Nhom=@Nhom,Ngay_BD=@Ngay_hoc
 		WHERE ID=@Ma_CTKHGD
+
+		IF (@Ma_GIAOAN <> '' AND @Ma_GIAOAN <> NULL)
+		BEGIN
+			UPDATE GIAOAN
+			SET Ngay_thuc_hien=@Ngay_hoc
+			WHERE ID=@Ma_GIAOAN
+		END
 	END
 END
