@@ -137,7 +137,7 @@ var kieuDayLyThuyet = new Array();
 		out.print("document.getElementById('TichHop').value = " + deCuongMonHocModel.getUser1() + ";");
 		out.print("document.getElementById('KiemTra').value = " + deCuongMonHocModel.getKiemTra() + "; }");
 		
-		out.print("createRow(); }");
+		out.print("createRow();}");
 		%>
 	}
 	function selectChuongTrinh()
@@ -201,15 +201,24 @@ var kieuDayLyThuyet = new Array();
 				out.print("thucHanh = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + "; } }");
 			}
 			%>
+			if(document.DCMH.Kieu[0].checked == true || kieuBienSoan == 0) 
+				truongHop = 1;
+			else if(document.DCMH.Kieu[1].checked == true || kieuBienSoan == 1) 
+				truongHop = 2;
+			else if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
+				truongHop = 3;
+			/*
 			if((lyThuyet == 0 || thucHanh == 0) && tichHop == 0)
 			{
 				//document.DCMH.Kieu[0].disabled = true;
 				//document.DCMH.Kieu[1].disabled = true;
 				//document.DCMH.Kieu[2].disabled = true;
-				truongHop = 1;	
+				truongHop = 1;
+				alert("i1");
 			}	
-			else if(parseInt(thucHanh) % parseInt(lyThuyet) == 0 || parseInt(lyThuyet) % parseInt(thucHanh) == 0 || (parseInt(thucHanh) == 0 && parseInt(lyThuyet == 0)))
+			else if(parseInt(thucHanh) % parseInt(lyThuyet) == 0 || parseInt(lyThuyet) % parseInt(thucHanh) == 0 || (parseInt(thucHanh) == 0 && parseInt(lyThuyet) == 0))
 			{
+				alert("i2");
 				document.DCMH.Kieu[0].disabled = false;
 				document.DCMH.Kieu[1].disabled = false;
 				document.DCMH.Kieu[2].disabled = false;
@@ -224,8 +233,13 @@ var kieuDayLyThuyet = new Array();
 			} 
 			else
 			{
-				
-				
+				alert("els");
+				if(document.DCMH.Kieu[0].checked == true || kieuBienSoan == 0) 
+					truongHop = 1;
+				else if(document.DCMH.Kieu[1].checked == true || kieuBienSoan == 1) 
+					truongHop = 2;
+				else if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
+					truongHop = 3;
 				//document.DCMH.Kieu[1].disabled = true;
 				if(parseInt(thucHanh) >= parseInt(lyThuyet))
 				{
@@ -235,16 +249,23 @@ var kieuDayLyThuyet = new Array();
 						truongHop = 1;
 					else if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
 						truongHop = 3;
+				} else if (parseInt(thucHanh) <= parseInt(lyThuyet)) {
+					document.DCMH.Kieu[0].disabled = false;
+					document.DCMH.Kieu[2].disabled = false;
+					if(document.DCMH.Kieu[1].checked == true || kieuBienSoan == 1) 
+						truongHop = 2;
+					else if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
+						truongHop = 3;
 				}
 				else
 				{
 					//document.DCMH.Kieu[2].disabled = true;
 					//document.DCMH.Kieu[0].disabled = true;
-					truongHop = 1;
+					if(document.DCMH.Kieu[2].checked == true || kieuBienSoan == 2)
+					truongHop = 3;
 				}
 					
-			}
-		
+			}*/
 		}
 		else
 		{
@@ -361,7 +382,6 @@ var kieuDayLyThuyet = new Array();
 
 	function createRow() 
 	{
-		
 		var table = document.getElementById('TableNoiDungDCMH');
 		var soDong = 0;
 		var soDongDaCo = parseInt(document.getElementById("SoDong").value);
