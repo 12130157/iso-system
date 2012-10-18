@@ -27,7 +27,7 @@ BEGIN
 	DECLARE @Ma_CTKHGD INT
 	DECLARE @Ma_GIAOAN INT
 
-	SELECT @Ma_CTTKB=ID,@Tuan=Tuan,@Buoi=Buoi,@Nhom=Nhom,@So_thu_tu=So_thu_tu,@Ngay_hoc=Ngay_hoc,@Thu=Thu FROM INSERTED
+	SELECT @Ma_CTTKB=ID,@Tuan=Tuan,@Buoi=Buoi,@Nhom=Nhom,@So_thu_tu=So_thu_tu,@Ngay_hoc=Ngay_hoc,@Thu=Thu_trong_tuan FROM INSERTED
 	PRINT @Ma_CTTKB
 	PRINT @Tuan
 	
