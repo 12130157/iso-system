@@ -14,6 +14,7 @@ BEGIN
 	DECLARE @Hinh_thuc_day VARCHAR(10)
 	DECLARE @Nhom INT
 	DECLARE @Ngay_hoc DATETIME
+	DECLARE @Thu INT
 
 	DECLARE	@So_thu_tu INT	
 	DECLARE @Ma_lop INT
@@ -26,7 +27,7 @@ BEGIN
 	DECLARE @Ma_CTKHGD INT
 	DECLARE @Ma_GIAOAN INT
 
-	SELECT @Ma_CTTKB=ID,@Tuan=Tuan,@Buoi=Buoi,@Nhom=Nhom,@So_thu_tu=So_thu_tu,@Ngay_hoc=Ngay_hoc FROM INSERTED
+	SELECT @Ma_CTTKB=ID,@Tuan=Tuan,@Buoi=Buoi,@Nhom=Nhom,@So_thu_tu=So_thu_tu,@Ngay_hoc=Ngay_hoc,@Thu=Thu FROM INSERTED
 	PRINT @Ma_CTTKB
 	PRINT @Tuan
 	
@@ -52,7 +53,7 @@ BEGIN
 	IF(@Ma_CTKHGD <> '')
 	BEGIN
 		UPDATE CHITIETKHGD 
-		SET Tuan=@Tuan,Buoi=@Buoi,Nhom=@Nhom,Ngay_BD=@Ngay_hoc
+		SET Tuan=@Tuan,Buoi=@Buoi,Nhom=@Nhom,Ngay_BD=@Ngay_hoc,Thu=@Thu
 		WHERE ID=@Ma_CTKHGD
 		PRINT 'UPDATE KHGD'
 		IF (@Ma_GIAOAN <> '')
