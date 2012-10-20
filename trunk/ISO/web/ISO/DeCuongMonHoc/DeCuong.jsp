@@ -165,7 +165,7 @@ var kieuDayLyThuyet = new Array();
 			document.getElementById('LyThuyet').value = '0';
 			document.getElementById('ThucHanh').value = '0';
 			document.getElementById('KiemTra').value = '0';
-			document.getElementById('TinhChatMonHoc').value = '';
+			//document.getElementById('TinhChatMonHoc').value = '';
 			thucHanh = 0;
 			lyThuyet = 0;
 			createRow();
@@ -194,7 +194,7 @@ var kieuDayLyThuyet = new Array();
 				out.print("document.getElementById('txtLyThuyetCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
 				out.print("document.getElementById('txtThucHanhCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getThucHanh() + ";");
 				out.print("document.getElementById('txtTichHopCTDT').value = " + chiTietMonHocCTDTModelList.get(i).getUser1() + ";");
-				out.print("document.getElementById('TinhChatMonHoc').value = '" + chiTietMonHocCTDTModelList.get(i).getTinhChat() + "';");
+				//out.print("document.getElementById('TinhChatMonHoc').value = '" + chiTietMonHocCTDTModelList.get(i).getTinhChat() + "';");
 				out.print("document.getElementById('KiemTra').value = 0;");
 				out.print("lyThuyet = " + chiTietMonHocCTDTModelList.get(i).getLyThuyet() + ";");
 				out.print("tichHop = " + chiTietMonHocCTDTModelList.get(i).getUser1() + ";");
@@ -274,7 +274,7 @@ var kieuDayLyThuyet = new Array();
 			document.getElementById('LyThuyet').value = '0';
 			document.getElementById('ThucHanh').value = '0';
 			document.getElementById('KiemTra').value = '0';
-			document.getElementById('TinhChatMonHoc').value = '';
+			//document.getElementById('TinhChatMonHoc').value = '';
 			thucHanh = 0;
 			lyThuyet = 0;
 		}
@@ -879,7 +879,7 @@ var kieuDayLyThuyet = new Array();
 				<td>
 					<div class = "div_tr">
 						-	Tính chất môn học <br />
-						<input type="text" style="background-color: transparent;" id="TinhChatMonHoc" name="areaTinhChatMonHoc"/>
+						<input type="text" style="background-color: transparent;" id="TinhChatMonHoc" name="areaTinhChatMonHoc" value="${DeCuongMonHoc.tinhChatMonHoc }" />
 					</div>
 				</td>
 			</tr>
