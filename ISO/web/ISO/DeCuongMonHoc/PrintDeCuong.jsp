@@ -72,7 +72,7 @@
 	<table width = "650" align="center" style="background-color: transparent; background-position: top;">			
 			<tr style="background-color: transparent; font-size: 16px;">
 				<td colspan = "2">
-					<p>-Thời gian môn học:${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.kiemTra}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lý thuyết:${DeCuongMonHoc.lyThuyet}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thực hành:${DeCuongMonHoc.thucHanh}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kiểm tra:${DeCuongMonHoc.kiemTra}</p>
+					<p>-Thời gian môn học:${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.kiemTra + DeCuongMonHoc.user1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lý thuyết:${DeCuongMonHoc.lyThuyet}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thực hành:${DeCuongMonHoc.thucHanh}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tích Hợp:${DeCuongMonHoc.user1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ôn tập & Kiểm tra:${DeCuongMonHoc.kiemTra}</p>
 				</td>
 			</tr>						
 	</table>
@@ -241,7 +241,7 @@
 						<c:set var = "KiemTra" value = "${KiemTra + NoiDungDCMH.soTiet}"></c:set>
 					</c:when>
 					<c:when test="${NoiDungDCMH.coHieu eq '5'}">
-						<c:set var = "TichHop" value = "${KiemTra + NoiDungDCMH.soTiet}"></c:set>
+						<c:set var = "TichHop" value = "${TichHop + NoiDungDCMH.soTiet}"></c:set>
 					</c:when>
 				</c:choose>	
 					<c:if test="${DeCuongMonHoc.kieuBienSoan eq '0' or DeCuongMonHoc.kieuBienSoan eq '2' or (DeCuongMonHoc.kieuBienSoan eq '1' and TiLe eq NoiDungDCMH.soThuTu)}">
@@ -318,7 +318,7 @@
 					<td>
 						<c:choose>
 							<c:when test="${DeCuongMonHoc.kieuBienSoan eq '2'}">
-								${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh}
+								${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.user1}
 							</c:when>
 							<c:otherwise>
 								<p></p>
@@ -327,7 +327,7 @@
 					</td>
 					<td>&nbsp;</td>
 					<td>${DeCuongMonHoc.kiemTra}</td>
-					<td>${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.kiemTra}</td>
+					<td>${DeCuongMonHoc.lyThuyet + DeCuongMonHoc.thucHanh + DeCuongMonHoc.user1 + DeCuongMonHoc.kiemTra}</td>
 				</tr>
 	</table>
 	<table width = "650" align="center" style="background-color: transparent; background-position: center;">
