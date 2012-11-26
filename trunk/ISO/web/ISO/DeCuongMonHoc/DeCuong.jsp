@@ -836,17 +836,17 @@ var kieuDayLyThuyet = new Array();
 					<Table>
 						<tr style="background-color: transparent;">
 							<td>Lý thuyết</td>
-							<td><input type = "text" id = "LyThuyet" size = "" style="background-color: transparent;" name="txtLyThuyet" readonly="readonly" value="0"/> 
+							<td><input type = "text" id = "LyThuyet" size = "" style="background-color: transparent;" name="txtLyThuyet" value="0"/> 
 							<input type = "hidden" id = "txtLyThuyetCTDT"  name="txtLyThuyetCTDT" value = "0"/></td>
 							<td>Thực hành</td>
-							<td><input type = "text" id = "ThucHanh" size = ""  style="background-color: transparent;" name="txtThucHanh" readonly="readonly" value="0"/> 
+							<td><input type = "text" id = "ThucHanh" size = ""  style="background-color: transparent;" name="txtThucHanh" value="0"/> 
 							<input type = "hidden" id = "txtThucHanhCTDT"  name="txtThucHanhCTDT" value = "0"/></td>
 						</tr>
 						<tr style="background-color: transparent;">
 							<td>Tích Hợp</td>
-							<td><input type = "text" id = "TichHop" size = ""  style="background-color: transparent;" name="txtTichHop" readonly="readonly" value="0"/> 
+							<td><input type = "text" id = "TichHop" size = ""  style="background-color: transparent;" name="txtTichHop" value="0"/> 
 							<input type = "hidden" id = "txtTichHopCTDT"  name="txtTichHopCTDT" value = "0"/></td>
-							<td>Kiểm tra</td>
+							<td>Ôn tập & Kiểm tra</td>
 							<td><input type = "text" id = "KiemTra" size = "" style="background-color: transparent;" name="txtKiemTra" onblur="changeKiemTra();" value="0"/></td>
 						</tr>
 					</Table>
