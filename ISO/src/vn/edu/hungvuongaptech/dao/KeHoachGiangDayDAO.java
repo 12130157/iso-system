@@ -120,7 +120,6 @@ public class KeHoachGiangDayDAO {
 
 	public static KeHoachGiangDayModel getKeHoachGiangDayByMaKHGD(String maKHGD) {
 		KeHoachGiangDayModel keHoachGiangDayModel = new KeHoachGiangDayModel();
-		System.out.println("getKeHoachGiangDayByMaKHGD");
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
