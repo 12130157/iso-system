@@ -120,6 +120,7 @@ public class KeHoachGiangDayDAO {
 
 	public static KeHoachGiangDayModel getKeHoachGiangDayByMaKHGD(String maKHGD) {
 		KeHoachGiangDayModel keHoachGiangDayModel = new KeHoachGiangDayModel();
+		System.out.println("getKeHoachGiangDayByMaKHGD");
 		try {
 			PreparedStatement preparedStatement = DataUtil
 					.getConnection()
@@ -174,6 +175,8 @@ public class KeHoachGiangDayDAO {
 						.getString("GioCapNhatCuoi"));
 				keHoachGiangDayModel
 						.setTinhTrangHT(rs.getString("TinhTrangHT"));
+				keHoachGiangDayModel.setUser3(rs
+						.getString("User3"));
 				keHoachGiangDayModel.setUser5(rs
 						.getString("User5"));
 				ArrayList<ChiTietKHGDModel> chiTietKHGDModelList = ChiTietKHGDDAO
