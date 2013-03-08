@@ -108,15 +108,30 @@ function guiToTrinh()
 		<input type = "hidden" name = "actionType" value = "" id = "actionType"/>
 		<c:set var = "Totrinh" value = "<%=toTrinh %>" scope="session"/>
 		<c:set var = "ToTrinh" value = "<%=toTrinh %>"/>
-		<table>
+		<table border = "1" style="background-color: transparent;">
 			<c:forEach var = "MonHocTKBThayDoi" items = "${ToTrinh.monHocTKBThayDoiList}">
 				<tr style="background-color: transparent;">
 					<td align="left">- Môn học ${MonHocTKBThayDoi.tenMonHoc } do giáo viên ${MonHocTKBThayDoi.tenGiaoVien } phân công lại cho giáo viên ${MonHocTKBThayDoi.tenGiaoVienThayDoi }</td>
 				</tr>
 			</c:forEach>
+		</table>
+		<table border = "1" style="background-color: transparent;">
+			<tr>
+				<th>
+					Tên Giáo Viên
+				</th>
+				<th>
+					Tên Môn Học
+				</th>
+				<th>Chưa Thay Đổi</th>
+				<th>Thay Đổi</th>
+			</tr>
 			<c:forEach var = "ChiTietTKBThayDoi" items = "${ToTrinh.chiTietTKBThayDoiList}">
 				<tr style="background-color: transparent;">
-					<td align="left">- Thay đổi buổi học ngày ${ChiTietTKBThayDoi.ngayHoc } buổi ${ChiTietTKBThayDoi.buoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhong} của môn ${ChiTietTKBThayDoi.tenMonHoc } thành ngày ${ChiTietTKBThayDoi.ngayHocThayDoi } buổi ${ChiTietTKBThayDoi.buoiThayDoi } tại phòng ${ChiTietTKBThayDoi.kiHieuPhongThayDoi}</td>
+					<td>${ChiTietTKBThayDoi.tenGiaoVien }</td>
+					<td>${ChiTietTKBThayDoi.tenMonHoc }</td>
+					<td>ngày ${ChiTietTKBThayDoi.ngayHoc } buổi ${ChiTietTKBThayDoi.buoi } tại Phòng ${ChiTietTKBThayDoi.kiHieuPhong}</td>
+					<td>ngày ${ChiTietTKBThayDoi.ngayHocThayDoi } buổi ${ChiTietTKBThayDoi.buoiThayDoi } tại Phòng ${ChiTietTKBThayDoi.kiHieuPhongThayDoi}</td>
 				</tr>
 			</c:forEach>
 		</table>

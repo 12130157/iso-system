@@ -185,6 +185,10 @@ public class ChiTietTKBThayDoiDAO {
 					chiTietTKBThayDoi.setThuTrongTuan(rs.getString("ThuTrongTuan"));
 					
 					chiTietTKBThayDoi.setTenMonHoc(rs.getString("TenMonHocChiTiet"));
+					chiTietTKBThayDoi.setMaGiaoVien(rs.getString("MaGiaoVien"));
+					chiTietTKBThayDoi.setTenGiaoVien(rs.getString("TenGiaoVien"));
+					//User 1: lý do thay đổi
+					chiTietTKBThayDoi.setUser1(rs.getString("LyDo"));
 					
 					chiTietTKBThayDoiList.add(chiTietTKBThayDoi);
 			}
